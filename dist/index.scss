@@ -1,0 +1,13 @@
+// --- sass --watch dist/:dist/ --style compressed --no-source-map ---
+
+html {
+    --pe-color: hsl(0, 100%, 50%);
+    --pe-bg-color: hsl(0, 100%, 95%);
+}
+
+html.full {
+    min-height: 100%;
+    body {
+        min-height: 100%;
+    }
+}
