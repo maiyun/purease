@@ -6,10 +6,184 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
 <link rel="stylesheet" href="../index.css" />
 <script src="https://cdn.jsdelivr.net/npm/@litert/loader@3.5.1/dist/loader.min.js?path=index"></script>
+<!-- 用户 -->
+<link rel="stylesheet" href="index.css" />
 </head>
 <body>
-<pe-header>
-    
+<pe-header logo-href="./">
+    <pe-header-item href="./">Home</pe-header-item>
+    <pe-header-item>
+        List
+        <pe-menu>
+            <pe-menu-item href="./">111</pe-menu-item>
+            <pe-menu-item href="./">222</pe-menu-item>
+        </pe-menu>
+    </pe-header-item>
+    <pe-header-item>Page</pe-header-item>
+    <pe-header-item>
+        Double
+        <pe-menu>
+            <div class="pe-layoutlist">
+                <div>
+                    <pe-menu-item href="./" style="flex: 1;">111342342342334</pe-menu-item>
+                    <pe-menu-item href="./" style="flex: 1;">222</pe-menu-item>
+                </div>
+                <div>
+                    <pe-menu-item href="./" style="flex: 1;">333</pe-menu-item>
+                    <pe-menu-item href="./" style="flex: 1;">444</pe-menu-item>
+                </div>
+            </div>
+        </pe-menu>
+    </pe-header-item>
+    <pe-header-item href="./">About</pe-header-item>
+    <template v-slot:right>
+        <pe-header-item href="./">OK</pe-header-item>
+        <a class="pe-button pe-plain pe-bold" href="./">Hello</a>
+    </template>
 </pe-header>
+<pe-banner>
+    <div class="pe-btitle">I'm glad to see you</div>
+    <div class="pe-bnote">With Purease, you can quickly build a versatile, minimalist webpage.</div>
+    <div class="pe-layout" style="gap: 20px; align-items: center;">
+        <a class="pe-button pe-plain" href="./">Download</a>
+        <a class="pe-button pe-dark" href="./">Download</a>
+    </div>
+</pe-banner>
+<!-- 块状元素 -->
+<div class="pe-block">
+    <div class="pe-btitle">Rapid prototyping</div>
+    <div class="pe-gnote">Web development shouldn't take up too much time</div>
+    <div class="pe-layout" style="justify-content: center; gap: 20px; margin-top: 20px;">
+        <a class="pe-button pe-grey" href="./">Discuss</a>
+        <a class="pe-button pe-pgrey" href="./">Discuss2</a>
+        <a class="pe-button pe-grey" href="./">Discuss3</a>
+    </div>
+</div>
+<!-- 灰底块状元素 -->
+<div class="pe-block pe-grey">
+    <div class="pe-btitle">Rapid prototyping</div>
+    <div class="pe-gnote">Web development shouldn't take up too much time</div>
+    <div class="pe-layout" style="justify-content: center; gap: 20px; margin-top: 20px;">
+        <a class="pe-button pe-pgrey" href="./">Discuss</a>
+        <a class="pe-button pe-pgrey" href="./">Discuss2</a>
+        <a class="pe-button pe-pgrey" href="./">Discuss3</a>
+    </div>
+</div>
+<!-- 横向变纵向排列元素 -->
+<div class="pe-block">
+    <div class="pe-btitle">Alayout</div>
+    <div class="pe-alayout pe-content pe-padding-lr" style="gap: 20px; margin-top: 20px;">
+        <a class="pe-button pe-dark" href="./">AAA</a>
+        <a class="pe-button pe-dark" href="./">BBB</a>
+        <a class="pe-button pe-dark" href="./">CCC</a>
+    </div>
+</div>
+<!-- 带框框的 box -->
+<div class="pe-block pe-grey">
+    <div class="pe-btitle">Box</div>
+    <div class="pe-alayout pe-content pe-padding-lr" style="gap: 20px; margin-top: 20px;">
+        <a class="pe-box pe-padding" href="./" style="gap: 10px; justify-content: center;">
+            <div class="pe-title">AAA</div>
+            <div class="pe-note">1111111111</div>
+        </a>
+        <a class="pe-box pe-padding pe-hover" href="./" style="gap: 10px; justify-content: center;">
+            <div class="pe-title">Hover</div>
+            <div class="pe-note">2222222222</div>
+        </a>
+        <a class="pe-box" href="./">
+            <div class="pe-img boximg"></div>
+            <div class="pe-spadding">
+                <div class="pe-title">CCCC</div>
+                <div class="pe-note">2222222222</div>
+            </div>
+        </a>
+    </div>
+</div>
+<!-- 左右排布小窗为上下 -->
+<div class="pe-block">
+    <div class="pe-btitle">Lralyout</div>
+    <div class="pe-alayout pe-content pe-padding-lr" style="gap: 20px; margin-top: 20px;">
+        <a class="pe-box" href="./">
+            <div class="pe-lralyout">
+                <div class="pe-img boximg2"></div>
+                <div class="pe-spadding">
+                    <div class="pe-title">Article1</div>
+                    <div class="pe-note">Article note</div>
+                </div>
+            </div>
+        </a>
+        <a class="pe-box" href="./">
+            <div class="pe-lralyout">
+                <div class="pe-img boximg2"></div>
+                <div class="pe-spadding">
+                    <div class="pe-title">Article2</div>
+                    <div class="pe-note">Article note</div>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+<!-- Group 控件 -->
+<div class="pe-block pe-grey">
+    <div class="pe-btitle">Group</div>
+    <div class="pe-alayout pe-content pe-padding-lr" style="gap: 40px; margin-top: 20px;">
+        <pe-group>
+            111
+            <template v-slot:bottom>
+                <div class="pe-button pe-plain" style="flex: 1;">Buy</div>
+            </template>
+        </pe-group>
+        <pe-group>
+            111
+            <template v-slot:bottom>
+                <div class="pe-button pe-dark" style="flex: 1;">Buy</div>
+            </template>
+        </pe-group>
+        <pe-group>
+            <template v-slot:title>Best</template>
+            111
+            <template v-slot:bottom>
+                <div class="pe-button pe-pgrey" style="flex: 1;">Buy</div>
+            </template>
+        </pe-group>
+    </div>
+</div>
+<!-- 脚部 -->
+<pe-footer>
+    <div class="pe-footer-list pe-footer-end">
+        <div class="pe-footer-logo"></div>
+    </div>
+    <div class="pe-footer-list">
+        <div class="pe-footer-title">List 1</div>
+        <a href="./">Page 1</a>
+        <a href="./">Page 2</a>
+        <a href="./">Page 3</a>
+    </div>
+    <div class="pe-footer-list">
+        <div class="pe-footer-title">List 2</div>
+        <a href="./" class="pe-link" target="_blank">Page 1</a>
+        <a href="./">Page 2</a>
+        <a href="./">Page 3</a>
+    </div>
+    <div class="pe-footer-list">
+        <div class="pe-footer-title">List 3</div>
+        <a href="./">Page 1</a>
+        <a href="./">Page 2</a>
+        <a href="./">Page 3</a>
+    </div>
+    <template v-slot:bottom>
+        <div class="pe-footer-bottom-line">
+            <div class="pe-alayout" style="gap: 10px; align-items: center;">
+                <div>This is some footer information</div>
+                <div>Note2</div>
+            </div>
+        </div>
+        <div class="pe-footer-bottom-line">
+            <div class="pe-layout">Item1</div>
+            <div class="pe-layout">Item2</div>
+            <div class="pe-layout">Item3</div>
+        </div>
+    </template>
+</pe-footer>
 </body>
 </html>

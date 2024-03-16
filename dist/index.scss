@@ -1,13 +1,454 @@
 // --- sass --watch dist/:dist/ --style compressed --no-source-map ---
 
 html {
-    --pe-color: hsl(0, 100%, 50%);
-    --pe-bg-color: hsl(0, 100%, 95%);
+    --pe-color:hsl(0, 0%, 20%);
+    --pe-h-color:hsl(90, 65%, 35%);
+    --pe-h-bgcolor:hsl(90, 65%, 95%);
+    --pe-h-fcolor:#FFF;
+    --pe-transition:all .3s cubic-bezier(0.39, 0.575, 0.565, 1);
+    ::selection {
+        background: var(--pe-h-color); color: var(--pe-h-fcolor);
+    }
+}
+html, body {
+    padding: 0; margin: 0;
+}
+body, html, input, select, textarea {
+    font-family: 'Roboto', 'SF Pro SC', 'SF Pro Display', 'SF Pro Icons', 'PingFang SC', BlinkMacSystemFont, -apple-system, 'Segoe UI', 'Microsoft Yahei', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif; color: var(--pe-color); fill: var(--pe-color); stroke: var(--pe-color); line-height: 1.5; font-size: 16px;
+}
+a {
+    color: var(--pe-color); fill: var(--pe-color); stroke: var(--pe-color); text-decoration: none; transition: var(--pe-transition);
+    &:hover {
+        color: var(--pe-h-color); fill: var(--pe-h-color); stroke: var(--pe-h-color);
+    }
+    &.line {
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+img {
+    vertical-align: middle;
+}
+* {
+    box-sizing: border-box;
 }
 
-html.full {
+html.pe-full {
     min-height: 100%;
     body {
         min-height: 100%;
     }
+}
+html.pe-dark {
+    color: #FFF;
+}
+// --- 速度 ---
+html.pe-speed-fast {
+    --pe-speed:all .15s ease;
+}
+html.pe-speed-imme {
+    --pe-speed:none;
+}
+
+// --- 文字相关 ---
+
+.pe-btitle {
+    font-size: 42px;
+}
+.pe-title {
+    font-size: 32px;
+}
+.pe-bnote {
+    font-size: 26px;
+}
+.pe-note {
+    font-size: 22px;
+}
+.pe-gnote {
+    font-size: 22px; color: hsl(0, 0%, 40%);
+}
+
+// --- pe-header ---
+
+.pe-header {
+    display: flex; align-items: center; position: fixed; width: 100%; transition: var(--pe-transition);
+}
+html.pe-scroll .pe-header, .pe-header:hover {
+    box-shadow: 0 3px 5px rgba(0, 0, 0, .07); background: rgba(255, 255, 255, .8); -webkit-backdrop-filter: blur(20px);  backdrop-filter: blur(20px);
+}
+.pe-logo {
+    display: block; background-size: 80px; background-position: center; background-repeat: no-repeat; width: 180px; height: 70px;
+}
+.pe-nav {
+    flex: 1; display: flex;
+}
+.pe-nav-left {
+    flex: 1; display: flex; align-items: center;
+}
+.pe-nav-right {
+    display: flex; align-items: center; padding-right: 20px;
+}
+.pe-header-control {
+    width: 42px; height: 42px; display: none;
+}
+
+// --- pe-header-item ---
+
+.pe-header-item {
+    transition: var(--pe-transition); position: relative; height: 60px; line-height: 60px; padding: 0 30px; display: flex; align-items: center;
+    &:hover {
+        color: var(--pe-h-color); fill: var(--pe-h-color); stroke: var(--pe-h-color);
+    }
+
+    &.pe-list {
+        cursor: default;
+        &::after {
+            content: ''; display: inline-block; width: 6px; height: 6px; border: solid 2px var(--pe-color); border-width: 0 0 2px 2px; transform: rotate(-45deg); margin-left: 10px; transition: var(--pe-transition);
+        }
+        &:hover {
+            &::after {
+                border-color: var(--pe-h-color);
+            }
+            
+            .pe-menu {
+                opacity: 1; transform: translateY(0); pointer-events: initial;
+            }
+        }
+    }
+}
+
+// --- pe-banner ---
+
+.pe-banner {
+    display: flex; background-size: cover; background-position: center top; padding-top: 70px;
+}
+.pe-banner-content {
+    width: 100%; max-width: 1600px; margin: 0 auto; padding: 120px 40px; display: flex; flex-direction: column; gap: 20px;
+}
+
+// --- pe-menu ---
+
+.pe-menu {
+    position: absolute; left: -30px; top: 100%; background: #FFF; border-radius: 5px; box-shadow: 0 3px 5px rgba(0, 0, 0, .07); line-height: 1.5; padding: 15px; display: flex; flex-direction: column; color: var(--pe-color); min-width: 180px; opacity: 0; pointer-events: none; transform: translateY(10px); transition: var(--pe-transition);
+}
+.pe-menu-item {
+    padding: 15px 35px 15px 15px; transition: var(--pe-transition); display: flex;
+    &:hover {
+        background: var(--pe-h-bgcolor); color: var(--pe-h-color); fill: var(--pe-h-color); stroke: var(--pe-h-color); border-radius: 5px;
+    }
+}
+
+// --- pe-content ---
+// --- 将最大宽度限制在一个范围里，并居中显示内部元素 ---
+
+.pe-content {
+    width: 100%; max-width: 1600px; margin: 0 auto;
+}
+
+// --- pe-padding ---
+
+.pe-padding-lr {
+    padding-left: 40px; padding-right: 40px;
+}
+
+.pe-padding {
+    padding: 40px;
+}
+
+.pe-spadding {
+    padding: 20px;
+}
+
+// --- pe-layout ---
+
+.pe-layout {
+    display: flex;
+}
+
+// --- pe-layoutlist ---
+
+.pe-layoutlist {
+    display: flex;
+    > div {
+        flex: 1;
+    }
+}
+
+// --- pe-button ---
+
+.pe-button {
+    padding: 15px 20px; border-radius: 5px; line-height: 1; display: inline-flex; justify-content: center; align-items: center; gap: 10px; transition: var(--pe-transition); outline: solid 0 transparent;
+    // --- 朴素按钮 ---
+    &.pe-plain {
+        border: solid 1px var(--pe-h-color); color: var(--pe-h-color);
+        &:hover {
+            background: var(--pe-h-bgcolor);
+        }
+        &:focus, &:active {
+            background: transparent; outline: solid 5px var(--pe-h-bgcolor);
+        }
+    }
+    // --- 朴素灰 ---
+    &.pe-pgrey {
+        background: #FFF; border: solid 1px hsl(220, 15%, 85%); box-shadow: 0 1px 2px hsla(220, 45%, 10%, 0.05);
+        &:hover {
+            background: hsl(220, 20%, 98%); color: var(--pe-color);
+        }
+        &:focus, &:active {
+            background: transparent; box-shadow: 0 0 0 4px hsl(220, 20%, 95%);
+        }
+    }
+    // --- 灰底 ---
+    &.pe-grey {
+        background: hsl(220, 20%, 98%);
+        &:hover {
+            background: hsl(220, 20%, 95%); color: var(--pe-color);
+        }
+        &:focus, &:active {
+            background: hsl(220, 20%, 98%); box-shadow: 0 0 0 4px hsl(220, 20%, 95%);
+        }
+    }
+    // --- 深色模式 ---
+    &.pe-dark {
+        background: var(--pe-h-color); color: var(--pe-h-fcolor);
+        &:hover {
+            filter: brightness(1.2);
+        }
+        &:focus, &:active {
+            filter: brightness(0.9); box-shadow: 0 0 0 4px var(--pe-h-bgcolor);
+        }
+    }
+
+    // --- 其他样式 ---
+    &.pe-plain, &.pe-pgrey {
+        // --- 加粗模式 ---
+        &.pe-bold {
+            font-weight: bold; border-width: 2px;
+        }
+    }
+}
+
+// --- pe-block ---
+
+.pe-block {
+    text-align: center; padding: 120px 0; display: flex; flex-direction: column; gap: 20px;
+    &.pe-grey {
+        background: hsl(0, 0%, 98%);
+    }
+
+}
+
+// --- pe-alayout ---
+
+.pe-alayout {
+    display: flex;
+    > * {
+        flex: 1;
+    }
+}
+
+// --- pe-lralyout ---
+
+.pe-lralyout {
+    display: flex;
+    .pe-img {
+        width: 300px; height: 150px;
+    }
+}
+
+// --- pe-box ---
+
+.pe-box {
+    border: solid 1px hsl(220, 15%, 85%); background: #FFF; border-radius: 5px; display: flex; flex-direction: column; transition: var(--pe-transition);
+    &:hover {
+        color: var(--pe-color);
+    }
+
+    &.pe-hover {
+        &:hover {
+            box-shadow: 0px 15px 30px rgba(0, 0, 0, .07);
+        }
+    }
+}
+
+// --- pe-img ---
+
+.pe-img {
+    background-position: center; background-repeat: no-repeat; background-size: cover;
+}
+
+// --- pe-footer ---
+
+.pe-footer {
+    background: hsl(0, 0%, 98%); padding: 120px 40px; white-space: nowrap;
+}
+.pe-footer-content {
+    width: 100%; max-width: 1600px; margin: 0 auto; display: flex;
+    > * {
+        flex: 1;
+    }
+}
+.pe-footer-logo {
+    display: block; background-size: 100%; background-position: top left; background-repeat: no-repeat; width: 60%; height: 150px;
+}
+.pe-footer-list {
+    display: flex; flex-direction: column; gap: 20px;
+}
+.pe-footer-title {
+    padding-bottom: 10px; font-size: 20px;
+}
+.pe-footer-bottom {
+    margin-top: 80px; margin-bottom: -40px; display: flex; flex-direction: column; gap: 10px; font-size: 14px; color: hsl(0, 0%, 40%);
+}
+.pe-footer-bottom-line {
+    display: flex; justify-content: center; align-items: center; gap: 10px;
+}
+
+// --- pe-link ---
+// --- 将在右边自动显示一个图标用来表示当前链接在新页面打开 ---
+
+.pe-link {
+    display: flex; align-items: center;
+    svg {
+        margin-left: 5px;
+    }
+}
+
+// --- pe-icon ---
+
+.pe-icon {
+    display: flex; align-items: center;
+    svg, img {
+        margin-right: 5px;
+    }
+}
+
+// --- pe-group ---
+
+.pe-group {
+    border: solid 1px hsl(220, 15%, 85%); border-radius: 5px; background: #FFF; box-shadow: 0 12px 16px -4px rgba(0, 0, 0, .08), 0 4px 6px -2px rgba(16, 24, 40, .03); display: flex; flex-direction: column; overflow: hidden;
+    &:not(.pe-hastitle) {
+        margin-top: 44px;
+    }
+}
+.pe-group-title {
+    padding: 10px; background: var(--pe-h-color); color: var(--pe-h-fcolor); text-align: center; font-weight: bold;
+}
+.pe-group-content {
+    padding: 40px; flex: 1;
+}
+.pe-group-bottom {
+    padding: 0 40px 40px 40px; display: flex;
+}
+
+// --- 小屏设备 ---
+
+@media screen and (max-width: 1200px) and (min-width: 800px) {
+    .pe-header-item {
+        padding: 0 15px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+
+    // --- 文字相关 ---
+
+    .pe-btitle {
+        font-size: 32px;
+    }
+    .pe-title {
+        font-size: 22px;
+    }
+    .pe-bnote {
+        font-size: 20px;
+    }
+    .pe-note {
+        font-size: 18px;
+    }
+    .pe-gnote {
+        font-size: 18px;
+    }
+
+    // --- pe-header ---
+
+    html.pe-scroll .pe-header, .pe-header:hover {
+        -webkit-backdrop-filter: initial; backdrop-filter: initial;
+    }
+    .pe-nav {
+        position: fixed; left: 0; top: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, .8); flex-direction: column; opacity: 0; pointer-events: none; transition: var(--pe-transition);
+        &.pe-show {
+            opacity: 1; -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); pointer-events: initial;
+        }
+    }
+    .pe-nav-left {
+        flex-direction: column; align-items: initial; overflow-y: auto;
+    }
+    .pe-nav-right {
+        flex-direction: column; align-items: initial; padding-right: 0; padding-bottom: 20px;
+        .pe-button {
+            margin: 0 30px;
+        }
+    }
+    .pe-header-control {
+        display: block; position: fixed; right: 20px;
+    }
+
+    // --- pe-header-item ---
+
+    .pe-header-item {
+        flex-direction: column; align-items: initial; height: initial;
+
+        &.pe-list {
+            &::after {
+                position: absolute; right: 30px; top: 25px;
+            }
+
+            .pe-menu {
+                position: initial; opacity: initial; transform: initial; pointer-events: initial; height: 0; padding: 0; overflow: hidden;
+            }
+            &:hover {
+                .pe-menu {
+                    height: initial; padding: 15px;
+                }
+            }
+        }
+    }
+
+    // --- pe-alayout ---
+
+    .pe-alayout {
+        flex-direction: column;
+    }
+
+    // --- pe-lralyout ---
+
+    .pe-lralyout {
+        flex-direction: column;
+        .pe-img {
+            width: initial;
+        }
+    }
+
+    // --- pe-footer ---
+
+    .pe-footer {
+        padding: 80px 40px;
+    }
+    .pe-footer-content {
+        flex-direction: column;
+        > :not(:last-child):not(.pe-footer-end) {
+            margin-bottom: 30px;
+        }
+    }
+    .pe-footer-logo {
+        width: initial; background-size: 30%; background-position: top center; height: 100px;
+    }
+    .pe-footer-bottom {
+        margin-top: 40px;
+    }
+    .pe-footer-end {
+        order: 1; margin-top: 30px; margin-bottom: 0;
+    }
+
 }

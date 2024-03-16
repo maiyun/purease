@@ -56,12 +56,37 @@ export abstract class AbstractPage {
 
 }
 
+/** --- vue 对象 --- */
 export let vue: types.IVueObject;
+
+/** --- 全局属性 --- */
+export let global = {
+    'headerPop': false
+};
+
+/** --- 刷新所有应该绑定的 pe-link、pe-icon 对象 --- */
+export function refresh() {
+    const icons = document.querySelectorAll('svg.pe-auto');
+    for (const icon of icons) {
+        icon.remove();
+    }
+    // --- 先绑定 link ---
+    const links = document.querySelectorAll('.pe-link');
+    for (const link of links) {
+        link.insertAdjacentHTML('beforeend', '<svg class="pe-auto" width="18px" height="18px" viewBox="0 0 24 24" fill="none"><path d="M13 11L22 2M22 2H16.6562M22 2V7.34375" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2M22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2.49073 19.5618 2.16444 18.1934 2.0551 16" stroke-width="1.5" stroke-linecap="round"/></svg>');
+    }
+    // --- 再转义时间 ---
+    const dates = document.querySelectorAll('.pe-date');
+    for (const el of dates) {
+        const date = new Date(Number(el.getAttribute('time')) * 1000);
+        el.innerHTML = date.getFullYear().toString() + '-' + (date.getMonth() + 1).toString().padStart(2, '0') + '-' + date.getDate().toString().padStart(2, '0');
+    }
+}
 
 /** ---运行当前页面 --- */
 export function launcher(page: AbstractPage): void {
     (async function() {
-        const body = document.getElementsByTagName('body')[0];
+        const html = document.getElementsByTagName('html')[0];
         document.addEventListener('touchstart', function() {
             return;
         });
@@ -69,15 +94,15 @@ export function launcher(page: AbstractPage): void {
         window.addEventListener('scroll', function() {
             const st = document.documentElement.scrollTop || document.body.scrollTop;
             if (st === 0) {
-                body.classList.remove('scroll');
+                html.classList.remove('pe-scroll');
             }
             else {
-                body.classList.add('scroll');
+                html.classList.add('pe-scroll');
             }
         });
         const st = document.documentElement.scrollTop || document.body.scrollTop;
         if (st > 0) {
-            body.classList.add('scroll');
+            html.classList.add('pe-scroll');
         }
         // --- 通过标签加载库 ---
         const paths: string[] = [
@@ -91,6 +116,9 @@ export function launcher(page: AbstractPage): void {
         }
         // --- 将整个网页 vue 化 ---
         vue = (window as any).Vue;
+        global = vue.reactive({
+            'headerPop': false
+        });
         /** --- class 对象类的属性列表 --- */
         const idata: Record<string, any> = {};
         const cdata = Object.entries(page);
@@ -162,6 +190,7 @@ export function launcher(page: AbstractPage): void {
         // --- 执行回调 ---
         await tool.sleep(34);
         await page.main.call(rtn.vroot);
+        refresh();
     })().catch(function(e) {
         console.log('launcher', e);
     });

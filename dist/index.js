@@ -32,7 +32,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.launcher = exports.vue = exports.AbstractPage = void 0;
+exports.launcher = exports.refresh = exports.global = exports.vue = exports.AbstractPage = void 0;
 const control = __importStar(require("./control"));
 const tool = __importStar(require("./tool"));
 class AbstractPage {
@@ -59,25 +59,44 @@ class AbstractPage {
     }
 }
 exports.AbstractPage = AbstractPage;
+exports.global = {
+    'headerPop': false
+};
+function refresh() {
+    const icons = document.querySelectorAll('svg.pe-auto');
+    for (const icon of icons) {
+        icon.remove();
+    }
+    const links = document.querySelectorAll('.pe-link');
+    for (const link of links) {
+        link.insertAdjacentHTML('beforeend', '<svg class="pe-auto" width="18px" height="18px" viewBox="0 0 24 24" fill="none"><path d="M13 11L22 2M22 2H16.6562M22 2V7.34375" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2M22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2.49073 19.5618 2.16444 18.1934 2.0551 16" stroke-width="1.5" stroke-linecap="round"/></svg>');
+    }
+    const dates = document.querySelectorAll('.pe-date');
+    for (const el of dates) {
+        const date = new Date(Number(el.getAttribute('time')) * 1000);
+        el.innerHTML = date.getFullYear().toString() + '-' + (date.getMonth() + 1).toString().padStart(2, '0') + '-' + date.getDate().toString().padStart(2, '0');
+    }
+}
+exports.refresh = refresh;
 function launcher(page) {
     (function () {
         return __awaiter(this, void 0, void 0, function* () {
-            const body = document.getElementsByTagName('body')[0];
+            const html = document.getElementsByTagName('html')[0];
             document.addEventListener('touchstart', function () {
                 return;
             });
             window.addEventListener('scroll', function () {
                 const st = document.documentElement.scrollTop || document.body.scrollTop;
                 if (st === 0) {
-                    body.classList.remove('scroll');
+                    html.classList.remove('pe-scroll');
                 }
                 else {
-                    body.classList.add('scroll');
+                    html.classList.add('pe-scroll');
                 }
             });
             const st = document.documentElement.scrollTop || document.body.scrollTop;
             if (st > 0) {
-                body.classList.add('scroll');
+                html.classList.add('pe-scroll');
             }
             const paths = [
                 loader.cdn + '/npm/vue@3.4.21/dist/vue.global.prod.min.js'
@@ -88,6 +107,9 @@ function launcher(page) {
                 return;
             }
             exports.vue = window.Vue;
+            exports.global = exports.vue.reactive({
+                'headerPop': false
+            });
             const idata = {};
             const cdata = Object.entries(page);
             for (const item of cdata) {
@@ -148,6 +170,7 @@ function launcher(page) {
             });
             yield tool.sleep(34);
             yield page.main.call(rtn.vroot);
+            refresh();
         });
     })().catch(function (e) {
         console.log('launcher', e);

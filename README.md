@@ -7,12 +7,9 @@
     </a>
     <a href="https://www.npmjs.com/package/purease">
         <img alt="NPM stable version" src="https://img.shields.io/npm/v/purease?color=brightgreen&logo=npm" />
-        <img alt="NPM beta version" src="https://img.shields.io/npm/v/purease/beta?color=yellowgreen&logo=npm" />
-        <img alt="NPM development version" src="https://img.shields.io/npm/v/purease/dev?color=yellow&logo=npm" />
-    </a><br>
+    </a>
     <a href="https://github.com/maiyun/purease/releases">
         <img alt="GitHub releases" src="https://img.shields.io/github/v/release/maiyun/purease?color=brightgreen&logo=github" />
-        <img alt="GitHub pre-releases" src="https://img.shields.io/github/v/release/maiyun/purease?color=yellow&logo=github&include_prereleases" />
     </a>
     <a href="https://github.com/maiyun/purease/issues">
         <img alt="GitHub issues" src="https://img.shields.io/github/issues/maiyun/purease?color=blue&logo=github" />
@@ -50,3 +47,26 @@ After installing with NPM, you'll get code hints.
 ```sh
 $ npm i purease --save-dev
 ```
+
+## Demo
+
+Clone and visit "dist/test/index.html".
+
+[Click here to visit online.](https://maiyun.github.io/purease/dist/test/)
+
+## License
+
+This library is published under [Apache-2.0](./LICENSE) license.
+
+## Third-party licenses
+
+### **LICENSE:** CC Attribution License **AUTHOR:** Solar Icons
+
+#### Header
+
+[Hamburger Menu SVG Vector](https://www.svgrepo.com/svg/529002/hamburger-menu)  
+[Close Square SVG Vector](https://www.svgrepo.com/svg/528911/close-square)
+
+#### Link
+
+[Square Top Down SVG Vector 6](https://www.svgrepo.com/svg/529231/square-top-down)  
