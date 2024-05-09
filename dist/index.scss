@@ -6,6 +6,9 @@ html {
     --pe-h-bgcolor:hsl(90, 65%, 95%);
     --pe-h-fcolor:#FFF;
     --pe-transition:all .3s cubic-bezier(0.39, 0.575, 0.565, 1);
+    --pe-radius:5px;
+    --pe-font-life:"Lucida Sans Unicode","Helvetica Neue","Helvetica","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Noto Sans CJK","Source Han Sans","WenQuanYi Micro Hei","Microsoft YaHei","sans-serif";
+    --pe-font-comm:'Roboto','SF Pro SC','SF Pro Display','SF Pro Icons','PingFang SC',BlinkMacSystemFont,-apple-system,'Segoe UI','Microsoft Yahei','Ubuntu','Cantarell','Fira Sans','Droid Sans','Helvetica Neue','Helvetica','Arial',"sans-serif";
     ::selection {
         background: var(--pe-h-color); color: var(--pe-h-fcolor);
     }
@@ -14,7 +17,7 @@ html, body {
     padding: 0; margin: 0;
 }
 body, html, input, select, textarea {
-    font-family: 'Roboto', 'SF Pro SC', 'SF Pro Display', 'SF Pro Icons', 'PingFang SC', BlinkMacSystemFont, -apple-system, 'Segoe UI', 'Microsoft Yahei', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif; color: var(--pe-color); fill: var(--pe-color); stroke: var(--pe-color); line-height: 1.5; font-size: 16px;
+    font-family: var(--pe-font-life); color: var(--pe-color); fill: var(--pe-color); stroke: var(--pe-color); line-height: 1.5; font-size: 16px;
 }
 a {
     color: var(--pe-color); fill: var(--pe-color); stroke: var(--pe-color); text-decoration: none; transition: var(--pe-transition);
@@ -41,7 +44,7 @@ html.pe-full {
     }
 }
 html.pe-dark {
-    color: #FFF;
+    color: #FFF; fill: #FFF; stroke: #FFF;
 }
 // --- 速度 ---
 html.pe-speed-fast {
@@ -66,16 +69,24 @@ html.pe-speed-imme {
     font-size: 22px;
 }
 .pe-gnote {
-    font-size: 22px; color: hsl(0, 0%, 40%);
+    font-size: 22px; color: hsl(0, 0%, 40%); fill: hsl(0, 0%, 40%); stroke: hsl(0, 0%, 40%);
 }
 
 // --- pe-header ---
 
 .pe-header {
-    display: flex; align-items: center; position: fixed; width: 100%; transition: var(--pe-transition);
+    display: flex; align-items: center; position: absolute; left: 0; top: 0; width: 100%; transition: var(--pe-transition); z-index: 1;
+    &.pe-fixed {
+        position: fixed;
+    }
 }
-html.pe-scroll .pe-header, .pe-header:hover {
-    box-shadow: 0 3px 5px rgba(0, 0, 0, .07); background: rgba(255, 255, 255, .8); -webkit-backdrop-filter: blur(20px);  backdrop-filter: blur(20px);
+html.pe-scroll .pe-header.pe-fixed, .pe-header:hover {
+    &.pe-theme-default {
+        box-shadow: 0 3px 5px rgba(0, 0, 0, .07); background: rgba(255, 255, 255, .8); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);
+    }
+    &.pe-theme-rev {
+        background: #FFF;
+    }
 }
 .pe-logo {
     display: block; background-size: 80px; background-position: center; background-repeat: no-repeat; width: 180px; height: 70px;
@@ -104,7 +115,7 @@ html.pe-scroll .pe-header, .pe-header:hover {
     &.pe-list {
         cursor: default;
         &::after {
-            content: ''; display: inline-block; width: 6px; height: 6px; border: solid 2px var(--pe-color); border-width: 0 0 2px 2px; transform: rotate(-45deg); margin-left: 10px; transition: var(--pe-transition);
+            content: ''; display: inline-block; width: 6px; height: 6px; border: solid 2px var(--pe-color); border-width: 0 0 2px 2px; transform: rotate(-45deg); margin-left: 10px; transition: var(--pe-transition); margin-top: -2px;
         }
         &:hover {
             &::after {
@@ -118,24 +129,61 @@ html.pe-scroll .pe-header, .pe-header:hover {
     }
 }
 
+html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
+    &.pe-theme-rev {
+        &:not(:hover) {
+            .pe-header-item {
+                color: #FFF; fill: #FFF; stroke: #FFF;
+                &.pe-list {
+                    &::after {
+                        border-color: #FFF;
+                    }
+                }
+            }
+        }
+    }
+}
+
 // --- pe-banner ---
 
 .pe-banner {
-    display: flex; background-size: cover; background-position: center top; padding-top: 70px;
+    display: flex; background-size: cover; background-position: center top; padding-top: 70px; align-items: center;
 }
 .pe-banner-content {
-    width: 100%; max-width: 1600px; margin: 0 auto; padding: 120px 40px; display: flex; flex-direction: column; gap: 20px;
+    width: 100%; max-width: 1600px; margin: 0 auto; padding: 0 60px; display: flex; gap: 20px;
+}
+.pe-banner.pe-direction-v {
+    .pe-banner-content {
+        flex-direction: column;
+    }
+}
+
+// --- pe-pop ---
+
+.pe-pop {
+    position: absolute; background: #FFF; border-radius: var(--pe-radius); box-shadow: 0 3px 5px rgba(0, 0, 0, .07); opacity: 0; pointer-events: none; transform: translateY(10px); transition: var(--pe-transition); text-align: initial; z-index: 1000;
+    &.pe-show {
+        opacity: 1; transform: translateY(0); pointer-events: initial;
+    }
 }
 
 // --- pe-menu ---
 
 .pe-menu {
-    position: absolute; left: -30px; top: 100%; background: #FFF; border-radius: 5px; box-shadow: 0 3px 5px rgba(0, 0, 0, .07); line-height: 1.5; padding: 15px; display: flex; flex-direction: column; color: var(--pe-color); min-width: 180px; opacity: 0; pointer-events: none; transform: translateY(10px); transition: var(--pe-transition);
+    position: absolute; background: #FFF; border-radius: var(--pe-radius); box-shadow: 0 3px 5px rgba(0, 0, 0, .07); opacity: 0; pointer-events: none; transform: translateY(10px); transition: var(--pe-transition); left: -30px; top: 100%; line-height: 1.5; padding: 15px; display: flex; flex-direction: column; color: var(--pe-color); fill: var(--pe-color); stroke: var(--pe-color); min-width: 180px;
 }
 .pe-menu-item {
     padding: 15px 35px 15px 15px; transition: var(--pe-transition); display: flex;
     &:hover {
-        background: var(--pe-h-bgcolor); color: var(--pe-h-color); fill: var(--pe-h-color); stroke: var(--pe-h-color); border-radius: 5px;
+        background: var(--pe-h-bgcolor); color: var(--pe-h-color); fill: var(--pe-h-color); stroke: var(--pe-h-color); border-radius: var(--pe-radius);
+    }
+}
+
+.pe-header {
+    &.pe-theme-rev {
+        .pe-menu {
+            box-shadow: none;
+        }
     }
 }
 
@@ -178,22 +226,41 @@ html.pe-scroll .pe-header, .pe-header:hover {
 // --- pe-button ---
 
 .pe-button {
-    padding: 15px 20px; border-radius: 5px; line-height: 1; display: inline-flex; justify-content: center; align-items: center; gap: 10px; transition: var(--pe-transition); outline: solid 0 transparent;
+    padding: 15px 20px; border-radius: var(--pe-radius); line-height: 1; display: inline-flex; justify-content: center; align-items: center; gap: 10px; transition: var(--pe-transition); outline: none;
+    &:not(.pe-plain):not(.pe-pwhite):not(.pe-pgrey):not(.pe-grey):not(.pe-dark) {
+        background: #FFF;
+        &:hover {
+            background: hsl(220, 20%, 95%); color: var(--pe-color); fill: var(--pe-color); stroke: var(--pe-color);
+        }
+        &:focus, &:active {
+            background: #FFF; box-shadow: 0 0 0 4px hsl(220, 20%, 95%);
+        }
+    }
     // --- 朴素按钮 ---
     &.pe-plain {
-        border: solid 1px var(--pe-h-color); color: var(--pe-h-color);
+        border: solid 1px var(--pe-h-color); color: var(--pe-h-color); fill: var(--pe-h-color); stroke: var(--pe-h-color);
         &:hover {
             background: var(--pe-h-bgcolor);
         }
         &:focus, &:active {
-            background: transparent; outline: solid 5px var(--pe-h-bgcolor);
+            background: transparent; box-shadow: 0 0 0 4px var(--pe-h-bgcolor);
+        }
+    }
+    // --- 朴素白 ---
+    &.pe-pwhite {
+        border: solid 1px #FFF; color: #FFF; fill: #FFF; stroke: #FFF;
+        &:hover {
+            background: rgba(255,255,255,.2);
+        }
+        &:focus, &:active {
+            background: transparent; box-shadow: 0 0 0 4px rgba(255,255,255,.2);
         }
     }
     // --- 朴素灰 ---
     &.pe-pgrey {
         background: #FFF; border: solid 1px hsl(220, 15%, 85%); box-shadow: 0 1px 2px hsla(220, 45%, 10%, 0.05);
         &:hover {
-            background: hsl(220, 20%, 98%); color: var(--pe-color);
+            background: hsl(220, 20%, 98%); color: var(--pe-color); fill: var(--pe-color); stroke: var(--pe-color);
         }
         &:focus, &:active {
             background: transparent; box-shadow: 0 0 0 4px hsl(220, 20%, 95%);
@@ -203,7 +270,7 @@ html.pe-scroll .pe-header, .pe-header:hover {
     &.pe-grey {
         background: hsl(220, 20%, 98%);
         &:hover {
-            background: hsl(220, 20%, 95%); color: var(--pe-color);
+            background: hsl(220, 20%, 95%); color: var(--pe-color); fill: var(--pe-color); stroke: var(--pe-color);
         }
         &:focus, &:active {
             background: hsl(220, 20%, 98%); box-shadow: 0 0 0 4px hsl(220, 20%, 95%);
@@ -211,7 +278,7 @@ html.pe-scroll .pe-header, .pe-header:hover {
     }
     // --- 深色模式 ---
     &.pe-dark {
-        background: var(--pe-h-color); color: var(--pe-h-fcolor);
+        background: var(--pe-h-color); color: var(--pe-h-fcolor); fill: var(--pe-h-fcolor); stroke: var(--pe-h-fcolor);
         &:hover {
             filter: brightness(1.2);
         }
@@ -221,10 +288,25 @@ html.pe-scroll .pe-header, .pe-header:hover {
     }
 
     // --- 其他样式 ---
-    &.pe-plain, &.pe-pgrey {
+    &.pe-plain, &.pe-pwhite, &.pe-pgrey {
         // --- 加粗模式 ---
         &.pe-bold {
             font-weight: bold; border-width: 2px;
+        }
+    }
+}
+
+html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
+    &.pe-theme-rev {
+        &:not(:hover) {
+            .pe-button {
+                &.pe-plain {
+                    border-color: #FFF; color: #FFF; fill: #FFF; stroke: #FFF;
+                    &:focus {
+                        box-shadow: 0 0 0 4px rgba(255,255,255,.2);
+                    }
+                }
+            }
         }
     }
 }
@@ -260,9 +342,9 @@ html.pe-scroll .pe-header, .pe-header:hover {
 // --- pe-box ---
 
 .pe-box {
-    border: solid 1px hsl(220, 15%, 85%); background: #FFF; border-radius: 5px; display: flex; flex-direction: column; transition: var(--pe-transition);
+    border: solid 1px hsl(220, 15%, 85%); background: #FFF; border-radius: var(--pe-radius); display: flex; flex-direction: column; transition: var(--pe-transition);
     &:hover {
-        color: var(--pe-color);
+        color: var(--pe-color); fill: var(--pe-color); stroke: var(--pe-color);
     }
 
     &.pe-hover {
@@ -299,9 +381,9 @@ html.pe-scroll .pe-header, .pe-header:hover {
     padding-bottom: 10px; font-size: 20px;
 }
 .pe-footer-bottom {
-    margin-top: 80px; margin-bottom: -40px; display: flex; flex-direction: column; gap: 10px; font-size: 14px; color: hsl(0, 0%, 40%);
+    margin-top: 80px; margin-bottom: -40px; display: flex; flex-direction: column; gap: 10px; font-size: 14px; color: hsl(0, 0%, 40%); fill: hsl(0, 0%, 40%); stroke: hsl(0, 0%, 40%);
 }
-.pe-footer-bottom-line {
+.pe-footer-bottom-row {
     display: flex; justify-content: center; align-items: center; gap: 10px;
 }
 
@@ -327,19 +409,119 @@ html.pe-scroll .pe-header, .pe-header:hover {
 // --- pe-group ---
 
 .pe-group {
-    border: solid 1px hsl(220, 15%, 85%); border-radius: 5px; background: #FFF; box-shadow: 0 12px 16px -4px rgba(0, 0, 0, .08), 0 4px 6px -2px rgba(16, 24, 40, .03); display: flex; flex-direction: column; overflow: hidden;
+    border: solid 1px hsl(220, 15%, 85%); border-radius: var(--pe-radius); background: #FFF; box-shadow: 0 12px 16px -4px rgba(0, 0, 0, .08), 0 4px 6px -2px rgba(16, 24, 40, .03); display: flex; flex-direction: column; overflow: hidden;
     &:not(.pe-hastitle) {
         margin-top: 44px;
     }
 }
 .pe-group-title {
-    padding: 10px; background: var(--pe-h-color); color: var(--pe-h-fcolor); text-align: center; font-weight: bold;
+    padding: 10px; background: var(--pe-h-color); color: var(--pe-h-fcolor); fill: var(--pe-h-fcolor); stroke: var(--pe-h-fcolor); text-align: center; font-weight: bold;
 }
 .pe-group-content {
     padding: 40px; flex: 1;
 }
 .pe-group-bottom {
     padding: 0 40px 40px 40px; display: flex;
+}
+
+// --- pe-text ---
+
+.pe-text {
+    background: hsl(220, 20%, 98%); border-radius: var(--pe-radius); transition: var(--pe-transition); display: flex;
+    &.pe-focus {
+        background: transparent; box-shadow: 0 0 0 4px hsl(220, 20%, 95%);
+    }
+
+    input {
+        -webkit-appearance: none; appearance: none; background: transparent; flex: 1; outline: none; border: none; padding: 15px;
+    }
+
+    .pe-before, .pe-after {
+        display: flex;
+    }
+    .pe-prepend {
+        display: flex; align-items: center; padding-left: 15px;
+    }
+    .pe-append {
+        display: flex; align-items: center; padding-right: 15px;
+    }
+}
+
+// --- pe-select ---
+
+.pe-select {
+    border-radius: var(--pe-radius); transition: var(--pe-transition); display: flex; background: hsl(220, 20%, 98%); -webkit-user-select: none; user-select: none; cursor: default; position: relative;
+    &:hover {
+        background: hsl(220, 20%, 95%); color: var(--pe-color);
+    }
+    &:focus, &:active {
+        background: hsl(220, 20%, 98%); box-shadow: 0 0 0 4px hsl(220, 20%, 95%);
+    }
+
+    .pe-pop {
+        padding: 15px; min-width: 100%; max-height: 350px; left: 0; top: 100%; overflow-y: scroll; white-space: nowrap;
+        &::-webkit-scrollbar {
+            width: 6px; cursor: default;
+        }
+        &::-webkit-scrollbar-thumb {
+            background: rgba(0,0,0,.1); border-radius: 3px;
+            &:hover {
+                background: rgba(0,0,0,.2);
+            }
+        }
+    }
+}
+.pe-select-label {
+    flex: 1; padding: 15px; text-align: initial;
+}
+.pe-select-arrow {
+    display: flex; justify-content: center; align-items: center; width: 20px;
+    &::after {
+        content: ''; border: solid 1px var(--pe-color); border-width: 0 1px 1px 0; width: 6px; height: 6px; transform: rotate(45deg); margin-top: -3px;
+    }
+}
+.pe-select-item {
+    padding: 15px; border-radius: var(--pe-radius); transition: var(--pe-transition);
+    &:hover, &.pe-selected {
+        background: hsl(220, 20%, 98%);
+    }
+}
+
+// --- pe-swipe ---
+
+.pe-swipe {
+    display: flex; position: relative; height: 700px; overflow: hidden;
+}
+.pe-swipe-wrap {
+    display: flex; flex: 1; position: relative;
+}
+.pe-swipe-page {
+    position: absolute; bottom: 30px; left: 30px; right: 30px; display: flex; justify-content: center;
+}
+.pe-swipe-page-item {
+    width: 10px; height: 10px; transition: var(--pe-transition); background: rgba(255,255,255,.3); margin: 0 5px;
+    &.pe-selected {
+        width: 30px; background: rgba(255,255,255,.9);
+    }
+}
+.pe-swipe-prev, .pe-swipe-next {
+    position: absolute; border: solid 3px rgba(255,255,255,.3); transition: var(--pe-transition); width: 18px; height: 18px;
+    &:hover {
+        border-color: rgba(255,255,255,.9);
+    }
+}
+.pe-swipe-prev {
+    left: 20px; top: calc(100% / 2); transform: rotateZ(-45deg); border-width: 3px 0 0 3px;
+}
+.pe-swipe-next {
+    right: 20px; top: calc(100% / 2); transform: rotateZ(-45deg); border-width: 0 3px 3px 0;
+}
+
+.pe-swipe-item {
+    width: 100%; height: 100%; position: absolute; top: 0; display: flex;
+    &.pe-direction-v {
+        flex-direction: column;
+    }
 }
 
 // --- 小屏设备 ---
@@ -372,8 +554,10 @@ html.pe-scroll .pe-header, .pe-header:hover {
 
     // --- pe-header ---
 
-    html.pe-scroll .pe-header, .pe-header:hover {
-        -webkit-backdrop-filter: initial; backdrop-filter: initial;
+    html.pe-scroll .pe-header.pe-fixed, .pe-header:hover {
+        &.pe-theme-default {
+            -webkit-backdrop-filter: initial; backdrop-filter: initial;
+        }
     }
     .pe-nav {
         position: fixed; left: 0; top: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, .8); flex-direction: column; opacity: 0; pointer-events: none; transition: var(--pe-transition);

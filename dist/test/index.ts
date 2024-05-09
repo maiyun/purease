@@ -1,10 +1,22 @@
 import * as purease from '../index';
+import footer from '../test/footer';
 
 class Page extends purease.AbstractPage {
 
+    public text = '123';
+
+    public select = 'h';
+
     public main(): void | Promise<void> {
-        console.log('x', purease);
+        console.log('Inited.', purease);
     }
 
 }
-purease.launcher(new Page());
+purease.launcher(new Page({
+    'debug': true
+}), [
+    {
+        'selector': '#footer',
+        'panel': footer
+    }
+]);

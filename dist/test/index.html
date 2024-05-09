@@ -10,38 +10,40 @@
 <link rel="stylesheet" href="index.css" />
 </head>
 <body>
-<pe-header logo-href="./">
-    <pe-header-item href="./">Home</pe-header-item>
-    <pe-header-item>
-        List
-        <pe-menu>
-            <pe-menu-item href="./">111</pe-menu-item>
-            <pe-menu-item href="./">222</pe-menu-item>
-        </pe-menu>
-    </pe-header-item>
-    <pe-header-item>Page</pe-header-item>
-    <pe-header-item>
-        Double
-        <pe-menu>
-            <div class="pe-layoutlist">
-                <div>
-                    <pe-menu-item href="./" style="flex: 1;">111342342342334</pe-menu-item>
-                    <pe-menu-item href="./" style="flex: 1;">222</pe-menu-item>
+<div id="header">
+    <pe-header logo-href="./" fixed>
+        <pe-header-item href="./">Home</pe-header-item>
+        <pe-header-item>
+            List
+            <pe-menu>
+                <pe-menu-item href="./">111</pe-menu-item>
+                <pe-menu-item href="./">222</pe-menu-item>
+            </pe-menu>
+        </pe-header-item>
+        <pe-header-item href="./swipe.html">Swipe</pe-header-item>
+        <pe-header-item>
+            Double
+            <pe-menu>
+                <div class="pe-layoutlist">
+                    <div>
+                        <pe-menu-item href="./" style="flex: 1;">111342342342334</pe-menu-item>
+                        <pe-menu-item href="./" style="flex: 1;">222</pe-menu-item>
+                    </div>
+                    <div>
+                        <pe-menu-item href="./" style="flex: 1;">333</pe-menu-item>
+                        <pe-menu-item href="./" style="flex: 1;">444</pe-menu-item>
+                    </div>
                 </div>
-                <div>
-                    <pe-menu-item href="./" style="flex: 1;">333</pe-menu-item>
-                    <pe-menu-item href="./" style="flex: 1;">444</pe-menu-item>
-                </div>
-            </div>
-        </pe-menu>
-    </pe-header-item>
-    <pe-header-item href="./">About</pe-header-item>
-    <template v-slot:right>
-        <pe-header-item href="./">OK</pe-header-item>
-        <a class="pe-button pe-plain pe-bold" href="./">Hello</a>
-    </template>
-</pe-header>
-<pe-banner>
+            </pe-menu>
+        </pe-header-item>
+        <pe-header-item href="./">About</pe-header-item>
+        <template v-slot:right>
+            <pe-header-item href="./">OK</pe-header-item>
+            <a class="pe-button pe-plain pe-bold" href="./">Hello</a>
+        </template>
+    </pe-header>
+</div>
+<pe-banner class="index" direction="v" style="height: 600px;">
     <div class="pe-btitle">I'm glad to see you</div>
     <div class="pe-bnote">With Purease, you can quickly build a versatile, minimalist webpage.</div>
     <div class="pe-layout" style="gap: 20px; align-items: center;">
@@ -54,7 +56,7 @@
     <div class="pe-btitle">Rapid prototyping</div>
     <div class="pe-gnote">Web development shouldn't take up too much time</div>
     <div class="pe-layout" style="justify-content: center; gap: 20px; margin-top: 20px;">
-        <a class="pe-button pe-grey" href="./">Discuss</a>
+        <a class="pe-button" href="./">Discuss</a>
         <a class="pe-button pe-pgrey" href="./">Discuss2</a>
         <a class="pe-button pe-grey" href="./">Discuss3</a>
     </div>
@@ -148,42 +150,64 @@
         </pe-group>
     </div>
 </div>
+<!-- 文本框 -->
+<div class="pe-block">
+    <div class="pe-btitle">Text + Select</div>
+    <div class="pe-layout" style="margin-top: 20px; flex-direction: column; gap: 20px; align-items: center;">
+        <pe-text style="width: 400px;" v-model="text"></pe-text>
+        <pe-text style="width: 400px;" v-model="text">
+            <template v-slot:prepend>Hello:</template>
+            <template v-slot:append>KG</template>
+        </pe-text>
+        <div>Text is: {{text}}</div>
+        <div>Select is: {{select}}</div>
+        <pe-select style="width: 400px;" v-model="select" :data="['a', { 'value': 'ok', 'label': 'v is ok' }, 'c', 'd', 'e', 'f', 'g', 'h']"></pe-select>
+        <pe-text style="width: 400px;" v-model="text">
+            <template v-slot:before>
+                <pe-select :data="['a', { 'value': 'ok', 'label': 'v is ok' }, 'c', 'd', 'e', 'f', 'g', 'h']"></pe-select>
+            </template>
+        </pe-text>
+    </div>
+</div>
 <!-- 脚部 -->
-<pe-footer>
-    <div class="pe-footer-list pe-footer-end">
-        <div class="pe-footer-logo"></div>
-    </div>
-    <div class="pe-footer-list">
-        <div class="pe-footer-title">List 1</div>
-        <a href="./">Page 1</a>
-        <a href="./">Page 2</a>
-        <a href="./">Page 3</a>
-    </div>
-    <div class="pe-footer-list">
-        <div class="pe-footer-title">List 2</div>
-        <a href="./" class="pe-link" target="_blank">Page 1</a>
-        <a href="./">Page 2</a>
-        <a href="./">Page 3</a>
-    </div>
-    <div class="pe-footer-list">
-        <div class="pe-footer-title">List 3</div>
-        <a href="./">Page 1</a>
-        <a href="./">Page 2</a>
-        <a href="./">Page 3</a>
-    </div>
-    <template v-slot:bottom>
-        <div class="pe-footer-bottom-line">
-            <div class="pe-alayout" style="gap: 10px; align-items: center;">
-                <div>This is some footer information</div>
-                <div>Note2</div>
+<div id="footer">
+    <pe-footer>
+        <div class="pe-footer-list pe-footer-end">
+            <div class="pe-footer-logo"></div>
+        </div>
+        <div class="pe-footer-list">
+            <div class="pe-footer-title">List 1</div>
+            <a href="./">Page 1</a>
+            <a href="./">Page 2</a>
+            <a href="./">Page 3</a>
+        </div>
+        <div class="pe-footer-list">
+            <div class="pe-footer-title">List 2</div>
+            <a href="./" class="pe-link" target="_blank">Page 1</a>
+            <a href="./">Page 2</a>
+            <a href="./">Page 3</a>
+        </div>
+        <div class="pe-footer-list">
+            <div class="pe-footer-title">List 3</div>
+            <a href="./">Page 1</a>
+            <a href="./">Page 2</a>
+            <a href="./">Page 3</a>
+        </div>
+        <template v-slot:bottom>
+            <div class="pe-footer-bottom-row">
+                <div class="pe-alayout" style="gap: 10px; align-items: center;">
+                    <div>This is some footer information</div>
+                    <div>Note2</div>
+                </div>
             </div>
-        </div>
-        <div class="pe-footer-bottom-line">
-            <div class="pe-layout">Item1</div>
-            <div class="pe-layout">Item2</div>
-            <div class="pe-layout">Item3</div>
-        </div>
-    </template>
-</pe-footer>
+            <div class="pe-footer-bottom-row">
+                <div class="pe-layout">Item1</div>
+                <div class="pe-layout">Item2</div>
+                <div class="pe-layout">Item3</div>
+                <div class="pe-layout">{{text}}</div>
+            </div>
+        </template>
+    </pe-footer>
+</div>
 </body>
 </html>

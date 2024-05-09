@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.sleep = exports.getClassPrototype = exports.clone = void 0;
+exports.getDecimal = exports.getNumber = exports.getBoolean = exports.random = exports.RANDOM_LUNS = exports.RANDOM_V = exports.RANDOM_LUN = exports.RANDOM_LU = exports.RANDOM_LN = exports.RANDOM_UN = exports.RANDOM_L = exports.RANDOM_U = exports.RANDOM_N = exports.rand = exports.sleep = exports.getClassPrototype = exports.clone = void 0;
 function clone(obj) {
     let newObj = {};
     if (obj instanceof Array) {
@@ -100,13 +100,66 @@ function getClassPrototype(obj, over = [], level = 0) {
 exports.getClassPrototype = getClassPrototype;
 function sleep(ms = 0) {
     return new Promise(function (resolve) {
-        if (ms > 1000 * 3) {
-            resolve(false);
-            return;
-        }
         window.setTimeout(function () {
             resolve(true);
         }, ms);
     });
 }
 exports.sleep = sleep;
+function rand(min, max) {
+    if (min > max) {
+        [min, max] = [max, min];
+    }
+    return min + Math.round(Math.random() * (max - min));
+}
+exports.rand = rand;
+exports.RANDOM_N = '0123456789';
+exports.RANDOM_U = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+exports.RANDOM_L = 'abcdefghijklmnopqrstuvwxyz';
+exports.RANDOM_UN = exports.RANDOM_U + exports.RANDOM_N;
+exports.RANDOM_LN = exports.RANDOM_L + exports.RANDOM_N;
+exports.RANDOM_LU = exports.RANDOM_L + exports.RANDOM_U;
+exports.RANDOM_LUN = exports.RANDOM_L + exports.RANDOM_U + exports.RANDOM_N;
+exports.RANDOM_V = 'ACEFGHJKLMNPRSTWXY34567';
+exports.RANDOM_LUNS = exports.RANDOM_LUN + '()`~!@#$%^&*-+=_|{}[]:;\'<>,.?/]';
+function random(length = 8, source = exports.RANDOM_LN, block = '') {
+    let len = block.length;
+    if (len > 0) {
+        for (let i = 0; i < len; ++i) {
+            source = source.replace(block[i], '');
+        }
+    }
+    len = source.length;
+    if (len === 0) {
+        return '';
+    }
+    let temp = '';
+    for (let i = 0; i < length; ++i) {
+        temp += source[rand(0, len - 1)];
+    }
+    return temp;
+}
+exports.random = random;
+function getBoolean(param) {
+    const t = typeof param;
+    if (t === 'boolean') {
+        return param;
+    }
+    if (t === 'string') {
+        return param === 'false' ? false : true;
+    }
+    return param ? true : false;
+}
+exports.getBoolean = getBoolean;
+function getNumber(param) {
+    if (typeof param === 'number') {
+        return param;
+    }
+    return parseFloat(param);
+}
+exports.getNumber = getNumber;
+function getDecimal(number) {
+    const integerPart = Math.sign(number) === 1 ? Math.floor(number) : Math.ceil(number);
+    return number - integerPart;
+}
+exports.getDecimal = getDecimal;

@@ -71,3 +71,15 @@ export interface IVNode {
 
     [key: string]: any;
 }
+
+/** --- 绑定鼠标事件选项 --- */
+export interface IBindDownOptions<T extends MouseEvent | TouchEvent> {
+    'down'?: (e: T) => void;
+    'start'?: (e: T) => any;
+    'move'?: (
+        e: T,
+        dir: 'top' | 'right' | 'bottom' | 'left'
+    ) => any;
+    'up'?: (e: T) => void;
+    'end'?: (e: T) => void;
+}

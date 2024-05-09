@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Swipe - Purease Test</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+<link rel="stylesheet" href="../index.css" />
+<script src="https://cdn.jsdelivr.net/npm/@litert/loader@3.5.1/dist/loader.min.js?path=index"></script>
+<!-- 用户 -->
+<link rel="stylesheet" href="index.css" />
+</head>
+<body>
+<div id="header">
+    <pe-header logo-href="./" fixed theme="rev" class="swipe">
+        <pe-header-item href="./">Home</pe-header-item>
+        <pe-header-item>
+            List
+            <pe-menu>
+                <pe-menu-item href="./">111</pe-menu-item>
+                <pe-menu-item href="./">222</pe-menu-item>
+            </pe-menu>
+        </pe-header-item>
+        <pe-header-item href="./swipe.html">Swipe</pe-header-item>
+        <pe-header-item>
+            Double
+            <pe-menu>
+                <div class="pe-layoutlist">
+                    <div>
+                        <pe-menu-item href="./" style="flex: 1;">111342342342334</pe-menu-item>
+                        <pe-menu-item href="./" style="flex: 1;">222</pe-menu-item>
+                    </div>
+                    <div>
+                        <pe-menu-item href="./" style="flex: 1;">333</pe-menu-item>
+                        <pe-menu-item href="./" style="flex: 1;">444</pe-menu-item>
+                    </div>
+                </div>
+            </pe-menu>
+        </pe-header-item>
+        <pe-header-item href="./">About</pe-header-item>
+        <template v-slot:right>
+            <pe-header-item href="./">OK</pe-header-item>
+            <a class="pe-button pe-plain pe-bold" href="./">Hello</a>
+        </template>
+    </pe-header>
+</div>
+<pe-swipe>
+    <pe-swipe-item direction="v" style="background: rgba(0,0,0,.9); color: #FFF;">
+        <pe-banner class="swipe" direction="v" style="height: 100%;">
+            <div class="pe-btitle">I'm glad to see you</div>
+            <div class="pe-bnote">With Purease, you can quickly build a versatile, minimalist webpage.</div>
+            <div class="pe-layout" style="gap: 20px; align-items: center;">
+                <a class="pe-button pe-pwhite" href="javascript:void(0);">Download</a>
+                <a class="pe-button pe-dark" href="javascript:void(0);">Download</a>
+            </div>
+        </pe-banner>
+    </pe-swipe-item>
+    <pe-swipe-item style="background: #000; color: #FFF;">22</pe-swipe-item>
+    <pe-swipe-item style="background: hsl(240, 50%, 30%); color: #FFF;">33</pe-swipe-item>
+</pe-swipe>
+</body>
+</html>

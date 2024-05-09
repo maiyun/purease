@@ -133,16 +133,86 @@ export function getClassPrototype(obj: object, over: string[] = [], level: numbe
 
 /**
  * --- 等待毫秒 ---
- * @param ms 等待的毫秒，默认 0，最大 3 秒
+ * @param ms 等待的毫秒，默认 0
  */
 export function sleep(ms: number = 0): Promise<boolean> {
     return new Promise(function(resolve) {
-        if (ms > 1000 * 3) {
-            resolve(false);
-            return;
-        }
         window.setTimeout(function() {
             resolve(true);
         }, ms);
     });
+}
+
+
+/**
+ * --- 生成范围内的随机数 ---
+ * @param min 最新范围
+ * @param max 最大范围
+ */
+export function rand(min: number, max: number): number {
+    if (min > max) {
+        [min, max] = [max, min];
+    }
+    return min + Math.round(Math.random() * (max - min));
+}
+
+export const RANDOM_N = '0123456789';
+export const RANDOM_U = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+export const RANDOM_L = 'abcdefghijklmnopqrstuvwxyz';
+
+export const RANDOM_UN = RANDOM_U + RANDOM_N;
+export const RANDOM_LN = RANDOM_L + RANDOM_N;
+export const RANDOM_LU = RANDOM_L + RANDOM_U;
+export const RANDOM_LUN = RANDOM_L + RANDOM_U + RANDOM_N;
+export const RANDOM_V = 'ACEFGHJKLMNPRSTWXY34567';
+export const RANDOM_LUNS = RANDOM_LUN + '()`~!@#$%^&*-+=_|{}[]:;\'<>,.?/]';
+export function random(length: number = 8, source: string = RANDOM_LN, block: string = ''): string {
+    // --- 剔除 block 字符 ---
+    let len = block.length;
+    if (len > 0) {
+        for (let i = 0; i < len; ++i) {
+            source = source.replace(block[i], '');
+        }
+    }
+    len = source.length;
+    if (len === 0) {
+        return '';
+    }
+    let temp = '';
+    for (let i = 0; i < length; ++i) {
+        temp += source[rand(0, len - 1)];
+    }
+    return temp;
+}
+
+/**
+ * --- 根据参数获取最终的布尔值 ---
+ * @param param 参数
+ */
+export function getBoolean(param: boolean | string | number | undefined): boolean {
+    const t = typeof param;
+    if (t === 'boolean') {
+        return param as boolean;
+    }
+    if (t === 'string') {
+        return param === 'false' ? false : true;
+    }
+    return param ? true : false;
+}
+
+/**
+ * --- 根据参数获取最终的数字型 ---
+ * @param param 参数
+ */
+export function getNumber(param: string | number): number {
+    if (typeof param === 'number') {
+        return param;
+    }
+    return parseFloat(param);
+}
+
+/** --- 获取数字的单纯小数点部分 --- */
+export function getDecimal(number: number) {
+    const integerPart = Math.sign(number) === 1 ? Math.floor(number) : Math.ceil(number);
+    return number - integerPart;
 }
