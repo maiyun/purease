@@ -7,6 +7,10 @@ class Page extends purease.AbstractPage {
 
     public select = 'h';
 
+    // --- swipe ---
+
+    public tab = 0;
+
     public main(): void | Promise<void> {
         console.log('Inited.', purease);
     }

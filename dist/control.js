@@ -63,12 +63,10 @@ exports.list = {
             }
         },
         'computed': {
-            'propBoolean': {
-                get: function () {
-                    return (name) => {
-                        return tool.getBoolean(this.$props[name]);
-                    };
-                }
+            propBoolean: function () {
+                return (name) => {
+                    return tool.getBoolean(this.$props[name]);
+                };
             },
             'headerPop': {
                 get: function () {
@@ -80,15 +78,65 @@ exports.list = {
             }
         }
     },
+    'pe-label': {
+        'template': `<span class="pe-label" :class="['pe-label-'+mode]">` +
+            '<template v-if="content">{{contentComp}}</template>' +
+            '<slot v-else></slot>' +
+            '</span>',
+        'props': {
+            'mode': 'default',
+            'content': '',
+            'time': true,
+            'date': true,
+            'zone': false,
+            'tz': undefined
+        },
+        'computed': {
+            contentComp: function () {
+                if (this.props.mode !== 'date') {
+                    return this.props.content;
+                }
+                if (this.propNumber('content') === 0) {
+                    return '';
+                }
+                const dateTxt = [];
+                const date = new Date(this.propNumber('content') * 1000);
+                const tz = this.props.tz === undefined ? -(date.getTimezoneOffset() / 60) : this.propNumber('tz');
+                date.setTime(date.getTime() + tz * 60 * 60 * 1000);
+                if (this.propBoolean('date')) {
+                    dateTxt.push(date.getUTCFullYear().toString() + '-' + (date.getUTCMonth() + 1).toString().padStart(2, '0') + '-' + date.getUTCDate().toString().padStart(2, '0'));
+                }
+                if (this.propBoolean('time')) {
+                    dateTxt.push(date.getUTCHours().toString().padStart(2, '0') + ':' + date.getUTCMinutes().toString().padStart(2, '0') + ':' + date.getUTCSeconds().toString().padStart(2, '0'));
+                }
+                if (this.propBoolean('zone')) {
+                    dateTxt.push('UTC' + (tz >= 0 ? '+' : '') + tz.toString());
+                }
+                return dateTxt.join(' ');
+            }
+        }
+    },
     'pe-footer': {
-        'template': '<div class="pe-footer">' +
+        'template': `<div class="pe-footer" :class="[propBoolean('dark')&&'pe-dark']">` +
             '<div class="pe-footer-content">' +
             '<slot></slot>' +
             '</div>' +
             `<div v-if="$slots['bottom']" class="pe-footer-bottom">` +
             '<slot name="bottom"></slot>' +
             '</div>' +
-            '</div>'
+            '</div>',
+        'props': {
+            'dark': {
+                'default': false
+            }
+        },
+        'computed': {
+            propBoolean: function () {
+                return (name) => {
+                    return tool.getBoolean(this.$props[name]);
+                };
+            }
+        }
     },
     'pe-header-item': {
         'props': {
@@ -183,7 +231,22 @@ exports.list = {
             `<div v-if="$slots['after']" class="pe-after"><slot name="after"></slot></div>` +
             '</div>'
     },
+    'pe-icon': {
+        'template': `<svg v-if="name==='link'" class="pe-icon" viewBox="0 0 24 24" fill="none"><path d="M13 11L22 2M22 2H16.6562M22 2V7.34375" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2M22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2.49073 19.5618 2.16444 18.1934 2.0551 16" stroke-width="1.5" stroke-linecap="round"/></svg>`,
+        'props': {
+            'name': {
+                'default': 'link'
+            }
+        }
+    },
     'pe-select': {
+        'template': `<div class="pe-select" :tabindex="!propBoolean('disabled') ? '0' : undefined" :data-pe-disabled="propBoolean('disabled') ? '' : undefined">` +
+            `<div class="pe-select-label" @click="open">{{dataComp[index] ? dataComp[index].label : '　'}}</div>` +
+            '<div class="pe-select-arrow" @click="open"></div>' +
+            '<div class="pe-pop" ref="pop">' +
+            `<div v-for="item, i of dataComp" class="pe-select-item" :class="[(index===i)&&'pe-selected']" @click="click(i)">{{item.label}}</div>` +
+            '</div>' +
+            '</div>',
         'props': {
             'modelValue': {
                 'default': ''
@@ -216,14 +279,12 @@ exports.list = {
             }
         },
         'computed': {
-            'propBoolean': {
-                get: function () {
-                    return (name) => {
-                        return tool.getBoolean(this.$props[name]);
-                    };
-                }
+            propBoolean: function () {
+                return (name) => {
+                    return tool.getBoolean(this.$props[name]);
+                };
             },
-            'dataComp': function () {
+            dataComp: function () {
                 var _a, _b, _c, _d;
                 const ds = [];
                 for (const item of this.$props.data) {
@@ -242,13 +303,6 @@ exports.list = {
                 return ds;
             }
         },
-        'template': `<div class="pe-select" :tabindex="!propBoolean('disabled') ? '0' : undefined" :data-pe-disabled="propBoolean('disabled') ? '' : undefined">` +
-            `<div class="pe-select-label" @click="open">{{dataComp[index] ? dataComp[index].label : '　'}}</div>` +
-            '<div class="pe-select-arrow" @click="open"></div>' +
-            '<div class="pe-pop" ref="pop">' +
-            `<div v-for="item, i of dataComp" class="pe-select-item" :class="[(index===i)&&'pe-selected']" @click="click(i)">{{item.label}}</div>` +
-            '</div>' +
-            '</div>',
         'watch': {
             'modelValue': {
                 handler: function () {
@@ -277,19 +331,61 @@ exports.list = {
             '<slot></slot>' +
             '</div>' +
             '<div class="pe-swipe-page">' +
-            `<div v-for="i of itemCount" class="pe-swipe-page-item" :class="[(selected===i-1)&&'pe-selected']"></div>` +
+            `<div v-for="i of itemCount" class="pe-swipe-page-item" :class="[(selected===i-1)&&'pe-selected']" @click="pdown(i)"></div>` +
             '</div>' +
             '<div v-if="itemCount > 1" class="pe-swipe-prev" @click="prev"></div>' +
             '<div v-if="itemCount > 1" class="pe-swipe-next" @click="next"></div>' +
             '</div>',
+        'props': {
+            'modelValue': {
+                'default': 0
+            },
+            'auto': {
+                'default': false
+            }
+        },
         data: function () {
             return {
                 'itemCount': 0,
                 'selected': 0,
+                'mvselected': 0,
                 'timer': null,
                 'translate': 0,
-                'width': 0
+                'width': 0,
+                'going': false
             };
+        },
+        'watch': {
+            'modelValue': {
+                handler: function () {
+                    if (this.selected === this.modelValue) {
+                        return;
+                    }
+                    this.mvselected = this.modelValue;
+                    if (this.going) {
+                        return;
+                    }
+                    this.selected = this.mvselected;
+                    this.go();
+                },
+                'immediate': true
+            },
+            'auto': {
+                handler: function () {
+                    if (tool.getBoolean(this.auto)) {
+                        this.timer = setTimeout(() => {
+                            this.timer = null;
+                            ++this.selected;
+                            this.go();
+                            this.mvselected = this.selected;
+                            this.$emit('update:modelValue', this.mvelected);
+                        }, 3000);
+                        return;
+                    }
+                    clearTimeout(this.timer);
+                    this.timer = null;
+                }
+            }
         },
         'computed': {
             awidth: function () {
@@ -298,10 +394,27 @@ exports.list = {
         },
         methods: {
             down: function (e) {
+                if (this.going) {
+                    return;
+                }
                 if (this.itemCount < 2) {
                     return;
                 }
-                this.width = this.$el.offsetWidth;
+                const target = e.target;
+                if (!target) {
+                    return;
+                }
+                if (target.tagName.toLowerCase() === 'a') {
+                    return;
+                }
+                const a = dom.findParentByTag(target, 'a');
+                if (a) {
+                    return;
+                }
+                if (this.timer) {
+                    clearTimeout(this.timer);
+                    this.timer = null;
+                }
                 let ox = e instanceof MouseEvent ? e.clientX : e.touches[0].clientX;
                 let x = ox;
                 const time = Date.now();
@@ -327,64 +440,122 @@ exports.list = {
                         const index = Math.floor(info);
                         const dec = tool.getDecimal(info);
                         if (speed > 0.6) {
-                            this.go(cx > 0 ? index : index + 1);
+                            this.selected = cx > 0 ? index : index + 1;
+                            this.go();
+                            this.mvselected = this.selected;
+                            this.$emit('update:modelValue', this.mvselected);
                             return;
                         }
                         if (index >= 0) {
-                            this.go(dec >= 0.5 ? index + 1 : index);
+                            this.selected = dec >= 0.5 ? index + 1 : index;
                         }
                         else {
-                            this.go(dec >= -0.5 ? index + 1 : index);
+                            this.selected = dec >= -0.5 ? index + 1 : index;
                         }
+                        this.go();
+                        this.mvselected = this.selected;
+                        this.$emit('update:modelValue', this.mvselected);
                     })
                 });
             },
             prev: function () {
                 return __awaiter(this, void 0, void 0, function* () {
+                    if (this.going) {
+                        return;
+                    }
                     this.translate += 10;
-                    this.go(this.selected - 1);
+                    --this.selected;
+                    this.go();
+                    this.mvselected = this.selected;
+                    this.$emit('update:modelValue', this.mvselected);
                 });
             },
             next: function () {
                 return __awaiter(this, void 0, void 0, function* () {
+                    if (this.going) {
+                        return;
+                    }
                     this.translate -= 10;
-                    this.go(this.selected + 1);
+                    ++this.selected;
+                    this.go();
+                    this.mvselected = this.selected;
+                    this.$emit('update:modelValue', this.mvselected);
                 });
             },
-            go: function (index) {
+            pdown: function (p) {
+                if (this.going) {
+                    return;
+                }
+                --p;
+                if (p === this.selected) {
+                    return;
+                }
+                this.selected = p;
+                this.go();
+                this.mvselected = this.selected;
+                this.$emit('update:modelValue', this.mvselected);
+            },
+            go: function () {
                 return __awaiter(this, void 0, void 0, function* () {
-                    this.$refs.wrap.style.transition = 'var(--pe-transition)';
-                    yield tool.sleep(34);
-                    this.selected = index;
+                    this.going = true;
+                    const index = this.selected;
                     if (this.selected === -1) {
                         this.selected = this.itemCount - 1;
                     }
                     else if (this.selected === this.itemCount) {
                         this.selected = 0;
                     }
+                    if (this.timer) {
+                        clearTimeout(this.timer);
+                        this.timer = null;
+                    }
+                    this.$refs.wrap.style.transition = 'var(--pe-transition)';
+                    yield tool.sleep(34);
                     this.$refs.wrap.style.transform = 'translateX(' + (-(index * this.width)).toString() + 'px)';
                     yield tool.sleep(334);
                     this.$refs.wrap.style.transition = '';
                     yield tool.sleep(34);
-                    this.translate = -(index * this.width);
-                    if (index === -1) {
-                        this.translate = -(this.itemCount - 1) * this.width;
-                    }
-                    else if (index === this.itemCount) {
-                        this.translate = 0;
-                    }
+                    this.translate = -(this.selected * this.width);
                     this.$refs.wrap.style.transform = 'translateX(' + this.translate + 'px)';
+                    this.going = false;
+                    if (this.mvselected !== this.selected) {
+                        this.selected = this.mvselected;
+                        this.go();
+                        return;
+                    }
+                    this.timer = setTimeout(() => {
+                        this.translate -= 10;
+                        this.timer = null;
+                        ++this.selected;
+                        this.go();
+                        this.mvselected = this.selected;
+                        this.$emit('update:modelValue', this.mvselected);
+                    }, 3000);
                 });
+            },
+            resize: function () {
+                this.width = this.$el.offsetWidth;
+                this.translate = -(this.selected * this.width);
+                this.$refs.wrap.style.transform = 'translateX(' + this.translate + 'px)';
             }
         },
         mounted: function () {
             this.width = this.$el.offsetWidth;
-            this.timer = setTimeout(() => {
-            }, 3000);
+            if (tool.getBoolean(this.auto)) {
+                this.timer = setTimeout(() => {
+                    this.timer = null;
+                    ++this.selected;
+                    this.go();
+                    this.mvselected = this.selected;
+                    this.$emit('update:modelValue', this.mvelected);
+                }, 3000);
+            }
+            window.addEventListener('resize', this.resize);
         },
         unmounted: function () {
             return __awaiter(this, void 0, void 0, function* () {
                 yield this.$nextTick();
+                window.removeEventListener('resize', this.resize);
                 if (!this.timer) {
                     return;
                 }
@@ -400,6 +571,11 @@ exports.list = {
             'direction': {
                 'default': 'h'
             }
+        },
+        'data': function () {
+            return {
+                'index': 0
+            };
         },
         'computed': {
             left: function () {
@@ -438,11 +614,6 @@ exports.list = {
                 return this.$parent.itemCount;
             }
         },
-        'data': function () {
-            return {
-                'index': 0
-            };
-        },
         mounted: function () {
             return __awaiter(this, void 0, void 0, function* () {
                 if (!this.$parent) {
@@ -467,5 +638,79 @@ exports.list = {
                 --this.$parent.itemCount;
             });
         }
+    },
+    'pe-tab': {
+        'template': '<div class="pe-tab">' +
+            '<slot></slot>' +
+            '</div>',
+        'data': function () {
+            return {
+                'selected': 0
+            };
+        },
+        'props': {
+            'modelValue': {
+                'default': 0
+            }
+        },
+        'watch': {
+            'selected': {
+                handler: function () {
+                    if (this.modelValue === this.selected) {
+                        return;
+                    }
+                    this.$emit('update:modelValue', this.selected);
+                }
+            },
+            'modelValue': {
+                handler: function () {
+                    if (this.modelValue === this.selected) {
+                        return;
+                    }
+                    this.selected = this.modelValue;
+                },
+                'immediate': true
+            }
+        }
+    },
+    'pe-tab-item': {
+        'template': `<div class="pe-tab-item" :class="[isSelected&&'pe-selected']" @mouseenter="hover" @touchstart="hover">` +
+            '<slot></slot>' +
+            '</div>',
+        'data': function () {
+            return {
+                'index': 0
+            };
+        },
+        'computed': {
+            isSelected: function () {
+                if (!this.$parent) {
+                    return 0;
+                }
+                return this.$parent.selected === this.index;
+            }
+        },
+        'methods': {
+            hover: function (e) {
+                if (!this.$parent) {
+                    return;
+                }
+                if (dom.hasTouchButMouse(e)) {
+                    return;
+                }
+                this.$parent.selected = this.index;
+            }
+        },
+        mounted: function () {
+            return __awaiter(this, void 0, void 0, function* () {
+                if (!this.$parent) {
+                    return;
+                }
+                if (this.$parent.selected === undefined) {
+                    return;
+                }
+                this.index = dom.index(this.$el);
+            });
+        },
     }
 };

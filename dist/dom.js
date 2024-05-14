@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.bindDown = exports.index = exports.findParentByClass = exports.hasTouchButMouse = exports.hidePop = exports.showPop = void 0;
+exports.bindDown = exports.index = exports.findParentByTag = exports.findParentByClass = exports.hasTouchButMouse = exports.hidePop = exports.showPop = void 0;
 let lastTouchTime = 0;
 document.addEventListener('touchstart', function (e) {
     lastTouchTime = Date.now();
@@ -76,6 +76,24 @@ function doDown(e) {
     showedPop.classList.remove('pe-show');
     showedPop = null;
 }
+function findParentByTag(el, name) {
+    let parent = el.parentNode;
+    while (parent) {
+        if (!parent.tagName) {
+            continue;
+        }
+        const tag = parent.tagName.toLowerCase();
+        if (tag === 'body') {
+            break;
+        }
+        if (tag === name) {
+            return parent;
+        }
+        parent = parent.parentNode;
+    }
+    return null;
+}
+exports.findParentByTag = findParentByTag;
 function index(el) {
     let index = 0;
     let p = el.previousElementSibling;

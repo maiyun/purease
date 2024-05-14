@@ -2,6 +2,7 @@
 
 html {
     --pe-color:hsl(0, 0%, 20%);
+    --pe-note-color:hsl(0, 0%, 40%);
     --pe-h-color:hsl(90, 65%, 35%);
     --pe-h-bgcolor:hsl(90, 65%, 95%);
     --pe-h-fcolor:#FFF;
@@ -19,8 +20,11 @@ html, body {
 body, html, input, select, textarea {
     font-family: var(--pe-font-life); color: var(--pe-color); fill: var(--pe-color); stroke: var(--pe-color); line-height: 1.5; font-size: 16px;
 }
+body {
+    visibility: hidden;
+}
 a {
-    color: var(--pe-color); fill: var(--pe-color); stroke: var(--pe-color); text-decoration: none; transition: var(--pe-transition);
+    color: var(--pe-color); fill: var(--pe-color); stroke: var(--pe-color); text-decoration: none; transition: var(--pe-transition); display: inline-flex; align-items: center;
     &:hover {
         color: var(--pe-h-color); fill: var(--pe-h-color); stroke: var(--pe-h-color);
     }
@@ -28,6 +32,13 @@ a {
         &:hover {
             text-decoration: underline;
         }
+    }
+
+    > svg:first-child {
+        margin-right: 5px;
+    }
+    > svg:last-child {
+        margin-left: 5px;
     }
 }
 img {
@@ -69,7 +80,7 @@ html.pe-speed-imme {
     font-size: 22px;
 }
 .pe-gnote {
-    font-size: 22px; color: hsl(0, 0%, 40%); fill: hsl(0, 0%, 40%); stroke: hsl(0, 0%, 40%);
+    font-size: 22px; color: var(--pe-note-color); fill: var(--pe-note-color); stroke: var(--pe-note-color);
 }
 
 // --- pe-header ---
@@ -132,6 +143,7 @@ html.pe-scroll .pe-header.pe-fixed, .pe-header:hover {
 html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     &.pe-theme-rev {
         &:not(:hover) {
+            color: #FFF; fill: #FFF; stroke: #FFF;
             .pe-header-item {
                 color: #FFF; fill: #FFF; stroke: #FFF;
                 &.pe-list {
@@ -142,6 +154,12 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
             }
         }
     }
+}
+
+// --- pe-icon ---
+
+.pe-icon {
+    width: 18px; height: 18px;
 }
 
 // --- pe-banner ---
@@ -185,6 +203,15 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
             box-shadow: none;
         }
     }
+}
+
+// --- pe-label ---
+
+.pe-label-tip {
+    color: var(--pe-color); fill: var(--pe-color); stroke: var(--pe-color);
+}
+.pe-label-mtip {
+    color: var(--pe-note-color); fill: var(--pe-note-color); stroke: var(--pe-note-color); margin-top: 10px;
 }
 
 // --- pe-content ---
@@ -342,7 +369,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 // --- pe-box ---
 
 .pe-box {
-    border: solid 1px hsl(220, 15%, 85%); background: #FFF; border-radius: var(--pe-radius); display: flex; flex-direction: column; transition: var(--pe-transition);
+    border: solid 1px hsl(220, 15%, 85%); background: #FFF; border-radius: var(--pe-radius); display: flex; align-items: initial; flex-direction: column; transition: var(--pe-transition);
     &:hover {
         color: var(--pe-color); fill: var(--pe-color); stroke: var(--pe-color);
     }
@@ -357,13 +384,27 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 // --- pe-img ---
 
 .pe-img {
-    background-position: center; background-repeat: no-repeat; background-size: cover;
+    background-position: center; background-repeat: no-repeat; background-size: 100%; transition: var(--pe-transition);
+    &.pe-hover {
+        &:hover {
+            background-size: 120%;
+        }
+    }
 }
 
 // --- pe-footer ---
 
 .pe-footer {
     background: hsl(0, 0%, 98%); padding: 120px 40px; white-space: nowrap;
+    &.pe-dark {
+        background: hsl(0, 0%, 2%); color: #FFF;
+        a {
+            color: hsl(0, 0%, 80%); fill: hsl(0, 0%, 80%); stroke: hsl(0, 0%, 80%);
+            &:hover {
+                color: hsl(0, 0%, 100%); fill: hsl(0, 0%, 100%); stroke: hsl(0, 0%, 100%);
+            }
+        }
+    }
 }
 .pe-footer-content {
     width: 100%; max-width: 1600px; margin: 0 auto; display: flex;
@@ -383,18 +424,15 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 .pe-footer-bottom {
     margin-top: 80px; margin-bottom: -40px; display: flex; flex-direction: column; gap: 10px; font-size: 14px; color: hsl(0, 0%, 40%); fill: hsl(0, 0%, 40%); stroke: hsl(0, 0%, 40%);
 }
+.pe-footer {
+    &.pe-dark {
+        .pe-footer-bottom {
+            color: hsl(0, 0%, 60%); fill: hsl(0, 0%, 60%); stroke: hsl(0, 0%, 60%);
+        }
+    }
+}
 .pe-footer-bottom-row {
     display: flex; justify-content: center; align-items: center; gap: 10px;
-}
-
-// --- pe-link ---
-// --- 将在右边自动显示一个图标用来表示当前链接在新页面打开 ---
-
-.pe-link {
-    display: flex; align-items: center;
-    svg {
-        margin-left: 5px;
-    }
 }
 
 // --- pe-icon ---
@@ -490,7 +528,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 // --- pe-swipe ---
 
 .pe-swipe {
-    display: flex; position: relative; height: 700px; overflow: hidden;
+    display: flex; position: relative; height: 800px; overflow: hidden; cursor: default; -webkit-user-select: none; user-select: none;
 }
 .pe-swipe-wrap {
     display: flex; flex: 1; position: relative;
@@ -502,6 +540,11 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     width: 10px; height: 10px; transition: var(--pe-transition); background: rgba(255,255,255,.3); margin: 0 5px;
     &.pe-selected {
         width: 30px; background: rgba(255,255,255,.9);
+    }
+    &:not(.pe-selected) {
+        &:hover {
+            background: rgba(255,255,255,.6);
+        }
     }
 }
 .pe-swipe-prev, .pe-swipe-next {
@@ -521,6 +564,19 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     width: 100%; height: 100%; position: absolute; top: 0; display: flex;
     &.pe-direction-v {
         flex-direction: column;
+    }
+}
+
+// --- 选项卡 ---
+
+.pe-tab {
+    display: flex; justify-content: center; cursor: default; -webkit-user-select: none; user-select: none; border-bottom: solid 1px hsl(220, 15%, 85%);
+}
+
+.pe-tab-item {
+    padding: 15px 20px; transition: var(--pe-transition); border-bottom: solid 3px transparent; transform: translateY(1px);
+    &.pe-selected {
+        color: var(--pe-h-color); font-weight: bold; border-bottom-color: var(--pe-h-color);
     }
 }
 

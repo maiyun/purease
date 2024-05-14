@@ -17,6 +17,9 @@ html:not(.pe-scroll) .pe-header.swipe, html.pe-scroll .pe-header.swipe:not(.pe-f
 }
 .pe-footer-logo {
     background-image: url(../../doc/logo.png);
+    &.dark {
+        background-image: url(../../doc/logo-white.png);
+    }
 }
 
 .boximg {

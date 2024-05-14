@@ -32,7 +32,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.tool = exports.launcher = exports.refresh = exports.global = exports.vue = exports.AbstractPanel = exports.AbstractPage = void 0;
+exports.tool = exports.launcher = exports.global = exports.vue = exports.AbstractPanel = exports.AbstractPage = void 0;
 const control = __importStar(require("./control"));
 const tool = __importStar(require("./tool"));
 exports.tool = tool;
@@ -90,20 +90,6 @@ exports.AbstractPanel = AbstractPanel;
 exports.global = {
     'headerPop': false
 };
-function refresh() {
-    const links = document.querySelectorAll('.pe-link:not(.pe-done)');
-    for (const link of links) {
-        link.insertAdjacentHTML('beforeend', '<svg width="18px" height="18px" viewBox="0 0 24 24" fill="none"><path d="M13 11L22 2M22 2H16.6562M22 2V7.34375" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2M22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2.49073 19.5618 2.16444 18.1934 2.0551 16" stroke-width="1.5" stroke-linecap="round"/></svg>');
-        link.classList.add('pe-done');
-    }
-    const dates = document.querySelectorAll('.pe-date:not(.pe-done)');
-    for (const el of dates) {
-        const date = new Date(Number(el.getAttribute('time')) * 1000);
-        el.innerHTML = date.getFullYear().toString() + '-' + (date.getMonth() + 1).toString().padStart(2, '0') + '-' + date.getDate().toString().padStart(2, '0');
-        el.classList.add('pe-done');
-    }
-}
-exports.refresh = refresh;
 function launcher(page, panels = []) {
     (function () {
         return __awaiter(this, void 0, void 0, function* () {
@@ -245,7 +231,7 @@ function launcher(page, panels = []) {
             });
             yield tool.sleep(34);
             yield page.main.call(rtn.vroot);
-            refresh();
+            document.getElementsByTagName('body')[0].style.visibility = 'initial';
         });
     })().catch(function (e) {
         console.log('launcher', e);

@@ -43,9 +43,9 @@
         </template>
     </pe-header>
 </div>
-<pe-swipe>
+<pe-swipe auto>
     <pe-swipe-item direction="v" style="background: rgba(0,0,0,.9); color: #FFF;">
-        <pe-banner class="swipe" direction="v" style="height: 100%;">
+        <pe-banner class="swipe" direction="v" style="flex: 1;">
             <div class="pe-btitle">I'm glad to see you</div>
             <div class="pe-bnote">With Purease, you can quickly build a versatile, minimalist webpage.</div>
             <div class="pe-layout" style="gap: 20px; align-items: center;">
@@ -54,8 +54,82 @@
             </div>
         </pe-banner>
     </pe-swipe-item>
-    <pe-swipe-item style="background: #000; color: #FFF;">22</pe-swipe-item>
-    <pe-swipe-item style="background: hsl(240, 50%, 30%); color: #FFF;">33</pe-swipe-item>
+    <pe-swipe-item direction="v" style="background: #000; color: #FFF; font-size: 48px;">
+        <div class="pe-layout" style="align-items: center; justify-content: center; flex: 1;">222</div>
+    </pe-swipe-item>
+    <pe-swipe-item direction="v" style="background: hsl(240, 50%, 30%); color: #FFF; font-size: 48px;">
+        <div class="pe-layout" style="align-items: center; justify-content: center; flex: 1;">333</div>
+    </pe-swipe-item>
 </pe-swipe>
+<!-- 和首页重复的演示 -->
+<div class="pe-block">
+    <div class="pe-btitle">Rapid prototyping</div>
+    <div class="pe-gnote">Web development shouldn't take up too much time</div>
+    <div class="pe-layout" style="justify-content: center; gap: 20px; margin-top: 20px;">
+        <a class="pe-button" href="./">Discuss</a>
+        <a class="pe-button pe-pgrey" href="./">Discuss2</a>
+        <a class="pe-button pe-grey" href="./">Discuss3</a>
+    </div>
+</div>
+<!-- 选项卡 -->
+<div class="pe-block pe-grey">
+    <div class="pe-btitle">Screenshot</div>
+    <pe-tab v-model="tab">
+        <pe-tab-item>Tab1</pe-tab-item>
+        <pe-tab-item>Tab2</pe-tab-item>
+        <pe-tab-item>Tab3</pe-tab-item>
+    </pe-tab>
+    <pe-swipe v-model="tab" class="pe-content" style="border-radius: 10px; height: 500px;">
+        <pe-swipe-item direction="v" style="background: hsl(160, 50%, 30%); color: #FFF; font-size: 48px;">
+            <div class="pe-layout" style="align-items: center; justify-content: center; flex: 1;">Info1</div>
+        </pe-swipe-item>
+        <pe-swipe-item direction="v" style="background: hsl(200, 50%, 30%); color: #FFF; font-size: 48px;">
+            <div class="pe-layout" style="align-items: center; justify-content: center; flex: 1;">Info2</div>
+        </pe-swipe-item>
+        <pe-swipe-item direction="v" style="background: hsl(240, 50%, 30%); color: #FFF; font-size: 48px;">
+            <div class="pe-layout" style="align-items: center; justify-content: center; flex: 1;">Info3</div>
+        </pe-swipe-item>
+    </pe-swipe>
+</div>
+<!-- 脚部 -->
+<div id="footer">
+    <pe-footer dark>
+        <div class="pe-footer-list pe-footer-end">
+            <div class="pe-footer-logo dark"></div>
+        </div>
+        <div class="pe-footer-list">
+            <div class="pe-footer-title">List 1</div>
+            <a href="./">Page 1</a>
+            <a href="./">Page 2</a>
+            <a href="./">Page 3</a>
+        </div>
+        <div class="pe-footer-list">
+            <div class="pe-footer-title">List 2</div>
+            <a href="./" target="_blank">Page 1<pe-icon></pe-icon></a>
+            <a href="./">Page 2</a>
+            <a href="./">Page 3</a>
+        </div>
+        <div class="pe-footer-list">
+            <div class="pe-footer-title">List 3</div>
+            <a href="./">Page 1</a>
+            <a href="./">Page 2</a>
+            <a href="./">Page 3</a>
+        </div>
+        <template v-slot:bottom>
+            <div class="pe-footer-bottom-row">
+                <div class="pe-alayout" style="gap: 10px; align-items: center;">
+                    <div>This is some footer information</div>
+                    <div>Note2</div>
+                </div>
+            </div>
+            <div class="pe-footer-bottom-row">
+                <div class="pe-layout">Item1</div>
+                <div class="pe-layout">Item2</div>
+                <div class="pe-layout">Item3</div>
+                <div class="pe-layout">{{text}}</div>
+            </div>
+        </template>
+    </pe-footer>
+</div>
 </body>
 </html>

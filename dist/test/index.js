@@ -33,6 +33,7 @@ class Page extends purease.AbstractPage {
         super(...arguments);
         this.text = '123';
         this.select = 'h';
+        this.tab = 0;
     }
     main() {
         console.log('Inited.', purease);
