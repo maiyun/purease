@@ -28,3 +28,6 @@ html:not(.pe-scroll) .pe-header.swipe, html.pe-scroll .pe-header.swipe:not(.pe-f
 .boximg2 {
     background-image: url(./bg.jpg);
 }
+.infoimg {
+    background-image: url(./bg.jpg); min-height: 400px; background-size: contain;
+}

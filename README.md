@@ -67,6 +67,16 @@ This library is published under [Apache-2.0](./LICENSE) license.
 [Hamburger Menu SVG Vector](https://www.svgrepo.com/svg/529002/hamburger-menu)  
 [Close Square SVG Vector](https://www.svgrepo.com/svg/528911/close-square)
 
-#### Link
+#### Check
+
+[Check SVG Vector](https://www.svgrepo.com/svg/506431/check)
+
+#### Icon
+
+##### link
 
 [Square Top Down SVG Vector 6](https://www.svgrepo.com/svg/529231/square-top-down)  
+
+##### language
+
+[Language SVG Vector](https://www.svgrepo.com/svg/451017/language)

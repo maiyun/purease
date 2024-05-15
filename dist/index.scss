@@ -33,13 +33,6 @@ a {
             text-decoration: underline;
         }
     }
-
-    > svg:first-child {
-        margin-right: 5px;
-    }
-    > svg:last-child {
-        margin-left: 5px;
-    }
 }
 img {
     vertical-align: middle;
@@ -91,7 +84,7 @@ html.pe-speed-imme {
         position: fixed;
     }
 }
-html.pe-scroll .pe-header.pe-fixed, .pe-header:hover {
+html.pe-scroll .pe-header.pe-fixed, .pe-header:hover, .pe-header.pe-show {
     &.pe-theme-default {
         box-shadow: 0 3px 5px rgba(0, 0, 0, .07); background: rgba(255, 255, 255, .8); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);
     }
@@ -126,7 +119,7 @@ html.pe-scroll .pe-header.pe-fixed, .pe-header:hover {
     &.pe-list {
         cursor: default;
         &::after {
-            content: ''; display: inline-block; width: 6px; height: 6px; border: solid 2px var(--pe-color); border-width: 0 0 2px 2px; transform: rotate(-45deg); margin-left: 10px; transition: var(--pe-transition); margin-top: -2px;
+            content: ''; display: inline-block; width: 6px; height: 6px; border: solid 2px var(--pe-color); border-width: 0 0 2px 2px; transform: rotate(-45deg); margin-left: 10px; transition: var(--pe-transition); margin-top: -3px;
         }
         &:hover {
             &::after {
@@ -142,7 +135,7 @@ html.pe-scroll .pe-header.pe-fixed, .pe-header:hover {
 
 html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     &.pe-theme-rev {
-        &:not(:hover) {
+        &:not(:hover):not(.pe-show) {
             color: #FFF; fill: #FFF; stroke: #FFF;
             .pe-header-item {
                 color: #FFF; fill: #FFF; stroke: #FFF;
@@ -159,7 +152,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 // --- pe-icon ---
 
 .pe-icon {
-    width: 18px; height: 18px;
+    width: 18px; height: 18px; margin: 0 5px;
 }
 
 // --- pe-banner ---
@@ -188,7 +181,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 // --- pe-menu ---
 
 .pe-menu {
-    position: absolute; background: #FFF; border-radius: var(--pe-radius); box-shadow: 0 3px 5px rgba(0, 0, 0, .07); opacity: 0; pointer-events: none; transform: translateY(10px); transition: var(--pe-transition); left: -30px; top: 100%; line-height: 1.5; padding: 15px; display: flex; flex-direction: column; color: var(--pe-color); fill: var(--pe-color); stroke: var(--pe-color); min-width: 180px;
+    position: absolute; background: #FFF; border-radius: var(--pe-radius); box-shadow: 0 3px 5px rgba(0, 0, 0, .07); opacity: 0; pointer-events: none; transform: translateY(10px); transition: var(--pe-transition); left: -30px; top: 100%; line-height: 1.5; padding: 15px; display: flex; flex-direction: column; color: var(--pe-color); fill: var(--pe-color); stroke: var(--pe-color); min-width: 180px; white-space: nowrap;
 }
 .pe-menu-item {
     padding: 15px 35px 15px 15px; transition: var(--pe-transition); display: flex;
@@ -207,6 +200,9 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 
 // --- pe-label ---
 
+.pe-label {
+    display: inline-flex; align-items: center;
+}
 .pe-label-tip {
     color: var(--pe-color); fill: var(--pe-color); stroke: var(--pe-color);
 }
@@ -245,8 +241,39 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 
 .pe-layoutlist {
     display: flex;
-    > div {
+    > * {
         flex: 1;
+    }
+}
+
+// --- pe-check ---
+
+.pe-check {
+    display: inline-flex; align-items: center; cursor: default;
+}
+.pe-check-box {
+    background: hsl(220, 20%, 98%); border-radius: var(--pe-radius); transition: var(--pe-transition); margin-right: 5px; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center;
+    svg {
+        width: 18px; height: 18px; vertical-align: middle;
+    }
+}
+.pe-check {
+    &:hover {
+        .pe-check-box {
+            background: hsl(220, 20%, 95%); color: var(--pe-color);
+        }
+    }
+    &:focus, &:active {
+        .pe-check-box {
+            background: hsl(220, 20%, 98%); box-shadow: 0 0 0 4px hsl(220, 20%, 95%);
+        }
+    }
+    &:not(.pe-checked) {
+        .pe-check-box {
+            svg {
+                display: none;
+            }
+        }
     }
 }
 
@@ -325,7 +352,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 
 html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     &.pe-theme-rev {
-        &:not(:hover) {
+        &:not(:hover):not(.pe-show) {
             .pe-button {
                 &.pe-plain {
                     border-color: #FFF; color: #FFF; fill: #FFF; stroke: #FFF;
@@ -354,6 +381,10 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     display: flex;
     > * {
         flex: 1;
+    }
+
+    &.pe-reverse {
+        flex-direction: row-reverse;
     }
 }
 
@@ -488,7 +519,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 // --- pe-select ---
 
 .pe-select {
-    border-radius: var(--pe-radius); transition: var(--pe-transition); display: flex; background: hsl(220, 20%, 98%); -webkit-user-select: none; user-select: none; cursor: default; position: relative;
+    border-radius: var(--pe-radius); transition: var(--pe-transition); display: flex; background: hsl(220, 20%, 98%); -webkit-user-select: none; user-select: none; cursor: default; position: relative; outline: none;
     &:hover {
         background: hsl(220, 20%, 95%); color: var(--pe-color);
     }
@@ -617,8 +648,10 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     }
     .pe-nav {
         position: fixed; left: 0; top: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, .8); flex-direction: column; opacity: 0; pointer-events: none; transition: var(--pe-transition);
-        &.pe-show {
-            opacity: 1; -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); pointer-events: initial;
+    }
+    .pe-header.pe-show {
+        .pe-nav {
+            opacity: 1; -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); pointer-events: initial; 
         }
     }
     .pe-nav-left {
@@ -655,10 +688,19 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
         }
     }
 
+    // --- pe-block ---
+
+    .pe-block {
+        padding: 80px 0;
+    }
+
     // --- pe-alayout ---
 
     .pe-alayout {
         flex-direction: column;
+        &.pe-reverse {
+            flex-direction: column;
+        }
     }
 
     // --- pe-lralyout ---
