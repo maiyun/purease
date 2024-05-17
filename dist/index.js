@@ -42,6 +42,18 @@ class AbstractPage {
     }
     constructor(opt = {}) {
         this._debug = false;
+        this.dialogInfo = {
+            'show': false,
+            'title': '',
+            'content': '',
+            'buttons': ['OK'],
+            'select': (button) => { }
+        };
+        this.notifyInfo = {
+            'show': false,
+            'content': '',
+            'timer': 0
+        };
         if (opt.debug) {
             this._debug = true;
         }
@@ -66,6 +78,66 @@ class AbstractPage {
     }
     watch(name, cb, opt = {}) {
         return this.$watch(name, cb, opt);
+    }
+    dialog(opt) {
+        var _a, _b;
+        const o = typeof opt === 'string' ? {
+            'content': opt
+        } : opt;
+        this.dialogInfo.show = true;
+        this.dialogInfo.title = (_a = o.title) !== null && _a !== void 0 ? _a : '';
+        this.dialogInfo.content = o.content;
+        this.dialogInfo.buttons = (_b = o.buttons) !== null && _b !== void 0 ? _b : ['OK'];
+        return new Promise((resolve) => {
+            this.dialogInfo.select = (button) => __awaiter(this, void 0, void 0, function* () {
+                if (!o.select) {
+                    this.dialogInfo.show = false;
+                    resolve(button);
+                    return;
+                }
+                const res = o.select(button);
+                const r = res instanceof Promise ? yield res : res;
+                if (r === false) {
+                    return;
+                }
+                this.dialogInfo.show = false;
+                resolve(button);
+            });
+        });
+    }
+    confirm(opt) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const o = typeof opt === 'string' ? {
+                'content': opt
+            } : opt;
+            const buttons = ['No', 'Yes'];
+            if (o.cancel) {
+                buttons.unshift('Cancel');
+            }
+            const res = yield this.dialog({
+                'title': o.title,
+                'content': o.content,
+                'buttons': buttons
+            });
+            if (res === 'Yes') {
+                return true;
+            }
+            if (res === 'Cancel') {
+                return 0;
+            }
+            return false;
+        });
+    }
+    notify(content) {
+        if (this.notifyInfo.timer) {
+            clearTimeout(this.notifyInfo.timer);
+            this.notifyInfo.timer = 0;
+        }
+        this.notifyInfo.content = content;
+        this.notifyInfo.show = true;
+        this.notifyInfo.timer = window.setTimeout(() => {
+            this.notifyInfo.show = false;
+        }, 3000);
     }
 }
 exports.AbstractPage = AbstractPage;
@@ -153,6 +225,7 @@ function launcher(page, panels = []) {
                     'mounted': function () {
                         return __awaiter(this, void 0, void 0, function* () {
                             yield this.$nextTick();
+                            this.rootPage = this.$root;
                             this.main();
                         });
                     },
@@ -227,6 +300,14 @@ function launcher(page, panels = []) {
                 for (const key in panelComponents) {
                     vapp.component(key, panelComponents[key]);
                 }
+                bodys[0].insertAdjacentHTML('beforeend', `<pe-dialog :title="dialogInfo.title" :content="dialogInfo.content" :buttons="dialogInfo.buttons" :show="dialogInfo.show" @select="dialogInfo.select"></pe-dialog>` +
+                    '<div class="pe-popbtns">' +
+                    '<div class="pe-popbtn"></div>' +
+                    '</div>' +
+                    '<div class="pe-loading"></div>' +
+                    `<div class="pe-notify" :class="[notifyInfo.show&&'pe-show']">` +
+                    '<div class="pe-notify-content" v-html="notifyInfo.content"></div>' +
+                    '</div>');
                 vapp.mount(bodys[0]);
             });
             yield tool.sleep(34);

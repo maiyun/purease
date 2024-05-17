@@ -128,6 +128,19 @@
         <div class="pe-img infoimg"></div>
     </div>
 </div>
+<div class="pe-block">
+    <div class="pe-btitle">Dialog</div>
+    <div class="pe-layout" style="justify-content: center; gap: 20px; margin-top: 20px;">
+        <div class="pe-button pe-pgrey" @click="showDialog">Dialog</div>
+        <div class="pe-button pe-pgrey" @click="showDialog2">Dialog2</div>
+        <div class="pe-button pe-pgrey" @click="showConfirm">Confirm</div>
+        <div class="pe-button pe-pgrey" @click="showConfirm2">Confirm2</div>
+        <div class="pe-button pe-pgrey" @click="showCustom">Custom</div>
+    </div>
+</div>
+<pe-dialog :show="customDialog" @select="customDialogSelect" title="Please input name">
+    <pe-text style="width: 200px;" v-model="customDialogText"></pe-text>
+</pe-dialog>
 <!-- 脚部 -->
 <div id="footer">
     <pe-footer dark>

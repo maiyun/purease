@@ -71,6 +71,83 @@ export abstract class AbstractPage {
         return (this as any).$watch(name, cb, opt);
     }
 
+    public dialogInfo = {
+        'show': false,
+        'title': '',
+        'content': '',
+        'buttons': ['OK'],
+        'select': (button: string) => {}
+    };
+
+    /** --- 弹出一个框框 --- */
+    public dialog(opt: string | types.IDialogOptions): Promise<string> {
+        const o = typeof opt === 'string' ? {
+            'content': opt
+        } : opt;
+        this.dialogInfo.show = true;
+        this.dialogInfo.title = o.title ?? '';
+        this.dialogInfo.content = o.content;
+        this.dialogInfo.buttons = o.buttons ?? ['OK'];
+        return new Promise((resolve) => {
+            this.dialogInfo.select = async (button: string) => {
+                if (!o.select) {
+                    this.dialogInfo.show = false;
+                    resolve(button);
+                    return;
+                }
+                const res = o.select(button);
+                const r = res instanceof Promise ? await res : res;
+                if (r === false) {
+                    return;
+                }
+                this.dialogInfo.show = false;
+                resolve(button);
+            };
+        });
+    }
+
+    /** --- 弹出一个询问框 --- */
+    public async confirm(opt: string | types.IConfirmOptions): Promise<boolean | number> {
+        const o = typeof opt === 'string' ? {
+            'content': opt
+        } : opt;
+        const buttons = ['No', 'Yes'];
+        if (o.cancel) {
+            buttons.unshift('Cancel');
+        }
+        const res = await this.dialog({
+            'title': o.title,
+            'content': o.content,
+            'buttons': buttons
+        });
+        if (res === 'Yes') {
+            return true;
+        }
+        if (res === 'Cancel') {
+            return 0;
+        }
+        return false;
+    }
+
+    public notifyInfo = {
+        'show': false,
+        'content': '',
+        'timer': 0
+    };
+
+    /** --- 显示一个 notify，支持 html，请注意传入内容的安全 --- */
+    public notify(content: string) {
+        if (this.notifyInfo.timer) {
+            clearTimeout(this.notifyInfo.timer);
+            this.notifyInfo.timer = 0;
+        }
+        this.notifyInfo.content = content;
+        this.notifyInfo.show = true;
+        this.notifyInfo.timer = window.setTimeout(() => {
+            this.notifyInfo.show = false;
+        }, 3000);
+    }
+
 }
 
 /** --- 大页面的内嵌页面 --- */
@@ -206,6 +283,7 @@ export function launcher(page: AbstractPage, panels: Array<{
                 },
                 'mounted': async function(this: types.IVue) {
                     await this.$nextTick();
+                    this.rootPage = this.$root;
                     // --- 完成 ---
                     this.main();
                 },
@@ -289,6 +367,15 @@ export function launcher(page: AbstractPage, panels: Array<{
             for (const key in panelComponents) {
                 vapp.component(key, panelComponents[key]);
             }
+            // --- 挂载 loading、系统 dialog ---
+            bodys[0].insertAdjacentHTML('beforeend', `<pe-dialog :title="dialogInfo.title" :content="dialogInfo.content" :buttons="dialogInfo.buttons" :show="dialogInfo.show" @select="dialogInfo.select"></pe-dialog>` +
+            '<div class="pe-popbtns">' +
+                '<div class="pe-popbtn"></div>' +
+            '</div>' +
+            '<div class="pe-loading"></div>' +
+            `<div class="pe-notify" :class="[notifyInfo.show&&'pe-show']">` +
+                '<div class="pe-notify-content" v-html="notifyInfo.content"></div>' +
+            '</div>');
             vapp.mount(bodys[0]);
         });
         // --- 执行回调 ---

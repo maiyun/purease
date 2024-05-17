@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import * as types from '../types';
 
 interface IClassPrototype {
     'method': Record<string, any>;
@@ -215,4 +216,125 @@ export function getNumber(param: string | number): number {
 export function getDecimal(number: number) {
     const integerPart = Math.sign(number) === 1 ? Math.floor(number) : Math.ceil(number);
     return number - integerPart;
+}
+
+/**
+ * --- 转义 HTML ---
+ * @param html HTML 字符
+ */
+export function escapeHTML(html: string): string {
+    return html.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+/**
+ * --- 发起一个网络请求 ---
+ * @param url 网址
+ * @param opt 选项
+ */
+export function request(url: string, opt: types.IRequestOptions): Promise<null | any> {
+    return new Promise(function(resove) {
+        const xhr = new XMLHttpRequest();
+        if (opt.credentials === false) {
+            xhr.withCredentials = false;
+        }
+        xhr.upload.onloadstart = function(e: ProgressEvent): void {
+            const r = opt.uploadStart?.(e.total);
+            if (r && (r instanceof Promise)) {
+                r.catch(function(e) {
+                    console.log(e);
+                });
+            }
+        };
+        xhr.upload.onprogress = function(e: ProgressEvent): void {
+            const r = opt.uploadProgress?.(e.loaded, e.total);
+            if (r && (r instanceof Promise)) {
+                r.catch(function(e) {
+                    console.log(e);
+                });
+            }
+        };
+        xhr.upload.onloadend = function(): void {
+            const r = opt.uploadEnd?.();
+            if (r && (r instanceof Promise)) {
+                r.catch(function(e) {
+                    console.log(e);
+                });
+            }
+        };
+        xhr.onloadstart = function(e: ProgressEvent): void {
+            const r = opt.start?.(e.total);
+            if (r && (r instanceof Promise)) {
+                r.catch(function(e) {
+                    console.log(e);
+                });
+            }
+        };
+        xhr.onprogress = function(e: ProgressEvent): void {
+            const r = opt.progress?.(e.loaded, e.total);
+            if (r && (r instanceof Promise)) {
+                r.catch(function(e) {
+                    console.log(e);
+                });
+            }
+        };
+        xhr.onloadend = function(): void {
+            const r = opt.end?.();
+            if (r && (r instanceof Promise)) {
+                r.catch(function(e) {
+                    console.log(e);
+                });
+            }
+        };
+        xhr.onload = function(): void {
+            let res = this.response;
+            if (this.getResponseHeader('content-type')?.includes('json')) {
+                try {
+                    res = JSON.parse(res);
+                }
+                catch {
+                    res = this.response;
+                }
+            }
+            const r = opt.load?.(res);
+            if (r && (r instanceof Promise)) {
+                r.catch(function(e) {
+                    console.log(e);
+                });
+            }
+            resove(res);
+        };
+        xhr.onerror = function(): void {
+            const r = opt.error?.();
+            if (r && (r instanceof Promise)) {
+                r.catch(function(e) {
+                    console.log(e);
+                });
+            }
+            resove(null);
+        };
+        if (opt.responseType) {
+            xhr.responseType = opt.responseType;
+        }
+        if (opt.timeout) {
+            xhr.timeout = opt.timeout;
+        }
+        if (opt.headers) {
+            for (const k in opt.headers) {
+                xhr.setRequestHeader(k, (opt.headers as any)[k]);
+            }
+        }
+        xhr.open(opt.method ?? 'GET', url, true);
+        xhr.send(opt.body);
+    });
+}
+
+export function fetch(url: string, init?: RequestInit): Promise<string | Blob | null> {
+    return loader.fetch(url, init);
+}
+
+export function post(url: string, data: Record<string, any> | FormData, opt?: {
+    'credentials'?: 'include' | 'same-origin' | 'omit';
+    'headers'?: HeadersInit;
+}): Promise<Response | null> {
+    return loader.post(url, data, opt);
 }

@@ -83,3 +83,44 @@ export interface IBindDownOptions<T extends MouseEvent | TouchEvent> {
     'up'?: (e: T) => void;
     'end'?: (e: T) => void;
 }
+
+/** --- Dialog 选项 --- */
+export interface IDialogOptions {
+    'title'?: string;
+    /** --- 支持 html --- */
+    'content': string;
+    'buttons'?: string[];
+
+    'select'?: (button: string) => void | boolean | Promise<void | boolean>;
+}
+
+/** --- Confirm 选项 --- */
+export interface IConfirmOptions {
+    'title'?: string;
+    /** --- 支持 html --- */
+    'content': string;
+    /** --- 是否显示取消按钮，默认不显示 --- */
+    'cancel'?: boolean;
+}
+
+// --------------------------
+// -------- tool lib --------
+// --------------------------
+
+export interface IRequestOptions {
+    'credentials'?: boolean;
+    'method'?: 'GET' | 'POST';
+    'body'?: FormData;
+    'timeout'?: number;
+    'responseType'?: XMLHttpRequestResponseType;
+    'headers'?: HeadersInit;
+
+    'uploadStart'?: (total: number) => void | Promise<void>;
+    'uploadProgress'?: (loaded: number, total: number) => void | Promise<void>;
+    'uploadEnd'?: () => void | Promise<void>;
+    'start'?: (total: number) => void | Promise<void>;
+    'end'?: () => void | Promise<void>;
+    'progress'?: (loaded: number, total: number) => void | Promise<void>;
+    'load'?: (res: any) => void | Promise<void>;
+    'error'?: () => void | Promise<void>;
+}

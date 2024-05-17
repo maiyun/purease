@@ -134,7 +134,7 @@ html.pe-scroll .pe-header.pe-fixed, .pe-header:hover, .pe-header.pe-show {
 }
 
 html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
-    &.pe-theme-rev {
+    &.pe-theme-rev:not(.pe-black) {
         &:not(:hover):not(.pe-show) {
             color: #FFF; fill: #FFF; stroke: #FFF;
             .pe-header-item {
@@ -172,9 +172,9 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 // --- pe-pop ---
 
 .pe-pop {
-    position: absolute; background: #FFF; border-radius: var(--pe-radius); box-shadow: 0 3px 5px rgba(0, 0, 0, .07); opacity: 0; pointer-events: none; transform: translateY(10px); transition: var(--pe-transition); text-align: initial; z-index: 1000;
-    &.pe-show {
-        opacity: 1; transform: translateY(0); pointer-events: initial;
+    position: absolute; background: #FFF; border-radius: var(--pe-radius); box-shadow: 0px 15px 30px rgba(0, 0, 0, .07); transition: var(--pe-transition); text-align: initial; z-index: 100;
+    &:not(.pe-show) {
+        opacity: 0; transform: translateY(-20px); pointer-events: none;
     }
 }
 
@@ -280,7 +280,10 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 // --- pe-button ---
 
 .pe-button {
-    padding: 15px 20px; border-radius: var(--pe-radius); line-height: 1; display: inline-flex; justify-content: center; align-items: center; gap: 10px; transition: var(--pe-transition); outline: none;
+    padding: 15px 20px; border-radius: var(--pe-radius); line-height: 1; display: inline-flex; justify-content: center; align-items: center; gap: 10px; transition: var(--pe-transition); outline: none; -webkit-user-select: none; user-select: none;
+    &:not(a) {
+        cursor: default;
+    }
     &:not(.pe-plain):not(.pe-pwhite):not(.pe-pgrey):not(.pe-grey):not(.pe-dark) {
         background: #FFF;
         &:hover {
@@ -351,7 +354,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 }
 
 html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
-    &.pe-theme-rev {
+    &.pe-theme-rev:not(.pe-black) {
         &:not(:hover):not(.pe-show) {
             .pe-button {
                 &.pe-plain {
@@ -380,7 +383,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 .pe-alayout {
     display: flex;
     > * {
-        flex: 1;
+        flex: 1; flex-basis: 150px;
     }
 
     &.pe-reverse {
@@ -400,7 +403,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 // --- pe-box ---
 
 .pe-box {
-    border: solid 1px hsl(220, 15%, 85%); background: #FFF; border-radius: var(--pe-radius); display: flex; align-items: initial; flex-direction: column; transition: var(--pe-transition);
+    border: solid 1px hsl(220, 15%, 85%); background: #FFF; border-radius: var(--pe-radius); display: flex; align-items: initial; justify-content: center; flex-direction: column; transition: var(--pe-transition);
     &:hover {
         color: var(--pe-color); fill: var(--pe-color); stroke: var(--pe-color);
     }
@@ -553,6 +556,41 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     padding: 15px; border-radius: var(--pe-radius); transition: var(--pe-transition);
     &:hover, &.pe-selected {
         background: hsl(220, 20%, 98%);
+    }
+}
+
+// --- pe-dialog ---
+
+.pe-dialog {
+    display: flex; align-items: center; justify-content: center; position: fixed; left: 0; top: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, .3); z-index: 10; transition: var(--pe-transition);
+    &:not(.pe-show) {
+        opacity: 0; pointer-events: none;
+    }
+}
+.pe-dialog-form {
+    box-shadow: 0px 15px 30px rgba(0, 0, 0, .07); background: #FFF; border-radius: var(--pe-radius); padding: 20px; display: flex; flex-direction: column; gap: 20px; min-width: 250px; max-width: 80%; transition: var(--pe-transition);
+}
+.pe-dialog:not(.pe-show) {
+    transform: scale(1.3); opacity: 0;
+}
+.pe-dialog-title {
+    color: var(--pe-note-color);
+}
+.pe-dialog-bottom {
+    display: flex; justify-content: flex-end; cursor: default; -webkit-user-select: none; user-select: none; gap: 20px;
+}
+
+// --- pe-notify ---
+
+.pe-notify {
+    position: fixed; top: 40px; left: 0; width: 100%; pointer-events: none; display: flex; justify-content: center; z-index: 400;
+}
+.pe-notify-content {
+    box-shadow: 0px 15px 30px rgba(0, 0, 0, .07); background: #FFF; border-radius: var(--pe-radius); padding: 20px; transition: var(--pe-transition);
+}
+.pe-notify:not(.pe-show) {
+    .pe-notify-content {
+        opacity: 0; transform: translateY(-20px);
     }
 }
 

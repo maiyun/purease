@@ -746,5 +746,43 @@ export const list: Record<string, any> = {
             }
             this.index = dom.index(this.$el);
         },
+    },
+    'pe-dialog': {
+        'template': `<div class="pe-dialog" :class="[propBoolean('show')&&'pe-show']">` +
+            '<div class="pe-dialog-form">' +
+                '<div class="pe-dialog-title" v-if="title">{{title}}</div>' +
+                '<div v-if="content" class="pe-dialog-content" v-html="content"></div>' +
+                '<div v-else class="pe-dialog-content">' +
+                    '<slot></slot>' +
+                '</div>' +
+                '<div class="pe-dialog-bottom">' +
+                    `<div v-for="item, i of buttons" class="pe-button" :class="[(i===buttons.length-1)&&'pe-dark']" @click="$emit('select', item)">{{item}}</div>` +
+                '</div>' +
+            '</div>' +
+        '</div>',
+        'props': {
+            'title': {
+                'default': ''
+            },
+            'content': {
+                'default': ''
+            },
+            'buttons': {
+                'default': ['OK']
+            },
+            'show': {
+                'default': false
+            }
+        },
+        'emits': {
+            'select': null
+        },
+        'computed': {
+            propBoolean: function(this: types.IVue) {
+                return (name: string): boolean => {
+                    return tool.getBoolean(this.$props[name]);
+                };
+            }
+        }
     }
 };
