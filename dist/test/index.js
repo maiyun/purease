@@ -43,6 +43,8 @@ class Page extends purease.AbstractPage {
         this.text = '123';
         this.select = 'h';
         this.tab = 0;
+        this.swipePage = 'center';
+        this.swipeControl = 'inner';
         this.user = '';
         this.pwd = '';
         this.customDialog = false;

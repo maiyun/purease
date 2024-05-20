@@ -396,11 +396,11 @@ exports.list = {
         }
     },
     'pe-swipe': {
-        'template': '<div class="pe-swipe">' +
+        'template': `<div class="pe-swipe" :class="['pe-control-'+control]">` +
             `<div class="pe-swipe-wrap" ref="wrap" @mousedown="down" @touchstart="down">` +
             '<slot></slot>' +
             '</div>' +
-            '<div class="pe-swipe-page">' +
+            `<div class="pe-swipe-page" :class="['pe-'+page]">` +
             `<div v-for="i of itemCount" class="pe-swipe-page-item" :class="[(selected===i-1)&&'pe-selected']" @click="pdown(i)"></div>` +
             '</div>' +
             '<div v-if="itemCount > 1" class="pe-swipe-prev" @click="prev"></div>' +
@@ -412,6 +412,12 @@ exports.list = {
             },
             'auto': {
                 'default': false
+            },
+            'page': {
+                'default': 'center'
+            },
+            'control': {
+                'default': 'inner'
             }
         },
         data: function () {

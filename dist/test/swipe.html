@@ -60,7 +60,7 @@
         </template>
     </pe-header>
 </div>
-<pe-swipe auto>
+<pe-swipe auto :page="swipePage">
     <pe-swipe-item direction="v" style="background: rgba(0,0,0,.9); color: #FFF;">
         <pe-banner class="swipe" direction="v" style="flex: 1;">
             <div class="pe-btitle">I'm glad to see you</div>
@@ -96,8 +96,8 @@
         <pe-tab-item>Tab2</pe-tab-item>
         <pe-tab-item>Tab3</pe-tab-item>
     </pe-tab>
-    <div class="pe-content pe-padding-lr">
-        <pe-swipe v-model="tab" class="pe-content" style="border-radius: 10px; height: 500px;">
+    <div class="pe-content pe-padding-lr6">
+        <pe-swipe v-model="tab" :page="swipePage" :control="swipeControl" class="pe-content" style="border-radius: 10px; height: 500px;">
             <pe-swipe-item direction="v" style="background: hsl(160, 50%, 30%); color: #FFF; font-size: 48px;">
                 <div class="pe-layout" style="align-items: center; justify-content: center; flex: 1;">Info1</div>
             </pe-swipe-item>
@@ -108,6 +108,19 @@
                 <div class="pe-layout" style="align-items: center; justify-content: center; flex: 1;">Info3</div>
             </pe-swipe-item>
         </pe-swipe>
+    </div>
+    <div class="pe-alayout" style="gap: 20px;">
+        <div class="pe-layout" style="gap: 20px; align-items: center; justify-content: center;">
+            <div>Page:</div>
+            <div class="pe-button pe-grey" @click="swipePage = 'left'">Left</div>
+            <div class="pe-button pe-grey" @click="swipePage = 'center'">Center</div>
+            <div class="pe-button pe-grey" @click="swipePage = 'right'">Right</div>
+        </div>
+        <div class="pe-layout" style="gap: 20px; align-items: center; justify-content: center;">
+            <div>Control:</div>
+            <div class="pe-button pe-grey" @click="swipeControl = 'inner'">Inner</div>
+            <div class="pe-button pe-grey" @click="swipeControl = 'outer'">Outer</div>
+        </div>
     </div>
 </div>
 <div class="pe-block">

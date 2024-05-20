@@ -369,11 +369,11 @@ export const list: Record<string, any> = {
         }
     },
     'pe-swipe': {
-        'template': '<div class="pe-swipe">' +
+        'template': `<div class="pe-swipe" :class="['pe-control-'+control]">` +
             `<div class="pe-swipe-wrap" ref="wrap" @mousedown="down" @touchstart="down">` +
                 '<slot></slot>' +
             '</div>' +
-            '<div class="pe-swipe-page">' +
+            `<div class="pe-swipe-page" :class="['pe-'+page]">` +
                 `<div v-for="i of itemCount" class="pe-swipe-page-item" :class="[(selected===i-1)&&'pe-selected']" @click="pdown(i)"></div>` +
             '</div>' +
             '<div v-if="itemCount > 1" class="pe-swipe-prev" @click="prev"></div>' +
@@ -385,6 +385,14 @@ export const list: Record<string, any> = {
             },
             'auto': {
                 'default': false
+            },
+            'page': {
+                // --- left, center, right ---
+                'default': 'center'
+            },
+            'control': {
+                // --- inner, outer ---
+                'default': 'inner'
             }
         },
         data: function() {

@@ -11,6 +11,10 @@ class Page extends purease.AbstractPage {
 
     public tab = 0;
 
+    public swipePage = 'center';
+
+    public swipeControl = 'inner';
+
     // --- login ---
 
     public user = '';

@@ -3,6 +3,7 @@
 html {
     --pe-color:hsl(0, 0%, 20%);
     --pe-note-color:hsl(0, 0%, 40%);
+    --pe-inote-color:hsl(0, 0%, 60%);
     --pe-h-color:hsl(90, 65%, 35%);
     --pe-h-bgcolor:hsl(90, 65%, 95%);
     --pe-h-fcolor:#FFF;
@@ -50,7 +51,7 @@ img {
     }
 }
 .pe-disabled, [data-pe-disabled] {
-    pointer-events: none; color: hsl(0, 0%, 60%);
+    pointer-events: none; color: hsl(0, 0%, 80%);
 }
 
 html.pe-full {
@@ -233,6 +234,10 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 
 .pe-padding-lr {
     padding-left: 40px; padding-right: 40px;
+}
+
+.pe-padding-lr6 {
+    padding-left: 60px; padding-right: 60px;
 }
 
 .pe-padding {
@@ -636,7 +641,16 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     display: flex; flex: 1; position: relative;
 }
 .pe-swipe-page {
-    position: absolute; bottom: 30px; left: 30px; right: 30px; display: flex; justify-content: center;
+    position: absolute; bottom: 30px; left: 30px; right: 30px; display: flex;
+    &.pe-left {
+        justify-content: flex-start;
+    }
+    &.pe-center {
+        justify-content: center;
+    }
+    &.pe-right {
+        justify-content: flex-end;
+    }
 }
 .pe-swipe-page-item {
     width: 10px; height: 10px; transition: var(--pe-transition); background: rgba(255,255,255,.3); margin: 0 5px;
@@ -651,15 +665,39 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 }
 .pe-swipe-prev, .pe-swipe-next {
     position: absolute; border: solid 3px rgba(255,255,255,.3); transition: var(--pe-transition); width: 18px; height: 18px;
-    &:hover {
-        border-color: rgba(255,255,255,.9);
-    }
 }
 .pe-swipe-prev {
-    left: 20px; top: calc(100% / 2); transform: rotateZ(-45deg); border-width: 3px 0 0 3px;
+    top: calc(100% / 2); transform: rotateZ(-45deg); border-width: 3px 0 0 3px;
 }
 .pe-swipe-next {
-    right: 20px; top: calc(100% / 2); transform: rotateZ(-45deg); border-width: 0 3px 3px 0;
+    top: calc(100% / 2); transform: rotateZ(-45deg); border-width: 0 3px 3px 0;
+}
+.pe-swipe.pe-control-inner {
+    .pe-swipe-prev, .pe-swipe-next {
+        &:hover {
+            border-color: rgba(255,255,255,.9);
+        }
+    }
+    .pe-swipe-prev {
+        left: 20px;
+    }
+    .pe-swipe-next {
+        right: 20px;
+    }
+}
+.pe-swipe.pe-control-outer {
+    .pe-swipe-prev, .pe-swipe-next {
+        border-color: rgba(0,0,0,.3);
+        &:hover {
+            border-color: rgba(0,0,0,.9);
+        }
+    }
+    .pe-swipe-prev {
+        left: -30px;
+    }
+    .pe-swipe-next {
+        right: -30px;
+    }
 }
 
 .pe-swipe-item {
@@ -690,7 +728,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 // --- 选项卡 ---
 
 .pe-tab {
-    display: flex; justify-content: center; cursor: default; -webkit-user-select: none; user-select: none; border-bottom: solid 1px hsl(220, 15%, 85%);
+    display: flex; justify-content: center; cursor: default; -webkit-user-select: none; user-select: none; border-bottom: solid 1px hsl(220, 15%, 85%); color: var(--pe-inote-color); fill: var(--pe-inote-color); stroke: var(--pe-inote-color);
 }
 
 .pe-tab-item {
@@ -787,6 +825,10 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 
     .pe-alayout {
         flex-direction: column;
+        > * {
+            flex-basis: initial;
+        }
+
         &.pe-reverse {
             flex-direction: column;
         }
