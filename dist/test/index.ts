@@ -11,6 +11,12 @@ class Page extends purease.AbstractPage {
 
     public tab = 0;
 
+    // --- login ---
+
+    public user = '';
+
+    public pwd = '';
+
     public main(): void | Promise<void> {
         console.log('Inited.', purease);
     }

@@ -49,6 +49,9 @@ img {
         }
     }
 }
+.pe-disabled, [data-pe-disabled] {
+    pointer-events: none; color: hsl(0, 0%, 60%);
+}
 
 html.pe-full {
     min-height: 100%;
@@ -450,7 +453,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     display: flex; height: 100%;
 }
 .pe-hske-first {
-    flex: 1; background-size: cover; background-position: center; display: flex; flex-direction: column; color: #FFF;
+    flex: 1; background-size: cover; background-position: center; display: flex; flex-direction: column; color: rgb(255, 255, 255, .6); fill: rgb(255, 255, 255, .6); stroke: rgb(255, 255, 255, .6);
 }
 .pe-hske-last {
     flex: 2; display: flex; flex-direction: column;
@@ -666,6 +669,24 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     }
 }
 
+// --- 显示可下拉的箭头 ---
+
+.pe-menudown {
+    display: inline-flex; align-items: center; cursor: default; transition: var(--pe-transition); position: relative;
+    &::after {
+        content: ''; display: inline-block; width: 6px; height: 6px; border: solid 2px var(--pe-color); border-width: 0 0 2px 2px; transform: rotate(-45deg); margin-left: 10px; transition: var(--pe-transition); margin-top: -3px;
+    }
+    &:hover {
+        color: var(--pe-h-color); fill: var(--pe-h-color); stroke: var(--pe-h-color);
+        &::after {
+            border-color: var(--pe-h-color);
+        }
+        .pe-menu {
+            opacity: 1; transform: translateY(0); pointer-events: initial;
+        }
+    }
+}
+
 // --- 选项卡 ---
 
 .pe-tab {
@@ -786,7 +807,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
         flex: 0;
     }
     .pe-hske-bottom {
-        position: fixed; bottom: 0; left: 0; width: 100%; color: var(--pe-color); fill: var(--pe-color); stroke: var(--pe-color);
+        position: fixed; bottom: 0; left: 0; width: 100%; color: rgb(0, 0, 0, .6); fill: rgb(0, 0, 0, .6); stroke: rgb(0, 0, 0, .6);
     }
 
     // --- pe-footer ---
