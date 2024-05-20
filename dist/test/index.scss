@@ -29,5 +29,21 @@ html:not(.pe-scroll) .pe-header.swipe, html.pe-scroll .pe-header.swipe:not(.pe-f
     background-image: url(./bg.jpg);
 }
 .infoimg {
-    background-image: url(./bg.jpg); min-height: 400px; background-size: contain;
+    background-image: url(./bg.jpg); min-height: 300px;
+}
+
+// --- login ---
+
+html.login {
+    height: 100%;
+    body {
+        height: 100%;
+    }
+}
+
+.pe-hske-first {
+    background-image: url(./bg.jpg);
+}
+.pe-hske-content {
+    background-image: url(../../doc/logo-white.png);
 }

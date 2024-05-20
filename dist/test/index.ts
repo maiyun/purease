@@ -53,7 +53,7 @@ class Page extends purease.AbstractPage {
     public customDialogSelect() {
         if (!this.customDialogText)  {
             // --- 弹出不可为空的提示 ---
-            this.notify('Nmae can not be empty.');
+            this.notify('Name can not be empty.');
             return;
         }
         // --- 隐藏窗体 ---

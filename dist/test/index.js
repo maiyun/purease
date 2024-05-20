@@ -81,7 +81,7 @@ class Page extends purease.AbstractPage {
     }
     customDialogSelect() {
         if (!this.customDialogText) {
-            this.notify('Nmae can not be empty.');
+            this.notify('Name can not be empty.');
             return;
         }
         this.customDialog = false;

@@ -159,12 +159,16 @@
             <template v-slot:prepend>Hello:</template>
             <template v-slot:append>KG</template>
         </pe-text>
+        <pe-text style="width: 400px; height: 200px;" v-model="text" type="multi">
+            <template v-slot:prepend>Hello:</template>
+            <template v-slot:append>KG</template>
+        </pe-text>
         <div>Text is: {{text}}</div>
         <div>Select is: {{select}}</div>
         <pe-select style="width: 400px;" v-model="select" :data="['a', { 'value': 'ok', 'label': 'v is ok' }, 'c', 'd', 'e', 'f', 'g', 'h']"></pe-select>
         <pe-text style="width: 400px;" v-model="text">
             <template v-slot:before>
-                <pe-select :data="['a', { 'value': 'ok', 'label': 'v is ok' }, 'c', 'd', 'e', 'f', 'g', 'h']"></pe-select>
+                <pe-select :data="['a', { 'value': 'ok', 'label': 'v is ok' }, 'c', 'd', 'e', 'f', 'g', 'h']" plain></pe-select>
             </template>
         </pe-text>
         <pe-check>check</pe-check>

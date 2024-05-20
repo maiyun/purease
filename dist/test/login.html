@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html class="login">
+<head>
+<title>Login - Purease Test</title>
+<meta http-equiv="content-type" content="text/html;charset=utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+<link rel="stylesheet" href="../index.css" />
+<script src="https://cdn.jsdelivr.net/npm/@litert/loader@3.5.1/dist/loader.min.js?path=index"></script>
+<!-- 用户 -->
+<link rel="stylesheet" href="index.css" />
+</head>
+<body >
+<div class="pe-hske">
+    <div class="pe-hske-first">
+        <div class="pe-hske-content"></div>
+        <div class="pe-hske-bottom">
+            I'm glad to see you<br>
+            With Purease, you can quickly build a versatile, minimalist webpage.
+        </div>
+    </div>
+    <div class="pe-hske-last">
+        <!-- 语言和注册 -->
+        <div style="display: flex; padding: 20px;">
+            <div style="flex: 1; display: flex; align-items: center;">
+                <div>Menu</div>
+            </div>
+            <div style="display: flex; gap: 20px; align-items: center;">
+                <div>Not yet?</div>
+                <div class="pe-button pe-grey">Register</div>
+            </div>
+        </div>
+        <!-- 主面板 -->
+        <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
+            <div class="pe-layout" style="flex-direction: column; gap: 20px;">
+                <div class="pe-title" style="text-align: center;">Login</div>
+                <pe-tab v-model="tab">
+                    <pe-tab-item>Mobile</pe-tab-item>
+                    <pe-tab-item>Email</pe-tab-item>
+                </pe-tab>
+                <div>
+                    <pe-label mode="tip">111</pe-label>
+                    <pe-text style="width: 300px;" v-model="customDialogText"></pe-text>
+                </div>
+                <div>
+                    <pe-label mode="tip">111</pe-label>
+                    <pe-text style="width: 300px;" v-model="customDialogText" type="password"></pe-text>
+                </div>
+                <pe-check>
+                    I agree<br>
+                    <a href="javascript:void(0);">Rule2<pe-icon></pe-icon></a><br>
+                    <a href="javascript:void(0);">Rule2<pe-icon></pe-icon></a>
+                </pe-check>
+                <div class="pe-button pe-dark">Login</div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

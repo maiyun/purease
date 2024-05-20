@@ -209,9 +209,33 @@ exports.list = {
             '</div>'
     },
     'pe-text': {
+        'template': `<div class="pe-text" :class="[focus&&'pe-focus']" :data-pe-disabled="propBoolean('disabled') ? '' : undefined">` +
+            `<div v-if="$slots['before']" class="pe-before"><slot name="before"></slot></div>` +
+            `<div v-if="$slots['prepend']" class="pe-prepend">` +
+            '<slot name="prepend"></slot>' +
+            '</div>' +
+            `<textarea v-if="type==='multi'" :placeholder="placeholder" :value="modelValue" @input="$emit('update:modelValue',$event.target.value)" @focus="focus=true" @blur="focus=false"></textarea>` +
+            `<input v-else :placeholder="placeholder" :value="modelValue" @input="$emit('update:modelValue',$event.target.value)" @focus="focus=true" @blur="focus=false" :type="type">` +
+            `<div v-if="$slots['append']" class="pe-append">` +
+            '<slot name="append"></slot>' +
+            '</div>' +
+            `<div v-if="$slots['after']" class="pe-after"><slot name="after"></slot></div>` +
+            '</div>',
         'props': {
             'modelValue': {
                 'default': ''
+            },
+            'readonly': {
+                'default': false
+            },
+            'type': {
+                'default': 'text'
+            },
+            'placeholder': {
+                'default': ''
+            },
+            'disabled': {
+                'default': false
             }
         },
         'data': function () {
@@ -219,17 +243,13 @@ exports.list = {
                 'focus': false
             };
         },
-        'template': `<div class="pe-text" :class="[focus&&'pe-focus']">` +
-            `<div v-if="$slots['before']" class="pe-before"><slot name="before"></slot></div>` +
-            `<div v-if="$slots['prepend']" class="pe-prepend">` +
-            '<slot name="prepend"></slot>' +
-            '</div>' +
-            `<input :value="modelValue" @input="$emit('update:modelValue',$event.target.value)" @focus="focus=true" @blur="focus=false">` +
-            `<div v-if="$slots['append']" class="pe-append">` +
-            '<slot name="append"></slot>' +
-            '</div>' +
-            `<div v-if="$slots['after']" class="pe-after"><slot name="after"></slot></div>` +
-            '</div>'
+        'computed': {
+            propBoolean: function () {
+                return (name) => {
+                    return tool.getBoolean(this.$props[name]);
+                };
+            }
+        }
     },
     'pe-check': {
         'template': `<div class="pe-check" :class="[value&&'pe-checked']" @click="click" tabindex="0">` +
@@ -287,7 +307,7 @@ exports.list = {
         }
     },
     'pe-select': {
-        'template': `<div class="pe-select" :tabindex="!propBoolean('disabled') ? '0' : undefined" :data-pe-disabled="propBoolean('disabled') ? '' : undefined">` +
+        'template': `<div class="pe-select" :class="[propBoolean('plain')&&'pe-plain']" :tabindex="!propBoolean('disabled') ? '0' : undefined" :data-pe-disabled="propBoolean('disabled') ? '' : undefined">` +
             `<div class="pe-select-label" @click="open">{{dataComp[index] ? dataComp[index].label : '　'}}</div>` +
             '<div class="pe-select-arrow" @click="open"></div>' +
             '<div class="pe-pop" ref="pop">' +
@@ -302,6 +322,9 @@ exports.list = {
                 'default': []
             },
             'disabled': {
+                'default': false
+            },
+            'plain': {
                 'default': false
             }
         },
