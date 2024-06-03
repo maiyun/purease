@@ -9,7 +9,12 @@ export const list: Record<string, any> = {
             '<a class="pe-logo" :href="logoHref"></a>' +
             `<div class="pe-nav">` +
                 '<div class="pe-nav-left">' +
-                    '<slot></slot>' +
+                    '<div class="pe-nav-top">' +
+                        '<slot></slot>' +
+                    '</div>' +
+                    `<div v-if="$slots['bottom']" class="pe-nav-bottom">` +
+                        '<slot name="bottom"></slot>' +
+                    '</div>' +
                 '</div>' +
                 '<div class="pe-nav-right">' +
                     '<slot name="right"></slot>' +
@@ -52,13 +57,25 @@ export const list: Record<string, any> = {
         '</span>',
         'props': {
             // --- 'default' | 'tip' | 'mtip' | 'date' ---
-            'mode': 'default',
-            'content': '',
+            'mode': {
+                'default': 'default'
+            },
+            'content': {
+                'default': ''
+            },
 
-            'time': true,
-            'date': true,
-            'zone': false,
-            'tz': undefined
+            'time': {
+                'default': true
+            },
+            'date': {
+                'default': true
+            },
+            'zone': {
+                'default': false
+            },
+            'tz': {
+                'default': undefined
+            }
         },
         'computed': {
             /** --- 替换 slot 数据 --- */
@@ -370,8 +387,10 @@ export const list: Record<string, any> = {
     },
     'pe-swipe': {
         'template': `<div class="pe-swipe" :class="['pe-control-'+control]">` +
-            `<div class="pe-swipe-wrap" ref="wrap" @mousedown="down" @touchstart="down">` +
-                '<slot></slot>' +
+            `<div class="pe-swipe-wrap" :style="{'border-radius':radius?radius+'px':undefined}">` +
+                `<div class="pe-swipe-items" ref="items" @mousedown="down" @touchstart="down">` +
+                    '<slot></slot>' +
+                '</div>' +
             '</div>' +
             `<div class="pe-swipe-page" :class="['pe-'+page]">` +
                 `<div v-for="i of itemCount" class="pe-swipe-page-item" :class="[(selected===i-1)&&'pe-selected']" @click="pdown(i)"></div>` +
@@ -393,6 +412,9 @@ export const list: Record<string, any> = {
             'control': {
                 // --- inner, outer ---
                 'default': 'inner'
+            },
+            'radius': {
+                'default': undefined
             }
         },
         data: function() {
@@ -496,7 +518,7 @@ export const list: Record<string, any> = {
                         else if (this.translate < -this.awidth) {
                             this.translate = -this.awidth;
                         }
-                        this.$refs.wrap.style.transform = 'translateX(' + this.translate + 'px)';
+                        this.$refs.items.style.transform = 'translateX(' + this.translate + 'px)';
                     },
                     end: async (ne) => {
                         let nx = ne instanceof MouseEvent ? ne.clientX : ne.touches[0].clientX;
@@ -576,17 +598,17 @@ export const list: Record<string, any> = {
                     clearTimeout(this.timer);
                     this.timer = null;
                 }
-                this.$refs.wrap.style.transition = 'var(--pe-transition)';
+                this.$refs.items.style.transition = 'var(--pe-transition)';
                 // --- 设置允许缓动 ---
                 await tool.sleep(34);
-                this.$refs.wrap.style.transform = 'translateX(' + (-(index * this.width)).toString() + 'px)';
+                this.$refs.items.style.transform = 'translateX(' + (-(index * this.width)).toString() + 'px)';
                 // --- 应用缓动后等待动画执行完成 ---
                 await tool.sleep(334);
-                this.$refs.wrap.style.transition = '';
+                this.$refs.items.style.transition = '';
                 await tool.sleep(34);
                 // --- 移除缓动效果后重置位置 ---
                 this.translate = -(this.selected * this.width);
-                this.$refs.wrap.style.transform = 'translateX(' + this.translate + 'px)';
+                this.$refs.items.style.transform = 'translateX(' + this.translate + 'px)';
                 this.going = false;
                 // --- 判断 ---
                 if (this.mvselected !== this.selected) {
@@ -608,7 +630,7 @@ export const list: Record<string, any> = {
             resize: function(this: types.IVue) {
                 this.width = this.$el.offsetWidth;
                 this.translate = -(this.selected * this.width);
-                this.$refs.wrap.style.transform = 'translateX(' + this.translate + 'px)';
+                this.$refs.items.style.transform = 'translateX(' + this.translate + 'px)';
             }
         },
         mounted: function() {
@@ -705,6 +727,31 @@ export const list: Record<string, any> = {
                 return;
             }
             --this.$parent.itemCount;
+        }
+    },
+    'pe-bar': {
+        'template': `<div class="pe-bar" :class="['pe-theme-'+theme]">` +
+            '<slot></slot>' +
+        '</div>',
+        'props': {
+            'theme': {
+                'default': 'default'
+            }
+        }
+    },
+    'pe-bar-item': {
+        'template': `<a class="pe-bar-item" :href="href" :class="[menuCount&&'pe-list']">` +
+            '<slot></slot>' +
+        '</a>',
+        'props': {
+            'href': {
+                'default': undefined
+            }
+        },
+        'data': function() {
+            return {
+                'menuCount': 0
+            };
         }
     },
     'pe-tab': {

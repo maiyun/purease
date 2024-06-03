@@ -148,6 +148,9 @@ export abstract class AbstractPage {
         }, 3000);
     }
 
+    /** --- 整个网页的宽度 --- */
+    public windowWidth: number = 0;
+
 }
 
 /** --- 大页面的内嵌页面 --- */
@@ -328,6 +331,11 @@ export function launcher(page: AbstractPage, panels: Array<{
                 },
                 'mounted': async function(this: types.IVue) {
                     await this.$nextTick();
+                    this.windowWidth = window.innerWidth;
+                    window.addEventListener('resize', () => {
+                        this.windowWidth = window.innerWidth;
+                        bodys[0].style.setProperty('--pe-windowwidth', window.innerWidth + 'px');
+                    });
                     // --- 完成 ---
                     resolve({
                         'vapp': vapp,
@@ -376,6 +384,7 @@ export function launcher(page: AbstractPage, panels: Array<{
             `<div class="pe-notify" :class="[notifyInfo.show&&'pe-show']">` +
                 '<div class="pe-notify-content" v-html="notifyInfo.content"></div>' +
             '</div>');
+            bodys[0].style.setProperty('--pe-windowwidth', window.innerWidth + 'px');
             vapp.mount(bodys[0]);
         });
         // --- 执行回调 ---

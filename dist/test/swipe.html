@@ -37,6 +37,7 @@
             </pe-menu>
         </pe-header-item>
         <pe-header-item href="./">About</pe-header-item>
+        <!-- 右侧 -->
         <template v-slot:right>
             <pe-header-item href="./">
                 <pe-label>
@@ -97,7 +98,7 @@
         <pe-tab-item>Tab3</pe-tab-item>
     </pe-tab>
     <div class="pe-content pe-padding-lr6">
-        <pe-swipe v-model="tab" :page="swipePage" :control="swipeControl" class="pe-content" style="border-radius: 10px; height: 500px;">
+        <pe-swipe v-model="tab" :page="swipePage" :control="swipeControl" class="pe-content" radius="10" style="height: 500px;">
             <pe-swipe-item direction="v" style="background: hsl(160, 50%, 30%); color: #FFF; font-size: 48px;">
                 <div class="pe-layout" style="align-items: center; justify-content: center; flex: 1;">Info1</div>
             </pe-swipe-item>

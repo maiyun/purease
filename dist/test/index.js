@@ -47,8 +47,19 @@ class Page extends purease.AbstractPage {
         this.swipeControl = 'inner';
         this.user = '';
         this.pwd = '';
+        this.nbottom = true;
+        this.dbottom = 'dark';
         this.customDialog = false;
         this.customDialogText = '';
+    }
+    changeNBottom() {
+        this.nbottom = !this.nbottom;
+        if (this.nbottom) {
+            document.getElementsByTagName('html')[0].classList.add('pe-dheader');
+        }
+        else {
+            document.getElementsByTagName('html')[0].classList.remove('pe-dheader');
+        }
     }
     main() {
         console.log('Inited.', purease);

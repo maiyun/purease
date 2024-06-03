@@ -42,7 +42,12 @@ exports.list = {
             '<a class="pe-logo" :href="logoHref"></a>' +
             `<div class="pe-nav">` +
             '<div class="pe-nav-left">' +
+            '<div class="pe-nav-top">' +
             '<slot></slot>' +
+            '</div>' +
+            `<div v-if="$slots['bottom']" class="pe-nav-bottom">` +
+            '<slot name="bottom"></slot>' +
+            '</div>' +
             '</div>' +
             '<div class="pe-nav-right">' +
             '<slot name="right"></slot>' +
@@ -84,12 +89,24 @@ exports.list = {
             '<slot v-else></slot>' +
             '</span>',
         'props': {
-            'mode': 'default',
-            'content': '',
-            'time': true,
-            'date': true,
-            'zone': false,
-            'tz': undefined
+            'mode': {
+                'default': 'default'
+            },
+            'content': {
+                'default': ''
+            },
+            'time': {
+                'default': true
+            },
+            'date': {
+                'default': true
+            },
+            'zone': {
+                'default': false
+            },
+            'tz': {
+                'default': undefined
+            }
         },
         'computed': {
             contentComp: function () {
@@ -397,8 +414,10 @@ exports.list = {
     },
     'pe-swipe': {
         'template': `<div class="pe-swipe" :class="['pe-control-'+control]">` +
-            `<div class="pe-swipe-wrap" ref="wrap" @mousedown="down" @touchstart="down">` +
+            `<div class="pe-swipe-wrap" :style="{'border-radius':radius?radius+'px':undefined}">` +
+            `<div class="pe-swipe-items" ref="items" @mousedown="down" @touchstart="down">` +
             '<slot></slot>' +
+            '</div>' +
             '</div>' +
             `<div class="pe-swipe-page" :class="['pe-'+page]">` +
             `<div v-for="i of itemCount" class="pe-swipe-page-item" :class="[(selected===i-1)&&'pe-selected']" @click="pdown(i)"></div>` +
@@ -418,6 +437,9 @@ exports.list = {
             },
             'control': {
                 'default': 'inner'
+            },
+            'radius': {
+                'default': undefined
             }
         },
         data: function () {
@@ -506,7 +528,7 @@ exports.list = {
                         else if (this.translate < -this.awidth) {
                             this.translate = -this.awidth;
                         }
-                        this.$refs.wrap.style.transform = 'translateX(' + this.translate + 'px)';
+                        this.$refs.items.style.transform = 'translateX(' + this.translate + 'px)';
                     },
                     end: (ne) => __awaiter(this, void 0, void 0, function* () {
                         let nx = ne instanceof MouseEvent ? ne.clientX : ne.touches[0].clientX;
@@ -585,14 +607,14 @@ exports.list = {
                         clearTimeout(this.timer);
                         this.timer = null;
                     }
-                    this.$refs.wrap.style.transition = 'var(--pe-transition)';
+                    this.$refs.items.style.transition = 'var(--pe-transition)';
                     yield tool.sleep(34);
-                    this.$refs.wrap.style.transform = 'translateX(' + (-(index * this.width)).toString() + 'px)';
+                    this.$refs.items.style.transform = 'translateX(' + (-(index * this.width)).toString() + 'px)';
                     yield tool.sleep(334);
-                    this.$refs.wrap.style.transition = '';
+                    this.$refs.items.style.transition = '';
                     yield tool.sleep(34);
                     this.translate = -(this.selected * this.width);
-                    this.$refs.wrap.style.transform = 'translateX(' + this.translate + 'px)';
+                    this.$refs.items.style.transform = 'translateX(' + this.translate + 'px)';
                     this.going = false;
                     if (this.mvselected !== this.selected) {
                         this.selected = this.mvselected;
@@ -614,7 +636,7 @@ exports.list = {
             resize: function () {
                 this.width = this.$el.offsetWidth;
                 this.translate = -(this.selected * this.width);
-                this.$refs.wrap.style.transform = 'translateX(' + this.translate + 'px)';
+                this.$refs.items.style.transform = 'translateX(' + this.translate + 'px)';
             }
         },
         mounted: function () {
@@ -715,6 +737,31 @@ exports.list = {
                 }
                 --this.$parent.itemCount;
             });
+        }
+    },
+    'pe-bar': {
+        'template': `<div class="pe-bar" :class="['pe-theme-'+theme]">` +
+            '<slot></slot>' +
+            '</div>',
+        'props': {
+            'theme': {
+                'default': 'default'
+            }
+        }
+    },
+    'pe-bar-item': {
+        'template': `<a class="pe-bar-item" :href="href" :class="[menuCount&&'pe-list']">` +
+            '<slot></slot>' +
+            '</a>',
+        'props': {
+            'href': {
+                'default': undefined
+            }
+        },
+        'data': function () {
+            return {
+                'menuCount': 0
+            };
         }
     },
     'pe-tab': {

@@ -21,6 +21,24 @@ class Page extends purease.AbstractPage {
 
     public pwd = '';
 
+    // --- double 页 ---
+    
+    public nbottom = true;
+
+    public dbottom = 'dark';
+
+    public changeNBottom() {
+        this.nbottom = !this.nbottom;
+        if (this.nbottom) {
+            // --- 不显示 -> 显示 ---
+            document.getElementsByTagName('html')[0].classList.add('pe-dheader');
+        }
+        else {
+            // --- 显示 -> 不显示 ---
+            document.getElementsByTagName('html')[0].classList.remove('pe-dheader');
+        }
+    }
+ 
     public main(): void | Promise<void> {
         console.log('Inited.', purease);
     }

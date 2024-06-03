@@ -54,6 +54,7 @@ class AbstractPage {
             'content': '',
             'timer': 0
         };
+        this.windowWidth = 0;
         if (opt.debug) {
             this._debug = true;
         }
@@ -267,6 +268,11 @@ function launcher(page, panels = []) {
                     'mounted': function () {
                         return __awaiter(this, void 0, void 0, function* () {
                             yield this.$nextTick();
+                            this.windowWidth = window.innerWidth;
+                            window.addEventListener('resize', () => {
+                                this.windowWidth = window.innerWidth;
+                                bodys[0].style.setProperty('--pe-windowwidth', window.innerWidth + 'px');
+                            });
                             resolve({
                                 'vapp': vapp,
                                 'vroot': this
@@ -308,6 +314,7 @@ function launcher(page, panels = []) {
                     `<div class="pe-notify" :class="[notifyInfo.show&&'pe-show']">` +
                     '<div class="pe-notify-content" v-html="notifyInfo.content"></div>' +
                     '</div>');
+                bodys[0].style.setProperty('--pe-windowwidth', window.innerWidth + 'px');
                 vapp.mount(bodys[0]);
             });
             yield tool.sleep(34);
