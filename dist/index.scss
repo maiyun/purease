@@ -99,7 +99,7 @@ html.pe-speed-imme {
 }
 html.pe-scroll .pe-header.pe-fixed, .pe-header:hover, .pe-header.pe-show {
     &.pe-theme-default {
-        box-shadow: 0 3px 5px rgba(0, 0, 0, .07); background: rgba(255, 255, 255, .8); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);
+        box-shadow: 0px 15px 30px rgba(0, 0, 0, .07); background: rgba(255, 255, 255, .8); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);
     }
     &.pe-theme-rev {
         background: #FFF;
@@ -265,7 +265,7 @@ html.pe-dheader {
 // --- pe-menu ---
 
 .pe-menu {
-    position: absolute; background: #FFF; border-radius: var(--pe-radius); box-shadow: 0 3px 5px rgba(0, 0, 0, .07); opacity: 0; pointer-events: none; transform: translateY(10px); transition: var(--pe-transition); left: -30px; top: 100%; line-height: 1.5; padding: 15px; display: flex; flex-direction: column; color: var(--pe-color); fill: var(--pe-color); stroke: var(--pe-color); min-width: 180px; white-space: nowrap; z-index: 1;
+    position: absolute; background: #FFF; border-radius: var(--pe-radius); box-shadow: 0px 15px 30px rgba(0, 0, 0, .07); opacity: 0; pointer-events: none; transform: translateY(10px); transition: var(--pe-transition); left: -30px; top: 100%; line-height: 1.5; padding: 15px; display: flex; flex-direction: column; color: var(--pe-color); fill: var(--pe-color); stroke: var(--pe-color); min-width: 180px; white-space: nowrap; z-index: 1;
 }
 .pe-menu-item {
     padding: 15px 35px 15px 15px; transition: var(--pe-transition); display: flex;
@@ -499,6 +499,11 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     &.pe-hover {
         &:hover {
             box-shadow: 0px 15px 30px rgba(0, 0, 0, .07);
+        }
+    }
+    &.pe-thover {
+        &:hover {
+            transform: translateY(-10px);
         }
     }
 }

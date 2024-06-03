@@ -80,10 +80,15 @@
 </pe-banner>
 <div class="pe-block">
     <div class="pe-btitle">Control header</div>
-    <div class="pe-layout" style="justify-content: center; align-items: center; gap: 20px; margin-top: 20px;">
-        <div class="pe-button pe-grey" @click="changeNBottom">{{nbottom ? '' : '!'}}Bottom</div>
-        <div>Theme:</div>
-        <pe-select style="width: 200px;" v-model="dbottom" :data="['default', 'dark']"></pe-select>
+    <div class="pe-alayout pe-content" style="gap: 20px; margin-top: 20px;">
+        <div class="pe-layout" style="justify-content: center; gap: 20px;">
+            <div class="pe-button pe-grey" @click="changeNBottom">{{nbottom ? '' : '!'}}Bottom</div>
+            <div class="pe-button pe-grey" @click="changeSheader">{{sheader ? '' : '!'}}Sheader</div>
+        </div>
+        <div class="pe-layout" style="justify-content: center; align-items: center; gap: 20px;">
+            <div>Theme:</div>
+            <pe-select style="width: 200px;" v-model="dbottom" :data="['default', 'dark']"></pe-select>
+        </div>
     </div>
 </div>
 </body>

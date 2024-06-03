@@ -38,6 +38,20 @@ class Page extends purease.AbstractPage {
             document.getElementsByTagName('html')[0].classList.remove('pe-dheader');
         }
     }
+
+    public sheader = false;
+
+    public changeSheader() {
+        this.sheader = !this.sheader;
+        if (this.sheader) {
+            // --- 大 -> 小 ---
+            document.getElementsByTagName('html')[0].classList.add('pe-sheader');
+        }
+        else {
+            // --- 小 -> 大 ---
+            document.getElementsByTagName('html')[0].classList.remove('pe-sheader');
+        }
+    }
  
     public main(): void | Promise<void> {
         console.log('Inited.', purease);

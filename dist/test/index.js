@@ -49,6 +49,7 @@ class Page extends purease.AbstractPage {
         this.pwd = '';
         this.nbottom = true;
         this.dbottom = 'dark';
+        this.sheader = false;
         this.customDialog = false;
         this.customDialogText = '';
     }
@@ -59,6 +60,15 @@ class Page extends purease.AbstractPage {
         }
         else {
             document.getElementsByTagName('html')[0].classList.remove('pe-dheader');
+        }
+    }
+    changeSheader() {
+        this.sheader = !this.sheader;
+        if (this.sheader) {
+            document.getElementsByTagName('html')[0].classList.add('pe-sheader');
+        }
+        else {
+            document.getElementsByTagName('html')[0].classList.remove('pe-sheader');
         }
     }
     main() {
