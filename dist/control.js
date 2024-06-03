@@ -531,8 +531,7 @@ exports.list = {
                         this.$refs.items.style.transform = 'translateX(' + this.translate + 'px)';
                     },
                     end: (ne) => __awaiter(this, void 0, void 0, function* () {
-                        let nx = ne instanceof MouseEvent ? ne.clientX : ne.touches[0].clientX;
-                        let cx = nx - ox;
+                        let cx = x - ox;
                         let speed = Math.abs(cx / (Date.now() - time));
                         const info = -(this.translate / this.width);
                         const index = Math.floor(info);

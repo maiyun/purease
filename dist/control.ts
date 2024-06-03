@@ -521,8 +521,7 @@ export const list: Record<string, any> = {
                         this.$refs.items.style.transform = 'translateX(' + this.translate + 'px)';
                     },
                     end: async (ne) => {
-                        let nx = ne instanceof MouseEvent ? ne.clientX : ne.touches[0].clientX;
-                        let cx = nx - ox;
+                        let cx = x - ox;
                         let speed = Math.abs(cx / (Date.now() - time));
                         /** --- 看看当前滚动哪儿了 --- */
                         const info = -(this.translate / this.width);
