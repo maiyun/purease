@@ -176,6 +176,13 @@
 <pe-dialog :show="customDialog" @select="customDialogSelect" title="Please input name">
     <pe-text style="width: 200px;" v-model="customDialogText"></pe-text>
 </pe-dialog>
+<!-- 显示加载框 -->
+<div class="pe-block">
+    <div class="pe-btitle">Loading</div>
+    <div class="pe-layout" style="justify-content: center; margin-top: 20px;">
+        <div class="pe-button pe-pgrey" @click="showLoading">Show loading</div>
+    </div>
+</div>
 <!-- 脚部 -->
 <div id="footer">
     <pe-footer dark>

@@ -71,6 +71,10 @@ This library is published under [Apache-2.0](./LICENSE) license.
 
 [Check SVG Vector](https://www.svgrepo.com/svg/506431/check)
 
+#### Top
+
+[Alt Arrow Up SVG Vector](https://www.svgrepo.com/svg/529345/alt-arrow-up)
+
 #### Icon
 
 ##### link

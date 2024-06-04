@@ -102,6 +102,12 @@ class Page extends purease.AbstractPage {
         this.customDialog = false;
     }
 
+    public async showLoading() {
+        this.loading = true;
+        await purease.tool.sleep(1500);
+        this.loading = false;
+    }
+
 }
 purease.launcher(new Page({
     'debug': true

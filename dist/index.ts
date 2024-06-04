@@ -151,6 +151,9 @@ export abstract class AbstractPage {
     /** --- 整个网页的宽度 --- */
     public windowWidth: number = 0;
 
+    /** --- 是否显示加载框 --- */
+    public loading: boolean = false;
+
 }
 
 /** --- 大页面的内嵌页面 --- */
@@ -380,7 +383,12 @@ export function launcher(page: AbstractPage, panels: Array<{
             '<div class="pe-popbtns">' +
                 '<div class="pe-popbtn"></div>' +
             '</div>' +
-            '<div class="pe-loading"></div>' +
+            `<div class="pe-loading" :class="[loading&&'pe-show']">` +
+                '<div class="pe-loading-item">' +
+                    '<div class="pe-loading-item-1"></div>' +
+                    '<div class="pe-loading-item-2"></div>' +
+                '</div>' +
+            '</div>' +
             `<div class="pe-notify" :class="[notifyInfo.show&&'pe-show']">` +
                 '<div class="pe-notify-content" v-html="notifyInfo.content"></div>' +
             '</div>');

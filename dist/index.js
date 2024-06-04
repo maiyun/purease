@@ -55,6 +55,7 @@ class AbstractPage {
             'timer': 0
         };
         this.windowWidth = 0;
+        this.loading = false;
         if (opt.debug) {
             this._debug = true;
         }
@@ -310,7 +311,12 @@ function launcher(page, panels = []) {
                     '<div class="pe-popbtns">' +
                     '<div class="pe-popbtn"></div>' +
                     '</div>' +
-                    '<div class="pe-loading"></div>' +
+                    `<div class="pe-loading" :class="[loading&&'pe-show']">` +
+                    '<div class="pe-loading-item">' +
+                    '<div class="pe-loading-item-1"></div>' +
+                    '<div class="pe-loading-item-2"></div>' +
+                    '</div>' +
+                    '</div>' +
                     `<div class="pe-notify" :class="[notifyInfo.show&&'pe-show']">` +
                     '<div class="pe-notify-content" v-html="notifyInfo.content"></div>' +
                     '</div>');

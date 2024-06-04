@@ -111,6 +111,13 @@ class Page extends purease.AbstractPage {
         }
         this.customDialog = false;
     }
+    showLoading() {
+        return __awaiter(this, void 0, void 0, function* () {
+            this.loading = true;
+            yield purease.tool.sleep(1500);
+            this.loading = false;
+        });
+    }
 }
 purease.launcher(new Page({
     'debug': true
