@@ -414,16 +414,16 @@ exports.list = {
     },
     'pe-swipe': {
         'template': `<div class="pe-swipe" :class="['pe-control-'+control]">` +
-            `<div class="pe-swipe-wrap" :style="{'border-radius':radius?radius+'px':undefined}">` +
-            `<div class="pe-swipe-items" ref="items" @mousedown="down" @touchstart="down">` +
+            `<div class="pe-swipe-wrap" @mousedown="down" @touchstart="down" :style="{'border-radius':radius?radius+'px':undefined}">` +
+            `<div class="pe-swipe-items" ref="items">` +
             '<slot></slot>' +
             '</div>' +
             '</div>' +
             `<div class="pe-swipe-page" :class="['pe-'+page]">` +
-            `<div v-for="i of itemCount" class="pe-swipe-page-item" :class="[(selected===i-1)&&'pe-selected']" @click="pdown(i)"></div>` +
+            `<div v-for="i of pageCount" class="pe-swipe-page-item" :class="[(selected===i-1)&&'pe-selected']" @click="pdown(i)"></div>` +
             '</div>' +
-            '<div v-if="itemCount > 1" class="pe-swipe-prev" @click="prev"></div>' +
-            '<div v-if="itemCount > 1" class="pe-swipe-next" @click="next"></div>' +
+            '<div v-if="pageCount > 1" class="pe-swipe-prev" @click="prev"></div>' +
+            '<div v-if="pageCount > 1" class="pe-swipe-next" @click="next"></div>' +
             '</div>',
         'props': {
             'modelValue': {
@@ -440,6 +440,15 @@ exports.list = {
             },
             'radius': {
                 'default': undefined
+            },
+            'item': {
+                'default': 1
+            },
+            'minitem': {
+                'default': 1
+            },
+            'gutter': {
+                'default': 0
             }
         },
         data: function () {
@@ -487,7 +496,20 @@ exports.list = {
         },
         'computed': {
             awidth: function () {
-                return this.width * this.itemCount;
+                return (this.width * this.pageCount) + (tool.getNumber(this.$props.gutter) * (this.pageCount - 1));
+            },
+            iwidth: function () {
+                const iwidth = 100 / this.pitem;
+                if (this.pitem > 1) {
+                    return 'calc((100% - ' + (this.pitem - 1) * tool.getNumber(this.$props.gutter) + 'px) / ' + this.pitem + ')';
+                }
+                return iwidth + '%';
+            },
+            pageCount: function () {
+                return Math.ceil(this.itemCount / this.pitem);
+            },
+            pitem: function () {
+                return tool.getNumber(this.$root.windowWidth >= 800 ? this.$props.item : this.$props.minitem);
             }
         },
         methods: {
@@ -495,7 +517,7 @@ exports.list = {
                 if (this.going) {
                     return;
                 }
-                if (this.itemCount < 2) {
+                if (this.pageCount < 2) {
                     return;
                 }
                 const target = e.target;
@@ -530,7 +552,7 @@ exports.list = {
                         }
                         this.$refs.items.style.transform = 'translateX(' + this.translate + 'px)';
                     },
-                    end: (ne) => __awaiter(this, void 0, void 0, function* () {
+                    end: () => __awaiter(this, void 0, void 0, function* () {
                         let cx = x - ox;
                         let speed = Math.abs(cx / (Date.now() - time));
                         const info = -(this.translate / this.width);
@@ -597,9 +619,9 @@ exports.list = {
                     this.going = true;
                     const index = this.selected;
                     if (this.selected === -1) {
-                        this.selected = this.itemCount - 1;
+                        this.selected = this.pageCount - 1;
                     }
-                    else if (this.selected === this.itemCount) {
+                    else if (this.selected === this.pageCount) {
                         this.selected = 0;
                     }
                     if (this.timer) {
@@ -608,11 +630,11 @@ exports.list = {
                     }
                     this.$refs.items.style.transition = 'var(--pe-transition)';
                     yield tool.sleep(34);
-                    this.$refs.items.style.transform = 'translateX(' + (-(index * this.width)).toString() + 'px)';
+                    this.$refs.items.style.transform = 'translateX(' + (-(index * this.width + index * tool.getNumber(this.$props.gutter))).toString() + 'px)';
                     yield tool.sleep(334);
                     this.$refs.items.style.transition = '';
                     yield tool.sleep(34);
-                    this.translate = -(this.selected * this.width);
+                    this.translate = -(this.selected * this.width + this.selected * tool.getNumber(this.$props.gutter));
                     this.$refs.items.style.transform = 'translateX(' + this.translate + 'px)';
                     this.going = false;
                     if (this.mvselected !== this.selected) {
@@ -663,7 +685,7 @@ exports.list = {
         }
     },
     'pe-swipe-item': {
-        'template': `<div class="pe-swipe-item" :class="['pe-direction-'+direction]" :style="{'left': left + 'px'}">` +
+        'template': `<div class="pe-swipe-item" :class="['pe-direction-'+direction]" :style="{'left': left, 'width': iwidth}">` +
             '<slot></slot>' +
             '</div>',
         'props': {
@@ -677,19 +699,38 @@ exports.list = {
             };
         },
         'computed': {
+            npage: function () {
+                if (!this.$parent) {
+                    return 0;
+                }
+                return Math.floor(this.index / this.$parent.pitem);
+            },
+            pindex: function () {
+                if (!this.$parent) {
+                    return 0;
+                }
+                return this.index % this.$parent.pitem;
+            },
             left: function () {
-                let left = this.width * this.index;
+                if (!this.$parent) {
+                    return '0';
+                }
+                const gutter = tool.getNumber(this.$parent.$props.gutter);
+                let left = this.width * this.npage + (this.npage * gutter);
                 if (this.translate > 0) {
-                    if (this.index === this.itemCount - 1) {
-                        left = -this.width;
+                    if (this.npage === this.$parent.pageCount - 1) {
+                        left = -this.width - gutter;
                     }
                 }
                 else if (this.translate < -this.awidth + this.width) {
-                    if (this.index === 0) {
-                        left = this.awidth;
+                    if (this.npage === 0) {
+                        left = this.awidth + gutter;
                     }
                 }
-                return left;
+                if (this.pindex > 0) {
+                    return 'calc(' + (left + (gutter * this.pindex)) + 'px + ' + this.iwidth + ' * ' + this.pindex + ')';
+                }
+                return left + 'px';
             },
             width: function () {
                 if (!this.$parent) {
@@ -698,19 +739,22 @@ exports.list = {
                 return this.$parent.width;
             },
             awidth: function () {
-                return this.width * this.itemCount;
+                if (!this.$parent) {
+                    return 0;
+                }
+                return this.$parent.awidth;
+            },
+            iwidth: function () {
+                if (!this.$parent) {
+                    return '100%';
+                }
+                return this.$parent.iwidth;
             },
             translate: function () {
                 if (!this.$parent) {
                     return 0;
                 }
                 return this.$parent.translate;
-            },
-            itemCount: function () {
-                if (!this.$parent) {
-                    return 0;
-                }
-                return this.$parent.itemCount;
             }
         },
         mounted: function () {

@@ -98,7 +98,7 @@
         <pe-tab-item>Tab3</pe-tab-item>
     </pe-tab>
     <div class="pe-content pe-padding-lr6">
-        <pe-swipe v-model="tab" :page="swipePage" :control="swipeControl" class="pe-content" radius="10" style="height: 500px;">
+        <pe-swipe v-model="tab" :page="swipePage" :control="swipeControl" radius="10" style="height: 500px;">
             <pe-swipe-item direction="v" style="background: hsl(160, 50%, 30%); color: #FFF; font-size: 48px;">
                 <div class="pe-layout" style="align-items: center; justify-content: center; flex: 1;">Info1</div>
             </pe-swipe-item>
@@ -130,7 +130,9 @@
             <div class="pe-title">This is a title</div>
             <div class="pe-note">Hey, ok.</div>
         </div>
-        <div class="pe-img infoimg"></div>
+        <div class="pe-img infoimg" style="align-items: flex-end; justify-content: center; padding-bottom: 20px;">
+            OK
+        </div>
     </div>
 </div>
 <div class="pe-block pe-grey">
@@ -142,6 +144,7 @@
         <div class="pe-img pe-hover infoimg"></div>
     </div>
 </div>
+<!-- 显示各种提示框 -->
 <div class="pe-block">
     <div class="pe-btitle">Dialog</div>
     <div class="pe-layout" style="justify-content: center; gap: 20px; margin-top: 20px;">
@@ -152,6 +155,22 @@
         <div class="pe-button pe-pgrey" @click="showConfirm">Confirm</div>
         <div class="pe-button pe-pgrey" @click="showConfirm2">Confirm2</div>
         <div class="pe-button pe-pgrey" @click="showCustom">Custom</div>
+    </div>
+</div>
+<!-- 一页面显示多个 -->
+<div class="pe-block pe-grey">
+    <div class="pe-btitle">Multi swipe</div>
+    <div class="pe-content pe-padding-lr6">
+        <pe-swipe style="height: 500px;" control="outer" item="3" gutter="20">
+            <pe-swipe-item style="color: #FFF; font-size: 48px; background: hsl(160, 50%, 30%); border-radius: 10px; align-items: center; justify-content: center;">Info1</pe-swipe-item>
+            <pe-swipe-item style="color: #FFF; font-size: 48px; background: hsl(160, 50%, 30%); border-radius: 10px; align-items: center; justify-content: center;">Info2</pe-swipe-item>
+            <pe-swipe-item style="color: #FFF; font-size: 48px; background: hsl(160, 50%, 30%); border-radius: 10px; align-items: center; justify-content: center;">Info3</pe-swipe-item>
+            <pe-swipe-item style="color: #FFF; font-size: 48px; background: hsl(200, 50%, 30%); border-radius: 10px; align-items: center; justify-content: center;">Info4</pe-swipe-item>
+            <pe-swipe-item style="color: #FFF; font-size: 48px; background: hsl(200, 50%, 30%); border-radius: 10px; align-items: center; justify-content: center;">Info5</pe-swipe-item>
+            <pe-swipe-item style="color: #FFF; font-size: 48px; background: hsl(200, 50%, 30%); border-radius: 10px; align-items: center; justify-content: center;">Info6</pe-swipe-item>
+            <pe-swipe-item style="color: #FFF; font-size: 48px; background: hsl(240, 50%, 30%); border-radius: 10px; align-items: center; justify-content: center;">Info7</pe-swipe-item>
+            <pe-swipe-item style="color: #FFF; font-size: 48px; background: hsl(240, 50%, 30%); border-radius: 10px; align-items: center; justify-content: center;">Info8</pe-swipe-item>
+        </pe-swipe>
     </div>
 </div>
 <pe-dialog :show="customDialog" @select="customDialogSelect" title="Please input name">

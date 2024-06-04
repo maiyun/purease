@@ -387,34 +387,47 @@ export const list: Record<string, any> = {
     },
     'pe-swipe': {
         'template': `<div class="pe-swipe" :class="['pe-control-'+control]">` +
-            `<div class="pe-swipe-wrap" :style="{'border-radius':radius?radius+'px':undefined}">` +
-                `<div class="pe-swipe-items" ref="items" @mousedown="down" @touchstart="down">` +
+            `<div class="pe-swipe-wrap" @mousedown="down" @touchstart="down" :style="{'border-radius':radius?radius+'px':undefined}">` +
+                `<div class="pe-swipe-items" ref="items">` +
                     '<slot></slot>' +
                 '</div>' +
             '</div>' +
             `<div class="pe-swipe-page" :class="['pe-'+page]">` +
-                `<div v-for="i of itemCount" class="pe-swipe-page-item" :class="[(selected===i-1)&&'pe-selected']" @click="pdown(i)"></div>` +
+                `<div v-for="i of pageCount" class="pe-swipe-page-item" :class="[(selected===i-1)&&'pe-selected']" @click="pdown(i)"></div>` +
             '</div>' +
-            '<div v-if="itemCount > 1" class="pe-swipe-prev" @click="prev"></div>' +
-            '<div v-if="itemCount > 1" class="pe-swipe-next" @click="next"></div>' +
+            '<div v-if="pageCount > 1" class="pe-swipe-prev" @click="prev"></div>' +
+            '<div v-if="pageCount > 1" class="pe-swipe-next" @click="next"></div>' +
         '</div>',
         'props': {
             'modelValue': {
                 'default': 0
             },
+            // ---- 自动滚动 ---
             'auto': {
                 'default': false
             },
             'page': {
-                // --- left, center, right ---
+                // --- left, center, right, none ---
                 'default': 'center'
             },
             'control': {
                 // --- inner, outer ---
                 'default': 'inner'
             },
+            // --- 外大圆角 ---
             'radius': {
                 'default': undefined
+            },
+            // --- 一页显示多个 item，默认 1 只显示一个 ---
+            'item': {
+                'default': 1
+            },
+            'minitem': {
+                'default': 1
+            },
+            // --- 内页间距 ---
+            'gutter': {
+                'default': 0
             }
         },
         data: function() {
@@ -473,7 +486,23 @@ export const list: Record<string, any> = {
         'computed': {
             /** --- 总宽度 --- */
             awidth: function(this: types.IVue) {
-                return this.width * this.itemCount;
+                return (this.width * this.pageCount) + (tool.getNumber(this.$props.gutter) * (this.pageCount - 1));
+            },
+            /** --- 每个 item 应该的宽度 --- */
+            iwidth: function(this: types.IVue): string {
+                const iwidth = 100 / this.pitem;
+                if (this.pitem > 1) {
+                    return 'calc((100% - ' + (this.pitem - 1) * tool.getNumber(this.$props.gutter) + 'px) / ' + this.pitem + ')';
+                }
+                return iwidth + '%';
+            },
+            /** --- 总页数 --- */
+            pageCount: function(this: types.IVue) {
+                return Math.ceil(this.itemCount / this.pitem);
+            },
+            /** --- 一页面有多少个 item --- */
+            pitem: function(this: types.IVue): number {
+                return tool.getNumber(this.$root.windowWidth >= 800 ? this.$props.item : this.$props.minitem);
             }
         },
         methods: {
@@ -481,7 +510,7 @@ export const list: Record<string, any> = {
                 if (this.going) {
                     return;
                 }
-                if (this.itemCount < 2) {
+                if (this.pageCount < 2) {
                     return;
                 }
                 const target = e.target as HTMLElement | null;
@@ -520,7 +549,7 @@ export const list: Record<string, any> = {
                         }
                         this.$refs.items.style.transform = 'translateX(' + this.translate + 'px)';
                     },
-                    end: async (ne) => {
+                    end: async () => {
                         let cx = x - ox;
                         let speed = Math.abs(cx / (Date.now() - time));
                         /** --- 看看当前滚动哪儿了 --- */
@@ -588,9 +617,9 @@ export const list: Record<string, any> = {
                 this.going = true;
                 const index = this.selected;
                 if (this.selected === -1) {
-                    this.selected = this.itemCount - 1;
+                    this.selected = this.pageCount - 1;
                 }
-                else if (this.selected === this.itemCount) {
+                else if (this.selected === this.pageCount) {
                     this.selected = 0;
                 }
                 if (this.timer) {
@@ -600,13 +629,13 @@ export const list: Record<string, any> = {
                 this.$refs.items.style.transition = 'var(--pe-transition)';
                 // --- 设置允许缓动 ---
                 await tool.sleep(34);
-                this.$refs.items.style.transform = 'translateX(' + (-(index * this.width)).toString() + 'px)';
+                this.$refs.items.style.transform = 'translateX(' + (-(index * this.width + index * tool.getNumber(this.$props.gutter))).toString() + 'px)';
                 // --- 应用缓动后等待动画执行完成 ---
                 await tool.sleep(334);
                 this.$refs.items.style.transition = '';
                 await tool.sleep(34);
                 // --- 移除缓动效果后重置位置 ---
-                this.translate = -(this.selected * this.width);
+                this.translate = -(this.selected * this.width + this.selected * tool.getNumber(this.$props.gutter));
                 this.$refs.items.style.transform = 'translateX(' + this.translate + 'px)';
                 this.going = false;
                 // --- 判断 ---
@@ -655,7 +684,7 @@ export const list: Record<string, any> = {
         }
     },
     'pe-swipe-item': {
-        'template': `<div class="pe-swipe-item" :class="['pe-direction-'+direction]" :style="{'left': left + 'px'}">` +
+        'template': `<div class="pe-swipe-item" :class="['pe-direction-'+direction]" :style="{'left': left, 'width': iwidth}">` +
             '<slot></slot>' +
         '</div>',
         'props': {
@@ -669,42 +698,70 @@ export const list: Record<string, any> = {
             };
         },
         'computed': {
-            left: function(this: types.IVue) {
-                let left = this.width * this.index;
+            /** --- 当前 item 应该在第几页显示 --- */
+            npage: function(this: types.IVue) {
+                if (!this.$parent) {
+                    return 0;
+                }
+                return Math.floor(this.index / this.$parent.pitem);
+            },
+            /** --- 当前 item 在当前页的 index --- */
+            pindex: function(this: types.IVue) {
+                if (!this.$parent) {
+                    return 0;
+                }
+                return this.index % this.$parent.pitem;
+            },
+            left: function(this: types.IVue): string {
+                if (!this.$parent) {
+                    return '0';
+                }
+                const gutter = tool.getNumber(this.$parent.$props.gutter);
+                let left = this.width * this.npage + (this.npage * gutter);
                 if (this.translate > 0) {
-                    if (this.index === this.itemCount - 1) {
-                        // --- 最后一个 ---
-                        left = -this.width;
+                    if (this.npage === this.$parent.pageCount - 1) {
+                        // --- 最后页显示在最前面 ---
+                        left = -this.width - gutter;
                     }
                 }
                 else if (this.translate < -this.awidth + this.width) {
-                    if (this.index === 0) {
-                        // --- 第一个 ---
-                        left = this.awidth;
+                    if (this.npage === 0) {
+                        // --- 当前是第一个页面要显示在最后 ---
+                        left = this.awidth + gutter;
                     }
                 }
-                return left;
+                // --- 单页偏移 ---
+                if (this.pindex > 0) {
+                    return 'calc(' + (left + (gutter * this.pindex)) + 'px + ' + this.iwidth + ' * ' + this.pindex + ')';
+                }
+                return left + 'px';
             },
+            // --- 一个页面的宽度 ---
             width: function(this: types.IVue) {
                 if (!this.$parent) {
                     return 0;
                 }
                 return this.$parent.width;
             },
+            // --- 总宽度 ---
             awidth: function(this: types.IVue) {
-                return this.width * this.itemCount;
+                if (!this.$parent) {
+                    return 0;
+                }
+                return this.$parent.awidth;
+            },
+            // --- 当前 item 应该的宽度百分比 ---
+            iwidth: function(this: types.IVue) {
+                if (!this.$parent) {
+                    return '100%';
+                }
+                return this.$parent.iwidth;
             },
             translate: function(this: types.IVue) {
                 if (!this.$parent) {
                     return 0;
                 }
                 return this.$parent.translate;
-            },
-            itemCount: function(this: types.IVue) {
-                if (!this.$parent) {
-                    return 0;
-                }
-                return this.$parent.itemCount;
             }
         },
         mounted: async function(this: types.IVue) {
