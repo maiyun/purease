@@ -154,6 +154,13 @@ export abstract class AbstractPage {
     /** --- 是否显示加载框 --- */
     public loading: boolean = false;
 
+    /** --- 滚动到顶部 --- */
+    public toTop() {
+        document.getElementsByTagName('body')[0].scrollIntoView({
+            'behavior': 'smooth'
+        });
+    }
+
 }
 
 /** --- 大页面的内嵌页面 --- */
@@ -339,6 +346,25 @@ export function launcher(page: AbstractPage, panels: Array<{
                         this.windowWidth = window.innerWidth;
                         bodys[0].style.setProperty('--pe-windowwidth', window.innerWidth + 'px');
                     });
+                    // --- 判断是否显示右下角 toTop 按钮 ---
+                    document.addEventListener('scroll', () => {
+                        if (document.documentElement.scrollTop > 300) {
+                            // --- 显示 ---
+                            this.$refs.toTop.classList.add('pe-show');
+                        }
+                        else {
+                            // --- 隐藏 ---
+                            this.$refs.toTop.classList.remove('pe-show');
+                        }
+                    });
+                    if (document.documentElement.scrollTop > 300) {
+                        // --- 显示 ---
+                        this.$refs.toTop.classList.add('pe-show');
+                    }
+                    else {
+                        // --- 隐藏 ---
+                        this.$refs.toTop.classList.remove('pe-show');
+                    }
                     // --- 完成 ---
                     resolve({
                         'vapp': vapp,
@@ -381,7 +407,10 @@ export function launcher(page: AbstractPage, panels: Array<{
             // --- 挂载 loading、系统 dialog ---
             bodys[0].insertAdjacentHTML('beforeend', `<pe-dialog :title="dialogInfo.title" :content="dialogInfo.content" :buttons="dialogInfo.buttons" :show="dialogInfo.show" @select="dialogInfo.select"></pe-dialog>` +
             '<div class="pe-popbtns">' +
-                '<div class="pe-popbtn"></div>' +
+                // --- 滚动到顶部 ---
+                '<div class="pe-popbtn" ref="toTop" @click="toTop">' +
+                    '<svg width="24px" height="24px" viewBox="0 0 24 24" fill="none"><path d="M19 15L12 9L10.25 10.5M5 15L7.33333 13" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
+                '</div>' +
             '</div>' +
             `<div class="pe-loading" :class="[loading&&'pe-show']">` +
                 '<div class="pe-loading-item">' +
@@ -398,7 +427,7 @@ export function launcher(page: AbstractPage, panels: Array<{
         // --- 执行回调 ---
         await tool.sleep(34);
         await page.main.call(rtn.vroot);
-        document.getElementsByTagName('body')[0].style.visibility = 'initial';
+        bodys[0].style.visibility = 'initial';
     })().catch(function(e) {
         console.log('launcher', e);
     });

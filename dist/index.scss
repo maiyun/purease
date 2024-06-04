@@ -128,6 +128,24 @@ html.pe-speed-imme {
     box-shadow: 0px 15px 30px rgba(0, 0, 0, .07);
 }
 
+// --- pe-popbtns ---
+
+.pe-popbtns {
+    position: fixed; right: 50px; bottom: 50px; display: flex; flex-direction: column; gap: 20px;
+}
+.pe-popbtn {
+    width: 48px; height: 48px; border-radius: 24px; box-shadow: 0px 15px 30px rgba(0, 0, 0, .07); background: #FFF; transition: var(--pe-transition); -webkit-user-select: none; user-select: none; display: flex; align-items: center; justify-content: center; border: solid .5px hsl(220, 15%, 85%);
+    &:not(.pe-show) {
+        opacity: 0; pointer-events: none;
+    }
+    &:hover {
+        box-shadow: 0px 15px 30px rgba(0, 0, 0, .14); 
+    }
+    &:active{
+        box-shadow: 0px 15px 30px rgba(0, 0, 0, .14), 0 0 0 4px hsl(220, 20%, 95%);
+    }
+}
+
 // --- pe-header ---
 
 .pe-header {

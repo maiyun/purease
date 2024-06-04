@@ -141,6 +141,11 @@ class AbstractPage {
             this.notifyInfo.show = false;
         }, 3000);
     }
+    toTop() {
+        document.getElementsByTagName('body')[0].scrollIntoView({
+            'behavior': 'smooth'
+        });
+    }
 }
 exports.AbstractPage = AbstractPage;
 class AbstractPanel {
@@ -274,6 +279,20 @@ function launcher(page, panels = []) {
                                 this.windowWidth = window.innerWidth;
                                 bodys[0].style.setProperty('--pe-windowwidth', window.innerWidth + 'px');
                             });
+                            document.addEventListener('scroll', () => {
+                                if (document.documentElement.scrollTop > 300) {
+                                    this.$refs.toTop.classList.add('pe-show');
+                                }
+                                else {
+                                    this.$refs.toTop.classList.remove('pe-show');
+                                }
+                            });
+                            if (document.documentElement.scrollTop > 300) {
+                                this.$refs.toTop.classList.add('pe-show');
+                            }
+                            else {
+                                this.$refs.toTop.classList.remove('pe-show');
+                            }
                             resolve({
                                 'vapp': vapp,
                                 'vroot': this
@@ -309,7 +328,9 @@ function launcher(page, panels = []) {
                 }
                 bodys[0].insertAdjacentHTML('beforeend', `<pe-dialog :title="dialogInfo.title" :content="dialogInfo.content" :buttons="dialogInfo.buttons" :show="dialogInfo.show" @select="dialogInfo.select"></pe-dialog>` +
                     '<div class="pe-popbtns">' +
-                    '<div class="pe-popbtn"></div>' +
+                    '<div class="pe-popbtn" ref="toTop" @click="toTop">' +
+                    '<svg width="24px" height="24px" viewBox="0 0 24 24" fill="none"><path d="M19 15L12 9L10.25 10.5M5 15L7.33333 13" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
+                    '</div>' +
                     '</div>' +
                     `<div class="pe-loading" :class="[loading&&'pe-show']">` +
                     '<div class="pe-loading-item">' +
@@ -325,7 +346,7 @@ function launcher(page, panels = []) {
             });
             yield tool.sleep(34);
             yield page.main.call(rtn.vroot);
-            document.getElementsByTagName('body')[0].style.visibility = 'initial';
+            bodys[0].style.visibility = 'initial';
         });
     })().catch(function (e) {
         console.log('launcher', e);
