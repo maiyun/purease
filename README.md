@@ -71,6 +71,10 @@ This library is published under [Apache-2.0](./LICENSE) license.
 
 [Check SVG Vector](https://www.svgrepo.com/svg/506431/check)
 
+#### Page
+
+[More Horizontal SVG Vector](https://www.svgrepo.com/svg/447028/more-horizontal)
+
 #### Popbtn
 
 ##### Top

@@ -52,6 +52,13 @@ class Page extends purease.AbstractPage {
         this.sheader = false;
         this.customDialog = false;
         this.customDialogText = '';
+        this.p1 = 3;
+        this.p2 = 25;
+        this.p3 = 30;
+        this.p4 = 50;
+        this.p5 = 1;
+        this.total5 = 0;
+        this.control = 2;
     }
     changeNBottom() {
         this.nbottom = !this.nbottom;

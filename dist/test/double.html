@@ -91,5 +91,25 @@
         </div>
     </div>
 </div>
+<div class="pe-block pe-grey">
+    <div class="pe-btitle">Page</div>
+    <div class="pe-layout" style="flex-direction: column; gap: 20px; align-items: center;">
+        <pe-page max="10" :control="control"></pe-page>
+        <pe-page v-model="p1" max="10" :control="control"></pe-page>
+        <pe-page v-model="p2" max="30" :control="control"></pe-page>
+        <pe-page v-model="p3" total="1282" :control="control"></pe-page>
+        <pe-page v-model="p4" total="1282" count="20" :control="control"></pe-page>
+        <pe-page v-model="p5" :total="total5" count="20" :control="control"></pe-page>
+        <div class="pe-layout" style="gap: 20px;">
+            <div class="pe-button pe-pgrey" @click="total5 = total5 ? 0 : 300" style="flex: 2;">total to {{total5 ? 0 : 300}}</div>
+            <div class="pe-button pe-pgrey" @click="control=2" style="flex: 2;">control to 2</div>
+        </div>
+        <div class="pe-layout" style="gap: 20px;">
+            <div class="pe-button pe-pgrey" @click="control=5" style="flex: 1;">to 5</div>
+            <div class="pe-button pe-pgrey"@click="control=0" style="flex: 1;">to 0</div>
+            <div class="pe-button pe-pgrey" @click="control=1" style="flex: 1;">to 1</div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

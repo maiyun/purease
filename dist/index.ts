@@ -161,6 +161,9 @@ export abstract class AbstractPage {
         });
     }
 
+    /** --- 当前语言 --- */
+    public locale: string = 'en';
+
 }
 
 /** --- 大页面的内嵌页面 --- */
@@ -225,7 +228,9 @@ export let global = {
 export function launcher(page: AbstractPage, panels: Array<{
     'selector': string;
     'panel': new () => AbstractPanel;
-}> = []): void {
+}> = [], opts: {
+    'locale'?: 'en';
+} = {}): void {
     (async function() {
         const html = document.getElementsByTagName('html')[0];
         // --- 添加全局 scroll class 如果不在顶部的话 ---
@@ -342,6 +347,7 @@ export function launcher(page: AbstractPage, panels: Array<{
                 'mounted': async function(this: types.IVue) {
                     await this.$nextTick();
                     this.windowWidth = window.innerWidth;
+                    this.locale = opts.locale ?? 'en';
                     window.addEventListener('resize', () => {
                         this.windowWidth = window.innerWidth;
                         bodys[0].style.setProperty('--pe-windowwidth', window.innerWidth + 'px');

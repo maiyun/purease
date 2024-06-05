@@ -3,6 +3,42 @@ import * as tool from './tool';
 import * as types from '../types';
 import * as dom from './dom';
 
+/** --- 通用的一些方法和 computed --- */
+const common = {
+    'computed': {
+        propBoolean: function(this: types.IVue) {
+            return (name: string): boolean => {
+                return tool.getBoolean(this.$props[name]);
+            };
+        },
+        propNumber: function(this: types.IVue) {
+            return (name: string): number => {
+                return tool.getNumber(this.$props[name]);
+            };
+        },
+        propInt: function(this: types.IVue) {
+            return (name: string): number => {
+                return Math.round(this.propNumber(name));
+            };
+        },
+        l: function(
+            this: types.IVue
+        ) {
+            return (key: string, data?: Record<string, Record<string, string>>): string => {
+                if (data) {
+                    return data[this.locale]?.[key] ?? data['en'][key] ?? '[LocaleError]' + key;
+                }
+                else if ((this as any).localeData) {
+                    return (this as any).localeData[this.locale]?.[key] ?? (this as any).localeData['en'][key] ?? '[LocaleError]' + key;
+                }
+                else {
+                    return '[LocaleError]' + key;
+                }
+           };
+       }
+    }
+};
+
 export const list: Record<string, any> = {
     'pe-header': {
         'template': `<div class="pe-header" :class="[propBoolean('fixed')&&'pe-fixed','pe-theme-'+theme,headerPop&&'pe-show']">` +
@@ -35,11 +71,7 @@ export const list: Record<string, any> = {
             }
         },
         'computed': {
-            propBoolean: function(this: types.IVue) {
-                return (name: string): boolean => {
-                    return tool.getBoolean(this.$props[name]);
-                };
-            },
+            ...tool.clone(common.computed),
             'headerPop': {
                 get: function() {
                     return purease.global.headerPop;
@@ -78,6 +110,7 @@ export const list: Record<string, any> = {
             }
         },
         'computed': {
+            ...tool.clone(common.computed),
             /** --- 替换 slot 数据 --- */
             contentComp: function(this: types.IVue): string {
                 if (this.props.mode !== 'date') {
@@ -119,14 +152,13 @@ export const list: Record<string, any> = {
             }
         },
         'computed': {
-            propBoolean: function(this: types.IVue) {
-                return (name: string): boolean => {
-                    return tool.getBoolean(this.$props[name]);
-                };
-            }
+            ...tool.clone(common.computed)
         }
     },
     'pe-header-item': {
+        'template': `<a class="pe-header-item" :href="href" :class="[menuCount&&'pe-list']">` +
+            '<slot></slot>' +
+        '</a>',
         'props': {
             'href': {
                 'default': undefined
@@ -136,10 +168,7 @@ export const list: Record<string, any> = {
             return {
                 'menuCount': 0
             };
-        },
-        'template': `<a class="pe-header-item" :href="href" :class="[menuCount&&'pe-list']">` +
-            '<slot></slot>' +
-        '</a>'
+        }
     },
     'pe-menu': {
         'template': '<div class="pe-menu">' +
@@ -160,14 +189,14 @@ export const list: Record<string, any> = {
         }
     },
     'pe-menu-item': {
+        'template': '<a class="pe-menu-item" :href="href">' +
+            '<slot></slot>' +
+        '</a>',
         'props': {
             'href': {
                 'default': undefined
             }
         },
-        'template': '<a class="pe-menu-item" :href="href">' +
-            '<slot></slot>' +
-        '</a>',
     },
     'pe-banner': {
         'template': `<div class="pe-banner" :class="['pe-direction-'+direction]">` +
@@ -179,7 +208,7 @@ export const list: Record<string, any> = {
             'direction': {
                 'default': 'h'
             }
-        }
+        },
     },
     'pe-group': {
         'template': `<div class="pe-group" :class="[$slots['title']&&'pe-hastitle']">` +
@@ -231,11 +260,7 @@ export const list: Record<string, any> = {
             };
         },
         'computed': {
-            propBoolean: function(this: types.IVue) {
-                return (name: string): boolean => {
-                    return tool.getBoolean(this.$props[name]);
-                };
-            }
+            ...tool.clone(common.computed),
         }
     },
     'pe-check': {
@@ -337,11 +362,7 @@ export const list: Record<string, any> = {
             }
         },
         'computed': {
-            propBoolean: function(this: types.IVue) {
-                return (name: string): boolean => {
-                    return tool.getBoolean(this.$props[name]);
-                };
-            },
+            ...tool.clone(common.computed),
             dataComp: function(this: types.IVue) {
                 const ds: Array<{
                     'label': string;
@@ -913,11 +934,178 @@ export const list: Record<string, any> = {
             'select': null
         },
         'computed': {
-            propBoolean: function(this: types.IVue) {
-                return (name: string): boolean => {
-                    return tool.getBoolean(this.$props[name]);
-                };
+            ...tool.clone(common.computed)
+        }
+    },
+    'pe-page': {
+        'template': '<div class="pe-page">' +
+            '<div class="pe-page-list">' +
+                // --- 向左翻页 ---
+                `<div v-if="page > 1" tabindex="0" class="pe-page-left" @click="--page;$emit('update:modelValue',page);$emit('change',page);refresh()" @keydown="keydown"></div>` +
+                // --- 首页码 ---
+                `<div v-if="page > 1" tabindex="0" @click="page=1;$emit('update:modelValue',page);$emit('change',page);refresh()" @keydown="keydown">1</div>` +
+                // --- 左麻子点 ---
+                `<div v-if="page > propNumber('control') + 2" tabindex="0" v-html="svg" @click="page-=10;if(page<1){page=1}$emit('update:modelValue',page);$emit('change',page);refresh()" @keydown="keydown"></div>` +
+                // --- 左扩展页码 ---
+                `<div tabindex="0" v-for="item of prevs" @click="page=item;$emit('update:modelValue',page);$emit('change',page);refresh()" @keydown="keydown">{{item}}</div>` +
+                // --- 中间的页码 ---
+                `<div tabindex="0" class="pe-selected">{{page}}</div>` +
+                // --- 右扩展页码 ---
+                `<div tabindex="0" v-for="item of nexts" @click="page=item;$emit('update:modelValue',page);$emit('change',page);refresh()" @keydown="keydown">{{item}}</div>` +
+                // --- 右麻子点 ---
+                `<div v-if="page < maxPage - propNumber('control') - 1" tabindex="0" v-html="svg" @click="page+=10;if(page>maxPage){page=maxPage}$emit('update:modelValue',page);$emit('change',page);refresh()" @keydown="keydown"></div>` +
+                // --- 尾页码 ---
+                `<div v-if="page < maxPage" tabindex="0" @click="page=maxPage;$emit('update:modelValue',page);$emit('change',page);refresh()" @keydown="keydown">{{maxPage}}</div>` +
+                // --- 向右翻页 ---
+                `<div v-if="page < maxPage" tabindex="0" class="pe-page-right" @click="++page;$emit('update:modelValue',page);$emit('change',page);refresh()" @keydown="keydown"></div>` +
+            '</div>' +
+            `<div v-if="keydown('total')" class="pe-page-total">{{l('total-of').replace('?',propInt('total'))}}</div>` +
+        '</div>',
+        'props': {
+            'modelValue': {
+                'default': 1
+            },
+            'max': {
+                'default': 0
+            },
+            'total': {
+                'default': 0
+            },
+            'count': {
+                'default': 10
+            },
+            'control': {
+                'default': 10
             }
+        },
+        'emits': {
+            'change': null,
+            'update:modelValue': null
+        },
+        'data': function() {
+            return {
+                'svg': '<svg width="14" height="14" viewBox="0 0 24 24" stroke="none"><path d="m6 10.25c-.9665 0-1.75.7835-1.75 1.75s.7835 1.75 1.75 1.75h.01c.9665 0 1.75-.7835 1.75-1.75s-.7835-1.75-1.75-1.75zm4.25 1.75c0-.9665.7835-1.75 1.75-1.75h.01c.9665 0 1.75.7835 1.75 1.75s-.7835 1.75-1.75 1.75h-.01c-.9665 0-1.75-.7835-1.75-1.75zm6 0c0-.9665.7835-1.75 1.75-1.75h.01c.9665 0 1.75.7835 1.75 1.75s-.7835 1.75-1.75 1.75h-.01c-.9665 0-1.75-.7835-1.75-1.75z" /></svg>',
+                /** --- 上面页面序列 --- */
+                'prevs': [],
+                /** --- 下面页面序列 --- */
+                'nexts': [],
+                /** --- 当前页面 --- */
+                'page': 0,
+                 /** --- 最大页数，如果用户传入了 max 则以 max 为准，否则以 total 和 count 计算最大页面值 --- */
+                'maxPage': 0,
+                /** --- 语言包 --- */
+                'localeData': {
+                    'en': {
+                        'total-of': 'Total of ? items'
+                    },
+                    'sc': {
+                        'total-of': '共 ? 条'
+                    },
+                    'tc': {
+                        'total-of': '共 ? 條'
+                    },
+                    'ja': {
+                        'total-of': '? 件の合計'
+                    },
+                    'ko': {
+                        'total-of': '? 개 항목 총계'
+                    },
+                    'th': {
+                        'total-of': 'ทั้งหมด ? รายการ'
+                    },
+                    'es': {
+                        'total-of': 'Total de ? elementos'
+                    },
+                    'de': {
+                        'total-of': 'Insgesamt ?'
+                    },
+                    'fr': {
+                        'total-of': 'Total de ?'
+                    },
+                    'pt': {
+                        'total-of': 'Total de ?'
+                    },
+                    'ru': {
+                        'total-of': 'Всего ?'
+                    },
+                    'vi': {
+                        'total-of': 'Tổng cộng ?'
+                    }
+                }
+            };
+        },
+        'computed': {
+            ...tool.clone(common.computed),
+        },
+        'methods': {
+            refresh: function(this: types.IVue) {
+                this.prevs.length = 0;
+                let min = this.page - this.propNumber('control');
+                if (min < 2) {
+                    min = 2;
+                }
+                for (let i = this.page - 1; i >= min; --i) {
+                    this.prevs.unshift(i);
+                }
+
+                this.nexts.length = 0;
+                let max = this.page + this.propNumber('control');
+                if (max > this.maxPage - 1) {
+                    max = this.maxPage - 1;
+                }
+                for (let i = this.page + 1; i <= max; ++i) {
+                    this.nexts.push(i);
+                }
+            },
+            refreshMaxPage: function(this: types.IVue) {
+                const max = this.propInt('max');
+                if (max) {
+                    this.maxPage = max;
+                    return;
+                }
+                if (!this.propInt('total')) {
+                    this.maxPage = 1;
+                    return;
+                }
+                this.maxPage = Math.ceil(this.propInt('total') / this.propInt('count'));
+            },
+            keydown: function(e: KeyboardEvent) {
+                if (e.key !== 'Enter') {
+                    return;
+                }
+                e.preventDefault();
+                (e.target as HTMLElement).click();
+            }
+        },
+        'watch': {
+            'modelValue': {
+                handler: function(this: types.IVue) {
+                    this.page = this.propInt('modelValue');
+                    this.refresh();
+                },
+                'immediate': true
+            },
+            'max': {
+                handler: function(this: types.IVue) {
+                    this.refreshMaxPage();
+                    this.refresh();
+                }
+            },
+            'total': {
+                handler: function(this: types.IVue) {
+                    this.refreshMaxPage();
+                    this.refresh();
+                }
+            },
+            'control': {
+                handler: function(this: types.IVue) {
+                    this.refresh();
+                }
+            }
+        },
+        mounted: function() {
+            this.refreshMaxPage();
+            this.refresh();
         }
     }
 };

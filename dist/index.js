@@ -56,6 +56,7 @@ class AbstractPage {
         };
         this.windowWidth = 0;
         this.loading = false;
+        this.locale = 'en';
         if (opt.debug) {
             this._debug = true;
         }
@@ -169,7 +170,7 @@ exports.AbstractPanel = AbstractPanel;
 exports.global = {
     'headerPop': false
 };
-function launcher(page, panels = []) {
+function launcher(page, panels = [], opts = {}) {
     (function () {
         return __awaiter(this, void 0, void 0, function* () {
             const html = document.getElementsByTagName('html')[0];
@@ -273,8 +274,10 @@ function launcher(page, panels = []) {
                     },
                     'mounted': function () {
                         return __awaiter(this, void 0, void 0, function* () {
+                            var _a;
                             yield this.$nextTick();
                             this.windowWidth = window.innerWidth;
+                            this.locale = (_a = opts.locale) !== null && _a !== void 0 ? _a : 'en';
                             window.addEventListener('resize', () => {
                                 this.windowWidth = window.innerWidth;
                                 bodys[0].style.setProperty('--pe-windowwidth', window.innerWidth + 'px');

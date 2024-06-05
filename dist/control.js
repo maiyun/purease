@@ -36,6 +36,39 @@ exports.list = void 0;
 const purease = __importStar(require("./index"));
 const tool = __importStar(require("./tool"));
 const dom = __importStar(require("./dom"));
+const common = {
+    'computed': {
+        propBoolean: function () {
+            return (name) => {
+                return tool.getBoolean(this.$props[name]);
+            };
+        },
+        propNumber: function () {
+            return (name) => {
+                return tool.getNumber(this.$props[name]);
+            };
+        },
+        propInt: function () {
+            return (name) => {
+                return Math.round(this.propNumber(name));
+            };
+        },
+        l: function () {
+            return (key, data) => {
+                var _a, _b, _c, _d, _e, _f;
+                if (data) {
+                    return (_c = (_b = (_a = data[this.locale]) === null || _a === void 0 ? void 0 : _a[key]) !== null && _b !== void 0 ? _b : data['en'][key]) !== null && _c !== void 0 ? _c : '[LocaleError]' + key;
+                }
+                else if (this.localeData) {
+                    return (_f = (_e = (_d = this.localeData[this.locale]) === null || _d === void 0 ? void 0 : _d[key]) !== null && _e !== void 0 ? _e : this.localeData['en'][key]) !== null && _f !== void 0 ? _f : '[LocaleError]' + key;
+                }
+                else {
+                    return '[LocaleError]' + key;
+                }
+            };
+        }
+    }
+};
 exports.list = {
     'pe-header': {
         'template': `<div class="pe-header" :class="[propBoolean('fixed')&&'pe-fixed','pe-theme-'+theme,headerPop&&'pe-show']">` +
@@ -67,21 +100,14 @@ exports.list = {
                 'default': 'default'
             }
         },
-        'computed': {
-            propBoolean: function () {
-                return (name) => {
-                    return tool.getBoolean(this.$props[name]);
-                };
-            },
-            'headerPop': {
+        'computed': Object.assign(Object.assign({}, tool.clone(common.computed)), { 'headerPop': {
                 get: function () {
                     return purease.global.headerPop;
                 },
                 set: function (v) {
                     purease.global.headerPop = v;
                 }
-            }
-        }
+            } })
     },
     'pe-label': {
         'template': `<span class="pe-label" :class="['pe-label-'+mode]">` +
@@ -108,8 +134,7 @@ exports.list = {
                 'default': undefined
             }
         },
-        'computed': {
-            contentComp: function () {
+        'computed': Object.assign(Object.assign({}, tool.clone(common.computed)), { contentComp: function () {
                 if (this.props.mode !== 'date') {
                     return this.props.content;
                 }
@@ -130,8 +155,7 @@ exports.list = {
                     dateTxt.push('UTC' + (tz >= 0 ? '+' : '') + tz.toString());
                 }
                 return dateTxt.join(' ');
-            }
-        }
+            } })
     },
     'pe-footer': {
         'template': `<div class="pe-footer" :class="[propBoolean('dark')&&'pe-dark']">` +
@@ -147,15 +171,12 @@ exports.list = {
                 'default': false
             }
         },
-        'computed': {
-            propBoolean: function () {
-                return (name) => {
-                    return tool.getBoolean(this.$props[name]);
-                };
-            }
-        }
+        'computed': Object.assign({}, tool.clone(common.computed))
     },
     'pe-header-item': {
+        'template': `<a class="pe-header-item" :href="href" :class="[menuCount&&'pe-list']">` +
+            '<slot></slot>' +
+            '</a>',
         'props': {
             'href': {
                 'default': undefined
@@ -165,10 +186,7 @@ exports.list = {
             return {
                 'menuCount': 0
             };
-        },
-        'template': `<a class="pe-header-item" :href="href" :class="[menuCount&&'pe-list']">` +
-            '<slot></slot>' +
-            '</a>'
+        }
     },
     'pe-menu': {
         'template': '<div class="pe-menu">' +
@@ -191,14 +209,14 @@ exports.list = {
         }
     },
     'pe-menu-item': {
+        'template': '<a class="pe-menu-item" :href="href">' +
+            '<slot></slot>' +
+            '</a>',
         'props': {
             'href': {
                 'default': undefined
             }
         },
-        'template': '<a class="pe-menu-item" :href="href">' +
-            '<slot></slot>' +
-            '</a>',
     },
     'pe-banner': {
         'template': `<div class="pe-banner" :class="['pe-direction-'+direction]">` +
@@ -210,7 +228,7 @@ exports.list = {
             'direction': {
                 'default': 'h'
             }
-        }
+        },
     },
     'pe-group': {
         'template': `<div class="pe-group" :class="[$slots['title']&&'pe-hastitle']">` +
@@ -260,13 +278,7 @@ exports.list = {
                 'focus': false
             };
         },
-        'computed': {
-            propBoolean: function () {
-                return (name) => {
-                    return tool.getBoolean(this.$props[name]);
-                };
-            }
-        }
+        'computed': Object.assign({}, tool.clone(common.computed))
     },
     'pe-check': {
         'template': `<div class="pe-check" :class="[value&&'pe-checked']" @click="click" tabindex="0">` +
@@ -365,13 +377,7 @@ exports.list = {
                 dom.hidePop();
             }
         },
-        'computed': {
-            propBoolean: function () {
-                return (name) => {
-                    return tool.getBoolean(this.$props[name]);
-                };
-            },
-            dataComp: function () {
+        'computed': Object.assign(Object.assign({}, tool.clone(common.computed)), { dataComp: function () {
                 var _a, _b, _c, _d;
                 const ds = [];
                 for (const item of this.$props.data) {
@@ -388,8 +394,7 @@ exports.list = {
                     });
                 }
                 return ds;
-            }
-        },
+            } }),
         'watch': {
             'modelValue': {
                 handler: function () {
@@ -911,12 +916,160 @@ exports.list = {
         'emits': {
             'select': null
         },
-        'computed': {
-            propBoolean: function () {
-                return (name) => {
-                    return tool.getBoolean(this.$props[name]);
-                };
+        'computed': Object.assign({}, tool.clone(common.computed))
+    },
+    'pe-page': {
+        'template': '<div class="pe-page">' +
+            '<div class="pe-page-list">' +
+            `<div v-if="page > 1" tabindex="0" class="pe-page-left" @click="--page;$emit('update:modelValue',page);$emit('change',page);refresh()" @keydown="keydown"></div>` +
+            `<div v-if="page > 1" tabindex="0" @click="page=1;$emit('update:modelValue',page);$emit('change',page);refresh()" @keydown="keydown">1</div>` +
+            `<div v-if="page > propNumber('control') + 2" tabindex="0" v-html="svg" @click="page-=10;if(page<1){page=1}$emit('update:modelValue',page);$emit('change',page);refresh()" @keydown="keydown"></div>` +
+            `<div tabindex="0" v-for="item of prevs" @click="page=item;$emit('update:modelValue',page);$emit('change',page);refresh()" @keydown="keydown">{{item}}</div>` +
+            `<div tabindex="0" class="pe-selected">{{page}}</div>` +
+            `<div tabindex="0" v-for="item of nexts" @click="page=item;$emit('update:modelValue',page);$emit('change',page);refresh()" @keydown="keydown">{{item}}</div>` +
+            `<div v-if="page < maxPage - propNumber('control') - 1" tabindex="0" v-html="svg" @click="page+=10;if(page>maxPage){page=maxPage}$emit('update:modelValue',page);$emit('change',page);refresh()" @keydown="keydown"></div>` +
+            `<div v-if="page < maxPage" tabindex="0" @click="page=maxPage;$emit('update:modelValue',page);$emit('change',page);refresh()" @keydown="keydown">{{maxPage}}</div>` +
+            `<div v-if="page < maxPage" tabindex="0" class="pe-page-right" @click="++page;$emit('update:modelValue',page);$emit('change',page);refresh()" @keydown="keydown"></div>` +
+            '</div>' +
+            `<div v-if="keydown('total')" class="pe-page-total">{{l('total-of').replace('?',propInt('total'))}}</div>` +
+            '</div>',
+        'props': {
+            'modelValue': {
+                'default': 1
+            },
+            'max': {
+                'default': 0
+            },
+            'total': {
+                'default': 0
+            },
+            'count': {
+                'default': 10
+            },
+            'control': {
+                'default': 10
             }
+        },
+        'emits': {
+            'change': null,
+            'update:modelValue': null
+        },
+        'data': function () {
+            return {
+                'svg': '<svg width="14" height="14" viewBox="0 0 24 24" stroke="none"><path d="m6 10.25c-.9665 0-1.75.7835-1.75 1.75s.7835 1.75 1.75 1.75h.01c.9665 0 1.75-.7835 1.75-1.75s-.7835-1.75-1.75-1.75zm4.25 1.75c0-.9665.7835-1.75 1.75-1.75h.01c.9665 0 1.75.7835 1.75 1.75s-.7835 1.75-1.75 1.75h-.01c-.9665 0-1.75-.7835-1.75-1.75zm6 0c0-.9665.7835-1.75 1.75-1.75h.01c.9665 0 1.75.7835 1.75 1.75s-.7835 1.75-1.75 1.75h-.01c-.9665 0-1.75-.7835-1.75-1.75z" /></svg>',
+                'prevs': [],
+                'nexts': [],
+                'page': 0,
+                'maxPage': 0,
+                'localeData': {
+                    'en': {
+                        'total-of': 'Total of ? items'
+                    },
+                    'sc': {
+                        'total-of': '共 ? 条'
+                    },
+                    'tc': {
+                        'total-of': '共 ? 條'
+                    },
+                    'ja': {
+                        'total-of': '? 件の合計'
+                    },
+                    'ko': {
+                        'total-of': '? 개 항목 총계'
+                    },
+                    'th': {
+                        'total-of': 'ทั้งหมด ? รายการ'
+                    },
+                    'es': {
+                        'total-of': 'Total de ? elementos'
+                    },
+                    'de': {
+                        'total-of': 'Insgesamt ?'
+                    },
+                    'fr': {
+                        'total-of': 'Total de ?'
+                    },
+                    'pt': {
+                        'total-of': 'Total de ?'
+                    },
+                    'ru': {
+                        'total-of': 'Всего ?'
+                    },
+                    'vi': {
+                        'total-of': 'Tổng cộng ?'
+                    }
+                }
+            };
+        },
+        'computed': Object.assign({}, tool.clone(common.computed)),
+        'methods': {
+            refresh: function () {
+                this.prevs.length = 0;
+                let min = this.page - this.propNumber('control');
+                if (min < 2) {
+                    min = 2;
+                }
+                for (let i = this.page - 1; i >= min; --i) {
+                    this.prevs.unshift(i);
+                }
+                this.nexts.length = 0;
+                let max = this.page + this.propNumber('control');
+                if (max > this.maxPage - 1) {
+                    max = this.maxPage - 1;
+                }
+                for (let i = this.page + 1; i <= max; ++i) {
+                    this.nexts.push(i);
+                }
+            },
+            refreshMaxPage: function () {
+                const max = this.propInt('max');
+                if (max) {
+                    this.maxPage = max;
+                    return;
+                }
+                if (!this.propInt('total')) {
+                    this.maxPage = 1;
+                    return;
+                }
+                this.maxPage = Math.ceil(this.propInt('total') / this.propInt('count'));
+            },
+            keydown: function (e) {
+                if (e.key !== 'Enter') {
+                    return;
+                }
+                e.preventDefault();
+                e.target.click();
+            }
+        },
+        'watch': {
+            'modelValue': {
+                handler: function () {
+                    this.page = this.propInt('modelValue');
+                    this.refresh();
+                },
+                'immediate': true
+            },
+            'max': {
+                handler: function () {
+                    this.refreshMaxPage();
+                    this.refresh();
+                }
+            },
+            'total': {
+                handler: function () {
+                    this.refreshMaxPage();
+                    this.refresh();
+                }
+            },
+            'control': {
+                handler: function () {
+                    this.refresh();
+                }
+            }
+        },
+        mounted: function () {
+            this.refreshMaxPage();
+            this.refresh();
         }
     }
 };
