@@ -57,10 +57,10 @@ const common = {
             return (key, data) => {
                 var _a, _b, _c, _d, _e, _f;
                 if (data) {
-                    return (_c = (_b = (_a = data[this.locale]) === null || _a === void 0 ? void 0 : _a[key]) !== null && _b !== void 0 ? _b : data['en'][key]) !== null && _c !== void 0 ? _c : '[LocaleError]' + key;
+                    return (_c = (_b = (_a = data[this.$root.locale]) === null || _a === void 0 ? void 0 : _a[key]) !== null && _b !== void 0 ? _b : data['en'][key]) !== null && _c !== void 0 ? _c : '[LocaleError]' + key;
                 }
                 else if (this.localeData) {
-                    return (_f = (_e = (_d = this.localeData[this.locale]) === null || _d === void 0 ? void 0 : _d[key]) !== null && _e !== void 0 ? _e : this.localeData['en'][key]) !== null && _f !== void 0 ? _f : '[LocaleError]' + key;
+                    return (_f = (_e = (_d = this.localeData[this.$root.locale]) === null || _d === void 0 ? void 0 : _d[key]) !== null && _e !== void 0 ? _e : this.localeData['en'][key]) !== null && _f !== void 0 ? _f : '[LocaleError]' + key;
                 }
                 else {
                     return '[LocaleError]' + key;
@@ -244,7 +244,7 @@ exports.list = {
             '</div>'
     },
     'pe-text': {
-        'template': `<div class="pe-text" :class="[focus&&'pe-focus']" :data-pe-disabled="propBoolean('disabled') ? '' : undefined">` +
+        'template': `<div class="pe-text" :class="[focus&&'pe-focus',propBoolean('plain')&&'pe-plain']" :data-pe-disabled="propBoolean('disabled') ? '' : undefined">` +
             `<div v-if="$slots['before']" class="pe-before"><slot name="before"></slot></div>` +
             `<div v-if="$slots['prepend']" class="pe-prepend">` +
             '<slot name="prepend"></slot>' +
@@ -270,6 +270,9 @@ exports.list = {
                 'default': ''
             },
             'disabled': {
+                'default': false
+            },
+            'plain': {
                 'default': false
             }
         },
@@ -340,7 +343,11 @@ exports.list = {
             `<div class="pe-select-label" @click="open">{{dataComp[index] ? dataComp[index].label : '　'}}</div>` +
             '<div class="pe-select-arrow" @click="open"></div>' +
             '<div class="pe-pop" ref="pop">' +
-            `<div v-for="item, i of dataComp" class="pe-select-item" :class="[(index===i)&&'pe-selected']" @click="click(i)">{{item.label}}</div>` +
+            `<pe-text v-if="propBoolean('search')" v-model="searchValue" plain placeholder=""></pe-text>` +
+            `<div class="pe-select-list" :class="[!searchComp.length&&'pe-empty']">` +
+            `<div v-if="searchComp.length" v-for="item, i of searchComp" class="pe-select-item" :class="[(index===i)&&'pe-selected']" @click="click(item.index===undefined?i:item.index)">{{item.label}}</div>` +
+            `<div v-else>{{l('empty')}}</div>` +
+            '</div>' +
             '</div>' +
             '</div>',
         'props': {
@@ -355,7 +362,10 @@ exports.list = {
             },
             'plain': {
                 'default': false
-            }
+            },
+            'search': {
+                'default': false
+            },
         },
         'emits': {
             'index': null,
@@ -363,7 +373,46 @@ exports.list = {
         },
         'data': function () {
             return {
-                'index': 0
+                'index': 0,
+                'searchValue': '',
+                'localeData': {
+                    'en': {
+                        'empty': 'Empty'
+                    },
+                    'sc': {
+                        'empty': '空'
+                    },
+                    'tc': {
+                        'empty': '空'
+                    },
+                    'ja': {
+                        'empty': '空っぽ'
+                    },
+                    'ko': {
+                        'empty': '비어 있음'
+                    },
+                    'th': {
+                        'empty': 'ว่างเปล่า'
+                    },
+                    'es': {
+                        'empty': 'Vacío'
+                    },
+                    'de': {
+                        'empty': 'Leer'
+                    },
+                    'fr': {
+                        'empty': 'Vide'
+                    },
+                    'pt': {
+                        'empty': 'Vazio'
+                    },
+                    'ru': {
+                        'empty': 'Пусто'
+                    },
+                    'vi': {
+                        'empty': 'Trống'
+                    }
+                }
             };
         },
         'methods': {
@@ -372,6 +421,7 @@ exports.list = {
             },
             click: function (index) {
                 this.index = index;
+                this.searchValue = '';
                 this.$emit('update:modelValue', this.dataComp[index].value);
                 this.$emit('index', index);
                 dom.hidePop();
@@ -392,6 +442,30 @@ exports.list = {
                         'label': (_b = (_a = item.label) !== null && _a !== void 0 ? _a : item.value) !== null && _b !== void 0 ? _b : '',
                         'value': (_d = (_c = item.value) !== null && _c !== void 0 ? _c : item.label) !== null && _d !== void 0 ? _d : ''
                     });
+                }
+                return ds;
+            }, searchComp: function () {
+                if (!this.searchValue) {
+                    return this.dataComp;
+                }
+                const ds = [];
+                for (let i = 0; i < this.dataComp.length; ++i) {
+                    const item = this.dataComp[i];
+                    let include = true;
+                    for (const char of this.searchValue) {
+                        if (item.label.includes(char) || item.value.includes(char)) {
+                            continue;
+                        }
+                        include = false;
+                        break;
+                    }
+                    if (include) {
+                        ds.push({
+                            'index': i,
+                            'label': item.label,
+                            'value': item.value
+                        });
+                    }
                 }
                 return ds;
             } }),
@@ -519,6 +593,9 @@ exports.list = {
         },
         methods: {
             down: function (e) {
+                if (dom.hasTouchButMouse(e)) {
+                    return;
+                }
                 if (this.going) {
                     return;
                 }
@@ -931,7 +1008,7 @@ exports.list = {
             `<div v-if="page < maxPage" tabindex="0" @click="page=maxPage;$emit('update:modelValue',page);$emit('change',page);refresh()" @keydown="keydown">{{maxPage}}</div>` +
             `<div v-if="page < maxPage" tabindex="0" class="pe-page-right" @click="++page;$emit('update:modelValue',page);$emit('change',page);refresh()" @keydown="keydown"></div>` +
             '</div>' +
-            `<div v-if="keydown('total')" class="pe-page-total">{{l('total-of').replace('?',propInt('total'))}}</div>` +
+            `<div v-if="propInt('total')" class="pe-page-total">{{l('total-of').replace('?',propInt('total'))}}</div>` +
             '</div>',
         'props': {
             'modelValue': {
@@ -1070,6 +1147,111 @@ exports.list = {
         mounted: function () {
             this.refreshMaxPage();
             this.refresh();
+        }
+    },
+    'pe-slider': {
+        'template': `<div class="pe-slider">` +
+            `<div v-if="propBoolean('range')" class="pe-slider-bar" :style="{'width': barWidth + '%', 'left': 'calc(' + barLeft + '% - 11px)'}"></div>` +
+            `<div class="pe-slider-block" :style="{'left': 'calc(' + pos[0] + '% - 11px)'}" tabindex="0" @mousedown="down($event, 0)" @touchstart="down($event, 0)"></div>` +
+            `<div v-if="propBoolean('range')" class="pe-slider-block" :style="{'left': 'calc(' + pos[1] + '% - 11px)'}" tabindex="0" @mousedown="down($event, 1)" @touchstart="down($event, 1)"></div>` +
+            '</div>',
+        'props': {
+            'modelValue': {
+                'default': [0, 0]
+            },
+            'min': {
+                'default': 0
+            },
+            'max': {
+                'default': 100
+            },
+            'range': {
+                'default': false
+            },
+        },
+        data: function () {
+            return {
+                'pos': [0, 0]
+            };
+        },
+        'computed': Object.assign(Object.assign({}, tool.clone(common.computed)), { barWidth: function () {
+                return this.pos[1] - this.pos[0];
+            }, barLeft: function () {
+                return this.pos[0];
+            } }),
+        methods: {
+            down: function (e, i) {
+                if (dom.hasTouchButMouse(e)) {
+                    return;
+                }
+                const bcr = this.$el.getBoundingClientRect();
+                const width = bcr.width;
+                const left = bcr.left;
+                let x = e instanceof MouseEvent ? e.clientX : e.touches[0].clientX;
+                dom.bindDown(e, {
+                    move: (ne) => {
+                        let nx = ne instanceof MouseEvent ? ne.clientX : ne.touches[0].clientX;
+                        let pos = (nx - left) / width * 100;
+                        if (pos < 0) {
+                            pos = 0;
+                        }
+                        else if (pos > 100) {
+                            pos = 100;
+                        }
+                        if (this.propBoolean('range')) {
+                            if (i === 0) {
+                                if (pos > this.pos[1]) {
+                                    pos = this.pos[1];
+                                }
+                            }
+                            else {
+                                if (pos < this.pos[0]) {
+                                    pos = this.pos[0];
+                                }
+                            }
+                        }
+                        this.pos[i] = pos;
+                        this.$emit('update:modelValue', [
+                            this.propInt('min') + Math.round(this.pos[0] / 100 * (this.propInt('max') - this.propInt('min'))),
+                            this.propBoolean('range') ? this.propInt('min') + Math.round(this.pos[1] / 100 * (this.propInt('max') - this.propInt('min'))) : 0,
+                        ]);
+                    }
+                });
+            }
+        },
+        'watch': {
+            'modelValue': {
+                handler: function () {
+                    if (!Array.isArray(this.modelValue)) {
+                        this.$emit('update:modelValue', [0, 0]);
+                        return;
+                    }
+                    let change = false;
+                    if (typeof this.modelValue[0] !== 'number') {
+                        this.modelValue[0] = parseInt(this.modelValue[0]);
+                        if (Number.isNaN(this.modelValue[0])) {
+                            this.modelValue[0] = 0;
+                        }
+                        change = true;
+                    }
+                    if (typeof this.modelValue[1] !== 'number') {
+                        this.modelValue[1] = parseInt(this.modelValue[1]);
+                        change = true;
+                    }
+                    if (this.propBoolean('range')) {
+                        if (this.modelValue[0] > this.modelValue[1]) {
+                            this.modelValue[0] = this.modelValue[1];
+                            change = true;
+                        }
+                    }
+                    if (change) {
+                        this.$emit('update:modelValue', this.modelValue);
+                    }
+                    this.pos[0] = (this.modelValue[0] - this.propInt('min')) / (this.propInt('max') - this.propInt('min')) * 100;
+                    this.pos[1] = (this.modelValue[1] - this.propInt('min')) / (this.propInt('max') - this.propInt('min')) * 100;
+                },
+                'immediate': true
+            }
         }
     }
 };

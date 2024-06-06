@@ -7,6 +7,8 @@ class Page extends purease.AbstractPage {
 
     public select = 'h';
 
+    public search = false;
+
     // --- swipe ---
 
     public tab = 0;
@@ -26,6 +28,12 @@ class Page extends purease.AbstractPage {
     public nbottom = true;
 
     public dbottom = 'dark';
+
+    // --- slider ---
+
+    public slider1 = [15, 0];
+
+    public slider2 = [200, 300];
 
     public changeNBottom() {
         this.nbottom = !this.nbottom;

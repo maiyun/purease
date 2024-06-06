@@ -42,6 +42,7 @@ class Page extends purease.AbstractPage {
         super(...arguments);
         this.text = '123';
         this.select = 'h';
+        this.search = false;
         this.tab = 0;
         this.swipePage = 'center';
         this.swipeControl = 'inner';
@@ -49,6 +50,8 @@ class Page extends purease.AbstractPage {
         this.pwd = '';
         this.nbottom = true;
         this.dbottom = 'dark';
+        this.slider1 = [15, 0];
+        this.slider2 = [200, 300];
         this.sheader = false;
         this.customDialog = false;
         this.customDialogText = '';

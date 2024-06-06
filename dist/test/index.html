@@ -156,6 +156,7 @@
     <div class="pe-btitle">Text + Select</div>
     <div class="pe-layout" style="margin-top: 20px; flex-direction: column; gap: 20px; align-items: center;">
         <pe-text style="width: 400px;" v-model="text"></pe-text>
+        <pe-text style="width: 400px;" v-model="text" plain></pe-text>
         <pe-text style="width: 400px;" v-model="text">
             <template v-slot:prepend>Hello:</template>
             <template v-slot:append>KG</template>
@@ -166,7 +167,8 @@
         </pe-text>
         <div>Text is: {{text}}</div>
         <div>Select is: {{select}}</div>
-        <pe-select style="width: 400px;" v-model="select" :data="['a', { 'value': 'ok', 'label': 'v is ok' }, 'c', 'd', 'e', 'f', 'g', 'h']"></pe-select>
+        <pe-select style="width: 400px;" v-model="select" :search="search" :data="['a', { 'value': 'ok', 'label': 'v is ok' }, 'c', 'd', 'e', 'f', 'g', 'h']"></pe-select>
+        <div class="pe-button pe-pgrey" @click="search = !search">{{search ? '' : '!'}}Search</div>
         <pe-text style="width: 400px;" v-model="text">
             <template v-slot:before>
                 <pe-select :data="['a', { 'value': 'ok', 'label': 'v is ok' }, 'c', 'd', 'e', 'f', 'g', 'h']" plain></pe-select>

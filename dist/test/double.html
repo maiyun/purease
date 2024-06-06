@@ -111,5 +111,14 @@
         </div>
     </div>
 </div>
+<div class="pe-block">
+    <div class="pe-btitle">Slider</div>
+    <div class="pe-layout pe-content pe-padding-lr" style="flex-direction: column; gap: 40px; max-width: 600px;">
+        <div>{{slider1}}</div>
+        <pe-slider v-model="slider1"></pe-slider>
+        <div>min: 100, max: 500, {{slider2}}</div>
+        <pe-slider v-model="slider2" range min="100" max="500"></pe-slider>
+    </div>
+</div>
 </body>
 </html>
