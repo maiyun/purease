@@ -54,6 +54,25 @@ export abstract class AbstractPage {
         return (this as any).$nextTick;
     }
 
+    /*
+    public get l() {
+        return (key: string, data?: string[]): string => {
+            const loc = (this as any).localeData?.[this.$root.locale][key] ?? '[LocaleError]' + key;
+            if (!data) {
+                return loc;
+            }
+            let i: number = -1;
+            return (this as any).localeData[this.$root.locale][key].replace(/\?/g, function() {
+                ++i;
+                if (!data[i]) {
+                    return '';
+                }
+                return data[i];
+            });
+        };
+    }
+    */
+
     /**
      * --- 监视变动 ---
      * @param name 监视的属性

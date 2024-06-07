@@ -24,16 +24,19 @@ const common = {
         l: function(
             this: types.IVue
         ) {
-            return (key: string, data?: Record<string, Record<string, string>>): string => {
-                if (data) {
-                    return data[this.$root.locale]?.[key] ?? data['en'][key] ?? '[LocaleError]' + key;
+            return (key: string, data?: string[]): string => {
+                const loc = (this as any).localeData?.[this.$root.locale][key] ?? '[LocaleError]' + key;
+                if (!data) {
+                    return loc;
                 }
-                else if ((this as any).localeData) {
-                    return (this as any).localeData[this.$root.locale]?.[key] ?? (this as any).localeData['en'][key] ?? '[LocaleError]' + key;
-                }
-                else {
-                    return '[LocaleError]' + key;
-                }
+                let i: number = -1;
+                return (this as any).localeData[this.$root.locale][key].replace(/\?/g, function() {
+                    ++i;
+                    if (!data[i]) {
+                        return '';
+                    }
+                    return data[i];
+                });
             };
         }
     }
@@ -327,7 +330,7 @@ export const list: Record<string, any> = {
             `<div class="pe-select-label" @click="open">{{dataComp[index] ? dataComp[index].label : '　'}}</div>` +
             '<div class="pe-select-arrow" @click="open"></div>' +
             '<div class="pe-pop" ref="pop">' +
-                `<pe-text v-if="propBoolean('search')" v-model="searchValue" plain placeholder=""></pe-text>` +
+                `<pe-text v-if="propBoolean('search')" v-model="searchValue" plain :placeholder="l('search')"></pe-text>` +
                 `<div class="pe-select-list" :class="[!searchComp.length&&'pe-empty']">` +
                     `<div v-if="searchComp.length" v-for="item, i of searchComp" class="pe-select-item" :class="[(index===i)&&'pe-selected']" @click="click(item.index===undefined?i:item.index)">{{item.label}}</div>` +
                     `<div v-else>{{l('empty')}}</div>` +
@@ -363,40 +366,52 @@ export const list: Record<string, any> = {
                 /** --- 语言包 --- */
                 'localeData': {
                     'en': {
-                        'empty': 'Empty'
+                        'empty': 'Empty',
+                        'search': 'Search'
                     },
                     'sc': {
-                        'empty': '空'
+                        'empty': '空',
+                        'search': '搜索'
                     },
                     'tc': {
-                        'empty': '空'
+                        'empty': '空',
+                        'search': '搜尋'
                     },
                     'ja': {
-                        'empty': '空っぽ'
+                        'empty': '空っぽ',
+                        'search': '検索'
                     },
                     'ko': {
-                        'empty': '비어 있음'
+                        'empty': '비어 있음',
+                        'search': '검색'
                     },
                     'th': {
-                        'empty': 'ว่างเปล่า'
+                        'empty': 'ว่างเปล่า',
+                        'search': 'ค้นหา'
                     },
                     'es': {
-                        'empty': 'Vacío'
+                        'empty': 'Vacío',
+                        'search': 'buscar'
                     },
                     'de': {
-                        'empty': 'Leer'
+                        'empty': 'Leer',
+                        'search': 'suchen'
                     },
                     'fr': {
-                        'empty': 'Vide'
+                        'empty': 'Vide',
+                        'search': 'rechercher'
                     },
                     'pt': {
-                        'empty': 'Vazio'
+                        'empty': 'Vazio',
+                        'search': 'pesquisar'
                     },
                     'ru': {
-                        'empty': 'Пусто'
+                        'empty': 'Пусто',
+                        'search': 'поиск'
                     },
                     'vi': {
-                        'empty': 'Trống'
+                        'empty': 'Trống',
+                        'search': 'tìm kiếm'
                     }
                 }                
             };

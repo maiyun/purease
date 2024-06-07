@@ -55,16 +55,19 @@ const common = {
         },
         l: function () {
             return (key, data) => {
-                var _a, _b, _c, _d, _e, _f;
-                if (data) {
-                    return (_c = (_b = (_a = data[this.$root.locale]) === null || _a === void 0 ? void 0 : _a[key]) !== null && _b !== void 0 ? _b : data['en'][key]) !== null && _c !== void 0 ? _c : '[LocaleError]' + key;
+                var _a, _b;
+                const loc = (_b = (_a = this.localeData) === null || _a === void 0 ? void 0 : _a[this.$root.locale][key]) !== null && _b !== void 0 ? _b : '[LocaleError]' + key;
+                if (!data) {
+                    return loc;
                 }
-                else if (this.localeData) {
-                    return (_f = (_e = (_d = this.localeData[this.$root.locale]) === null || _d === void 0 ? void 0 : _d[key]) !== null && _e !== void 0 ? _e : this.localeData['en'][key]) !== null && _f !== void 0 ? _f : '[LocaleError]' + key;
-                }
-                else {
-                    return '[LocaleError]' + key;
-                }
+                let i = -1;
+                return this.localeData[this.$root.locale][key].replace(/\?/g, function () {
+                    ++i;
+                    if (!data[i]) {
+                        return '';
+                    }
+                    return data[i];
+                });
             };
         }
     }
@@ -343,7 +346,7 @@ exports.list = {
             `<div class="pe-select-label" @click="open">{{dataComp[index] ? dataComp[index].label : '　'}}</div>` +
             '<div class="pe-select-arrow" @click="open"></div>' +
             '<div class="pe-pop" ref="pop">' +
-            `<pe-text v-if="propBoolean('search')" v-model="searchValue" plain placeholder=""></pe-text>` +
+            `<pe-text v-if="propBoolean('search')" v-model="searchValue" plain :placeholder="l('search')"></pe-text>` +
             `<div class="pe-select-list" :class="[!searchComp.length&&'pe-empty']">` +
             `<div v-if="searchComp.length" v-for="item, i of searchComp" class="pe-select-item" :class="[(index===i)&&'pe-selected']" @click="click(item.index===undefined?i:item.index)">{{item.label}}</div>` +
             `<div v-else>{{l('empty')}}</div>` +
@@ -377,40 +380,52 @@ exports.list = {
                 'searchValue': '',
                 'localeData': {
                     'en': {
-                        'empty': 'Empty'
+                        'empty': 'Empty',
+                        'search': 'Search'
                     },
                     'sc': {
-                        'empty': '空'
+                        'empty': '空',
+                        'search': '搜索'
                     },
                     'tc': {
-                        'empty': '空'
+                        'empty': '空',
+                        'search': '搜尋'
                     },
                     'ja': {
-                        'empty': '空っぽ'
+                        'empty': '空っぽ',
+                        'search': '検索'
                     },
                     'ko': {
-                        'empty': '비어 있음'
+                        'empty': '비어 있음',
+                        'search': '검색'
                     },
                     'th': {
-                        'empty': 'ว่างเปล่า'
+                        'empty': 'ว่างเปล่า',
+                        'search': 'ค้นหา'
                     },
                     'es': {
-                        'empty': 'Vacío'
+                        'empty': 'Vacío',
+                        'search': 'buscar'
                     },
                     'de': {
-                        'empty': 'Leer'
+                        'empty': 'Leer',
+                        'search': 'suchen'
                     },
                     'fr': {
-                        'empty': 'Vide'
+                        'empty': 'Vide',
+                        'search': 'rechercher'
                     },
                     'pt': {
-                        'empty': 'Vazio'
+                        'empty': 'Vazio',
+                        'search': 'pesquisar'
                     },
                     'ru': {
-                        'empty': 'Пусто'
+                        'empty': 'Пусто',
+                        'search': 'поиск'
                     },
                     'vi': {
-                        'empty': 'Trống'
+                        'empty': 'Trống',
+                        'search': 'tìm kiếm'
                     }
                 }
             };
