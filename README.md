@@ -1,6 +1,6 @@
 # Purease
 
-<p align="center"><img src="doc/logo.png" width="256" alt="ClickGo"></p>
+<p align="center"><img src="doc/logo.png" width="256" alt="Purease"></p>
 <p align="center">
     <a href="https://github.com/maiyun/purease/blob/master/LICENSE">
         <img alt="License" src="https://img.shields.io/github/license/maiyun/purease?color=blue" />
