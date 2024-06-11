@@ -1,15 +1,15 @@
 export * as dom from '../dist/dom';
 export * as tool from '../dist/tool';
 
-export function launcher(page: AbstractPage, panels?: Array<{
+export function launcher(page: typeof import('../dist/index').AbstractPage, panels?: Array<{
     'selector': string;
-    'panel': new () => AbstractPanel;
+    'panel': new () => import('../dist/index').AbstractPanel;
 }>, opts?: {
     'locale'?: 'en';
 }): void;
 
-export type AbstractPage = import('../dist/index').AbstractPage;
-export type AbstractPanel = import('../dist/index').AbstractPanel;
+export const AbstractPage: typeof import('../dist/index').AbstractPage;
+export const AbstractPanel: typeof import('../dist/index').AbstractPanel;
 
 // -------------------------
 // ---------- vue ----------
