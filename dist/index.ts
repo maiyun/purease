@@ -2,6 +2,8 @@ import * as types from '../types';
 import * as control from './control';
 import * as tool from './tool';
 
+export { tool };
+
 /** --- 总大页面 --- */
 export abstract class AbstractPage {
 
@@ -457,5 +459,3 @@ export function launcher(page: AbstractPage, panels: Array<{
         console.log('launcher', e);
     });
 }
-
-export { tool };

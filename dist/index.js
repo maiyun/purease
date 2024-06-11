@@ -32,7 +32,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.tool = exports.launcher = exports.global = exports.vue = exports.AbstractPanel = exports.AbstractPage = void 0;
+exports.launcher = exports.global = exports.vue = exports.AbstractPanel = exports.AbstractPage = exports.tool = void 0;
 const control = __importStar(require("./control"));
 const tool = __importStar(require("./tool"));
 exports.tool = tool;
