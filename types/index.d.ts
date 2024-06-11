@@ -1,7 +1,7 @@
 export * as dom from '../dist/dom';
 export * as tool from '../dist/tool';
 
-export function launcher(page: typeof import('../dist/index').AbstractPage, panels?: Array<{
+export function launcher(page: import('../dist/index').AbstractPage, panels?: Array<{
     'selector': string;
     'panel': new () => import('../dist/index').AbstractPanel;
 }>, opts?: {
