@@ -2,6 +2,7 @@
 
 html {
     --pe-color:hsl(0, 0%, 20%);
+    --pe-disabled-color:hsl(0, 0%, 80%);
     --pe-note-color:hsl(0, 0%, 40%);
     --pe-inote-color:hsl(0, 0%, 60%);
     --pe-h-color:hsl(90, 65%, 35%);
@@ -47,8 +48,8 @@ img {
         }
     }
 }
-.pe-disabled, [data-pe-disabled] {
-    pointer-events: none; color: hsl(0, 0%, 80%);
+.pe-disabled {
+    pointer-events: none; color: var(--pe-disabled-color);
 }
 
 html.pe-full {
@@ -480,6 +481,16 @@ html.pe-dheader {
         }
         &:focus, &:active {
             filter: brightness(0.9); box-shadow: 0 0 0 4px var(--pe-h-bgcolor);
+        }
+
+        &.pe-disabled {
+            filter: grayscale(1); opacity: .5;
+        }
+    }
+
+    &.pe-plain {
+        &.pe-disabled {
+            filter: grayscale(1); opacity: .5;
         }
     }
 

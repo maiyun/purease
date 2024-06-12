@@ -247,7 +247,7 @@ exports.list = {
             '</div>'
     },
     'pe-text': {
-        'template': `<div class="pe-text" :class="[focus&&'pe-focus',propBoolean('plain')&&'pe-plain']" :data-pe-disabled="propBoolean('disabled') ? '' : undefined">` +
+        'template': `<div class="pe-text" :class="[focus&&'pe-focus',propBoolean('plain')&&'pe-plain',propBoolean('disabled')&&'pe-disabled']">` +
             `<div v-if="$slots['before']" class="pe-before"><slot name="before"></slot></div>` +
             `<div v-if="$slots['prepend']" class="pe-prepend">` +
             '<slot name="prepend"></slot>' +
@@ -342,7 +342,7 @@ exports.list = {
         }
     },
     'pe-select': {
-        'template': `<div class="pe-select" :class="[propBoolean('plain')&&'pe-plain']" :tabindex="!propBoolean('disabled') ? '0' : undefined" :data-pe-disabled="propBoolean('disabled') ? '' : undefined">` +
+        'template': `<div class="pe-select" :class="[propBoolean('plain')&&'pe-plain',propBoolean('disabled')&&'pe-disabled']" :tabindex="!propBoolean('disabled') ? '0' : undefined">` +
             `<div class="pe-select-label" @click="open">{{dataComp[index] ? dataComp[index].label : '　'}}</div>` +
             '<div class="pe-select-arrow" @click="open"></div>' +
             '<div class="pe-pop" ref="pop">' +
