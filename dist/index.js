@@ -191,6 +191,7 @@ function launcher(page, panels = [], opts = {}) {
                 `${loader.cdn}/npm/vue@3.4.21/dist/vue.global${page.isDebug() ? '' : '.prod.min'}.js`
             ];
             yield loader.loadScripts(paths);
+            yield loader.loadLink(__dirname + '/index.css', undefined, 'before');
             const bodys = document.getElementsByTagName('body');
             if (!bodys[0]) {
                 return;

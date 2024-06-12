@@ -274,6 +274,7 @@ export function launcher(page: AbstractPage, panels: Array<{
         ];
         // --- 加载 vue 以及必要库 ---
         await loader.loadScripts(paths);
+        await loader.loadLink(__dirname + '/index.css', undefined, 'before');
         const bodys = document.getElementsByTagName('body');
         if (!bodys[0]) {
             return;
