@@ -13,8 +13,8 @@
     "types": "./types/index.d.ts",
     "devDependencies": {
         "@litert/eslint-plugin-rules": "^0.1.7",
-        "@litert/loader": "^3.5.3",
-        "@types/node": "^20.12.12",
+        "@litert/loader": "^3.5.7",
+        "@types/node": "^20.14.2",
         "typescript": "^5.4.5"
     }
 }

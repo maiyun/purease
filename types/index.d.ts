@@ -4,12 +4,7 @@ export * as tool from '../dist/tool';
 export function launcher(page: import('../dist/index').AbstractPage, panels?: Array<{
     'selector': string;
     'panel': new () => import('../dist/index').AbstractPanel;
-}>, opts?: {
-    /** --- 设定当前的程序语言 --- */
-    'locale'?: 'en';
-    /** --- 设定语言包所在路径，无所谓是否 / 结尾 --- */
-    'path'?: string;
-}): void;
+}>): void;
 
 export const AbstractPage: typeof import('../dist/index').AbstractPage;
 export const AbstractPanel: typeof import('../dist/index').AbstractPanel;

@@ -346,7 +346,15 @@ export function post(url: string, data: Record<string, any> | FormData, opt?: {
     return loader.post(url, data, opt);
 }
 
-/** --- 发送响应为 json 的网络数据，无需 try，失败返回 null --- */
+/** --- 发送 get 响应为 json 的网络数据，无需 try，失败返回 null --- */
+export async function getResponseJson(url: string, opt?: {
+    'credentials'?: 'include' | 'same-origin' | 'omit';
+    'headers'?: HeadersInit;
+}) {
+    return loader.getResponseJson(url, opt);
+}
+
+/** --- 发送 post 响应为 json 的网络数据，无需 try，失败返回 null --- */
 export async function postResponseJson(url: string, data: Record<string, any> | FormData, opt?: {
     'credentials'?: 'include' | 'same-origin' | 'omit';
     'headers'?: HeadersInit;

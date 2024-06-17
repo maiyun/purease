@@ -15,11 +15,38 @@ export abstract class AbstractPage {
         return this._debug;
     }
 
+    /** --- 系统当前语言 --- */
+    private _locale: string = 'en';
+
+    /** --- 获取系统当前语言 --- */
+    public get locale(): string {
+        return this._locale;
+    }
+
+    /** --- 语言包路径，为空则没有加载前端语言包 --- */
+    private _localePath: string = '';
+
+    /** --- 获取语言包路径，可能为空 --- */
+    public get localePath(): string {
+        return this._localePath;
+    }
+
     public constructor(opt: {
+        /** --- 生产环境请不要开启，默认不开启 --- */
         'debug'?: boolean;
+        /** --- 设定当前的程序语言 --- */
+        'locale'?: string;
+        /** --- 设定语言包所在路径，无所谓是否 / 结尾 --- */
+        'path'?: string;
     } = {}) {
         if (opt.debug) {
             this._debug = true;
+        }
+        if (opt.locale) {
+            this._locale = opt.locale;
+        }
+        if (opt.path) {
+            this._localePath = opt.path;
         }
     }
 
@@ -183,9 +210,6 @@ export abstract class AbstractPage {
         });
     }
 
-    /** --- 当前语言 --- */
-    public locale: string = 'en';
-
 }
 
 /** --- 大页面的内嵌页面 --- */
@@ -204,6 +228,16 @@ export abstract class AbstractPanel {
 
     /** --- 获取总大页面对象 --- */
     public rootPage!: AbstractPage & Record<string, any>;
+
+    
+    /**
+     * --- 获取语言内容 ---
+     */
+    public get l() {
+        return (key: string, data?: string[]): string => {
+            return this.rootPage.l(key, data);
+        };
+    }
 
     /**
      * --- 获取 refs 情况 ---
@@ -250,10 +284,7 @@ export let global: Record<string, any> = {
 export function launcher(page: AbstractPage, panels: Array<{
     'selector': string;
     'panel': new () => AbstractPanel;
-}> = [], opts: {
-    'locale'?: 'en';
-    'path'?: string;
-} = {}): void {
+}> = []): void {
     (async function() {
         const html = document.getElementsByTagName('html')[0];
         // --- 添加全局 scroll class 如果不在顶部的话 ---
@@ -280,6 +311,14 @@ export function launcher(page: AbstractPage, panels: Array<{
         const bodys = document.getElementsByTagName('body');
         if (!bodys[0]) {
             return;
+        }
+        // --- 加载语言包 ---
+        if (page.localePath !== undefined) {
+            const path = page.localePath.endsWith('/') ? page.localePath : page.localePath + '/';
+            const res = await tool.getResponseJson(path + page.locale + '.json');
+            if (res) {
+                (window as any).localeData = res;
+            }
         }
         // --- 将整个网页 vue 化 ---
         vue = (window as any).Vue;
@@ -372,7 +411,6 @@ export function launcher(page: AbstractPage, panels: Array<{
                 'mounted': async function(this: types.IVue) {
                     await this.$nextTick();
                     this.windowWidth = window.innerWidth;
-                    this.locale = opts.locale ?? 'en';
                     window.addEventListener('resize', () => {
                         this.windowWidth = window.innerWidth;
                         bodys[0].style.setProperty('--pe-windowwidth', window.innerWidth + 'px');

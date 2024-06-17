@@ -134,7 +134,8 @@ class Page extends purease.AbstractPage {
 
 }
 purease.launcher(new Page({
-    'debug': true
+    'debug': true,
+    'path': __dirname + '/locale'
 }), [
     {
         'selector': '#footer',

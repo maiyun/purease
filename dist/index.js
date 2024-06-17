@@ -40,8 +40,16 @@ class AbstractPage {
     isDebug() {
         return this._debug;
     }
+    get locale() {
+        return this._locale;
+    }
+    get localePath() {
+        return this._localePath;
+    }
     constructor(opt = {}) {
         this._debug = false;
+        this._locale = 'en';
+        this._localePath = '';
         this.dialogInfo = {
             'show': false,
             'title': '',
@@ -56,9 +64,14 @@ class AbstractPage {
         };
         this.windowWidth = 0;
         this.loading = false;
-        this.locale = 'en';
         if (opt.debug) {
             this._debug = true;
+        }
+        if (opt.locale) {
+            this._locale = opt.locale;
+        }
+        if (opt.path) {
+            this._localePath = opt.path;
         }
     }
     onBeforeUpdate() {
@@ -173,6 +186,11 @@ class AbstractPanel {
     onUnmounted() {
         return;
     }
+    get l() {
+        return (key, data) => {
+            return this.rootPage.l(key, data);
+        };
+    }
     get refs() {
         return this.$refs;
     }
@@ -187,7 +205,7 @@ exports.AbstractPanel = AbstractPanel;
 exports.global = {
     'headerPop': false
 };
-function launcher(page, panels = [], opts = {}) {
+function launcher(page, panels = []) {
     (function () {
         return __awaiter(this, void 0, void 0, function* () {
             var _a;
@@ -213,6 +231,13 @@ function launcher(page, panels = [], opts = {}) {
             const bodys = document.getElementsByTagName('body');
             if (!bodys[0]) {
                 return;
+            }
+            if (page.localePath !== undefined) {
+                const path = page.localePath.endsWith('/') ? page.localePath : page.localePath + '/';
+                const res = yield tool.getResponseJson(path + page.locale + '.json');
+                if (res) {
+                    window.localeData = res;
+                }
             }
             exports.vue = window.Vue;
             exports.global = exports.vue.reactive(Object.assign({ 'headerPop': false }, ((_a = window.pureaseGlobal) !== null && _a !== void 0 ? _a : {})));
@@ -291,10 +316,8 @@ function launcher(page, panels = [], opts = {}) {
                     },
                     'mounted': function () {
                         return __awaiter(this, void 0, void 0, function* () {
-                            var _a;
                             yield this.$nextTick();
                             this.windowWidth = window.innerWidth;
-                            this.locale = (_a = opts.locale) !== null && _a !== void 0 ? _a : 'en';
                             window.addEventListener('resize', () => {
                                 this.windowWidth = window.innerWidth;
                                 bodys[0].style.setProperty('--pe-windowwidth', window.innerWidth + 'px');

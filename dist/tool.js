@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.isPhoneCN = exports.isDomain = exports.isIPv6 = exports.isIPv4 = exports.isEMail = exports.queryParse = exports.queryStringify = exports.formatSecond = exports.blob2DataUrl = exports.blob2Text = exports.urlAtom = exports.urlResolve = exports.parseUrl = exports.postResponseJson = exports.post = exports.get = exports.fetch = exports.request = exports.escapeHTML = exports.getDecimal = exports.getNumber = exports.getBoolean = exports.random = exports.RANDOM_LUNS = exports.RANDOM_V = exports.RANDOM_LUN = exports.RANDOM_LU = exports.RANDOM_LN = exports.RANDOM_UN = exports.RANDOM_L = exports.RANDOM_U = exports.RANDOM_N = exports.rand = exports.sleep = exports.getClassPrototype = exports.clone = void 0;
+exports.isPhoneCN = exports.isDomain = exports.isIPv6 = exports.isIPv4 = exports.isEMail = exports.queryParse = exports.queryStringify = exports.formatSecond = exports.blob2DataUrl = exports.blob2Text = exports.urlAtom = exports.urlResolve = exports.parseUrl = exports.postResponseJson = exports.getResponseJson = exports.post = exports.get = exports.fetch = exports.request = exports.escapeHTML = exports.getDecimal = exports.getNumber = exports.getBoolean = exports.random = exports.RANDOM_LUNS = exports.RANDOM_V = exports.RANDOM_LUN = exports.RANDOM_LU = exports.RANDOM_LN = exports.RANDOM_UN = exports.RANDOM_L = exports.RANDOM_U = exports.RANDOM_N = exports.rand = exports.sleep = exports.getClassPrototype = exports.clone = void 0;
 function clone(obj) {
     let newObj = {};
     if (obj instanceof Array) {
@@ -294,6 +294,12 @@ function post(url, data, opt) {
     return loader.post(url, data, opt);
 }
 exports.post = post;
+function getResponseJson(url, opt) {
+    return __awaiter(this, void 0, void 0, function* () {
+        return loader.getResponseJson(url, opt);
+    });
+}
+exports.getResponseJson = getResponseJson;
 function postResponseJson(url, data, opt) {
     return __awaiter(this, void 0, void 0, function* () {
         return loader.postResponseJson(url, data, opt);
