@@ -242,7 +242,7 @@ export abstract class AbstractPanel {
 export let vue: types.IVueObject;
 
 /** --- 全局属性 --- */
-export let global = {
+export let global: Record<string, any> = {
     'headerPop': false
 };
 
@@ -284,7 +284,8 @@ export function launcher(page: AbstractPage, panels: Array<{
         // --- 将整个网页 vue 化 ---
         vue = (window as any).Vue;
         global = vue.reactive({
-            'headerPop': false
+            'headerPop': false,
+            ...((window as any).pureaseGlobal ?? {})
         });
         /** --- panel 的控件列表 --- */
         const panelComponents: Record<string, any> = {};

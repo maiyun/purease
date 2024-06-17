@@ -13,6 +13,7 @@ export function launcher(page: import('../dist/index').AbstractPage, panels?: Ar
 
 export const AbstractPage: typeof import('../dist/index').AbstractPage;
 export const AbstractPanel: typeof import('../dist/index').AbstractPanel;
+export const global: typeof import('../dist/index').global;
 
 // -------------------------
 // ---------- vue ----------

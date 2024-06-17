@@ -190,6 +190,7 @@ exports.global = {
 function launcher(page, panels = [], opts = {}) {
     (function () {
         return __awaiter(this, void 0, void 0, function* () {
+            var _a;
             const html = document.getElementsByTagName('html')[0];
             window.addEventListener('scroll', function () {
                 const st = document.documentElement.scrollTop || document.body.scrollTop;
@@ -214,9 +215,7 @@ function launcher(page, panels = [], opts = {}) {
                 return;
             }
             exports.vue = window.Vue;
-            exports.global = exports.vue.reactive({
-                'headerPop': false
-            });
+            exports.global = exports.vue.reactive(Object.assign({ 'headerPop': false }, ((_a = window.pureaseGlobal) !== null && _a !== void 0 ? _a : {})));
             const panelComponents = {};
             for (const p of panels) {
                 const el = document.querySelector(p.selector);
