@@ -31,6 +31,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.launcher = exports.global = exports.vue = exports.AbstractPanel = exports.AbstractPage = exports.tool = void 0;
 const control = __importStar(require("./control"));
@@ -202,13 +203,10 @@ class AbstractPanel {
     }
 }
 exports.AbstractPanel = AbstractPanel;
-exports.global = {
-    'headerPop': false
-};
+exports.global = Object.assign({ 'headerPop': false }, ((_a = window.pureaseGlobal) !== null && _a !== void 0 ? _a : {}));
 function launcher(page, panels = []) {
     (function () {
         return __awaiter(this, void 0, void 0, function* () {
-            var _a;
             const html = document.getElementsByTagName('html')[0];
             window.addEventListener('scroll', function () {
                 const st = document.documentElement.scrollTop || document.body.scrollTop;
@@ -240,7 +238,7 @@ function launcher(page, panels = []) {
                 }
             }
             exports.vue = window.Vue;
-            exports.global = exports.vue.reactive(Object.assign({ 'headerPop': false }, ((_a = window.pureaseGlobal) !== null && _a !== void 0 ? _a : {})));
+            exports.global = exports.vue.reactive(exports.global);
             const panelComponents = {};
             for (const p of panels) {
                 const el = document.querySelector(p.selector);

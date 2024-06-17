@@ -277,7 +277,8 @@ export let vue: types.IVueObject;
 
 /** --- 全局属性 --- */
 export let global: Record<string, any> = {
-    'headerPop': false
+    'headerPop': false,
+    ...((window as any).pureaseGlobal ?? {})
 };
 
 /** ---运行当前页面 --- */
@@ -322,10 +323,7 @@ export function launcher(page: AbstractPage, panels: Array<{
         }
         // --- 将整个网页 vue 化 ---
         vue = (window as any).Vue;
-        global = vue.reactive({
-            'headerPop': false,
-            ...((window as any).pureaseGlobal ?? {})
-        });
+        global = vue.reactive(global);
         /** --- panel 的控件列表 --- */
         const panelComponents: Record<string, any> = {};
         for (const p of panels) {
