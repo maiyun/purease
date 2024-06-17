@@ -691,7 +691,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     }
 
     input, textarea {
-        -webkit-appearance: none; appearance: none; background: transparent; flex: 1; outline: none; border: none; padding: 15px; resize: none;
+        -webkit-appearance: none; appearance: none; background: transparent; flex: 1; width: 0; outline: none; border: none; padding: 15px; resize: none;
     }
 
     .pe-before, .pe-after {

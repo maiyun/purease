@@ -232,7 +232,7 @@ function launcher(page, panels = []) {
             if (!bodys[0]) {
                 return;
             }
-            if (page.localePath !== undefined) {
+            if (page.localePath) {
                 const path = page.localePath.endsWith('/') ? page.localePath : page.localePath + '/';
                 const res = yield tool.getResponseJson(path + page.locale + '.json');
                 if (res) {

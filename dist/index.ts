@@ -313,7 +313,7 @@ export function launcher(page: AbstractPage, panels: Array<{
             return;
         }
         // --- 加载语言包 ---
-        if (page.localePath !== undefined) {
+        if (page.localePath) {
             const path = page.localePath.endsWith('/') ? page.localePath : page.localePath + '/';
             const res = await tool.getResponseJson(path + page.locale + '.json');
             if (res) {
