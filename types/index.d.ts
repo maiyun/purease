@@ -5,7 +5,10 @@ export function launcher(page: import('../dist/index').AbstractPage, panels?: Ar
     'selector': string;
     'panel': new () => import('../dist/index').AbstractPanel;
 }>, opts?: {
+    /** --- 设定当前的程序语言 --- */
     'locale'?: 'en';
+    /** --- 设定语言包所在路径，无所谓是否 / 结尾 --- */
+    'path'?: string;
 }): void;
 
 export const AbstractPage: typeof import('../dist/index').AbstractPage;

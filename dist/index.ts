@@ -56,15 +56,17 @@ export abstract class AbstractPage {
         return (this as any).$nextTick;
     }
 
-    /*
+    /**
+     * --- 获取语言内容 ---
+     */
     public get l() {
         return (key: string, data?: string[]): string => {
-            const loc = (this as any).localeData?.[this.$root.locale][key] ?? '[LocaleError]' + key;
+            const loc = (window as any).localeData?.[key] ?? '[LocaleError]' + key;
             if (!data) {
                 return loc;
             }
             let i: number = -1;
-            return (this as any).localeData[this.$root.locale][key].replace(/\?/g, function() {
+            return (window as any).localeData[this.locale][key].replace(/\?/g, function() {
                 ++i;
                 if (!data[i]) {
                     return '';
@@ -73,7 +75,6 @@ export abstract class AbstractPage {
             });
         };
     }
-    */
 
     /**
      * --- 监视变动 ---
@@ -251,6 +252,7 @@ export function launcher(page: AbstractPage, panels: Array<{
     'panel': new () => AbstractPanel;
 }> = [], opts: {
     'locale'?: 'en';
+    'path'?: string;
 } = {}): void {
     (async function() {
         const html = document.getElementsByTagName('html')[0];
@@ -270,7 +272,7 @@ export function launcher(page: AbstractPage, panels: Array<{
         }
         // --- 通过标签加载库 ---
         const paths: string[] = [
-            `${loader.cdn}/npm/vue@3.4.21/dist/vue.global${page.isDebug() ? '' : '.prod.min'}.js`
+            `${loader.cdn}/npm/vue@3.4.27/dist/vue.global${page.isDebug() ? '' : '.prod.min'}.js`
         ];
         // --- 加载 vue 以及必要库 ---
         await loader.loadScripts(paths);

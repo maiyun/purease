@@ -79,6 +79,23 @@ class AbstractPage {
     get nextTick() {
         return this.$nextTick;
     }
+    get l() {
+        return (key, data) => {
+            var _a, _b;
+            const loc = (_b = (_a = window.localeData) === null || _a === void 0 ? void 0 : _a[key]) !== null && _b !== void 0 ? _b : '[LocaleError]' + key;
+            if (!data) {
+                return loc;
+            }
+            let i = -1;
+            return window.localeData[this.locale][key].replace(/\?/g, function () {
+                ++i;
+                if (!data[i]) {
+                    return '';
+                }
+                return data[i];
+            });
+        };
+    }
     watch(name, cb, opt = {}) {
         return this.$watch(name, cb, opt);
     }
@@ -188,7 +205,7 @@ function launcher(page, panels = [], opts = {}) {
                 html.classList.add('pe-scroll');
             }
             const paths = [
-                `${loader.cdn}/npm/vue@3.4.21/dist/vue.global${page.isDebug() ? '' : '.prod.min'}.js`
+                `${loader.cdn}/npm/vue@3.4.27/dist/vue.global${page.isDebug() ? '' : '.prod.min'}.js`
             ];
             yield loader.loadScripts(paths);
             yield loader.loadLink(__dirname + '/index.css', undefined, 'before');

@@ -332,9 +332,140 @@ export function fetch(url: string, init?: RequestInit): Promise<string | Blob | 
     return loader.fetch(url, init);
 }
 
+export function get(url: string, opt?: {
+    'credentials'?: 'include' | 'same-origin' | 'omit';
+    'headers'?: HeadersInit;
+}) {
+    return loader.get(url, opt);
+}
+
 export function post(url: string, data: Record<string, any> | FormData, opt?: {
     'credentials'?: 'include' | 'same-origin' | 'omit';
     'headers'?: HeadersInit;
 }): Promise<Response | null> {
     return loader.post(url, data, opt);
+}
+
+/** --- 发送响应为 json 的网络数据，无需 try，失败返回 null --- */
+export async function postResponseJson(url: string, data: Record<string, any> | FormData, opt?: {
+    'credentials'?: 'include' | 'same-origin' | 'omit';
+    'headers'?: HeadersInit;
+}): Promise<any | null> {
+    return loader.postResponseJson(url, data, opt);
+}
+
+export function parseUrl(url: string): ILoaderUrl {
+    return loader.parseUrl(url);
+}
+
+export function urlResolve(from: string, to: string): string {
+    return loader.urlResolve(from, to);
+}
+
+export function urlAtom(url: string): string {
+    return loader.urlAtom(url);
+}
+
+export function blob2Text(blob: Blob): Promise<string> {
+    return loader.blob2Text(blob);
+}
+
+export function blob2DataUrl(blob: Blob): Promise<string> {
+    return loader.blob2DataUrl(blob);
+}
+
+/** --- 将秒数格式化为 0:0:0 的字符串 --- */
+export function formatSecond(second: number): string {
+    const h = Math.floor(second / 3600);
+    second = second - h * 3600;
+    const m = Math.floor(second / 60);
+    const s = Math.floor(second - m * 60);
+    return (h ? h.toString().padStart(2, '0') + ':' : '') + m.toString().padStart(2, '0') + ':' + s.toString().padStart(2, '0');
+}
+
+/**
+ * --- 将对象转换为 query string ---
+ * @param query 要转换的对象
+ */
+export function queryStringify(query: Record<string, any>): string {
+    return Object.entries(query).map(([k, v]) => {
+        if (Array.isArray(v)) {
+            return v.map((i) => `${encodeURIComponent(k)}=${encodeURIComponent(`${i}`)}`).join('&');
+        }
+        return `${encodeURIComponent(k)}=${encodeURIComponent(`${v}`)}`;
+    }).join('&');
+}
+
+/**
+ * --- 将 query string 转换为对象 ---
+ * @param query 要转换的字符串
+ */
+export function queryParse(query: string): Record<string, string | string[]> {
+    const ret: Record<string, string | string[]> = {};
+    const arrayKeys: Record<string, boolean> = {};
+    for (const i of query.split('&')) {
+        if (!i.length) {
+            continue;
+        }
+
+        const pos = i.indexOf('=');
+
+        const key = decodeURIComponent(pos === -1 ? i : i.slice(0, pos));
+        const value = pos === -1 ? '' : decodeURIComponent(i.slice(pos + 1));
+
+        if (arrayKeys[key]) {
+            (ret[key] as string[]).push(value);
+        }
+        else if (undefined === ret[key]) {
+            ret[key] = value;
+        }
+        else {
+            ret[key] = [ret[key] as string, value];
+            arrayKeys[key] = true;
+        }
+    }
+    return ret;
+}
+
+/**
+ * --- 是否是邮件地址 ---
+ * @param email
+ */
+export function isEMail(email: string): boolean {
+    return /^[-_\w.]+@[-_\w.]+\.([a-zA-Z]+)$/i.test(email);
+}
+
+/**
+ * --- 是否是 IPv4 ---
+ * @param ip
+ */
+export function isIPv4(ip: string): boolean {
+    return /^[0-9]{1,3}(\.[0-9]{1,3}){3}$/.test(ip);
+}
+
+/**
+ * --- 是否是 IPv6 ---
+ * @param ip
+ */
+export function isIPv6(ip: string): boolean {
+    return /^(\w*?:){2,7}[\w.]*$/.test(ip + ':');
+}
+
+/**
+ * --- 判断是否是域名 ---
+ * @param string $domain
+ * @return bool
+ */
+export function isDomain(domain: string): boolean {
+    return /^.+?\.((?![0-9]).)+$/i.test(domain);
+}
+
+// --- 以下是适用于中国大陆的方法 ---
+
+/**
+ * --- 判断手机号是否是 11 位，不做真实性校验 ---
+ * @param p 手机号
+ */
+export function isPhoneCN(p: string): boolean {
+    return /^1[0-9]{10}$/.test(p);
 }

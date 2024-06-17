@@ -1,6 +1,15 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.post = exports.fetch = exports.request = exports.escapeHTML = exports.getDecimal = exports.getNumber = exports.getBoolean = exports.random = exports.RANDOM_LUNS = exports.RANDOM_V = exports.RANDOM_LUN = exports.RANDOM_LU = exports.RANDOM_LN = exports.RANDOM_UN = exports.RANDOM_L = exports.RANDOM_U = exports.RANDOM_N = exports.rand = exports.sleep = exports.getClassPrototype = exports.clone = void 0;
+exports.isPhoneCN = exports.isDomain = exports.isIPv6 = exports.isIPv4 = exports.isEMail = exports.queryParse = exports.queryStringify = exports.formatSecond = exports.blob2DataUrl = exports.blob2Text = exports.urlAtom = exports.urlResolve = exports.parseUrl = exports.postResponseJson = exports.post = exports.get = exports.fetch = exports.request = exports.escapeHTML = exports.getDecimal = exports.getNumber = exports.getBoolean = exports.random = exports.RANDOM_LUNS = exports.RANDOM_V = exports.RANDOM_LUN = exports.RANDOM_LU = exports.RANDOM_LN = exports.RANDOM_UN = exports.RANDOM_L = exports.RANDOM_U = exports.RANDOM_N = exports.rand = exports.sleep = exports.getClassPrototype = exports.clone = void 0;
 function clone(obj) {
     let newObj = {};
     if (obj instanceof Array) {
@@ -277,7 +286,98 @@ function fetch(url, init) {
     return loader.fetch(url, init);
 }
 exports.fetch = fetch;
+function get(url, opt) {
+    return loader.get(url, opt);
+}
+exports.get = get;
 function post(url, data, opt) {
     return loader.post(url, data, opt);
 }
 exports.post = post;
+function postResponseJson(url, data, opt) {
+    return __awaiter(this, void 0, void 0, function* () {
+        return loader.postResponseJson(url, data, opt);
+    });
+}
+exports.postResponseJson = postResponseJson;
+function parseUrl(url) {
+    return loader.parseUrl(url);
+}
+exports.parseUrl = parseUrl;
+function urlResolve(from, to) {
+    return loader.urlResolve(from, to);
+}
+exports.urlResolve = urlResolve;
+function urlAtom(url) {
+    return loader.urlAtom(url);
+}
+exports.urlAtom = urlAtom;
+function blob2Text(blob) {
+    return loader.blob2Text(blob);
+}
+exports.blob2Text = blob2Text;
+function blob2DataUrl(blob) {
+    return loader.blob2DataUrl(blob);
+}
+exports.blob2DataUrl = blob2DataUrl;
+function formatSecond(second) {
+    const h = Math.floor(second / 3600);
+    second = second - h * 3600;
+    const m = Math.floor(second / 60);
+    const s = Math.floor(second - m * 60);
+    return (h ? h.toString().padStart(2, '0') + ':' : '') + m.toString().padStart(2, '0') + ':' + s.toString().padStart(2, '0');
+}
+exports.formatSecond = formatSecond;
+function queryStringify(query) {
+    return Object.entries(query).map(([k, v]) => {
+        if (Array.isArray(v)) {
+            return v.map((i) => `${encodeURIComponent(k)}=${encodeURIComponent(`${i}`)}`).join('&');
+        }
+        return `${encodeURIComponent(k)}=${encodeURIComponent(`${v}`)}`;
+    }).join('&');
+}
+exports.queryStringify = queryStringify;
+function queryParse(query) {
+    const ret = {};
+    const arrayKeys = {};
+    for (const i of query.split('&')) {
+        if (!i.length) {
+            continue;
+        }
+        const pos = i.indexOf('=');
+        const key = decodeURIComponent(pos === -1 ? i : i.slice(0, pos));
+        const value = pos === -1 ? '' : decodeURIComponent(i.slice(pos + 1));
+        if (arrayKeys[key]) {
+            ret[key].push(value);
+        }
+        else if (undefined === ret[key]) {
+            ret[key] = value;
+        }
+        else {
+            ret[key] = [ret[key], value];
+            arrayKeys[key] = true;
+        }
+    }
+    return ret;
+}
+exports.queryParse = queryParse;
+function isEMail(email) {
+    return /^[-_\w.]+@[-_\w.]+\.([a-zA-Z]+)$/i.test(email);
+}
+exports.isEMail = isEMail;
+function isIPv4(ip) {
+    return /^[0-9]{1,3}(\.[0-9]{1,3}){3}$/.test(ip);
+}
+exports.isIPv4 = isIPv4;
+function isIPv6(ip) {
+    return /^(\w*?:){2,7}[\w.]*$/.test(ip + ':');
+}
+exports.isIPv6 = isIPv6;
+function isDomain(domain) {
+    return /^.+?\.((?![0-9]).)+$/i.test(domain);
+}
+exports.isDomain = isDomain;
+function isPhoneCN(p) {
+    return /^1[0-9]{10}$/.test(p);
+}
+exports.isPhoneCN = isPhoneCN;
