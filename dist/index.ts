@@ -454,14 +454,7 @@ export function launcher(page: AbstractPage, panels: Array<{
                 }
             });
             vapp.config.errorHandler = function(err: Error, vm: types.IVue, info: string): void {
-                /*
-                notify({
-                    'title': 'Runtime Error',
-                    'content': `Message: ${err.message}\nTask id: ${vm.taskId}\nForm id: ${vm.formId}`,
-                    'type': 'danger'
-                });
-                core.trigger('error', vm.taskId, vm.formId, err, info + '(-3,' + vm.taskId + ',' + vm.formId + ')');
-                */
+                console.error(err.message, err);
             };
             // --- 挂载控件对象到 vapp ---
             for (const key in control.list) {

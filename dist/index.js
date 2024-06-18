@@ -360,6 +360,7 @@ function launcher(page, panels = []) {
                     }
                 });
                 vapp.config.errorHandler = function (err, vm, info) {
+                    console.error(err.message, err);
                 };
                 for (const key in control.list) {
                     vapp.component(key, control.list[key]);

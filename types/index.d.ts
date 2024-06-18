@@ -115,6 +115,22 @@ export interface IConfirmOptions {
     'cancel'?: boolean;
 }
 
+// --- Custom Event Control ---
+
+interface ICustomEvent {
+    'go': boolean;
+    preventDefault: () => void;
+}
+
+// --- Text Control ---
+
+export interface ITextBeforechangeEvent extends ICustomEvent {
+    'detail': {
+        'value': string;
+        'change'?: string;
+    }
+}
+
 // --------------------------
 // -------- tool lib --------
 // --------------------------

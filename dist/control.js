@@ -138,15 +138,15 @@ exports.list = {
             }
         },
         'computed': Object.assign(Object.assign({}, tool.clone(common.computed)), { contentComp: function () {
-                if (this.props.mode !== 'date') {
-                    return this.props.content;
+                if (this.$props.mode !== 'date') {
+                    return this.$props.content;
                 }
                 if (this.propNumber('content') === 0) {
                     return '';
                 }
                 const dateTxt = [];
                 const date = new Date(this.propNumber('content') * 1000);
-                const tz = this.props.tz === undefined ? -(date.getTimezoneOffset() / 60) : this.propNumber('tz');
+                const tz = this.$props.tz === undefined ? -(date.getTimezoneOffset() / 60) : this.propNumber('tz');
                 date.setTime(date.getTime() + tz * 60 * 60 * 1000);
                 if (this.propBoolean('date')) {
                     dateTxt.push(date.getUTCFullYear().toString() + '-' + (date.getUTCMonth() + 1).toString().padStart(2, '0') + '-' + date.getUTCDate().toString().padStart(2, '0'));
@@ -247,13 +247,13 @@ exports.list = {
             '</div>'
     },
     'pe-text': {
-        'template': `<div class="pe-text" :class="[focus&&'pe-focus',propBoolean('plain')&&'pe-plain',propBoolean('disabled')&&'pe-disabled']">` +
+        'template': `<div class="pe-text" :class="[isFocus&&'pe-focus',propBoolean('plain')&&'pe-plain',propBoolean('disabled')&&'pe-disabled']">` +
             `<div v-if="$slots['before']" class="pe-before"><slot name="before"></slot></div>` +
             `<div v-if="$slots['prepend']" class="pe-prepend">` +
             '<slot name="prepend"></slot>' +
             '</div>' +
-            `<textarea v-if="type==='multi'" :placeholder="placeholder" :value="modelValue" @input="$emit('update:modelValue',$event.target.value)" @focus="focus=true" @blur="focus=false"></textarea>` +
-            `<input v-else :placeholder="placeholder" :value="modelValue" @input="$emit('update:modelValue',$event.target.value)" @focus="focus=true" @blur="focus=false" :type="type">` +
+            `<textarea v-if="type==='multi'" ref="text" :placeholder="placeholder" :value="value" @input="input" @focus="tfocus" @blur="tblur"></textarea>` +
+            `<input v-else ref="text" :placeholder="placeholder" :value="value" @input="input" @focus="tfocus" @blur="tblur" :type="type">` +
             `<div v-if="$slots['append']" class="pe-append">` +
             '<slot name="append"></slot>' +
             '</div>' +
@@ -277,14 +277,252 @@ exports.list = {
             },
             'plain': {
                 'default': false
-            }
+            },
+            'maxlength': {
+                'default': 0
+            },
+            'max': {
+                'default': undefined
+            },
+            'min': {
+                'default': undefined
+            },
+        },
+        'emits': {
+            'beforechange': null,
+            'focus': null,
+            'blur': null,
+            'update:modelValue': null
         },
         'data': function () {
             return {
-                'focus': false
+                'isFocus': false,
+                'value': ''
             };
         },
-        'computed': Object.assign({}, tool.clone(common.computed))
+        'computed': Object.assign({}, tool.clone(common.computed)),
+        'methods': {
+            checkNumber: function (target) {
+                if (!target) {
+                    target = this.$refs.text;
+                }
+                if (this.$props.type !== 'number') {
+                    return false;
+                }
+                let change = false;
+                if (!target.value && this.value) {
+                    change = true;
+                }
+                if (target.value) {
+                    const val = parseFloat(target.value);
+                    if (this.$props.max !== undefined && this.$props.max !== 'undefined' && val > this.propNumber('max')) {
+                        target.value = this.propNumber('max').toString();
+                        change = true;
+                    }
+                    if (this.$props.min !== undefined && this.$props.min !== 'undefined' && val < this.propNumber('min')) {
+                        target.value = this.propNumber('min').toString();
+                        change = true;
+                    }
+                }
+                return change;
+            },
+            input: function (e) {
+                const target = e.target;
+                if (this.propNumber('maxlength') && (target.value.length > this.propNumber('maxlength'))) {
+                    target.value = target.value.slice(0, this.propNumber('maxlength'));
+                    return;
+                }
+                const event = {
+                    'go': true,
+                    preventDefault: function () {
+                        this.go = false;
+                    },
+                    'detail': {
+                        'value': target.value,
+                        'change': undefined
+                    }
+                };
+                this.$emit('beforechange', event);
+                if (!event.go) {
+                    target.value = this.value;
+                    return;
+                }
+                if (event.detail.change !== undefined) {
+                    target.value = event.detail.change;
+                }
+                this.value = target.value;
+                this.$emit('update:modelValue', this.value);
+            },
+            tfocus: function () {
+                this.isFocus = true;
+                this.$emit('focus');
+            },
+            tblur: function (e) {
+                const target = e.target;
+                if (this.checkNumber(target)) {
+                    const event = {
+                        'go': true,
+                        preventDefault: function () {
+                            this.go = false;
+                        },
+                        'detail': {
+                            'value': target.value,
+                            'change': undefined
+                        }
+                    };
+                    this.$emit('beforechange', event);
+                    if (event.go) {
+                        if (event.detail.change !== undefined) {
+                            target.value = event.detail.change;
+                        }
+                        this.value = target.value;
+                        this.$emit('update:modelValue', this.value);
+                    }
+                    else {
+                        target.value = this.value;
+                    }
+                }
+                this.isFocus = false;
+                this.$emit('blur');
+            },
+        },
+        'watch': {
+            'modelValue': {
+                handler: function () {
+                    return __awaiter(this, void 0, void 0, function* () {
+                        if (this.value === this.$props.modelValue) {
+                            return;
+                        }
+                        this.value = this.$props.modelValue;
+                        yield this.$nextTick();
+                        this.checkNumber();
+                        if (this.propNumber('maxlength') && this.$refs.text.value.length > this.propNumber('maxlength')) {
+                            this.$refs.text.value = this.$refs.text.value.slice(0, this.propNumber('maxlength'));
+                        }
+                        if (this.$refs.text.value === this.value) {
+                            return;
+                        }
+                        const event = {
+                            'go': true,
+                            preventDefault: function () {
+                                this.go = false;
+                            },
+                            'detail': {
+                                'value': this.$refs.text.value,
+                                'change': undefined
+                            }
+                        };
+                        this.$emit('beforechange', event);
+                        if (!event.go) {
+                            this.$refs.text.value = this.value;
+                            return;
+                        }
+                        this.value = event.detail.change !== undefined ? event.detail.change : this.$refs.text.value;
+                        this.$emit('update:modelValue', this.value);
+                    });
+                },
+                'immediate': true
+            },
+            'type': {
+                handler: function () {
+                    return __awaiter(this, void 0, void 0, function* () {
+                        yield this.$nextTick();
+                        if (this.checkNumber()) {
+                            const event = {
+                                'go': true,
+                                preventDefault: function () {
+                                    this.go = false;
+                                },
+                                'detail': {
+                                    'value': this.value,
+                                    'change': undefined
+                                }
+                            };
+                            this.$emit('beforechange', event);
+                            if (!event.go) {
+                                this.$refs.text.value = this.value;
+                                return;
+                            }
+                            this.value = event.detail.change !== undefined ? event.detail.change : this.$refs.text.value;
+                            this.$emit('update:modelValue', this.value);
+                        }
+                    });
+                }
+            },
+            'max': {
+                handler: function () {
+                    if (this.checkNumber()) {
+                        const event = {
+                            'go': true,
+                            preventDefault: function () {
+                                this.go = false;
+                            },
+                            'detail': {
+                                'value': this.value,
+                                'change': undefined
+                            }
+                        };
+                        this.$emit('beforechange', event);
+                        if (!event.go) {
+                            this.$refs.text.value = this.value;
+                            return;
+                        }
+                        this.value = event.detail.change !== undefined ? event.detail.change : this.$refs.text.value;
+                        this.$emit('update:modelValue', this.value);
+                    }
+                }
+            },
+            'min': {
+                handler: function () {
+                    if (this.checkNumber()) {
+                        const event = {
+                            'go': true,
+                            preventDefault: function () {
+                                this.go = false;
+                            },
+                            'detail': {
+                                'value': this.value,
+                                'change': undefined
+                            }
+                        };
+                        this.$emit('beforechange', event);
+                        if (!event.go) {
+                            this.$attrsrefs.text.value = this.value;
+                            return;
+                        }
+                        this.value = event.detail.change !== undefined ? event.detail.change : this.$refs.text.value;
+                        this.$emit('update:modelValue', this.value);
+                    }
+                }
+            },
+            'maxlength': {
+                handler: function () {
+                    if (!this.propNumber('maxlength')) {
+                        return;
+                    }
+                    if (this.value.length <= this.propNumber('maxlength')) {
+                        return;
+                    }
+                    const value = this.value.slice(0, this.propNumber('maxlength'));
+                    const event = {
+                        'go': true,
+                        preventDefault: function () {
+                            this.go = false;
+                        },
+                        'detail': {
+                            'value': value,
+                            'change': undefined
+                        }
+                    };
+                    this.$emit('beforechange', event);
+                    if (!event.go) {
+                        return;
+                    }
+                    this.value = event.detail.change !== undefined ? event.detail.change : value;
+                    this.$emit('update:modelValue', this.value);
+                }
+            }
+        },
     },
     'pe-check': {
         'template': `<div class="pe-check" :class="[value&&'pe-checked']" @click="click" tabindex="0">` +
@@ -319,7 +557,7 @@ exports.list = {
                 }
                 this.value = !this.value;
                 this.$emit('update:modelValue', this.value);
-            }
+            },
         },
         'watch': {
             'modelValue': {
