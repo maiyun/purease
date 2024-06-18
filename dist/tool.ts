@@ -212,6 +212,31 @@ export function getNumber(param: string | number): number {
     return parseFloat(param);
 }
 
+/**
+ * --- 根据参数获取最终的数组型，可传入类似 [1,2,3] 或 1,2,3 ---
+ * @param param 参数
+ */
+export function getArray(param: string | any[]): any[] {
+    if (typeof param !== 'string') {
+        return param;
+    }
+    param = param.trim();
+    let rtn: any[] = [];
+    if (param.startsWith('[')) {
+        try {
+            rtn = JSON.parse(param);
+        }
+        catch {
+            return [];
+        }
+    }
+    else {
+        param = param.replace(/ /g, '');
+        rtn = param.split(',');
+    }
+    return rtn;
+}
+
 /** --- 获取数字的单纯小数点部分 --- */
 export function getDecimal(number: number) {
     const integerPart = Math.sign(number) === 1 ? Math.floor(number) : Math.ceil(number);

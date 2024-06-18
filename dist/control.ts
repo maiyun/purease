@@ -21,6 +21,12 @@ const common = {
                 return Math.round(this.propNumber(name));
             };
         },
+        /** --- 获取 props 中的 array 类型的值 --- */
+        propArray: function(this: types.IVue) {
+            return (name: string): any[] => {
+                return tool.getArray(this.$props[name]);
+            };
+        },
         l: function(
             this: types.IVue
         ) {
@@ -598,6 +604,7 @@ export const list: Record<string, any> = {
         },
         'emits': {
             'index': null,
+            'changed': null,
             'update:modelValue': null
         },
         'data': function() {
@@ -667,6 +674,12 @@ export const list: Record<string, any> = {
                 this.searchValue = '';
                 this.$emit('update:modelValue', this.dataComp[index].value);
                 this.$emit('index', index);
+                const event: types.ISelectChangedEvent = {
+                    'detail': {
+                        'value': this.dataComp[index].value
+                    }
+                };
+                this.$emit('changed', event);
                 dom.hidePop();
             }
         },
@@ -1282,6 +1295,7 @@ export const list: Record<string, any> = {
     'pe-page': {
         'template': '<div class="pe-page">' +
             '<div class="pe-page-list">' +
+                '<pe-select v-if="countsComp.length" :data="countsComp" v-model="countSelect" @changed="changed"></pe-select>' +
                 // --- 向左翻页 ---
                 `<div v-if="page > 1" tabindex="0" class="pe-page-left" @click="--page;$emit('update:modelValue',page);$emit('change',page);refresh()" @keydown="keydown"></div>` +
                 // --- 首页码 ---
@@ -1316,17 +1330,24 @@ export const list: Record<string, any> = {
             'count': {
                 'default': 10
             },
+            /** --- 设置后出现选项可选择每页多少条, Array<number> | string --- */
+            'counts': {
+                'default': []
+            },
             'control': {
                 'default': 10
             }
         },
         'emits': {
             'change': null,
-            'update:modelValue': null
+
+            'update:modelValue': null,
+            'update:count': null
         },
         'data': function() {
             return {
                 'svg': '<svg width="14" height="14" viewBox="0 0 24 24" stroke="none"><path d="m6 10.25c-.9665 0-1.75.7835-1.75 1.75s.7835 1.75 1.75 1.75h.01c.9665 0 1.75-.7835 1.75-1.75s-.7835-1.75-1.75-1.75zm4.25 1.75c0-.9665.7835-1.75 1.75-1.75h.01c.9665 0 1.75.7835 1.75 1.75s-.7835 1.75-1.75 1.75h-.01c-.9665 0-1.75-.7835-1.75-1.75zm6 0c0-.9665.7835-1.75 1.75-1.75h.01c.9665 0 1.75.7835 1.75 1.75s-.7835 1.75-1.75 1.75h-.01c-.9665 0-1.75-.7835-1.75-1.75z" /></svg>',
+                'countSelect': 0,
                 /** --- 上面页面序列 --- */
                 'prevs': [],
                 /** --- 下面页面序列 --- */
@@ -1338,46 +1359,76 @@ export const list: Record<string, any> = {
                 /** --- 语言包 --- */
                 'localeData': {
                     'en': {
-                        'total-of': 'Total of ? items'
+                        'total-of': 'Total of ? items',
+                        'page': 'Page'
                     },
                     'sc': {
-                        'total-of': '共 ? 条'
+                        'total-of': '共 ? 条',
+                        'page': '页'
                     },
                     'tc': {
-                        'total-of': '共 ? 條'
+                        'total-of': '共 ? 條',
+                        'page': '頁'
                     },
                     'ja': {
-                        'total-of': '? 件の合計'
+                        'total-of': '? 件の合計',
+                        'page': 'ページ'
                     },
                     'ko': {
-                        'total-of': '? 개 항목 총계'
+                        'total-of': '? 개 항목 총계',
+                        'page': '페이지'
                     },
                     'th': {
-                        'total-of': 'ทั้งหมด ? รายการ'
+                        'total-of': 'ทั้งหมด ? รายการ',
+                        'page': 'หน้า'
                     },
                     'es': {
-                        'total-of': 'Total de ? elementos'
+                        'total-of': 'Total de ? elementos',
+                        'page': 'Página'
                     },
                     'de': {
-                        'total-of': 'Insgesamt ?'
+                        'total-of': 'Insgesamt ?',
+                        'page': 'Seite'
                     },
                     'fr': {
-                        'total-of': 'Total de ?'
+                        'total-of': 'Total de ?',
+                        'page': 'Page'
                     },
                     'pt': {
-                        'total-of': 'Total de ?'
+                        'total-of': 'Total de ?',
+                        'page': 'Página'
                     },
                     'ru': {
-                        'total-of': 'Всего ?'
+                        'total-of': 'Всего ?',
+                        'page': 'Страница'
                     },
                     'vi': {
-                        'total-of': 'Tổng cộng ?'
+                        'total-of': 'Tổng cộng ?',
+                        'page': 'Trang'
                     }
                 }
             };
         },
         'computed': {
             ...tool.clone(common.computed),
+               /** --- 格式化每页多少条 counts --- */
+            countsComp: function(this: types.IVue): Array<{
+                'label': string;
+                'value': number;
+            }> {
+                const counts = this.propArray('counts');
+                const list: Array<{
+                    'label': string;
+                    'value': number;
+                }> = [];
+                for (const item of counts) {
+                    list.push({
+                        'label': item.toString() + ' / ' + this.l('page'),
+                        'value': item
+                    });
+                }
+                return list;
+            }
         },
         'methods': {
             refresh: function(this: types.IVue) {
@@ -1409,7 +1460,7 @@ export const list: Record<string, any> = {
                     this.maxPage = 1;
                     return;
                 }
-                this.maxPage = Math.ceil(this.propInt('total') / this.propInt('count'));
+                this.maxPage = Math.ceil(this.propInt('total') / this.countSelect);
             },
             keydown: function(e: KeyboardEvent) {
                 if (e.key !== 'Enter') {
@@ -1417,9 +1468,21 @@ export const list: Record<string, any> = {
                 }
                 e.preventDefault();
                 (e.target as HTMLElement).click();
+            },
+            changed: function(this: types.IVue, e: types.ISelectChangedEvent) {
+                this.$emit('update:count', e.detail.value);
+                this.refreshMaxPage();
+                this.refresh();
             }
         },
         'watch': {
+            'count': {
+                handler: function(this: types.IVue) {
+                    this.countSelect = this.propInt('count');
+                    this.refreshMaxPage();
+                    this.refresh();
+                }
+            },
             'modelValue': {
                 handler: function(this: types.IVue) {
                     this.page = this.propInt('modelValue');
@@ -1446,6 +1509,7 @@ export const list: Record<string, any> = {
             }
         },
         mounted: function() {
+            this.countSelect = this.propInt('count');
             this.refreshMaxPage();
             this.refresh();
         }

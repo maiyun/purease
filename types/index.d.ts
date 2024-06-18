@@ -131,6 +131,14 @@ export interface ITextBeforechangeEvent extends ICustomEvent {
     }
 }
 
+// --- Select Control ---
+
+export interface ISelectChangedEvent {
+    'detail': {
+        'value': string;
+    };
+}
+
 // --------------------------
 // -------- tool lib --------
 // --------------------------

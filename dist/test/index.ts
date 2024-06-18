@@ -128,7 +128,11 @@ class Page extends purease.AbstractPage {
 
     public p5: number = 1;
 
+    public p6: number = 2;
+
     public total5: number = 0;
+
+    public count6: number = 20;
 
     public control: number = 2;
 

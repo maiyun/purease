@@ -733,7 +733,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     }
 }
 .pe-select-list {
-    padding: 15px; max-height: 350px; overflow-y: scroll; border-radius: 0 0 var(--pe-radius) var(--pe-radius);
+    padding: 15px; max-height: 350px; overflow-y: auto; border-radius: 0 0 var(--pe-radius) var(--pe-radius);
     &.pe-empty {
         height: 100px; display: flex; align-items: center; justify-content: center; color: var(--pe-note-color);
     }
@@ -899,7 +899,13 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 }
 .pe-page-list {
     display: flex; justify-content: center;
-    > div {
+    > .pe-select {
+        background: #FFF;
+        .pe-select-label {
+            display: flex; align-items: center; padding: 0 15px;
+        }
+    }
+    > :not(.pe-select) {
         border: solid .5px hsl(220, 15%, 85%); background: #FFF; line-height: 1; outline: none; display: flex; width: 45px; height: 45px; justify-content: center; align-items: center; border-radius: var(--pe-radius); box-shadow: 0 1px 2px hsla(220, 45%, 10%, 0.05); transition: var(--pe-transition);
 
         &:hover {

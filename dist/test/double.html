@@ -99,6 +99,7 @@
         <pe-page v-model="p3" total="1282" :control="control"></pe-page>
         <pe-page v-model="p4" total="1282" count="20" :control="control"></pe-page>
         <pe-page v-model="p5" :total="total5" count="20" :control="control"></pe-page>
+        <pe-page v-model="p6" total="1000" v-model:count="count6" :counts="[20,50,100]" :control="control" />
         <div class="pe-layout" style="gap: 20px;">
             <div class="pe-button pe-pgrey" @click="total5 = total5 ? 0 : 300" style="flex: 2;">total to {{total5 ? 0 : 300}}</div>
             <div class="pe-button pe-pgrey" @click="control=2" style="flex: 2;">control to 2</div>

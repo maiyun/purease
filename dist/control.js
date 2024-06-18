@@ -53,6 +53,11 @@ const common = {
                 return Math.round(this.propNumber(name));
             };
         },
+        propArray: function () {
+            return (name) => {
+                return tool.getArray(this.$props[name]);
+            };
+        },
         l: function () {
             return (key, data) => {
                 var _a, _b;
@@ -610,6 +615,7 @@ exports.list = {
         },
         'emits': {
             'index': null,
+            'changed': null,
             'update:modelValue': null
         },
         'data': function () {
@@ -677,6 +683,12 @@ exports.list = {
                 this.searchValue = '';
                 this.$emit('update:modelValue', this.dataComp[index].value);
                 this.$emit('index', index);
+                const event = {
+                    'detail': {
+                        'value': this.dataComp[index].value
+                    }
+                };
+                this.$emit('changed', event);
                 dom.hidePop();
             }
         },
@@ -1251,6 +1263,7 @@ exports.list = {
     'pe-page': {
         'template': '<div class="pe-page">' +
             '<div class="pe-page-list">' +
+            '<pe-select v-if="countsComp.length" :data="countsComp" v-model="countSelect" @changed="changed"></pe-select>' +
             `<div v-if="page > 1" tabindex="0" class="pe-page-left" @click="--page;$emit('update:modelValue',page);$emit('change',page);refresh()" @keydown="keydown"></div>` +
             `<div v-if="page > 1" tabindex="0" @click="page=1;$emit('update:modelValue',page);$emit('change',page);refresh()" @keydown="keydown">1</div>` +
             `<div v-if="page > propNumber('control') + 2" tabindex="0" v-html="svg" @click="page-=10;if(page<1){page=1}$emit('update:modelValue',page);$emit('change',page);refresh()" @keydown="keydown"></div>` +
@@ -1276,62 +1289,89 @@ exports.list = {
             'count': {
                 'default': 10
             },
+            'counts': {
+                'default': []
+            },
             'control': {
                 'default': 10
             }
         },
         'emits': {
             'change': null,
-            'update:modelValue': null
+            'update:modelValue': null,
+            'update:count': null
         },
         'data': function () {
             return {
                 'svg': '<svg width="14" height="14" viewBox="0 0 24 24" stroke="none"><path d="m6 10.25c-.9665 0-1.75.7835-1.75 1.75s.7835 1.75 1.75 1.75h.01c.9665 0 1.75-.7835 1.75-1.75s-.7835-1.75-1.75-1.75zm4.25 1.75c0-.9665.7835-1.75 1.75-1.75h.01c.9665 0 1.75.7835 1.75 1.75s-.7835 1.75-1.75 1.75h-.01c-.9665 0-1.75-.7835-1.75-1.75zm6 0c0-.9665.7835-1.75 1.75-1.75h.01c.9665 0 1.75.7835 1.75 1.75s-.7835 1.75-1.75 1.75h-.01c-.9665 0-1.75-.7835-1.75-1.75z" /></svg>',
+                'countSelect': 0,
                 'prevs': [],
                 'nexts': [],
                 'page': 0,
                 'maxPage': 0,
                 'localeData': {
                     'en': {
-                        'total-of': 'Total of ? items'
+                        'total-of': 'Total of ? items',
+                        'page': 'Page'
                     },
                     'sc': {
-                        'total-of': '共 ? 条'
+                        'total-of': '共 ? 条',
+                        'page': '页'
                     },
                     'tc': {
-                        'total-of': '共 ? 條'
+                        'total-of': '共 ? 條',
+                        'page': '頁'
                     },
                     'ja': {
-                        'total-of': '? 件の合計'
+                        'total-of': '? 件の合計',
+                        'page': 'ページ'
                     },
                     'ko': {
-                        'total-of': '? 개 항목 총계'
+                        'total-of': '? 개 항목 총계',
+                        'page': '페이지'
                     },
                     'th': {
-                        'total-of': 'ทั้งหมด ? รายการ'
+                        'total-of': 'ทั้งหมด ? รายการ',
+                        'page': 'หน้า'
                     },
                     'es': {
-                        'total-of': 'Total de ? elementos'
+                        'total-of': 'Total de ? elementos',
+                        'page': 'Página'
                     },
                     'de': {
-                        'total-of': 'Insgesamt ?'
+                        'total-of': 'Insgesamt ?',
+                        'page': 'Seite'
                     },
                     'fr': {
-                        'total-of': 'Total de ?'
+                        'total-of': 'Total de ?',
+                        'page': 'Page'
                     },
                     'pt': {
-                        'total-of': 'Total de ?'
+                        'total-of': 'Total de ?',
+                        'page': 'Página'
                     },
                     'ru': {
-                        'total-of': 'Всего ?'
+                        'total-of': 'Всего ?',
+                        'page': 'Страница'
                     },
                     'vi': {
-                        'total-of': 'Tổng cộng ?'
+                        'total-of': 'Tổng cộng ?',
+                        'page': 'Trang'
                     }
                 }
             };
         },
-        'computed': Object.assign({}, tool.clone(common.computed)),
+        'computed': Object.assign(Object.assign({}, tool.clone(common.computed)), { countsComp: function () {
+                const counts = this.propArray('counts');
+                const list = [];
+                for (const item of counts) {
+                    list.push({
+                        'label': item.toString() + ' / ' + this.l('page'),
+                        'value': item
+                    });
+                }
+                return list;
+            } }),
         'methods': {
             refresh: function () {
                 this.prevs.length = 0;
@@ -1361,7 +1401,7 @@ exports.list = {
                     this.maxPage = 1;
                     return;
                 }
-                this.maxPage = Math.ceil(this.propInt('total') / this.propInt('count'));
+                this.maxPage = Math.ceil(this.propInt('total') / this.countSelect);
             },
             keydown: function (e) {
                 if (e.key !== 'Enter') {
@@ -1369,9 +1409,21 @@ exports.list = {
                 }
                 e.preventDefault();
                 e.target.click();
+            },
+            changed: function (e) {
+                this.$emit('update:count', e.detail.value);
+                this.refreshMaxPage();
+                this.refresh();
             }
         },
         'watch': {
+            'count': {
+                handler: function () {
+                    this.countSelect = this.propInt('count');
+                    this.refreshMaxPage();
+                    this.refresh();
+                }
+            },
             'modelValue': {
                 handler: function () {
                     this.page = this.propInt('modelValue');
@@ -1398,6 +1450,7 @@ exports.list = {
             }
         },
         mounted: function () {
+            this.countSelect = this.propInt('count');
             this.refreshMaxPage();
             this.refresh();
         }
