@@ -191,7 +191,7 @@
             <pe-tag :close="tagclose" type="primary" plain size="l">l</pe-tag>
             <pe-tag :close="tagclose" type="primary" plain size="m">m</pe-tag>
         </div>
-        <div>Event and close</div>
+        <div>Event</div>
         <div class="pe-layout" style="gap: 10px; align-items: center;">
             <pe-tag :close="tagclose" v-for="item, index of taglist" type="pe" size="l" plain @close="taglist.splice(index, 1)">{{item}}</pe-tag>
             <div class="pe-button pe-pgrey" v-if="taglist.length < 6" @click="taglist.push('tag' + taglist.length)">Add</div>
