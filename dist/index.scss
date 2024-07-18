@@ -5,12 +5,13 @@ html {
     --pe-disabled-color:hsl(0, 0%, 80%);
     --pe-note-color:hsl(0, 0%, 40%);
     --pe-inote-color:hsl(0, 0%, 60%);
-    --pe-h-color:hsl(90, 65%, 35%);
+    --pe-h-color:hsl(90, 65%, 35%);     // --- 主题色 ---
     --pe-h-bgcolor:hsl(90, 65%, 95%);
     --pe-h-fcolor:#FFF;
     --pe-cubic:cubic-bezier(0.39, 0.575, 0.565, 1);
     --pe-transition:all .3s var(--pe-cubic);
     --pe-radius:5px;
+    --pe-radius-l:10px;
     --pe-font-life:"Lucida Sans Unicode","Helvetica Neue","Helvetica","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Noto Sans CJK","Source Han Sans","WenQuanYi Micro Hei","Microsoft YaHei","sans-serif";
     --pe-font-comm:'Roboto','SF Pro SC','SF Pro Display','SF Pro Icons','PingFang SC',BlinkMacSystemFont,-apple-system,'Segoe UI','Microsoft Yahei','Ubuntu','Cantarell','Fira Sans','Droid Sans','Helvetica Neue','Helvetica','Arial',"sans-serif";
     --pe-grey:hsl(210,20%,98%);         // --- 一般用于浅色背景、或者采用白色背景的组件的 hover ---
@@ -25,6 +26,27 @@ html {
     ::selection {
         background: var(--pe-h-color); color: var(--pe-h-fcolor);
     }
+
+    // --- 基础颜色 ---
+    --success:hsl(150, 100%, 40%);
+    --success-hover:hsl(150, 100%, 45%);
+    --success-active:hsl(150, 100%, 30%);
+    --success-bg:hsl(150, 100%, 98%);
+
+    --info:hsl(210, 100%, 50%);
+    --info-hover:hsl(210, 100%, 60%);
+    --info-active:hsl(210, 100%, 40%);
+    --info-bg:hsl(210, 100%, 98%);
+
+    --warning:hsl(20, 100%, 70%);
+    --warning-hover:hsl(20, 100%, 80%);
+    --warning-active:hsl(20, 100%, 60%);
+    --warning-bg:hsl(20, 100%, 98%);
+
+    --danger:hsl(350, 100%, 50%);
+    --danger-hover:hsl(350, 100%, 70%);
+    --danger-active:hsl(350, 100%, 40%);
+    --danger-bg:hsl(350, 100%, 98%);
 }
 html, body {
     padding: 0; margin: 0;
@@ -1043,6 +1065,127 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     }
 }
 
+// --- pe-tag ---
+
+.pe-tag {
+    border-radius: var(--pe-radius-l); display: inline-flex; display: flex; align-items: center; justify-content: center; transition: var(--pe-transition); border: solid 1px transparent; line-height: 1;
+
+    &.pe-size-m {
+        padding: 6px 10px;
+    }
+    &.pe-size-l {
+        padding: 15px 20px;
+    }
+
+    
+    &:not(.pe-plain) {
+        background: var(--pe-border); color: #FFF; fill: #FFF; stroke: #FFF; border: solid .5px transparent;
+        &.pe-type-primary {
+            background: var(--success); border-color: var(--success);
+        }
+        &.pe-type-info {
+            background: var(--info); border-color: var(--info);
+        }
+        &.pe-type-warning {
+            background: var(--warning); border-color: var(--warning);
+        }
+        &.pe-type-danger {
+            background: var(--danger); border-color: var(--danger);
+        }
+        &.pe-type-pe {
+            background: var(--pe-h-color); border-color: var(--pe-h-color);
+        }
+
+        svg {
+            &:hover {
+                background: rgba(255, 255, 255, .1);
+            }
+            &:active {
+                background: rgba(0, 0, 0, .1);
+            }
+        }
+    }
+    &.pe-plain {
+        border-color: var(--pe-border); background: var(--pe-input-bg);
+
+        svg {
+            &:hover, &:active {
+                fill: #FFF; stroke: #FFF;
+            }
+        }
+
+        &:not(.pe-type-pe) {
+            // --- default ---
+            color: var(--pe-border); fill: var(--pe-border); stroke: var(--pe-border);
+            svg {
+                &:hover {
+                    background: var(--pe-border);
+                }
+                &:active {
+                    background: var(--pe-color);
+                }
+            }
+        }
+        &.pe-type-primary {
+            border-color: var(--success); color: var(--success); fill: var(--success); stroke: var(--success); background: var(--success-bg);
+            svg {
+                &:hover {
+                    background: var(--success);
+                }
+                &:active {
+                    background: var(--success-active);
+                }
+            }
+        }
+        &.pe-type-info {
+            border-color: var(--info); color: var(--info); fill: var(--info); stroke: var(--info); background: var(--info-bg);
+            svg {
+                &:hover {
+                    background: var(--info);
+                }
+                &:active {
+                    background: var(--info-active);
+                }
+            }
+        }
+        &.pe-type-warning {
+            border-color: var(--warning); color: var(--warning); fill: var(--warning); stroke: var(--warning); background: var(--warning-bg);
+            svg {
+                &:hover {
+                    background: var(--warning);
+                }
+                &:active {
+                    background: var(--warning-active);
+                }
+            }
+        }
+        &.pe-type-danger {
+            border-color: var(--danger); color: var(--danger); fill: var(--danger); stroke: var(--danger); background: var(--danger-bg);
+            svg {
+                &:hover {
+                    background: var(--danger);
+                }
+                &:active {
+                    background: var(--danger-active);
+                }
+            }
+        }
+        &.pe-type-pe {
+            svg {
+                &:hover {
+                    background: var(--pe-h-color);
+                }
+                &:active {
+                    background: var(--pe-color);
+                }
+            }
+        }
+    }
+
+    svg {
+        margin-left: 10px; transition: var(--pe-transition); border-radius: var(--pe-radius);
+    }
+}
 
 // --- 小屏设备 ---
 

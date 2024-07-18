@@ -133,13 +133,12 @@
         <pe-switch v-model="switch2" :map="{'true':'a','false':'b'}"></pe-switch>
     </div>
 </div>
+<!-- drawer -->
 <div class="pe-block pe-grey">
     <div class="pe-btitle">Drawer</div>
-    <div class="pe-layout pe-content pe-padding-lr" style="flex-direction: column; gap: 40px; align-items: center;">
-        <div class="pe-layout" style="gap: 20px; flex-direction: column;">
-            <label>drawer: {{drawer ? 'true' : 'false'}}</label>
-            <a class="pe-button pe-pgrey" @click="drawer = true">Open</a>
-        </div>
+    <div class="pe-layout pe-content pe-padding-lr" style="flex-direction: column; gap: 20px; align-items: center;">
+        <label>drawer: {{drawer ? 'true' : 'false'}}</label>
+        <a class="pe-button pe-pgrey" @click="drawer = true">Open</a>
     </div>
 </div>
 <pe-drawer title="Drawer" gutter="10" v-model="drawer" direction="v" width="50%">
@@ -164,5 +163,42 @@
         </div>
     </template>
 </pe-drawer>
+<!-- tag -->
+<div class="pe-block">
+    <div class="pe-btitle">Tag</div>
+    <div class="pe-layout pe-content pe-padding-lr" style="flex-direction: column; gap: 20px; align-items: center;">
+        
+        <div>Default</div>
+        <div class="pe-layout" style="gap: 10px;">
+            <pe-tag :close="tagclose">Default</pe-tag>
+            <pe-tag :close="tagclose" type="primary">Primary</pe-tag>
+            <pe-tag :close="tagclose" type="info">Info</pe-tag>
+            <pe-tag :close="tagclose" type="warning">Warning</pe-tag>
+            <pe-tag :close="tagclose" type="danger">Danger</pe-tag>
+            <pe-tag :close="tagclose" type="pe">Pe</pe-tag>
+        </div>
+        <div>Plain</div>
+        <div class="pe-layout" style="gap: 10px;">
+            <pe-tag :close="tagclose" plain>Default</pe-tag>
+            <pe-tag :close="tagclose" type="primary" plain>Primary</pe-tag>
+            <pe-tag :close="tagclose" type="info" plain>Info</pe-tag>
+            <pe-tag :close="tagclose" type="warning" plain>Warning</pe-tag>
+            <pe-tag :close="tagclose" type="danger" plain>Danger</pe-tag>
+            <pe-tag :close="tagclose" type="pe" plain>Pe</pe-tag>
+        </div>
+        <div>Size</div>
+        <div class="pe-layout" style="gap: 10px; align-items: center;">
+            <pe-tag :close="tagclose" type="primary" plain size="l">l</pe-tag>
+            <pe-tag :close="tagclose" type="primary" plain size="m">m</pe-tag>
+        </div>
+        <div>Event and close</div>
+        <div class="pe-layout" style="gap: 10px; align-items: center;">
+            <pe-tag :close="tagclose" v-for="item, index of taglist" type="pe" size="l" plain @close="taglist.splice(index, 1)">{{item}}</pe-tag>
+            <div class="pe-button pe-pgrey" v-if="taglist.length < 6" @click="taglist.push('tag' + taglist.length)">Add</div>
+        </div>
+        <div class="pe-layout" style="gap: 10px;">
+            <div class="pe-button pe-pgrey" @click="tagclose = !tagclose">{{tagclose ? '' : '!'}}close</div>
+        </div>
+    </div>
 </body>
 </html>

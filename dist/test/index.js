@@ -69,6 +69,8 @@ class Page extends purease.AbstractPage {
         this.control = 2;
         this.switch1 = false;
         this.switch2 = 'a';
+        this.taglist = [];
+        this.tagclose = false;
     }
     changeNBottom() {
         this.nbottom = !this.nbottom;

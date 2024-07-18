@@ -148,6 +148,12 @@ class Page extends purease.AbstractPage {
 
     public switch2: string = 'a';
 
+    // --- Tag 控件 ---
+
+    public taglist: string[] = [];
+
+    public tagclose = false;
+
 }
 
 purease.launcher(Page, {
