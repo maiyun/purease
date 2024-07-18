@@ -74,6 +74,36 @@ const common = {
                     return data[i];
                 });
             };
+        },
+        alignHComp: function () {
+            if (!this.$props.alignH) {
+                return undefined;
+            }
+            switch (this.$props.alignH) {
+                case 'center': {
+                    return 'center';
+                }
+                case 'left':
+                case 'start': {
+                    return 'flex-start';
+                }
+            }
+            return 'flex-end';
+        },
+        alignVComp: function () {
+            if (!this.$props.alignV) {
+                return undefined;
+            }
+            switch (this.$props.alignV) {
+                case 'center': {
+                    return 'center';
+                }
+                case 'top':
+                case 'start': {
+                    return 'flex-start';
+                }
+            }
+            return 'flex-end';
         }
     }
 };
@@ -395,6 +425,7 @@ exports.list = {
             'modelValue': {
                 handler: function () {
                     return __awaiter(this, void 0, void 0, function* () {
+                        var _a;
                         if (this.value === this.$props.modelValue) {
                             return;
                         }
@@ -422,7 +453,7 @@ exports.list = {
                             this.$refs.text.value = this.value;
                             return;
                         }
-                        this.value = event.detail.change !== undefined ? event.detail.change : this.$refs.text.value;
+                        this.value = (_a = event.detail.change) !== null && _a !== void 0 ? _a : this.$refs.text.value;
                         this.$emit('update:modelValue', this.value);
                     });
                 },
@@ -431,6 +462,7 @@ exports.list = {
             'type': {
                 handler: function () {
                     return __awaiter(this, void 0, void 0, function* () {
+                        var _a;
                         yield this.$nextTick();
                         if (this.checkNumber()) {
                             const event = {
@@ -448,7 +480,7 @@ exports.list = {
                                 this.$refs.text.value = this.value;
                                 return;
                             }
-                            this.value = event.detail.change !== undefined ? event.detail.change : this.$refs.text.value;
+                            this.value = (_a = event.detail.change) !== null && _a !== void 0 ? _a : this.$refs.text.value;
                             this.$emit('update:modelValue', this.value);
                         }
                     });
@@ -456,6 +488,7 @@ exports.list = {
             },
             'max': {
                 handler: function () {
+                    var _a;
                     if (this.checkNumber()) {
                         const event = {
                             'go': true,
@@ -472,13 +505,14 @@ exports.list = {
                             this.$refs.text.value = this.value;
                             return;
                         }
-                        this.value = event.detail.change !== undefined ? event.detail.change : this.$refs.text.value;
+                        this.value = (_a = event.detail.change) !== null && _a !== void 0 ? _a : this.$refs.text.value;
                         this.$emit('update:modelValue', this.value);
                     }
                 }
             },
             'min': {
                 handler: function () {
+                    var _a;
                     if (this.checkNumber()) {
                         const event = {
                             'go': true,
@@ -495,13 +529,14 @@ exports.list = {
                             this.$attrsrefs.text.value = this.value;
                             return;
                         }
-                        this.value = event.detail.change !== undefined ? event.detail.change : this.$refs.text.value;
+                        this.value = (_a = event.detail.change) !== null && _a !== void 0 ? _a : this.$refs.text.value;
                         this.$emit('update:modelValue', this.value);
                     }
                 }
             },
             'maxlength': {
                 handler: function () {
+                    var _a;
                     if (!this.propNumber('maxlength')) {
                         return;
                     }
@@ -523,7 +558,7 @@ exports.list = {
                     if (!event.go) {
                         return;
                     }
-                    this.value = event.detail.change !== undefined ? event.detail.change : value;
+                    this.value = (_a = event.detail.change) !== null && _a !== void 0 ? _a : value;
                     this.$emit('update:modelValue', this.value);
                 }
             }
@@ -572,12 +607,10 @@ exports.list = {
                 'immediate': true
             }
         },
-        mounted: function () {
-        }
     },
     'pe-icon': {
         'template': `<svg v-if="name==='link'" class="pe-icon" viewBox="0 0 24 24" fill="none"><path d="M13 11L22 2M22 2H16.6562M22 2V7.34375" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2M22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2.49073 19.5618 2.16444 18.1934 2.0551 16" stroke-width="1.5" stroke-linecap="round"/></svg>` +
-            `<svg v-else-if="name==='language'" class="pe-icon" viewBox="0 0 24 24"><path d="M8 15H3.5A2.502 2.502 0 0 1 1 12.5v-9A2.502 2.502 0 0 1 3.5 1h9A2.502 2.502 0 0 1 15 3.5V8h-1V3.5A1.502 1.502 0 0 0 12.5 2h-9A1.502 1.502 0 0 0 2 3.5v9A1.502 1.502 0 0 0 3.5 14H8zm-.038-4.811a9.77 9.77 0 0 1-3.766 1.796l-.242-.97a8.816 8.816 0 0 0 3.282-1.532A9.264 9.264 0 0 1 4.888 5H4V4h3.279l-.544-.544.707-.707L8.692 4H12v1h-.914A9.836 9.836 0 0 1 9.78 8.152a3.853 3.853 0 0 0-1.82 2.037zm.032-1.383A8.167 8.167 0 0 0 10.058 5H5.922a8.18 8.18 0 0 0 2.072 3.806zM23 20.447v-8.894A2.525 2.525 0 0 0 20.484 9h-8.931A2.556 2.556 0 0 0 9 11.553v8.894A2.556 2.556 0 0 0 11.553 23h8.894A2.556 2.556 0 0 0 23 20.447zM20.484 10A1.517 1.517 0 0 1 22 11.516v8.968A1.517 1.517 0 0 1 20.484 22h-8.968A1.517 1.517 0 0 1 10 20.484v-8.968A1.517 1.517 0 0 1 11.516 10zm-2.086 8h-4.796l-1.159 2.23-.886-.46L16 11.215l4.443 8.555-.886.46zm-.52-1L16 13.385 14.122 17z"/></svg>`,
+            `<svg v-else-if="name==='language'" class="pe-icon" viewBox="0 0 24 24"><path d="M8 15H3.5A2.502 2.502 0 0 1 1 12.5v-9A2.502 2.502 0 0 1 3.5 1h9A2.502 2.502 0 0 1 15 3.5V8h-1V3.5A1.502 1.502 0 0 0 12.5 2h-9A1.502 1.502 0 0 0 2 3.5v9A1.502 1.502 0 0 0 3.5 14H8zm-.038-4.811a9.77 9.77 0 0 1-3.766 1.796l-.242-.97a8.816 8.816 0 0 0 3.282-1.532A9.264 9.264 0 0 1 4.888 5H4V4h3.279l-.544-.544.707-.707L8.692 4H12v1h-.914A9.836 9.836 0 0 1 9.78 8.152a3.853 3.853 0 0 0-1.82 2.037zm.032-1.383A8.167 8.167 0 0 0 10.058 5H5.922a8.18 8.18 0 0 0 2.072 3.806zM23 20.447v-8.894A2.525 2.525 0 0 0 20.484 9h-8.931A2.556 2.556 0 0 0 9 11.553v8.894A2.556 2.556 0 0 0 11.553 23h8.894A2.556 2.556 0 0 0 23 20.447zM20.484 10A1.517 1.517 0 0 1 22 11.516v8.968A1.517 1.517 0 0 1 20.484 22h-8.968A1.517 1.517 0 0 1 10 20.484v-8.968A1.517 1.517 0 0 1 11.516 10zm-2.086 8h-4.796l-1.159 2.23-.886-.46L16 11.215l4.443 8.555-.886.46zm-.52-1L16 13.385 14.122 17z" stroke-width=".5"/></svg>`,
         'props': {
             'name': {
                 'default': 'link'
@@ -882,13 +915,13 @@ exports.list = {
                     clearTimeout(this.timer);
                     this.timer = null;
                 }
-                let ox = e instanceof MouseEvent ? e.clientX : e.touches[0].clientX;
+                const ox = e instanceof MouseEvent ? e.clientX : e.touches[0].clientX;
                 let x = ox;
                 const time = Date.now();
                 dom.bindDown(e, {
                     move: (ne) => {
-                        let nx = ne instanceof MouseEvent ? ne.clientX : ne.touches[0].clientX;
-                        let cx = nx - x;
+                        const nx = ne instanceof MouseEvent ? ne.clientX : ne.touches[0].clientX;
+                        const cx = nx - x;
                         x = nx;
                         this.translate += cx;
                         if (this.translate > this.width) {
@@ -899,9 +932,9 @@ exports.list = {
                         }
                         this.$refs.items.style.transform = 'translateX(' + this.translate + 'px)';
                     },
-                    end: () => __awaiter(this, void 0, void 0, function* () {
-                        let cx = x - ox;
-                        let speed = Math.abs(cx / (Date.now() - time));
+                    end: () => {
+                        const cx = x - ox;
+                        const speed = Math.abs(cx / (Date.now() - time));
                         const info = -(this.translate / this.width);
                         const index = Math.floor(info);
                         const dec = tool.getDecimal(info);
@@ -921,32 +954,28 @@ exports.list = {
                         this.go();
                         this.mvselected = this.selected;
                         this.$emit('update:modelValue', this.mvselected);
-                    })
+                    }
                 });
             },
             prev: function () {
-                return __awaiter(this, void 0, void 0, function* () {
-                    if (this.going) {
-                        return;
-                    }
-                    this.translate += 10;
-                    --this.selected;
-                    this.go();
-                    this.mvselected = this.selected;
-                    this.$emit('update:modelValue', this.mvselected);
-                });
+                if (this.going) {
+                    return;
+                }
+                this.translate += 10;
+                --this.selected;
+                this.go();
+                this.mvselected = this.selected;
+                this.$emit('update:modelValue', this.mvselected);
             },
             next: function () {
-                return __awaiter(this, void 0, void 0, function* () {
-                    if (this.going) {
-                        return;
-                    }
-                    this.translate -= 10;
-                    ++this.selected;
-                    this.go();
-                    this.mvselected = this.selected;
-                    this.$emit('update:modelValue', this.mvselected);
-                });
+                if (this.going) {
+                    return;
+                }
+                this.translate -= 10;
+                ++this.selected;
+                this.go();
+                this.mvselected = this.selected;
+                this.$emit('update:modelValue', this.mvselected);
             },
             pdown: function (p) {
                 if (this.going) {
@@ -1105,16 +1134,14 @@ exports.list = {
             }
         },
         mounted: function () {
-            return __awaiter(this, void 0, void 0, function* () {
-                if (!this.$parent) {
-                    return;
-                }
-                if (this.$parent.itemCount === undefined) {
-                    return;
-                }
-                ++this.$parent.itemCount;
-                this.index = dom.index(this.$el);
-            });
+            if (!this.$parent) {
+                return;
+            }
+            if (this.$parent.itemCount === undefined) {
+                return;
+            }
+            ++this.$parent.itemCount;
+            this.index = dom.index(this.$el);
         },
         unmounted: function () {
             return __awaiter(this, void 0, void 0, function* () {
@@ -1217,15 +1244,13 @@ exports.list = {
             }
         },
         mounted: function () {
-            return __awaiter(this, void 0, void 0, function* () {
-                if (!this.$parent) {
-                    return;
-                }
-                if (this.$parent.selected === undefined) {
-                    return;
-                }
-                this.index = dom.index(this.$el);
-            });
+            if (!this.$parent) {
+                return;
+            }
+            if (this.$parent.selected === undefined) {
+                return;
+            }
+            this.index = dom.index(this.$el);
         },
     },
     'pe-dialog': {
@@ -1493,10 +1518,9 @@ exports.list = {
                 const bcr = this.$el.getBoundingClientRect();
                 const width = bcr.width;
                 const left = bcr.left;
-                let x = e instanceof MouseEvent ? e.clientX : e.touches[0].clientX;
                 dom.bindDown(e, {
                     move: (ne) => {
-                        let nx = ne instanceof MouseEvent ? ne.clientX : ne.touches[0].clientX;
+                        const nx = ne instanceof MouseEvent ? ne.clientX : ne.touches[0].clientX;
                         let pos = (nx - left) / width * 100;
                         if (pos < 0) {
                             pos = 0;
@@ -1557,6 +1581,128 @@ exports.list = {
                     this.pos[1] = (this.modelValue[1] - this.propInt('min')) / (this.propInt('max') - this.propInt('min')) * 100;
                 },
                 'immediate': true
+            }
+        }
+    },
+    'pe-switch': {
+        'template': `<div class="pe-switch" :class="[value===mapComp.true&&'pe-checked',propBoolean('disabled')&&'pe-disabled']" :tabindex="!propBoolean('disabled') ? '0' : undefined" @click="click" @keydown="keydown">` +
+            '<div class="pe-switch-block"></div>' +
+            '</div>',
+        'props': {
+            'disabled': {
+                'default': false,
+            },
+            'map': {
+                'default': {},
+            },
+            'modelValue': {
+                'default': false,
+            }
+        },
+        'data': function () {
+            return {
+                'value': false
+            };
+        },
+        'computed': Object.assign(Object.assign({}, tool.clone(common.computed)), { mapComp: function () {
+                var _a, _b;
+                return {
+                    'true': (_a = this.$props.map.true) !== null && _a !== void 0 ? _a : true,
+                    'false': (_b = this.$props.map.false) !== null && _b !== void 0 ? _b : false
+                };
+            } }),
+        'watch': {
+            'modelValue': {
+                handler: function () {
+                    if (this.$props.modelValue === undefined) {
+                        return;
+                    }
+                    this.value = this.$props.modelValue;
+                },
+                'immediate': true
+            }
+        },
+        'methods': {
+            click: function () {
+                const event = {
+                    'go': true,
+                    preventDefault: function () {
+                        this.go = false;
+                    },
+                    'detail': {
+                        'value': this.value
+                    }
+                };
+                this.$emit('change', event);
+                if (event.go) {
+                    this.value = this.value === this.mapComp.true ? this.mapComp.false : this.mapComp.true;
+                    this.$emit('update:modelValue', this.value);
+                }
+            },
+            keydown: function (e) {
+                if (e.key !== 'Enter') {
+                    return;
+                }
+                e.preventDefault();
+                this.click();
+            },
+        }
+    },
+    'pe-drawer': {
+        'template': `<div class="pe-drawer" :class="[propBoolean('modelValue')&&'pe-show']" @click="click">` +
+            `<div class="pe-drawer-body" :style="{'width':widthComp}">` +
+            '<div class="pe-drawer-header" v-if="title">' +
+            '<div class="pe-drawer-title">{{title}}</div>' +
+            `<div class="pe-drawer-close" @click="closeClick" v-show="propBoolean('modelValue')">` +
+            '<svg width="24" height="24" viewBox="0 0 24 24" stroke="none"><path d="m7.53033 6.46967c-.29289-.29289-.76777-.29289-1.06066 0s-.29289.76777 0 1.06066l4.46963 4.46967-4.46963 4.4697c-.29289.2929-.29289.7677 0 1.0606s.76777.2929 1.06066 0l4.46967-4.4696 4.4697 4.4696c.2929.2929.7677.2929 1.0606 0s.2929-.7677 0-1.0606l-4.4696-4.4697 4.4696-4.46967c.2929-.29289.2929-.76777 0-1.06066s-.7677-.29289-1.0606 0l-4.4697 4.46963z" /></svg>' +
+            '</div>' +
+            '</div>' +
+            `<div class="pe-drawer-content" :class="['pe-'+direction]" :style="{'align-items': direction === 'v' ? alignHComp : alignVComp, 'justify-content': direction === 'v' ? alignVComp : alignHComp, 'gap': propNumber('gutter') ? (gutter + 'px') : '0'}" v-show="propBoolean('modelValue')">` +
+            '<slot></slot>' +
+            '</div>' +
+            `<div v-if="$slots['footer']" class="pe-drawer-footer" v-show="propBoolean('modelValue')">` +
+            '<slot name="footer"></slot>' +
+            '</div>' +
+            '</div>' +
+            '</div>',
+        'props': {
+            'modelValue': {
+                'default': false
+            },
+            'title': {
+                'default': '',
+            },
+            'width': {
+                'default': '35%',
+            },
+            'direction': {
+                'default': 'h',
+            },
+            'gutter': {
+                'default': '',
+            },
+            'alignH': {
+                'default': undefined,
+            },
+            'alignV': {
+                'default': undefined
+            }
+        },
+        'computed': Object.assign(Object.assign({}, tool.clone(common.computed)), { widthComp: function () {
+                if (typeof this.$props.width === 'number') {
+                    return this.$props.width.toString() + 'px';
+                }
+                return this.$props.width;
+            } }),
+        'methods': {
+            closeClick: function () {
+                this.$emit('update:modelValue', false);
+            },
+            click: function (e) {
+                if (e.target !== this.$el) {
+                    return;
+                }
+                this.$emit('update:modelValue', false);
             }
         }
     }

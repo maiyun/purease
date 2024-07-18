@@ -177,7 +177,7 @@
         <div class="pe-button pe-pgrey" @click="search = !search">{{search ? '' : '!'}}Search</div>
         <pe-text style="width: 400px;" v-model="text">
             <template v-slot:before>
-                <pe-select :data="['a', { 'value': 'ok', 'label': 'v is ok' }, 'c', 'd', 'e', 'f', 'g', 'h']" plain></pe-select>
+                <pe-select :data="textSelect" plain></pe-select>
             </template>
         </pe-text>
         <pe-check>check</pe-check>

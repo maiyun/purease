@@ -38,17 +38,13 @@ const control = __importStar(require("./control"));
 const tool = __importStar(require("./tool"));
 exports.tool = tool;
 class AbstractPage {
-    isDebug() {
-        return this._debug;
-    }
     get locale() {
         return this._locale;
     }
     get localePath() {
         return this._localePath;
     }
-    constructor(opt = {}) {
-        this._debug = false;
+    constructor(opt) {
         this._locale = 'en';
         this._localePath = '';
         this.dialogInfo = {
@@ -56,7 +52,7 @@ class AbstractPage {
             'title': '',
             'content': '',
             'buttons': ['OK'],
-            'select': (button) => { }
+            'select': undefined
         };
         this.notifyInfo = {
             'show': false,
@@ -65,14 +61,11 @@ class AbstractPage {
         };
         this.windowWidth = 0;
         this.loading = false;
-        if (opt.debug) {
-            this._debug = true;
-        }
         if (opt.locale) {
             this._locale = opt.locale;
         }
-        if (opt.path) {
-            this._localePath = opt.path;
+        if (opt.localePath) {
+            this._localePath = opt.localePath;
         }
     }
     onBeforeUpdate() {
@@ -204,7 +197,7 @@ class AbstractPanel {
 }
 exports.AbstractPanel = AbstractPanel;
 exports.global = Object.assign({ 'headerPop': false }, ((_a = window.pureaseGlobal) !== null && _a !== void 0 ? _a : {}));
-function launcher(page, panels = []) {
+function launcher(page, options = {}) {
     (function () {
         return __awaiter(this, void 0, void 0, function* () {
             const html = document.getElementsByTagName('html')[0];
@@ -222,7 +215,7 @@ function launcher(page, panels = []) {
                 html.classList.add('pe-scroll');
             }
             const paths = [
-                `${loader.cdn}/npm/vue@3.4.27/dist/vue.global${page.isDebug() ? '' : '.prod.min'}.js`
+                `${loader.cdn}/npm/vue@3.4.27/dist/vue.global${options.debug ? '' : '.prod.min'}.js`
             ];
             yield loader.loadScripts(paths);
             yield loader.loadLink(__dirname + '/index.css', undefined, 'before');
@@ -230,17 +223,26 @@ function launcher(page, panels = []) {
             if (!bodys[0]) {
                 return;
             }
-            if (page.localePath) {
-                const path = page.localePath.endsWith('/') ? page.localePath : page.localePath + '/';
-                const res = yield tool.getResponseJson(path + page.locale + '.json');
+            if (options.localePath && options.locale) {
+                const path = options.localePath.endsWith('/') ? options.localePath : options.localePath + '/';
+                const res = yield tool.getResponseJson(path + options.locale + '.json', {
+                    'credentials': 'omit'
+                });
                 if (res) {
                     window.localeData = res;
                 }
             }
+            const cpage = new page({
+                'locale': options.locale,
+                'localePath': options.localePath
+            });
             exports.vue = window.Vue;
             exports.global = exports.vue.reactive(exports.global);
             const panelComponents = {};
-            for (const p of panels) {
+            if (!options.panels) {
+                options.panels = [];
+            }
+            for (const p of options.panels) {
                 const el = document.querySelector(p.selector);
                 if (!el) {
                     continue;
@@ -290,14 +292,14 @@ function launcher(page, panels = []) {
                 el.replaceWith(document.createElement(panelname));
             }
             const idata = {};
-            const cdata = Object.entries(page);
+            const cdata = Object.entries(cpage);
             for (const item of cdata) {
                 if (item[0] === 'access') {
                     continue;
                 }
                 idata[item[0]] = item[1];
             }
-            const prot = tool.getClassPrototype(page);
+            const prot = tool.getClassPrototype(cpage);
             const methods = prot.method;
             const computed = prot.access;
             const rtn = yield new Promise(function (resolve) {
@@ -360,7 +362,7 @@ function launcher(page, panels = []) {
                     }
                 });
                 vapp.config.errorHandler = function (err, vm, info) {
-                    console.error(err.message, err);
+                    console.error(err.message, err, vm, info);
                 };
                 for (const key in control.list) {
                     vapp.component(key, control.list[key]);
@@ -387,7 +389,7 @@ function launcher(page, panels = []) {
                 vapp.mount(bodys[0]);
             });
             yield tool.sleep(34);
-            yield page.main.call(rtn.vroot);
+            yield cpage.main.call(rtn.vroot);
             bodys[0].style.visibility = 'initial';
         });
     })().catch(function (e) {

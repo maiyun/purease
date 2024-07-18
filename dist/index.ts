@@ -7,16 +7,8 @@ export { tool };
 /** --- 总大页面 --- */
 export abstract class AbstractPage {
 
-    /** --- 当前是否是 debug 模式 --- */
-    private _debug: boolean = false;
-
-    /** --- 判断当前是否是 debug 模式 --- */
-    public isDebug(): boolean {
-        return this._debug;
-    }
-
     /** --- 系统当前语言 --- */
-    private _locale: string = 'en';
+    private readonly _locale: string = 'en';
 
     /** --- 获取系统当前语言 --- */
     public get locale(): string {
@@ -24,7 +16,7 @@ export abstract class AbstractPage {
     }
 
     /** --- 语言包路径，为空则没有加载前端语言包 --- */
-    private _localePath: string = '';
+    private readonly _localePath: string = '';
 
     /** --- 获取语言包路径，可能为空 --- */
     public get localePath(): string {
@@ -32,21 +24,16 @@ export abstract class AbstractPage {
     }
 
     public constructor(opt: {
-        /** --- 生产环境请不要开启，默认不开启 --- */
-        'debug'?: boolean;
         /** --- 设定当前的程序语言 --- */
         'locale'?: string;
         /** --- 设定语言包所在路径，无所谓是否 / 结尾 --- */
-        'path'?: string;
-    } = {}) {
-        if (opt.debug) {
-            this._debug = true;
-        }
+        'localePath'?: string;
+    }) {
         if (opt.locale) {
             this._locale = opt.locale;
         }
-        if (opt.path) {
-            this._localePath = opt.path;
+        if (opt.localePath) {
+            this._localePath = opt.localePath;
         }
     }
 
@@ -120,13 +107,20 @@ export abstract class AbstractPage {
         return (this as any).$watch(name, cb, opt);
     }
 
-    public dialogInfo = {
-        'show': false,
-        'title': '',
-        'content': '',
-        'buttons': ['OK'],
-        'select': (button: string) => {}
-    };
+    /** --- dialog 信息 --- */
+    public dialogInfo:  {
+        'show': boolean;
+        'title': string;
+        'content': string;
+        'buttons': string[];
+        select?: (button: string) => void | Promise<void>;
+    } = {
+            'show': false,
+            'title': '',
+            'content': '',
+            'buttons': ['OK'],
+            'select': undefined
+        };
 
     /** --- 弹出一个框框 --- */
     public dialog(opt: string | types.IDialogOptions): Promise<string> {
@@ -185,7 +179,7 @@ export abstract class AbstractPage {
     };
 
     /** --- 显示一个 notify，支持 html，请注意传入内容的安全 --- */
-    public notify(content: string) {
+    public notify(content: string): void {
         if (this.notifyInfo.timer) {
             clearTimeout(this.notifyInfo.timer);
             this.notifyInfo.timer = 0;
@@ -204,7 +198,7 @@ export abstract class AbstractPage {
     public loading: boolean = false;
 
     /** --- 滚动到顶部 --- */
-    public toTop() {
+    public toTop(): void {
         document.getElementsByTagName('body')[0].scrollIntoView({
             'behavior': 'smooth'
         });
@@ -229,7 +223,6 @@ export abstract class AbstractPanel {
     /** --- 获取总大页面对象 --- */
     public rootPage!: AbstractPage & Record<string, any>;
 
-    
     /**
      * --- 获取语言内容 ---
      */
@@ -282,10 +275,22 @@ export let global: Record<string, any> = {
 };
 
 /** ---运行当前页面 --- */
-export function launcher(page: AbstractPage, panels: Array<{
-    'selector': string;
-    'panel': new () => AbstractPanel;
-}> = []): void {
+export function launcher<T extends AbstractPage>(page: new (opt: {
+    'locale'?: string;
+    'localePath'?: string;
+}) => T, options: {
+    /** --- 生产环境请不要开启，默认不开启 --- */
+    'debug'?: boolean;
+    /** --- 设定当前的程序语言 --- */
+    'locale'?: string;
+    /** --- 设定语言包所在路径，无所谓是否 / 结尾 --- */
+    'localePath'?: string;
+    /** --- 要加载的子 panels --- */
+    'panels'?: Array<{
+        'selector': string;
+        'panel': new () => AbstractPanel;
+    }>;
+} = {}): void {
     (async function() {
         const html = document.getElementsByTagName('html')[0];
         // --- 添加全局 scroll class 如果不在顶部的话 ---
@@ -304,7 +309,7 @@ export function launcher(page: AbstractPage, panels: Array<{
         }
         // --- 通过标签加载库 ---
         const paths: string[] = [
-            `${loader.cdn}/npm/vue@3.4.27/dist/vue.global${page.isDebug() ? '' : '.prod.min'}.js`
+            `${loader.cdn}/npm/vue@3.4.27/dist/vue.global${options.debug ? '' : '.prod.min'}.js`
         ];
         // --- 加载 vue 以及必要库 ---
         await loader.loadScripts(paths);
@@ -314,19 +319,29 @@ export function launcher(page: AbstractPage, panels: Array<{
             return;
         }
         // --- 加载语言包 ---
-        if (page.localePath) {
-            const path = page.localePath.endsWith('/') ? page.localePath : page.localePath + '/';
-            const res = await tool.getResponseJson(path + page.locale + '.json');
+        if (options.localePath && options.locale) {
+            const path = options.localePath.endsWith('/') ? options.localePath : options.localePath + '/';
+            const res = await tool.getResponseJson(path + options.locale + '.json', {
+                'credentials': 'omit'
+            });
             if (res) {
                 (window as any).localeData = res;
             }
         }
+        // --- 实例化 page ---
+        const cpage = new page({
+            'locale': options.locale,
+            'localePath': options.localePath
+        });
         // --- 将整个网页 vue 化 ---
         vue = (window as any).Vue;
         global = vue.reactive(global);
         /** --- panel 的控件列表 --- */
         const panelComponents: Record<string, any> = {};
-        for (const p of panels) {
+        if (!options.panels) {
+            options.panels = [];
+        }
+        for (const p of options.panels) {
             const el: HTMLElement | null = document.querySelector(p.selector);
             if (!el) {
                 continue;
@@ -379,7 +394,7 @@ export function launcher(page: AbstractPage, panels: Array<{
         }
         /** --- class 对象类的属性列表 --- */
         const idata: Record<string, any> = {};
-        const cdata = Object.entries(page);
+        const cdata = Object.entries(cpage);
         for (const item of cdata) {
             if (item[0] === 'access') {
                 // --- access 属性不放在 data 当中 ---
@@ -388,7 +403,7 @@ export function launcher(page: AbstractPage, panels: Array<{
             idata[item[0]] = item[1];
         }
         /** --- class 对象的方法和 getter/setter 列表 --- */
-        const prot = tool.getClassPrototype(page);
+        const prot = tool.getClassPrototype(cpage);
         const methods = prot.method;
         const computed = prot.access;
         const rtn: {
@@ -454,7 +469,7 @@ export function launcher(page: AbstractPage, panels: Array<{
                 }
             });
             vapp.config.errorHandler = function(err: Error, vm: types.IVue, info: string): void {
-                console.error(err.message, err);
+                console.error(err.message, err, vm, info);
             };
             // --- 挂载控件对象到 vapp ---
             for (const key in control.list) {
@@ -486,7 +501,7 @@ export function launcher(page: AbstractPage, panels: Array<{
         });
         // --- 执行回调 ---
         await tool.sleep(34);
-        await page.main.call(rtn.vroot);
+        await cpage.main.call(rtn.vroot);
         bodys[0].style.visibility = 'initial';
     })().catch(function(e) {
         console.log('launcher', e);

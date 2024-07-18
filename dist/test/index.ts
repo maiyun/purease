@@ -7,6 +7,8 @@ class Page extends purease.AbstractPage {
 
     public select = 'h';
 
+    public textSelect = ['a', { 'value': 'ok', 'label': 'v is ok' }, 'c', this.l('ok')];
+
     public search = false;
 
     // --- swipe ---
@@ -24,7 +26,7 @@ class Page extends purease.AbstractPage {
     public pwd = '';
 
     // --- double 页 ---
-    
+
     public nbottom = true;
 
     public dbottom = 'dark';
@@ -35,7 +37,13 @@ class Page extends purease.AbstractPage {
 
     public slider2 = [200, 300];
 
-    public changeNBottom() {
+    // --- drawer ---
+
+    public drawer = false;
+
+    public drawer2 = false;
+
+    public changeNBottom(): void {
         this.nbottom = !this.nbottom;
         if (this.nbottom) {
             // --- 不显示 -> 显示 ---
@@ -49,7 +57,7 @@ class Page extends purease.AbstractPage {
 
     public sheader = false;
 
-    public changeSheader() {
+    public changeSheader(): void {
         this.sheader = !this.sheader;
         if (this.sheader) {
             // --- 大 -> 小 ---
@@ -60,29 +68,29 @@ class Page extends purease.AbstractPage {
             document.getElementsByTagName('html')[0].classList.remove('pe-sheader');
         }
     }
- 
+
     public main(): void | Promise<void> {
         console.log('Inited.', purease);
     }
 
-    public showDialog() {
-        this.dialog('This is a dialog.');
+    public async showDialog(): Promise<void> {
+        await this.dialog('This is a dialog.');
     }
 
-    public showDialog2() {
-        this.dialog({
+    public async showDialog2(): Promise<void> {
+        await this.dialog({
             'title': 'Title',
             'content': 'Has title',
             'buttons': ['Cancel', 'OK']
         });
     }
 
-    public async showConfirm() {
+    public async showConfirm(): Promise<void> {
         const res = await this.confirm('This is a confirm');
         await this.dialog('Result: ' + JSON.stringify(res) + ' (' + typeof res + ')');
     }
 
-    public async showConfirm2() {
+    public async showConfirm2(): Promise<void> {
         const res = await this.confirm({
             'title': 'Has cancel',
             'content': 'This is a confirm',
@@ -91,7 +99,7 @@ class Page extends purease.AbstractPage {
         await this.dialog('Result: ' + JSON.stringify(res) + ' (' + typeof res + ')');
     }
 
-    public showCustom() {
+    public showCustom(): void {
         this.customDialogText = '';
         this.customDialog = true;
     }
@@ -100,7 +108,7 @@ class Page extends purease.AbstractPage {
 
     public customDialogText = '';
 
-    public customDialogSelect() {
+    public customDialogSelect(): void {
         if (!this.customDialogText)  {
             // --- 弹出不可为空的提示 ---
             this.notify('Name can not be empty.');
@@ -110,7 +118,7 @@ class Page extends purease.AbstractPage {
         this.customDialog = false;
     }
 
-    public async showLoading() {
+    public async showLoading(): Promise<void> {
         this.loading = true;
         await purease.tool.sleep(1500);
         this.loading = false;
@@ -136,13 +144,20 @@ class Page extends purease.AbstractPage {
 
     public control: number = 2;
 
+    public switch1: boolean = false;
+
+    public switch2: string = 'a';
+
 }
-purease.launcher(new Page({
+
+purease.launcher(Page, {
     'debug': true,
-    'path': __dirname + '/locale'
-}), [
-    {
-        'selector': '#footer',
-        'panel': footer
-    }
-]);
+    'locale': 'sc',
+    'localePath': __dirname + '/locale',
+    'panels': [
+        {
+            'selector': '#footer',
+            'panel': footer
+        }
+    ]
+});

@@ -42,6 +42,7 @@ class Page extends purease.AbstractPage {
         super(...arguments);
         this.text = '123';
         this.select = 'h';
+        this.textSelect = ['a', { 'value': 'ok', 'label': 'v is ok' }, 'c', this.l('ok')];
         this.search = false;
         this.tab = 0;
         this.swipePage = 'center';
@@ -52,6 +53,8 @@ class Page extends purease.AbstractPage {
         this.dbottom = 'dark';
         this.slider1 = [15, 0];
         this.slider2 = [200, 300];
+        this.drawer = false;
+        this.drawer2 = false;
         this.sheader = false;
         this.customDialog = false;
         this.customDialogText = '';
@@ -64,6 +67,8 @@ class Page extends purease.AbstractPage {
         this.total5 = 0;
         this.count6 = 20;
         this.control = 2;
+        this.switch1 = false;
+        this.switch2 = 'a';
     }
     changeNBottom() {
         this.nbottom = !this.nbottom;
@@ -87,13 +92,17 @@ class Page extends purease.AbstractPage {
         console.log('Inited.', purease);
     }
     showDialog() {
-        this.dialog('This is a dialog.');
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.dialog('This is a dialog.');
+        });
     }
     showDialog2() {
-        this.dialog({
-            'title': 'Title',
-            'content': 'Has title',
-            'buttons': ['Cancel', 'OK']
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.dialog({
+                'title': 'Title',
+                'content': 'Has title',
+                'buttons': ['Cancel', 'OK']
+            });
         });
     }
     showConfirm() {
@@ -131,12 +140,14 @@ class Page extends purease.AbstractPage {
         });
     }
 }
-purease.launcher(new Page({
+purease.launcher(Page, {
     'debug': true,
-    'path': __dirname + '/locale'
-}), [
-    {
-        'selector': '#footer',
-        'panel': footer_1.default
-    }
-]);
+    'locale': 'sc',
+    'localePath': __dirname + '/locale',
+    'panels': [
+        {
+            'selector': '#footer',
+            'panel': footer_1.default
+        }
+    ]
+});

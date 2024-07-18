@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.isPhoneCN = exports.isDomain = exports.isIPv6 = exports.isIPv4 = exports.isEMail = exports.queryParse = exports.queryStringify = exports.formatSecond = exports.blob2DataUrl = exports.blob2Text = exports.urlAtom = exports.urlResolve = exports.parseUrl = exports.postResponseJson = exports.getResponseJson = exports.post = exports.get = exports.fetch = exports.request = exports.escapeHTML = exports.getDecimal = exports.getArray = exports.getNumber = exports.getBoolean = exports.random = exports.RANDOM_LUNS = exports.RANDOM_V = exports.RANDOM_LUN = exports.RANDOM_LU = exports.RANDOM_LN = exports.RANDOM_UN = exports.RANDOM_L = exports.RANDOM_U = exports.RANDOM_N = exports.rand = exports.sleep = exports.getClassPrototype = exports.clone = void 0;
+exports.isPhoneCN = exports.isDomain = exports.isIPv6 = exports.isIPv4 = exports.isEMail = exports.queryParse = exports.queryStringify = exports.formatTime = exports.formatSecond = exports.blob2DataUrl = exports.blob2Text = exports.urlAtom = exports.urlResolve = exports.parseUrl = exports.postResponseJson = exports.getResponseJson = exports.post = exports.get = exports.fetch = exports.request = exports.escapeHTML = exports.getDecimal = exports.getArray = exports.getNumber = exports.getBoolean = exports.random = exports.RANDOM_LUNS = exports.RANDOM_V = exports.RANDOM_LUN = exports.RANDOM_LU = exports.RANDOM_LN = exports.RANDOM_UN = exports.RANDOM_L = exports.RANDOM_U = exports.RANDOM_N = exports.rand = exports.sleep = exports.getClassPrototype = exports.clone = void 0;
 function clone(obj) {
     let newObj = {};
     if (obj instanceof Array) {
@@ -63,6 +63,7 @@ function clone(obj) {
 }
 exports.clone = clone;
 function getClassPrototype(obj, over = [], level = 0) {
+    var _a;
     if (level === 0) {
         return getClassPrototype(Object.getPrototypeOf(obj), over, level + 1);
     }
@@ -89,7 +90,7 @@ function getClassPrototype(obj, over = [], level = 0) {
         if (des.value) {
             rtn.method[item] = des.value;
         }
-        else if (des.get || des.set) {
+        else if ((_a = des.get) !== null && _a !== void 0 ? _a : des.set) {
             if (!rtn.access[item]) {
                 rtn.access[item] = {};
             }
@@ -130,7 +131,7 @@ exports.RANDOM_LN = exports.RANDOM_L + exports.RANDOM_N;
 exports.RANDOM_LU = exports.RANDOM_L + exports.RANDOM_U;
 exports.RANDOM_LUN = exports.RANDOM_L + exports.RANDOM_U + exports.RANDOM_N;
 exports.RANDOM_V = 'ACEFGHJKLMNPRSTWXY34567';
-exports.RANDOM_LUNS = exports.RANDOM_LUN + '()`~!@#$%^&*-+=_|{}[]:;\'<>,.?/]';
+exports.RANDOM_LUNS = exports.RANDOM_LUN + '()`~!@#$%^&*-+=_|{}[]:;\'<>,.?/]"';
 function random(length = 8, source = exports.RANDOM_LN, block = '') {
     let len = block.length;
     if (len > 0) {
@@ -355,6 +356,23 @@ function formatSecond(second) {
     return (h ? h.toString().padStart(2, '0') + ':' : '') + m.toString().padStart(2, '0') + ':' + s.toString().padStart(2, '0');
 }
 exports.formatSecond = formatSecond;
+function formatTime(ts, tz) {
+    const rtn = {
+        'date': '',
+        'time': '',
+        'zone': ''
+    };
+    if (typeof ts === 'number') {
+        ts = new Date(ts);
+    }
+    const ntz = tz !== null && tz !== void 0 ? tz : -(ts.getTimezoneOffset() / 60);
+    ts.setTime(ts.getTime() + ntz * 60 * 60000);
+    rtn.date = ts.getUTCFullYear().toString() + '-' + (ts.getUTCMonth() + 1).toString().padStart(2, '0') + '-' + ts.getUTCDate().toString().padStart(2, '0');
+    rtn.time = ts.getUTCHours().toString().padStart(2, '0') + ':' + ts.getUTCMinutes().toString().padStart(2, '0') + ':' + ts.getUTCSeconds().toString().padStart(2, '0');
+    rtn.zone = 'UTC' + (ntz >= 0 ? '+' : '') + ntz.toString();
+    return rtn;
+}
+exports.formatTime = formatTime;
 function queryStringify(query) {
     return Object.entries(query).map(([k, v]) => {
         if (Array.isArray(v)) {

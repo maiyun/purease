@@ -6,7 +6,9 @@ export function launcher(page: import('../dist/index').AbstractPage, panels?: Ar
     'panel': new () => import('../dist/index').AbstractPanel;
 }>): void;
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export const AbstractPage: typeof import('../dist/index').AbstractPage;
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export const AbstractPanel: typeof import('../dist/index').AbstractPanel;
 export const global: typeof import('../dist/index').global;
 
@@ -92,8 +94,8 @@ export interface IBindDownOptions<T extends MouseEvent | TouchEvent> {
         e: T,
         dir: 'top' | 'right' | 'bottom' | 'left'
     ) => any;
-    'up'?: (e: T) => void;
-    'end'?: (e: T) => void;
+    'up'?: (e: T) => void | Promise<void>;
+    'end'?: (e: T) => void | Promise<void>;
 }
 
 /** --- Dialog 选项 --- */
@@ -103,7 +105,7 @@ export interface IDialogOptions {
     'content': string;
     'buttons'?: string[];
 
-    'select'?: (button: string) => void | boolean | Promise<void | boolean>;
+    'select'?: (button: string) => undefined | boolean | Promise<undefined | boolean>;
 }
 
 /** --- Confirm 选项 --- */
@@ -128,7 +130,7 @@ export interface ITextBeforechangeEvent extends ICustomEvent {
     'detail': {
         'value': string;
         'change'?: string;
-    }
+    };
 }
 
 // --- Select Control ---
@@ -136,6 +138,14 @@ export interface ITextBeforechangeEvent extends ICustomEvent {
 export interface ISelectChangedEvent {
     'detail': {
         'value': string;
+    };
+}
+
+// --- Switch Control ---
+
+export interface ISwitchChangeEvent extends ICustomEvent {
+    'detail': {
+        'value': boolean;
     };
 }
 

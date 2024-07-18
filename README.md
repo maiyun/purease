@@ -37,7 +37,7 @@ class Page extends clickgo.AbstractPage {
         // --- Write here ---
     }
 }
-clickgo.launcher(new Page());
+clickgo.launcher(Page);
 ```
 
 ### NPM
@@ -74,6 +74,10 @@ This library is published under [Apache-2.0](./LICENSE) license.
 #### Page
 
 [More Horizontal SVG Vector](https://www.svgrepo.com/svg/447028/more-horizontal)
+
+#### Drawer
+
+[Close SVG Vector](https://www.svgrepo.com/svg/446990/close)
 
 #### Popbtn
 

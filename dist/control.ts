@@ -44,6 +44,38 @@ const common = {
                     return data[i];
                 });
             };
+        },
+        /** --- 获取 alignH 的 css 属性模式，请确保 p$rops.alignH 存在 --- */
+        alignHComp: function(this: types.IVue): string | undefined {
+            if (!this.$props.alignH) {
+                return undefined;
+            }
+            switch (this.$props.alignH) {
+                case 'center': {
+                    return 'center';
+                }
+                case 'left':
+                case 'start': {
+                    return 'flex-start';
+                }
+            }
+            return 'flex-end';
+        },
+        /** --- 获取 alignH 的 css 属性模式，请确保 props.alignH 存在 --- */
+        alignVComp: function(this: types.IVue): string | undefined {
+            if (!this.$props.alignV) {
+                return undefined;
+            }
+            switch (this.$props.alignV) {
+                case 'center': {
+                    return 'center';
+                }
+                case 'top':
+                case 'start': {
+                    return 'flex-start';
+                }
+            }
+            return 'flex-end';
         }
     }
 };
@@ -413,7 +445,7 @@ export const list: Record<string, any> = {
                         this.$refs.text.value = this.value;
                         return;
                     }
-                    this.value = event.detail.change !== undefined ? event.detail.change : this.$refs.text.value;
+                    this.value = event.detail.change ?? this.$refs.text.value;
                     this.$emit('update:modelValue', this.value);
                 },
                 'immediate': true
@@ -437,7 +469,7 @@ export const list: Record<string, any> = {
                             this.$refs.text.value = this.value;
                             return;
                         }
-                        this.value = event.detail.change !== undefined ? event.detail.change : this.$refs.text.value;
+                        this.value = event.detail.change ?? this.$refs.text.value;
                         this.$emit('update:modelValue', this.value);
                     }
                 }
@@ -460,7 +492,7 @@ export const list: Record<string, any> = {
                             this.$refs.text.value = this.value;
                             return;
                         }
-                        this.value = event.detail.change !== undefined ? event.detail.change : this.$refs.text.value;
+                        this.value = event.detail.change ?? this.$refs.text.value;
                         this.$emit('update:modelValue', this.value);
                     }
                 }
@@ -483,7 +515,7 @@ export const list: Record<string, any> = {
                             this.$attrsrefs.text.value = this.value;
                             return;
                         }
-                        this.value = event.detail.change !== undefined ? event.detail.change : this.$refs.text.value;
+                        this.value = event.detail.change ?? this.$refs.text.value;
                         this.$emit('update:modelValue', this.value);
                     }
                 }
@@ -511,7 +543,7 @@ export const list: Record<string, any> = {
                     if (!event.go) {
                         return;
                     }
-                    this.value = event.detail.change !== undefined ? event.detail.change : value;
+                    this.value = event.detail.change ?? value;
                     this.$emit('update:modelValue', this.value);
                 }
             }
@@ -560,13 +592,13 @@ export const list: Record<string, any> = {
                 'immediate': true
             }
         },
-        mounted: function(this: types.IVue) {
-            
-        }
     },
     'pe-icon': {
-        'template': `<svg v-if="name==='link'" class="pe-icon" viewBox="0 0 24 24" fill="none"><path d="M13 11L22 2M22 2H16.6562M22 2V7.34375" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2M22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2.49073 19.5618 2.16444 18.1934 2.0551 16" stroke-width="1.5" stroke-linecap="round"/></svg>` +
-        `<svg v-else-if="name==='language'" class="pe-icon" viewBox="0 0 24 24"><path d="M8 15H3.5A2.502 2.502 0 0 1 1 12.5v-9A2.502 2.502 0 0 1 3.5 1h9A2.502 2.502 0 0 1 15 3.5V8h-1V3.5A1.502 1.502 0 0 0 12.5 2h-9A1.502 1.502 0 0 0 2 3.5v9A1.502 1.502 0 0 0 3.5 14H8zm-.038-4.811a9.77 9.77 0 0 1-3.766 1.796l-.242-.97a8.816 8.816 0 0 0 3.282-1.532A9.264 9.264 0 0 1 4.888 5H4V4h3.279l-.544-.544.707-.707L8.692 4H12v1h-.914A9.836 9.836 0 0 1 9.78 8.152a3.853 3.853 0 0 0-1.82 2.037zm.032-1.383A8.167 8.167 0 0 0 10.058 5H5.922a8.18 8.18 0 0 0 2.072 3.806zM23 20.447v-8.894A2.525 2.525 0 0 0 20.484 9h-8.931A2.556 2.556 0 0 0 9 11.553v8.894A2.556 2.556 0 0 0 11.553 23h8.894A2.556 2.556 0 0 0 23 20.447zM20.484 10A1.517 1.517 0 0 1 22 11.516v8.968A1.517 1.517 0 0 1 20.484 22h-8.968A1.517 1.517 0 0 1 10 20.484v-8.968A1.517 1.517 0 0 1 11.516 10zm-2.086 8h-4.796l-1.159 2.23-.886-.46L16 11.215l4.443 8.555-.886.46zm-.52-1L16 13.385 14.122 17z"/></svg>`,
+        'template':
+        // --- link ---
+            `<svg v-if="name==='link'" class="pe-icon" viewBox="0 0 24 24" fill="none"><path d="M13 11L22 2M22 2H16.6562M22 2V7.34375" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2M22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2.49073 19.5618 2.16444 18.1934 2.0551 16" stroke-width="1.5" stroke-linecap="round"/></svg>` +
+            // --- language ---
+            `<svg v-else-if="name==='language'" class="pe-icon" viewBox="0 0 24 24"><path d="M8 15H3.5A2.502 2.502 0 0 1 1 12.5v-9A2.502 2.502 0 0 1 3.5 1h9A2.502 2.502 0 0 1 15 3.5V8h-1V3.5A1.502 1.502 0 0 0 12.5 2h-9A1.502 1.502 0 0 0 2 3.5v9A1.502 1.502 0 0 0 3.5 14H8zm-.038-4.811a9.77 9.77 0 0 1-3.766 1.796l-.242-.97a8.816 8.816 0 0 0 3.282-1.532A9.264 9.264 0 0 1 4.888 5H4V4h3.279l-.544-.544.707-.707L8.692 4H12v1h-.914A9.836 9.836 0 0 1 9.78 8.152a3.853 3.853 0 0 0-1.82 2.037zm.032-1.383A8.167 8.167 0 0 0 10.058 5H5.922a8.18 8.18 0 0 0 2.072 3.806zM23 20.447v-8.894A2.525 2.525 0 0 0 20.484 9h-8.931A2.556 2.556 0 0 0 9 11.553v8.894A2.556 2.556 0 0 0 11.553 23h8.894A2.556 2.556 0 0 0 23 20.447zM20.484 10A1.517 1.517 0 0 1 22 11.516v8.968A1.517 1.517 0 0 1 20.484 22h-8.968A1.517 1.517 0 0 1 10 20.484v-8.968A1.517 1.517 0 0 1 11.516 10zm-2.086 8h-4.796l-1.159 2.23-.886-.46L16 11.215l4.443 8.555-.886.46zm-.52-1L16 13.385 14.122 17z" stroke-width=".5"/></svg>`,
         'props': {
             'name': {
                 'default': 'link'
@@ -575,6 +607,7 @@ export const list: Record<string, any> = {
     },
     'pe-select': {
         'template': `<div class="pe-select" :class="[propBoolean('plain')&&'pe-plain',propBoolean('disabled')&&'pe-disabled']" :tabindex="!propBoolean('disabled') ? '0' : undefined">` +
+            // eslint-disable-next-line no-irregular-whitespace
             `<div class="pe-select-label" @click="open">{{dataComp[index] ? dataComp[index].label : '　'}}</div>` +
             '<div class="pe-select-arrow" @click="open"></div>' +
             '<div class="pe-pop" ref="pop">' +
@@ -611,7 +644,7 @@ export const list: Record<string, any> = {
             return {
                 'index': 0,
                 'searchValue': '',
-                
+
                 /** --- 语言包 --- */
                 'localeData': {
                     'en': {
@@ -662,7 +695,7 @@ export const list: Record<string, any> = {
                         'empty': 'Trống',
                         'search': 'tìm kiếm'
                     }
-                }                
+                }
             };
         },
         'methods': {
@@ -905,16 +938,16 @@ export const list: Record<string, any> = {
                     this.timer = null;
                 }
                 /** --- 原始 x 位置 --- */
-                let ox = e instanceof MouseEvent ? e.clientX : e.touches[0].clientX;
+                const ox = e instanceof MouseEvent ? e.clientX : e.touches[0].clientX;
                 /** --- 上次的 x 位置 --- */
                 let x = ox;
                 const time = Date.now();
                 dom.bindDown(e, {
                     move: (ne) => {
                         // --- 当前的位置 ---
-                        let nx = ne instanceof MouseEvent ? ne.clientX : ne.touches[0].clientX;
+                        const nx = ne instanceof MouseEvent ? ne.clientX : ne.touches[0].clientX;
                         /** --- 移动的差值 --- */
-                        let cx = nx - x;
+                        const cx = nx - x;
                         x = nx;
                         this.translate += cx;
                         if (this.translate > this.width) {
@@ -925,9 +958,9 @@ export const list: Record<string, any> = {
                         }
                         this.$refs.items.style.transform = 'translateX(' + this.translate + 'px)';
                     },
-                    end: async () => {
-                        let cx = x - ox;
-                        let speed = Math.abs(cx / (Date.now() - time));
+                    end: () => {
+                        const cx = x - ox;
+                        const speed = Math.abs(cx / (Date.now() - time));
                         /** --- 看看当前滚动哪儿了 --- */
                         const info = -(this.translate / this.width);
                         /** --- 当前的位置 --- */
@@ -956,7 +989,7 @@ export const list: Record<string, any> = {
                     }
                 });
             },
-            prev: async function(this: types.IVue) {
+            prev: function(this: types.IVue) {
                 if (this.going) {
                     return;
                 }
@@ -966,7 +999,7 @@ export const list: Record<string, any> = {
                 this.mvselected = this.selected;
                 this.$emit('update:modelValue', this.mvselected);
             },
-            next: async function(this: types.IVue) {
+            next: function(this: types.IVue) {
                 if (this.going) {
                     return;
                 }
@@ -1140,7 +1173,7 @@ export const list: Record<string, any> = {
                 return this.$parent.translate;
             }
         },
-        mounted: async function(this: types.IVue) {
+        mounted: function(this: types.IVue) {
             if (!this.$parent) {
                 return;
             }
@@ -1248,7 +1281,7 @@ export const list: Record<string, any> = {
                 this.$parent.selected = this.index;
             }
         },
-        mounted: async function(this: types.IVue) {
+        mounted: function(this: types.IVue) {
             if (!this.$parent) {
                 return;
             }
@@ -1354,7 +1387,7 @@ export const list: Record<string, any> = {
                 'nexts': [],
                 /** --- 当前页面 --- */
                 'page': 0,
-                 /** --- 最大页数，如果用户传入了 max 则以 max 为准，否则以 total 和 count 计算最大页面值 --- */
+                /** --- 最大页数，如果用户传入了 max 则以 max 为准，否则以 total 和 count 计算最大页面值 --- */
                 'maxPage': 0,
                 /** --- 语言包 --- */
                 'localeData': {
@@ -1411,7 +1444,7 @@ export const list: Record<string, any> = {
         },
         'computed': {
             ...tool.clone(common.computed),
-               /** --- 格式化每页多少条 counts --- */
+            /** --- 格式化每页多少条 counts --- */
             countsComp: function(this: types.IVue): Array<{
                 'label': string;
                 'value': number;
@@ -1567,12 +1600,10 @@ export const list: Record<string, any> = {
                 /** --- slider 的宽度 --- */
                 const width = bcr.width;
                 const left = bcr.left;
-                /** --- 上次的 x 位置 --- */
-                let x = e instanceof MouseEvent ? e.clientX : e.touches[0].clientX;
                 dom.bindDown(e, {
                     move: (ne) => {
                         // --- 当前的位置 ---
-                        let nx = ne instanceof MouseEvent ? ne.clientX : ne.touches[0].clientX;
+                        const nx = ne instanceof MouseEvent ? ne.clientX : ne.touches[0].clientX;
                         /** --- 当前滑块位置 --- */
                         let pos = (nx - left) / width * 100;
                         // --- 先判断滑块不能大于 100% 小于 0% ---
@@ -1638,6 +1669,139 @@ export const list: Record<string, any> = {
                     this.pos[1] = (this.modelValue[1] - this.propInt('min')) / (this.propInt('max') - this.propInt('min')) * 100;
                 },
                 'immediate': true
+            }
+        }
+    },
+    'pe-switch': {
+        'template': `<div class="pe-switch" :class="[value===mapComp.true&&'pe-checked',propBoolean('disabled')&&'pe-disabled']" :tabindex="!propBoolean('disabled') ? '0' : undefined" @click="click" @keydown="keydown">` +
+            '<div class="pe-switch-block"></div>' +
+        '</div>',
+        'props': {
+            'disabled': {
+                'default': false,
+            },
+            'map': {
+                'default': {},
+            },
+
+            'modelValue': {
+                'default': false,
+            }
+        },
+        'data': function() {
+            return {
+                'value': false
+            };
+        },
+        'computed': {
+            ...tool.clone(common.computed),
+            mapComp: function(this: types.IVue): {
+                'true': any;
+                'false': any;
+            } {
+                return {
+                    'true': this.$props.map.true ?? true,
+                    'false': this.$props.map.false ?? false
+                };
+            }
+        },
+        'watch': {
+            'modelValue': {
+                handler: function(this: types.IVue) {
+                    if (this.$props.modelValue === undefined) {
+                        return;
+                    }
+                    this.value = this.$props.modelValue;
+                },
+                'immediate': true
+            }
+        },
+        'methods': {
+            click: function(this: types.IVue): void {
+                const event: types.ISwitchChangeEvent = {
+                    'go': true,
+                    preventDefault: function() {
+                        this.go = false;
+                    },
+                    'detail': {
+                        'value': this.value
+                    }
+                };
+                this.$emit('change', event);
+                if (event.go) {
+                    this.value = this.value === this.mapComp.true ? this.mapComp.false : this.mapComp.true;
+                    this.$emit('update:modelValue', this.value);
+                }
+            },
+            keydown: function(this: types.IVue, e: KeyboardEvent): void {
+                if (e.key !== 'Enter') {
+                    return;
+                }
+                e.preventDefault();
+                this.click();
+            },
+        }
+    },
+    'pe-drawer': {
+        'template': `<div class="pe-drawer" :class="[propBoolean('modelValue')&&'pe-show']" @click="click">` +
+            `<div class="pe-drawer-body" :style="{'width':widthComp}">` +
+                '<div class="pe-drawer-header" v-if="title">' +
+                    '<div class="pe-drawer-title">{{title}}</div>' +
+                    `<div class="pe-drawer-close" @click="closeClick" v-show="propBoolean('modelValue')">` +
+                        '<svg width="24" height="24" viewBox="0 0 24 24" stroke="none"><path d="m7.53033 6.46967c-.29289-.29289-.76777-.29289-1.06066 0s-.29289.76777 0 1.06066l4.46963 4.46967-4.46963 4.4697c-.29289.2929-.29289.7677 0 1.0606s.76777.2929 1.06066 0l4.46967-4.4696 4.4697 4.4696c.2929.2929.7677.2929 1.0606 0s.2929-.7677 0-1.0606l-4.4696-4.4697 4.4696-4.46967c.2929-.29289.2929-.76777 0-1.06066s-.7677-.29289-1.0606 0l-4.4697 4.46963z" /></svg>' +
+                    '</div>' +
+                '</div>' +
+                `<div class="pe-drawer-content" :class="['pe-'+direction]" :style="{'align-items': direction === 'v' ? alignHComp : alignVComp, 'justify-content': direction === 'v' ? alignVComp : alignHComp, 'gap': propNumber('gutter') ? (gutter + 'px') : '0'}" v-show="propBoolean('modelValue')">` +
+                    '<slot></slot>' +
+                '</div>' +
+                `<div v-if="$slots['footer']" class="pe-drawer-footer" v-show="propBoolean('modelValue')">` +
+                    '<slot name="footer"></slot>' +
+                '</div>' +
+            '</div>' +
+        '</div>',
+        'props': {
+            'modelValue': {
+                'default': false
+            },
+            'title': {
+                'default': '',
+            },
+            'width': {
+                'default': '35%',
+            },
+
+            'direction': {
+                'default': 'h',
+            },
+            'gutter': {
+                'default': '',
+            },
+            'alignH': {
+                'default': undefined,
+            },
+            'alignV': {
+                'default': undefined
+            }
+        },
+        'computed': {
+            ...tool.clone(common.computed),
+            widthComp: function(this: types.IVue) {
+                if (typeof this.$props.width === 'number') {
+                    return this.$props.width.toString() + 'px';
+                }
+                return this.$props.width;
+            }
+        },
+        'methods': {
+            /** --- 关闭按钮 --- */
+            closeClick: function(this: types.IVue) {
+                this.$emit('update:modelValue', false);
+            },
+            click: function(this: types.IVue, e: MouseEvent): void {
+                if (e.target !== this.$el) {
+                    return;
+                }
+                this.$emit('update:modelValue', false);
             }
         }
     }

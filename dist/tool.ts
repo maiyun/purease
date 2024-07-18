@@ -113,7 +113,7 @@ export function getClassPrototype(obj: object, over: string[] = [], level: numbe
             // --- method ---
             rtn.method[item] = des.value;
         }
-        else if (des.get || des.set) {
+        else if (des.get ?? des.set) {
             if (!rtn.access[item]) {
                 rtn.access[item] = {};
             }
@@ -144,7 +144,6 @@ export function sleep(ms: number = 0): Promise<boolean> {
     });
 }
 
-
 /**
  * --- 生成范围内的随机数 ---
  * @param min 最新范围
@@ -166,7 +165,7 @@ export const RANDOM_LN = RANDOM_L + RANDOM_N;
 export const RANDOM_LU = RANDOM_L + RANDOM_U;
 export const RANDOM_LUN = RANDOM_L + RANDOM_U + RANDOM_N;
 export const RANDOM_V = 'ACEFGHJKLMNPRSTWXY34567';
-export const RANDOM_LUNS = RANDOM_LUN + '()`~!@#$%^&*-+=_|{}[]:;\'<>,.?/]';
+export const RANDOM_LUNS = RANDOM_LUN + '()`~!@#$%^&*-+=_|{}[]:;\'<>,.?/]"';
 export function random(length: number = 8, source: string = RANDOM_LN, block: string = ''): string {
     // --- 剔除 block 字符 ---
     let len = block.length;
@@ -238,7 +237,7 @@ export function getArray(param: string | any[]): any[] {
 }
 
 /** --- 获取数字的单纯小数点部分 --- */
-export function getDecimal(number: number) {
+export function getDecimal(number: number): number {
     const integerPart = Math.sign(number) === 1 ? Math.floor(number) : Math.ceil(number);
     return number - integerPart;
 }
@@ -360,7 +359,7 @@ export function fetch(url: string, init?: RequestInit): Promise<string | Blob | 
 export function get(url: string, opt?: {
     'credentials'?: 'include' | 'same-origin' | 'omit';
     'headers'?: HeadersInit;
-}) {
+}): Promise<Response | null> {
     return loader.get(url, opt);
 }
 
@@ -375,7 +374,7 @@ export function post(url: string, data: Record<string, any> | FormData, opt?: {
 export async function getResponseJson(url: string, opt?: {
     'credentials'?: 'include' | 'same-origin' | 'omit';
     'headers'?: HeadersInit;
-}) {
+}): Promise<any | null> {
     return loader.getResponseJson(url, opt);
 }
 
@@ -414,6 +413,34 @@ export function formatSecond(second: number): string {
     const m = Math.floor(second / 60);
     const s = Math.floor(second - m * 60);
     return (h ? h.toString().padStart(2, '0') + ':' : '') + m.toString().padStart(2, '0') + ':' + s.toString().padStart(2, '0');
+}
+
+/**
+ * --- 将日期对象或毫秒级时间戳转换为字符串 ---
+ * @param ts 时间戳或日期对象
+ * @param tz 传入要显示的时区，小时，如 8，默认以当前客户端时区为准
+ */
+export function formatTime(ts: number | Date, tz?: number): {
+    'date': string;
+    'time': string;
+    'zone': string;
+} {
+    const rtn = {
+        'date': '',
+        'time': '',
+        'zone': ''
+    };
+    // --- 代码开始 ---
+    if (typeof ts === 'number') {
+        ts = new Date(ts);
+    }
+    /** --- 当前设定的时区 --- */
+    const ntz = tz ?? -(ts.getTimezoneOffset() / 60);
+    ts.setTime(ts.getTime() + ntz * 60 * 60_000);
+    rtn.date = ts.getUTCFullYear().toString() + '-' + (ts.getUTCMonth() + 1).toString().padStart(2, '0') + '-' + ts.getUTCDate().toString().padStart(2, '0');
+    rtn.time = ts.getUTCHours().toString().padStart(2, '0') + ':' + ts.getUTCMinutes().toString().padStart(2, '0') + ':' + ts.getUTCSeconds().toString().padStart(2, '0');
+    rtn.zone = 'UTC' + (ntz >= 0 ? '+' : '') + ntz.toString();
+    return rtn;
 }
 
 /**

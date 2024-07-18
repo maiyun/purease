@@ -73,7 +73,7 @@
         </template>
     </pe-header>
 </div>
-<pe-banner direction="v" style="background-color: hsl(0, 0%, 95%); height: 350px;">
+<pe-banner class="pe-grey" direction="v" style="height: 350px;">
     <div class="pe-btitle">I'm glad to see you</div>
     <div class="pe-bnote">With Purease, you can quickly build a versatile, minimalist webpage.</div>
 </pe-banner>
@@ -124,5 +124,45 @@
     <div class="pe-btitle">Language</div>
     <div class="pe-bnote">{{l('ok')}}</div>
 </div>
+<div class="pe-block">
+    <div class="pe-btitle">Switch</div>
+    <div class="pe-layout pe-content pe-padding-lr" style="flex-direction: column; gap: 40px; align-items: center;">
+        <div>{{switch1}}</div>
+        <pe-switch v-model="switch1"></pe-switch>
+        <div>{{switch2}}</div>
+        <pe-switch v-model="switch2" :map="{'true':'a','false':'b'}"></pe-switch>
+    </div>
+</div>
+<div class="pe-block pe-grey">
+    <div class="pe-btitle">Drawer</div>
+    <div class="pe-layout pe-content pe-padding-lr" style="flex-direction: column; gap: 40px; align-items: center;">
+        <div class="pe-layout" style="gap: 20px; flex-direction: column;">
+            <label>drawer: {{drawer ? 'true' : 'false'}}</label>
+            <a class="pe-button pe-pgrey" @click="drawer = true">Open</a>
+        </div>
+    </div>
+</div>
+<pe-drawer title="Drawer" gutter="10" v-model="drawer" direction="v" width="50%">
+    <div>123</div>
+    <div class="pe-button pe-pgrey" @click="drawer2 = true">456</div>
+</pe-drawer>
+<pe-drawer title="Drawer2" gutter="10" v-model="drawer2" direction="v">
+    <div>789</div>
+    <div class="pe-button pe-pgrey">012</div>
+    <div class="pe-button pe-pgrey">012</div>
+    <div class="pe-button pe-pgrey">012</div>
+    <div class="pe-button pe-pgrey">012</div>
+    <div class="pe-button pe-pgrey">012</div>
+    <div class="pe-button pe-pgrey">012</div>
+    <div class="pe-button pe-pgrey">012</div>
+    <div class="pe-button pe-pgrey">012</div>
+    <div class="pe-button pe-pgrey">012</div>
+    <div class="pe-button pe-pgrey">012</div>
+    <template v-slot:footer>
+        <div class="pe-layout" style="flex: 1; justify-content: flex-end;">
+            <div class="pe-button pe-pgrey" @click="drawer2 = false">OK</div>
+        </div>
+    </template>
+</pe-drawer>
 </body>
 </html>
