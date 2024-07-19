@@ -1,10 +1,22 @@
 export * as dom from '../dist/dom';
 export * as tool from '../dist/tool';
 
-export function launcher(page: import('../dist/index').AbstractPage, panels?: Array<{
-    'selector': string;
-    'panel': new () => import('../dist/index').AbstractPanel;
-}>): void;
+export function launcher<T extends typeof import('../dist/index').AbstractPage>(page: new (opt: {
+    'locale'?: string;
+    'localePath'?: string;
+}) => T, options?: {
+        /** --- 生产环境请不要开启，默认不开启 --- */
+        'debug'?: boolean;
+        /** --- 设定当前的程序语言 --- */
+        'locale'?: string;
+        /** --- 设定语言包所在路径，无所谓是否 / 结尾 --- */
+        'localePath'?: string;
+        /** --- 要加载的子 panels --- */
+        'panels'?: Array<{
+            'selector': string;
+            'panel': new () => typeof import('../dist/index').AbstractPanel;
+        }>;
+    }): void;
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const AbstractPage: typeof import('../dist/index').AbstractPage;

@@ -413,7 +413,7 @@ html.pe-dheader {
     display: flex;
 }
 
-// --- pe-layoutlist ---
+// --- pe-layoutlist - 横向两个 list ---
 
 .pe-layoutlist {
     display: flex;
@@ -1068,7 +1068,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 // --- pe-tag ---
 
 .pe-tag {
-    border-radius: var(--pe-radius-l); display: inline-flex; display: flex; align-items: center; justify-content: center; transition: var(--pe-transition); border: solid 1px transparent; line-height: 1;
+    border-radius: var(--pe-radius-l); display: inline-flex; align-items: center; justify-content: center; transition: var(--pe-transition); border: solid 1px transparent; line-height: 1;
 
     &.pe-size-m {
         padding: 6px 10px;
@@ -1356,6 +1356,14 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     }
     .pe-hske-bottom {
         position: fixed; bottom: 0; left: 0; width: 100%; color: rgb(0, 0, 0, .6); fill: rgb(0, 0, 0, .6); stroke: rgb(0, 0, 0, .6);
+    }
+
+    // --- 翻页 page ---
+
+    .pe-page-list {
+        > :not(.pe-select) {
+            width: 40px; height: 40px;
+        }
     }
 
     // --- pe-footer ---
