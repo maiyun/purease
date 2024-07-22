@@ -14,14 +14,17 @@ document.addEventListener('mousedown', (e: MouseEvent) => {
     doDown(e);
 });
 
+/** --- 正在显示中的 pop element --- */
+let showedPop: HTMLElement | null = null;
+
 /** --- 将 pop 显示出来 --- */
-export function showPop(pop: HTMLElement) {
+export function showPop(pop: HTMLElement): void {
     pop.classList.add('pe-show');
     showedPop = pop;
 }
 
 /** --- 隐藏正在显示的中的 pop --- */
-export function hidePop() {
+export function hidePop(): void {
     if (!showedPop) {
         return;
     }
@@ -70,11 +73,8 @@ export function findParentByClass(el: HTMLElement, name: string): HTMLElement | 
     return null;
 }
 
-/** --- 正在显示中的 pop element --- */
-let showedPop: HTMLElement | null = null;
-
 /** --- 响应按下事件 --- */
-function doDown(e: TouchEvent | MouseEvent) {
+function doDown(e: TouchEvent | MouseEvent): void {
     if (hasTouchButMouse(e)) {
         return;
     }
@@ -240,9 +240,9 @@ export function bindDown<T extends MouseEvent | TouchEvent>(oe: T, opt: types.IB
                 (oe.target as HTMLElement).removeEventListener('touchcancel', end as EventListener);
             }
         }
-        opt.up?.(e);
+        opt.up?.(e) as any;
         if (isStart) {
-            opt.end?.(e);
+            opt.end?.(e) as any;
         }
     };
     if (oe instanceof MouseEvent) {

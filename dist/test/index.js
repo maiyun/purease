@@ -141,6 +141,10 @@ class Page extends purease.AbstractPage {
             this.loading = false;
         });
     }
+    get testhead() {
+        var _a;
+        return (_a = purease.global.head) !== null && _a !== void 0 ? _a : 'none';
+    }
 }
 purease.launcher(Page, {
     'debug': true,

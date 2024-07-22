@@ -58,6 +58,20 @@ const common = {
                 return tool.getArray(this.$props[name]);
             };
         },
+        parentByName: function () {
+            return (controlName) => {
+                let parent = this.$parent;
+                while (true) {
+                    if (!parent) {
+                        return null;
+                    }
+                    if (parent.controlName === controlName) {
+                        return parent;
+                    }
+                    parent = parent.$parent;
+                }
+            };
+        },
         l: function () {
             return (key, data) => {
                 var _a, _b;
@@ -1729,5 +1743,84 @@ exports.list = {
             }
         },
         'computed': Object.assign({}, tool.clone(common.computed))
+    },
+    'pe-table': {
+        'template': `<div class="pe-table" :class="[isAdaption&&'pe-adaption']">` +
+            `<slot></slot>` +
+            `</div>`,
+        'data': function () {
+            return {
+                'controlName': 'table',
+                'headCount': 0,
+                'isAdaption': false,
+            };
+        }
+    },
+    'pe-table-row': {
+        'template': `<div class="pe-table-row" :class="[isAdaption&&'pe-adaption',(index===0)&&'pe-table-header']" :style="{'--pe-cols': table?.headCount.toString()}">` +
+            `<slot></slot>` +
+            `</div>`,
+        'data': function () {
+            return {
+                'controlName': 'table-row',
+                'headCount': 0,
+                'table': null,
+                'index': -1
+            };
+        },
+        'computed': Object.assign(Object.assign({}, tool.clone(common.computed)), { 'isAdaption': function () {
+                var _a, _b;
+                return (_b = (_a = this.table) === null || _a === void 0 ? void 0 : _a.isAdaption) !== null && _b !== void 0 ? _b : false;
+            } }),
+        methods: {
+            updateHeadCount: function (o) {
+                var _a;
+                if (o === '+') {
+                    ++this.headCount;
+                }
+                else {
+                    --this.headCount;
+                }
+                if (!this.table) {
+                    this.table = this.parentByName('table');
+                }
+                if (this.index === -1) {
+                    this.index = dom.index(this.$el);
+                }
+                if (this.table) {
+                    this.table.headCount = this.headCount;
+                    this.table.isAdaption = ((_a = this.$el.children.item(0)) === null || _a === void 0 ? void 0 : _a.innerHTML) ? false : true;
+                }
+            }
+        },
+        mounted: function () {
+            const table = this.parentByName('table');
+            if (table) {
+                this.table = table;
+            }
+        }
+    },
+    'pe-table-head': {
+        'template': `<div class="pe-table-head">` +
+            `<slot></slot>` +
+            `</div>`,
+        'computed': Object.assign({}, tool.clone(common.computed)),
+        mounted: function () {
+            const row = this.parentByName('table-row');
+            if (row) {
+                row.updateHeadCount('+');
+            }
+        },
+        unmounted: function () {
+            const row = this.parentByName('table-row');
+            if (row) {
+                row.updateHeadCount('-');
+            }
+        }
+    },
+    'pe-table-cell': {
+        'template': `<div class="pe-table-cell">` +
+            `<slot></slot>` +
+            `</div>`,
     }
 };

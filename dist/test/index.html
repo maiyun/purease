@@ -5,11 +5,20 @@
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
 <script src="https://cdn.jsdelivr.net/npm/@litert/loader@3.5.7/dist/loader.min.js?path=index"></script>
+<script>
+pureaseGlobal = {};
+</script>
 <!-- 用户 -->
 <link rel="stylesheet" href="index.css" />
 </head>
 <body style="visibility: hidden;">
 <div id="header">
+    <script>
+        pureaseGlobal = {
+            ...pureaseGlobal,
+            'head': '111'
+        };
+    </script>
     <pe-header logo-href="./" fixed>
         <pe-header-item href="./">Home</pe-header-item>
         <pe-header-item>
@@ -18,6 +27,7 @@
                 <pe-menu-item href="./swipe.html">Swipe</pe-menu-item>
                 <pe-menu-item href="./login.html">Login</pe-menu-item>
                 <pe-menu-item href="./double.html">Double</pe-menu-item>
+                <pe-menu-item href="./control.html">Control</pe-menu-item>
             </pe-menu>
         </pe-header-item>
         <pe-header-item href="./swipe.html">Swipe</pe-header-item>

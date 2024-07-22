@@ -336,6 +336,7 @@ export function launcher<T extends AbstractPage>(page: new (opt: {
         // --- 将整个网页 vue 化 ---
         vue = (window as any).Vue;
         global = vue.reactive(global);
+        const styles: string[] = [];
         /** --- panel 的控件列表 --- */
         const panelComponents: Record<string, any> = {};
         if (!options.panels) {
@@ -363,9 +364,15 @@ export function launcher<T extends AbstractPage>(page: new (opt: {
             const computed = prot.access;
 
             /** --- panel 自定义 --- */
+            const layout = el.outerHTML.replace(/<script>([\s\S]*?)<\/script>/gi, () => {
+                return '';
+            }).replace(/<style>([\s\S]*?)<\/style>/gi, function(t: string, t1: string) {
+                styles.push(t1);
+                return '';
+            });
             const panelname = 'pe-panel-' + tool.random(16);
             panelComponents[panelname] = {
-                'template': el.outerHTML,
+                'template': layout,
                 'data': function() {
                     return tool.clone(idata);
                 },
@@ -471,6 +478,11 @@ export function launcher<T extends AbstractPage>(page: new (opt: {
             vapp.config.errorHandler = function(err: Error, vm: types.IVue, info: string): void {
                 console.error(err.message, err, vm, info);
             };
+            // --- 剔除 script ---
+            const scripts = bodys[0].querySelectorAll('script');
+            for (const script of scripts) {
+                script.remove();
+            }
             // --- 挂载控件对象到 vapp ---
             for (const key in control.list) {
                 vapp.component(key, control.list[key]);
@@ -499,6 +511,13 @@ export function launcher<T extends AbstractPage>(page: new (opt: {
             bodys[0].style.setProperty('--pe-windowwidth', window.innerWidth + 'px');
             vapp.mount(bodys[0]);
         });
+        // --- 将 panel 的 style 加到 head 里 ---
+        if (styles.length) {
+            const head = document.getElementsByTagName('head');
+            if (head[0]) {
+                head[0].insertAdjacentHTML('beforeend', '<style data-pe-panels>' + styles.join('') + '</style>');
+            }
+        }
         // --- 执行回调 ---
         await tool.sleep(34);
         await cpage.main.call(rtn.vroot);

@@ -124,6 +124,10 @@ class Page extends purease.AbstractPage {
         this.loading = false;
     }
 
+    public get testhead(): string {
+        return purease.global.head ?? 'none';
+    }
+
     // --- page 控件演示 ---
 
     public p1: number = 3;

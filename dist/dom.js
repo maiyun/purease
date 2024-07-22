@@ -11,6 +11,7 @@ document.addEventListener('touchstart', function (e) {
 document.addEventListener('mousedown', (e) => {
     doDown(e);
 });
+let showedPop = null;
 function showPop(pop) {
     pop.classList.add('pe-show');
     showedPop = pop;
@@ -55,7 +56,6 @@ function findParentByClass(el, name) {
     return null;
 }
 exports.findParentByClass = findParentByClass;
-let showedPop = null;
 function doDown(e) {
     if (hasTouchButMouse(e)) {
         return;

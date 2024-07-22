@@ -1187,6 +1187,59 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     }
 }
 
+// --- pe-table ---
+
+.pe-table {
+    display: flex; flex-direction: column; border-radius: var(--pe-radius); box-shadow: var(--pe-pop-shadow); border: solid 1px var(--pe-border);
+
+    > :not(:last-child) {
+        border-bottom: solid 1px var(--pe-border);
+    }
+
+    > :first-child {
+        border-radius: var(--pe-radius) var(--pe-radius) 0 0;
+    }
+    > :last-child {
+        border-radius: 0 0 var(--pe-radius) var(--pe-radius);
+    }
+}
+
+.pe-table-header {
+    position: sticky; top: 70px;
+}
+html.pe-sheader {
+    .pe-table-header {
+        top: 50px;
+    }
+}
+html.pe-dheader {
+    // --- 双层 nav ---
+    .pe-table-header {
+        top: 120px;
+    }
+    &.pe-sheader {
+        .pe-table-header {
+            top: 100px;
+        }
+    }
+}
+
+.pe-table-row {
+    background: var(--pe-input-bg); display: grid; grid-template-columns: repeat(var(--pe-cols), 1fr); transition: var(--pe-transition);
+
+    &:hover {
+        background: var(--pe-input-hover-bg);
+    }
+}
+
+.pe-table-head {
+    padding: 15px; font-weight: bold; text-align: center;
+}
+
+.pe-table-cell {
+    padding: 15px; text-align: center;
+}
+
 // --- 小屏设备 ---
 
 @media screen and (max-width: 1200px) and (min-width: 800px) {
@@ -1385,6 +1438,38 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     }
     .pe-footer-end {
         order: 1; margin-top: 30px; margin-bottom: 0;
+    }
+
+    // --- pe-table ---
+
+    html.pe-dheader {
+        // --- 双层 nav ---
+        .pe-table-header {
+            top: 70px;
+        }
+        &.pe-sheader {
+            .pe-table-header {
+                top: 50px;
+            }
+        }
+    }
+
+    .pe-table-header {
+        &.pe-adaption {
+            > :first-child {
+                display: none;
+            }
+        }
+    }
+
+    .pe-table-row {
+        &.pe-adaption {
+            grid-template-columns: repeat(calc(var(--pe-cols) - 1), 1fr);
+
+            > :first-child {
+                grid-column: span calc(var(--pe-cols) - 1);
+            }
+        }
     }
 
 }

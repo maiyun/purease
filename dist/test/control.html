@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Control - Purease Test</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+<script src="https://cdn.jsdelivr.net/npm/@litert/loader@3.5.7/dist/loader.min.js?path=index"></script>
+<script>
+pureaseGlobal = {};
+</script>
+<!-- 用户 -->
+<link rel="stylesheet" href="index.css" />
+</head>
+<body style="visibility: hidden;">
+<!-- head -->
+<div id="header">
+    <pe-header logo-href="./" fixed>
+        <pe-header-item href="./">Home</pe-header-item>
+    </pe-header>
+</div>
+<pe-banner class="pe-grey" direction="v" style="height: 350px;">
+    <div class="pe-btitle">Control</div>
+    <div class="pe-bnote">Table, Datepanel, Date, Daterange</div>
+</pe-banner>
+<div class="pe-block">
+    <div class="pe-btitle">table</div>
+    <div class="pe-alayout pe-content pe-padding-lr" style="gap: 20px; margin-top: 20px; flex-direction: column;">
+        <pe-table>
+            <pe-table-row>
+                <pe-table-head>Head1-({{testhead}})</pe-table-head>
+                <pe-table-head>Head2</pe-table-head>
+                <pe-table-head>Head3</pe-table-head>
+            </pe-table-row>
+            <pe-table-row v-for="i of 5">
+                <pe-table-cell>Cell1</pe-table-cell>
+                <pe-table-cell>Cell2</pe-table-cell>
+                <pe-table-cell>Cell3</pe-table-cell>
+            </pe-table-row>
+        </pe-table>
+        <pe-table>
+            <pe-table-row>
+                <pe-table-head></pe-table-head>
+                <pe-table-head>Head1</pe-table-head>
+                <pe-table-head>Head2</pe-table-head>
+                <pe-table-head>Head3</pe-table-head>
+            </pe-table-row>
+            <pe-table-row v-for="i of 5">
+                <pe-table-cell>Title</pe-table-cell>
+                <pe-table-cell>Cell1</pe-table-cell>
+                <pe-table-cell>Cell2</pe-table-cell>
+                <pe-table-cell>Cell3</pe-table-cell>
+            </pe-table-row>
+        </pe-table>
+    </div>
+</div>
+<!-- 脚部 -->
+<div id="footer">
+    <script>
+        pureaseGlobal = {
+            ...pureaseGlobal,
+            'head': '222'
+        };
+    </script>
+    <style>
+        .teststyle {
+            color: var(--danger);
+        }
+    </style>
+    <pe-footer>
+        <div class="pe-footer-list pe-footer-end">
+            <div class="pe-footer-logo"></div>
+        </div>
+        <div class="pe-footer-list">
+            <div class="pe-footer-title">List 1</div>
+            <a href="./">Page 1</a>
+            <a href="./">Page 2</a>
+            <a href="./">Page 3</a>
+        </div>
+        <div class="pe-footer-list">
+            <div class="pe-footer-title">List 2</div>
+            <a href="./" target="_blank">Page 1<pe-icon></pe-icon></a>
+            <a href="./">Page 2</a>
+            <a href="./">Page 3</a>
+        </div>
+        <div class="pe-footer-list">
+            <div class="pe-footer-title">List 3</div>
+            <a href="./">Page 1</a>
+            <a href="./">Page 2</a>
+            <a href="./">Page 3</a>
+        </div>
+        <template v-slot:bottom>
+            <div class="pe-footer-bottom-row">
+                <div class="pe-alayout" style="gap: 10px; align-items: center;">
+                    <div>This is some footer information</div>
+                    <div class="teststyle">Note2</div>
+                </div>
+            </div>
+            <div class="pe-footer-bottom-row">
+                <div class="pe-layout">Item1</div>
+                <div class="pe-layout">Item2</div>
+                <div class="pe-layout">Item3</div>
+                <div class="pe-layout">{{text}}</div>
+            </div>
+        </template>
+    </pe-footer>
+</div>
+</body>
+</html>

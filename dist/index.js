@@ -238,6 +238,7 @@ function launcher(page, options = {}) {
             });
             exports.vue = window.Vue;
             exports.global = exports.vue.reactive(exports.global);
+            const styles = [];
             const panelComponents = {};
             if (!options.panels) {
                 options.panels = [];
@@ -259,9 +260,15 @@ function launcher(page, options = {}) {
                 const prot = tool.getClassPrototype(panel);
                 const methods = prot.method;
                 const computed = prot.access;
+                const layout = el.outerHTML.replace(/<script>([\s\S]*?)<\/script>/gi, () => {
+                    return '';
+                }).replace(/<style>([\s\S]*?)<\/style>/gi, function (t, t1) {
+                    styles.push(t1);
+                    return '';
+                });
                 const panelname = 'pe-panel-' + tool.random(16);
                 panelComponents[panelname] = {
-                    'template': el.outerHTML,
+                    'template': layout,
                     'data': function () {
                         return tool.clone(idata);
                     },
@@ -364,6 +371,10 @@ function launcher(page, options = {}) {
                 vapp.config.errorHandler = function (err, vm, info) {
                     console.error(err.message, err, vm, info);
                 };
+                const scripts = bodys[0].querySelectorAll('script');
+                for (const script of scripts) {
+                    script.remove();
+                }
                 for (const key in control.list) {
                     vapp.component(key, control.list[key]);
                 }
@@ -388,6 +399,12 @@ function launcher(page, options = {}) {
                 bodys[0].style.setProperty('--pe-windowwidth', window.innerWidth + 'px');
                 vapp.mount(bodys[0]);
             });
+            if (styles.length) {
+                const head = document.getElementsByTagName('head');
+                if (head[0]) {
+                    head[0].insertAdjacentHTML('beforeend', '<style data-pe-panels>' + styles.join('') + '</style>');
+                }
+            }
             yield tool.sleep(34);
             yield cpage.main.call(rtn.vroot);
             bodys[0].style.visibility = 'initial';
