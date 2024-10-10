@@ -1,7 +1,12 @@
 export * as dom from '../dist/dom';
 export * as tool from '../dist/tool';
 
-export function launcher<T extends typeof import('../dist/index').AbstractPage>(page: new (opt: {
+import { AbstractPage, AbstractPanel } from '../dist/index';
+export { AbstractPage, AbstractPanel };
+
+export const global: typeof import('../dist/index').global;
+
+export function launcher<T extends AbstractPage>(page: new (opt: {
     'locale'?: string;
     'localePath'?: string;
 }) => T, options?: {
@@ -14,15 +19,9 @@ export function launcher<T extends typeof import('../dist/index').AbstractPage>(
         /** --- 要加载的子 panels --- */
         'panels'?: Array<{
             'selector': string;
-            'panel': new () => typeof import('../dist/index').AbstractPanel;
+            'panel': new () => AbstractPanel;
         }>;
     }): void;
-
-// eslint-disable-next-line @typescript-eslint/naming-convention
-export const AbstractPage: typeof import('../dist/index').AbstractPage;
-// eslint-disable-next-line @typescript-eslint/naming-convention
-export const AbstractPanel: typeof import('../dist/index').AbstractPanel;
-export const global: typeof import('../dist/index').global;
 
 // -------------------------
 // ---------- vue ----------
@@ -82,7 +81,10 @@ export interface IVue {
         'default': undefined | ((o?: any) => IVNode[]);
         [key: string]: undefined | ((o?: any) => IVNode[]);
     };
-    '$watch': (o: any, cb: (n: any, o: any) => void) => void;
+    '$watch': (o: any, cb: (n: any, o: any) => void, opt?: {
+        'immediate'?: boolean;
+        'deep'?: boolean;
+    }) => void;
 
     [key: string]: any;
 }
@@ -97,6 +99,9 @@ export interface IVNode {
 
     [key: string]: any;
 }
+
+/** --- 方向类型，从左上开始 --- */
+export type TDomBorder = 'lt' | 't' | 'tr' | 'r' | 'rb' | 'b' | 'bl' | 'l' | '';
 
 /** --- 绑定鼠标事件选项 --- */
 export interface IBindDownOptions<T extends MouseEvent | TouchEvent> {
@@ -145,11 +150,23 @@ export interface ITextBeforechangeEvent extends ICustomEvent {
     };
 }
 
+// --- Dlist Control ---
+
+export interface IDlistChangedEvent {
+    'detail': {
+        'value': string;
+        'index': number;
+        'label': string;
+    };
+}
+
 // --- Select Control ---
 
 export interface ISelectChangedEvent {
     'detail': {
         'value': string;
+        'index': number;
+        'label': string;
     };
 }
 
@@ -158,6 +175,40 @@ export interface ISelectChangedEvent {
 export interface ISwitchChangeEvent extends ICustomEvent {
     'detail': {
         'value': boolean;
+    };
+}
+
+// --- Date Control ---
+
+export interface IDateChangedEvent {
+    'detail': {
+        'value'?: number;
+    };
+}
+
+// --- Datepanel Control ---
+
+export interface IDatepanelRangeEvent extends ICustomEvent {
+    'detail': {
+        'start': number;
+        'end': number;
+    };
+}
+
+export interface IDatepanelChangedEvent {
+    'detail': {
+        'value'?: number;
+    };
+}
+
+export interface IDatepanelSelectedEvent {
+    'detail': {
+        'time': number;
+        'date': number;
+        'month': number;
+        'year': number;
+        'day': number;
+        'str': string;
     };
 }
 

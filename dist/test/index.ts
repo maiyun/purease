@@ -1,13 +1,18 @@
 import * as purease from '../index';
+import * as types from '../../types';
 import footer from '../test/footer';
 
 class Page extends purease.AbstractPage {
 
     public text = '123';
 
+    public textmulti = '456';
+
     public select = 'h';
 
     public textSelect = ['a', { 'value': 'ok', 'label': 'v is ok' }, 'c', this.l('ok')];
+
+    public dlist = 'a';
 
     public search = false;
 
@@ -111,7 +116,7 @@ class Page extends purease.AbstractPage {
     public customDialogSelect(): void {
         if (!this.customDialogText)  {
             // --- 弹出不可为空的提示 ---
-            this.notify('Name can not be empty.');
+            this.alert('Name can not be empty.');
             return;
         }
         // --- 隐藏窗体 ---
@@ -157,6 +162,57 @@ class Page extends purease.AbstractPage {
     public taglist: string[] = [];
 
     public tagclose = false;
+
+    // --- Datepanel 控件 ---
+
+    public dpbottom: boolean = false;
+
+    public dptime: boolean = true;
+
+    public dpzone: boolean = true;
+
+    /** --- 当前选中的时间戳 --- */
+    public dpts?: number = undefined;
+
+    /** --- 当前设置的日历组件的时区 --- */
+    public dptz?: number = undefined;
+
+    public dpdisabled: boolean = false;
+
+    public dpplain: boolean = false;
+
+    public dprange: boolean = false;
+
+    public dpstart: boolean = false;
+
+    public dpym: string = '';
+
+    public dphm: string = '';
+
+    public dplockhm: boolean = false;
+
+    // --- 指定时间戳 ---
+    public dpsettime(): void {
+        this.dpts = purease.tool.rand(1504304812000, 1704304812000);
+    }
+
+    public dpOnChanged(e: types.IDatepanelChangedEvent): void {
+        console.log('onChanged', e, JSON.stringify(e));
+    }
+
+    public dpOnRange(e: types.IDatepanelRangeEvent): void {
+        console.log('onRange', e);
+    }
+
+    // --- date 控件 ---
+
+    public ddate: boolean = true;
+
+    /** --- 当前选中的时间戳 --- */
+    public dts?: number = undefined;
+
+    /** --- daterange 的时间戳 --- */
+    public drts: number[] = [];
 
 }
 

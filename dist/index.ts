@@ -172,23 +172,26 @@ export abstract class AbstractPage {
         return false;
     }
 
-    public notifyInfo = {
+    /** --- 底部弹出提示框 --- */
+    public alertInfo = {
         'show': false,
         'content': '',
-        'timer': 0
+        'timer': 0,
+        'type': 'default'
     };
 
-    /** --- 显示一个 notify，支持 html，请注意传入内容的安全 --- */
-    public notify(content: string): void {
-        if (this.notifyInfo.timer) {
-            clearTimeout(this.notifyInfo.timer);
-            this.notifyInfo.timer = 0;
+    /** --- 显示一个 alert，支持 html，请注意传入内容的安全 --- */
+    public alert(content: string, type: 'default' | 'primary' | 'info' | 'warning' | 'danger' = 'default'): void {
+        if (this.alertInfo.timer) {
+            clearTimeout(this.alertInfo.timer);
+            this.alertInfo.timer = 0;
         }
-        this.notifyInfo.content = content;
-        this.notifyInfo.show = true;
-        this.notifyInfo.timer = window.setTimeout(() => {
-            this.notifyInfo.show = false;
+        this.alertInfo.content = content;
+        this.alertInfo.show = true;
+        this.alertInfo.timer = window.setTimeout(() => {
+            this.alertInfo.show = false;
         }, 3000);
+        this.alertInfo.type = type;
     }
 
     /** --- 整个网页的宽度 --- */
@@ -505,8 +508,11 @@ export function launcher<T extends AbstractPage>(page: new (opt: {
                     '<div class="pe-loading-item-2"></div>' +
                 '</div>' +
             '</div>' +
-            `<div class="pe-notify" :class="[notifyInfo.show&&'pe-show']">` +
-                '<div class="pe-notify-content" v-html="notifyInfo.content"></div>' +
+            `<div class="pe-alert" :class="[alertInfo.show&&'pe-show','pe-'+alertInfo.type]">` +
+                '<div class="pe-alert-content">' +
+                    `<div class="pe-alert-icon"></div>` +
+                    `<div v-html="alertInfo.content"></div>` +
+                '</div>' +
             '</div>');
             bodys[0].style.setProperty('--pe-windowwidth', window.innerWidth + 'px');
             vapp.mount(bodys[0]);

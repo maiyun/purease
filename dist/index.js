@@ -54,10 +54,11 @@ class AbstractPage {
             'buttons': ['OK'],
             'select': undefined
         };
-        this.notifyInfo = {
+        this.alertInfo = {
             'show': false,
             'content': '',
-            'timer': 0
+            'timer': 0,
+            'type': 'default'
         };
         this.windowWidth = 0;
         this.loading = false;
@@ -155,16 +156,17 @@ class AbstractPage {
             return false;
         });
     }
-    notify(content) {
-        if (this.notifyInfo.timer) {
-            clearTimeout(this.notifyInfo.timer);
-            this.notifyInfo.timer = 0;
+    alert(content, type = 'default') {
+        if (this.alertInfo.timer) {
+            clearTimeout(this.alertInfo.timer);
+            this.alertInfo.timer = 0;
         }
-        this.notifyInfo.content = content;
-        this.notifyInfo.show = true;
-        this.notifyInfo.timer = window.setTimeout(() => {
-            this.notifyInfo.show = false;
+        this.alertInfo.content = content;
+        this.alertInfo.show = true;
+        this.alertInfo.timer = window.setTimeout(() => {
+            this.alertInfo.show = false;
         }, 3000);
+        this.alertInfo.type = type;
     }
     toTop() {
         document.getElementsByTagName('body')[0].scrollIntoView({
@@ -393,8 +395,11 @@ function launcher(page, options = {}) {
                     '<div class="pe-loading-item-2"></div>' +
                     '</div>' +
                     '</div>' +
-                    `<div class="pe-notify" :class="[notifyInfo.show&&'pe-show']">` +
-                    '<div class="pe-notify-content" v-html="notifyInfo.content"></div>' +
+                    `<div class="pe-alert" :class="[alertInfo.show&&'pe-show','pe-'+alertInfo.type]">` +
+                    '<div class="pe-alert-content">' +
+                    `<div class="pe-alert-icon"></div>` +
+                    `<div v-html="alertInfo.content"></div>` +
+                    '</div>' +
                     '</div>');
                 bodys[0].style.setProperty('--pe-windowwidth', window.innerWidth + 'px');
                 vapp.mount(bodys[0]);

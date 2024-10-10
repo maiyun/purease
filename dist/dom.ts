@@ -15,22 +15,70 @@ document.addEventListener('mousedown', (e: MouseEvent) => {
 });
 
 /** --- 正在显示中的 pop element --- */
-let showedPop: HTMLElement | null = null;
+const showedPop: HTMLElement[] = [];
+const showedPopEl: HTMLElement[] = [];
 
 /** --- 将 pop 显示出来 --- */
-export function showPop(pop: HTMLElement): void {
-    pop.classList.add('pe-show');
-    showedPop = pop;
+export function showPop(e: MouseEvent, pop: HTMLElement): void {
+    const el = e.currentTarget as HTMLElement;
+    const rect = el.getBoundingClientRect();
+    pop.classList.add('pe-pshow');
+    pop.style.left = rect.left + 'px';
+    pop.style.top = rect.top + rect.height + 'px';
+    pop.style.minWidth = rect.width + 'px';
+    setTimeout(() => {
+        pop.classList.add('pe-show');
+        showedPop.push(pop);
+        showedPopEl.push(el);
+        pop.dataset.pePopLevel = (showedPop.length - 1).toString();
+    }, 34);
 }
 
 /** --- 隐藏正在显示的中的 pop --- */
-export function hidePop(): void {
-    if (!showedPop) {
+export function hidePop(pop?: HTMLElement): void {
+    if (!pop) {
+        if (!showedPop.length) {
+            return;
+        }
+        for (let i = showedPop.length - 1; i >= 0; --i) {
+            hidePop(showedPop[i]);
+        }
         return;
     }
-    showedPop.classList.remove('pe-show');
-    showedPop = null;
+    const level = parseInt(pop.dataset.pePopLevel ?? '-1');
+    if (level === -1) {
+        return;
+    }
+    pop.classList.remove('pe-show');
+    showedPop.splice(level, 1);
+    showedPopEl.splice(level, 1);
+    setTimeout(() => {
+        if (pop.classList.contains('pe-show')) {
+            return;
+        }
+        pop.classList.remove('pe-pshow');
+    }, 334);
 }
+
+/** --- 刷新 pop 的位置 --- */
+function refreshPopPosition(): void {
+    for (let i = 0; i < showedPopEl.length; ++i) {
+        /** --- 响应的元素 --- */
+        const el = showedPopEl[i];
+        const rect = el.getBoundingClientRect();
+        /** --- 弹出的 pop --- */
+        const pop = showedPop[i];
+        const left = rect.left + 'px';
+        const top = rect.top + rect.height + 'px';
+        if ((left === pop.style.left) && (top === pop.style.top)) {
+            continue;
+        }
+        pop.style.left = left;
+        pop.style.top = top;
+    }
+    requestAnimationFrame(refreshPopPosition);
+}
+refreshPopPosition();
 
 /**
  * --- 判断当前的事件是否是含有 touch 的设备触发的，如果当前就是 touch 则直接返回 false（false 代表 OK，true 代表 touch 设备却触发了 mouse 事件） ---
@@ -44,7 +92,7 @@ export function hasTouchButMouse(e: MouseEvent | TouchEvent | PointerEvent): boo
         return true;
     }
     const now = Date.now();
-    if (now - lastTouchTime < 1000 * 60) {
+    if (now - lastTouchTime < 1_000 * 60) {
         // --- 当前是 mouse 但是 10000ms 内有 touch start ---
         return true;
     }
@@ -85,14 +133,32 @@ function doDown(e: TouchEvent | MouseEvent): void {
     if (!target) {
         return;
     }
+    let isPop: HTMLElement | null = null;
     if (target.classList.contains('pe-pop')) {
+        isPop = target;
+    }
+    else {
+        const pop = findParentByClass(target, 'pe-pop');
+        if (pop) {
+            isPop = pop;
+        }
+    }
+    if (!isPop) {
+        hidePop();
         return;
     }
-    if (findParentByClass(target, 'pe-pop')) {
+    // --- 在 pop 上点击的，只隐藏点击之后的 pop 层 ---
+    const level = parseInt(isPop.dataset.pePopLevel ?? '-1');
+    if (level === -1) {
+        hidePop();
         return;
     }
-    showedPop.classList.remove('pe-show');
-    showedPop = null;
+    if (showedPop.length - 1 === level) {
+        return;
+    }
+    for (let i = showedPop.length - 1; i > level; --i) {
+        hidePop(showedPop[i]);
+    }
 }
 
 /**

@@ -92,24 +92,24 @@ pureaseGlobal = {};
 <div class="pe-block">
     <div class="pe-btitle">Alayout</div>
     <div class="pe-alayout pe-content pe-padding-lr" style="gap: 20px; margin-top: 20px;">
-        <a class="pe-button pe-dark" href="./">AAA</a>
-        <a class="pe-button pe-dark" href="./">BBB</a>
-        <a class="pe-button pe-dark" href="./">CCC</a>
+        <a class="pe-button pe-dark" href="./" style="flex: 1;">AAA</a>
+        <a class="pe-button pe-dark" href="./" style="flex: 1;">BBB</a>
+        <a class="pe-button pe-dark" href="./" style="flex: 1;">CCC</a>
     </div>
 </div>
 <!-- 带框框的 box -->
 <div class="pe-block pe-grey">
     <div class="pe-btitle">Box</div>
     <div class="pe-alayout pe-content pe-padding-lr" style="gap: 20px; margin-top: 20px;">
-        <a class="pe-box pe-padding" href="./" style="gap: 10px; justify-content: center;">
+        <a class="pe-box pe-padding" href="./" style="gap: 10px; justify-content: center; flex: 1;">
             <div class="pe-title">AAA</div>
             <div class="pe-note">1111111111</div>
         </a>
-        <a class="pe-box pe-padding pe-hover" href="./" style="gap: 10px; justify-content: center;">
+        <a class="pe-box pe-padding pe-hover" href="./" style="gap: 10px; justify-content: center; flex: 1;">
             <div class="pe-title">Hover</div>
             <div class="pe-note">2222222222</div>
         </a>
-        <a class="pe-box pe-thover" href="./">
+        <a class="pe-box pe-thover" href="./" style="flex: 1;">
             <div class="pe-img boximg"></div>
             <div class="pe-spadding">
                 <div class="pe-title">Thover</div>
@@ -122,7 +122,7 @@ pureaseGlobal = {};
 <div class="pe-block">
     <div class="pe-btitle">Lralyout</div>
     <div class="pe-alayout pe-content pe-padding-lr" style="gap: 20px; margin-top: 20px;">
-        <a class="pe-box" href="./">
+        <a class="pe-box" href="./" style="flex: 1;">
             <div class="pe-lralyout">
                 <div class="pe-img boximg2"></div>
                 <div class="pe-spadding">
@@ -131,7 +131,7 @@ pureaseGlobal = {};
                 </div>
             </div>
         </a>
-        <a class="pe-box" href="./">
+        <a class="pe-box" href="./" style="flex: 1;">
             <div class="pe-lralyout">
                 <div class="pe-img boximg2 pe-hover"></div>
                 <div class="pe-spadding">
@@ -146,19 +146,19 @@ pureaseGlobal = {};
 <div class="pe-block pe-grey">
     <div class="pe-btitle">Group</div>
     <div class="pe-alayout pe-content pe-padding-lr" style="gap: 40px; margin-top: 20px;">
-        <pe-group>
+        <pe-group style="flex: 1;">
             111
             <template v-slot:bottom>
                 <div class="pe-button pe-plain" style="flex: 1;">Buy</div>
             </template>
         </pe-group>
-        <pe-group>
+        <pe-group style="flex: 1;">
             111
             <template v-slot:bottom>
                 <div class="pe-button pe-dark" style="flex: 1;">Buy</div>
             </template>
         </pe-group>
-        <pe-group>
+        <pe-group style="flex: 1;">
             <template v-slot:title>Best</template>
             111
             <template v-slot:bottom>
@@ -177,7 +177,7 @@ pureaseGlobal = {};
             <template v-slot:prepend>Hello:</template>
             <template v-slot:append>KG</template>
         </pe-text>
-        <pe-text style="width: 400px; height: 200px;" v-model="text" type="multi">
+        <pe-text style="width: 400px; height: 200px;" v-model="textmulti" type="multi">
             <template v-slot:prepend>Hello:</template>
             <template v-slot:append>KG</template>
         </pe-text>
@@ -192,6 +192,8 @@ pureaseGlobal = {};
         </pe-text>
         <pe-check>check</pe-check>
         <pe-check>check1<br>check2<br><a href="./swipe.html" target="_blank">check3<pe-icon></pe-icon></a></pe-check>
+        <div>Dlist: {{dlist}}</div>
+        <pe-dlist :data="['a', 'b', 'c', { 'title': true, 'label': 'title' }, 'd']" style="width: 400px;" v-model="dlist"></pe-dlist>
     </div>
 </div>
 <!-- 脚部 -->

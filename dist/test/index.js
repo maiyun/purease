@@ -41,8 +41,10 @@ class Page extends purease.AbstractPage {
     constructor() {
         super(...arguments);
         this.text = '123';
+        this.textmulti = '456';
         this.select = 'h';
         this.textSelect = ['a', { 'value': 'ok', 'label': 'v is ok' }, 'c', this.l('ok')];
+        this.dlist = 'a';
         this.search = false;
         this.tab = 0;
         this.swipePage = 'center';
@@ -71,6 +73,21 @@ class Page extends purease.AbstractPage {
         this.switch2 = 'a';
         this.taglist = [];
         this.tagclose = false;
+        this.dpbottom = false;
+        this.dptime = true;
+        this.dpzone = true;
+        this.dpts = undefined;
+        this.dptz = undefined;
+        this.dpdisabled = false;
+        this.dpplain = false;
+        this.dprange = false;
+        this.dpstart = false;
+        this.dpym = '';
+        this.dphm = '';
+        this.dplockhm = false;
+        this.ddate = true;
+        this.dts = undefined;
+        this.drts = [];
     }
     changeNBottom() {
         this.nbottom = !this.nbottom;
@@ -129,7 +146,7 @@ class Page extends purease.AbstractPage {
     }
     customDialogSelect() {
         if (!this.customDialogText) {
-            this.notify('Name can not be empty.');
+            this.alert('Name can not be empty.');
             return;
         }
         this.customDialog = false;
@@ -144,6 +161,15 @@ class Page extends purease.AbstractPage {
     get testhead() {
         var _a;
         return (_a = purease.global.head) !== null && _a !== void 0 ? _a : 'none';
+    }
+    dpsettime() {
+        this.dpts = purease.tool.rand(1504304812000, 1704304812000);
+    }
+    dpOnChanged(e) {
+        console.log('onChanged', e, JSON.stringify(e));
+    }
+    dpOnRange(e) {
+        console.log('onRange', e);
     }
 }
 purease.launcher(Page, {

@@ -11,20 +11,65 @@ document.addEventListener('touchstart', function (e) {
 document.addEventListener('mousedown', (e) => {
     doDown(e);
 });
-let showedPop = null;
-function showPop(pop) {
-    pop.classList.add('pe-show');
-    showedPop = pop;
+const showedPop = [];
+const showedPopEl = [];
+function showPop(e, pop) {
+    const el = e.currentTarget;
+    const rect = el.getBoundingClientRect();
+    pop.classList.add('pe-pshow');
+    pop.style.left = rect.left + 'px';
+    pop.style.top = rect.top + rect.height + 'px';
+    pop.style.minWidth = rect.width + 'px';
+    setTimeout(() => {
+        pop.classList.add('pe-show');
+        showedPop.push(pop);
+        showedPopEl.push(el);
+        pop.dataset.pePopLevel = (showedPop.length - 1).toString();
+    }, 34);
 }
 exports.showPop = showPop;
-function hidePop() {
-    if (!showedPop) {
+function hidePop(pop) {
+    var _a;
+    if (!pop) {
+        if (!showedPop.length) {
+            return;
+        }
+        for (let i = showedPop.length - 1; i >= 0; --i) {
+            hidePop(showedPop[i]);
+        }
         return;
     }
-    showedPop.classList.remove('pe-show');
-    showedPop = null;
+    const level = parseInt((_a = pop.dataset.pePopLevel) !== null && _a !== void 0 ? _a : '-1');
+    if (level === -1) {
+        return;
+    }
+    pop.classList.remove('pe-show');
+    showedPop.splice(level, 1);
+    showedPopEl.splice(level, 1);
+    setTimeout(() => {
+        if (pop.classList.contains('pe-show')) {
+            return;
+        }
+        pop.classList.remove('pe-pshow');
+    }, 334);
 }
 exports.hidePop = hidePop;
+function refreshPopPosition() {
+    for (let i = 0; i < showedPopEl.length; ++i) {
+        const el = showedPopEl[i];
+        const rect = el.getBoundingClientRect();
+        const pop = showedPop[i];
+        const left = rect.left + 'px';
+        const top = rect.top + rect.height + 'px';
+        if ((left === pop.style.left) && (top === pop.style.top)) {
+            continue;
+        }
+        pop.style.left = left;
+        pop.style.top = top;
+    }
+    requestAnimationFrame(refreshPopPosition);
+}
+refreshPopPosition();
 function hasTouchButMouse(e) {
     if (e instanceof TouchEvent || e.type === 'touchstart') {
         return false;
@@ -57,6 +102,7 @@ function findParentByClass(el, name) {
 }
 exports.findParentByClass = findParentByClass;
 function doDown(e) {
+    var _a;
     if (hasTouchButMouse(e)) {
         return;
     }
@@ -67,14 +113,31 @@ function doDown(e) {
     if (!target) {
         return;
     }
+    let isPop = null;
     if (target.classList.contains('pe-pop')) {
+        isPop = target;
+    }
+    else {
+        const pop = findParentByClass(target, 'pe-pop');
+        if (pop) {
+            isPop = pop;
+        }
+    }
+    if (!isPop) {
+        hidePop();
         return;
     }
-    if (findParentByClass(target, 'pe-pop')) {
+    const level = parseInt((_a = isPop.dataset.pePopLevel) !== null && _a !== void 0 ? _a : '-1');
+    if (level === -1) {
+        hidePop();
         return;
     }
-    showedPop.classList.remove('pe-show');
-    showedPop = null;
+    if (showedPop.length - 1 === level) {
+        return;
+    }
+    for (let i = showedPop.length - 1; i > level; --i) {
+        hidePop(showedPop[i]);
+    }
 }
 function findParentByTag(el, name) {
     let parent = el.parentNode;

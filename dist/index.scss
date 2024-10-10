@@ -14,18 +14,23 @@ html {
     --pe-radius-l:10px;
     --pe-font-life:"Lucida Sans Unicode","Helvetica Neue","Helvetica","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Noto Sans CJK","Source Han Sans","WenQuanYi Micro Hei","Microsoft YaHei","sans-serif";
     --pe-font-comm:'Roboto','SF Pro SC','SF Pro Display','SF Pro Icons','PingFang SC',BlinkMacSystemFont,-apple-system,'Segoe UI','Microsoft Yahei','Ubuntu','Cantarell','Fira Sans','Droid Sans','Helvetica Neue','Helvetica','Arial',"sans-serif";
-    --pe-grey:hsl(210,20%,98%);         // --- 一般用于浅色背景、或者采用白色背景的组件的 hover ---
-    --pe-grey-hover:hsl(210,20%,96%);   // --- 一般用于采用灰色背景的组件的 hover 效果 ---
-    --pe-dark:hsl(210,20%,2%);          // --- 一般用于超深背景 ---
-    --pe-input-bg:hsl(210,20%,99.5%);    // --- 输入型控件的默认底色 ---
-    --pe-input-hover-bg:hsl(210,20%,97.5%);  // --- 输入型控件的 hover 底色 ---
-    --pe-border:hsl(220,15%,85%);       // --- 一般用于组件的边框 ---
+    --pe-grey:hsl(210,20%,98%);                 // --- 一般用于浅色背景、或者采用白色背景的组件的 hover ---
+    --pe-grey-hover:hsl(210,20%,96%);           // --- 一般用于采用灰色背景的组件的 hover 效果 ---
+    --pe-dark:hsl(210,20%,2%);                  // --- 一般用于超深背景 ---
+    --pe-input-bg:hsl(210,20%,99.5%);           // --- 输入型控件的默认底色 ---
+    --pe-input-hover-bg:hsl(210,20%,97.5%);     // --- 输入型控件的 hover 底色 ---
+    --pe-border:hsl(220,15%,85%);               // --- 一般用于组件的边框 ---
+    --pe-border-plain:hsl(220,15%,92%);   // --- 一般用于组件内部的轻边框 ---
     --pe-shadow:0 1px 2px hsla(220,45%,10%,0.05);   // --- 一般用于组件的小阴影 ---
     --pe-pop-shadow:0px 15px 30px rgba(0,0,0,.07);  // --- 弹出层的阴影 ---
     --pe-outline-shadow:0 0 0 4px hsl(220,20%,95%); // --- active 状态的类似 outline 边框 ---
     ::selection {
         background: var(--pe-h-color); color: var(--pe-h-fcolor);
     }
+    --pe-lpadding:60px;
+    --pe-padding:40px;
+    --pe-spadding:20px;
+    --pe-xspadding:15px;
 
     // --- 基础颜色 ---
     --success:hsl(150, 100%, 40%);
@@ -81,7 +86,7 @@ img {
     }
 }
 .pe-disabled {
-    pointer-events: none; color: var(--pe-disabled-color);
+    pointer-events: none; color: var(--pe-disabled-color); fill: var(--pe-disabled-color); stroke: var(--pe-disabled-color); -webkit-user-select: none; user-select: none;
 }
 
 html.pe-full {
@@ -161,7 +166,7 @@ html.pe-speed-imme {
     position: fixed; right: 50px; bottom: 50px; display: flex; flex-direction: column; gap: 20px;
 }
 .pe-popbtn {
-    width: 48px; height: 48px; border-radius: 24px; box-shadow: var(--pe-pop-shadow); background: #FFF; transition: var(--pe-transition); -webkit-user-select: none; user-select: none; display: flex; align-items: center; justify-content: center; border: solid .5px var(--pe-border);
+    width: 48px; height: 48px; border-radius: 24px; box-shadow: var(--pe-pop-shadow); background: #FFF; transition: var(--pe-transition); -webkit-user-select: none; user-select: none; display: flex; align-items: center; justify-content: center; border: solid 1px var(--pe-border);
     &:not(.pe-show) {
         opacity: 0; pointer-events: none;
     }
@@ -269,6 +274,24 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     }
 }
 
+// --- pe-dlist ---
+
+.pe-dlist {
+    padding: var(--pe-xspadding); overflow-y: auto; border-radius: var(--pe-radius); text-align: initial;
+    &.pe-empty {
+        display: flex; align-items: center; justify-content: center; color: var(--pe-note-color); min-height: 80px;
+    }
+    &:not(.pe-plain) {
+        border: solid 1px var(--pe-border);
+    }
+}
+.pe-dlist-item {
+    padding: var(--pe-xspadding); border-radius: var(--pe-radius); transition: var(--pe-transition);
+    &:hover, &.pe-selected {
+        background: var(--pe-grey);
+    }
+}
+
 // --- pe-icon ---
 
 .pe-icon {
@@ -344,16 +367,19 @@ html.pe-dheader {
 // --- pe-pop ---
 
 .pe-pop {
-    position: absolute; background: #FFF; border-radius: var(--pe-radius); box-shadow: 0px 15px 30px rgba(0, 0, 0, .07); transition: var(--pe-transition); text-align: initial; z-index: 300;
+    position: fixed; background: #FFF; border-radius: var(--pe-radius); box-shadow: 0px 15px 30px rgba(0, 0, 0, .07); transition: var(--pe-transition); transition-property: transform, opacity; text-align: initial; z-index: 300; border: solid 1px var(--pe-border);
     &:not(.pe-show) {
         opacity: 0; transform: translateY(-20px); pointer-events: none;
+    }
+    &:not(.pe-pshow) {
+        display: none;
     }
 }
 
 // --- pe-menu ---
 
 .pe-menu {
-    position: absolute; background: #FFF; border-radius: var(--pe-radius); box-shadow: 0px 15px 30px rgba(0, 0, 0, .07); opacity: 0; pointer-events: none; transform: translateY(10px); transition: var(--pe-transition); left: -30px; top: 100%; line-height: 1.5; padding: 15px; display: flex; flex-direction: column; color: var(--pe-color); fill: var(--pe-color); stroke: var(--pe-color); min-width: 180px; white-space: nowrap; z-index: 1;
+    position: absolute; background: #FFF; border-radius: var(--pe-radius); box-shadow: 0px 15px 30px rgba(0, 0, 0, .07); opacity: 0; pointer-events: none; transform: translateY(10px); transition: var(--pe-transition); left: -30px; top: 100%; line-height: 1.5; padding: var(--pe-xspadding); display: flex; flex-direction: column; color: var(--pe-color); fill: var(--pe-color); stroke: var(--pe-color); min-width: 180px; white-space: nowrap; z-index: 1;
 }
 .pe-menu-item {
     padding: 15px 35px 15px 15px; transition: var(--pe-transition); display: flex;
@@ -392,19 +418,19 @@ html.pe-dheader {
 // --- pe-padding ---
 
 .pe-padding-lr {
-    padding-left: 40px; padding-right: 40px;
+    padding-left: var(--pe-padding); padding-right: var(--pe-padding);
 }
 
 .pe-padding-lr6 {
-    padding-left: 60px; padding-right: 60px;
+    padding-left: var(--pe-lpadding); padding-right: var(--pe-lpadding);
 }
 
 .pe-padding {
-    padding: 40px;
+    padding: var(--pe-padding);
 }
 
 .pe-spadding {
-    padding: 20px;
+    padding: var(--pe-spadding);
 }
 
 // --- pe-layout ---
@@ -425,7 +451,7 @@ html.pe-dheader {
 // --- pe-check ---
 
 .pe-check-box {
-    background: var(--pe-input-bg); border-radius: var(--pe-radius); transition: var(--pe-transition); margin-right: 10px; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border: solid .5px var(--pe-border); box-shadow: var(--pe-shadow);
+    background: var(--pe-input-bg); border-radius: var(--pe-radius); transition: var(--pe-transition); margin-right: 10px; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border: solid 1px var(--pe-border); box-shadow: var(--pe-shadow);
     svg {
         width: 18px; height: 18px; vertical-align: middle;
     }
@@ -454,7 +480,7 @@ html.pe-dheader {
 // --- pe-button ---
 
 .pe-button {
-    padding: 15px 20px; border-radius: var(--pe-radius); line-height: 1; display: inline-flex; justify-content: center; align-items: center; gap: 10px; transition: var(--pe-transition); outline: none; -webkit-user-select: none; user-select: none; white-space: nowrap;
+    padding: var(--pe-xspadding) var(--pe-spadding); border-radius: var(--pe-radius); line-height: 1; display: inline-flex; justify-content: center; align-items: center; gap: 10px; transition: var(--pe-transition); outline: none; -webkit-user-select: none; user-select: none; white-space: nowrap;
     &:not(a) {
         cursor: default;
     }
@@ -566,9 +592,6 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 
 .pe-alayout {
     display: flex;
-    > * {
-        flex: 1; flex-basis: 150px;
-    }
 
     &.pe-reverse {
         flex-direction: row-reverse;
@@ -626,6 +649,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 }
 
 // --- pe-hske ---
+// --- 小屏下左侧面板会隐藏的控件 ---
 
 .pe-hske {
     display: flex; height: 100%;
@@ -640,7 +664,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     flex: 1; background-position: center; background-size: auto 80px; background-repeat: no-repeat;
 }
 .pe-hske-bottom {
-    padding: 0 20px 20px 20px; text-align: center; font-size: 12px;
+    padding: 0 var(--pe-spadding) var(--pe-spadding) var(--pe-spadding); text-align: center; font-size: 12px;
 }
 
 // --- pe-footer ---
@@ -667,7 +691,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     display: block; background-size: 100%; background-position: top left; background-repeat: no-repeat; width: 60%; height: 150px;
 }
 .pe-footer-list {
-    display: flex; flex-direction: column; gap: 20px;
+    display: flex; flex-direction: column; gap: var(--pe-spadding);
 }
 .pe-footer-title {
     padding-bottom: 10px; font-size: 20px;
@@ -707,16 +731,16 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     padding: 10px; background: var(--pe-h-color); color: var(--pe-h-fcolor); fill: var(--pe-h-fcolor); stroke: var(--pe-h-fcolor); text-align: center; font-weight: bold;
 }
 .pe-group-content {
-    padding: 40px; flex: 1;
+    padding: var(--pe-padding); flex: 1;
 }
 .pe-group-bottom {
-    padding: 0 40px 40px 40px; display: flex;
+    padding: 0 var(--pe-padding) var(--pe-padding) var(--pe-padding); display: flex;
 }
 
 // --- pe-text ---
 
 .pe-text {
-    background: var(--pe-input-bg); border-radius: var(--pe-radius); transition: var(--pe-transition); display: flex; border: solid .5px var(--pe-border);
+    background: var(--pe-input-bg); border-radius: var(--pe-radius); transition: var(--pe-transition); display: flex; border: solid 1px var(--pe-border);
     &:hover {
         background: var(--pe-input-hover-bg);
     }
@@ -728,17 +752,17 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     }
 
     input, textarea {
-        -webkit-appearance: none; appearance: none; background: transparent; flex: 1; width: 0; outline: none; border: none; padding: 15px; resize: none;
+        -webkit-appearance: none; appearance: none; background: transparent; flex: 1; width: 0; outline: none; border: none; padding: var(--pe-xspadding); resize: none;
     }
 
     .pe-before, .pe-after {
         display: flex;
     }
     .pe-prepend {
-        display: flex; align-items: center; padding-left: 15px;
+        display: flex; align-items: center; padding-left: var(--pe-xspadding);
     }
     .pe-append {
-        display: flex; align-items: center; padding-right: 15px;
+        display: flex; align-items: center; padding-right: var(--pe-xspadding);
     }
 }
 
@@ -747,7 +771,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 .pe-select {
     border-radius: var(--pe-radius); transition: var(--pe-transition); display: flex; background: var(--pe-input-bg); -webkit-user-select: none; user-select: none; cursor: default; position: relative; outline: none;
     &:not(.pe-plain) {
-        border: solid .5px var(--pe-border);
+        border: solid 1px var(--pe-border); box-shadow: var(--pe-shadow);
     }
     &:hover {
         background: var(--pe-input-hover-bg); color: var(--pe-color);
@@ -757,28 +781,19 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     }
 
     .pe-pop {
-        min-width: 100%; left: 0; top: 100%; white-space: nowrap;
+        white-space: nowrap;
+    }
+    .pe-dlist {
+        max-height: 350px;
     }
 }
 .pe-select-label {
-    flex: 1; padding: 15px; text-align: initial;
+    flex: 1; padding: var(--pe-xspadding); text-align: initial; display: flex; align-items: center;
 }
 .pe-select-arrow {
     display: flex; justify-content: center; align-items: center; width: 20px;
     &::after {
         content: ''; border: solid 1px var(--pe-color); border-width: 0 1px 1px 0; width: 6px; height: 6px; transform: rotate(45deg); margin-top: -3px;
-    }
-}
-.pe-select-list {
-    padding: 15px; max-height: 350px; overflow-y: auto; border-radius: 0 0 var(--pe-radius) var(--pe-radius);
-    &.pe-empty {
-        height: 100px; display: flex; align-items: center; justify-content: center; color: var(--pe-note-color);
-    }
-}
-.pe-select-item {
-    padding: 15px; border-radius: var(--pe-radius); transition: var(--pe-transition);
-    &:hover, &.pe-selected {
-        background: var(--pe-grey);
     }
 }
 
@@ -791,7 +806,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     }
 }
 .pe-dialog-form {
-    box-shadow: var(--pe-pop-shadow); background: #FFF; border-radius: var(--pe-radius); padding: 20px; display: flex; flex-direction: column; gap: 20px; min-width: 250px; max-width: 80%; transition: var(--pe-transition);
+    box-shadow: var(--pe-pop-shadow); background: #FFF; border-radius: var(--pe-radius); padding: 20px; display: flex; flex-direction: column; gap: 20px; min-width: 250px; max-width: 80%; transition: var(--pe-transition); border: solid .5px var(--pe-border);
 }
 .pe-dialog:not(.pe-show) {
     transform: scale(1.3); opacity: 0;
@@ -803,17 +818,62 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     display: flex; justify-content: flex-end; cursor: default; -webkit-user-select: none; user-select: none; gap: 20px;
 }
 
-// --- pe-notify ---
+// --- pe-alert ---
 
-.pe-notify {
-    position: fixed; top: 40px; left: 0; width: 100%; pointer-events: none; display: flex; justify-content: center; z-index: 400;
-}
-.pe-notify-content {
+.pe-alert-content {
     box-shadow: var(--pe-pop-shadow); background: #FFF; border-radius: var(--pe-radius); padding: 20px; transition: var(--pe-transition);
 }
-.pe-notify:not(.pe-show) {
-    .pe-notify-content {
-        opacity: 0; transform: translateY(-20px);
+.pe-alert-icon {
+    margin-right: 10px; width: 14px; height: 14px; border-radius: 50%;
+}
+.pe-alert:not(.pe-show) {
+    .pe-alert-content {
+        opacity: 0; transform: translateY(20px);
+    }
+}
+.pe-alert {
+    position: fixed; bottom: 100px; left: 0; width: 100%; pointer-events: none; display: flex; justify-content: center; z-index: 400;
+
+    &.pe-default {
+        .pe-alert-icon {
+            display: none;
+        }
+    }
+    &.pe-primary {
+        color: var(--success);
+        .pe-alert-content {
+            border-color: var(--success); background: var(--success-bg);
+        }
+        .pe-alert-icon {
+            background: var(--success);
+        }
+    }
+    &.pe-info {
+        color: var(--info);
+        .pe-alert-content {
+            border-color: var(--info); background: var(--info-bg);
+        }
+        .pe-alert-icon {
+            background: var(--info);
+        }
+    }
+    &.pe-warning {
+        color: var(--warning);
+        .pe-alert-content {
+            border-color: var(--warning); background: var(--warning-bg);
+        }
+        .pe-alert-icon {
+            background: var(--warning);
+        }
+    }
+    &.pe-danger {
+        color: var(--danger);
+        .pe-alert-content {
+            border-color: var(--danger); background: var(--danger-bg);
+        }
+        .pe-alert-icon {
+            background: var(--danger);
+        }
     }
 }
 
@@ -942,7 +1002,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     > .pe-select {
         background: #FFF;
         .pe-select-label {
-            display: flex; align-items: center; padding: 0 15px;
+            padding: 0 15px;
         }
     }
     > :not(.pe-select) {
@@ -1005,7 +1065,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     }
 }
 .pe-switch {
-    --pe-switch-size:42px; outline: none; width: calc(var(--pe-switch-size) * 2); height: var(--pe-switch-size); border: solid 1px var(--pe-border); background: var(--pe-input-bg); box-shadow: var(--pe-shadow) inset; border-radius: calc(var(--pe-switch-size) / 2); transition: var(--pe-transition); position: relative;
+    --pe-switch-size:35px; outline: none; width: calc(var(--pe-switch-size) * 2); height: var(--pe-switch-size); border: solid 1px var(--pe-border); background: var(--pe-input-bg); box-shadow: var(--pe-shadow) inset; border-radius: calc(var(--pe-switch-size) / 2); transition: var(--pe-transition); position: relative;
     // --- 选中模式 ---
     &:not(.pe-disabled) {
         &.pe-checked {
@@ -1193,7 +1253,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     display: flex; flex-direction: column; border-radius: var(--pe-radius); box-shadow: var(--pe-pop-shadow); border: solid 1px var(--pe-border);
 
     > :not(:last-child) {
-        border-bottom: solid 1px var(--pe-border);
+        border-bottom: solid 1px var(--pe-border-plain);
     }
 
     > :first-child {
@@ -1233,12 +1293,279 @@ html.pe-dheader {
 }
 
 .pe-table-head {
-    padding: 15px; font-weight: bold; text-align: center;
+    padding: var(--pe-xspadding); font-weight: bold; text-align: center;
 }
 
 .pe-table-cell {
-    padding: 15px; text-align: center;
+    padding: var(--pe-xspadding); text-align: center;
 }
+
+// --- pe-datepanel ---
+
+.pe-datepanel-wrap {
+    border-radius: var(--pe-radius); display: flex; flex-direction: column; gap: var(--pe-xspadding); padding: var(--pe-xspadding);
+    &:not(.pe-plain) {
+        border: solid 1px var(--pe-border); background: var(--pe-input-bg);
+    }
+    &.pe-disabled {
+        > * {
+            pointer-events: none;
+        }
+    }
+    
+    .pe-datepanel-header {
+        display: flex; white-space: nowrap;
+
+        .pe-datepanel-left {
+            flex: 1; display: flex; gap: var(--pe-xspadding);
+
+            .pe-datepanel-monthleft, .pe-datepanel-monthright {
+                .pe-datepanel-arrow {
+                    display: flex; justify-content: center; align-items: center; width: 14px;
+                    &::after {
+                        content: ''; border: solid 1px var(--pe-color); width: 6px; height: 6px; transform: rotate(45deg);
+                    }
+                }
+            }
+            .pe-datepanel-monthleft {
+                .pe-datepanel-arrow::after {
+                    border-width: 0 0 1px 1px; margin-left: 3px;
+                }
+            }
+            .pe-datepanel-monthright {
+                .pe-datepanel-arrow::after {
+                    border-width: 1px 1px 0 0; margin-right: 3px;
+                }
+            }
+        }
+        .pe-datepanel-right {
+            justify-content: right; display: flex; gap: var(--pe-xspadding); padding-left: var(--pe-xspadding);
+        }
+    }
+
+    .pe-datepanel-week {
+        display: flex;
+
+        > * {
+            flex: 1; display: flex; justify-content: center; padding: var(--pe-xspadding);
+        }
+    }
+
+    .pe-datepanel-row {
+        display: flex; gap: var(--pe-xspadding); flex: 1;
+
+        .pe-datepanel-col {
+            flex: 1; display: flex; flex-direction: column; gap: var(--pe-xspadding); padding: var(--pe-xspadding); border-radius: var(--pe-radius); transition: var(--pe-transition); outline: solid .5px transparent; position: relative;
+            &:not(.pe-disabled) {
+                &:hover:not(.selected):not(.pe-datepanel-range-left):not(.pe-datepanel-range-right) {
+                    outline: solid 1px var(--pe-h-color);
+                }
+                &:active {
+                    box-shadow: var(--pe-outline-shadow); background: var(--pe-h-bgcolor); outline: solid 1px var(--pe-h-color);
+                }
+            }
+            &.pe-disabled {
+                > * {
+                    pointer-events: none;
+                }
+            }
+            &.pe-selected, &.pe-datepanel-range-left, &.pe-datepanel-range-right {
+                background: var(--pe-h-bgcolor); outline: solid 1px var(--pe-h-color);
+            }
+            &::before, &::after {
+                content: ''; position: absolute; top: 0; bottom: 0; width: var(--pe-xspadding); background: var(--pe-h-color); opacity: 0; transition: var(--pe-transition);
+            }
+            &::before {
+                left: calc(0px - var(--pe-xspadding));
+            }
+            &::after {
+                right: calc(0px - var(--pe-xspadding));
+            }
+
+            &.pe-datepanel-range {
+                background: var(--pe-h-color); border-radius: 0; color: #FFF;
+                &::before, &::after {
+                    opacity: 1;
+                }
+            }
+            &.pe-datepanel-range-right {
+                &::after {
+                    opacity: 1;
+                }
+            }
+            &.pe-datepanel-range-left {
+                &::before {
+                    opacity: 1;
+                }
+            }
+
+            .pe-datepanel-colh {
+                display: flex; justify-content: center; align-items: center; flex: 1; font-size: 16px;
+            }
+
+            .pe-datepanel-colb {
+                display: flex;
+            }
+
+        }
+    }
+
+    .pe-datepanel-footer {
+        display: flex; gap: var(--pe-xspadding); align-items: center; justify-content: center;
+    }
+}
+
+// --- Date 控件 ---
+
+.pe-date-wrap {
+    display: flex; outline: none; border-radius: var(--pe-radius); border-style: solid; border-width: .5px; transition: var(--pe-transition); position: relative;
+
+    .pe-date-first {
+        display: flex; justify-content: center; flex: 1;
+
+        > div {
+            padding: var(--pe-xspadding); gap: var(--pe-xspadding); display: flex;
+        }
+    }
+
+    .pe-date-clear {
+        display: flex; align-items: center; justify-content: center; opacity: .6; transition: var(--pe-transition);
+        svg {
+            width: 24px; height: 24px;
+        }
+        &:hover {
+            opacity: 1;
+        }
+    }
+
+    &:not(.pe-disabled) {
+        background: var(--pe-input-bg);
+        border-color: var(--pe-border);
+
+        .pe-date-first > div {
+            transition: var(--pe-transition);
+            &:hover {
+                background: var(--pe-input-hover-bg);
+            }
+            &:active {
+                background: var(--pe-input-bg);
+            }
+        }
+    }
+
+    .pe-pop {
+        display: flex;
+        &.pe-date-list {
+            padding: var(--pe-xspadding); flex-direction: column; height: 350px;
+            > :first-child {
+                // --- 列表项 ---
+                display: flex; flex: 1; height: 0;
+                > :not(:last-child) {
+                    margin-right: var(--pe-xspadding);
+                }
+        
+                .pe-date-item {
+                    display: flex; flex-direction: column;
+                    .pe-date-title {
+                        text-align: center;
+                    }
+                    .pe-dlist {
+                        width: 120px; flex: 1; height: 0; margin-top: var(--pe-xspadding);
+                    }
+                }
+            }
+            > :last-child {
+                // --- 控制按钮 ---
+                display: flex; margin-top: var(--pe-xspadding);
+                > :first-child {
+                    margin-right: var(--pe-xspadding);
+                }
+                > * {
+                    flex: 1;
+                }
+            }
+        }
+    }
+}
+
+// --- Daterange ---
+
+.pe-daterange-wrap {
+    display: flex; outline: none; border-radius: var(--pe-radius); border-style: solid; border-width: .5px; transition: var(--pe-transition); position: relative;
+
+    .pe-daterange-first {
+        display: flex; justify-content: center; flex: 1;
+
+        > div {
+            padding: var(--pe-xspadding); gap: var(--pe-xspadding); display: flex;
+        }
+    }
+
+    .pe-daterange-clear {
+        display: flex; align-items: center; justify-content: center; opacity: .6; transition: var(--pe-transition);
+        svg {
+            width: 24px; height: 24px;
+        }
+        &:hover {
+            opacity: 1;
+        }
+    }
+
+    &:not(.pe-disabled) {
+        background: var(--pe-input-bg);
+        border-color: var(--pe-border);
+
+        .pe-daterange-first:not(.pe-pop) > div {
+            transition: var(--pe-transition);
+            &:hover:not(:active) {
+                background: var(--pe-input-hover-bg);
+            }
+            &:active {
+                background: var(--pe-input-bg);
+            }
+        }
+    }
+    
+    .pe-pop {
+        display: flex;
+        &.pe-daterange-first {
+            > :first-child {
+                border-right: solid .5px var(--pe-border-plain);
+            }
+        }
+        &.pe-daterange-list {
+            padding: var(--pe-xspadding); flex-direction: column; height: 350px;
+            > :first-child {
+                // --- 列表项 ---
+                display: flex; flex: 1; height: 0;
+                > :not(:last-child) {
+                    margin-right: var(--pe-xspadding);
+                }
+        
+                .pe-daterange-item {
+                    display: flex; flex-direction: column;
+                    .pe-daterange-title {
+                        text-align: center;
+                    }
+                    .pe-dlist {
+                        width: 120px; flex: 1; height: 0; margin-top: var(--pe-xspadding)
+                    }
+                }
+            }
+            > :last-child {
+                // --- 控制按钮 ---
+                display: flex; margin-top: var(--pe-xspadding);
+                > :first-child {
+                    margin-right: var(--pe-xspadding);
+                }
+                > * {
+                    flex: 1;
+                }
+            }
+        }
+    }
+}
+
 
 // --- 小屏设备 ---
 
@@ -1249,6 +1576,13 @@ html.pe-dheader {
 }
 
 @media screen and (max-width: 800px) {
+
+    html {
+        --pe-lpadding:40px;
+        --pe-padding:30px;
+        --pe-spadding:14px;
+        --pe-xspadding:12px;
+    }
 
     // --- 文字相关 ---
 
