@@ -38,9 +38,25 @@ pureaseGlobal = {};
                 <pe-table-cell>Cell3</pe-table-cell>
             </pe-table-row>
         </pe-table>
-        <pe-table>
+        <div class="pe-title">adaption</div>
+        <pe-table adaption>
             <pe-table-row>
-                <pe-table-head></pe-table-head>
+                <pe-table-head>Title</pe-table-head>
+                <pe-table-head>Head1</pe-table-head>
+                <pe-table-head>Head2</pe-table-head>
+                <pe-table-head>Head3</pe-table-head>
+            </pe-table-row>
+            <pe-table-row v-for="i of 5">
+                <pe-table-cell>Title</pe-table-cell>
+                <pe-table-cell>Cell1</pe-table-cell>
+                <pe-table-cell>Cell2</pe-table-cell>
+                <pe-table-cell>Cell3</pe-table-cell>
+            </pe-table-row>
+        </pe-table>
+        <div class="pe-title">plain</div>
+        <pe-table adaption plain>
+            <pe-table-row>
+                <pe-table-head>Title</pe-table-head>
                 <pe-table-head>Head1</pe-table-head>
                 <pe-table-head>Head2</pe-table-head>
                 <pe-table-head>Head3</pe-table-head>
@@ -99,6 +115,18 @@ pureaseGlobal = {};
             <div class="pe-button pe-pgrey" @click="dphm = '220232'">Set hourminute</div>
             <div class="pe-button pe-pgrey" @click="dptz = 7.5">Set tz</div>
             <div class="pe-button pe-pgrey" @click="dplockhm = !dplockhm">{{dplockhm ? '' : '!'}}lockhm</div>
+        </div>
+    </div>
+</div>
+<!-- vnumber -->
+<div class="pe-block">
+    <div class="pe-btitle">vnumber</div>
+    <div class="pe-layout pe-content pe-padding-lr" style="align-items: center; margin-top: 20px; gap: 20px; flex-direction: column;">
+        <pe-vnumber v-model="vnumber" :disabled="vnumberDisabled"></pe-vnumber>
+        <div>value: {{vnumber}}</div>
+        <div class="pe-layout" style="gap: 20px; justify-content: center;">
+            <div class="pe-button pe-pgrey" @click="vnumberDisabled = !vnumberDisabled">{{vnumberDisabled ? '' : '!'}}disabled</div>
+            <div class="pe-button pe-pgrey" @click="vnumber = '200505'">Set value</div>
         </div>
     </div>
 </div>

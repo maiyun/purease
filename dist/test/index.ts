@@ -214,6 +214,12 @@ class Page extends purease.AbstractPage {
     /** --- daterange 的时间戳 --- */
     public drts: number[] = [];
 
+    // --- vnumber ---
+
+    public vnumber: string = '';
+
+    public vnumberDisabled: boolean = false;
+
 }
 
 purease.launcher(Page, {

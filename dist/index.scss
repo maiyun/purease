@@ -1262,6 +1262,10 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     > :last-child {
         border-radius: 0 0 var(--pe-radius) var(--pe-radius);
     }
+
+    &.pe-plain {
+        border-left: none; border-right: none; box-shadow: none;
+    }
 }
 
 .pe-table-header {
@@ -1566,6 +1570,32 @@ html.pe-dheader {
     }
 }
 
+// --- Vnumber ---
+
+@keyframes pe-vnumber-insert {
+    0% { opacity: 0; }
+    10% { opacity: 1; }
+    50% { opacity: 1; }
+    60% { opacity: 0; }
+    100% { opacity: 0; }
+}
+
+.pe-vnumber-wrap {
+    border: solid 1px var(--pe-border); display: flex; cursor: text; outline: none; transition: var(--pe-transition); border-radius: var(--pe-radius);
+    > :last-child {
+        border-right: none;
+    }
+    
+    &.pe-focus {
+        box-shadow: var(--pe-outline-shadow);
+    }
+}
+.pe-vnumber-item {
+    border-right: solid 1px var(--pe-border-plain); width: calc(var(--pe-spadding) * 2 + 16px); height: calc(var(--pe-spadding) * 2 + 16px); display: flex; align-items: center; justify-content: center; -webkit-user-select: none; user-select: none;
+}
+.pe-vnumber-insert {
+    animation: pe-vnumber-insert 1s linear infinite;
+}
 
 // --- 小屏设备 ---
 

@@ -1746,19 +1746,27 @@ exports.list = {
                 'default': false
             }
         },
-        'computed': Object.assign({}, tool.clone(common.computed))
+        'computed': Object.assign({}, tool.clone(common.computed)),
     },
     'pe-table': {
-        'template': `<div class="pe-table" :class="[isAdaption&&'pe-adaption']">` +
+        'template': `<div class="pe-table" :class="[propBoolean('adaption')&&'pe-adaption',propBoolean('plain')&&'pe-plain']">` +
             `<slot></slot>` +
             `</div>`,
         'data': function () {
             return {
                 'controlName': 'table',
                 'headCount': 0,
-                'isAdaption': false,
             };
-        }
+        },
+        'props': {
+            'adaption': {
+                'default': false
+            },
+            'plain': {
+                'default': false
+            }
+        },
+        'computed': Object.assign({}, tool.clone(common.computed)),
     },
     'pe-table-row': {
         'template': `<div class="pe-table-row" :class="[isAdaption&&'pe-adaption',(index===0)&&'pe-table-header']" :style="{'--pe-cols': table?.headCount.toString()}">` +
@@ -1774,11 +1782,10 @@ exports.list = {
         },
         'computed': Object.assign(Object.assign({}, tool.clone(common.computed)), { 'isAdaption': function () {
                 var _a, _b;
-                return (_b = (_a = this.table) === null || _a === void 0 ? void 0 : _a.isAdaption) !== null && _b !== void 0 ? _b : false;
+                return (_b = (_a = this.table) === null || _a === void 0 ? void 0 : _a.propBoolean('adaption')) !== null && _b !== void 0 ? _b : false;
             } }),
-        methods: {
+        'methods': {
             updateHeadCount: function (o) {
-                var _a;
                 if (o === '+') {
                     ++this.headCount;
                 }
@@ -1793,7 +1800,6 @@ exports.list = {
                 }
                 if (this.table) {
                     this.table.headCount = this.headCount;
-                    this.table.isAdaption = ((_a = this.$el.children.item(0)) === null || _a === void 0 ? void 0 : _a.innerHTML) ? false : true;
                 }
             }
         },
@@ -2538,7 +2544,7 @@ exports.list = {
                         'value': undefined
                     }
                 };
-                this.emit('changed', event);
+                this.$emit('changed', event);
                 if (this.cursorDate !== '') {
                     this.cursorDate = '';
                     this.$emit('update:cursor', '');
@@ -3594,5 +3600,71 @@ exports.list = {
                 'deep': true
             });
         }
+    },
+    'pe-vnumber': {
+        'template': `<div class="pe-vnumber-wrap" :class="[isFocus&&'pe-focus',propBoolean('disabled')&&'pe-disabled']" :tabindex="propBoolean('disabled') ? undefined : '0'" @focus="isFocus=true" @blur="isFocus=false" @keydown="keydown">
+    <div v-for="item of length" class="pe-vnumber-item">
+        <span v-if="value[item - 1]">{{value[item - 1]}}</span><span v-else-if="isFocus && (value.length + 1) === item" class="pe-vnumber-insert">▁</span><span v-else></span>
+    </div>
+</div>`,
+        'emits': {
+            'changed': null,
+            'update:modelValue': null,
+        },
+        'props': {
+            'disabled': {
+                'default': false,
+            },
+            'modelValue': {
+                'default': '',
+            },
+            'length': {
+                'default': 6
+            },
+        },
+        data: function () {
+            return {
+                'value': [],
+                'isFocus': false
+            };
+        },
+        'computed': Object.assign({}, tool.clone(common.computed)),
+        'watch': {
+            'modelValue': {
+                handler: function () {
+                    this.value.length = 0;
+                    for (const char of this.modelValue) {
+                        if (this.value.length === this.length) {
+                            return;
+                        }
+                        if (!/[0-9]/.test(char)) {
+                            continue;
+                        }
+                        this.value.push(char);
+                    }
+                },
+                'immediate': true
+            }
+        },
+        'methods': {
+            keydown: function (e) {
+                if (e.key === 'Backspace') {
+                    if (!this.value.length) {
+                        return;
+                    }
+                    this.value.splice(-1, 1);
+                    this.$emit('update:modelValue', this.value.join(''));
+                    return;
+                }
+                if (!/[0-9]/.test(e.key)) {
+                    return;
+                }
+                if (this.value.length === this.length) {
+                    return;
+                }
+                this.value.push(e.key);
+                this.$emit('update:modelValue', this.value.join(''));
+            }
+        },
     }
 };

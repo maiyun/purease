@@ -1849,19 +1849,29 @@ export const list: Record<string, any> = {
         },
         'computed': {
             ...tool.clone(common.computed),
-        }
+        },
     },
     'pe-table': {
-        'template': `<div class="pe-table" :class="[isAdaption&&'pe-adaption']">` +
+        'template': `<div class="pe-table" :class="[propBoolean('adaption')&&'pe-adaption',propBoolean('plain')&&'pe-plain']">` +
             `<slot></slot>` +
         `</div>`,
         'data': function() {
             return {
                 'controlName': 'table',
                 'headCount': 0,
-                'isAdaption': false,
             };
-        }
+        },
+        'props': {
+            'adaption': {
+                'default': false
+            },
+            'plain': {
+                'default': false
+            }
+        },
+        'computed': {
+            ...tool.clone(common.computed),
+        },
     },
     'pe-table-row': {
         'template': `<div class="pe-table-row" :class="[isAdaption&&'pe-adaption',(index===0)&&'pe-table-header']" :style="{'--pe-cols': table?.headCount.toString()}">` +
@@ -1878,10 +1888,10 @@ export const list: Record<string, any> = {
         'computed': {
             ...tool.clone(common.computed),
             'isAdaption': function() {
-                return this.table?.isAdaption ?? false;
-            }
+                return this.table?.propBoolean('adaption') ?? false;
+            },
         },
-        methods: {
+        'methods': {
             updateHeadCount: function(this: types.IVue, o: '+' | '-') {
                 if (o === '+') {
                     ++this.headCount;
@@ -1898,7 +1908,6 @@ export const list: Record<string, any> = {
                 // --- 一些参数 ---
                 if (this.table) {
                     this.table.headCount = this.headCount;
-                    this.table.isAdaption = this.$el.children.item(0)?.innerHTML ? false : true;
                 }
             }
         },
@@ -2727,7 +2736,7 @@ export const list: Record<string, any> = {
                         'value': undefined
                     }
                 };
-                this.emit('changed', event);
+                this.$emit('changed', event);
                 if (this.cursorDate !== '') {
                     this.cursorDate = '';
                     this.$emit('update:cursor', '');
@@ -3867,5 +3876,74 @@ export const list: Record<string, any> = {
                 'deep': true
             });
         }
+    },
+    'pe-vnumber': {
+        'template': `<div class="pe-vnumber-wrap" :class="[isFocus&&'pe-focus',propBoolean('disabled')&&'pe-disabled']" :tabindex="propBoolean('disabled') ? undefined : '0'" @focus="isFocus=true" @blur="isFocus=false" @keydown="keydown">
+    <div v-for="item of length" class="pe-vnumber-item">
+        <span v-if="value[item - 1]">{{value[item - 1]}}</span><span v-else-if="isFocus && (value.length + 1) === item" class="pe-vnumber-insert">▁</span><span v-else></span>
+    </div>
+</div>`,
+        'emits': {
+            'changed': null,
+            'update:modelValue': null,
+        },
+        'props': {
+            'disabled': {
+                'default': false,
+            },
+
+            'modelValue': {
+                'default': '',
+            },
+            'length': {
+                'default': 6
+            },
+        },
+        data: function() {
+            return {
+                'value': [],
+                'isFocus': false
+            };
+        },
+        'computed': {
+            ...tool.clone(common.computed),
+        },
+        'watch': {
+            'modelValue': {
+                handler: function(this: types.IVue) {
+                    this.value.length = 0;
+                    for (const char of this.modelValue) {
+                        if (this.value.length === this.length) {
+                            return;
+                        }
+                        if (!/[0-9]/.test(char)) {
+                            continue;
+                        }
+                        this.value.push(char);
+                    }
+                },
+                'immediate': true
+            }
+        },
+        'methods': {
+            keydown: function(this: types.IVue, e: KeyboardEvent) {
+                if (e.key === 'Backspace') {
+                    if (!this.value.length) {
+                        return;
+                    }
+                    this.value.splice(-1, 1);
+                    this.$emit('update:modelValue', this.value.join(''));
+                    return;
+                }
+                if (!/[0-9]/.test(e.key)) {
+                    return;
+                }
+                if (this.value.length === this.length) {
+                    return;
+                }
+                this.value.push(e.key);
+                this.$emit('update:modelValue', this.value.join(''));
+            }
+        },
     }
 };
