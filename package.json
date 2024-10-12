@@ -1,6 +1,6 @@
 {
     "name": "purease",
-    "version": "0.0.12",
+    "version": "0.0.13",
     "description": "Lightweight and user-friendly front-end library.",
     "keywords": [
         "purease",
@@ -13,8 +13,8 @@
     "types": "./types/index.d.ts",
     "devDependencies": {
         "@litert/eslint-plugin-rules": "^0.1.7",
-        "@litert/loader": "^3.5.7",
-        "@types/node": "^20.14.2",
-        "typescript": "^5.4.5"
+        "@litert/loader": "^3.5.8",
+        "@types/node": "^22.7.5",
+        "typescript": "^5.6.3"
     }
 }
