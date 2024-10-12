@@ -1,6 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.bindDown = exports.index = exports.findParentByTag = exports.findParentByClass = exports.hasTouchButMouse = exports.hidePop = exports.showPop = void 0;
+exports.showPop = showPop;
+exports.hidePop = hidePop;
+exports.hasTouchButMouse = hasTouchButMouse;
+exports.findParentByClass = findParentByClass;
+exports.findParentByTag = findParentByTag;
+exports.index = index;
+exports.bindDown = bindDown;
 let lastTouchTime = 0;
 document.addEventListener('touchstart', function (e) {
     lastTouchTime = Date.now();
@@ -27,7 +33,6 @@ function showPop(e, pop) {
         pop.dataset.pePopLevel = (showedPop.length - 1).toString();
     }, 34);
 }
-exports.showPop = showPop;
 function hidePop(pop) {
     var _a;
     if (!pop) {
@@ -53,7 +58,6 @@ function hidePop(pop) {
         pop.classList.remove('pe-pshow');
     }, 334);
 }
-exports.hidePop = hidePop;
 function refreshPopPosition() {
     for (let i = 0; i < showedPopEl.length; ++i) {
         const el = showedPopEl[i];
@@ -83,7 +87,6 @@ function hasTouchButMouse(e) {
     }
     return false;
 }
-exports.hasTouchButMouse = hasTouchButMouse;
 function findParentByClass(el, name) {
     let parent = el.parentNode;
     while (parent) {
@@ -100,7 +103,6 @@ function findParentByClass(el, name) {
     }
     return null;
 }
-exports.findParentByClass = findParentByClass;
 function doDown(e) {
     var _a;
     if (hasTouchButMouse(e)) {
@@ -156,7 +158,6 @@ function findParentByTag(el, name) {
     }
     return null;
 }
-exports.findParentByTag = findParentByTag;
 function index(el) {
     let index = 0;
     let p = el.previousElementSibling;
@@ -169,7 +170,6 @@ function index(el) {
     }
     return index;
 }
-exports.index = index;
 function bindDown(oe, opt) {
     var _a;
     if (hasTouchButMouse(oe)) {
@@ -279,4 +279,3 @@ function bindDown(oe, opt) {
     }
     (_a = opt.down) === null || _a === void 0 ? void 0 : _a.call(opt, oe);
 }
-exports.bindDown = bindDown;

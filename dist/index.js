@@ -33,7 +33,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.launcher = exports.global = exports.vue = exports.AbstractPanel = exports.AbstractPage = exports.tool = void 0;
+exports.global = exports.vue = exports.AbstractPanel = exports.AbstractPage = exports.tool = void 0;
+exports.launcher = launcher;
 const control = __importStar(require("./control"));
 const tool = __importStar(require("./tool"));
 exports.tool = tool;
@@ -418,4 +419,3 @@ function launcher(page, options = {}) {
         console.log('launcher', e);
     });
 }
-exports.launcher = launcher;

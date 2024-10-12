@@ -9,7 +9,37 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.isPhoneCN = exports.isDomain = exports.isIPv6 = exports.isIPv4 = exports.isEMail = exports.queryParse = exports.queryStringify = exports.formatTime = exports.formatSecond = exports.blob2DataUrl = exports.blob2Text = exports.urlAtom = exports.urlResolve = exports.parseUrl = exports.postResponseJson = exports.getResponseJson = exports.post = exports.get = exports.fetch = exports.request = exports.escapeHTML = exports.getDecimal = exports.getArray = exports.getNumber = exports.getBoolean = exports.random = exports.RANDOM_LUNS = exports.RANDOM_V = exports.RANDOM_LUN = exports.RANDOM_LU = exports.RANDOM_LN = exports.RANDOM_UN = exports.RANDOM_L = exports.RANDOM_U = exports.RANDOM_N = exports.rand = exports.sleep = exports.getClassPrototype = exports.clone = void 0;
+exports.RANDOM_LUNS = exports.RANDOM_V = exports.RANDOM_LUN = exports.RANDOM_LU = exports.RANDOM_LN = exports.RANDOM_UN = exports.RANDOM_L = exports.RANDOM_U = exports.RANDOM_N = void 0;
+exports.clone = clone;
+exports.getClassPrototype = getClassPrototype;
+exports.sleep = sleep;
+exports.rand = rand;
+exports.random = random;
+exports.getBoolean = getBoolean;
+exports.getNumber = getNumber;
+exports.getArray = getArray;
+exports.getDecimal = getDecimal;
+exports.escapeHTML = escapeHTML;
+exports.request = request;
+exports.fetch = fetch;
+exports.get = get;
+exports.post = post;
+exports.getResponseJson = getResponseJson;
+exports.postResponseJson = postResponseJson;
+exports.parseUrl = parseUrl;
+exports.urlResolve = urlResolve;
+exports.urlAtom = urlAtom;
+exports.blob2Text = blob2Text;
+exports.blob2DataUrl = blob2DataUrl;
+exports.formatSecond = formatSecond;
+exports.formatTime = formatTime;
+exports.queryStringify = queryStringify;
+exports.queryParse = queryParse;
+exports.isEMail = isEMail;
+exports.isIPv4 = isIPv4;
+exports.isIPv6 = isIPv6;
+exports.isDomain = isDomain;
+exports.isPhoneCN = isPhoneCN;
 function clone(obj) {
     let newObj = {};
     if (obj instanceof Array) {
@@ -61,7 +91,6 @@ function clone(obj) {
     }
     return newObj;
 }
-exports.clone = clone;
 function getClassPrototype(obj, over = [], level = 0) {
     var _a;
     if (level === 0) {
@@ -107,7 +136,6 @@ function getClassPrototype(obj, over = [], level = 0) {
     Object.assign(rtn.access, rtn2.access);
     return rtn;
 }
-exports.getClassPrototype = getClassPrototype;
 function sleep(ms = 0) {
     return new Promise(function (resolve) {
         window.setTimeout(function () {
@@ -115,14 +143,12 @@ function sleep(ms = 0) {
         }, ms);
     });
 }
-exports.sleep = sleep;
 function rand(min, max) {
     if (min > max) {
         [min, max] = [max, min];
     }
     return min + Math.round(Math.random() * (max - min));
 }
-exports.rand = rand;
 exports.RANDOM_N = '0123456789';
 exports.RANDOM_U = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 exports.RANDOM_L = 'abcdefghijklmnopqrstuvwxyz';
@@ -149,7 +175,6 @@ function random(length = 8, source = exports.RANDOM_LN, block = '') {
     }
     return temp;
 }
-exports.random = random;
 function getBoolean(param) {
     const t = typeof param;
     if (t === 'boolean') {
@@ -160,14 +185,12 @@ function getBoolean(param) {
     }
     return param ? true : false;
 }
-exports.getBoolean = getBoolean;
 function getNumber(param) {
     if (typeof param === 'number') {
         return param;
     }
     return parseFloat(param);
 }
-exports.getNumber = getNumber;
 function getArray(param) {
     if (typeof param !== 'string') {
         return param;
@@ -188,16 +211,13 @@ function getArray(param) {
     }
     return rtn;
 }
-exports.getArray = getArray;
 function getDecimal(number) {
     const integerPart = Math.sign(number) === 1 ? Math.floor(number) : Math.ceil(number);
     return number - integerPart;
 }
-exports.getDecimal = getDecimal;
 function escapeHTML(html) {
     return html.replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
-exports.escapeHTML = escapeHTML;
 function request(url, opt) {
     return new Promise(function (resove) {
         var _a;
@@ -303,51 +323,40 @@ function request(url, opt) {
         xhr.send(opt.body);
     });
 }
-exports.request = request;
 function fetch(url, init) {
     return loader.fetch(url, init);
 }
-exports.fetch = fetch;
 function get(url, opt) {
     return loader.get(url, opt);
 }
-exports.get = get;
 function post(url, data, opt) {
     return loader.post(url, data, opt);
 }
-exports.post = post;
 function getResponseJson(url, opt) {
     return __awaiter(this, void 0, void 0, function* () {
         return loader.getResponseJson(url, opt);
     });
 }
-exports.getResponseJson = getResponseJson;
 function postResponseJson(url, data, opt) {
     return __awaiter(this, void 0, void 0, function* () {
         return loader.postResponseJson(url, data, opt);
     });
 }
-exports.postResponseJson = postResponseJson;
 function parseUrl(url) {
     return loader.parseUrl(url);
 }
-exports.parseUrl = parseUrl;
 function urlResolve(from, to) {
     return loader.urlResolve(from, to);
 }
-exports.urlResolve = urlResolve;
 function urlAtom(url) {
     return loader.urlAtom(url);
 }
-exports.urlAtom = urlAtom;
 function blob2Text(blob) {
     return loader.blob2Text(blob);
 }
-exports.blob2Text = blob2Text;
 function blob2DataUrl(blob) {
     return loader.blob2DataUrl(blob);
 }
-exports.blob2DataUrl = blob2DataUrl;
 function formatSecond(second) {
     const h = Math.floor(second / 3600);
     second = second - h * 3600;
@@ -355,7 +364,6 @@ function formatSecond(second) {
     const s = Math.floor(second - m * 60);
     return (h ? h.toString().padStart(2, '0') + ':' : '') + m.toString().padStart(2, '0') + ':' + s.toString().padStart(2, '0');
 }
-exports.formatSecond = formatSecond;
 function formatTime(ts, tz) {
     const rtn = {
         'date': '',
@@ -372,7 +380,6 @@ function formatTime(ts, tz) {
     rtn.zone = 'UTC' + (ntz >= 0 ? '+' : '') + ntz.toString();
     return rtn;
 }
-exports.formatTime = formatTime;
 function queryStringify(query) {
     return Object.entries(query).map(([k, v]) => {
         if (Array.isArray(v)) {
@@ -381,7 +388,6 @@ function queryStringify(query) {
         return `${encodeURIComponent(k)}=${encodeURIComponent(`${v}`)}`;
     }).join('&');
 }
-exports.queryStringify = queryStringify;
 function queryParse(query) {
     const ret = {};
     const arrayKeys = {};
@@ -405,24 +411,18 @@ function queryParse(query) {
     }
     return ret;
 }
-exports.queryParse = queryParse;
 function isEMail(email) {
     return /^[-_\w.]+@[-_\w.]+\.([a-zA-Z]+)$/i.test(email);
 }
-exports.isEMail = isEMail;
 function isIPv4(ip) {
     return /^[0-9]{1,3}(\.[0-9]{1,3}){3}$/.test(ip);
 }
-exports.isIPv4 = isIPv4;
 function isIPv6(ip) {
     return /^(\w*?:){2,7}[\w.]*$/.test(ip + ':');
 }
-exports.isIPv6 = isIPv6;
 function isDomain(domain) {
     return /^.+?\.((?![0-9]).)+$/i.test(domain);
 }
-exports.isDomain = isDomain;
 function isPhoneCN(p) {
     return /^1[0-9]{10}$/.test(p);
 }
-exports.isPhoneCN = isPhoneCN;

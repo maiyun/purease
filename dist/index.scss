@@ -31,6 +31,7 @@ html {
     --pe-padding:40px;
     --pe-spadding:20px;
     --pe-xspadding:15px;
+    --pe-xxspadding:8px;
 
     // --- 基础颜色 ---
     --success:hsl(150, 100%, 40%);
@@ -1321,7 +1322,7 @@ html.pe-dheader {
         display: flex; white-space: nowrap;
 
         .pe-datepanel-left {
-            flex: 1; display: flex; gap: var(--pe-xspadding);
+            flex: 1; display: flex; gap: var(--pe-xxspadding);
 
             .pe-datepanel-monthleft, .pe-datepanel-monthright {
                 .pe-datepanel-arrow {
@@ -1343,7 +1344,7 @@ html.pe-dheader {
             }
         }
         .pe-datepanel-right {
-            justify-content: right; display: flex; gap: var(--pe-xspadding); padding-left: var(--pe-xspadding);
+            justify-content: right; display: flex; gap: var(--pe-xxspadding); padding-left: var(--pe-xxspadding);
         }
     }
 
@@ -1351,15 +1352,15 @@ html.pe-dheader {
         display: flex;
 
         > * {
-            flex: 1; display: flex; justify-content: center; padding: var(--pe-xspadding);
+            flex: 1; display: flex; justify-content: center; padding: var(--pe-xxspadding);
         }
     }
 
     .pe-datepanel-row {
-        display: flex; gap: var(--pe-xspadding); flex: 1;
+        display: flex; gap: var(--pe-xxspadding); flex: 1;
 
         .pe-datepanel-col {
-            flex: 1; display: flex; flex-direction: column; gap: var(--pe-xspadding); padding: var(--pe-xspadding); border-radius: var(--pe-radius); transition: var(--pe-transition); outline: solid .5px transparent; position: relative;
+            flex: 1; display: flex; flex-direction: column; gap: var(--pe-xxspadding); padding: var(--pe-xxspadding); border-radius: var(--pe-radius); transition: var(--pe-transition); outline: solid .5px transparent; position: relative;
             &:not(.pe-disabled) {
                 &:hover:not(.selected):not(.pe-datepanel-range-left):not(.pe-datepanel-range-right) {
                     outline: solid 1px var(--pe-h-color);
@@ -1377,13 +1378,13 @@ html.pe-dheader {
                 background: var(--pe-h-bgcolor); outline: solid 1px var(--pe-h-color);
             }
             &::before, &::after {
-                content: ''; position: absolute; top: 0; bottom: 0; width: var(--pe-xspadding); background: var(--pe-h-color); opacity: 0; transition: var(--pe-transition);
+                content: ''; position: absolute; top: 0; bottom: 0; width: var(--pe-xxspadding); background: var(--pe-h-color); opacity: 0; transition: var(--pe-transition);
             }
             &::before {
-                left: calc(0px - var(--pe-xspadding));
+                left: calc(0px - var(--pe-xxspadding));
             }
             &::after {
-                right: calc(0px - var(--pe-xspadding));
+                right: calc(0px - var(--pe-xxspadding));
             }
 
             &.pe-datepanel-range {
@@ -1415,7 +1416,7 @@ html.pe-dheader {
     }
 
     .pe-datepanel-footer {
-        display: flex; gap: var(--pe-xspadding); align-items: center; justify-content: center;
+        display: flex; gap: var(--pe-xxspadding); align-items: center; justify-content: center;
     }
 }
 
