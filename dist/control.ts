@@ -3886,7 +3886,7 @@ export const list: Record<string, any> = {
     <div v-for="item of length" class="pe-vnumber-item">
         <span v-if="value[item - 1]">{{value[item - 1]}}</span><span v-else-if="isFocus && (value.length + 1) === item" class="pe-vnumber-insert">▁</span><span v-else></span>
     </div>
-    <input class="pe-vnumber-input" @focus="isFocus=true" @blur="isFocus=false" @keydown="keydown" />
+    <input class="pe-vnumber-input" @focus="isFocus=true" @blur="isFocus=false" @input="input" ref="input" />
 </div>`,
         'emits': {
             'changed': null,
@@ -3916,39 +3916,45 @@ export const list: Record<string, any> = {
         'watch': {
             'modelValue': {
                 handler: function(this: types.IVue) {
+                    if (!this.$refs.input) {
+                        return;
+                    }
+                    if (this.modelValue === this.$refs.input.value) {
+                        return;
+                    }
                     this.value.length = 0;
                     for (const char of this.modelValue) {
                         if (this.value.length === this.length) {
-                            return;
+                            break;
                         }
                         if (!/[0-9]/.test(char)) {
                             continue;
                         }
                         this.value.push(char);
                     }
+                    this.$refs.input.value = this.value.join('');
                 },
                 'immediate': true
             }
         },
         'methods': {
-            keydown: function(this: types.IVue, e: KeyboardEvent) {
-                (e.target as HTMLInputElement).value = '';
-                if (e.key === 'Backspace') {
-                    if (!this.value.length) {
-                        return;
+            input: function(this: types.IVue) {
+                const value = this.$refs.input.value;
+                this.value.length = 0;
+                for (const char of value) {
+                    if (this.value.length === this.length) {
+                        break;
                     }
-                    this.value.splice(-1, 1);
-                    this.$emit('update:modelValue', this.value.join(''));
-                    return;
+                    if (!/[0-9]/.test(char)) {
+                        continue;
+                    }
+                    this.value.push(char);
                 }
-                if (!/[0-9]/.test(e.key)) {
-                    return;
+                const mv = this.value.join('');
+                if (this.$refs.input.value !== mv) {
+                    this.$refs.input.value = mv;
                 }
-                if (this.value.length === this.length) {
-                    return;
-                }
-                this.value.push(e.key);
-                this.$emit('update:modelValue', this.value.join(''));
+                this.$emit('update:modelValue', mv);
             }
         },
     }
