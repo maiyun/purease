@@ -27,11 +27,22 @@ html {
     ::selection {
         background: var(--pe-h-color); color: var(--pe-h-fcolor);
     }
+
+    // --- 间距 ---
     --pe-lpadding:60px;
     --pe-padding:40px;
     --pe-spadding:20px;
     --pe-xspadding:15px;
     --pe-xxspadding:8px;
+
+    // --- 字号 ---
+    --pe-xxxlsize:42px;
+    --pe-xxlsize:32px;
+    --pe-xlsize:26px;
+    --pe-lsize:22px;
+    --pe-size:16px;
+    --pe-ssize:14px;
+    --pe-xssize:12px;
 
     // --- 基础颜色 ---
     --success:hsl(150, 100%, 40%);
@@ -58,7 +69,7 @@ html, body {
     padding: 0; margin: 0;
 }
 body, html, input, select, textarea {
-    font-family: var(--pe-font-life); color: var(--pe-color); fill: var(--pe-color); stroke: var(--pe-color); line-height: 1.5; font-size: 16px;
+    font-family: var(--pe-font-life); color: var(--pe-color); fill: var(--pe-color); stroke: var(--pe-color); line-height: 1.5; font-size: var(--pe-size);
 }
 a {
     color: var(--pe-color); fill: var(--pe-color); stroke: var(--pe-color); text-decoration: none; transition: var(--pe-transition); display: inline-flex; align-items: center;
@@ -110,19 +121,19 @@ html.pe-speed-imme {
 // --- 文字相关 ---
 
 .pe-btitle {
-    font-size: 42px;
+    font-size: var(--pe-xxxlsize);
 }
 .pe-title {
-    font-size: 32px;
+    font-size: var(--pe-xxlsize);
 }
 .pe-bnote {
-    font-size: 26px;
+    font-size: var(--pe-xlsize);
 }
 .pe-note {
-    font-size: 22px;
+    font-size: var(--pe-lsize);
 }
 .pe-gnote {
-    font-size: 22px; color: var(--pe-note-color); fill: var(--pe-note-color); stroke: var(--pe-note-color);
+    font-size: var(--pe-lsize); color: var(--pe-note-color); fill: var(--pe-note-color); stroke: var(--pe-note-color);
 }
 
 // --- pe-loading ---
@@ -665,7 +676,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     flex: 1; background-position: center; background-size: auto 80px; background-repeat: no-repeat;
 }
 .pe-hske-bottom {
-    padding: 0 var(--pe-spadding) var(--pe-spadding) var(--pe-spadding); text-align: center; font-size: 12px;
+    padding: 0 var(--pe-spadding) var(--pe-spadding) var(--pe-spadding); text-align: center; font-size: var(--pe-xssize);
 }
 
 // --- pe-footer ---
@@ -695,10 +706,10 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     display: flex; flex-direction: column; gap: var(--pe-spadding);
 }
 .pe-footer-title {
-    padding-bottom: 10px; font-size: 20px;
+    padding-bottom: 10px; font-size: var(--pe-lsize);
 }
 .pe-footer-bottom {
-    margin-top: 80px; margin-bottom: -40px; display: flex; flex-direction: column; gap: 10px; font-size: 14px; color: hsl(0, 0%, 40%); fill: hsl(0, 0%, 40%); stroke: hsl(0, 0%, 40%);
+    margin-top: 80px; margin-bottom: -40px; display: flex; flex-direction: column; gap: 10px; font-size: var(--pe-ssize); color: hsl(0, 0%, 40%); fill: hsl(0, 0%, 40%); stroke: hsl(0, 0%, 40%);
 }
 .pe-footer {
     &.pe-dark {
@@ -1093,7 +1104,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     display: flex; align-items: center;
 }
 .pe-drawer-title {
-    flex: 1; padding: 20px; font-size: 32px;
+    flex: 1; padding: 20px; font-size: var(--pe-xxlsize);
 }
 .pe-drawer-close {
     padding: 20px; margin-right: 20px; display: flex; align-items: center; transition: var(--pe-transition); border-radius: var(--pe-radius);
@@ -1405,7 +1416,7 @@ html.pe-dheader {
             }
 
             .pe-datepanel-colh {
-                display: flex; justify-content: center; align-items: center; flex: 1; font-size: 16px;
+                display: flex; justify-content: center; align-items: center; flex: 1; font-size: var(--pe-size);
             }
 
             .pe-datepanel-colb {
@@ -1582,9 +1593,13 @@ html.pe-dheader {
 }
 
 .pe-vnumber-wrap {
-    border: solid 1px var(--pe-border); display: flex; cursor: text; outline: none; transition: var(--pe-transition); border-radius: var(--pe-radius);
+    border: solid 1px var(--pe-border); display: flex; transition: var(--pe-transition); border-radius: var(--pe-radius); position: relative; overflow: hidden;
     > :last-child {
         border-right: none;
+    }
+
+    .pe-vnumber-input {
+        position: absolute; width: 100%; height: 100%; opacity: 0;
     }
     
     &.pe-focus {
@@ -1592,7 +1607,7 @@ html.pe-dheader {
     }
 }
 .pe-vnumber-item {
-    border-right: solid 1px var(--pe-border-plain); width: calc(var(--pe-spadding) * 2 + 16px); height: calc(var(--pe-spadding) * 2 + 16px); display: flex; align-items: center; justify-content: center; -webkit-user-select: none; user-select: none;
+    border-right: solid 1px var(--pe-border-plain); width: calc(var(--pe-spadding) * 2 + var(--pe-size)); height: calc(var(--pe-spadding) * 2 + var(--pe-size)); display: flex; align-items: center; justify-content: center; -webkit-user-select: none; user-select: none;
 }
 .pe-vnumber-insert {
     animation: pe-vnumber-insert 1s linear infinite;
@@ -1609,28 +1624,18 @@ html.pe-dheader {
 @media screen and (max-width: 800px) {
 
     html {
+        // --- 间距 ---
         --pe-lpadding:40px;
         --pe-padding:30px;
         --pe-spadding:14px;
         --pe-xspadding:12px;
-    }
-
-    // --- 文字相关 ---
-
-    .pe-btitle {
-        font-size: 32px;
-    }
-    .pe-title {
-        font-size: 22px;
-    }
-    .pe-bnote {
-        font-size: 20px;
-    }
-    .pe-note {
-        font-size: 18px;
-    }
-    .pe-gnote {
-        font-size: 18px;
+        // --- 字号 ---
+        --pe-xxxlsize:32px;
+        --pe-xxlsize:22px;
+        --pe-xlsize:20px;
+        --pe-lsize:18px;
+        --pe-size:14px;
+        --pe-ssize:13px;
     }
 
     // --- pe-header ---

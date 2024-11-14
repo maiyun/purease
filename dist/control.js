@@ -3276,6 +3276,9 @@ exports.list = {
                     this.vseconds = '00';
                     return;
                 }
+                if (this.timestamp === this.propInt('modelValue')) {
+                    return;
+                }
                 this.timestamp = this.propInt('modelValue');
                 this.dateObj.setTime(this.timestamp + this.tzData * 60 * 60 * 1000);
                 this.dateStr = this.dateObj.getUTCFullYear().toString() + '-' + (this.dateObj.getUTCMonth() + 1).toString().padStart(2, '0') + '-' + this.dateObj.getUTCDate().toString().padStart(2, '0');
@@ -3602,10 +3605,11 @@ exports.list = {
         }
     },
     'pe-vnumber': {
-        'template': `<div class="pe-vnumber-wrap" :class="[isFocus&&'pe-focus',propBoolean('disabled')&&'pe-disabled']" :tabindex="propBoolean('disabled') ? undefined : '0'" @focus="isFocus=true" @blur="isFocus=false" @keydown="keydown">
+        'template': `<div class="pe-vnumber-wrap" :class="[isFocus&&'pe-focus',propBoolean('disabled')&&'pe-disabled']">
     <div v-for="item of length" class="pe-vnumber-item">
         <span v-if="value[item - 1]">{{value[item - 1]}}</span><span v-else-if="isFocus && (value.length + 1) === item" class="pe-vnumber-insert">▁</span><span v-else></span>
     </div>
+    <input class="pe-vnumber-input" @focus="isFocus=true" @blur="isFocus=false" @keydown="keydown" />
 </div>`,
         'emits': {
             'changed': null,
@@ -3648,6 +3652,7 @@ exports.list = {
         },
         'methods': {
             keydown: function (e) {
+                e.target.value = '';
                 if (e.key === 'Backspace') {
                     if (!this.value.length) {
                         return;
