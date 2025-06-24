@@ -108,6 +108,7 @@ export function findParentByClass(el: HTMLElement, name: string): HTMLElement | 
     let parent = el.parentNode as HTMLElement;
     while (parent) {
         if (!parent.tagName) {
+            parent = parent.parentNode as HTMLElement;
             continue;
         }
         if (parent.tagName.toLowerCase() === 'body') {

@@ -1,0 +1,11 @@
+.pe-menu {
+    position: absolute; background: #FFF; border-radius: var(--pe-radius); box-shadow: 0px 15px 30px rgba(0, 0, 0, .07); opacity: 0; pointer-events: none; transform: translateY(10px); transition: var(--pe-transition); left: -30px; top: 100%; line-height: 1.5; padding: var(--pe-xspadding); display: flex; flex-direction: column; color: var(--pe-color); fill: var(--pe-color); stroke: var(--pe-color); min-width: 180px; white-space: nowrap; z-index: 1;
+}
+
+.pe-header {
+    &.pe-theme-rev {
+        .pe-menu {
+            box-shadow: none;
+        }
+    }
+}

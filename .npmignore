@@ -1,11 +1,16 @@
 .git/
+dist/control/
+dist/test/
+compiler.js
 node_modules/
-.eslintrc
+eslint.config.js
 .gitignore
 .npmrc
 .npmignore
-tsconfig.json
 .DS_Store
 /doc/
+*.ts
+!*.d.ts
+tsconfig.json
 
-/types/dev.d.ts
+/types/loader.d.ts

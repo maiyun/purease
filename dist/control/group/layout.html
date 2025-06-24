@@ -1,0 +1,11 @@
+<div class="pe-group" :class="[$slots['title']&&'pe-hastitle']">
+    <div v-if="$slots['title']" class="pe-group-title">
+        <slot name="title"></slot>
+    </div>
+    <div class="pe-group-content">
+        <slot></slot>
+    </div>
+    <div v-if="$slots['bottom']" class="pe-group-bottom">
+        <slot name="bottom"></slot>
+    </div>
+</div>

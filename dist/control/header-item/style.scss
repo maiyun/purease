@@ -1,0 +1,82 @@
+.pe-header-item {
+    transition: var(--pe-transition); position: relative; height: 70px; line-height: 70px; padding: 0 30px; display: flex; align-items: center;
+    &:hover {
+        color: var(--pe-h-color); fill: var(--pe-h-color); stroke: var(--pe-h-color);
+    }
+
+    &.pe-list {
+        cursor: default;
+        &::after {
+            content: ''; display: inline-block; width: 6px; height: 6px; border: solid 2px var(--pe-color); border-width: 0 0 2px 2px; transform: rotate(-45deg); margin-left: 10px; transition: var(--pe-transition); margin-top: -3px;
+        }
+        &:hover {
+            &::after {
+                border-color: var(--pe-h-color);
+            }
+            
+            .pe-menu {
+                opacity: 1; transform: translateY(0); pointer-events: initial;
+            }
+        }
+    }
+}
+html.pe-sheader {
+    .pe-header-item {
+        height: 50px; line-height: 50px;
+    }
+}
+
+html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
+    &.pe-theme-rev:not(.pe-black) {
+        &:not(:hover):not(.pe-show) {
+            color: #FFF; fill: #FFF; stroke: #FFF;
+            .pe-header-item {
+                color: #FFF; fill: #FFF; stroke: #FFF;
+                &.pe-list {
+                    &::after {
+                        border-color: #FFF;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1200px) and (min-width: 800px) {
+    .pe-header-item {
+        padding: 0 15px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+
+    .pe-header-item {
+        flex-direction: column; align-items: initial; height: initial;
+
+        &.pe-list {
+            &::after {
+                position: absolute; right: 30px; top: 32px;
+            }
+
+            .pe-menu {
+                position: initial; opacity: initial; transform: initial; pointer-events: initial; height: 0; padding: 0; overflow: hidden;
+            }
+            &:hover {
+                .pe-menu {
+                    height: initial; padding: 15px; margin-bottom: 15px;
+                }
+            }
+        }
+    }
+    html.pe-sheader {
+        .pe-header-item {
+            height: initial;
+            &.pe-list {
+                &::after {
+                    top: 22px;
+                }
+            }
+        }
+    }
+
+}

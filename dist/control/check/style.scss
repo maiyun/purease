@@ -1,0 +1,26 @@
+.pe-check-box {
+    background: var(--pe-input-bg); border-radius: var(--pe-radius); transition: var(--pe-transition); margin-right: 10px; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border: solid 1px var(--pe-border); box-shadow: var(--pe-shadow);
+    svg {
+        width: 18px; height: 18px; vertical-align: middle;
+    }
+}
+.pe-check {
+    display: inline-flex; align-items: center; cursor: default; -webkit-user-select: none; user-select: none;
+    &:hover {
+        .pe-check-box {
+            background: var(--pe-input-hover-bg); color: var(--pe-color);
+        }
+    }
+    &:focus, &:active {
+        .pe-check-box {
+            background: var(--pe-input-bg); box-shadow: var(--pe-outline-shadow);
+        }
+    }
+    &:not(.pe-checked) {
+        .pe-check-box {
+            svg {
+                display: none;
+            }
+        }
+    }
+}

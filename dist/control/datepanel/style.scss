@@ -1,0 +1,112 @@
+.pe-datepanel-wrap {
+    border-radius: var(--pe-radius); display: flex; flex-direction: column; gap: var(--pe-xspadding); padding: var(--pe-xspadding);
+    &:not(.pe-plain) {
+        border: solid 1px var(--pe-border); background: var(--pe-input-bg);
+    }
+    &.pe-disabled {
+        > * {
+            pointer-events: none;
+        }
+    }
+    
+    .pe-datepanel-header {
+        display: flex; white-space: nowrap;
+
+        .pe-datepanel-left {
+            flex: 1; display: flex; gap: var(--pe-xxspadding);
+
+            .pe-datepanel-monthleft, .pe-datepanel-monthright {
+                .pe-datepanel-arrow {
+                    display: flex; justify-content: center; align-items: center; width: 14px;
+                    &::after {
+                        content: ''; border: solid 1px var(--pe-color); width: 6px; height: 6px; transform: rotate(45deg);
+                    }
+                }
+            }
+            .pe-datepanel-monthleft {
+                .pe-datepanel-arrow::after {
+                    border-width: 0 0 1px 1px; margin-left: 3px;
+                }
+            }
+            .pe-datepanel-monthright {
+                .pe-datepanel-arrow::after {
+                    border-width: 1px 1px 0 0; margin-right: 3px;
+                }
+            }
+        }
+        .pe-datepanel-right {
+            justify-content: right; display: flex; gap: var(--pe-xxspadding); padding-left: var(--pe-xxspadding);
+        }
+    }
+
+    .pe-datepanel-week {
+        display: flex;
+
+        > * {
+            flex: 1; display: flex; justify-content: center; padding: var(--pe-xxspadding);
+        }
+    }
+
+    .pe-datepanel-row {
+        display: flex; gap: var(--pe-xxspadding); flex: 1;
+
+        .pe-datepanel-col {
+            flex: 1; display: flex; flex-direction: column; gap: var(--pe-xxspadding); padding: var(--pe-xxspadding); border-radius: var(--pe-radius); transition: var(--pe-transition); outline: solid .5px transparent; position: relative;
+            &:not(.pe-disabled) {
+                &:hover:not(.selected):not(.pe-datepanel-range-left):not(.pe-datepanel-range-right) {
+                    outline: solid 1px var(--pe-h-color);
+                }
+                &:active {
+                    box-shadow: var(--pe-outline-shadow); background: var(--pe-h-bgcolor); outline: solid 1px var(--pe-h-color);
+                }
+            }
+            &.pe-disabled {
+                > * {
+                    pointer-events: none;
+                }
+            }
+            &.pe-selected, &.pe-datepanel-range-left, &.pe-datepanel-range-right {
+                background: var(--pe-h-bgcolor); outline: solid 1px var(--pe-h-color);
+            }
+            &::before, &::after {
+                content: ''; position: absolute; top: 0; bottom: 0; width: var(--pe-xxspadding); background: var(--pe-h-color); opacity: 0; transition: var(--pe-transition);
+            }
+            &::before {
+                left: calc(0px - var(--pe-xxspadding));
+            }
+            &::after {
+                right: calc(0px - var(--pe-xxspadding));
+            }
+
+            &.pe-datepanel-range {
+                background: var(--pe-h-color); border-radius: 0; color: #FFF;
+                &::before, &::after {
+                    opacity: 1;
+                }
+            }
+            &.pe-datepanel-range-right {
+                &::after {
+                    opacity: 1;
+                }
+            }
+            &.pe-datepanel-range-left {
+                &::before {
+                    opacity: 1;
+                }
+            }
+
+            .pe-datepanel-colh {
+                display: flex; justify-content: center; align-items: center; flex: 1; font-size: var(--pe-size);
+            }
+
+            .pe-datepanel-colb {
+                display: flex;
+            }
+
+        }
+    }
+
+    .pe-datepanel-footer {
+        display: flex; gap: var(--pe-xxspadding); align-items: center; justify-content: center;
+    }
+}

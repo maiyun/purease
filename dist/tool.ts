@@ -343,7 +343,7 @@ export function request(url: string, opt: types.IRequestOptions): Promise<null |
             xhr.timeout = opt.timeout;
         }
         if (opt.headers) {
-            for (const k in opt.headers) {
+            for (const k in (opt.headers as Record<string, string>)) {
                 xhr.setRequestHeader(k, (opt.headers as any)[k]);
             }
         }

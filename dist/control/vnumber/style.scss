@@ -1,0 +1,31 @@
+@keyframes pe-vnumber-insert {
+    0% { opacity: 0; }
+    10% { opacity: 1; }
+    50% { opacity: 1; }
+    60% { opacity: 0; }
+    100% { opacity: 0; }
+}
+
+.pe-vnumber-wrap {
+    border: solid 1px var(--pe-border); display: flex; transition: var(--pe-transition); border-radius: var(--pe-radius); position: relative; overflow: hidden;
+    > :last-child {
+        border-right: none;
+    }
+
+    .pe-vnumber-input {
+        position: absolute; width: 100%; height: 100%; opacity: .7;
+        &::-webkit-outer-spin-button, &::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+        }
+    }
+    
+    &.pe-focus {
+        box-shadow: var(--pe-outline-shadow);
+    }
+}
+.pe-vnumber-item {
+    border-right: solid 1px var(--pe-border-plain); width: calc(var(--pe-spadding) * 2 + var(--pe-size)); height: calc(var(--pe-spadding) * 2 + var(--pe-size)); display: flex; align-items: center; justify-content: center; -webkit-user-select: none; user-select: none;
+}
+.pe-vnumber-insert {
+    animation: pe-vnumber-insert 1s linear infinite;
+}

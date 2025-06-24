@@ -1,0 +1,44 @@
+<div class="pe-datepanel-wrap" :class="[propBoolean('plain')&&'pe-plain',propBoolean('disabled')&&'pe-disabled']">
+<div class="pe-datepanel-header">
+    <div class="pe-datepanel-left">
+        <pe-select :data="years" v-model="vyear"></pe-select>
+        <div class="pe-button pe-pgrey pe-datepanel-monthleft" :class="[(prevYm<startYm)&&'pe-disabled']" @click="prev">
+            <div class="pe-datepanel-arrow"></div>
+        </div>
+        <pe-select :data="months" v-model="vmonth"></pe-select>
+        <div class="pe-button pe-pgrey pe-datepanel-monthright" :class="(nextYm>endYm)&&'pe-disabled'" @click="next">
+            <div class="pe-datepanel-arrow"></div>
+        </div>
+    </div>
+    <div class="pe-datepanel-right">
+        <div class="pe-button pe-pgrey" v-if="propBoolean('clearbtn') && (timestamp !== undefined)" @click="clear">{{l('clear')}}</div>
+        <div class="pe-button pe-pgrey" v-if="propBoolean('backbtn') && (timestamp !== undefined) && ((dateValue.year !== parseInt(vyear)) || (dateValue.month !== parseInt(vmonth) - 1))" @click="back">{{l('back')}}</div>
+        <div class="pe-button pe-pgrey" @click="today">{{l('today')}}</div>
+    </div>
+</div>
+<div class="pe-datepanel-week">
+    <div v-for="col of 7">{{l('w' + (col - 1))}}</div>
+</div>
+<div class="pe-datepanel-row" v-for="row of maps">
+    <div class="pe-datepanel-col" v-for="col of row" :style="{'color': col.month !== (vmonth - 1) ? 'var(--pe-disabled-color)' : undefined}" :class="[{'pe-selected': timestamp !== undefined && (dateValue.year === col.year) && (dateValue.month === col.month) && (dateValue.date === col.date)}, toclass(col), isDisabled(col) && 'pe-disabled']" @click="colClick(col)" @mouseenter="colenter($event, col)" @touchstart="colenter($event, col)">
+        <div class="pe-datepanel-colh">{{col.date}}</div>
+        <div class="pe-datepanel-colb" v-if="$slots['default']">
+            <slot :year="col.year" :month="col.month" :date="col.date" :day="col.day" :str="col.str" :time="col.time"></slot>
+        </div>
+    </div>
+</div>
+<div class="pe-datepanel-footer" v-if="propBoolean('time') || propBoolean('zone')">
+    <template v-if="propBoolean('time')">
+        <pe-select :data="hours" v-model="vhour"></pe-select>
+        <label>:</label>
+        <pe-select :data="minutes" v-model="vminute"></pe-select>
+        <label>:</label>
+        <pe-select :data="seconds" v-model="vseconds"></pe-select>
+    </template>
+    <template v-if="propBoolean('zone')">
+        <label>UTC</label>
+        <pe-select :data="zones" v-model="vzone"></pe-select>
+        <pe-select :data="zdecs" v-model="vzdec"></pe-select>
+    </template>
+</div>
+</div>

@@ -1,0 +1,8 @@
+<div class="pe-footer" :class="[propBoolean('dark')&&'pe-dark']">
+    <div class="pe-footer-content">
+        <slot></slot>
+    </div>
+    <div v-if="$slots['bottom']" class="pe-footer-bottom">
+        <slot name="bottom"></slot>
+    </div>
+</div>

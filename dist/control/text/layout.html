@@ -1,0 +1,12 @@
+<div class="pe-text" :class="[isFocus&&'pe-focus',propBoolean('plain')&&'pe-plain',propBoolean('disabled')&&'pe-disabled']">
+    <div v-if="$slots['before']" class="pe-before"><slot name="before"></slot></div>
+    <div v-if="$slots['prepend']" class="pe-prepend">
+        <slot name="prepend"></slot>
+    </div>
+    <textarea v-if="type==='multi'" ref="text" :placeholder="placeholder" :value="value" @input="input" @focus="tfocus" @blur="tblur"></textarea>
+    <input v-else ref="text" :placeholder="placeholder" :value="value" @input="input" @focus="tfocus" @blur="tblur" :type="type">
+    <div v-if="$slots['append']" class="pe-append">
+        <slot name="append"></slot>
+    </div>
+    <div v-if="$slots['after']" class="pe-after"><slot name="after"></slot></div>
+</div>

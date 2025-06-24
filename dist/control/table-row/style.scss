@@ -1,0 +1,61 @@
+.pe-table-row {
+    background: var(--pe-input-bg); display: grid; grid-template-columns: repeat(var(--pe-cols), 1fr); transition: var(--pe-transition);
+
+    &:hover {
+        background: var(--pe-input-hover-bg);
+    }
+}
+
+.pe-table-header {
+    position: sticky; top: 70px;
+}
+html.pe-sheader {
+    .pe-table-header {
+        top: 50px;
+    }
+}
+html.pe-dheader {
+    // --- 双层 nav ---
+    .pe-table-header {
+        top: 120px;
+    }
+    &.pe-sheader {
+        .pe-table-header {
+            top: 100px;
+        }
+    }
+}
+
+@media screen and (max-width: 800px) {
+
+    html.pe-dheader {
+        // --- 双层 nav ---
+        .pe-table-header {
+            top: 70px;
+        }
+        &.pe-sheader {
+            .pe-table-header {
+                top: 50px;
+            }
+        }
+    }
+
+    .pe-table-header {
+        &.pe-adaption {
+            > :first-child {
+                display: none;
+            }
+        }
+    }
+
+    .pe-table-row {
+        &.pe-adaption {
+            grid-template-columns: repeat(calc(var(--pe-cols) - 1), 1fr);
+
+            > :first-child {
+                grid-column: span calc(var(--pe-cols) - 1);
+            }
+        }
+    }
+
+}

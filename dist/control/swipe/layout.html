@@ -1,0 +1,12 @@
+<div class="pe-swipe" :class="['pe-control-'+control]">
+    <div class="pe-swipe-wrap" @mousedown="down" @touchstart="down" :style="{'border-radius':radius?radius+'px':undefined}">
+        <div class="pe-swipe-items" ref="items">
+            <slot></slot>
+        </div>
+    </div>
+    <div class="pe-swipe-page" :class="['pe-'+page]">
+        <div v-for="i of pageCount" class="pe-swipe-page-item" :class="[(selected===i-1)&&'pe-selected']" @click="pdown(i)"></div>
+    </div>
+    <div v-if="pageCount > 1" class="pe-swipe-prev" @click="prev"></div>
+    <div v-if="pageCount > 1" class="pe-swipe-next" @click="next"></div>
+</div>

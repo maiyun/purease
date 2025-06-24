@@ -1,0 +1,4 @@
+<div class="pe-dlist" :class="[!data.length&&'pe-empty',propBoolean('plain')&&'pe-plain']">
+    <div v-if="data.length" v-for="item, i of data" class="pe-dlist-item" :class="[(value===(item[mapComp.value]??item[mapComp.label]??item))&&'pe-selected',item.disabled&&'pe-disabled']" @click="click(i)">{{item[mapComp.label]??item[mapComp.value]??item}}</div>
+    <div v-else>{{l('empty')}}</div>
+</div>

@@ -1,0 +1,24 @@
+.pe-table {
+    display: flex; flex-direction: column; border-radius: var(--pe-radius); box-shadow: var(--pe-pop-shadow); border: solid 1px var(--pe-border);
+
+    > :not(:last-child) {
+        border-bottom: solid 1px var(--pe-border-plain);
+    }
+
+    > :first-child {
+        border-radius: var(--pe-radius) var(--pe-radius) 0 0;
+    }
+    > :last-child {
+        border-radius: 0 0 var(--pe-radius) var(--pe-radius);
+    }
+
+    &.pe-plain {
+        border-left: none; border-right: none; box-shadow: none;
+    }
+}
+
+@media screen and (max-width: 800px) {
+
+    
+
+}

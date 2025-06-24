@@ -1,0 +1,53 @@
+.pe-page {
+    cursor: default; -webkit-user-select: none; user-select: none;
+}
+.pe-page-list {
+    display: flex; justify-content: center;
+    > .pe-select {
+        background: #FFF;
+        .pe-select-label {
+            padding: 0 15px;
+        }
+    }
+    > :not(.pe-select) {
+        border: solid .5px var(--pe-border); background: #FFF; line-height: 1; outline: none; display: flex; width: 45px; height: 45px; justify-content: center; align-items: center; border-radius: var(--pe-radius); box-shadow: var(--pe-shadow); transition: var(--pe-transition);
+
+        &:hover {
+            background: var(--pe-grey);
+        }
+        &:focus, &:active {
+            box-shadow: var(--pe-outline-shadow); background: #FFF;
+        }
+        &.pe-selected {
+            border-color: var(--pe-h-color); background: var(--pe-h-color); color: #FFF; fill: #FFF; stroke: #FFF;
+        }
+    }
+    > :not(:first-child) {
+        margin-left: 10px;
+    }
+}
+
+.pe-page-left, .pe-page-right {
+    &::before {
+        content: ''; pointer-events: none; border: solid 1px var(--pe-color); width: 6px; height: 6px;
+    }
+}
+.pe-page-left::before {
+    border-width: 0 0 1px 1px; transform: translateX(2px) rotate(45deg);
+}
+.pe-page-right::before {
+    border-width: 1px 1px 0 0; transform: translateX(-2px) rotate(45deg);
+}
+.pe-page-total {
+    margin-top: 10px; text-align: center;
+}
+
+@media screen and (max-width: 800px) {
+
+    .pe-page-list {
+        > :not(.pe-select) {
+            width: 40px; height: 40px;
+        }
+    }
+
+}

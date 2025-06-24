@@ -334,7 +334,7 @@ export function launcher<T extends AbstractPage>(page: new (opt: {
         // --- 实例化 page ---
         const cpage = new page({
             'locale': options.locale,
-            'localePath': options.localePath
+            'localePath': options.localePath,
         });
         // --- 将整个网页 vue 化 ---
         vue = (window as any).Vue;
@@ -342,9 +342,7 @@ export function launcher<T extends AbstractPage>(page: new (opt: {
         const styles: string[] = [];
         /** --- panel 的控件列表 --- */
         const panelComponents: Record<string, any> = {};
-        if (!options.panels) {
-            options.panels = [];
-        }
+        options.panels ??= [];
         for (const p of options.panels) {
             const el: HTMLElement | null = document.querySelector(p.selector);
             if (!el) {
@@ -488,6 +486,11 @@ export function launcher<T extends AbstractPage>(page: new (opt: {
             }
             // --- 挂载控件对象到 vapp ---
             for (const key in control.list) {
+                control.list[key].computed ??= {};
+                control.list[key].computed = {
+                    ...control.list[key].computed,
+                    ...tool.clone(control.common.computed),
+                };
                 vapp.component(key, control.list[key]);
             }
             // --- 挂载 panel ---

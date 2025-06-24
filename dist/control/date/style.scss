@@ -1,0 +1,70 @@
+.pe-date-wrap {
+    display: flex; outline: none; border-radius: var(--pe-radius); border-style: solid; border-width: .5px; transition: var(--pe-transition); position: relative;
+
+    .pe-date-first {
+        display: flex; justify-content: center; flex: 1;
+
+        > div {
+            padding: var(--pe-xspadding); gap: var(--pe-xspadding); display: flex;
+        }
+    }
+
+    .pe-date-clear {
+        display: flex; align-items: center; justify-content: center; opacity: .6; transition: var(--pe-transition);
+        svg {
+            width: 24px; height: 24px;
+        }
+        &:hover {
+            opacity: 1;
+        }
+    }
+
+    &:not(.pe-disabled) {
+        background: var(--pe-input-bg);
+        border-color: var(--pe-border);
+
+        .pe-date-first > div {
+            transition: var(--pe-transition);
+            &:hover {
+                background: var(--pe-input-hover-bg);
+            }
+            &:active {
+                background: var(--pe-input-bg);
+            }
+        }
+    }
+
+    .pe-pop {
+        display: flex;
+        &.pe-date-list {
+            padding: var(--pe-xspadding); flex-direction: column; height: 350px;
+            > :first-child {
+                // --- 列表项 ---
+                display: flex; flex: 1; height: 0;
+                > :not(:last-child) {
+                    margin-right: var(--pe-xspadding);
+                }
+        
+                .pe-date-item {
+                    display: flex; flex-direction: column;
+                    .pe-date-title {
+                        text-align: center;
+                    }
+                    .pe-dlist {
+                        width: 120px; flex: 1; height: 0; margin-top: var(--pe-xspadding);
+                    }
+                }
+            }
+            > :last-child {
+                // --- 控制按钮 ---
+                display: flex; margin-top: var(--pe-xspadding);
+                > :first-child {
+                    margin-right: var(--pe-xspadding);
+                }
+                > * {
+                    flex: 1;
+                }
+            }
+        }
+    }
+}

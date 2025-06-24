@@ -1,0 +1,60 @@
+<div class="pe-date-wrap" :class="[propBoolean('disabled')&&'pe-disabled']">
+    <div class="pe-date-first">
+        <div @click="click($event, 'first')" ref="first" v-if="propBoolean('date') || propBoolean('time')">
+            <template v-if="timestamp === undefined">
+                <div>{{l('please click select')}}</div>
+            </template>
+            <template v-else>
+                <div v-if="propBoolean('date')">{{dateStr}}</div>
+                <div v-if="propBoolean('time')">{{timeStr}}</div>
+            </template>
+        </div>
+        <div v-if="propBoolean('zone')" @click="click($event, 'zone')" ref="zone">UTC{{tzData >= 0 ? '+' : ''}}{{tzData}}</div>
+    </div>
+    <div class="pe-date-clear" @click="clear" v-if="timestamp !== undefined">
+        <svg viewBox="0 0 24 24" stroke="none"><path d="m7.53033 6.46967c-.29289-.29289-.76777-.29289-1.06066 0s-.29289.76777 0 1.06066l4.46963 4.46967-4.46963 4.4697c-.29289.2929-.29289.7677 0 1.0606s.76777.2929 1.06066 0l4.46967-4.4696 4.4697 4.4696c.2929.2929.7677.2929 1.0606 0s.2929-.7677 0-1.0606l-4.4696-4.4697 4.4696-4.46967c.2929-.29289.2929-.76777 0-1.06066s-.7677-.29289-1.0606 0l-4.4697 4.46963z" /></svg>
+    </div>
+    <div v-if="propBoolean('date')" ref="firstpop" class="pe-pop">
+        <pe-datepanel plain :tz="tzData" :yearmonth="yearmonth" :hourminute="hourminute" @update:yearmonth="$emit('update:yearmonth')" :clearbtn="false" :time="propBoolean('time')" :start="start" :end="end" v-model="timestamp" @changed="changed" @selected="selected">
+            <template v-if="$slots['default']" v-slot="col">
+                <slot :year="col.year" :month="col.month" :date="col.date" :day="col.day" :str="col.str" :time="col.time"></slot>
+            </template>
+        </pe-datepanel>
+    </div>
+    <div v-if="!propBoolean('date') && propBoolean('time')" ref="timepop" class="pe-pop pe-date-list">
+        <div>
+            <div class="pe-date-item">
+                <div class="pe-date-title">{{l('hour')}}</div>
+                <pe-dlist :data="hours" v-model="vhour"></pe-dlist>
+            </div>
+            <div class="pe-date-item">
+                <div class="pe-date-title">{{l('minute')}}</div>
+                <pe-dlist :data="minutes" v-model="vminute"></pe-dlist>
+            </div>
+            <div class="pe-date-item">
+                <div class="pe-date-title">{{l('second')}}</div>
+                <pe-dlist :data="seconds" v-model="vseconds"></pe-dlist>
+            </div>
+        </div>
+        <div>
+            <div class="pe-button pe-pgrey" @click="cancel">{{l('cancel')}}</div>
+            <div class="pe-button pe-pgrey" @click="timeOk">{{l('ok')}}</div>
+        </div>
+    </div>
+    <div v-if="propBoolean('zone')" ref="zonepop" class="pe-pop pe-date-list">
+        <div>
+            <div class="pe-date-item">
+                <div class="pe-date-title">{{l('zone')}}</div>
+                <pe-dlist :data="zones" v-model="vzone"></pe-dlist>
+            </div>
+            <div class="pe-date-item">
+                <div class="pe-date-title">{{l('minute')}}</div>
+                <pe-dlist :data="zdecs" v-model="vzdec"></pe-dlist>
+            </div>
+        </div>
+        <div>
+            <div class="pe-button pe-pgrey" @click="cancel">{{l('cancel')}}</div>
+            <div class="pe-button pe-pgrey" @click="zoneOk">{{l('ok')}}</div>
+        </div>
+    </div>
+</div>

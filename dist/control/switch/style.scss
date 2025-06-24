@@ -1,0 +1,24 @@
+.pe-switch-block {
+    left: 3px; top: 3px; width: calc(var(--pe-switch-size) - 8px); height: calc(100% - 6px); background: var(--pe-input-bg); position: absolute; transition: all .3s var(--pe-cubic); border: solid 1px var(--pe-border); box-shadow: var(--pe-shadow); border-radius: 100%;
+    &:hover {
+        background: var(--pe-grey);
+    }
+}
+.pe-switch {
+    --pe-switch-size:35px; outline: none; width: calc(var(--pe-switch-size) * 2); height: var(--pe-switch-size); border: solid 1px var(--pe-border); background: var(--pe-input-bg); box-shadow: var(--pe-shadow) inset; border-radius: calc(var(--pe-switch-size) / 2); transition: var(--pe-transition); position: relative;
+    // --- 选中模式 ---
+    &:not(.pe-disabled) {
+        &.pe-checked {
+            background: var(--pe-h-color);
+            .pe-switch-block {
+                left: calc(var(--pe-switch-size) + 3px);
+            }
+        }
+        &:focus, &:active {
+            box-shadow: var(--pe-shadow) inset, var(--pe-outline-shadow);
+            .pe-switch-block {
+                background: var(--pe-input-bg);
+            }
+        }
+    }
+}

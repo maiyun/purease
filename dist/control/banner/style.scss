@@ -1,0 +1,30 @@
+.pe-banner {
+    display: flex; background-size: cover; background-position: center top; padding-top: 70px; align-items: center;
+    &.pe-grey {
+        background: var(--pe-grey);
+    }
+}
+html.pe-sheader {
+    .pe-banner {
+        padding-top: 50px;
+    }
+}
+html.pe-dheader {
+    // --- 双层 nav ---
+    .pe-banner {
+        padding-top: 120px;
+    }
+    &.pe-sheader {
+        .pe-banner {
+            padding-top: 100px;
+        }
+    }
+}
+.pe-banner-content {
+    width: 100%; max-width: 1600px; margin: 0 auto; padding: 0 60px; display: flex; gap: 20px;
+}
+.pe-banner.pe-direction-v {
+    .pe-banner-content {
+        flex-direction: column;
+    }
+}

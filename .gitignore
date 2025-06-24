@@ -1,4 +1,11 @@
+.vscode/
+.VSCodeCounter/
+.vs/
+dist/control/**/*.js
+dist/control/**/*.css
 node_modules/
 .DS_Store
 .npmrc
 package-lock.json
+*.d.ts
+!/types/*.d.ts

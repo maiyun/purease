@@ -1,0 +1,6 @@
+.pe-tab {
+    display: flex; justify-content: center; cursor: default; -webkit-user-select: none; user-select: none; border-bottom: solid 1px var(--pe-border); color: var(--pe-inote-color); fill: var(--pe-inote-color); stroke: var(--pe-inote-color);
+    &.pe-plain {
+        border-bottom: none;
+    }
+}

@@ -1,0 +1,15 @@
+.pe-dlist {
+    padding: var(--pe-xspadding); overflow-y: auto; border-radius: var(--pe-radius); text-align: initial;
+    &.pe-empty {
+        display: flex; align-items: center; justify-content: center; color: var(--pe-note-color); min-height: 80px;
+    }
+    &:not(.pe-plain) {
+        border: solid 1px var(--pe-border);
+    }
+}
+.pe-dlist-item {
+    padding: var(--pe-xspadding); border-radius: var(--pe-radius); transition: var(--pe-transition);
+    &:hover, &.pe-selected {
+        background: var(--pe-grey);
+    }
+}

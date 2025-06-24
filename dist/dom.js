@@ -91,6 +91,7 @@ function findParentByClass(el, name) {
     let parent = el.parentNode;
     while (parent) {
         if (!parent.tagName) {
+            parent = parent.parentNode;
             continue;
         }
         if (parent.tagName.toLowerCase() === 'body') {

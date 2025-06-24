@@ -1,0 +1,26 @@
+.pe-text {
+    background: var(--pe-input-bg); border-radius: var(--pe-radius); transition: var(--pe-transition); display: flex; border: solid 1px var(--pe-border);
+    &:hover {
+        background: var(--pe-input-hover-bg);
+    }
+    &.pe-focus {
+        background: #FFF; box-shadow: var(--pe-outline-shadow);
+    }
+    &.pe-plain {
+        border: none;
+    }
+
+    input, textarea {
+        -webkit-appearance: none; appearance: none; background: transparent; flex: 1; width: 0; outline: none; border: none; padding: var(--pe-xspadding); resize: none;
+    }
+
+    .pe-before, .pe-after {
+        display: flex;
+    }
+    .pe-prepend {
+        display: flex; align-items: center; padding-left: var(--pe-xspadding);
+    }
+    .pe-append {
+        display: flex; align-items: center; padding-right: var(--pe-xspadding);
+    }
+}

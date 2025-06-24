@@ -1,0 +1,88 @@
+.pe-header {
+    display: flex; position: absolute; left: 0; top: 0; width: 100%; transition: var(--pe-transition); z-index: 1;
+    &.pe-fixed {
+        position: fixed;
+    }
+}
+html.pe-scroll .pe-header.pe-fixed, .pe-header:hover, .pe-header.pe-show {
+    &.pe-theme-default {
+        box-shadow: 0px 15px 30px rgba(0, 0, 0, .07); background: rgba(255, 255, 255, .8); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);
+    }
+    &.pe-theme-rev {
+        background: #FFF;
+    }
+}
+html.pe-sheader {
+    .pe-header {
+        .pe-button {
+            padding: 10px 15px;
+        }
+    }
+}
+.pe-logo {
+    display: block; background-size: 80px; background-position: center; background-repeat: no-repeat; width: 180px; height: 70px;
+}
+html.pe-sheader {
+    .pe-logo {
+        height: 50px; background-size: 70px;
+    }
+}
+.pe-nav {
+    flex: 1; display: flex; align-items: flex-start;
+}
+.pe-nav-left {
+    flex: 1; width: 0; display: flex; flex-direction: column;
+}
+.pe-nav-top {
+    display: flex;
+}
+.pe-nav-bottom {
+    margin-left: -180px; width: var(--pe-windowwidth);
+}
+.pe-nav-right {
+    display: flex; align-items: center; padding-right: 20px;
+}
+.pe-header-control {
+    width: 42px; height: 42px; display: none;
+}
+
+@media screen and (max-width: 800px) {
+
+    html.pe-scroll .pe-header.pe-fixed, .pe-header:hover, .pe-header.pe-show {
+        &.pe-theme-default {
+            -webkit-backdrop-filter: initial; backdrop-filter: initial;
+        }
+    }
+    .pe-nav {
+        position: fixed; left: 0; top: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, .8); flex-direction: column; opacity: 0; pointer-events: none; transition: var(--pe-transition); align-items: initial;
+    }
+    .pe-header.pe-show {
+        .pe-nav {
+            opacity: 1; -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); pointer-events: initial; 
+        }
+    }
+    .pe-nav-left {
+        overflow-y: auto; overflow-x: hidden; width: initial;
+    }
+    .pe-nav-top {
+        flex-direction: column;
+    }
+    .pe-nav-bottom {
+        margin-left: initial;
+    }
+    .pe-nav-right {
+        flex-direction: column; align-items: initial; padding-right: 0; padding-bottom: 20px;
+        .pe-button {
+            margin: 0 30px;
+        }
+    }
+    .pe-header-control {
+        display: block; position: fixed; right: 20px; top: 15px;
+    }
+    html.pe-sheader {
+        .pe-header-control {
+            right: 10px; top: 5px;
+        }
+    }
+
+}

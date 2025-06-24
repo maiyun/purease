@@ -1,0 +1,4 @@
+<span class="pe-label" :class="['pe-label-'+mode]">
+    <template v-if="content">{{contentComp}}</template>
+    <slot v-else></slot>
+</span>
