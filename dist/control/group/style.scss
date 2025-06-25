@@ -13,3 +13,13 @@
 .pe-group-bottom {
     padding: 0 var(--pe-padding) var(--pe-padding) var(--pe-padding); display: flex;
 }
+
+@media screen and (max-width: 800px) {
+
+    .pe-group {
+        &:not(.pe-hastitle) {
+            margin-top: initial;
+        }
+    }
+
+}

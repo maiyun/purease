@@ -4,6 +4,12 @@
     &:hover {
         background: var(--pe-input-hover-bg);
     }
+
+    &.pe-table-row-title {
+        > :first-child {
+            font-weight: bold;
+        }
+    }
 }
 
 .pe-table-header {
@@ -52,6 +58,7 @@ html.pe-dheader {
         &.pe-adaption {
             grid-template-columns: repeat(calc(var(--pe-cols) - 1), 1fr);
 
+            // --- 自适应模式下，小屏模式首列会自动上去横展 ---
             > :first-child {
                 grid-column: span calc(var(--pe-cols) - 1);
             }

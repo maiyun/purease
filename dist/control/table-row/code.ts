@@ -11,6 +11,11 @@ export const code = {
             'index': -1
         };
     },
+    'props': {
+        'title': {
+            'default': false
+        },
+    },
     'computed': {
         'isAdaption': function(this: types.IVue) {
             return this.table?.propBoolean('adaption') ?? false;

@@ -1901,7 +1901,7 @@ exports.list['pe-footer'] = {
     },
 };
 exports.list['pe-group'] = {
-    'template': ''
+    'template': `<div class="pe-group" :class="[$slots['title']&&'pe-hastitle']"><div v-if="$slots['title']" class="pe-group-title"><slot name="title"></slot></div><div class="pe-group-content"><slot></slot></div><div v-if="$slots['bottom']" class="pe-group-bottom"><slot name="bottom"></slot></div></div>`
 };
 exports.list['pe-header'] = {
     'template': `<div class="pe-header" :class="[propBoolean('fixed')&&'pe-fixed','pe-theme-'+theme,headerPop&&'pe-show']"><a class="pe-logo" :href="logoHref"></a><div class="pe-nav"><div class="pe-nav-left"><div class="pe-nav-top"><slot></slot></div><div v-if="$slots['bottom']" class="pe-nav-bottom"><slot name="bottom"></slot></div></div><div class="pe-nav-right"><slot name="right"></slot></div></div><svg v-if="headerPop" @click="headerPop=false" class="pe-header-control" viewBox="0 0 24 24" fill="none"><path d="M14.5 9.50002L9.5 14.5M9.49998 9.5L14.5 14.5" stroke-width="1.5" stroke-linecap="round"/><path d="M22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C21.5093 4.43821 21.8356 5.80655 21.9449 8" stroke-width="1.5" stroke-linecap="round"/></svg><svg v-else @click="headerPop=true" class="pe-header-control" viewBox="0 0 24 24" fill="none"><path d="M4 7L7 7M20 7L11 7" stroke-width="1.5" stroke-linecap="round"/><path d="M20 17H17M4 17L13 17" stroke-width="1.5" stroke-linecap="round"/><path d="M4 12H7L20 12" stroke-width="1.5" stroke-linecap="round"/></svg></div>`,
@@ -1941,7 +1941,7 @@ exports.list['pe-header-item'] = {
     }
 };
 exports.list['pe-icon'] = {
-    'template': `<svg v-if="name==='link'" class="pe-icon" viewBox="0 0 24 24" fill="none"><path d="M13 11L22 2M22 2H16.6562M22 2V7.34375" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2M22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2.49073 19.5618 2.16444 18.1934 2.0551 16" stroke-width="1.5" stroke-linecap="round"/></svg><svg v-else-if="name==='language'" class="pe-icon" viewBox="0 0 24 24"><path d="M8 15H3.5A2.502 2.502 0 0 1 1 12.5v-9A2.502 2.502 0 0 1 3.5 1h9A2.502 2.502 0 0 1 15 3.5V8h-1V3.5A1.502 1.502 0 0 0 12.5 2h-9A1.502 1.502 0 0 0 2 3.5v9A1.502 1.502 0 0 0 3.5 14H8zm-.038-4.811a9.77 9.77 0 0 1-3.766 1.796l-.242-.97a8.816 8.816 0 0 0 3.282-1.532A9.264 9.264 0 0 1 4.888 5H4V4h3.279l-.544-.544.707-.707L8.692 4H12v1h-.914A9.836 9.836 0 0 1 9.78 8.152a3.853 3.853 0 0 0-1.82 2.037zm.032-1.383A8.167 8.167 0 0 0 10.058 5H5.922a8.18 8.18 0 0 0 2.072 3.806zM23 20.447v-8.894A2.525 2.525 0 0 0 20.484 9h-8.931A2.556 2.556 0 0 0 9 11.553v8.894A2.556 2.556 0 0 0 11.553 23h8.894A2.556 2.556 0 0 0 23 20.447zM20.484 10A1.517 1.517 0 0 1 22 11.516v8.968A1.517 1.517 0 0 1 20.484 22h-8.968A1.517 1.517 0 0 1 10 20.484v-8.968A1.517 1.517 0 0 1 11.516 10zm-2.086 8h-4.796l-1.159 2.23-.886-.46L16 11.215l4.443 8.555-.886.46zm-.52-1L16 13.385 14.122 17z" stroke-width=".5"/></svg>`,
+    'template': `<svg v-if="name==='link'" class="pe-icon" viewBox="0 0 24 24" fill="none"><path d="M13 11L22 2M22 2H16.6562M22 2V7.34375" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2M22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2.49073 19.5618 2.16444 18.1934 2.0551 16" stroke-width="1.5" stroke-linecap="round"/></svg><svg v-else-if="name==='language'" class="pe-icon" viewBox="0 0 24 24"><path d="M8 15H3.5A2.502 2.502 0 0 1 1 12.5v-9A2.502 2.502 0 0 1 3.5 1h9A2.502 2.502 0 0 1 15 3.5V8h-1V3.5A1.502 1.502 0 0 0 12.5 2h-9A1.502 1.502 0 0 0 2 3.5v9A1.502 1.502 0 0 0 3.5 14H8zm-.038-4.811a9.77 9.77 0 0 1-3.766 1.796l-.242-.97a8.816 8.816 0 0 0 3.282-1.532A9.264 9.264 0 0 1 4.888 5H4V4h3.279l-.544-.544.707-.707L8.692 4H12v1h-.914A9.836 9.836 0 0 1 9.78 8.152a3.853 3.853 0 0 0-1.82 2.037zm.032-1.383A8.167 8.167 0 0 0 10.058 5H5.922a8.18 8.18 0 0 0 2.072 3.806zM23 20.447v-8.894A2.525 2.525 0 0 0 20.484 9h-8.931A2.556 2.556 0 0 0 9 11.553v8.894A2.556 2.556 0 0 0 11.553 23h8.894A2.556 2.556 0 0 0 23 20.447zM20.484 10A1.517 1.517 0 0 1 22 11.516v8.968A1.517 1.517 0 0 1 20.484 22h-8.968A1.517 1.517 0 0 1 10 20.484v-8.968A1.517 1.517 0 0 1 11.516 10zm-2.086 8h-4.796l-1.159 2.23-.886-.46L16 11.215l4.443 8.555-.886.46zm-.52-1L16 13.385 14.122 17z" stroke-width=".5"/></svg><svg v-else-if="name==='backspace'" class="pe-icon" viewBox="0 0 24 24" fill="none"><path d="M22 12C22 15.7712 22 17.6569 20.7961 18.8284C19.5921 20 17.6544 20 13.779 20H11.142C8.91458 20 7.80085 20 6.87114 19.4986C5.94144 18.9971 5.35117 18.0781 4.17061 16.24L3.48981 15.18C2.4966 13.6336 2 12.8604 2 12C2 11.1396 2.4966 10.3664 3.48981 8.82001L4.17061 7.76001C5.35117 5.92191 5.94144 5.00286 6.87114 4.50143C7.80085 4 8.91458 4 11.142 4L13.779 4C17.6544 4 19.5921 4 20.7961 5.17157C21.4673 5.82475 21.7643 6.69989 21.8957 8" stroke-width="1.5" stroke-linecap="round"/><path d="M15.5 9.50002L10.5 14.5M10.5 9.5L15.5 14.5" stroke-width="1.5" stroke-linecap="round"/></svg>`,
     'props': {
         'name': {
             'default': 'link'
@@ -2023,8 +2023,83 @@ exports.list['pe-menu-item'] = {
         }
     },
 };
+exports.list['pe-nboard'] = {
+    'template': `<div class="pe-nboard" :class="[propBoolean('disabled')&&'pe-disabled',propBoolean('plain')&&'pe-plain']"><template v-if="$slots['title']"><div class="pe-nboard-title"><slot name="title"></slot></div></template><div class="pe-nboard-wrap"><div class="pe-nboard-input"><div v-for="item of length" class="pe-nboard-item"><span v-if="value[item - 1]">{{value[item - 1]}}</span></div></div></div><div class="pe-nboard-line"><div @click="click('1')">1</div><div @click="click('2')">2</div><div @click="click('3')">3</div></div><div class="pe-nboard-line"><div @click="click('4')">4</div><div @click="click('5')">5</div><div @click="click('6')">6</div></div><div class="pe-nboard-line"><div @click="click('7')">7</div><div @click="click('8')">8</div><div @click="click('9')">9</div></div><div class="pe-nboard-line"><div></div><div @click="click('0')">0</div><div @click="back"><pe-icon name="backspace"></pe-icon></div></div></div>`,
+    'emits': {
+        'changed': null,
+        'update:modelValue': null,
+    },
+    'props': {
+        'disabled': {
+            'default': false,
+        },
+        'plain': {
+            'default': false,
+        },
+        'modelValue': {
+            'default': '',
+        },
+        'length': {
+            'default': 6
+        },
+    },
+    data: function () {
+        return {
+            'value': [],
+        };
+    },
+    'watch': {
+        'modelValue': {
+            handler: function () {
+                if (this.modelValue === this.value.join('')) {
+                    return;
+                }
+                this.value.length = 0;
+                for (const char of this.modelValue) {
+                    if (this.value.length === this.length) {
+                        break;
+                    }
+                    if (!/[0-9]/.test(char)) {
+                        continue;
+                    }
+                    this.value.push(char);
+                }
+                const mv = this.value.join('');
+                if (this.modelValue === mv) {
+                    return;
+                }
+                this.$emit('update:modelValue', mv);
+            },
+            'immediate': true,
+        },
+    },
+    'methods': {
+        click: function (num) {
+            if (this.value.length === this.length) {
+                return;
+            }
+            this.value.push(num);
+            const mv = this.value.join('');
+            if (this.modelValue === mv) {
+                return;
+            }
+            this.$emit('update:modelValue', mv);
+        },
+        back: function () {
+            if (!this.value.length) {
+                return;
+            }
+            this.value.pop();
+            const mv = this.value.join('');
+            if (this.modelValue === mv) {
+                return;
+            }
+            this.$emit('update:modelValue', mv);
+        },
+    },
+};
 exports.list['pe-page'] = {
-    'template': `<div class="pe-page"><div class="pe-page-list"><pe-select v-if="countsComp.length" :data="countsComp" v-model="countSelect" @changed="changed"></pe-select><div v-if="page > 1" tabindex="0" class="pe-page-left" @click="--page;$emit('update:modelValue',page);$emit('change',page);refresh()" @keydown="keydown"></div><div v-if="page > 1" tabindex="0" @click="page=1;$emit('update:modelValue',page);$emit('change',page);refresh()" @keydown="keydown">1</div><div v-if="page > propNumber('control') + 2" tabindex="0" v-html="svg" @click="page-=10;if(page<1){page=1}$emit('update:modelValue',page);$emit('change',page);refresh()" @keydown="keydown"></div><div tabindex="0" v-for="item of prevs" @click="page=item;$emit('update:modelValue',page);$emit('change',page);refresh()" @keydown="keydown">{{item}}</div><div tabindex="0" class="pe-selected">{{page}}</div><div tabindex="0" v-for="item of nexts" @click="page=item;$emit('update:modelValue',page);$emit('change',page);refresh()" @keydown="keydown">{{item}}</div><div v-if="page < maxPage - propNumber('control') - 1" tabindex="0" v-html="svg" @click="page+=10;if(page>maxPage){page=maxPage}$emit('update:modelValue',page);$emit('change',page);refresh()" @keydown="keydown"></div><div v-if="page < maxPage" tabindex="0" @click="page=maxPage;$emit('update:modelValue',page);$emit('change',page);refresh()" @keydown="keydown">{{maxPage}}</div><div v-if="page < maxPage" tabindex="0" class="pe-page-right" @click="++page;$emit('update:modelValue',page);$emit('change',page);refresh()" @keydown="keydown"></div></div>' +<div v-if="propInt('total')" class="pe-page-total">{{l('total-of').replace('?',propInt('total'))}}</div></div>`,
+    'template': `<div class="pe-page"><div class="pe-page-list"><pe-select v-if="countsComp.length" :data="countsComp" v-model="countSelect" @changed="changed"></pe-select><div v-if="page > 1" tabindex="0" class="pe-page-left" @click="--page;$emit('update:modelValue',page);$emit('change',page);refresh()" @keydown="keydown"></div><div v-if="page > 1" tabindex="0" @click="page=1;$emit('update:modelValue',page);$emit('change',page);refresh()" @keydown="keydown">1</div><div v-if="page > propNumber('control') + 2" tabindex="0" v-html="svg" @click="page-=10;if(page<1){page=1}$emit('update:modelValue',page);$emit('change',page);refresh()" @keydown="keydown"></div><div tabindex="0" v-for="item of prevs" @click="page=item;$emit('update:modelValue',page);$emit('change',page);refresh()" @keydown="keydown">{{item}}</div><div tabindex="0" class="pe-selected">{{page}}</div><div tabindex="0" v-for="item of nexts" @click="page=item;$emit('update:modelValue',page);$emit('change',page);refresh()" @keydown="keydown">{{item}}</div><div v-if="page < maxPage - propNumber('control') - 1" tabindex="0" v-html="svg" @click="page+=10;if(page>maxPage){page=maxPage}$emit('update:modelValue',page);$emit('change',page);refresh()" @keydown="keydown"></div><div v-if="page < maxPage" tabindex="0" @click="page=maxPage;$emit('update:modelValue',page);$emit('change',page);refresh()" @keydown="keydown">{{maxPage}}</div><div v-if="page < maxPage" tabindex="0" class="pe-page-right" @click="++page;$emit('update:modelValue',page);$emit('change',page);refresh()" @keydown="keydown"></div></div><div v-if="propInt('total')" class="pe-page-total">{{l('total-of').replace('?',propInt('total'))}}</div></div>`,
     'props': {
         'modelValue': {
             'default': 1
@@ -3003,7 +3078,7 @@ exports.list['pe-table-head'] = {
     }
 };
 exports.list['pe-table-row'] = {
-    'template': `<div class="pe-table-row" :class="[isAdaption&&'pe-adaption',(index===0)&&'pe-table-header']" :style="{'--pe-cols': table?.headCount.toString()}"><slot></slot></div>`,
+    'template': `<div class="pe-table-row" :class="[isAdaption&&'pe-adaption',(index===0)&&'pe-table-header',propBoolean('title')&&'pe-table-row-title']" :style="{'--pe-cols': table?.headCount.toString()}"><slot></slot></div>`,
     'data': function () {
         return {
             'controlName': 'table-row',
@@ -3011,6 +3086,11 @@ exports.list['pe-table-row'] = {
             'table': null,
             'index': -1
         };
+    },
+    'props': {
+        'title': {
+            'default': false
+        },
     },
     'computed': {
         'isAdaption': function () {
@@ -3375,6 +3455,10 @@ exports.list['pe-vnumber'] = {
                     this.value.push(char);
                 }
                 this.$refs.input.value = this.value.join('');
+                if (this.modelValue === this.$refs.input.value) {
+                    return;
+                }
+                this.$emit('update:modelValue', this.$refs.input.value);
             },
             'immediate': true
         }

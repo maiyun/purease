@@ -10,6 +10,9 @@ export const code = {
         'disabled': {
             'default': false,
         },
+        'plain': {
+            'default': false,
+        },
 
         'modelValue': {
             'default': '',
@@ -21,16 +24,12 @@ export const code = {
     data: function() {
         return {
             'value': [],
-            'isFocus': false
         };
     },
     'watch': {
         'modelValue': {
             handler: function(this: types.IVue) {
-                if (!this.$refs.input) {
-                    return;
-                }
-                if (this.modelValue === this.$refs.input.value) {
+                if (this.modelValue === this.value.join('')) {
                     return;
                 }
                 this.value.length = 0;
@@ -43,33 +42,37 @@ export const code = {
                     }
                     this.value.push(char);
                 }
-                this.$refs.input.value = this.value.join('');
-                if (this.modelValue === this.$refs.input.value) {
+                const mv = this.value.join('');
+                if (this.modelValue === mv) {
                     return;
                 }
-                this.$emit('update:modelValue', this.$refs.input.value);
+                this.$emit('update:modelValue', mv);
             },
-            'immediate': true
-        }
+            'immediate': true,
+        },
     },
     'methods': {
-        input: function(this: types.IVue) {
-            const value = this.$refs.input.value;
-            this.value.length = 0;
-            for (const char of value) {
-                if (this.value.length === this.length) {
-                    break;
-                }
-                if (!/[0-9]/.test(char)) {
-                    continue;
-                }
-                this.value.push(char);
+        click: function(this: types.IVue, num: string) {
+            if (this.value.length === this.length) {
+                return;
             }
+            this.value.push(num);
             const mv = this.value.join('');
-            if (this.$refs.input.value !== mv) {
-                this.$refs.input.value = mv;
+            if (this.modelValue === mv) {
+                return;
             }
             this.$emit('update:modelValue', mv);
-        }
+        },
+        back: function(this: types.IVue) {
+            if (!this.value.length) {
+                return;
+            }
+            this.value.pop();
+            const mv = this.value.join('');
+            if (this.modelValue === mv) {
+                return;
+            }
+            this.$emit('update:modelValue', mv);
+        },
     },
 };

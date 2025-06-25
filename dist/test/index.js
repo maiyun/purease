@@ -100,6 +100,10 @@ class Page extends purease.AbstractPage {
         this.drts = [];
         this.vnumber = '';
         this.vnumberDisabled = false;
+        this.nboard = '';
+        this.nboardDisabled = false;
+        this.nboardTitle = false;
+        this.nboardPlain = false;
     }
     changeNBottom() {
         this.nbottom = !this.nbottom;

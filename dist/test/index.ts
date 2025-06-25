@@ -220,6 +220,16 @@ class Page extends purease.AbstractPage {
 
     public vnumberDisabled: boolean = false;
 
+    // --- nboard ---
+
+    public nboard: string = '';
+
+    public nboardDisabled: boolean = false;
+
+    public nboardTitle: boolean = false;
+
+    public nboardPlain: boolean = false;
+
 }
 
 purease.launcher(Page, {

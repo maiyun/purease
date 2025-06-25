@@ -13,12 +13,10 @@
     }
 
     &.pe-plain {
-        border-left: none; border-right: none; box-shadow: none;
+        border: none;  border-bottom: solid 1px var(--pe-border-plain); box-shadow: none;
+        
+        > :first-child {
+            border-bottom: solid 1px var(--pe-border);
+        }
     }
-}
-
-@media screen and (max-width: 800px) {
-
-    
-
 }

@@ -28,7 +28,7 @@ async function run(): Promise<void> {
         // --- 布局 ---
         const flayout = purify((await fs.promises.readFile('dist/control/' + item.name + '/layout.html')).toString()).replace(/`/g, '\\`');
         // --- 代码 ---
-        const fcode = (await fs.promises.readFile('dist/control/' + item.name + '/code.ts')).toString().replace(/'template': '',/, `'template': \`${flayout}\`,`);
+        const fcode = (await fs.promises.readFile('dist/control/' + item.name + '/code.ts')).toString().replace(/'template': ''/, `'template': \`${flayout}\``);
         code += `list['pe-${item.name}'] = ` + fcode.slice(fcode.indexOf('export const code = ') + 20) + '\n';
         // --- 样式 ---
         style += (await fs.promises.readFile('dist/control/' + item.name + '/style.scss')).toString() + '\n\n';

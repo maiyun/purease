@@ -62,7 +62,7 @@ function run() {
                 continue;
             }
             const flayout = purify((yield fs.promises.readFile('dist/control/' + item.name + '/layout.html')).toString()).replace(/`/g, '\\`');
-            const fcode = (yield fs.promises.readFile('dist/control/' + item.name + '/code.ts')).toString().replace(/'template': '',/, `'template': \`${flayout}\`,`);
+            const fcode = (yield fs.promises.readFile('dist/control/' + item.name + '/code.ts')).toString().replace(/'template': ''/, `'template': \`${flayout}\``);
             code += `list['pe-${item.name}'] = ` + fcode.slice(fcode.indexOf('export const code = ') + 20) + '\n';
             style += (yield fs.promises.readFile('dist/control/' + item.name + '/style.scss')).toString() + '\n\n';
         }

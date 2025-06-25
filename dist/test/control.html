@@ -25,7 +25,7 @@ pureaseGlobal = {};
 <!-- table -->
 <div class="pe-block">
     <div class="pe-btitle">table</div>
-    <div class="pe-alayout pe-content pe-padding-lr" style="gap: 20px; margin-top: 20px; flex-direction: column;">
+    <div class="pe-alayout pe-content pe-padding-lr pe-gap" style="flex-direction: column;">
         <pe-table>
             <pe-table-row>
                 <pe-table-head>Head1-({{testhead}})</pe-table-head>
@@ -61,7 +61,16 @@ pureaseGlobal = {};
                 <pe-table-head>Head2</pe-table-head>
                 <pe-table-head>Head3</pe-table-head>
             </pe-table-row>
-            <pe-table-row v-for="i of 5">
+            <pe-table-row v-for="i of 3">
+                <pe-table-cell>Title</pe-table-cell>
+                <pe-table-cell>Cell1</pe-table-cell>
+                <pe-table-cell>Cell2</pe-table-cell>
+                <pe-table-cell>Cell3</pe-table-cell>
+            </pe-table-row>
+            <pe-table-row title>
+                <pe-table-cell>Sub title</pe-table-cell>
+            </pe-table-row>
+            <pe-table-row v-for="i of 2">
                 <pe-table-cell>Title</pe-table-cell>
                 <pe-table-cell>Cell1</pe-table-cell>
                 <pe-table-cell>Cell2</pe-table-cell>
@@ -73,7 +82,7 @@ pureaseGlobal = {};
 <!-- datepanel -->
 <div class="pe-block pe-grey">
     <div class="pe-btitle">datepanel</div>
-    <div class="pe-layout pe-content pe-padding-lr" style="gap: 20px; margin-top: 20px; flex-direction: column;">
+    <div class="pe-layout pe-content pe-padding-lr pe-gap" style="flex-direction: column;">
         <div>Timestamp: {{dpts}}, Time zone: {{dptz}}</div>
         <div>yearmonth: {{dpym}}, hourminute: {{dphm}}</div>
         <pe-datepanel v-model="dpts" v-model:tz="dptz" v-model:yearmonth="dpym" v-model:hourminute="dphm" :time="dptime" :zone="dpzone" :disabled="dpdisabled" :plain="dpplain" :range="dprange" @range="dpOnRange" :start="dpstart ? 1704067200_000 : undefined" :lockhm="dplockhm" @changed="dpOnChanged">
@@ -95,22 +104,22 @@ pureaseGlobal = {};
                 <div class="pe-layout" style="flex: 1; justify-content: center;">{{d.year}}</div>
             </template>
         </pe-daterange>
-        <div class="pe-layout" style="gap: 20px; justify-content: center;">
+        <div class="pe-layout pe-sgap" style="justify-content: center;">
             <div class="pe-button pe-pgrey" @click="dptime = !dptime">{{dptime ? '' : '!'}}time</div>
             <div class="pe-button pe-pgrey" @click="dpzone = !dpzone">{{dpzone ? '' : '!'}}zone</div>
             <div class="pe-button pe-pgrey" @click="dpbottom = !dpbottom">{{dpbottom ? '' : '!'}}bottom</div>
         </div>
-        <div class="pe-layout" style="gap: 20px; justify-content: center;">
+        <div class="pe-layout pe-sgap" style="justify-content: center;">
             <div class="pe-button pe-pgrey" @click="dpdisabled = !dpdisabled">{{dpdisabled ? '' : '!'}}disabled</div>
             <div class="pe-button pe-pgrey" @click="dpplain = !dpplain">{{dpplain ? '' : '!'}}plain</div>
             <div class="pe-button pe-pgrey" @click="dpsettime">Set time</div>
         </div>
-        <div class="pe-layout" style="gap: 20px; justify-content: center;">
+        <div class="pe-layout pe-sgap" style="justify-content: center;">
             <div class="pe-button pe-pgrey" @click="dpts = 1577808000_000">Set 1577808000</div>
             <div class="pe-button pe-pgrey" @click="dprange = !dprange">{{dprange ? '' : '!'}}range</div>
             <div class="pe-button pe-pgrey" @click="dpstart = !dpstart">{{dpstart ? '' : '!'}}start</div>
         </div>
-        <div class="pe-layout" style="gap: 20px; justify-content: center;">
+        <div class="pe-layout pe-sgap" style="justify-content: center;">
             <div class="pe-button pe-pgrey" @click="dpym = '200708'">Set yearmonth</div>
             <div class="pe-button pe-pgrey" @click="dphm = '220232'">Set hourminute</div>
             <div class="pe-button pe-pgrey" @click="dptz = 7.5">Set tz</div>
@@ -121,12 +130,30 @@ pureaseGlobal = {};
 <!-- vnumber -->
 <div class="pe-block">
     <div class="pe-btitle">vnumber</div>
-    <div class="pe-layout pe-content pe-padding-lr" style="align-items: center; margin-top: 20px; gap: 20px; flex-direction: column;">
+    <div class="pe-layout pe-content pe-padding-lr pe-gap" style="align-items: center; flex-direction: column;">
         <pe-vnumber v-model="vnumber" :disabled="vnumberDisabled"></pe-vnumber>
         <div>value: {{vnumber}}</div>
-        <div class="pe-layout" style="gap: 20px; justify-content: center;">
+        <div class="pe-layout pe-sgap" style="justify-content: center;">
             <div class="pe-button pe-pgrey" @click="vnumberDisabled = !vnumberDisabled">{{vnumberDisabled ? '' : '!'}}disabled</div>
             <div class="pe-button pe-pgrey" @click="vnumber = '200505'">Set value</div>
+        </div>
+    </div>
+</div>
+<!-- nboard -->
+<div class="pe-block pe-grey">
+    <div class="pe-btitle">nboard</div>
+    <div class="pe-layout pe-content pe-padding-lr pe-gap" style="align-items: center; flex-direction: column;">
+        <pe-nboard v-model="nboard" :disabled="nboardDisabled" :plain="nboardPlain">
+            <template v-if="nboardTitle" v-slot:title>
+                <span>This is a title</span>
+            </template>
+        </pe-nboard>
+        <div>value: {{nboard}}</div>
+        <div class="pe-layout pe-sgap" style="justify-content: center;">
+            <div class="pe-button pe-pgrey" @click="nboardDisabled = !nboardDisabled">{{nboardDisabled ? '' : '!'}}disabled</div>
+            <div class="pe-button pe-pgrey" @click="nboard = '200707'">Set value</div>
+            <div class="pe-button pe-pgrey" @click="nboardTitle = !nboardTitle">{{nboardTitle ? '' : '!'}}title</div>
+            <div class="pe-button pe-pgrey" @click="nboardPlain = !nboardPlain">{{nboardPlain ? '' : '!'}}plain</div>
         </div>
     </div>
 </div>
