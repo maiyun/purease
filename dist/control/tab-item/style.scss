@@ -1,5 +1,5 @@
 .pe-tab-item {
-    padding: 15px 20px; transition: var(--pe-transition); border-bottom: solid 3px transparent; transform: translateY(1px);
+    padding: var(--pe-xspadding) var(--pe-spadding); transition: var(--pe-transition); border-bottom: solid 3px transparent; transform: translateY(1px);
     &.pe-selected {
         color: var(--pe-h-color); font-weight: bold; border-bottom-color: var(--pe-h-color);
     }

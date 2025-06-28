@@ -3,9 +3,9 @@
     &.pe-theme-dark {
         background: var(--pe-h-color);
         .pe-bar-item {
-            color: #FFF;
+            color: var(--pe-h-fcolor);
             &::after {
-                border-color: #FFF;
+                border-color: var(--pe-h-fcolor);
             }
         }
     }

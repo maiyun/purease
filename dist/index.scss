@@ -215,7 +215,7 @@ html.pe-speed-imme {
     padding-left: var(--pe-padding); padding-right: var(--pe-padding);
 }
 
-.pe-padding-lr6 {
+.pe-lpadding-lr {
     padding-left: var(--pe-lpadding); padding-right: var(--pe-lpadding);
 }
 
@@ -641,9 +641,9 @@ html.pe-dheader {
     &.pe-theme-dark {
         background: var(--pe-h-color);
         .pe-bar-item {
-            color: #FFF;
+            color: var(--pe-h-fcolor);
             &::after {
-                border-color: #FFF;
+                border-color: var(--pe-h-fcolor);
             }
         }
     }
@@ -719,6 +719,46 @@ html.pe-dheader {
 
                 .pe-menu {
                     height: initial; padding: 15px;
+                }
+            }
+        }
+    }
+}
+
+.pe-btab {
+    background: var(--pe-grey-hover); -webkit-user-select: none; user-select: none; position: relative;
+    &::before, &::after {
+        content: ''; position: absolute; top: 0; height: 100%; pointer-events: none; width: var(--pe-padding); opacity: 0; transition: var(--pe-transition);
+    }
+    &::before {
+        left: 0; background: linear-gradient(to right, var(--pe-border), transparent);
+    }
+    &::after {
+        right: 0; background: linear-gradient(to left, var(--pe-border), transparent);
+    }
+
+    &.pe-btab-left {
+        &::before {
+            opacity: 1;
+        }
+    }
+    &.pe-btab-right {
+        &::after {
+            opacity: 1;
+        }
+    }
+
+    .pe-btab-content {
+        display: flex; margin: 0 auto; width: min-content;
+        .pe-btab-item {
+            transition: var(--pe-transition); padding: var(--pe-xspadding) var(--pe-padding);
+            &.pe-selected {
+                background: var(--pe-h-color); color: var(--pe-h-fcolor); stroke: var(--pe-h-fcolor); fill: var(--pe-h-fcolor); cursor: default;
+            }
+            &:not(.pe-selected) {
+                cursor: pointer;
+                &:hover {
+                    color: var(--pe-h-color); stroke: var(--pe-h-color); fill: var(--pe-h-color);
                 }
             }
         }
@@ -1683,7 +1723,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 }
 
 .pe-tab-item {
-    padding: 15px 20px; transition: var(--pe-transition); border-bottom: solid 3px transparent; transform: translateY(1px);
+    padding: var(--pe-xspadding) var(--pe-spadding); transition: var(--pe-transition); border-bottom: solid 3px transparent; transform: translateY(1px);
     &.pe-selected {
         color: var(--pe-h-color); font-weight: bold; border-bottom-color: var(--pe-h-color);
     }

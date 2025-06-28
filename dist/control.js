@@ -186,6 +186,96 @@ exports.list['pe-bar-item'] = {
         },
     },
 };
+exports.list['pe-btab'] = {
+    'template': `<div class="pe-btab" :class="[isScroll&&(translate<0)&&'pe-btab-left',isScroll&&(translate>-max)&&'pe-btab-right']" @mousedown="down" @touchstart="down"><div class="pe-btab-content" ref="content" :style="{'transform':'translateX(' + this.translate + 'px)'}"><div v-for="item, i of data" class="pe-btab-item" :class="[(i===index)&&'pe-selected']" @click="select(i)">{{item}}</div></div></div>`,
+    'props': {
+        'modelValue': {
+            'default': 0
+        },
+        'data': {
+            'default': [],
+        },
+    },
+    data: function () {
+        return {
+            'translate': 0,
+            'index': 0,
+            'max': 0,
+            'width': 0,
+            'cwidth': 0,
+        };
+    },
+    'computed': {
+        isScroll: function () {
+            return this.cwidth > this.width;
+        },
+    },
+    'methods': {
+        select: function (index) {
+            this.index = index;
+            this.$emit('modelValue', index);
+        },
+        down: function (e) {
+            if (dom.hasTouchButMouse(e)) {
+                return;
+            }
+            if (this.cwidth <= this.width) {
+                return;
+            }
+            const target = e.target;
+            if (!target) {
+                return;
+            }
+            const ox = e instanceof MouseEvent ? e.clientX : e.touches[0].clientX;
+            let x = ox;
+            dom.bindDown(e, {
+                move: (ne) => {
+                    const nx = ne instanceof MouseEvent ? ne.clientX : ne.touches[0].clientX;
+                    const cx = nx - x;
+                    x = nx;
+                    this.translate += cx;
+                    if (this.translate < -this.max) {
+                        this.translate = -this.max;
+                    }
+                    else if (this.translate > 0) {
+                        this.translate = 0;
+                    }
+                },
+            });
+        },
+        resize: function () {
+            this.width = this.$el.offsetWidth;
+            this.cwidth = this.$refs.content.offsetWidth;
+            if (this.cwidth <= this.width) {
+                this.max = 0;
+                this.translate = 0;
+                return;
+            }
+            this.max = this.cwidth - this.width;
+            if (this.translate < -this.max) {
+                this.translate = -this.max;
+            }
+            else if (this.translate > 0) {
+                this.translate = 0;
+            }
+        },
+    },
+    mounted: function () {
+        this.$watch('modelValue', () => {
+            this.index = this.$props.modelValue;
+        }, {
+            'immediate': true,
+        });
+        window.addEventListener('resize', this.resize);
+        this.resize();
+    },
+    unmounted: function () {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.$nextTick();
+            window.removeEventListener('resize', this.resize);
+        });
+    }
+};
 exports.list['pe-captcha'] = {
     'template': `<div class="pe-captcha" :class="[notInit&&'pe-not','pe-captcha-'+state,'pe-captcha-'+factory]" @click="click"></div>`,
     'props': {

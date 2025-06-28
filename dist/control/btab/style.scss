@@ -1,0 +1,39 @@
+.pe-btab {
+    background: var(--pe-grey-hover); -webkit-user-select: none; user-select: none; position: relative;
+    &::before, &::after {
+        content: ''; position: absolute; top: 0; height: 100%; pointer-events: none; width: var(--pe-padding); opacity: 0; transition: var(--pe-transition);
+    }
+    &::before {
+        left: 0; background: linear-gradient(to right, var(--pe-border), transparent);
+    }
+    &::after {
+        right: 0; background: linear-gradient(to left, var(--pe-border), transparent);
+    }
+
+    &.pe-btab-left {
+        &::before {
+            opacity: 1;
+        }
+    }
+    &.pe-btab-right {
+        &::after {
+            opacity: 1;
+        }
+    }
+
+    .pe-btab-content {
+        display: flex; margin: 0 auto; width: min-content;
+        .pe-btab-item {
+            transition: var(--pe-transition); padding: var(--pe-xspadding) var(--pe-padding);
+            &.pe-selected {
+                background: var(--pe-h-color); color: var(--pe-h-fcolor); stroke: var(--pe-h-fcolor); fill: var(--pe-h-fcolor); cursor: default;
+            }
+            &:not(.pe-selected) {
+                cursor: pointer;
+                &:hover {
+                    color: var(--pe-h-color); stroke: var(--pe-h-color); fill: var(--pe-h-color);
+                }
+            }
+        }
+    }
+}

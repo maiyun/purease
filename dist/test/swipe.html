@@ -96,7 +96,7 @@
         <pe-tab-item>Tab2</pe-tab-item>
         <pe-tab-item>Tab3</pe-tab-item>
     </pe-tab>
-    <div class="pe-content pe-padding-lr6">
+    <div class="pe-content pe-lpadding-lr">
         <pe-swipe v-model="tab" :page="swipePage" :control="swipeControl" radius="10" style="height: 500px;">
             <pe-swipe-item direction="v" style="background: hsl(160, 50%, 30%); color: #FFF; font-size: 48px;">
                 <div class="pe-layout" style="align-items: center; justify-content: center; flex: 1;">Info1</div>
@@ -159,7 +159,7 @@
 <!-- 一页面显示多个 -->
 <div class="pe-block pe-grey">
     <div class="pe-btitle">Multi swipe</div>
-    <div class="pe-content pe-padding-lr6">
+    <div class="pe-content pe-lpadding-lr">
         <pe-swipe style="height: 500px;" control="outer" item="3" gutter="20">
             <pe-swipe-item style="color: #FFF; font-size: 48px; background: hsl(160, 50%, 30%); border-radius: 10px; align-items: center; justify-content: center;">Info1</pe-swipe-item>
             <pe-swipe-item style="color: #FFF; font-size: 48px; background: hsl(160, 50%, 30%); border-radius: 10px; align-items: center; justify-content: center;">Info2</pe-swipe-item>
@@ -182,6 +182,11 @@
         <div class="pe-button pe-pgrey" @click="showLoading">Show loading</div>
     </div>
 </div>
+<!-- btab -->
+<div class="pe-block pe-grey">
+    <div class="pe-btitle">Btab</div>
+</div>
+<pe-btab :data="['Tab1', 'Tab2', 'Other', 'Hehe', 'Mutton', 'Kebab', 'ClickGo', 'Purease']"></pe-btab>
 <!-- 脚部 -->
 <div id="footer">
     <pe-footer dark>
