@@ -22,7 +22,8 @@ export const code = {
     },
     'emits': {
         'changed': null,
-        'update:modelValue': null
+        'update:modelValue': null,
+        'click': null,
     },
     'computed': {
         /** --- 初始化后的 map 对象 --- */
@@ -53,6 +54,7 @@ export const code = {
                 }
             };
             this.$emit('changed', event);
+            this.$emit('click', event);
         },
         refreshModelValue: function(this: types.IVue) {
             let found = false;

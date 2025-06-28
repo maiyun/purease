@@ -9,6 +9,10 @@
             }
         }
     }
+
+    .pe-bar-logo {
+        display: block; background-size: 70px; background-position: center; background-repeat: no-repeat; width: 110px;
+    }
 }
 
 @media screen and (max-width: 800px) {

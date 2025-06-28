@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html class="pe-dheader">
+<html class="pe-dheader" style="visibility: hidden; overflow: hidden;">
 <head>
 <title>Double - Purease Test</title>
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
@@ -8,7 +8,7 @@
 <!-- 用户 -->
 <link rel="stylesheet" href="index.css" />
 </head>
-<body style="visibility: hidden;">
+<body>
 <div id="header">
     <pe-header logo-href="./" fixed>
         <pe-header-item href="./">Home</pe-header-item>
@@ -53,7 +53,7 @@
         </template>
         <!-- 底部 -->
         <template v-if="nbottom" v-slot:bottom>
-            <pe-bar :theme="dbottom">
+            <pe-bar :theme="dbottom" :logo-href="slogo ? 'javascript:void(0);' : undefined">
                 <pe-bar-item>Sub1</pe-bar-item>
                 <pe-bar-item>Sub2</pe-bar-item>
                 <pe-bar-item>
@@ -79,12 +79,13 @@
 </pe-banner>
 <div class="pe-block">
     <div class="pe-btitle">Control header</div>
-    <div class="pe-alayout pe-content" style="gap: 20px; margin-top: 20px; justify-content: center;">
-        <div class="pe-layout" style="justify-content: center; gap: 20px;">
+    <div class="pe-alayout pe-content pe-sgap" style="justify-content: center;">
+        <div class="pe-layout pe-sgap" style="justify-content: center;">
             <div class="pe-button pe-grey" @click="changeNBottom">{{nbottom ? '' : '!'}}Bottom</div>
             <div class="pe-button pe-grey" @click="changeSheader">{{sheader ? '' : '!'}}Sheader</div>
+            <div class="pe-button pe-grey" @click="slogo = !slogo">{{slogo ? '' : '!'}}slogo</div>
         </div>
-        <div class="pe-layout" style="justify-content: center; align-items: center; gap: 20px;">
+        <div class="pe-layout pe-sgap" style="justify-content: center; align-items: center;">
             <div>Theme:</div>
             <pe-select style="width: 200px;" v-model="dbottom" :data="['default', 'dark']"></pe-select>
         </div>
@@ -92,7 +93,7 @@
 </div>
 <div class="pe-block pe-grey">
     <div class="pe-btitle">Page</div>
-    <div class="pe-layout" style="flex-direction: column; gap: 20px; align-items: center;">
+    <div class="pe-layout pe-gap" style="flex-direction: column; align-items: center;">
         <pe-page max="10" :control="control"></pe-page>
         <pe-page v-model="p1" max="10" :control="control"></pe-page>
         <pe-page v-model="p2" max="30" :control="control"></pe-page>
@@ -100,11 +101,11 @@
         <pe-page v-model="p4" total="1282" count="20" :control="control"></pe-page>
         <pe-page v-model="p5" :total="total5" count="20" :control="control"></pe-page>
         <pe-page v-model="p6" total="1000" v-model:count="count6" :counts="[20,50,100]" :control="control" />
-        <div class="pe-layout" style="gap: 20px;">
+        <div class="pe-layout pe-sgap">
             <div class="pe-button pe-pgrey" @click="total5 = total5 ? 0 : 300" style="flex: 2;">total to {{total5 ? 0 : 300}}</div>
             <div class="pe-button pe-pgrey" @click="control=2" style="flex: 2;">control to 2</div>
         </div>
-        <div class="pe-layout" style="gap: 20px;">
+        <div class="pe-layout pe-sgap">
             <div class="pe-button pe-pgrey" @click="control=5" style="flex: 1;">to 5</div>
             <div class="pe-button pe-pgrey"@click="control=0" style="flex: 1;">to 0</div>
             <div class="pe-button pe-pgrey" @click="control=1" style="flex: 1;">to 1</div>
@@ -113,7 +114,7 @@
 </div>
 <div class="pe-block">
     <div class="pe-btitle">Slider</div>
-    <div class="pe-layout pe-content pe-padding-lr" style="flex-direction: column; gap: 40px; max-width: 600px;">
+    <div class="pe-layout pe-content pe-padding-lr pe-gap" style="flex-direction: column; max-width: 600px;">
         <div>{{slider1}}</div>
         <pe-slider v-model="slider1"></pe-slider>
         <div>min: 100, max: 500, {{slider2}}</div>
@@ -126,7 +127,7 @@
 </div>
 <div class="pe-block">
     <div class="pe-btitle">Switch</div>
-    <div class="pe-layout pe-content pe-padding-lr" style="flex-direction: column; gap: 40px; align-items: center;">
+    <div class="pe-layout pe-content pe-padding-lr pe-gap" style="flex-direction: column; align-items: center;">
         <div>{{switch1}}</div>
         <pe-switch v-model="switch1"></pe-switch>
         <div>{{switch2}}</div>
@@ -136,7 +137,7 @@
 <!-- drawer -->
 <div class="pe-block pe-grey">
     <div class="pe-btitle">Drawer</div>
-    <div class="pe-layout pe-content pe-padding-lr" style="flex-direction: column; gap: 20px; align-items: center;">
+    <div class="pe-layout pe-content pe-padding-lr pe-sgap" style="flex-direction: column; align-items: center;">
         <label>drawer: {{drawer ? 'true' : 'false'}}</label>
         <a class="pe-button pe-pgrey" @click="drawer = true">Open</a>
     </div>
@@ -166,9 +167,9 @@
 <!-- tag -->
 <div class="pe-block">
     <div class="pe-btitle">Tag</div>
-    <div class="pe-layout pe-content pe-padding-lr" style="flex-direction: column; gap: 20px; align-items: center;">
+    <div class="pe-layout pe-content pe-padding-lr pe-sgap" style="flex-direction: column; align-items: center;">
         <div>Default</div>
-        <div class="pe-layout" style="gap: 10px;">
+        <div class="pe-layout pe-xsgap">
             <pe-tag :close="tagclose">Default</pe-tag>
             <pe-tag :close="tagclose" type="primary">Primary</pe-tag>
             <pe-tag :close="tagclose" type="info">Info</pe-tag>
@@ -177,7 +178,7 @@
             <pe-tag :close="tagclose" type="pe">Pe</pe-tag>
         </div>
         <div>Plain</div>
-        <div class="pe-layout" style="gap: 10px;">
+        <div class="pe-layout pe-xsgap">
             <pe-tag :close="tagclose" plain>Default</pe-tag>
             <pe-tag :close="tagclose" type="primary" plain>Primary</pe-tag>
             <pe-tag :close="tagclose" type="info" plain>Info</pe-tag>
@@ -186,16 +187,16 @@
             <pe-tag :close="tagclose" type="pe" plain>Pe</pe-tag>
         </div>
         <div>Size</div>
-        <div class="pe-layout" style="gap: 10px; align-items: center;">
+        <div class="pe-layout pe-xsgap" style="align-items: center;">
             <pe-tag :close="tagclose" type="primary" plain size="l">l</pe-tag>
             <pe-tag :close="tagclose" type="primary" plain size="m">m</pe-tag>
         </div>
         <div>Event</div>
-        <div class="pe-layout" style="gap: 10px; align-items: center;">
+        <div class="pe-layout pe-xsgap" style="align-items: center;">
             <pe-tag :close="tagclose" v-for="item, index of taglist" type="pe" size="l" plain @close="taglist.splice(index, 1)">{{item}}</pe-tag>
             <div class="pe-button pe-pgrey" v-if="taglist.length < 6" @click="taglist.push('tag' + taglist.length)">Add</div>
         </div>
-        <div class="pe-layout" style="gap: 10px;">
+        <div class="pe-layout pe-xsgap">
             <div class="pe-button pe-pgrey" @click="tagclose = !tagclose">{{tagclose ? '' : '!'}}close</div>
         </div>
     </div>

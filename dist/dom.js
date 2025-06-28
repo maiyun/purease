@@ -82,7 +82,7 @@ function hasTouchButMouse(e) {
         return true;
     }
     const now = Date.now();
-    if (now - lastTouchTime < 1000 * 60) {
+    if (now - lastTouchTime < 60000) {
         return true;
     }
     return false;

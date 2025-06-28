@@ -92,13 +92,13 @@ export const code = {
     'computed': {
         /** --- 总宽度 --- */
         awidth: function(this: types.IVue) {
-            return (this.width * this.pageCount) + (tool.getNumber(this.$props.gutter) * (this.pageCount - 1));
+            return (this.width * this.pageCount) + (this.propNumber('gutter') * (this.pageCount - 1));
         },
         /** --- 每个 item 应该的宽度 --- */
         iwidth: function(this: types.IVue): string {
             const iwidth = 100 / this.pitem;
             if (this.pitem > 1) {
-                return 'calc((100% - ' + (this.pitem - 1) * tool.getNumber(this.$props.gutter) + 'px) / ' + this.pitem + ')';
+                return 'calc((100% - ' + (this.pitem - 1) * this.propNumber('gutter') + 'px) / ' + this.pitem + ')';
             }
             return iwidth + '%';
         },
@@ -238,13 +238,13 @@ export const code = {
             this.$refs.items.style.transition = 'var(--pe-transition)';
             // --- 设置允许缓动 ---
             await tool.sleep(34);
-            this.$refs.items.style.transform = 'translateX(' + (-(index * this.width + index * tool.getNumber(this.$props.gutter))).toString() + 'px)';
+            this.$refs.items.style.transform = 'translateX(' + (-(index * this.width + index * this.propNumber('gutter'))).toString() + 'px)';
             // --- 应用缓动后等待动画执行完成 ---
             await tool.sleep(334);
             this.$refs.items.style.transition = '';
             await tool.sleep(34);
             // --- 移除缓动效果后重置位置 ---
-            this.translate = -(this.selected * this.width + this.selected * tool.getNumber(this.$props.gutter));
+            this.translate = -(this.selected * this.width + this.selected * this.propNumber('gutter'));
             this.$refs.items.style.transform = 'translateX(' + this.translate + 'px)';
             this.going = false;
             // --- 判断 ---
@@ -270,7 +270,8 @@ export const code = {
             this.$refs.items.style.transform = 'translateX(' + this.translate + 'px)';
         }
     },
-    mounted: function(this: types.IVue) {
+    mounted: async function(this: types.IVue) {
+        await tool.sleep(68);
         this.width = this.$el.offsetWidth;
         if (tool.getBoolean(this.auto)) {
             this.timer = setTimeout(() => {

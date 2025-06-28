@@ -160,6 +160,8 @@ export interface IDlistChangedEvent {
     };
 }
 
+export type IDlistClickEvent = IDlistChangedEvent;
+
 // --- Select Control ---
 
 export interface ISelectChangedEvent {
@@ -209,6 +211,14 @@ export interface IDatepanelSelectedEvent {
         'year': number;
         'day': number;
         'str': string;
+    };
+}
+
+// --- Captcha Control ---
+export interface ICaptchaResultEvent {
+    'detail': {
+        'result': number;
+        'token': string;
     };
 }
 

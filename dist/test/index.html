@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html>
+<html style="visibility: hidden; overflow: hidden;">
 <head>
 <title>Purease Test</title>
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
@@ -11,7 +11,7 @@ pureaseGlobal = {};
 <!-- 用户 -->
 <link rel="stylesheet" href="index.css" />
 </head>
-<body style="visibility: hidden;">
+<body>
 <div id="header">
     <script>
         pureaseGlobal = {
@@ -101,11 +101,11 @@ pureaseGlobal = {};
 <div class="pe-block pe-grey">
     <div class="pe-btitle">Box</div>
     <div class="pe-alayout pe-content pe-padding-lr pe-gap">
-        <a class="pe-box pe-padding" href="./" style="gap: 10px; justify-content: center; flex: 1;">
+        <a class="pe-box pe-padding pe-xsgap" href="./" style="justify-content: center; flex: 1;">
             <div class="pe-title">AAA</div>
             <div class="pe-note">1111111111</div>
         </a>
-        <a class="pe-box pe-padding pe-hover" href="./" style="gap: 10px; justify-content: center; flex: 1;">
+        <a class="pe-box pe-padding pe-hover pe-xsgap" href="./" style="justify-content: center; flex: 1;">
             <div class="pe-title">Hover</div>
             <div class="pe-note">2222222222</div>
         </a>
@@ -145,14 +145,15 @@ pureaseGlobal = {};
 <!-- Group 控件 -->
 <div class="pe-block pe-grey">
     <div class="pe-btitle">Group</div>
+    <div class="pe-bnote">Style 1</div>
     <div class="pe-alayout pe-content pe-padding-lr pe-gap">
-        <pe-group style="flex: 1;">
+        <pe-group style="flex: 1;" class="pe-padtitle">
             111
             <template v-slot:bottom>
                 <div class="pe-button pe-plain" style="flex: 1;">Buy</div>
             </template>
         </pe-group>
-        <pe-group style="flex: 1;">
+        <pe-group style="flex: 1;" class="pe-padtitle">
             111
             <template v-slot:bottom>
                 <div class="pe-button pe-dark" style="flex: 1;">Buy</div>
@@ -160,6 +161,31 @@ pureaseGlobal = {};
         </pe-group>
         <pe-group style="flex: 1;">
             <template v-slot:title>Best</template>
+            111
+            <template v-slot:bottom>
+                <div class="pe-button pe-pgrey" style="flex: 1;">Buy</div>
+            </template>
+        </pe-group>
+    </div>
+    <div class="pe-bnote">Style 2</div>
+    <div class="pe-alayout pe-content pe-padding-lr pe-gap" style="align-items: center;">
+        <pe-group style="flex: 1;">
+            111
+            <template v-slot:bottom>
+                <div class="pe-button pe-pgrey" style="flex: 1;">Buy</div>
+            </template>
+        </pe-group>
+        <pe-group style="flex: 1;" class="pe-point">
+            111<br>
+            222<br>
+            333<br>
+            444<br>
+            555
+            <template v-slot:bottom>
+                <div class="pe-button pe-dark" style="flex: 1;">Buy</div>
+            </template>
+        </pe-group>
+        <pe-group style="flex: 1;">
             111
             <template v-slot:bottom>
                 <div class="pe-button pe-pgrey" style="flex: 1;">Buy</div>

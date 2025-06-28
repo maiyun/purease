@@ -92,8 +92,8 @@ export function hasTouchButMouse(e: MouseEvent | TouchEvent | PointerEvent): boo
         return true;
     }
     const now = Date.now();
-    if (now - lastTouchTime < 1_000 * 60) {
-        // --- 当前是 mouse 但是 10000ms 内有 touch start ---
+    if (now - lastTouchTime < 60_000) {
+        // --- 当前是 mouse 但是 60_000ms 内有 touch start ---
         return true;
     }
     return false;

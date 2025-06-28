@@ -66,7 +66,7 @@ html {
     --danger-bg:hsl(350, 100%, 98%);
 }
 html, body {
-    padding: 0; margin: 0;
+    padding: 0; margin: 0; overflow-x: hidden;
 }
 body, html, input, select, textarea {
     font-family: var(--pe-font-life); color: var(--pe-color); fill: var(--pe-color); stroke: var(--pe-color); line-height: 1.5; font-size: var(--pe-size);
@@ -250,6 +250,10 @@ html.pe-speed-imme {
 
 .pe-sgap {
     gap: 20px;
+}
+
+.pe-xsgap {
+    gap: 10px;
 }
 
 // --- pe-button ---
@@ -643,6 +647,10 @@ html.pe-dheader {
             }
         }
     }
+
+    .pe-bar-logo {
+        display: block; background-size: 70px; background-position: center; background-repeat: no-repeat; width: 110px;
+    }
 }
 
 @media screen and (max-width: 800px) {
@@ -666,7 +674,7 @@ html.pe-dheader {
 
 .pe-bar-item {
     padding: 0 30px; height: 50px; line-height: 50px; display: flex; align-items: center; transition: var(--pe-transition); cursor: default; position: relative;
-    &:hover {
+    &.pe-hover {
         background: rgba(255, 255, 255, .1);
     }
 
@@ -674,7 +682,7 @@ html.pe-dheader {
         &::after {
             content: ''; display: inline-block; width: 6px; height: 6px; border: solid 2px var(--pe-color); border-width: 0 0 2px 2px; transform: rotate(-45deg); margin-left: 10px; transition: var(--pe-transition); margin-top: -3px;
         }
-        &:hover {
+        &.pe-hover {
             .pe-menu {
                 opacity: 1; transform: translateY(0); pointer-events: initial;
             }
@@ -704,7 +712,11 @@ html.pe-dheader {
             .pe-menu {
                 position: initial; opacity: initial; transform: initial; pointer-events: initial; height: 0; padding: 0; overflow: hidden; margin: 0 -30px; border-radius: 0;
             }
-            &:hover {
+            &.pe-hover {
+                &::after {
+                    transform: rotate(135deg); top: 25px;
+                }
+
                 .pe-menu {
                     height: initial; padding: 15px;
                 }
@@ -712,6 +724,27 @@ html.pe-dheader {
         }
     }
 }
+
+.pe-captcha {
+    transition: var(--pe-transition); border-radius: var(--pe-radius); cursor: default; -webkit-user-select: none; user-select: none;
+    &.pe-not {
+        border: dotted 1px var(--pe-color); display: flex; align-items: center; justify-content: center; padding: var(--pe-xspadding) var(--pe-spadding);
+    }
+    &.pe-captcha-tc {
+        border: solid 1px var(--pe-h-color); color: var(--pe-h-color); background: #FFF; display: flex; align-items: center; justify-content: center; padding: var(--pe-xspadding) var(--pe-spadding);
+        &.pe-captcha-failed {
+            color: var(--danger); border-color: var(--danger);
+        }
+        &.pe-captcha-successful {
+            color: var(--success); border-color: var(--success);
+        }
+
+        &:hover:not(:active) {
+            opacity: .7;
+        }
+    }
+}
+
 
 .pe-check-box {
     background: var(--pe-input-bg); border-radius: var(--pe-radius); transition: var(--pe-transition); margin-right: 10px; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border: solid 1px var(--pe-border); box-shadow: var(--pe-shadow);
@@ -1141,8 +1174,11 @@ html.pe-dheader {
 
 .pe-group {
     border: solid 1px hsl(220, 15%, 85%); border-radius: var(--pe-radius); background: #FFF; box-shadow: 0 12px 16px -4px rgba(0, 0, 0, .08), 0 4px 6px -2px rgba(16, 24, 40, .03); display: flex; flex-direction: column; overflow: hidden;
-    &:not(.pe-hastitle) {
+    &.pe-padtitle {
         margin-top: 44px;
+    }
+    &.pe-point {
+        border: solid 2px var(--pe-h-color);
     }
 }
 .pe-group-title {
@@ -1212,6 +1248,11 @@ html.pe-sheader {
 .pe-header-control {
     width: 42px; height: 42px; display: none;
 }
+html.pe-sheader {
+    .pe-header-control {
+        width: 32px; height: 32px;
+    }
+}
 
 @media screen and (max-width: 800px) {
 
@@ -1248,7 +1289,7 @@ html.pe-sheader {
     }
     html.pe-sheader {
         .pe-header-control {
-            right: 10px; top: 5px;
+            right: 10px; top: 9px;
         }
     }
 
@@ -1256,7 +1297,7 @@ html.pe-sheader {
 
 .pe-header-item {
     transition: var(--pe-transition); position: relative; height: 70px; line-height: 70px; padding: 0 30px; display: flex; align-items: center;
-    &:hover {
+    &.pe-hover {
         color: var(--pe-h-color); fill: var(--pe-h-color); stroke: var(--pe-h-color);
     }
 
@@ -1265,7 +1306,7 @@ html.pe-sheader {
         &::after {
             content: ''; display: inline-block; width: 6px; height: 6px; border: solid 2px var(--pe-color); border-width: 0 0 2px 2px; transform: rotate(-45deg); margin-left: 10px; transition: var(--pe-transition); margin-top: -3px;
         }
-        &:hover {
+        &.pe-hover {
             &::after {
                 border-color: var(--pe-h-color);
             }
@@ -1317,19 +1358,30 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
             .pe-menu {
                 position: initial; opacity: initial; transform: initial; pointer-events: initial; height: 0; padding: 0; overflow: hidden;
             }
-            &:hover {
+            &.pe-hover {
+                &::after {
+                    transform: rotate(135deg); top: 35px;
+                }
+
                 .pe-menu {
                     height: initial; padding: 15px; margin-bottom: 15px;
                 }
             }
         }
     }
+
+    // --- 小 header ---
     html.pe-sheader {
         .pe-header-item {
             height: initial;
             &.pe-list {
                 &::after {
                     top: 22px;
+                }
+                &.pe-hover {
+                    &::after {
+                        top: 25px;
+                    }
                 }
             }
         }

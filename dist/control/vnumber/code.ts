@@ -48,6 +48,7 @@ export const code = {
                     return;
                 }
                 this.$emit('update:modelValue', this.$refs.input.value);
+                this.$emit('changed');
             },
             'immediate': true
         }
@@ -70,6 +71,7 @@ export const code = {
                 this.$refs.input.value = mv;
             }
             this.$emit('update:modelValue', mv);
+            this.$emit('changed');
         }
     },
 };

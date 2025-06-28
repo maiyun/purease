@@ -141,15 +141,18 @@ exports.list['pe-banner'] = {
     },
 };
 exports.list['pe-bar'] = {
-    'template': `<div class="pe-bar" :class="['pe-theme-'+theme]"><slot></slot></div>`,
+    'template': `<div class="pe-bar" :class="['pe-theme-'+theme]"><a v-if="logoHref" class="pe-bar-logo" :href="logoHref"></a><slot></slot></div>`,
     'props': {
+        'logoHref': {
+            'default': ''
+        },
         'theme': {
             'default': 'default'
         }
     }
 };
 exports.list['pe-bar-item'] = {
-    'template': `<a class="pe-bar-item" :href="href" :class="[menuCount&&'pe-list']"><slot></slot></a>`,
+    'template': `<a class="pe-bar-item" :href="href" :class="[menuCount&&'pe-list',hover&&'pe-hover']" @touchstart="enter" @mouseenter="enter" @mouseleave="leave"><slot></slot></a>`,
     'props': {
         'href': {
             'default': undefined
@@ -157,8 +160,223 @@ exports.list['pe-bar-item'] = {
     },
     'data': function () {
         return {
-            'menuCount': 0
+            'menuCount': 0,
+            'hover': false,
         };
+    },
+    'methods': {
+        enter: function (e) {
+            if (dom.hasTouchButMouse(e)) {
+                return;
+            }
+            const target = e.target;
+            if (target.classList.contains('pe-menu') || dom.findParentByClass(target, 'pe-menu')) {
+                return;
+            }
+            if (!this.href) {
+                e.preventDefault();
+            }
+            this.hover = !this.hover;
+        },
+        leave: function (e) {
+            if (dom.hasTouchButMouse(e)) {
+                return;
+            }
+            this.hover = false;
+        },
+    },
+};
+exports.list['pe-captcha'] = {
+    'template': `<div class="pe-captcha" :class="[notInit&&'pe-not','pe-captcha-'+state,'pe-captcha-'+factory]" @click="click"></div>`,
+    'props': {
+        'factory': {
+            'default': 'tc',
+        },
+        'akey': {
+            'default': '',
+        },
+    },
+    'emits': {
+        'result': null,
+    },
+    'data': function () {
+        return {
+            'notInit': false,
+            'state': '',
+            'localeData': {
+                'en': {
+                    'click': 'Click to verify',
+                    'failed': 'Failed, retry',
+                    'successful': 'Verified'
+                },
+                'sc': {
+                    'click': '点击进行验证',
+                    'failed': '失败，点击重试',
+                    'successful': '验证成功'
+                },
+                'tc': {
+                    'click': '點選進行驗證',
+                    'failed': '失敗，點選重試',
+                    'successful': '驗證成功'
+                },
+                'ja': {
+                    'click': '認証する',
+                    'failed': '失敗、再試行',
+                    'successful': '成功'
+                },
+                'ko': {
+                    'click': '인증하기',
+                    'failed': '실패, 재시도',
+                    'successful': '성공'
+                },
+                'th': {
+                    'click': 'ยืนยัน',
+                    'failed': 'ล้มเหลว, ลองอีก',
+                    'successful': 'สำเร็จ'
+                },
+                'es': {
+                    'click': 'Verificar',
+                    'failed': 'Error, reintenta',
+                    'successful': 'Verificado'
+                },
+                'de': {
+                    'click': 'Prüfen',
+                    'failed': 'Fehler, retry',
+                    'successful': 'Erfolgreich'
+                },
+                'fr': {
+                    'click': 'Vérifier',
+                    'failed': 'Échec, réessayer',
+                    'successful': 'Réussi'
+                },
+                'pt': {
+                    'click': 'Verificar',
+                    'failed': 'Falha, retry',
+                    'successful': 'Sucesso'
+                },
+                'ru': {
+                    'click': 'Проверить',
+                    'failed': 'Ошибка, повтор',
+                    'successful': 'Успешно'
+                },
+                'vi': {
+                    'click': 'Xác minh',
+                    'failed': 'Thất bại, thử lại',
+                    'successful': 'Thành công'
+                }
+            },
+        };
+    },
+    'methods': {
+        reset: function () {
+            if (this.factory === 'tc') {
+                this.state = '';
+                this.$el.innerHTML = this.l('click');
+                return;
+            }
+            if (!this.access.lib || !this.access.instance) {
+                return;
+            }
+            this.access.lib.reset(this.access.instance);
+        },
+        click: function () {
+            if (!this.access.instance) {
+                return;
+            }
+            if (this.$props.factory !== 'tc') {
+                return;
+            }
+            this.access.instance.show();
+        },
+    },
+    mounted: function () {
+        return __awaiter(this, void 0, void 0, function* () {
+            this.access = {
+                'instance': undefined,
+            };
+            if (this.$props.factory === 'tc') {
+                if (!window.TencentCaptcha) {
+                    yield loader.loadScripts([
+                        'https://turing.captcha.qcloud.com/TJCaptcha.js'
+                    ]);
+                }
+                const tcc = window.TencentCaptcha;
+                if (!tcc) {
+                    this.notInit = true;
+                    this.$el.innerHTML = 'Captcha module not found.';
+                    return;
+                }
+                this.$el.innerHTML = this.l('click');
+                try {
+                    const captcha = new tcc(this.$props.akey, (res) => {
+                        if (res.ret === 0 && !res.errorCode) {
+                            this.state = 'successful';
+                            this.$el.innerHTML = this.l('successful');
+                        }
+                        else {
+                            this.state = 'failed';
+                            this.$el.innerHTML = this.l('failed');
+                        }
+                        const event = {
+                            'detail': {
+                                'result': (res.ret === 0 && !res.errorCode) ? 1 : 0,
+                                'token': res.ticket + '|' + res.randstr,
+                            },
+                        };
+                        this.$emit('result', event);
+                    }, {
+                        'needFeedBack': false,
+                    });
+                    this.access.instance = captcha;
+                }
+                catch (_a) {
+                    this.notInit = true;
+                    this.$el.innerHTML = 'Captcha module not found.';
+                    return;
+                }
+                return;
+            }
+            if (!window.turnstile) {
+                yield loader.loadScripts([
+                    'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
+                ]);
+            }
+            const cft = window.turnstile;
+            if (!cft) {
+                this.notInit = true;
+                this.$el.innerHTML = 'Captcha module not found.';
+                return;
+            }
+            if (!this.$props.akey) {
+                this.notInit = true;
+                this.$el.innerHTML = 'Missing: akey';
+                return;
+            }
+            const captcha = cft.render(this.$el, {
+                'sitekey': this.$props.akey,
+                'size': 'flexible',
+                callback: (token) => {
+                    const event = {
+                        'detail': {
+                            'result': 1,
+                            'token': token,
+                        },
+                    };
+                    this.$emit('result', event);
+                },
+            });
+            this.access.instance = captcha;
+        });
+    },
+    unmounted: function () {
+        if (this.$props.factory === 'tc') {
+            this.access.instance = undefined;
+            return;
+        }
+        if (!this.access.instance) {
+            return;
+        }
+        window.turnstile.remove(this.access.instance);
     }
 };
 exports.list['pe-check'] = {
@@ -1713,7 +1931,8 @@ exports.list['pe-dlist'] = {
     },
     'emits': {
         'changed': null,
-        'update:modelValue': null
+        'update:modelValue': null,
+        'click': null,
     },
     'computed': {
         mapComp: function () {
@@ -1740,6 +1959,7 @@ exports.list['pe-dlist'] = {
                 }
             };
             this.$emit('changed', event);
+            this.$emit('click', event);
         },
         refreshModelValue: function () {
             var _a, _b, _c, _d, _e, _f;
@@ -1928,7 +2148,7 @@ exports.list['pe-header'] = {
     }
 };
 exports.list['pe-header-item'] = {
-    'template': `<a class="pe-header-item" :href="href" :class="[menuCount&&'pe-list']"><slot></slot></a>`,
+    'template': `<a class="pe-header-item" :href="href" :class="[menuCount&&'pe-list',hover&&'pe-hover']" @touchstart="enter" @mouseenter="enter" @mouseleave="leave"><slot></slot></a>`,
     'props': {
         'href': {
             'default': undefined
@@ -1936,9 +2156,31 @@ exports.list['pe-header-item'] = {
     },
     'data': function () {
         return {
-            'menuCount': 0
+            'menuCount': 0,
+            'hover': false,
         };
-    }
+    },
+    'methods': {
+        enter: function (e) {
+            if (dom.hasTouchButMouse(e)) {
+                return;
+            }
+            const target = e.target;
+            if (target.classList.contains('pe-menu') || dom.findParentByClass(target, 'pe-menu')) {
+                return;
+            }
+            if (!this.href) {
+                e.preventDefault();
+            }
+            this.hover = !this.hover;
+        },
+        leave: function (e) {
+            if (dom.hasTouchButMouse(e)) {
+                return;
+            }
+            this.hover = false;
+        },
+    },
 };
 exports.list['pe-icon'] = {
     'template': `<svg v-if="name==='link'" class="pe-icon" viewBox="0 0 24 24" fill="none"><path d="M13 11L22 2M22 2H16.6562M22 2V7.34375" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2M22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2.49073 19.5618 2.16444 18.1934 2.0551 16" stroke-width="1.5" stroke-linecap="round"/></svg><svg v-else-if="name==='language'" class="pe-icon" viewBox="0 0 24 24"><path d="M8 15H3.5A2.502 2.502 0 0 1 1 12.5v-9A2.502 2.502 0 0 1 3.5 1h9A2.502 2.502 0 0 1 15 3.5V8h-1V3.5A1.502 1.502 0 0 0 12.5 2h-9A1.502 1.502 0 0 0 2 3.5v9A1.502 1.502 0 0 0 3.5 14H8zm-.038-4.811a9.77 9.77 0 0 1-3.766 1.796l-.242-.97a8.816 8.816 0 0 0 3.282-1.532A9.264 9.264 0 0 1 4.888 5H4V4h3.279l-.544-.544.707-.707L8.692 4H12v1h-.914A9.836 9.836 0 0 1 9.78 8.152a3.853 3.853 0 0 0-1.82 2.037zm.032-1.383A8.167 8.167 0 0 0 10.058 5H5.922a8.18 8.18 0 0 0 2.072 3.806zM23 20.447v-8.894A2.525 2.525 0 0 0 20.484 9h-8.931A2.556 2.556 0 0 0 9 11.553v8.894A2.556 2.556 0 0 0 11.553 23h8.894A2.556 2.556 0 0 0 23 20.447zM20.484 10A1.517 1.517 0 0 1 22 11.516v8.968A1.517 1.517 0 0 1 20.484 22h-8.968A1.517 1.517 0 0 1 10 20.484v-8.968A1.517 1.517 0 0 1 11.516 10zm-2.086 8h-4.796l-1.159 2.23-.886-.46L16 11.215l4.443 8.555-.886.46zm-.52-1L16 13.385 14.122 17z" stroke-width=".5"/></svg><svg v-else-if="name==='backspace'" class="pe-icon" viewBox="0 0 24 24" fill="none"><path d="M22 12C22 15.7712 22 17.6569 20.7961 18.8284C19.5921 20 17.6544 20 13.779 20H11.142C8.91458 20 7.80085 20 6.87114 19.4986C5.94144 18.9971 5.35117 18.0781 4.17061 16.24L3.48981 15.18C2.4966 13.6336 2 12.8604 2 12C2 11.1396 2.4966 10.3664 3.48981 8.82001L4.17061 7.76001C5.35117 5.92191 5.94144 5.00286 6.87114 4.50143C7.80085 4 8.91458 4 11.142 4L13.779 4C17.6544 4 19.5921 4 20.7961 5.17157C21.4673 5.82475 21.7643 6.69989 21.8957 8" stroke-width="1.5" stroke-linecap="round"/><path d="M15.5 9.50002L10.5 14.5M10.5 9.5L15.5 14.5" stroke-width="1.5" stroke-linecap="round"/></svg>`,
@@ -2069,6 +2311,7 @@ exports.list['pe-nboard'] = {
                     return;
                 }
                 this.$emit('update:modelValue', mv);
+                this.$emit('changed');
             },
             'immediate': true,
         },
@@ -2084,6 +2327,7 @@ exports.list['pe-nboard'] = {
                 return;
             }
             this.$emit('update:modelValue', mv);
+            this.$emit('changed');
         },
         back: function () {
             if (!this.value.length) {
@@ -2095,6 +2339,7 @@ exports.list['pe-nboard'] = {
                 return;
             }
             this.$emit('update:modelValue', mv);
+            this.$emit('changed');
         },
     },
 };
@@ -2282,7 +2527,7 @@ exports.list['pe-page'] = {
     }
 };
 exports.list['pe-select'] = {
-    'template': `<div class="pe-select" :class="[propBoolean('plain')&&'pe-plain',propBoolean('disabled')&&'pe-disabled',propBoolean('search')&&'pe-search']" :tabindex="!propBoolean('disabled') ? '0' : undefined" @click="open"><div class="pe-select-label">{{label || '\u3000'}}</div><div class="pe-select-arrow"></div><div class="pe-pop" ref="pop"><pe-text v-if="propBoolean('search')" v-model="searchValue" :placeholder="l('search')" plain></pe-text><pe-dlist :data="searchComp" :modelValue="value" @update:modelValue="onModelValue" @changed="changed" plain></pe-dlist></div></div>`,
+    'template': `<div class="pe-select" :class="[propBoolean('plain')&&'pe-plain',propBoolean('disabled')&&'pe-disabled',propBoolean('search')&&'pe-search']" :tabindex="!propBoolean('disabled') ? '0' : undefined" @click="open"><div class="pe-select-label">{{label || '\u3000'}}</div><div class="pe-select-arrow"></div><div class="pe-pop" ref="pop"><pe-text v-if="propBoolean('search')" v-model="searchValue" :placeholder="l('search')" plain></pe-text><pe-dlist :data="searchComp" :modelValue="value" @update:modelValue="onModelValue" @click="click" plain></pe-dlist></div></div>`,
     'props': {
         'modelValue': {
             'default': ''
@@ -2373,7 +2618,7 @@ exports.list['pe-select'] = {
             }
             this.$emit('update:modelValue', this.value);
         },
-        changed: function (e) {
+        click: function (e) {
             this.searchValue = '';
             const event = {
                 'detail': {
@@ -2629,12 +2874,12 @@ exports.list['pe-swipe'] = {
     },
     'computed': {
         awidth: function () {
-            return (this.width * this.pageCount) + (tool.getNumber(this.$props.gutter) * (this.pageCount - 1));
+            return (this.width * this.pageCount) + (this.propNumber('gutter') * (this.pageCount - 1));
         },
         iwidth: function () {
             const iwidth = 100 / this.pitem;
             if (this.pitem > 1) {
-                return 'calc((100% - ' + (this.pitem - 1) * tool.getNumber(this.$props.gutter) + 'px) / ' + this.pitem + ')';
+                return 'calc((100% - ' + (this.pitem - 1) * this.propNumber('gutter') + 'px) / ' + this.pitem + ')';
             }
             return iwidth + '%';
         },
@@ -2762,11 +3007,11 @@ exports.list['pe-swipe'] = {
                 }
                 this.$refs.items.style.transition = 'var(--pe-transition)';
                 yield tool.sleep(34);
-                this.$refs.items.style.transform = 'translateX(' + (-(index * this.width + index * tool.getNumber(this.$props.gutter))).toString() + 'px)';
+                this.$refs.items.style.transform = 'translateX(' + (-(index * this.width + index * this.propNumber('gutter'))).toString() + 'px)';
                 yield tool.sleep(334);
                 this.$refs.items.style.transition = '';
                 yield tool.sleep(34);
-                this.translate = -(this.selected * this.width + this.selected * tool.getNumber(this.$props.gutter));
+                this.translate = -(this.selected * this.width + this.selected * this.propNumber('gutter'));
                 this.$refs.items.style.transform = 'translateX(' + this.translate + 'px)';
                 this.going = false;
                 if (this.mvselected !== this.selected) {
@@ -2793,17 +3038,20 @@ exports.list['pe-swipe'] = {
         }
     },
     mounted: function () {
-        this.width = this.$el.offsetWidth;
-        if (tool.getBoolean(this.auto)) {
-            this.timer = setTimeout(() => {
-                this.timer = null;
-                ++this.selected;
-                this.go();
-                this.mvselected = this.selected;
-                this.$emit('update:modelValue', this.mvelected);
-            }, 3000);
-        }
-        window.addEventListener('resize', this.resize);
+        return __awaiter(this, void 0, void 0, function* () {
+            yield tool.sleep(68);
+            this.width = this.$el.offsetWidth;
+            if (tool.getBoolean(this.auto)) {
+                this.timer = setTimeout(() => {
+                    this.timer = null;
+                    ++this.selected;
+                    this.go();
+                    this.mvselected = this.selected;
+                    this.$emit('update:modelValue', this.mvelected);
+                }, 3000);
+            }
+            window.addEventListener('resize', this.resize);
+        });
     },
     unmounted: function () {
         return __awaiter(this, void 0, void 0, function* () {
@@ -3459,6 +3707,7 @@ exports.list['pe-vnumber'] = {
                     return;
                 }
                 this.$emit('update:modelValue', this.$refs.input.value);
+                this.$emit('changed');
             },
             'immediate': true
         }
@@ -3481,6 +3730,7 @@ exports.list['pe-vnumber'] = {
                 this.$refs.input.value = mv;
             }
             this.$emit('update:modelValue', mv);
+            this.$emit('changed');
         }
     },
 };

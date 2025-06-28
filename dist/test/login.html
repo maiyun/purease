@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html class="login">
+<html class="login" style="visibility: hidden; overflow: hidden;">
 <head>
 <title>Login - Purease Test</title>
 <meta http-equiv="content-type" content="text/html;charset=utf-8">
@@ -8,7 +8,7 @@
 <!-- 用户 -->
 <link rel="stylesheet" href="index.css" />
 </head>
-<body style="visibility: hidden;">
+<body>
 <div class="pe-hske">
     <div class="pe-hske-first">
         <div class="pe-hske-content"></div>
@@ -37,14 +37,14 @@
                     </pe-menu>
                 </div>
             </div>
-            <div style="display: flex; gap: 20px; align-items: center;">
+            <div class="pe-sgap" style="display: flex;align-items: center;">
                 <div>Not yet?</div>
                 <div class="pe-button pe-grey">Register</div>
             </div>
         </div>
         <!-- 主面板 -->
         <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
-            <div class="pe-layout" style="flex-direction: column; gap: 20px;">
+            <div class="pe-layout pe-gap" style="flex-direction: column;">
                 <div class="pe-title" style="text-align: center;">Login</div>
                 <pe-tab v-model="tab">
                     <pe-tab-item>Mobile</pe-tab-item>

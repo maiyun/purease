@@ -68,6 +68,7 @@ class Page extends purease.AbstractPage {
         this.drawer = false;
         this.drawer2 = false;
         this.sheader = false;
+        this.slogo = false;
         this.customDialog = false;
         this.customDialogText = '';
         this.p1 = 3;
@@ -104,6 +105,10 @@ class Page extends purease.AbstractPage {
         this.nboardDisabled = false;
         this.nboardTitle = false;
         this.nboardPlain = false;
+        this.tcResult = 'waiting...';
+        this.cfResult = 'waiting...';
+        this.tcKey = '';
+        this.cfKey = '';
     }
     changeNBottom() {
         this.nbottom = !this.nbottom;
@@ -186,6 +191,20 @@ class Page extends purease.AbstractPage {
     }
     dpOnRange(e) {
         console.log('onRange', e);
+    }
+    tcOnResult(res) {
+        this.tcResult = res;
+    }
+    tcOnReset() {
+        this.tcResult = 'waiting...';
+        this.refs.tc.reset();
+    }
+    cfOnResult(res) {
+        this.cfResult = res;
+    }
+    cfOnReset() {
+        this.cfResult = 'waiting...';
+        this.refs.cf.reset();
     }
 }
 purease.launcher(Page, {

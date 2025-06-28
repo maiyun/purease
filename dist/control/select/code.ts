@@ -94,7 +94,7 @@ export const code = {
             }
             this.$emit('update:modelValue', this.value);
         },
-        changed: function(this: types.IVue, e: types.IDlistChangedEvent) {
+        click: function(this: types.IVue, e: types.IDlistClickEvent) {
             this.searchValue = '';
             const event: types.ISelectChangedEvent = {
                 'detail': {

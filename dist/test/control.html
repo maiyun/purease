@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html>
+<html style="visibility: hidden; overflow: hidden;">
 <head>
 <title>Control - Purease Test</title>
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
@@ -11,7 +11,7 @@ pureaseGlobal = {};
 <!-- 用户 -->
 <link rel="stylesheet" href="index.css" />
 </head>
-<body style="visibility: hidden;">
+<body>
 <!-- head -->
 <div id="header">
     <pe-header logo-href="./" fixed>
@@ -157,6 +157,18 @@ pureaseGlobal = {};
         </div>
     </div>
 </div>
+<!-- captcha -->
+<div class="pe-block">
+    <div class="pe-btitle">captcha</div>
+    <div class="pe-layout pe-content pe-padding-lr pe-gap" style="align-items: center; flex-direction: column;">
+        <div>tc: {{tcResult}}</div>
+        <pe-captcha ref="tc" factory="tc" :akey="tcKey" @result="tcOnResult"></pe-captcha>
+        <div class="pe-button pe-pgrey" @click="tcOnReset">Reset TC</div>
+        <div>cf: {{cfResult}}</div>
+        <pe-captcha ref="cf" factory="cf" :akey="cfKey" @result="cfOnResult"></pe-captcha>
+        <div class="pe-button pe-pgrey" @click="cfOnReset">Reset CF</div>
+    </div>
+</div>
 <!-- 脚部 -->
 <div id="footer">
     <script>
@@ -194,7 +206,7 @@ pureaseGlobal = {};
         </div>
         <template v-slot:bottom>
             <div class="pe-footer-bottom-row">
-                <div class="pe-alayout" style="gap: 10px; align-items: center;">
+                <div class="pe-alayout pe-xsgap" style="align-items: center;">
                     <div>This is some footer information</div>
                     <div class="teststyle">Note2</div>
                 </div>

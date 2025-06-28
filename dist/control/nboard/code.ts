@@ -47,6 +47,7 @@ export const code = {
                     return;
                 }
                 this.$emit('update:modelValue', mv);
+                this.$emit('changed');
             },
             'immediate': true,
         },
@@ -62,6 +63,7 @@ export const code = {
                 return;
             }
             this.$emit('update:modelValue', mv);
+            this.$emit('changed');
         },
         back: function(this: types.IVue) {
             if (!this.value.length) {
@@ -73,6 +75,7 @@ export const code = {
                 return;
             }
             this.$emit('update:modelValue', mv);
+            this.$emit('changed');
         },
     },
 };

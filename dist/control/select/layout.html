@@ -3,6 +3,6 @@
     <div class="pe-select-arrow"></div>
     <div class="pe-pop" ref="pop">
         <pe-text v-if="propBoolean('search')" v-model="searchValue" :placeholder="l('search')" plain></pe-text>
-        <pe-dlist :data="searchComp" :modelValue="value" @update:modelValue="onModelValue" @changed="changed" plain></pe-dlist>
+        <pe-dlist :data="searchComp" :modelValue="value" @update:modelValue="onModelValue" @click="click" plain></pe-dlist>
     </div>
 </div>

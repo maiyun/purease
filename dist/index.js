@@ -233,6 +233,10 @@ function launcher(page, options = {}) {
             ];
             yield loader.loadScripts(paths);
             yield loader.loadLink(__dirname + '/index.css', undefined, 'before');
+            const htmls = document.getElementsByTagName('html');
+            if (!htmls[0]) {
+                return;
+            }
             const bodys = document.getElementsByTagName('body');
             if (!bodys[0]) {
                 return;
@@ -426,7 +430,8 @@ function launcher(page, options = {}) {
             }
             yield tool.sleep(34);
             yield cpage.main.call(rtn.vroot);
-            bodys[0].style.visibility = 'initial';
+            htmls[0].style.overflow = '';
+            htmls[0].style.visibility = '';
         });
     })().catch(function (e) {
         console.log('launcher', e);

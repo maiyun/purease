@@ -45,6 +45,11 @@ html.pe-sheader {
 .pe-header-control {
     width: 42px; height: 42px; display: none;
 }
+html.pe-sheader {
+    .pe-header-control {
+        width: 32px; height: 32px;
+    }
+}
 
 @media screen and (max-width: 800px) {
 
@@ -81,7 +86,7 @@ html.pe-sheader {
     }
     html.pe-sheader {
         .pe-header-control {
-            right: 10px; top: 5px;
+            right: 10px; top: 9px;
         }
     }
 

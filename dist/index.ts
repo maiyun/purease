@@ -317,6 +317,10 @@ export function launcher<T extends AbstractPage>(page: new (opt: {
         // --- 加载 vue 以及必要库 ---
         await loader.loadScripts(paths);
         await loader.loadLink(__dirname + '/index.css', undefined, 'before');
+        const htmls = document.getElementsByTagName('html');
+        if (!htmls[0]) {
+            return;
+        }
         const bodys = document.getElementsByTagName('body');
         if (!bodys[0]) {
             return;
@@ -530,7 +534,8 @@ export function launcher<T extends AbstractPage>(page: new (opt: {
         // --- 执行回调 ---
         await tool.sleep(34);
         await cpage.main.call(rtn.vroot);
-        bodys[0].style.visibility = 'initial';
+        htmls[0].style.overflow = '';
+        htmls[0].style.visibility = '';
     })().catch(function(e) {
         console.log('launcher', e);
     });

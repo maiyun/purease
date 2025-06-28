@@ -1,3 +1,4 @@
 <div class="pe-bar" :class="['pe-theme-'+theme]">
+    <a v-if="logoHref" class="pe-bar-logo" :href="logoHref"></a>
     <slot></slot>
 </div>

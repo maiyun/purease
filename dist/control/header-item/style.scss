@@ -1,6 +1,6 @@
 .pe-header-item {
     transition: var(--pe-transition); position: relative; height: 70px; line-height: 70px; padding: 0 30px; display: flex; align-items: center;
-    &:hover {
+    &.pe-hover {
         color: var(--pe-h-color); fill: var(--pe-h-color); stroke: var(--pe-h-color);
     }
 
@@ -9,7 +9,7 @@
         &::after {
             content: ''; display: inline-block; width: 6px; height: 6px; border: solid 2px var(--pe-color); border-width: 0 0 2px 2px; transform: rotate(-45deg); margin-left: 10px; transition: var(--pe-transition); margin-top: -3px;
         }
-        &:hover {
+        &.pe-hover {
             &::after {
                 border-color: var(--pe-h-color);
             }
@@ -61,19 +61,30 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
             .pe-menu {
                 position: initial; opacity: initial; transform: initial; pointer-events: initial; height: 0; padding: 0; overflow: hidden;
             }
-            &:hover {
+            &.pe-hover {
+                &::after {
+                    transform: rotate(135deg); top: 35px;
+                }
+
                 .pe-menu {
                     height: initial; padding: 15px; margin-bottom: 15px;
                 }
             }
         }
     }
+
+    // --- 小 header ---
     html.pe-sheader {
         .pe-header-item {
             height: initial;
             &.pe-list {
                 &::after {
                     top: 22px;
+                }
+                &.pe-hover {
+                    &::after {
+                        top: 25px;
+                    }
                 }
             }
         }
