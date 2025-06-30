@@ -10,6 +10,9 @@ export const code = {
         'data': {
             'default': [],
         },
+        'plain': {
+            'default': false,
+        },
     },
     data: function() {
         return {

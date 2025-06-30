@@ -282,7 +282,7 @@ export function launcher<T extends AbstractPage>(page: new (opt: {
     'locale'?: string;
     'localePath'?: string;
 }) => T, options: {
-    /** --- 生产环境请不要开启，默认不开启 --- */
+    /** --- 生产环境请不要开启，默认不开启，开启后将加载 debug 版框架 --- */
     'debug'?: boolean;
     /** --- 设定当前的程序语言 --- */
     'locale'?: string;

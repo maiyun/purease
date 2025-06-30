@@ -10,6 +10,9 @@ export const code = {
     'props': {
         'modelValue': {
             'default': 0
+        },
+        'plain': {
+            'default': false,
         }
     },
     'watch': {

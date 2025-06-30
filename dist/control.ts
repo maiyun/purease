@@ -166,13 +166,16 @@ list['pe-bar-item'] = {
 };
 
 list['pe-btab'] = {
-    'template': `<div class="pe-btab" :class="[isScroll&&(translate<0)&&'pe-btab-left',isScroll&&(translate>-max)&&'pe-btab-right']" @mousedown="down" @touchstart="down"><div class="pe-btab-content" ref="content" :style="{'transform':'translateX(' + this.translate + 'px)'}"><div v-for="item, i of data" class="pe-btab-item" :class="[(i===index)&&'pe-selected']" @click="select(i)">{{item}}</div></div></div>`,
+    'template': `<div class="pe-btab" :class="[isScroll&&(translate<0)&&'pe-btab-left',isScroll&&(translate>-max)&&'pe-btab-right',propBoolean('plain')&&'pe-plain']" @mousedown="down" @touchstart="down"><div class="pe-btab-content" ref="content" :style="{'transform':'translateX(' + this.translate + 'px)'}"><div v-for="item, i of data" class="pe-btab-item" :class="[(i===index)&&'pe-selected']" @click="select(i)">{{item}}</div></div></div>`,
     'props': {
         'modelValue': {
             'default': 0
         },
         'data': {
             'default': [],
+        },
+        'plain': {
+            'default': false,
         },
     },
     data: function() {
@@ -3560,7 +3563,7 @@ list['pe-switch'] = {
 };
 
 list['pe-tab'] = {
-    'template': `<div class="pe-tab"><slot></slot></div>`,
+    'template': `<div class="pe-tab" :class="[propBoolean('plain')&&'pe-plain']"><slot></slot></div>`,
     'data': function() {
         return {
             'selected': 0
@@ -3569,6 +3572,9 @@ list['pe-tab'] = {
     'props': {
         'modelValue': {
             'default': 0
+        },
+        'plain': {
+            'default': false,
         }
     },
     'watch': {

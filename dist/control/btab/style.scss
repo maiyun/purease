@@ -1,5 +1,10 @@
 .pe-btab {
-    background: var(--pe-grey-hover); -webkit-user-select: none; user-select: none; position: relative;
+    -webkit-user-select: none; user-select: none; position: relative;
+    &:not(.pe-plain) {
+        background: var(--pe-grey-hover);
+    }
+
+    // --- 左右渐变 ---
     &::before, &::after {
         content: ''; position: absolute; top: 0; height: 100%; pointer-events: none; width: var(--pe-padding); opacity: 0; transition: var(--pe-transition);
     }

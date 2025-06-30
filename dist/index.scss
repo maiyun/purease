@@ -20,7 +20,7 @@ html {
     --pe-input-bg:hsl(210,20%,99.5%);           // --- 输入型控件的默认底色 ---
     --pe-input-hover-bg:hsl(210,20%,97.5%);     // --- 输入型控件的 hover 底色 ---
     --pe-border:hsl(220,15%,85%);               // --- 一般用于组件的边框 ---
-    --pe-border-plain:hsl(220,15%,92%);   // --- 一般用于组件内部的轻边框 ---
+    --pe-border-plain:hsl(220,15%,92%);         // --- 一般用于组件内部的轻边框 ---
     --pe-shadow:0 1px 6px hsla(220,45%,10%,0.05);   // --- 一般用于组件的小阴影 ---
     --pe-pop-shadow:0px 15px 30px rgba(0,0,0,.07);  // --- 弹出层的阴影 ---
     --pe-outline-shadow:0 0 0 4px hsl(220,20%,95%); // --- active 状态的类似 outline 边框 ---
@@ -225,6 +225,14 @@ html.pe-speed-imme {
 
 .pe-spadding {
     padding: var(--pe-spadding);
+}
+
+.pe-xspadding {
+    padding: var(--pe-xspadding);
+}
+
+.pe-xxspadding {
+    padding: var(--pe-xxspadding);
 }
 
 // --- pe-layout ---
@@ -726,7 +734,12 @@ html.pe-dheader {
 }
 
 .pe-btab {
-    background: var(--pe-grey-hover); -webkit-user-select: none; user-select: none; position: relative;
+    -webkit-user-select: none; user-select: none; position: relative;
+    &:not(.pe-plain) {
+        background: var(--pe-grey-hover);
+    }
+
+    // --- 左右渐变 ---
     &::before, &::after {
         content: ''; position: absolute; top: 0; height: 100%; pointer-events: none; width: var(--pe-padding); opacity: 0; transition: var(--pe-transition);
     }
