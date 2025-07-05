@@ -40,6 +40,7 @@ exports.isIPv4 = isIPv4;
 exports.isIPv6 = isIPv6;
 exports.isDomain = isDomain;
 exports.isPhoneCN = isPhoneCN;
+exports.purify = purify;
 function clone(obj) {
     let newObj = {};
     if (obj instanceof Array) {
@@ -425,4 +426,11 @@ function isDomain(domain) {
 }
 function isPhoneCN(p) {
     return /^1[0-9]{10}$/.test(p);
+}
+function purify(text) {
+    text = '>' + text + '<';
+    text = text.replace(/<!--([\s\S]*?)-->/g, '').replace(/>([\s\S]*?)</g, function (t, t1) {
+        return '>' + t1.replace(/\t|\r\n| {2}/g, '').replace(/\n|\r/g, '') + '<';
+    });
+    return text.slice(1, -1);
 }

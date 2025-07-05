@@ -166,7 +166,7 @@ list['pe-bar-item'] = {
 };
 
 list['pe-btab'] = {
-    'template': `<div class="pe-btab" :class="[isScroll&&(translate<0)&&'pe-btab-left',isScroll&&(translate>-max)&&'pe-btab-right',propBoolean('plain')&&'pe-plain']" @mousedown="down" @touchstart="down"><div class="pe-btab-content" ref="content" :style="{'transform':'translateX(' + this.translate + 'px)'}"><div v-for="item, i of data" class="pe-btab-item" :class="[(i===index)&&'pe-selected']" @click="select(i)">{{item}}</div></div></div>`,
+    'template': `<div class="pe-btab" :class="[isScroll&&(translate<0)&&'pe-btab-left',isScroll&&(translate>-max)&&'pe-btab-right','pe-type-'+type]" @mousedown="down" @touchstart="down"><div class="pe-btab-content" ref="content" :style="{'transform':'translateX(' + this.translate + 'px)'}"><div v-for="item, i of data" class="pe-btab-item" :class="[(i===index)&&'pe-selected']" @click="select(i)">{{item}}</div></div></div>`,
     'props': {
         'modelValue': {
             'default': 0
@@ -174,8 +174,8 @@ list['pe-btab'] = {
         'data': {
             'default': [],
         },
-        'plain': {
-            'default': false,
+        'type': {
+            'default': 'default',
         },
     },
     data: function() {
@@ -2373,16 +2373,19 @@ list['pe-group'] = {
 };
 
 list['pe-header'] = {
-    'template': `<div class="pe-header" :class="[propBoolean('fixed')&&'pe-fixed','pe-theme-'+theme,headerPop&&'pe-show']"><a class="pe-logo" :href="logoHref"></a><div class="pe-nav"><div class="pe-nav-left"><div class="pe-nav-top"><slot></slot></div><div v-if="$slots['bottom']" class="pe-nav-bottom"><slot name="bottom"></slot></div></div><div class="pe-nav-right"><slot name="right"></slot></div></div><svg v-if="headerPop" @click="headerPop=false" class="pe-header-control" viewBox="0 0 24 24" fill="none"><path d="M14.5 9.50002L9.5 14.5M9.49998 9.5L14.5 14.5" stroke-width="1.5" stroke-linecap="round"/><path d="M22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C21.5093 4.43821 21.8356 5.80655 21.9449 8" stroke-width="1.5" stroke-linecap="round"/></svg><svg v-else @click="headerPop=true" class="pe-header-control" viewBox="0 0 24 24" fill="none"><path d="M4 7L7 7M20 7L11 7" stroke-width="1.5" stroke-linecap="round"/><path d="M20 17H17M4 17L13 17" stroke-width="1.5" stroke-linecap="round"/><path d="M4 12H7L20 12" stroke-width="1.5" stroke-linecap="round"/></svg></div>`,
+    'template': `<div class="pe-header" :class="[propBoolean('fixed')&&'pe-fixed','pe-theme-'+theme,headerPop&&'pe-show',propBoolean('line')&&'pe-line']"><a class="pe-logo" :href="logoHref"></a><div class="pe-nav"><div class="pe-nav-left"><div class="pe-nav-top"><slot></slot></div><div v-if="$slots['bottom']" class="pe-nav-bottom"><slot name="bottom"></slot></div></div><div class="pe-nav-right"><slot name="right"></slot></div></div><svg v-if="headerPop" @click="headerPop=false" class="pe-header-control" viewBox="0 0 24 24" fill="none"><path d="M14.5 9.50002L9.5 14.5M9.49998 9.5L14.5 14.5" stroke-width="1.5" stroke-linecap="round"/><path d="M22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C21.5093 4.43821 21.8356 5.80655 21.9449 8" stroke-width="1.5" stroke-linecap="round"/></svg><svg v-else @click="headerPop=true" class="pe-header-control" viewBox="0 0 24 24" fill="none"><path d="M4 7L7 7M20 7L11 7" stroke-width="1.5" stroke-linecap="round"/><path d="M20 17H17M4 17L13 17" stroke-width="1.5" stroke-linecap="round"/><path d="M4 12H7L20 12" stroke-width="1.5" stroke-linecap="round"/></svg></div>`,
     'props': {
         'logoHref': {
-            'default': ''
+            'default': '',
         },
         'fixed': {
-            'default': false
+            'default': false,
         },
         'theme': {
-            'default': 'default'
+            'default': 'default',
+        },
+        'line': {
+            'default': false,
         }
     },
     'computed': {
@@ -2494,6 +2497,18 @@ list['pe-label'] = {
     }
 };
 
+list['pe-lnav'] = {
+    'template': `<div class="pe-lnav"><div class="pe-lnav-left" ref="left" @click="leftClick"><div class="pe-lnav-left-content"><slot name="left"></slot></div></div><div class="pe-lnav-right"><slot></slot></div></div>`,
+    'methods': {
+        'leftClick': function(this: types.IVue, e: MouseEvent) {
+            if (!(e.target as HTMLElement).classList.contains('pe-lnav-left')) {
+                return;
+            }
+            this.$refs.left.classList.remove('pe-show');
+        }
+    },
+};
+
 list['pe-menu'] = {
     'template': `<div class="pe-menu"><slot></slot></div>`,
     mounted: function(this: types.IVue) {
@@ -2509,15 +2524,6 @@ list['pe-menu'] = {
         }
         --this.$parent.menuCount;
     }
-};
-
-list['pe-menu-item'] = {
-    'template': `<a class="pe-menu-item" :href="href"><slot></slot></a>`,
-    'props': {
-        'href': {
-            'default': undefined
-        }
-    },
 };
 
 list['pe-nboard'] = {
@@ -4013,7 +4019,7 @@ list['pe-text'] = {
 };
 
 list['pe-vnumber'] = {
-    'template': `<div class="pe-vnumber-wrap" :class="[isFocus&&'pe-focus',propBoolean('disabled')&&'pe-disabled']"><input class="pe-vnumber-input" @focus="isFocus=true" @blur="isFocus=false" @input="input" ref="input" type="number" /><div v-for="item of length" class="pe-vnumber-item"><span v-if="value[item - 1]">{{value[item - 1]}}</span><span v-else-if="isFocus && (value.length + 1) === item" class="pe-vnumber-insert">▁</span><span v-else></span></div></div>`,
+    'template': `<div class="pe-vnumber-wrap" :class="[isFocus&&'pe-focus',propBoolean('disabled')&&'pe-disabled']"><input class="pe-vnumber-input" @focus="isFocus=true" @blur="isFocus=false" @input="input" ref="input" type="number" /><div v-for="item of propInt('length')" class="pe-vnumber-item"><span v-if="value[item - 1]">{{value[item - 1]}}</span><span v-else-if="isFocus && (value.length + 1) === item" class="pe-vnumber-insert">▁</span><span v-else></span></div></div>`,
     'emits': {
         'changed': null,
         'update:modelValue': null,
@@ -4047,7 +4053,7 @@ list['pe-vnumber'] = {
                 }
                 this.value.length = 0;
                 for (const char of this.modelValue) {
-                    if (this.value.length === this.length) {
+                    if (this.value.length === this.propInt('length')) {
                         break;
                     }
                     if (!/[0-9]/.test(char)) {
@@ -4070,7 +4076,7 @@ list['pe-vnumber'] = {
             const value = this.$refs.input.value;
             this.value.length = 0;
             for (const char of value) {
-                if (this.value.length === this.length) {
+                if (this.value.length === this.propInt('length')) {
                     break;
                 }
                 if (!/[0-9]/.test(char)) {

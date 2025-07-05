@@ -11,9 +11,9 @@
 <body>
 <div id="header">
     <pe-header logo-href="./" fixed>
-        <pe-header-item href="./">Home</pe-header-item>
-        <pe-header-item href="./">Item2</pe-header-item>
-        <pe-header-item href="./swipe.html">Swipe</pe-header-item>
+        <a class="pe-header-item" href="./">Home</a>
+        <a class="pe-header-item" href="./">Item2</a>
+        <a class="pe-header-item" href="./swipe.html">Swipe</a>
         <pe-header-item>
             Menu
             <pe-menu>
@@ -31,7 +31,7 @@
         </pe-header-item>
         <!-- 右侧 -->
         <template v-slot:right>
-            <pe-header-item href="./">
+            <pe-header-item>
                 <pe-label>
                     <pe-icon name="language"></pe-icon>
                     Language
@@ -59,9 +59,9 @@
                 <pe-bar-item>
                     Sub3
                     <pe-menu>
-                        <pe-menu-item href="./swipe.html">Swipe</pe-menu-item>
-                        <pe-menu-item href="./login.html">Login</pe-menu-item>
-                        <pe-menu-item href="./double.html">Double</pe-menu-item>
+                        <a class="pe-menu-item" href="./swipe.html">Swipe</a>
+                        <a class="pe-menu-item" href="./login.html">Login</a>
+                        <a class="pe-menu-item" href="./double.html">Double</a>
                     </pe-menu>
                 </pe-bar-item>
                 <pe-bar-item>Sub4</pe-bar-item>

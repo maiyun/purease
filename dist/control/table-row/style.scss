@@ -13,38 +13,10 @@
 }
 
 .pe-table-header {
-    position: sticky; top: 70px;
-}
-html.pe-sheader {
-    .pe-table-header {
-        top: 50px;
-    }
-}
-html.pe-dheader {
-    // --- 双层 nav ---
-    .pe-table-header {
-        top: 120px;
-    }
-    &.pe-sheader {
-        .pe-table-header {
-            top: 100px;
-        }
-    }
+    position: sticky; top: var(--pe-headerheight);
 }
 
 @media screen and (max-width: 800px) {
-
-    html.pe-dheader {
-        // --- 双层 nav ---
-        .pe-table-header {
-            top: 70px;
-        }
-        &.pe-sheader {
-            .pe-table-header {
-                top: 50px;
-            }
-        }
-    }
 
     .pe-table-header {
         &.pe-adaption {

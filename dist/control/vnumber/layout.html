@@ -1,6 +1,6 @@
 <div class="pe-vnumber-wrap" :class="[isFocus&&'pe-focus',propBoolean('disabled')&&'pe-disabled']">
     <input class="pe-vnumber-input" @focus="isFocus=true" @blur="isFocus=false" @input="input" ref="input" type="number" />
-    <div v-for="item of length" class="pe-vnumber-item">
+    <div v-for="item of propInt('length')" class="pe-vnumber-item">
         <span v-if="value[item - 1]">{{value[item - 1]}}</span><span v-else-if="isFocus && (value.length + 1) === item" class="pe-vnumber-insert">▁</span><span v-else></span>
     </div>
 </div>

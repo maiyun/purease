@@ -11,7 +11,8 @@ html {
     --pe-cubic:cubic-bezier(0.39, 0.575, 0.565, 1);
     --pe-transition:all .3s var(--pe-cubic);
     --pe-radius:5px;
-    --pe-radius-l:10px;
+    --pe-lradius:10px;
+    --pe-xlradius:30px;
     --pe-font-life:"Lucida Sans Unicode","Helvetica Neue","Helvetica","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Noto Sans CJK","Source Han Sans","WenQuanYi Micro Hei","Microsoft YaHei","sans-serif";
     --pe-font-comm:'Roboto','SF Pro SC','SF Pro Display','SF Pro Icons','PingFang SC',BlinkMacSystemFont,-apple-system,'Segoe UI','Microsoft Yahei','Ubuntu','Cantarell','Fira Sans','Droid Sans','Helvetica Neue','Helvetica','Arial',"sans-serif";
     --pe-grey:hsl(210,20%,98%);                 // --- 一般用于浅色背景、或者采用白色背景的组件的 hover ---
@@ -29,6 +30,7 @@ html {
     }
 
     // --- 间距 ---
+
     --pe-lpadding:60px;
     --pe-padding:40px;
     --pe-spadding:20px;
@@ -36,6 +38,7 @@ html {
     --pe-xxspadding:8px;
 
     // --- 字号 ---
+
     --pe-xxxlsize:42px;
     --pe-xxlsize:32px;
     --pe-xlsize:26px;
@@ -45,6 +48,7 @@ html {
     --pe-xssize:12px;
 
     // --- 基础颜色 ---
+
     --success:hsl(150, 100%, 40%);
     --success-hover:hsl(150, 100%, 45%);
     --success-active:hsl(150, 100%, 30%);
@@ -64,9 +68,22 @@ html {
     --danger-hover:hsl(350, 100%, 70%);
     --danger-active:hsl(350, 100%, 40%);
     --danger-bg:hsl(350, 100%, 98%);
+
+    // --- pe-header ---
+    
+    --pe-headerheight:70px;
+    &.pe-sheader {
+        --pe-headerheight:50px;
+    }
+    &.pe-dheader {
+        --pe-headerheight:120px;
+        &.pe-sheader {
+            --pe-headerheight:100px;
+        }
+    }
 }
 html, body {
-    padding: 0; margin: 0; overflow-x: hidden;
+    padding: 0; margin: 0;
 }
 body, html, input, select, textarea {
     font-family: var(--pe-font-life); color: var(--pe-color); fill: var(--pe-color); stroke: var(--pe-color); line-height: 1.5; font-size: var(--pe-size);
@@ -179,14 +196,24 @@ html.pe-speed-imme {
 }
 .pe-popbtn {
     width: 48px; height: 48px; border-radius: 24px; box-shadow: var(--pe-pop-shadow); background: #FFF; transition: var(--pe-transition); -webkit-user-select: none; user-select: none; display: flex; align-items: center; justify-content: center; border: solid 1px var(--pe-border);
-    &:not(.pe-show) {
-        opacity: 0; pointer-events: none;
-    }
+
     &:hover {
         box-shadow: 0px 15px 30px rgba(0, 0, 0, .14); 
     }
     &:active{
         box-shadow: 0px 15px 30px rgba(0, 0, 0, .14), var(--pe-outline-shadow);
+    }
+
+    // --- 滚动到顶部 ---
+    &.pe-popbtn-top {
+        &:not(.pe-show) {
+            opacity: 0; pointer-events: none;
+        }
+    }
+
+    // --- lnav ---
+    &.pe-popbtn-lnav {
+        display: none;
     }
 }
 
@@ -472,18 +499,6 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     padding: 0 var(--pe-spadding) var(--pe-spadding) var(--pe-spadding); text-align: center; font-size: var(--pe-xssize);
 }
 
-// --- pe-footer ---
-
-// --- pe-icon ---
-
-// --- pe-group ---
-
-// --- pe-text ---
-
-// --- pe-select ---
-
-// --- pe-dialog ---
-
 // --- pe-alert ---
 
 .pe-alert-content {
@@ -543,11 +558,49 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     }
 }
 
+// --- pe-tree ---
+
+.pe-tree {
+    display: flex; flex-direction: column;
+    .pe-tree-title {
+        font-weight: bold; padding: var(--pe-xspadding) var(--pe-spadding);
+    }
+    .pe-tree-item {
+        display: flex; flex-direction: column; padding: var(--pe-xspadding) var(--pe-spadding); align-items: initial; transition: var(--pe-transition); border-radius: var(--pe-radius);
+        &:hover {
+            background: var(--pe-h-bgcolor); color: var(--pe-h-color); fill: var(--pe-h-color); stroke: var(--pe-h-color);
+            &::after {
+                border-color: var(--pe-h-color);
+            }
+        }
+
+        &.pe-selected {
+                background: var(--pe-h-bgcolor); font-weight: bold; color: var(--pe-h-color); stroke: var(--pe-h-color); fill: var(--pe-h-color);
+        }
+    }
+    div.pe-tree-item {
+        position: relative;
+        &::after {
+            content: ''; border: solid 1px var(--pe-color); border-width: 0 1px 1px 0; width: 6px; height: 6px; display: block; position: absolute; right: var(--pe-spadding); top: 50%; transform: translateY(-5px) rotate(45deg); transition: var(--pe-transition);
+        }
+
+        &.pe-open {
+            &::after {
+                transform: translateY(-1px) rotate(-135deg);
+            }
+        }
+    }
+    .pe-tree-menu {
+        margin-left: var(--pe-spadding); transition: var(--pe-transition); overflow: hidden;
+    }
+}
+
 // --- 小屏设备 ---
 
 @media screen and (max-width: 800px) {
 
     html {
+        --pe-xlradius:20px;
         // --- 间距 ---
         --pe-lpadding:40px;
         --pe-padding:30px;
@@ -560,6 +613,13 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
         --pe-lsize:18px;
         --pe-size:14px;
         --pe-ssize:13px;
+
+        &.pe-dheader {
+            --pe-headerheight:70px;
+            &.pe-sheader {
+                --pe-headerheight:50px;
+            }
+        }
     }
 
     // --- pe-block ---
@@ -608,31 +668,26 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     .pe-hske-bottom {
         position: fixed; bottom: 0; left: 0; width: 100%; color: rgb(0, 0, 0, .6); fill: rgb(0, 0, 0, .6); stroke: rgb(0, 0, 0, .6);
     }
+    
+    // --- pe-popbtns ---
+
+    .pe-popbtn {
+        // --- lnav ---
+        &.pe-popbtn-lnav {
+            &.pe-show {
+                display: flex;
+            }
+        }
+    }
 
 }
 
 // --- AUTO CODE ---
 
 .pe-banner {
-    display: flex; background-size: cover; background-position: center top; padding-top: 70px; align-items: center;
+    display: flex; background-size: cover; background-position: center top; padding-top: var(--pe-headerheight); align-items: center;
     &.pe-grey {
         background: var(--pe-grey);
-    }
-}
-html.pe-sheader {
-    .pe-banner {
-        padding-top: 50px;
-    }
-}
-html.pe-dheader {
-    // --- 双层 nav ---
-    .pe-banner {
-        padding-top: 120px;
-    }
-    &.pe-sheader {
-        .pe-banner {
-            padding-top: 100px;
-        }
     }
 }
 .pe-banner-content {
@@ -665,17 +720,6 @@ html.pe-dheader {
 
     .pe-bar {
         flex-direction: column; padding: initial;
-    }
-
-    html.pe-dheader {
-        .pe-banner {
-            padding-top: 70px;
-        }
-        &.pe-sheader {
-            .pe-banner {
-                padding-top: 50px;
-            }
-        }
     }
 
 }
@@ -735,21 +779,19 @@ html.pe-dheader {
 
 .pe-btab {
     -webkit-user-select: none; user-select: none; position: relative;
-    &:not(.pe-plain) {
-        background: var(--pe-grey-hover);
-    }
 
     // --- 左右渐变 ---
     &::before, &::after {
-        content: ''; position: absolute; top: 0; height: 100%; pointer-events: none; width: var(--pe-padding); opacity: 0; transition: var(--pe-transition);
+        content: ''; position: absolute; top: 0; height: 100%; pointer-events: none; width: var(--pe-padding); opacity: 0; transition: var(--pe-transition); z-index: 1;
     }
     &::before {
-        left: 0; background: linear-gradient(to right, var(--pe-border), transparent);
+        left: 0; background: linear-gradient(to right, var(--pe-grey-hover), transparent);
     }
     &::after {
-        right: 0; background: linear-gradient(to left, var(--pe-border), transparent);
+        right: 0; background: linear-gradient(to left, var(--pe-grey-hover), transparent);
     }
 
+    // --- 左右阴影 ---
     &.pe-btab-left {
         &::before {
             opacity: 1;
@@ -776,15 +818,45 @@ html.pe-dheader {
             }
         }
     }
+
+    // --- type ---
+    
+    &.pe-type-default {
+        background: var(--pe-grey);
+    }
+    &.pe-type-plain, &.pe-type-light {
+        &::before {
+            background: linear-gradient(to right, var(--pe-grey), transparent);
+        }
+        &::after {
+            background: linear-gradient(to left, var(--pe-grey), transparent);
+        }
+    }
+    &.pe-type-light {
+        .pe-btab-content {
+            gap: 10px;
+            .pe-btab-item {
+                border-radius: var(--pe-xlradius);
+                &.pe-selected {
+                    background: var(--pe-h-bgcolor); font-weight: bold; color: var(--pe-h-color); stroke: var(--pe-h-color); fill: var(--pe-h-color);
+                }
+                &:not(.pe-selected) {
+                    &:hover {
+                        background: var(--pe-h-bgcolor); color: var(--pe-h-color); fill: var(--pe-h-color); stroke: var(--pe-h-color);
+                    }
+                }
+            }
+        }
+    }
 }
 
 .pe-captcha {
-    transition: var(--pe-transition); border-radius: var(--pe-radius); cursor: default; -webkit-user-select: none; user-select: none;
+    transition: var(--pe-transition); border-radius: var(--pe-radius); cursor: default; -webkit-user-select: none; user-select: none; box-shadow: var(--pe-shadow);
     &.pe-not {
         border: dotted 1px var(--pe-color); display: flex; align-items: center; justify-content: center; padding: var(--pe-xspadding) var(--pe-spadding);
     }
     &.pe-captcha-tc {
-        border: solid 1px var(--pe-h-color); color: var(--pe-h-color); background: #FFF; display: flex; align-items: center; justify-content: center; padding: var(--pe-xspadding) var(--pe-spadding);
+        border: solid 1px var(--pe-border); background: var(--pe-input-bg); display: flex; align-items: center; justify-content: center; padding: var(--pe-xspadding) var(--pe-spadding);
         &.pe-captcha-failed {
             color: var(--danger); border-color: var(--danger);
         }
@@ -792,8 +864,11 @@ html.pe-dheader {
             color: var(--success); border-color: var(--success);
         }
 
-        &:hover:not(:active) {
-            opacity: .7;
+        &:hover {
+            border: solid 1px var(--pe-h-color); color: var(--pe-h-color); fill: var(--pe-h-color); stroke: var(--pe-h-color);
+        }
+        &:active {
+            box-shadow: var(--pe-outline-shadow);
         }
     }
 }
@@ -806,10 +881,11 @@ html.pe-dheader {
     }
 }
 .pe-check {
-    display: inline-flex; align-items: center; cursor: default; -webkit-user-select: none; user-select: none;
+    display: inline-flex; align-items: center; cursor: default; transition: var(--pe-transition); -webkit-user-select: none; user-select: none;
     &:hover {
+        color: var(--pe-h-color); fill: var(--pe-h-color); stroke: var(--pe-h-color);
         .pe-check-box {
-            background: var(--pe-input-hover-bg); color: var(--pe-color);
+            background: var(--pe-input-hover-bg);
         }
     }
     &:focus, &:active {
@@ -1128,10 +1204,10 @@ html.pe-dheader {
     display: flex; align-items: center;
 }
 .pe-drawer-title {
-    flex: 1; padding: 20px; font-size: var(--pe-xxlsize);
+    flex: 1; padding: var(--pe-padding); font-size: var(--pe-xxlsize);
 }
 .pe-drawer-close {
-    padding: 20px; margin-right: 20px; display: flex; align-items: center; transition: var(--pe-transition); border-radius: var(--pe-radius);
+    padding: var(--pe-xspadding); margin-right: var(--pe-padding); display: flex; align-items: center; transition: var(--pe-transition); border-radius: var(--pe-radius);
     &:hover {
         background: var(--pe-grey);
     }
@@ -1140,13 +1216,13 @@ html.pe-dheader {
     }
 }
 .pe-drawer-content {
-    flex: 1; display: flex; padding: 20px; padding-top: 0; height: 0; overflow: hidden;
+    flex: 1; display: flex; padding: var(--pe-padding); padding-top: 0; height: 0; overflow: hidden;
     &.pe-v {
         flex-direction: column;
     }
 }
 .pe-drawer-footer {
-    padding: 20px; padding-top: 0; display: flex;
+    padding: var(--pe-padding); padding-top: 0; display: flex;
 }
 .pe-drawer {
     background-color: rgba(0, 0, 0, 0); position: fixed; width: 100%; height: 100%; left: 0; top: 0; z-index: 200; display: flex; justify-content: flex-end; transition: var(--pe-transition); transition-property: background-color; overflow: hidden;
@@ -1258,6 +1334,9 @@ html.pe-dheader {
     display: flex; position: absolute; left: 0; top: 0; width: 100%; transition: var(--pe-transition); z-index: 1;
     &.pe-fixed {
         position: fixed;
+    }
+    &.pe-line {
+        border-bottom: 1px solid var(--pe-border-plain);
     }
 }
 html.pe-scroll .pe-header.pe-fixed, .pe-header:hover, .pe-header.pe-show {
@@ -1459,8 +1538,50 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     color: var(--pe-note-color); fill: var(--pe-note-color); stroke: var(--pe-note-color); margin-top: 10px;
 }
 
+.pe-lnav {
+    display: flex; padding-top: var(--pe-headerheight);
+}
+.pe-lnav-left {
+    display: flex; position: sticky; top: var(--pe-headerheight); height: calc(var(--pe-windowheight) - var(--pe-headerheight)); overflow-y: auto; border-right: solid 1px var(--pe-border-plain);
+    .pe-lnav-left-content {
+        flex: 1; padding: var(--pe-padding);
+    }
+}
+.pe-lnav-right {
+    flex: 1;
+}
+
+@media screen and (max-width: 800px) {
+
+    .pe-lnav-left {
+        position: fixed; left: 0; top: 0; width: 100%; height: 100%; display: flex; background: rgba(0, 0, 0, 0); transition: var(--pe-transition); z-index: 1;
+
+        .pe-lnav-left-content {
+            display: flex; flex-direction: column; background: #FFF; width: 80%; box-shadow: var(--pe-pop-shadow); transition: var(--pe-transition); transition-property: transform; transform: translateX(-1500px);
+        }
+
+        &:not(.pe-show) {
+            pointer-events: none;
+        }
+        &.pe-show {
+            background-color: rgba(0, 0, 0, .3);
+            .pe-lnav-left-content {
+                transform: translateX(0);
+            }
+        }
+    }
+
+}
+
 .pe-menu {
     position: absolute; background: #FFF; border-radius: var(--pe-radius); box-shadow: 0px 15px 30px rgba(0, 0, 0, .07); opacity: 0; pointer-events: none; transform: translateY(10px); transition: var(--pe-transition); left: -30px; top: 100%; line-height: 1.5; padding: var(--pe-xspadding); display: flex; flex-direction: column; color: var(--pe-color); fill: var(--pe-color); stroke: var(--pe-color); min-width: 180px; white-space: nowrap; z-index: 1;
+}
+
+.pe-menu-item {
+    padding: 15px 35px 15px 15px; transition: var(--pe-transition); display: flex;
+    &:hover {
+        background: var(--pe-h-bgcolor); color: var(--pe-h-color); fill: var(--pe-h-color); stroke: var(--pe-h-color); border-radius: var(--pe-radius);
+    }
 }
 
 .pe-header {
@@ -1468,13 +1589,6 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
         .pe-menu {
             box-shadow: none;
         }
-    }
-}
-
-.pe-menu-item {
-    padding: 15px 35px 15px 15px; transition: var(--pe-transition); display: flex;
-    &:hover {
-        background: var(--pe-h-bgcolor); color: var(--pe-h-color); fill: var(--pe-h-color); stroke: var(--pe-h-color); border-radius: var(--pe-radius);
     }
 }
 
@@ -1788,38 +1902,10 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 }
 
 .pe-table-header {
-    position: sticky; top: 70px;
-}
-html.pe-sheader {
-    .pe-table-header {
-        top: 50px;
-    }
-}
-html.pe-dheader {
-    // --- 双层 nav ---
-    .pe-table-header {
-        top: 120px;
-    }
-    &.pe-sheader {
-        .pe-table-header {
-            top: 100px;
-        }
-    }
+    position: sticky; top: var(--pe-headerheight);
 }
 
 @media screen and (max-width: 800px) {
-
-    html.pe-dheader {
-        // --- 双层 nav ---
-        .pe-table-header {
-            top: 70px;
-        }
-        &.pe-sheader {
-            .pe-table-header {
-                top: 50px;
-            }
-        }
-    }
 
     .pe-table-header {
         &.pe-adaption {
@@ -1843,7 +1929,7 @@ html.pe-dheader {
 }
 
 .pe-tag {
-    border-radius: var(--pe-radius-l); display: inline-flex; align-items: center; justify-content: center; transition: var(--pe-transition); border: solid 1px transparent; line-height: 1;
+    border-radius: var(--pe-lradius); display: inline-flex; align-items: center; justify-content: center; transition: var(--pe-transition); border: solid 1px transparent; line-height: 1;
 
     &.pe-size-m {
         padding: 6px 10px;

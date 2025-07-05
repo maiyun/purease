@@ -11,15 +11,15 @@
 <body>
 <div id="header">
     <pe-header logo-href="./" fixed theme="rev" class="swipe">
-        <pe-header-item href="./">Home</pe-header-item>
+        <a class="pe-header-item" href="./">Home</a>
         <pe-header-item>
             List
             <pe-menu>
-                <pe-menu-item href="./">111</pe-menu-item>
-                <pe-menu-item href="./">222</pe-menu-item>
+                <a class="pe-menu-item" href="./">111</a>
+                <a class="pe-menu-item" href="./">222</a>
             </pe-menu>
         </pe-header-item>
-        <pe-header-item href="./swipe.html">Swipe</pe-header-item>
+        <a class="pe-header-item" href="./swipe.html">Swipe</a>
         <pe-header-item>
             Double
             <pe-menu>
@@ -35,10 +35,10 @@
                 </div>
             </pe-menu>
         </pe-header-item>
-        <pe-header-item href="./">About</pe-header-item>
+        <a class="pe-header-item" href="./">About</a>
         <!-- 右侧 -->
         <template v-slot:right>
-            <pe-header-item href="./">
+            <pe-header-item>
                 <pe-label>
                     <pe-icon name="language"></pe-icon>
                     Language
@@ -187,6 +187,8 @@
     <div class="pe-btitle">Btab</div>
 </div>
 <pe-btab :data="['Tab1', 'Tab2', 'Other', 'Hehe', 'Mutton', 'Kebab', 'ClickGo', 'Purease']"></pe-btab>
+<pe-btab :data="['Tab1', 'Tab2', 'Other', 'Hehe', 'Mutton', 'Kebab', 'ClickGo', 'Purease']" type="plain"></pe-btab>
+<pe-btab :data="['Tab1', 'Tab2', 'Other', 'Hehe', 'Mutton', 'Kebab', 'ClickGo', 'Purease']" type="light"></pe-btab>
 <!-- 脚部 -->
 <div id="footer">
     <pe-footer dark>

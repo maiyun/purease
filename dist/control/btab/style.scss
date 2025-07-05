@@ -1,20 +1,18 @@
 .pe-btab {
     -webkit-user-select: none; user-select: none; position: relative;
-    &:not(.pe-plain) {
-        background: var(--pe-grey-hover);
-    }
 
     // --- 左右渐变 ---
     &::before, &::after {
-        content: ''; position: absolute; top: 0; height: 100%; pointer-events: none; width: var(--pe-padding); opacity: 0; transition: var(--pe-transition);
+        content: ''; position: absolute; top: 0; height: 100%; pointer-events: none; width: var(--pe-padding); opacity: 0; transition: var(--pe-transition); z-index: 1;
     }
     &::before {
-        left: 0; background: linear-gradient(to right, var(--pe-border), transparent);
+        left: 0; background: linear-gradient(to right, var(--pe-grey-hover), transparent);
     }
     &::after {
-        right: 0; background: linear-gradient(to left, var(--pe-border), transparent);
+        right: 0; background: linear-gradient(to left, var(--pe-grey-hover), transparent);
     }
 
+    // --- 左右阴影 ---
     &.pe-btab-left {
         &::before {
             opacity: 1;
@@ -37,6 +35,36 @@
                 cursor: pointer;
                 &:hover {
                     color: var(--pe-h-color); stroke: var(--pe-h-color); fill: var(--pe-h-color);
+                }
+            }
+        }
+    }
+
+    // --- type ---
+    
+    &.pe-type-default {
+        background: var(--pe-grey);
+    }
+    &.pe-type-plain, &.pe-type-light {
+        &::before {
+            background: linear-gradient(to right, var(--pe-grey), transparent);
+        }
+        &::after {
+            background: linear-gradient(to left, var(--pe-grey), transparent);
+        }
+    }
+    &.pe-type-light {
+        .pe-btab-content {
+            gap: 10px;
+            .pe-btab-item {
+                border-radius: var(--pe-xlradius);
+                &.pe-selected {
+                    background: var(--pe-h-bgcolor); font-weight: bold; color: var(--pe-h-color); stroke: var(--pe-h-color); fill: var(--pe-h-color);
+                }
+                &:not(.pe-selected) {
+                    &:hover {
+                        background: var(--pe-h-bgcolor); color: var(--pe-h-color); fill: var(--pe-h-color); stroke: var(--pe-h-color);
+                    }
                 }
             }
         }

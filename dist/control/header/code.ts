@@ -4,13 +4,16 @@ export const code = {
     'template': '',
     'props': {
         'logoHref': {
-            'default': ''
+            'default': '',
         },
         'fixed': {
-            'default': false
+            'default': false,
         },
         'theme': {
-            'default': 'default'
+            'default': 'default',
+        },
+        'line': {
+            'default': false,
         }
     },
     'computed': {

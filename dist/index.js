@@ -48,6 +48,7 @@ exports.launcher = launcher;
 const control = __importStar(require("./control"));
 const tool = __importStar(require("./tool"));
 exports.tool = tool;
+const dom = __importStar(require("./dom"));
 class AbstractPage {
     get locale() {
         return this._locale;
@@ -72,6 +73,7 @@ class AbstractPage {
             'type': 'default'
         };
         this.windowWidth = 0;
+        this.windowHeight = 0;
         this.loading = false;
         if (opt.locale) {
             this._locale = opt.locale;
@@ -183,6 +185,10 @@ class AbstractPage {
         document.getElementsByTagName('body')[0].scrollIntoView({
             'behavior': 'smooth'
         });
+    }
+    showLnav() {
+        var _a;
+        (_a = document.querySelector('.pe-lnav-left')) === null || _a === void 0 ? void 0 : _a.classList.add('pe-show');
     }
 }
 exports.AbstractPage = AbstractPage;
@@ -341,11 +347,14 @@ function launcher(page, options = {}) {
                     },
                     'mounted': function () {
                         return __awaiter(this, void 0, void 0, function* () {
+                            var _a, _b;
                             yield this.$nextTick();
                             this.windowWidth = window.innerWidth;
+                            this.windowHeight = window.innerHeight;
                             window.addEventListener('resize', () => {
                                 this.windowWidth = window.innerWidth;
                                 bodys[0].style.setProperty('--pe-windowwidth', window.innerWidth + 'px');
+                                bodys[0].style.setProperty('--pe-windowheight', window.innerHeight + 'px');
                             });
                             document.addEventListener('scroll', () => {
                                 if (document.documentElement.scrollTop > 300) {
@@ -360,6 +369,58 @@ function launcher(page, options = {}) {
                             }
                             else {
                                 this.$refs.toTop.classList.remove('pe-show');
+                            }
+                            const ptms = document.querySelectorAll('.pe-tree-menu');
+                            for (const ptm of ptms) {
+                                ptm.style.height = '0';
+                            }
+                            const pitems = document.querySelectorAll('.pe-tree-item.pe-selected');
+                            for (let pitem of pitems) {
+                                let parent = null;
+                                while (parent = dom.findParentByClass(pitem, 'pe-tree-menu')) {
+                                    parent.style.height = '';
+                                    (_a = parent.previousElementSibling) === null || _a === void 0 ? void 0 : _a.classList.add('pe-open');
+                                    pitem = parent;
+                                }
+                            }
+                            (_b = document.querySelector('.pe-tree')) === null || _b === void 0 ? void 0 : _b.addEventListener('click', (e) => {
+                                let target = e.target;
+                                if (target.tagName.toLowerCase() !== 'div') {
+                                    return;
+                                }
+                                if (target.classList.contains('pe-tree-item')) {
+                                }
+                                else {
+                                    const parent = dom.findParentByClass(target, 'pe-tree-item');
+                                    if (!parent) {
+                                        return;
+                                    }
+                                    target = parent;
+                                }
+                                const next = target.nextElementSibling;
+                                if (!next) {
+                                    return;
+                                }
+                                if (!next.classList.contains('pe-tree-menu')) {
+                                    return;
+                                }
+                                if (target.classList.contains('pe-open')) {
+                                    target.classList.remove('pe-open');
+                                    next.style.height = next.scrollHeight + 'px';
+                                    setTimeout(() => {
+                                        next.style.height = '0';
+                                    }, 50);
+                                }
+                                else {
+                                    target.classList.add('pe-open');
+                                    next.style.height = next.scrollHeight + 'px';
+                                    setTimeout(() => {
+                                        next.style.height = '';
+                                    }, 300);
+                                }
+                            });
+                            if (document.querySelector('.pe-lnav')) {
+                                this.$refs.lnavBtn.classList.add('pe-show');
                             }
                             resolve({
                                 'vapp': vapp,
@@ -403,8 +464,11 @@ function launcher(page, options = {}) {
                 }
                 bodys[0].insertAdjacentHTML('beforeend', `<pe-dialog :title="dialogInfo.title" :content="dialogInfo.content" :buttons="dialogInfo.buttons" :show="dialogInfo.show" @select="dialogInfo.select"></pe-dialog>` +
                     '<div class="pe-popbtns">' +
-                    '<div class="pe-popbtn" ref="toTop" @click="toTop">' +
+                    '<div class="pe-popbtn pe-popbtn-top" ref="toTop" @click="toTop">' +
                     '<svg width="24px" height="24px" viewBox="0 0 24 24" fill="none"><path d="M19 15L12 9L10.25 10.5M5 15L7.33333 13" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
+                    '</div>' +
+                    '<div class="pe-popbtn pe-popbtn-lnav" ref="lnavBtn" @click="showLnav">' +
+                    '<svg width="24px" height="24px" viewBox="0 0 24 24" fill="none"><path d="M4 7L7 7M20 7L11 7" stroke-width="1.5" stroke-linecap="round"></path><path d="M20 17H17M4 17L13 17" stroke-width="1.5" stroke-linecap="round"></path><path d="M4 12H7L20 12" stroke-width="1.5" stroke-linecap="round"></path></svg>' +
                     '</div>' +
                     '</div>' +
                     `<div class="pe-loading" :class="[loading&&'pe-show']">` +
@@ -420,6 +484,8 @@ function launcher(page, options = {}) {
                     '</div>' +
                     '</div>');
                 bodys[0].style.setProperty('--pe-windowwidth', window.innerWidth + 'px');
+                bodys[0].style.setProperty('--pe-windowheight', window.innerHeight + 'px');
+                bodys[0].innerHTML = tool.purify(bodys[0].innerHTML);
                 vapp.mount(bodys[0]);
             });
             if (styles.length) {

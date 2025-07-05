@@ -3,6 +3,9 @@
     &.pe-fixed {
         position: fixed;
     }
+    &.pe-line {
+        border-bottom: 1px solid var(--pe-border-plain);
+    }
 }
 html.pe-scroll .pe-header.pe-fixed, .pe-header:hover, .pe-header.pe-show {
     &.pe-theme-default {

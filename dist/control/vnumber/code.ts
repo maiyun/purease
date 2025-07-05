@@ -35,7 +35,7 @@ export const code = {
                 }
                 this.value.length = 0;
                 for (const char of this.modelValue) {
-                    if (this.value.length === this.length) {
+                    if (this.value.length === this.propInt('length')) {
                         break;
                     }
                     if (!/[0-9]/.test(char)) {
@@ -58,7 +58,7 @@ export const code = {
             const value = this.$refs.input.value;
             this.value.length = 0;
             for (const char of value) {
-                if (this.value.length === this.length) {
+                if (this.value.length === this.propInt('length')) {
                     break;
                 }
                 if (!/[0-9]/.test(char)) {

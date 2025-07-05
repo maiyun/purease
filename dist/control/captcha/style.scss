@@ -1,10 +1,10 @@
 .pe-captcha {
-    transition: var(--pe-transition); border-radius: var(--pe-radius); cursor: default; -webkit-user-select: none; user-select: none;
+    transition: var(--pe-transition); border-radius: var(--pe-radius); cursor: default; -webkit-user-select: none; user-select: none; box-shadow: var(--pe-shadow);
     &.pe-not {
         border: dotted 1px var(--pe-color); display: flex; align-items: center; justify-content: center; padding: var(--pe-xspadding) var(--pe-spadding);
     }
     &.pe-captcha-tc {
-        border: solid 1px var(--pe-h-color); color: var(--pe-h-color); background: #FFF; display: flex; align-items: center; justify-content: center; padding: var(--pe-xspadding) var(--pe-spadding);
+        border: solid 1px var(--pe-border); background: var(--pe-input-bg); display: flex; align-items: center; justify-content: center; padding: var(--pe-xspadding) var(--pe-spadding);
         &.pe-captcha-failed {
             color: var(--danger); border-color: var(--danger);
         }
@@ -12,8 +12,11 @@
             color: var(--success); border-color: var(--success);
         }
 
-        &:hover:not(:active) {
-            opacity: .7;
+        &:hover {
+            border: solid 1px var(--pe-h-color); color: var(--pe-h-color); fill: var(--pe-h-color); stroke: var(--pe-h-color);
+        }
+        &:active {
+            box-shadow: var(--pe-outline-shadow);
         }
     }
 }

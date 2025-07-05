@@ -1,6 +1,7 @@
 import * as types from '../types';
 import * as control from './control';
 import * as tool from './tool';
+import * as dom from './dom';
 
 export { tool };
 
@@ -194,8 +195,11 @@ export abstract class AbstractPage {
         this.alertInfo.type = type;
     }
 
-    /** --- 整个网页的宽度 --- */
+    /** --- 整个窗口的宽度 --- */
     public windowWidth: number = 0;
+
+    /** --- 整个窗口的高度 --- */
+    public windowHeight: number = 0;
 
     /** --- 是否显示加载框 --- */
     public loading: boolean = false;
@@ -205,6 +209,11 @@ export abstract class AbstractPage {
         document.getElementsByTagName('body')[0].scrollIntoView({
             'behavior': 'smooth'
         });
+    }
+
+    /** --- 显示 lnav --- */
+    public showLnav(): void {
+        document.querySelector('.pe-lnav-left')?.classList.add('pe-show');
     }
 
 }
@@ -436,9 +445,11 @@ export function launcher<T extends AbstractPage>(page: new (opt: {
                 'mounted': async function(this: types.IVue) {
                     await this.$nextTick();
                     this.windowWidth = window.innerWidth;
+                    this.windowHeight = window.innerHeight;
                     window.addEventListener('resize', () => {
                         this.windowWidth = window.innerWidth;
                         bodys[0].style.setProperty('--pe-windowwidth', window.innerWidth + 'px');
+                        bodys[0].style.setProperty('--pe-windowheight', window.innerHeight + 'px');
                     });
                     // --- 判断是否显示右下角 toTop 按钮 ---
                     document.addEventListener('scroll', () => {
@@ -458,6 +469,63 @@ export function launcher<T extends AbstractPage>(page: new (opt: {
                     else {
                         // --- 隐藏 ---
                         this.$refs.toTop.classList.remove('pe-show');
+                    }
+                    // --- pe-tree ---
+                    const ptms: NodeListOf<HTMLElement> = document.querySelectorAll('.pe-tree-menu');
+                    for (const ptm of ptms) {
+                        ptm.style.height = '0';
+                    }
+                    // --- 选中的默认展开 ---
+                    const pitems: NodeListOf<HTMLElement> = document.querySelectorAll('.pe-tree-item.pe-selected');
+                    for (let pitem of pitems) {
+                        // --- 从单个 pitem 往上找 pe-tree-menu ---
+                        let parent: HTMLElement | null = null;
+                        while (parent = dom.findParentByClass(pitem, 'pe-tree-menu')) {
+                            parent.style.height = '';
+                            parent.previousElementSibling?.classList.add('pe-open');
+                            pitem = parent;
+                        }
+                    }
+                    document.querySelector('.pe-tree')?.addEventListener('click', (e) => {
+                        let target = e.target as HTMLElement;
+                        if (target.tagName.toLowerCase() !== 'div') {
+                            return;
+                        }
+                        if (target.classList.contains('pe-tree-item')) {
+                            // --- 正常 ---
+                        }
+                        else {
+                            const parent = dom.findParentByClass(target, 'pe-tree-item');
+                            if (!parent) {
+                                return;
+                            }
+                            target = parent;
+                        }
+                        const next = target.nextElementSibling as HTMLElement;
+                        if (!next) {
+                            return;
+                        }
+                        if (!next.classList.contains('pe-tree-menu')) {
+                            return;
+                        }
+                        if (target.classList.contains('pe-open')) {
+                            target.classList.remove('pe-open');
+                            next.style.height = next.scrollHeight + 'px';
+                            setTimeout(() => {
+                                next.style.height = '0';
+                            }, 50);
+                        }
+                        else {
+                            target.classList.add('pe-open');
+                            next.style.height = next.scrollHeight + 'px';
+                            setTimeout(() => {
+                                next.style.height = '';
+                            }, 300);
+                        }
+                    });
+                    // --- 判断是否显示 popbtn lnav ---
+                    if (document.querySelector('.pe-lnav')) {
+                        this.$refs.lnavBtn.classList.add('pe-show');
                     }
                     // --- 完成 ---
                     resolve({
@@ -505,8 +573,12 @@ export function launcher<T extends AbstractPage>(page: new (opt: {
             bodys[0].insertAdjacentHTML('beforeend', `<pe-dialog :title="dialogInfo.title" :content="dialogInfo.content" :buttons="dialogInfo.buttons" :show="dialogInfo.show" @select="dialogInfo.select"></pe-dialog>` +
             '<div class="pe-popbtns">' +
                 // --- 滚动到顶部 ---
-                '<div class="pe-popbtn" ref="toTop" @click="toTop">' +
+                '<div class="pe-popbtn pe-popbtn-top" ref="toTop" @click="toTop">' +
                     '<svg width="24px" height="24px" viewBox="0 0 24 24" fill="none"><path d="M19 15L12 9L10.25 10.5M5 15L7.33333 13" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
+                '</div>' +
+                // --- lnav ---
+                '<div class="pe-popbtn pe-popbtn-lnav" ref="lnavBtn" @click="showLnav">' +
+                    '<svg width="24px" height="24px" viewBox="0 0 24 24" fill="none"><path d="M4 7L7 7M20 7L11 7" stroke-width="1.5" stroke-linecap="round"></path><path d="M20 17H17M4 17L13 17" stroke-width="1.5" stroke-linecap="round"></path><path d="M4 12H7L20 12" stroke-width="1.5" stroke-linecap="round"></path></svg>' +
                 '</div>' +
             '</div>' +
             `<div class="pe-loading" :class="[loading&&'pe-show']">` +
@@ -522,6 +594,10 @@ export function launcher<T extends AbstractPage>(page: new (opt: {
                 '</div>' +
             '</div>');
             bodys[0].style.setProperty('--pe-windowwidth', window.innerWidth + 'px');
+            bodys[0].style.setProperty('--pe-windowheight', window.innerHeight + 'px');
+            // --- 处理 body ---
+            bodys[0].innerHTML = tool.purify(bodys[0].innerHTML);
+            // --- 真正挂载 ---
             vapp.mount(bodys[0]);
         });
         // --- 将 panel 的 style 加到 head 里 ---

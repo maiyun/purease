@@ -5,10 +5,11 @@
     }
 }
 .pe-check {
-    display: inline-flex; align-items: center; cursor: default; -webkit-user-select: none; user-select: none;
+    display: inline-flex; align-items: center; cursor: default; transition: var(--pe-transition); -webkit-user-select: none; user-select: none;
     &:hover {
+        color: var(--pe-h-color); fill: var(--pe-h-color); stroke: var(--pe-h-color);
         .pe-check-box {
-            background: var(--pe-input-hover-bg); color: var(--pe-color);
+            background: var(--pe-input-hover-bg);
         }
     }
     &:focus, &:active {

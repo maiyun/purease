@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<html style="visibility: hidden; overflow: hidden;">
+<head>
+<title>Lnav - Purease Test</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+<script src="https://cdn.jsdelivr.net/npm/@litert/loader@3.5.8/dist/loader.min.js?path=index"></script>
+<!-- 用户 -->
+<link rel="stylesheet" href="index.css" />
+</head>
+<body>
+<!-- 头部 -->
+<div id="header">
+    <pe-header logo-href="./" line fixed>
+        <a class="pe-header-item" href="./">Home</a>
+    </pe-header>
+</div>
+<!-- 内容 -->
+<pe-lnav>
+    <template v-slot:left>
+        <div class="pe-tree" style="min-width: 200px;">
+            <a class="pe-tree-item" href="javascript:void(0);">Index</a>
+            <div class="pe-tree-title">Part 1</div>
+            <div class="pe-tree-item">Nav 1</div>
+            <div class="pe-tree-menu">
+                <a class="pe-tree-item" href="javascript:void(0);">Sub 1</a>
+                <div class="pe-tree-item">Sub 2</div>
+                <div class="pe-tree-menu">
+                    <a class="pe-tree-item" href="javascript:void(0);">Sub 4</a>
+                    <a class="pe-tree-item" href="javascript:void(0);">Sub 5</a>
+                </div>
+                <a class="pe-tree-item" href="javascript:void(0);">Sub 3</a>
+            </div>
+            <a class="pe-tree-item" href="javascript:void(0);">Nav 2</a>
+            <a class="pe-tree-item" href="javascript:void(0);">Nav 3</a>
+            <div class="pe-tree-title">Part 2</div>
+            <a class="pe-tree-item" href="javascript:void(0);">Nav 4</a>
+            <a class="pe-tree-item" href="javascript:void(0);">Nav 5</a>
+            <div class="pe-tree-title">Part 3</div>
+            <a class="pe-tree-item" href="javascript:void(0);">Nav 6</a>
+            <a class="pe-tree-item" href="javascript:void(0);">Nav 7</a>
+            <a class="pe-tree-item" href="javascript:void(0);">Nav 8</a>
+            <div class="pe-tree-item">Nav 9</div>
+            <div class="pe-tree-menu">
+                <a class="pe-tree-item" href="javascript:void(0);">Sub 6</a>
+                <div class="pe-tree-item">Sub 7</div>
+                <div class="pe-tree-menu">
+                    <a class="pe-tree-item" href="javascript:void(0);">Sub 8</a>
+                    <a class="pe-tree-item pe-selected" href="javascript:void(0);">Sub 9</a>
+                </div>
+                <a class="pe-tree-item" href="javascript:void(0);">Sub 10</a>
+            </div>
+            <a class="pe-tree-item" href="javascript:void(0);">Nav 10</a>
+        </div>
+    </template>
+    <div class="pe-content">
+        <div class="pe-block">
+            <div class="pe-btitle">Rapid prototyping</div>
+            <div class="pe-gnote">Web development shouldn't take up too much time</div>
+            <div class="pe-layout pe-sgap" style="justify-content: center;">
+                <a class="pe-button" href="./">Discuss</a>
+                <a class="pe-button pe-pgrey" href="./">Discuss2</a>
+                <a class="pe-button pe-grey" href="./">Discuss3</a>
+            </div>
+        </div>
+        <!-- 脚部 -->
+        <div id="footer">
+            <pe-footer>
+                <div class="pe-footer-list pe-footer-end">
+                    <div class="pe-footer-logo"></div>
+                </div>
+                <div class="pe-footer-list">
+                    <div class="pe-footer-title">List 1</div>
+                    <a href="./">Page 1</a>
+                    <a href="./">Page 2</a>
+                    <a href="./">Page 3</a>
+                </div>
+                <div class="pe-footer-list">
+                    <div class="pe-footer-title">List 2</div>
+                    <a href="./" target="_blank">Page 1<pe-icon></pe-icon></a>
+                    <a href="./">Page 2</a>
+                    <a href="./">Page 3</a>
+                </div>
+                <div class="pe-footer-list">
+                    <div class="pe-footer-title">List 3</div>
+                    <a href="./">Page 1</a>
+                    <a href="./">Page 2</a>
+                    <a href="./">Page 3</a>
+                </div>
+                <template v-slot:bottom>
+                    <div class="pe-footer-bottom-row">
+                        <div class="pe-layout">Item1</div>
+                        <div class="pe-layout">Item2</div>
+                        <div class="pe-layout">Item3</div>
+                    </div>
+                </template>
+            </pe-footer>
+        </div>
+    </div>
+</pe-lnav>
+</body>
+</html>

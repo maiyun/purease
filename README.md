@@ -85,6 +85,11 @@ This library is published under [Apache-2.0](./LICENSE) license.
 
 [Alt Arrow Up SVG Vector](https://www.svgrepo.com/svg/529345/alt-arrow-up)
 
+##### Lnav
+
+[Hamburger Menu SVG Vector](https://www.svgrepo.com/svg/529002/hamburger-menu)  
+[Close Square SVG Vector](https://www.svgrepo.com/svg/528911/close-square)
+
 #### Icon
 
 ##### link

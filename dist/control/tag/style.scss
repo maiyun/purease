@@ -1,5 +1,5 @@
 .pe-tag {
-    border-radius: var(--pe-radius-l); display: inline-flex; align-items: center; justify-content: center; transition: var(--pe-transition); border: solid 1px transparent; line-height: 1;
+    border-radius: var(--pe-lradius); display: inline-flex; align-items: center; justify-content: center; transition: var(--pe-transition); border: solid 1px transparent; line-height: 1;
 
     &.pe-size-m {
         padding: 6px 10px;

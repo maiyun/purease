@@ -529,3 +529,15 @@ export function isDomain(domain: string): boolean {
 export function isPhoneCN(p: string): boolean {
     return /^1[0-9]{10}$/.test(p);
 }
+
+/**
+ * --- 去除 html 的空白符、换行 ---
+ * @param text 要纯净的字符串
+ */
+export function purify(text: string): string {
+    text = '>' + text + '<';
+    text = text.replace(/<!--([\s\S]*?)-->/g, '').replace(/>([\s\S]*?)</g, function(t: string, t1: string) {
+        return '>' + t1.replace(/\t|\r\n| {2}/g, '').replace(/\n|\r/g, '') + '<';
+    });
+    return text.slice(1, -1);
+}
