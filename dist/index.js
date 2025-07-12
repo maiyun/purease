@@ -182,8 +182,9 @@ class AbstractPage {
         this.alertInfo.type = type;
     }
     toTop() {
-        document.getElementsByTagName('body')[0].scrollIntoView({
-            'behavior': 'smooth'
+        window.scrollTo({
+            'top': 0,
+            'behavior': 'smooth',
         });
     }
     showLnav() {

@@ -3,6 +3,10 @@
     &.pe-grey {
         background: var(--pe-grey);
     }
+    // --- 渐变 ---
+    &.pe-grad {
+        background: linear-gradient(to bottom, var(--pe-h-bgcolor), transparent);
+    }
 }
 .pe-banner-content {
     width: 100%; max-width: 1600px; margin: 0 auto; padding: 0 60px; display: flex; gap: 20px;

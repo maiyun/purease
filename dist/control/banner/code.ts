@@ -3,6 +3,6 @@ export const code = {
     'props': {
         'direction': {
             'default': 'h'
-        }
+        },
     },
 };

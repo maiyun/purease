@@ -206,8 +206,14 @@ export abstract class AbstractPage {
 
     /** --- 滚动到顶部 --- */
     public toTop(): void {
+        /*
         document.getElementsByTagName('body')[0].scrollIntoView({
             'behavior': 'smooth'
+        });
+        */
+        window.scrollTo({
+            'top': 0,
+            'behavior': 'smooth',
         });
     }
 

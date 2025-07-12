@@ -132,12 +132,61 @@ exports.common = {
     }
 };
 exports.list = {};
+exports.list['pe-anchor'] = {
+    'template': `<div class="pe-anchor"><div class="pe-anchor-left" ref="left"><slot></slot></div><div class="pe-anchor-right"><div class="pe-anchor-right-content"><div v-for="item of list" class="pe-anchor-item" :class="['pe-anchor-item-h' + item.level, {'pe-selected': item.id === selected}]" @click="scrollTo(item.id)">{{item.text}}</div></div></div></div>`,
+    'data': function () {
+        return {
+            'list': [],
+            'selected': -1,
+        };
+    },
+    'methods': {
+        'scrollTo': function (id) {
+            const el = document.getElementById('anchor-' + id);
+            if (!el) {
+                return;
+            }
+            window.scrollTo({
+                'top': el.offsetTop - parseInt(getComputedStyle(el).getPropertyValue('--pe-headerheight')) - 40,
+                'behavior': 'smooth',
+            });
+        },
+    },
+    mounted: function () {
+        let id = -1;
+        const list = this.$refs.left.querySelectorAll('h2,h3,h4,h5,h6');
+        for (const item of list) {
+            this.list.push({
+                'id': ++id,
+                'text': item.textContent,
+                'level': item.tagName.slice(1),
+            });
+            item.id = 'anchor-' + id;
+        }
+        window.addEventListener('scroll', () => {
+            this.selected = -1;
+            if (!list.item(0)) {
+                return;
+            }
+            const wtop = window.scrollY;
+            const headerheight = parseInt(getComputedStyle(list.item(0)).getPropertyValue('--pe-headerheight'));
+            for (const item of this.list) {
+                const el = list.item(item.id);
+                const top = el.offsetTop;
+                if (wtop < (top - headerheight - 40)) {
+                    continue;
+                }
+                this.selected = item.id;
+            }
+        });
+    },
+};
 exports.list['pe-banner'] = {
     'template': `<div class="pe-banner" :class="['pe-direction-'+direction]"><div class="pe-banner-content"><slot></slot></div></div>`,
     'props': {
         'direction': {
             'default': 'h'
-        }
+        },
     },
 };
 exports.list['pe-bar'] = {
