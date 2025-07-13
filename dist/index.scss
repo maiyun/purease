@@ -1914,15 +1914,45 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 
 .pe-tab {
     display: flex; justify-content: center; cursor: default; -webkit-user-select: none; user-select: none; border-bottom: solid 1px var(--pe-border); color: var(--pe-inote-color); fill: var(--pe-inote-color); stroke: var(--pe-inote-color);
-    &.pe-plain {
+
+    // --- 朴素模式 ---
+    &.pe-tab-type-plain {
         border-bottom: none;
+    }
+    &.pe-tab-type-light {
+        border-bottom: none; gap: 10px;
+    }
+    &.pe-tab-type-rect {
+        border-bottom: none; padding: 3px; background: var(--pe-grey); border-radius: var(--pe-radius); position: relative;
+        &::before {
+            content: ''; border-color: var(--pe-border); background: #FFF; box-shadow: var(--pe-shadow); position: absolute; left: 3px; top: 3px; height: calc(100% - 6px); width: var(--pe-tab-item-width); transition: var(--pe-transition); transform: translateX(calc(var(--pe-tab-item-left) - 3px));
+        }
     }
 }
 
 .pe-tab-item {
     padding: var(--pe-xspadding) var(--pe-spadding); transition: var(--pe-transition); border-bottom: solid 3px transparent; transform: translateY(1px);
     &.pe-selected {
-        color: var(--pe-h-color); font-weight: bold; border-bottom-color: var(--pe-h-color);
+        color: var(--pe-h-color); fill: var(--pe-h-color); stroke: var(--pe-h-color); font-weight: bold; border-bottom-color: var(--pe-h-color);
+    }
+}
+
+.pe-tab {
+    &.pe-tab-type-light {
+        .pe-tab-item {
+            padding: var(--pe-xxspadding) var(--pe-xspadding); border-radius: var(--pe-xlradius); border: none;
+            &.pe-selected {
+                background: var(--pe-h-bgcolor);
+            }
+        }
+    }
+    &.pe-tab-type-rect {
+        .pe-tab-item {
+            padding: var(--pe-xxspadding) var(--pe-xspadding); border-radius: var(--pe-radius); border: solid 1px transparent; transform: initial; z-index: 1;
+            &.pe-selected {
+                font-weight: initial; color: var(--pe-color); fill: var(--pe-color); stroke: var(--pe-color);
+            }
+        }
     }
 }
 

@@ -11,6 +11,7 @@ export const code = {
             'default': [],
         },
         'type': {
+            // --- default, plain, light ---
             'default': 'default',
         },
     },

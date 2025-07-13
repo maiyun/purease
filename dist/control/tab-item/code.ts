@@ -25,6 +25,17 @@ export const code = {
                 return;
             }
             this.$parent.selected = this.index;
+            this.resize();
+        },
+        resize: function(this: types.IVue) {
+            if (!this.$parent) {
+                return;
+            }
+            if (this.$parent.type !== 'rect') {
+                return;
+            }
+            this.$parent.tabItemWidth = this.$el.clientWidth;
+            this.$parent.tabItemLeft = this.$el.offsetLeft;
         }
     },
     mounted: function(this: types.IVue) {
@@ -35,5 +46,8 @@ export const code = {
             return;
         }
         this.index = dom.index(this.$el);
+        if (this.index === this.$parent.selected) {
+            this.resize();
+        }
     },
 };

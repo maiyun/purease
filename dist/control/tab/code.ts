@@ -4,16 +4,19 @@ export const code = {
     'template': '',
     'data': function() {
         return {
-            'selected': 0
+            'selected': 0,
+            'tabItemWidth': 0,
+            'tabItemLeft': 0,
         };
     },
     'props': {
         'modelValue': {
             'default': 0
         },
-        'plain': {
-            'default': false,
-        }
+        'type': {
+            // --- default, plain, light, rect ---
+            'default': 'default',
+        },
     },
     'watch': {
         'selected': {

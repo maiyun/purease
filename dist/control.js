@@ -3371,19 +3371,21 @@ exports.list['pe-switch'] = {
     }
 };
 exports.list['pe-tab'] = {
-    'template': `<div class="pe-tab" :class="[propBoolean('plain')&&'pe-plain']"><slot></slot></div>`,
+    'template': `<div class="pe-tab" :class="['pe-tab-type-'+type]" :style="{'--pe-tab-item-width':tabItemWidth+'px','--pe-tab-item-left':tabItemLeft+'px'}"><slot></slot></div>`,
     'data': function () {
         return {
-            'selected': 0
+            'selected': 0,
+            'tabItemWidth': 0,
+            'tabItemLeft': 0,
         };
     },
     'props': {
         'modelValue': {
             'default': 0
         },
-        'plain': {
-            'default': false,
-        }
+        'type': {
+            'default': 'default',
+        },
     },
     'watch': {
         'selected': {
@@ -3429,6 +3431,17 @@ exports.list['pe-tab-item'] = {
                 return;
             }
             this.$parent.selected = this.index;
+            this.resize();
+        },
+        resize: function () {
+            if (!this.$parent) {
+                return;
+            }
+            if (this.$parent.type !== 'rect') {
+                return;
+            }
+            this.$parent.tabItemWidth = this.$el.clientWidth;
+            this.$parent.tabItemLeft = this.$el.offsetLeft;
         }
     },
     mounted: function () {
@@ -3439,6 +3452,9 @@ exports.list['pe-tab-item'] = {
             return;
         }
         this.index = dom.index(this.$el);
+        if (this.index === this.$parent.selected) {
+            this.resize();
+        }
     },
 };
 exports.list['pe-table'] = {
