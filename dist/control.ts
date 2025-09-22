@@ -1,34 +1,33 @@
-import * as purease from './index';
-import * as tool from './tool';
-import * as dom from './dom';
-import * as types from '../types';
+import * as purease from './purease.js';
+import * as lTool from './tool.js';
+import * as lDom from './dom.js';
 
 /** --- 通用的一些方法和 computed --- */
 export const common = {
     'computed': {
-        propBoolean: function(this: types.IVue) {
+        propBoolean: function(this: purease.IVue) {
             return (name: string): boolean => {
-                return tool.getBoolean(this.$props[name]);
+                return lTool.getBoolean(this.$props[name]);
             };
         },
-        propNumber: function(this: types.IVue) {
+        propNumber: function(this: purease.IVue) {
             return (name: string): number => {
-                return tool.getNumber(this.$props[name]);
+                return lTool.getNumber(this.$props[name]);
             };
         },
-        propInt: function(this: types.IVue) {
+        propInt: function(this: purease.IVue) {
             return (name: string): number => {
                 return Math.round(this.propNumber(name));
             };
         },
         /** --- 获取 props 中的 array 类型的值 --- */
-        propArray: function(this: types.IVue) {
+        propArray: function(this: purease.IVue) {
             return (name: string): any[] => {
-                return tool.getArray(this.$props[name]);
+                return lTool.getArray(this.$props[name]);
             };
         },
         /** --- 根据 control name 查询上层控件 --- */
-        parentByName: function(this: types.IVue) {
+        parentByName: function(this: purease.IVue) {
             return (controlName: string): (Record<string, any>) | null => {
                 let parent = this.$parent;
                 while (true) {
@@ -42,9 +41,7 @@ export const common = {
                 }
             };
         },
-        l: function(
-            this: types.IVue
-        ) {
+        l: function(this: purease.IVue) {
             return (key: string, data?: string[]): string => {
                 const loc = (this as any).localeData?.[this.$root.locale][key] ?? '[LocaleError]' + key;
                 if (!data) {
@@ -60,8 +57,8 @@ export const common = {
                 });
             };
         },
-        /** --- 获取 alignH 的 css 属性模式，请确保 p$rops.alignH 存在 --- */
-        alignHComp: function(this: types.IVue): string | undefined {
+        /** --- 获取 alignH 的 css 属性模式，请确保 $props.alignH 存在 --- */
+        alignHComp: function(this: purease.IVue): string | undefined {
             if (!this.$props.alignH) {
                 return undefined;
             }
@@ -77,7 +74,7 @@ export const common = {
             return 'flex-end';
         },
         /** --- 获取 alignH 的 css 属性模式，请确保 props.alignH 存在 --- */
-        alignVComp: function(this: types.IVue): string | undefined {
+        alignVComp: function(this: purease.IVue): string | undefined {
             if (!this.$props.alignV) {
                 return undefined;
             }
@@ -91,6 +88,10 @@ export const common = {
                 }
             }
             return 'flex-end';
+        },
+        /** --- 是否是 rtl 模式 --- */
+        isRtl: function(this: purease.IVue): boolean {
+            return this.$root.isRtl;
         }
     }
 };
@@ -105,6 +106,96 @@ export const list: Record<string, {
 
     [key: string]: any;
 }> = {};
+
+// --- 类型 ---
+
+// --- Custom Event Control ---
+
+interface ICustomEvent {
+    'go': boolean;
+    preventDefault: () => void;
+}
+
+// --- Text Control ---
+
+export interface ITextBeforechangeEvent extends ICustomEvent {
+    'detail': {
+        'value': string;
+        'change'?: string;
+    };
+}
+
+// --- Dlist Control ---
+
+export interface IDlistChangedEvent {
+    'detail': {
+        'value': string;
+        'index': number;
+        'label': string;
+    };
+}
+
+export type IDlistClickEvent = IDlistChangedEvent;
+
+// --- Select Control ---
+
+export interface ISelectChangedEvent {
+    'detail': {
+        'value': string;
+        'index': number;
+        'label': string;
+    };
+}
+
+// --- Switch Control ---
+
+export interface ISwitchChangeEvent extends ICustomEvent {
+    'detail': {
+        'value': boolean;
+    };
+}
+
+// --- Date Control ---
+
+export interface IDateChangedEvent {
+    'detail': {
+        'value'?: number;
+    };
+}
+
+// --- Datepanel Control ---
+
+export interface IDatepanelRangeEvent extends ICustomEvent {
+    'detail': {
+        'start': number;
+        'end': number;
+    };
+}
+
+export interface IDatepanelChangedEvent {
+    'detail': {
+        'value'?: number;
+    };
+}
+
+export interface IDatepanelSelectedEvent {
+    'detail': {
+        'time': number;
+        'date': number;
+        'month': number;
+        'year': number;
+        'day': number;
+        'str': string;
+    };
+}
+
+// --- Captcha Control ---
+export interface ICaptchaResultEvent {
+    'detail': {
+        'result': number;
+        'token': string;
+    };
+}
 
 // --- AUTO CODE ---
 
@@ -135,7 +226,7 @@ list['pe-anchor'] = {
             });
         },
     },
-    mounted: function(this: types.IVue) {
+    mounted: function(this: purease.IVue) {
         let id = -1;
         const list: NodeListOf<HTMLElement> = this.$refs.left.querySelectorAll('h2,h3,h4,h5,h6');
         for (const item of list) {
@@ -201,12 +292,12 @@ list['pe-bar-item'] = {
         };
     },
     'methods': {
-        enter: function(this: types.IVue, e: MouseEvent | TouchEvent) {
-            if (dom.hasTouchButMouse(e)) {
+        enter: function(this: purease.IVue, e: MouseEvent | TouchEvent) {
+            if (lDom.hasTouchButMouse(e)) {
                 return;
             }
             const target = e.target as HTMLElement;
-            if (target.classList.contains('pe-menu') || dom.findParentByClass(target, 'pe-menu')) {
+            if (target.classList.contains('pe-menu') || lDom.findParentByClass(target, 'pe-menu')) {
                 return;
             }
             if (!this.href) {
@@ -214,8 +305,8 @@ list['pe-bar-item'] = {
             }
             this.hover = !this.hover;
         },
-        leave: function(this: types.IVue, e: MouseEvent | TouchEvent) {
-            if (dom.hasTouchButMouse(e)) {
+        leave: function(this: purease.IVue, e: MouseEvent | TouchEvent) {
+            if (lDom.hasTouchButMouse(e)) {
                 return;
             }
             this.hover = false;
@@ -252,17 +343,17 @@ list['pe-btab'] = {
         };
     },
     'computed': {
-        isScroll: function(this: types.IVue): boolean {
+        isScroll: function(this: purease.IVue): boolean {
             return this.cwidth > this.width;
         },
     },
     'methods': {
-        select: function(this: types.IVue, index: number) {
+        select: function(this: purease.IVue, index: number) {
             this.index = index;
             this.$emit('modelValue', index);
         },
-        down: function(this: types.IVue, e: TouchEvent | MouseEvent) {
-            if (dom.hasTouchButMouse(e)) {
+        down: function(this: purease.IVue, e: TouchEvent | MouseEvent) {
+            if (lDom.hasTouchButMouse(e)) {
                 return;
             }
             if (this.cwidth <= this.width) {
@@ -277,7 +368,7 @@ list['pe-btab'] = {
             const ox = e instanceof MouseEvent ? e.clientX : e.touches[0].clientX;
             /** --- 上次的 x 位置 --- */
             let x = ox;
-            dom.bindDown(e, {
+            lDom.bindDown(e, {
                 move: (ne) => {
                     // --- 当前的位置 ---
                     const nx = ne instanceof MouseEvent ? ne.clientX : ne.touches[0].clientX;
@@ -285,16 +376,26 @@ list['pe-btab'] = {
                     const cx = nx - x;
                     x = nx;
                     this.translate += cx;
-                    if (this.translate < -this.max) {
-                        this.translate = -this.max;
+                    if (lDom.isRtl()) {
+                        if (this.translate > this.max) {
+                            this.translate = this.max;
+                        }
+                        else if (this.translate < 0) {
+                            this.translate = 0;
+                        }
                     }
-                    else if (this.translate > 0) {
-                        this.translate = 0;
+                    else {
+                        if (this.translate < -this.max) {
+                            this.translate = -this.max;
+                        }
+                        else if (this.translate > 0) {
+                            this.translate = 0;
+                        }
                     }
                 },
             });
         },
-        resize: function(this: types.IVue) {
+        resize: function(this: purease.IVue) {
             this.width = this.$el.offsetWidth;
             this.cwidth = this.$refs.content.offsetWidth;
             if (this.cwidth <= this.width) {
@@ -303,15 +404,25 @@ list['pe-btab'] = {
                 return;
             }
             this.max = this.cwidth - this.width;
-            if (this.translate < -this.max) {
-                this.translate = -this.max;
+            if (lDom.isRtl()) {
+                if (this.translate > this.max) {
+                    this.translate = this.max;
+                }
+                else if (this.translate < 0) {
+                    this.translate = 0;
+                }
             }
-            else if (this.translate > 0) {
-                this.translate = 0;
+            else {
+                if (this.translate < -this.max) {
+                    this.translate = -this.max;
+                }
+                else if (this.translate > 0) {
+                    this.translate = 0;
+                }
             }
         },
     },
-    mounted: function(this: types.IVue) {
+    mounted: function(this: purease.IVue) {
         this.$watch('modelValue', () => {
             this.index = this.$props.modelValue;
         }, {
@@ -320,7 +431,7 @@ list['pe-btab'] = {
         window.addEventListener('resize', this.resize);
         this.resize();
     },
-    unmounted: async function(this: types.IVue) {
+    unmounted: async function(this: purease.IVue) {
         await this.$nextTick();
         window.removeEventListener('resize', this.resize);
     }
@@ -405,13 +516,33 @@ list['pe-captcha'] = {
                     'click': 'Xác minh',
                     'failed': 'Thất bại, thử lại',
                     'successful': 'Thành công'
+                },
+                'ar': {
+                    'click': 'انقر للتحقق',
+                    'failed': 'فشل، أعد المحاولة',
+                    'successful': 'تم التحقق'
+                },
+                'id': {
+                    'click': 'Klik untuk verifikasi',
+                    'failed': 'Gagal, coba lagi',
+                    'successful': 'Terverifikasi'
+                },
+                'it': {
+                    'click': 'Clicca per verificare',
+                    'failed': 'Fallito, riprova',
+                    'successful': 'Verificato'
+                },
+                'tr': {
+                    'click': 'Doğrula',
+                    'failed': 'Hata, tekrar dene',
+                    'successful': 'Doğrulandı'
                 }
             },
         };
     },
     'methods': {
         /** --- 供外部调用的 --- */
-        reset: function(this: types.IVue): void {
+        reset: function(this: purease.IVue): void {
             if (this.factory === 'tc') {
                 // --- 腾讯云验证码 ---
                 this.state = '';
@@ -425,7 +556,7 @@ list['pe-captcha'] = {
             this.access.lib.reset(this.access.instance);
         },
         /** --- 腾讯云验证码显示 --- */
-        click: function(this: types.IVue): void {
+        click: function(this: purease.IVue): void {
             if (!this.access.instance) {
                 return;
             }
@@ -435,14 +566,14 @@ list['pe-captcha'] = {
             this.access.instance.show();
         },
     },
-    mounted: async function(this: types.IVue) {
+    mounted: async function(this: purease.IVue) {
         this.access = {
             'instance': undefined,
         };
         if (this.$props.factory === 'tc') {
             // --- 腾讯云验证码 ---
             if (!(window as any).TencentCaptcha) {
-                await loader.loadScripts([
+                await lTool.loadScripts([
                     'https://turing.captcha.qcloud.com/TJCaptcha.js'
                 ]);
             }
@@ -463,7 +594,7 @@ list['pe-captcha'] = {
                         this.state = 'failed';
                         this.$el.innerHTML = this.l('failed');
                     }
-                    const event: types.ICaptchaResultEvent = {
+                    const event: ICaptchaResultEvent = {
                         'detail': {
                             'result': (res.ret === 0 && !res.errorCode) ? 1 : 0,
                             'token': res.ticket + '|' + res.randstr,
@@ -485,7 +616,7 @@ list['pe-captcha'] = {
         }
         // --- CF 验证码 ---
         if (!(window as any).turnstile) {
-            await loader.loadScripts([
+            await lTool.loadScripts([
                 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
             ]);
         }
@@ -504,7 +635,7 @@ list['pe-captcha'] = {
             'sitekey': this.$props.akey,
             'size': 'flexible',
             callback: (token: string) => {
-                const event: types.ICaptchaResultEvent = {
+                const event: ICaptchaResultEvent = {
                     'detail': {
                         'result': 1,
                         'token': token,
@@ -516,7 +647,7 @@ list['pe-captcha'] = {
         this.access.instance = captcha;
         // --- 初始化成功 ---
     },
-    unmounted: function(this: types.IVue) {
+    unmounted: function(this: purease.IVue) {
         if (this.$props.factory === 'tc') {
             this.access.instance = undefined;
             return;
@@ -541,7 +672,7 @@ list['pe-check'] = {
         };
     },
     'methods': {
-        click: function(this: types.IVue, e: MouseEvent) {
+        click: function(this: purease.IVue, e: MouseEvent) {
             const target = e.target as HTMLElement | null;
             if (!target) {
                 return;
@@ -549,7 +680,7 @@ list['pe-check'] = {
             if (target.tagName.toLowerCase() === 'a') {
                 return;
             }
-            if (dom.findParentByTag(target, 'a')) {
+            if (lDom.findParentByTag(target, 'a')) {
                 return;
             }
             this.value = !this.value;
@@ -558,7 +689,7 @@ list['pe-check'] = {
     },
     'watch': {
         'modelValue': {
-            handler: function(this: types.IVue) {
+            handler: function(this: purease.IVue) {
                 this.value = this.modelValue;
             },
             'immediate': true
@@ -745,25 +876,61 @@ list['pe-date'] = {
                     'cancel': 'Hủy',
                     'ok': 'OK',
                     'please click select': 'Nhấn chọn'
+                },
+                'ar': {
+                    'hour': 'س',
+                    'minute': 'د',
+                    'second': 'ث',
+                    'zone': 'منطقة',
+                    'cancel': 'إلغاء',
+                    'ok': 'موافق',
+                    'please click select': 'انقر للاختيار'
+                },
+                'id': {
+                    'hour': 'Jam',
+                    'minute': 'Mnt',
+                    'second': 'Dtk',
+                    'zone': 'Zona',
+                    'cancel': 'Batal',
+                    'ok': 'OK',
+                    'please click select': 'Klik pilih'
+                },
+                'it': {
+                    'hour': 'Ora',
+                    'minute': 'Min',
+                    'second': 'Sec',
+                    'zone': 'Zona',
+                    'cancel': 'Annulla',
+                    'ok': 'OK',
+                    'please click select': 'Clicca per selez.'
+                },
+                'tr': {
+                    'hour': 'Sa',
+                    'minute': 'Dak',
+                    'second': 'Sn',
+                    'zone': 'Bölge',
+                    'cancel': 'İptal',
+                    'ok': 'Tamam',
+                    'please click select': 'Seç için tıkla'
                 }
             }
         };
     },
     'methods': {
         // --- 单击事件 ---
-        click: function(this: types.IVue, e: MouseEvent, type: 'first' | 'zone'): void {
+        click: function(this: purease.IVue, e: MouseEvent, type: 'first' | 'zone'): void {
             const el = this.$refs[type + 'pop'];
             if (el.classList.contains('pe-show')) {
-                dom.hidePop(el);
+                lDom.hidePop(el);
                 return;
             }
             if (type === 'first' && !this.propBoolean('date')) {
-                dom.showPop(e, this.$refs['timepop']);
+                lDom.showPop(e, this.$refs['timepop']);
                 return;
             }
-            dom.showPop(e, el);
+            lDom.showPop(e, el);
         },
-        zoneOk: function(this: types.IVue): void {
+        zoneOk: function(this: purease.IVue): void {
             const vz = parseInt(this.vzone);
             if (vz >= 0) {
                 this.tzData = vz + (parseInt(this.vzdec) / 60);
@@ -776,16 +943,16 @@ list['pe-date'] = {
             if (this.timestamp !== undefined && ts !== this.timestamp) {
                 this.timestamp = ts;
                 this.$emit('update:modelValue', this.timestamp);
-                const event: types.IDateChangedEvent = {
+                const event: IDateChangedEvent = {
                     'detail': {
                         'value': this.timestamp
                     }
                 };
                 this.$emit('changed', event);
             }
-            dom.hidePop();
+            lDom.hidePop();
         },
-        timeOk: function(this: types.IVue): void {
+        timeOk: function(this: purease.IVue): void {
             this.dateObj.setUTCHours(
                 parseInt(this.vhour), parseInt(this.vminute), parseInt(this.vseconds), 0
             );
@@ -793,26 +960,26 @@ list['pe-date'] = {
             this.dateStr = this.dateObj.getUTCFullYear().toString() + '-' + (this.dateObj.getUTCMonth() + 1).toString().padStart(2, '0') + '-' + this.dateObj.getUTCDate().toString().padStart(2, '0');
             this.timeStr = this.dateObj.getUTCHours().toString().padStart(2, '0') + ':' + this.dateObj.getUTCMinutes().toString().padStart(2, '0') + ':' + this.dateObj.getUTCSeconds().toString().padStart(2, '0');
             this.$emit('update:modelValue', this.timestamp);
-            const event: types.IDateChangedEvent = {
+            const event: IDateChangedEvent = {
                 'detail': {
                     'value': this.timestamp
                 }
             };
             this.$emit('changed', event);
             this.$emit('update:hourminute', this.vhour + this.vminute + this.vseconds);
-            dom.hidePop();
+            lDom.hidePop();
         },
         cancel: function(): void {
-            dom.hidePop();
+            lDom.hidePop();
         },
-        clear: function(this: types.IVue): void {
+        clear: function(this: purease.IVue): void {
             this.timestamp = undefined;
             this.$emit('update:modelValue', undefined);
         },
         // --- date panel 的 changed ---
-        changed: function(this: types.IVue): void {
+        changed: function(this: purease.IVue): void {
             this.$emit('update:modelValue', this.timestamp);
-            const event: types.IDateChangedEvent = {
+            const event: IDateChangedEvent = {
                 'detail': {
                     'value': this.timestamp
                 }
@@ -832,11 +999,11 @@ list['pe-date'] = {
                 this.$emit('update:hourminute', hour + minute + seconds);
             }
         },
-        selected: function(this: types.IVue): void {
-            dom.hidePop(this.$refs.firstpop);
+        selected: function(this: purease.IVue): void {
+            lDom.hidePop(this.$refs.firstpop);
         }
     },
-    'mounted': function(this: types.IVue) {
+    'mounted': function(this: purease.IVue) {
         // --- 填充年时分秒时区 ---
         for (let i = 0; i <= 23; ++i) {
             this.hours.push(i.toString().padStart(2, '0'));
@@ -1282,6 +1449,106 @@ list['pe-datepanel'] = {
                     'today': 'Hôm nay',
                     'back': 'Trở lại',
                     'clear': 'Xóa',
+                },
+                'ar': {
+                    'w0': 'أح',
+                    'w1': 'إث',
+                    'w2': 'ثل',
+                    'w3': 'أر',
+                    'w4': 'خم',
+                    'w5': 'جم',
+                    'w6': 'سب',
+                    'm1': 'ينا',
+                    'm2': 'فبر',
+                    'm3': 'مار',
+                    'm4': 'أبر',
+                    'm5': 'ماي',
+                    'm6': 'يون',
+                    'm7': 'يول',
+                    'm8': 'أغس',
+                    'm9': 'سبت',
+                    'm10': 'أكت',
+                    'm11': 'نوف',
+                    'm12': 'ديس',
+                    'year': 'عام',
+                    'today': 'اليوم',
+                    'back': 'رجوع',
+                    'clear': 'مسح'
+                },
+                'id': {
+                    'w0': 'Min',
+                    'w1': 'Sen',
+                    'w2': 'Sel',
+                    'w3': 'Rab',
+                    'w4': 'Kam',
+                    'w5': 'Jum',
+                    'w6': 'Sab',
+                    'm1': 'Jan',
+                    'm2': 'Feb',
+                    'm3': 'Mar',
+                    'm4': 'Apr',
+                    'm5': 'Mei',
+                    'm6': 'Jun',
+                    'm7': 'Jul',
+                    'm8': 'Agu',
+                    'm9': 'Sep',
+                    'm10': 'Okt',
+                    'm11': 'Nov',
+                    'm12': 'Des',
+                    'year': 'Tahun',
+                    'today': 'Hari ini',
+                    'back': 'Kembali',
+                    'clear': 'Hapus'
+                },
+                'it': {
+                    'w0': 'Dom',
+                    'w1': 'Lun',
+                    'w2': 'Mar',
+                    'w3': 'Mer',
+                    'w4': 'Gio',
+                    'w5': 'Ven',
+                    'w6': 'Sab',
+                    'm1': 'Gen',
+                    'm2': 'Feb',
+                    'm3': 'Mar',
+                    'm4': 'Apr',
+                    'm5': 'Mag',
+                    'm6': 'Giu',
+                    'm7': 'Lug',
+                    'm8': 'Ago',
+                    'm9': 'Set',
+                    'm10': 'Ott',
+                    'm11': 'Nov',
+                    'm12': 'Dic',
+                    'year': 'Anno',
+                    'today': 'Oggi',
+                    'back': 'Indietro',
+                    'clear': 'Pulisci'
+                },
+                'tr': {
+                    'w0': 'Paz',
+                    'w1': 'Pzt',
+                    'w2': 'Sal',
+                    'w3': 'Çar',
+                    'w4': 'Per',
+                    'w5': 'Cum',
+                    'w6': 'Cmt',
+                    'm1': 'Oca',
+                    'm2': 'Şub',
+                    'm3': 'Mar',
+                    'm4': 'Nis',
+                    'm5': 'May',
+                    'm6': 'Haz',
+                    'm7': 'Tem',
+                    'm8': 'Ağu',
+                    'm9': 'Eyl',
+                    'm10': 'Eki',
+                    'm11': 'Kas',
+                    'm12': 'Ara',
+                    'year': 'Yıl',
+                    'today': 'Bugün',
+                    'back': 'Geri',
+                    'clear': 'Sil'
                 }
             },
             /** --- 当前 date 对象 --- */
@@ -1335,22 +1602,22 @@ list['pe-datepanel'] = {
         };
     },
     'computed': {
-        dateValueStr: function(this: types.IVue): string {
+        dateValueStr: function(this: purease.IVue): string {
             return this.dateValue.year.toString() + (this.dateValue.month + 1).toString().padStart(2, '0') + this.dateValue.date.toString().padStart(2, '0');
         },
-        startYm: function(this: types.IVue): string {
+        startYm: function(this: purease.IVue): string {
             return this.startValue.year.toString() + (this.startValue.month + 1).toString().padStart(2, '0');
         },
-        startYmd: function(this: types.IVue): string {
+        startYmd: function(this: purease.IVue): string {
             return this.startYm + this.startValue.date.toString().padStart(2, '0');
         },
-        endYm: function(this: types.IVue): string {
+        endYm: function(this: purease.IVue): string {
             return this.endValue.year.toString() + (this.endValue.month + 1).toString().padStart(2, '0');
         },
-        endYmd: function(this: types.IVue): string {
+        endYmd: function(this: purease.IVue): string {
             return this.endYm + this.endValue.date.toString().padStart(2, '0');
         },
-        years: function(this: types.IVue): Array<{
+        years: function(this: purease.IVue): Array<{
             'label': string;
             'value': string;
         }> {
@@ -1359,7 +1626,7 @@ list['pe-datepanel'] = {
                 'value': (this.startValue.year + i).toString(),
             }));
         },
-        months: function(this: types.IVue): Array<{
+        months: function(this: purease.IVue): Array<{
             'label': string;
             'value': string;
             'disabled': boolean;
@@ -1379,7 +1646,7 @@ list['pe-datepanel'] = {
             }
             return arr;
         },
-        isDisabled: function(this: types.IVue) {
+        isDisabled: function(this: purease.IVue) {
             return (col: {
                 'date': number;
                 'month': number;
@@ -1390,7 +1657,7 @@ list['pe-datepanel'] = {
             };
         },
         /** --- col 显示的 class 效果，有四种，1: undefined, 2: range, 3: range-left, 4: range-right --- */
-        toclass: function(this: types.IVue) {
+        toclass: function(this: purease.IVue) {
             return (col: {
                 'date': number;
                 'month': number;
@@ -1419,12 +1686,12 @@ list['pe-datepanel'] = {
         }
     },
     'methods': {
-        refreshStartValue: function(this: types.IVue): void {
+        refreshStartValue: function(this: purease.IVue): void {
             this.startValue.date = this.startDate.getUTCDate();
             this.startValue.month = this.startDate.getUTCMonth();
             this.startValue.year = this.startDate.getUTCFullYear();
         },
-        refreshEndValue: function(this: types.IVue): void {
+        refreshEndValue: function(this: purease.IVue): void {
             this.endValue.date = this.endDate.getUTCDate();
             this.endValue.month = this.endDate.getUTCMonth();
             this.endValue.year = this.endDate.getUTCFullYear();
@@ -1432,7 +1699,7 @@ list['pe-datepanel'] = {
         /**
          * --- 刷新视图（当时间戳或时区变动时执行） ---
          */
-        refreshView: function(this: types.IVue): void {
+        refreshView: function(this: purease.IVue): void {
             const now = new Date(Date.UTC(parseInt(this.vyear), parseInt(this.vmonth) - 1, 1));
             /** --- 当月 1 号在周几，0 代表周日 --- */
             const day1 = now.getUTCDay();
@@ -1460,7 +1727,7 @@ list['pe-datepanel'] = {
         /**
          * --- 刷新 date value 的数据为最新的 ---
          */
-        refreshDateValue: function(this: types.IVue): void {
+        refreshDateValue: function(this: purease.IVue): void {
             this.dateValue.date = this.dateObj.getUTCDate();
             this.dateValue.month = this.dateObj.getUTCMonth();
             this.dateValue.year = this.dateObj.getUTCFullYear();
@@ -1468,10 +1735,10 @@ list['pe-datepanel'] = {
         /**
          * --- 更新 time stamp，会自动根据 dateObj 设置时间戳基 ---
          */
-        updateTimestamp: function(this: types.IVue): void {
+        updateTimestamp: function(this: purease.IVue): void {
             if (this.timestamp === undefined) {
                 if (this.$props.modelValue !== undefined) {
-                    const event: types.IDatepanelChangedEvent = {
+                    const event: IDatepanelChangedEvent = {
                         'detail': {
                             'value': undefined
                         }
@@ -1483,7 +1750,7 @@ list['pe-datepanel'] = {
             this.timestamp = this.dateObj.getTime() - this.tzData * 60 * 60_000;
             if (this.propNumber('modelValue') !== this.timestamp) {
                 this.$emit('update:modelValue', this.timestamp);
-                const event: types.IDatepanelChangedEvent = {
+                const event: IDatepanelChangedEvent = {
                     'detail': {
                         'value': this.timestamp
                     }
@@ -1494,7 +1761,7 @@ list['pe-datepanel'] = {
         /**
          * --- 跳转到当前选中的年份和月份 ---
          */
-        goSelected: function(this: types.IVue): void {
+        goSelected: function(this: purease.IVue): void {
             let change = false;
             if (parseInt(this.vyear) !== this.dateValue.year) {
                 this.vyear = this.dateValue.year.toString();
@@ -1512,7 +1779,7 @@ list['pe-datepanel'] = {
             }
         },
         /** --- col 点击 --- */
-        colClick: function(this: types.IVue, col: {
+        colClick: function(this: purease.IVue, col: {
             'time': number;
             'date': number;
             'month': number;
@@ -1525,7 +1792,7 @@ list['pe-datepanel'] = {
                 if (cols === this.dateValueStr) {
                     // --- range 状态，自己点击自己，只选择一天 ---
                     const endDate = new Date(Date.UTC(col.year, col.month, col.date, 23, 59, 59, 0));
-                    const event: types.IDatepanelRangeEvent = {
+                    const event: IDatepanelRangeEvent = {
                         'go': true,
                         preventDefault: function() {
                             this.go = false;
@@ -1555,7 +1822,7 @@ list['pe-datepanel'] = {
                     if (nhour === 0 && nminute === 0 && nseconds === 0) {
                         edate.setUTCHours(23, 59, 59, 0);
                     }
-                    const event: types.IDatepanelRangeEvent = {
+                    const event: IDatepanelRangeEvent = {
                         'go': true,
                         preventDefault: function() {
                             this.go = false;
@@ -1584,7 +1851,7 @@ list['pe-datepanel'] = {
             this.refreshDateValue();
             this.updateTimestamp();
             this.goSelected();
-            const event: types.IDatepanelSelectedEvent = {
+            const event: IDatepanelSelectedEvent = {
                 'detail': {
                     'time': col.time,
                     'date': col.date,
@@ -1597,7 +1864,7 @@ list['pe-datepanel'] = {
             this.$emit('selected', event);
         },
         /** --- 跳转到今天 --- */
-        today: function(this: types.IVue): void {
+        today: function(this: purease.IVue): void {
             // --- 解除 undefined 限制，使选中的时间戳可以 emit 上去 ---
             this.timestamp = 0;
             const now = new Date();
@@ -1607,13 +1874,13 @@ list['pe-datepanel'] = {
             this.goSelected();
         },
         /** --- 返回选中年月 --- */
-        back: function(this: types.IVue): void {
+        back: function(this: purease.IVue): void {
             this.vyear = this.dateValue.year.toString();
             this.vmonth = (this.dateValue.month + 1).toString();
             this.$emit('update:yearmonth', this.vyear + this.vmonth.padStart(2, '0'));
         },
         /** --- 选上个月 --- */
-        prev: function(this: types.IVue): void {
+        prev: function(this: purease.IVue): void {
             const month = parseInt(this.vmonth);
             if (month === 1) {
                 const year = parseInt(this.vyear);
@@ -1624,7 +1891,7 @@ list['pe-datepanel'] = {
             this.vmonth = (month - 1).toString();
         },
         // --- 选下个月 ---
-        next: function(this: types.IVue): void {
+        next: function(this: purease.IVue): void {
             const month = parseInt(this.vmonth);
             if (month === 12) {
                 const year = parseInt(this.vyear);
@@ -1635,12 +1902,12 @@ list['pe-datepanel'] = {
             this.vmonth = (month + 1).toString();
         },
         /** --- 鼠标移动到 col 上的事件 --- */
-        colenter: function(this: types.IVue, e: MouseEvent | TouchEvent, col: {
+        colenter: function(this: purease.IVue, e: MouseEvent | TouchEvent, col: {
             'date': number;
             'month': number;
             'year': number;
         }): void {
-            if (dom.hasTouchButMouse(e)) {
+            if (lDom.hasTouchButMouse(e)) {
                 return;
             }
             if (!this.propBoolean('range')) {
@@ -1653,11 +1920,11 @@ list['pe-datepanel'] = {
             this.$emit('update:cursor', this.cursorDate);
         },
         /** --- 清除所有状态 --- */
-        clear: function(this: types.IVue): void {
+        clear: function(this: purease.IVue): void {
             this.timestamp = undefined;
             this.$emit('update:modelValue', undefined);
             this.rangeDate = undefined;
-            const event: types.IDatepanelChangedEvent = {
+            const event: IDatepanelChangedEvent = {
                 'detail': {
                     'value': undefined
                 }
@@ -1669,7 +1936,7 @@ list['pe-datepanel'] = {
             }
         }
     },
-    mounted: function(this: types.IVue) {
+    mounted: function(this: purease.IVue) {
         // --- 监听最大最小值限定 ---
         this.$watch('start', () => {
             if (this.$props.start === undefined) {
@@ -2046,6 +2313,34 @@ list['pe-daterange'] = {
                     'cancel': 'Hủy',
                     'ok': 'OK',
                     'please click select': 'Nhấn chọn'
+                },
+                'ar': {
+                    'minute': 'د',
+                    'zone': 'منطقة',
+                    'cancel': 'إلغاء',
+                    'ok': 'موافق',
+                    'please click select': 'انقر للاختيار'
+                },
+                'id': {
+                    'minute': 'Mnt',
+                    'zone': 'Zona',
+                    'cancel': 'Batal',
+                    'ok': 'OK',
+                    'please click select': 'Klik pilih'
+                },
+                'it': {
+                    'minute': 'Min',
+                    'zone': 'Zona',
+                    'cancel': 'Annulla',
+                    'ok': 'OK',
+                    'please click select': 'Clicca per selez.'
+                },
+                'tr': {
+                    'minute': 'Dak',
+                    'zone': 'Bölge',
+                    'cancel': 'İptal',
+                    'ok': 'Tamam',
+                    'please click select': 'Seç için tıkla'
                 }
             },
 
@@ -2061,18 +2356,18 @@ list['pe-daterange'] = {
     },
     'methods': {
         // --- 单击事件 ---
-        click: function(this: types.IVue, e: MouseEvent, type: 'first' | 'zone'): void {
+        click: function(this: purease.IVue, e: MouseEvent, type: 'first' | 'zone'): void {
             const el = this.$refs[type + 'pop'];
             if (el.classList.contains('pe-show')) {
-                dom.hidePop(el);
+                lDom.hidePop(el);
                 return;
             }
             if (type === 'first') {
                 this.showTwoDatePanel = window.innerWidth >= 600 ? true : false;
             }
-            dom.showPop(e, el);
+            lDom.showPop(e, el);
         },
-        zoneOk: function(this: types.IVue): void {
+        zoneOk: function(this: purease.IVue): void {
             const vz = parseInt(this.vzone);
             if (vz >= 0) {
                 this.tzData = vz + (parseInt(this.vzdec) / 60);
@@ -2087,41 +2382,41 @@ list['pe-daterange'] = {
                     this.dateObj[1].getTime() - this.tzData * 60 * 60_000
                 ]);
             }
-            dom.hidePop();
+            lDom.hidePop();
         },
         cancel: function(): void {
-            dom.hidePop();
+            lDom.hidePop();
         },
         // --- 清除已选中的 ---
-        clear: function(this: types.IVue): void {
+        clear: function(this: purease.IVue): void {
             this.ts = undefined;
             this.dateStr.length = 0;
             this.$emit('update:modelValue', []);
         },
-        onRange: function(this: types.IVue, e: types.IDatepanelRangeEvent): void {
+        onRange: function(this: purease.IVue, e: IDatepanelRangeEvent): void {
             e.preventDefault();
             const value: number[] = [];
             // --- start ---
-            let res = tool.formatTime(e.detail.start, this.tzData);
+            let res = lTool.formatTime(e.detail.start, this.tzData);
             this.dateStr[0] = res.date;
             this.timeStr[0] = res.time;
             value.push(e.detail.start);
             this.dateObj[0].setTime(e.detail.start + this.tzData * 60 * 60_000);
             // --- end ---
-            res = tool.formatTime(e.detail.end, this.tzData);
+            res = lTool.formatTime(e.detail.end, this.tzData);
             this.dateStr[1] = res.date;
             this.timeStr[1] = res.time;
             value.push(e.detail.end);
             this.dateObj[1].setTime(e.detail.end + this.tzData * 60 * 60_000);
             // --- 提交数据 ---
             this.$emit('update:modelValue', value);
-            dom.hidePop(this.$refs.firstpop);
+            lDom.hidePop(this.$refs.firstpop);
             // --- 清空选中 ---
             this.$refs.firstpanel.clear();
             this.$refs.endpanel.clear();
         },
         /** --- 左侧的 changed --- */
-        firstChanged: function(this: types.IVue, e: types.IDatepanelChangedEvent): void {
+        firstChanged: function(this: purease.IVue, e: IDatepanelChangedEvent): void {
             if (e.detail.value === undefined) {
                 this.ts2 = undefined;
                 return;
@@ -2130,7 +2425,7 @@ list['pe-daterange'] = {
             date.setUTCHours(23, 59, 59, 0);
             this.ts2 = date.getTime() - this.tzData * 60 * 60_000;
         },
-        onYmChange: function(this: types.IVue): void {
+        onYmChange: function(this: purease.IVue): void {
             if (this.endym > this.firstym) {
                 return;
             }
@@ -2139,7 +2434,7 @@ list['pe-daterange'] = {
             this.endym = date.getUTCFullYear().toString() + (date.getUTCMonth() + 1).toString().padStart(2, '0');
         }
     },
-    'mounted': function(this: types.IVue) {
+    'mounted': function(this: purease.IVue) {
         // --- 填充时区 ---
         for (let i = -12; i <= 14; ++i) {
             this.zones.push((i >= 0 ? '+' : '') + i.toString());
@@ -2174,7 +2469,7 @@ list['pe-daterange'] = {
             const modelValue = this.propArray('modelValue');
             for (let i = 0; i <= 1; ++i) {
                 const ts = typeof modelValue[i] === 'string' ? parseInt(modelValue[i]) : modelValue[i];
-                const res = tool.formatTime(ts, this.tzData);
+                const res = lTool.formatTime(ts, this.tzData);
                 this.dateStr[i] = res.date;
                 this.timeStr[i] = res.time;
             }
@@ -2233,7 +2528,7 @@ list['pe-dlist'] = {
     },
     'computed': {
         /** --- 初始化后的 map 对象 --- */
-        mapComp: function(this: types.IVue): {
+        mapComp: function(this: purease.IVue): {
             'label': string;
             'value': string;
             'children': string;
@@ -2248,11 +2543,11 @@ list['pe-dlist'] = {
         }
     },
     'methods': {
-        click: function(this: types.IVue, i: number) {
+        click: function(this: purease.IVue, i: number) {
             const item = this.$props.data[i];
             this.value = item[this.mapComp.value] ?? item[this.mapComp.label] ?? item;
             this.$emit('update:modelValue', this.value);
-            const event: types.IDlistChangedEvent = {
+            const event: IDlistChangedEvent = {
                 'detail': {
                     'value': this.value,
                     'index': i,
@@ -2262,7 +2557,7 @@ list['pe-dlist'] = {
             this.$emit('changed', event);
             this.$emit('click', event);
         },
-        refreshModelValue: function(this: types.IVue) {
+        refreshModelValue: function(this: purease.IVue) {
             let found = false;
             for (const item of this.$props.data) {
                 const val = item[this.mapComp.value] ?? item[this.mapComp.label] ?? item;
@@ -2279,7 +2574,7 @@ list['pe-dlist'] = {
                 if (this.value !== '') {
                     this.value = '';
                     this.$emit('update:modelValue', '');
-                    const event: types.IDlistChangedEvent = {
+                    const event: IDlistChangedEvent = {
                         'detail': {
                             'value': '',
                             'index': -1,
@@ -2294,7 +2589,7 @@ list['pe-dlist'] = {
             this.value = fitem[this.mapComp.value] ?? fitem[this.mapComp.label] ?? fitem;
             const lab = fitem[this.mapComp.label] ?? fitem[this.mapComp.value] ?? fitem;
             this.$emit('update:modelValue', this.value);
-            const event: types.IDlistChangedEvent = {
+            const event: IDlistChangedEvent = {
                 'detail': {
                     'value': this.value,
                     'index': 0,
@@ -2345,11 +2640,23 @@ list['pe-dlist'] = {
                 },
                 'vi': {
                     'empty': 'Trống',
+                },
+                'ar': {
+                    'empty': 'فارغ',
+                },
+                'id': {
+                    'empty': 'Kosong',
+                },
+                'it': {
+                    'empty': 'Vuoto',
+                },
+                'tr': {
+                    'empty': 'Boş',
                 }
             }
         };
     },
-    'mounted': function(this: types.IVue) {
+    'mounted': function(this: purease.IVue) {
         this.$watch('modelValue', () => {
             if (this.value && (this.value === this.$props.modelValue)) {
                 return;
@@ -2397,7 +2704,7 @@ list['pe-drawer'] = {
         }
     },
     'computed': {
-        widthComp: function(this: types.IVue) {
+        widthComp: function(this: purease.IVue) {
             if (typeof this.$props.width === 'number') {
                 return this.$props.width.toString() + 'px';
             }
@@ -2406,10 +2713,10 @@ list['pe-drawer'] = {
     },
     'methods': {
         /** --- 关闭按钮 --- */
-        closeClick: function(this: types.IVue) {
+        closeClick: function(this: purease.IVue) {
             this.$emit('update:modelValue', false);
         },
-        click: function(this: types.IVue, e: MouseEvent): void {
+        click: function(this: purease.IVue, e: MouseEvent): void {
             if (e.target !== this.$el) {
                 return;
             }
@@ -2473,12 +2780,12 @@ list['pe-header-item'] = {
         };
     },
     'methods': {
-        enter: function(this: types.IVue, e: MouseEvent | TouchEvent) {
-            if (dom.hasTouchButMouse(e)) {
+        enter: function(this: purease.IVue, e: MouseEvent | TouchEvent) {
+            if (lDom.hasTouchButMouse(e)) {
                 return;
             }
             const target = e.target as HTMLElement;
-            if (target.classList.contains('pe-menu') || dom.findParentByClass(target, 'pe-menu')) {
+            if (target.classList.contains('pe-menu') || lDom.findParentByClass(target, 'pe-menu')) {
                 return;
             }
             if (!this.href) {
@@ -2486,8 +2793,8 @@ list['pe-header-item'] = {
             }
             this.hover = !this.hover;
         },
-        leave: function(this: types.IVue, e: MouseEvent | TouchEvent) {
-            if (dom.hasTouchButMouse(e)) {
+        leave: function(this: purease.IVue, e: MouseEvent | TouchEvent) {
+            if (lDom.hasTouchButMouse(e)) {
                 return;
             }
             this.hover = false;
@@ -2530,7 +2837,7 @@ list['pe-label'] = {
     },
     'computed': {
         /** --- 替换 slot 数据 --- */
-        contentComp: function(this: types.IVue): string {
+        contentComp: function(this: purease.IVue): string {
             if (this.$props.mode !== 'date') {
                 return this.$props.content;
             }
@@ -2559,7 +2866,7 @@ list['pe-label'] = {
 list['pe-lnav'] = {
     'template': `<div class="pe-lnav"><div class="pe-lnav-left" ref="left" @click="leftClick"><div class="pe-lnav-left-content"><slot name="left"></slot></div></div><div class="pe-lnav-right"><slot></slot></div></div>`,
     'methods': {
-        'leftClick': function(this: types.IVue, e: MouseEvent) {
+        'leftClick': function(this: purease.IVue, e: MouseEvent) {
             if (!(e.target as HTMLElement).classList.contains('pe-lnav-left')) {
                 return;
             }
@@ -2570,13 +2877,13 @@ list['pe-lnav'] = {
 
 list['pe-menu'] = {
     'template': `<div class="pe-menu"><slot></slot></div>`,
-    mounted: function(this: types.IVue) {
+    mounted: function(this: purease.IVue) {
         if (this.$parent?.menuCount === undefined) {
             return;
         }
         ++this.$parent.menuCount;
     },
-    unmounted: async function(this: types.IVue) {
+    unmounted: async function(this: purease.IVue) {
         await this.$nextTick();
         if (this.$parent?.menuCount === undefined) {
             return;
@@ -2613,7 +2920,7 @@ list['pe-nboard'] = {
     },
     'watch': {
         'modelValue': {
-            handler: function(this: types.IVue) {
+            handler: function(this: purease.IVue) {
                 if (this.modelValue === this.value.join('')) {
                     return;
                 }
@@ -2638,7 +2945,7 @@ list['pe-nboard'] = {
         },
     },
     'methods': {
-        click: function(this: types.IVue, num: string) {
+        click: function(this: purease.IVue, num: string) {
             if (this.value.length === this.length) {
                 return;
             }
@@ -2650,7 +2957,7 @@ list['pe-nboard'] = {
             this.$emit('update:modelValue', mv);
             this.$emit('changed');
         },
-        back: function(this: types.IVue) {
+        back: function(this: purease.IVue) {
             if (!this.value.length) {
                 return;
             }
@@ -2755,13 +3062,29 @@ list['pe-page'] = {
                 'vi': {
                     'total-of': 'Tổng cộng ?',
                     'page': 'Trang'
+                },
+                'ar': {
+                    'total-of': 'المجموع ?',
+                    'page': 'صفحة'
+                },
+                'id': {
+                    'total-of': 'Total ? item',
+                    'page': 'Hal'
+                },
+                'it': {
+                    'total-of': 'Totale ?',
+                    'page': 'Pag'
+                },
+                'tr': {
+                    'total-of': 'Toplam ?',
+                    'page': 'Sayfa'
                 }
             }
         };
     },
     'computed': {
         /** --- 格式化每页多少条 counts --- */
-        countsComp: function(this: types.IVue): Array<{
+        countsComp: function(this: purease.IVue): Array<{
             'label': string;
             'value': number;
         }> {
@@ -2780,7 +3103,7 @@ list['pe-page'] = {
         }
     },
     'methods': {
-        refresh: function(this: types.IVue) {
+        refresh: function(this: purease.IVue) {
             this.prevs.length = 0;
             let min = this.page - this.propNumber('control');
             if (min < 2) {
@@ -2799,7 +3122,7 @@ list['pe-page'] = {
                 this.nexts.push(i);
             }
         },
-        refreshMaxPage: function(this: types.IVue) {
+        refreshMaxPage: function(this: purease.IVue) {
             const max = this.propInt('max');
             if (max) {
                 this.maxPage = max;
@@ -2818,7 +3141,7 @@ list['pe-page'] = {
             e.preventDefault();
             (e.target as HTMLElement).click();
         },
-        changed: function(this: types.IVue, e: types.ISelectChangedEvent) {
+        changed: function(this: purease.IVue, e: ISelectChangedEvent) {
             this.$emit('update:count', e.detail.value);
             this.refreshMaxPage();
             this.refresh();
@@ -2826,38 +3149,38 @@ list['pe-page'] = {
     },
     'watch': {
         'count': {
-            handler: function(this: types.IVue) {
+            handler: function(this: purease.IVue) {
                 this.countSelect = this.propInt('count');
                 this.refreshMaxPage();
                 this.refresh();
             }
         },
         'modelValue': {
-            handler: function(this: types.IVue) {
+            handler: function(this: purease.IVue) {
                 this.page = this.propInt('modelValue');
                 this.refresh();
             },
             'immediate': true
         },
         'max': {
-            handler: function(this: types.IVue) {
+            handler: function(this: purease.IVue) {
                 this.refreshMaxPage();
                 this.refresh();
             }
         },
         'total': {
-            handler: function(this: types.IVue) {
+            handler: function(this: purease.IVue) {
                 this.refreshMaxPage();
                 this.refresh();
             }
         },
         'control': {
-            handler: function(this: types.IVue) {
+            handler: function(this: purease.IVue) {
                 this.refresh();
             }
         }
     },
-    mounted: function(this: types.IVue) {
+    mounted: function(this: purease.IVue) {
         this.countSelect = this.propInt('count');
         this.refreshMaxPage();
         this.refresh();
@@ -2930,19 +3253,31 @@ list['pe-select'] = {
                 },
                 'vi': {
                     'search': 'tìm kiếm'
+                },
+                'ar': {
+                    'search': 'بحث'
+                },
+                'id': {
+                    'search': 'Cari'
+                },
+                'it': {
+                    'search': 'Cerca'
+                },
+                'tr': {
+                    'search': 'Ara'
                 }
             }
         };
     },
     'methods': {
-        open: function(this: types.IVue, e: MouseEvent) {
+        open: function(this: purease.IVue, e: MouseEvent) {
             const el = e.target as HTMLElement;
             if (!el.classList.contains('pe-select-label') && !el.classList.contains('pe-select-arrow')) {
                 return;
             }
-            dom.showPop(e, this.$refs.pop);
+            lDom.showPop(e, this.$refs.pop);
         },
-        onModelValue: function(this: types.IVue, v: string) {
+        onModelValue: function(this: purease.IVue, v: string) {
             if (this.value === v) {
                 return;
             }
@@ -2957,9 +3292,9 @@ list['pe-select'] = {
             }
             this.$emit('update:modelValue', this.value);
         },
-        click: function(this: types.IVue, e: types.IDlistClickEvent) {
+        click: function(this: purease.IVue, e: IDlistClickEvent) {
             this.searchValue = '';
-            const event: types.ISelectChangedEvent = {
+            const event: ISelectChangedEvent = {
                 'detail': {
                     'value': e.detail.value,
                     'index': e.detail.index,
@@ -2967,11 +3302,11 @@ list['pe-select'] = {
                 }
             };
             this.$emit('changed', event);
-            dom.hidePop(this.$refs.pop);
+            lDom.hidePop(this.$refs.pop);
         },
     },
     'computed': {
-        dataComp: function(this: types.IVue) {
+        dataComp: function(this: purease.IVue) {
             const ds: Array<{
                 'label': string;
                 'value': string;
@@ -2994,7 +3329,7 @@ list['pe-select'] = {
             }
             return ds;
         },
-        searchComp: function(this: types.IVue) {
+        searchComp: function(this: purease.IVue) {
             if (!this.searchValue) {
                 return this.dataComp;
             }
@@ -3026,7 +3361,7 @@ list['pe-select'] = {
     },
     'watch': {
         'modelValue': {
-            handler: function(this: types.IVue) {
+            handler: function(this: purease.IVue) {
                 if (this.value === this.$props.modelValue) {
                     return;
                 }
@@ -3068,7 +3403,7 @@ list['pe-slider'] = {
         };
     },
     'computed': {
-        barWidth: function(this: types.IVue) {
+        barWidth: function(this: purease.IVue) {
             /**
             原公式：
             100 - this.pos[0] - (100 - this.pos[1])
@@ -3080,20 +3415,20 @@ list['pe-slider'] = {
             */
             return this.pos[1] - this.pos[0];
         },
-        barLeft: function(this: types.IVue) {
+        barLeft: function(this: purease.IVue) {
             return this.pos[0];
         }
     },
     methods: {
-        down: function(this: types.IVue, e: TouchEvent | MouseEvent, i: number) {
-            if (dom.hasTouchButMouse(e)) {
+        down: function(this: purease.IVue, e: TouchEvent | MouseEvent, i: number) {
+            if (lDom.hasTouchButMouse(e)) {
                 return;
             }
             const bcr = this.$el.getBoundingClientRect();
             /** --- slider 的宽度 --- */
             const width = bcr.width;
             const left = bcr.left;
-            dom.bindDown(e, {
+            lDom.bindDown(e, {
                 move: (ne) => {
                     // --- 当前的位置 ---
                     const nx = ne instanceof MouseEvent ? ne.clientX : ne.touches[0].clientX;
@@ -3132,7 +3467,7 @@ list['pe-slider'] = {
     },
     'watch': {
         'modelValue': {
-            handler: function(this: types.IVue) {
+            handler: function(this: purease.IVue) {
                 if (!Array.isArray(this.modelValue)) {
                     this.$emit('update:modelValue', [0, 0]);
                     return;
@@ -3222,7 +3557,7 @@ list['pe-swipe'] = {
     },
     'watch': {
         'modelValue': {
-            handler: function(this: types.IVue) {
+            handler: function(this: purease.IVue) {
                 if (this.selected === this.modelValue) {
                     return;
                 }
@@ -3236,8 +3571,8 @@ list['pe-swipe'] = {
             'immediate': true
         },
         'auto': {
-            handler: function(this: types.IVue) {
-                if (tool.getBoolean(this.auto)) {
+            handler: function(this: purease.IVue) {
+                if (lTool.getBoolean(this.auto)) {
                     // --- 静 变 动 ---
                     this.timer = setTimeout(() => {
                         this.timer = null;
@@ -3255,11 +3590,11 @@ list['pe-swipe'] = {
     },
     'computed': {
         /** --- 总宽度 --- */
-        awidth: function(this: types.IVue) {
+        awidth: function(this: purease.IVue) {
             return (this.width * this.pageCount) + (this.propNumber('gutter') * (this.pageCount - 1));
         },
         /** --- 每个 item 应该的宽度 --- */
-        iwidth: function(this: types.IVue): string {
+        iwidth: function(this: purease.IVue): string {
             const iwidth = 100 / this.pitem;
             if (this.pitem > 1) {
                 return 'calc((100% - ' + (this.pitem - 1) * this.propNumber('gutter') + 'px) / ' + this.pitem + ')';
@@ -3267,17 +3602,17 @@ list['pe-swipe'] = {
             return iwidth + '%';
         },
         /** --- 总页数 --- */
-        pageCount: function(this: types.IVue) {
+        pageCount: function(this: purease.IVue) {
             return Math.ceil(this.itemCount / this.pitem);
         },
         /** --- 一页面有多少个 item --- */
-        pitem: function(this: types.IVue): number {
-            return tool.getNumber(this.$root.windowWidth >= 800 ? this.$props.item : this.$props.minitem);
+        pitem: function(this: purease.IVue): number {
+            return lTool.getNumber(this.$root.windowWidth >= 800 ? this.$props.item : this.$props.minitem);
         },
     },
     methods: {
-        down: function(this: types.IVue, e: TouchEvent | MouseEvent) {
-            if (dom.hasTouchButMouse(e)) {
+        down: function(this: purease.IVue, e: TouchEvent | MouseEvent) {
+            if (lDom.hasTouchButMouse(e)) {
                 return;
             }
             if (this.going) {
@@ -3293,7 +3628,7 @@ list['pe-swipe'] = {
             if (target.tagName.toLowerCase() === 'a') {
                 return;
             }
-            const a = dom.findParentByTag(target, 'a');
+            const a = lDom.findParentByTag(target, 'a');
             if (a) {
                 return;
             }
@@ -3306,7 +3641,7 @@ list['pe-swipe'] = {
             /** --- 上次的 x 位置 --- */
             let x = ox;
             const time = Date.now();
-            dom.bindDown(e, {
+            lDom.bindDown(e, {
                 move: (ne) => {
                     // --- 当前的位置 ---
                     const nx = ne instanceof MouseEvent ? ne.clientX : ne.touches[0].clientX;
@@ -3330,7 +3665,7 @@ list['pe-swipe'] = {
                     /** --- 当前的位置 --- */
                     const index = Math.floor(info);
                     /** --- 当前的小数 --- */
-                    const dec = tool.getDecimal(info);
+                    const dec = lTool.getDecimal(info);
                     if (speed > 0.6) {
                         // --- 速度很快，一定到下一条 ---
                         // --- cx 大于 0 为向左滑动 ---
@@ -3353,7 +3688,7 @@ list['pe-swipe'] = {
                 }
             });
         },
-        prev: function(this: types.IVue) {
+        prev: function(this: purease.IVue) {
             if (this.going) {
                 return;
             }
@@ -3363,7 +3698,7 @@ list['pe-swipe'] = {
             this.mvselected = this.selected;
             this.$emit('update:modelValue', this.mvselected);
         },
-        next: function(this: types.IVue) {
+        next: function(this: purease.IVue) {
             if (this.going) {
                 return;
             }
@@ -3373,7 +3708,7 @@ list['pe-swipe'] = {
             this.mvselected = this.selected;
             this.$emit('update:modelValue', this.mvselected);
         },
-        pdown: function(this: types.IVue, p: number) {
+        pdown: function(this: purease.IVue, p: number) {
             if (this.going) {
                 return;
             }
@@ -3386,7 +3721,7 @@ list['pe-swipe'] = {
             this.mvselected = this.selected;
             this.$emit('update:modelValue', this.mvselected);
         },
-        go: async function(this: types.IVue) {
+        go: async function(this: purease.IVue) {
             this.going = true;
             const index = this.selected;
             if (this.selected === -1) {
@@ -3401,12 +3736,12 @@ list['pe-swipe'] = {
             }
             this.$refs.items.style.transition = 'var(--pe-transition)';
             // --- 设置允许缓动 ---
-            await tool.sleep(34);
+            await lTool.sleep(34);
             this.$refs.items.style.transform = 'translateX(' + (-(index * this.width + index * this.propNumber('gutter'))).toString() + 'px)';
             // --- 应用缓动后等待动画执行完成 ---
-            await tool.sleep(334);
+            await lTool.sleep(334);
             this.$refs.items.style.transition = '';
-            await tool.sleep(34);
+            await lTool.sleep(34);
             // --- 移除缓动效果后重置位置 ---
             this.translate = -(this.selected * this.width + this.selected * this.propNumber('gutter'));
             this.$refs.items.style.transform = 'translateX(' + this.translate + 'px)';
@@ -3417,7 +3752,7 @@ list['pe-swipe'] = {
                 this.go();
                 return;
             }
-            if (tool.getBoolean(this.auto)) {
+            if (lTool.getBoolean(this.auto)) {
                 this.timer = setTimeout(() => {
                     this.translate -= 10;
                     this.timer = null;
@@ -3428,16 +3763,16 @@ list['pe-swipe'] = {
                 }, 3000);
             }
         },
-        resize: function(this: types.IVue) {
+        resize: function(this: purease.IVue) {
             this.width = this.$el.offsetWidth;
             this.translate = -(this.selected * this.width);
             this.$refs.items.style.transform = 'translateX(' + this.translate + 'px)';
         }
     },
-    mounted: async function(this: types.IVue) {
-        await tool.sleep(68);
+    mounted: async function(this: purease.IVue) {
+        await lTool.sleep(68);
         this.width = this.$el.offsetWidth;
-        if (tool.getBoolean(this.auto)) {
+        if (lTool.getBoolean(this.auto)) {
             this.timer = setTimeout(() => {
                 this.timer = null;
                 ++this.selected;
@@ -3448,7 +3783,7 @@ list['pe-swipe'] = {
         }
         window.addEventListener('resize', this.resize);
     },
-    unmounted: async function(this: types.IVue) {
+    unmounted: async function(this: purease.IVue) {
         await this.$nextTick();
         window.removeEventListener('resize', this.resize);
         if (!this.timer) {
@@ -3472,24 +3807,24 @@ list['pe-swipe-item'] = {
     },
     'computed': {
         /** --- 当前 item 应该在第几页显示 --- */
-        npage: function(this: types.IVue) {
+        npage: function(this: purease.IVue) {
             if (!this.$parent) {
                 return 0;
             }
             return Math.floor(this.index / this.$parent.pitem);
         },
         /** --- 当前 item 在当前页的 index --- */
-        pindex: function(this: types.IVue) {
+        pindex: function(this: purease.IVue) {
             if (!this.$parent) {
                 return 0;
             }
             return this.index % this.$parent.pitem;
         },
-        left: function(this: types.IVue): string {
+        left: function(this: purease.IVue): string {
             if (!this.$parent) {
                 return '0';
             }
-            const gutter = tool.getNumber(this.$parent.$props.gutter);
+            const gutter = lTool.getNumber(this.$parent.$props.gutter);
             let left = this.width * this.npage + (this.npage * gutter);
             if (this.translate > 0) {
                 if (this.npage === this.$parent.pageCount - 1) {
@@ -3510,34 +3845,34 @@ list['pe-swipe-item'] = {
             return left + 'px';
         },
         // --- 一个页面的宽度 ---
-        width: function(this: types.IVue) {
+        width: function(this: purease.IVue) {
             if (!this.$parent) {
                 return 0;
             }
             return this.$parent.width;
         },
         // --- 总宽度 ---
-        awidth: function(this: types.IVue) {
+        awidth: function(this: purease.IVue) {
             if (!this.$parent) {
                 return 0;
             }
             return this.$parent.awidth;
         },
         // --- 当前 item 应该的宽度百分比 ---
-        iwidth: function(this: types.IVue) {
+        iwidth: function(this: purease.IVue) {
             if (!this.$parent) {
                 return '100%';
             }
             return this.$parent.iwidth;
         },
-        translate: function(this: types.IVue) {
+        translate: function(this: purease.IVue) {
             if (!this.$parent) {
                 return 0;
             }
             return this.$parent.translate;
         }
     },
-    mounted: function(this: types.IVue) {
+    mounted: function(this: purease.IVue) {
         if (!this.$parent) {
             return;
         }
@@ -3545,9 +3880,9 @@ list['pe-swipe-item'] = {
             return;
         }
         ++this.$parent.itemCount;
-        this.index = dom.index(this.$el);
+        this.index = lDom.index(this.$el);
     },
-    unmounted: async function(this: types.IVue) {
+    unmounted: async function(this: purease.IVue) {
         await this.$nextTick();
         if (!this.$parent) {
             return;
@@ -3579,7 +3914,7 @@ list['pe-switch'] = {
         };
     },
     'computed': {
-        mapComp: function(this: types.IVue): {
+        mapComp: function(this: purease.IVue): {
             'true': any;
             'false': any;
         } {
@@ -3591,7 +3926,7 @@ list['pe-switch'] = {
     },
     'watch': {
         'modelValue': {
-            handler: function(this: types.IVue) {
+            handler: function(this: purease.IVue) {
                 if (this.$props.modelValue === undefined) {
                     return;
                 }
@@ -3601,8 +3936,8 @@ list['pe-switch'] = {
         }
     },
     'methods': {
-        click: function(this: types.IVue): void {
-            const event: types.ISwitchChangeEvent = {
+        click: function(this: purease.IVue): void {
+            const event: ISwitchChangeEvent = {
                 'go': true,
                 preventDefault: function() {
                     this.go = false;
@@ -3617,7 +3952,7 @@ list['pe-switch'] = {
                 this.$emit('update:modelValue', this.value);
             }
         },
-        keydown: function(this: types.IVue, e: KeyboardEvent): void {
+        keydown: function(this: purease.IVue, e: KeyboardEvent): void {
             if (e.key !== 'Enter') {
                 return;
             }
@@ -3647,7 +3982,7 @@ list['pe-tab'] = {
     },
     'watch': {
         'selected': {
-            handler: function(this: types.IVue) {
+            handler: function(this: purease.IVue) {
                 if (this.modelValue === this.selected) {
                     return;
                 }
@@ -3655,7 +3990,7 @@ list['pe-tab'] = {
             }
         },
         'modelValue': {
-            handler: function(this: types.IVue) {
+            handler: function(this: purease.IVue) {
                 if (this.modelValue === this.selected) {
                     return;
                 }
@@ -3674,7 +4009,7 @@ list['pe-tab-item'] = {
         };
     },
     'computed': {
-        isSelected: function(this: types.IVue) {
+        isSelected: function(this: purease.IVue) {
             if (!this.$parent) {
                 return 0;
             }
@@ -3682,35 +4017,35 @@ list['pe-tab-item'] = {
         }
     },
     'methods': {
-        hover: function(this: types.IVue, e: MouseEvent | TouchEvent) {
+        hover: function(this: purease.IVue, e: MouseEvent | TouchEvent) {
             if (!this.$parent) {
                 return;
             }
-            if (dom.hasTouchButMouse(e)) {
+            if (lDom.hasTouchButMouse(e)) {
                 return;
             }
             this.$parent.selected = this.index;
             this.resize();
         },
-        resize: function(this: types.IVue) {
+        resize: function(this: purease.IVue) {
             if (!this.$parent) {
                 return;
             }
             if (this.$parent.type !== 'rect') {
                 return;
             }
-            this.$parent.tabItemWidth = this.$el.clientWidth;
+            this.$parent.tabItemWidth = this.$el.offsetWidth;
             this.$parent.tabItemLeft = this.$el.offsetLeft;
         }
     },
-    mounted: function(this: types.IVue) {
+    mounted: function(this: purease.IVue) {
         if (!this.$parent) {
             return;
         }
         if (this.$parent.selected === undefined) {
             return;
         }
-        this.index = dom.index(this.$el);
+        this.index = lDom.index(this.$el);
         if (this.index === this.$parent.selected) {
             this.resize();
         }
@@ -3741,13 +4076,13 @@ list['pe-table-cell'] = {
 
 list['pe-table-head'] = {
     'template': `<div class="pe-table-head"><slot></slot></div>`,
-    mounted: function(this: types.IVue) {
+    mounted: function(this: purease.IVue) {
         const row = this.parentByName('table-row');
         if (row) {
             row.updateHeadCount('+');
         }
     },
-    unmounted: function(this: types.IVue) {
+    unmounted: function(this: purease.IVue) {
         const row = this.parentByName('table-row');
         if (row) {
             row.updateHeadCount('-');
@@ -3771,12 +4106,12 @@ list['pe-table-row'] = {
         },
     },
     'computed': {
-        'isAdaption': function(this: types.IVue) {
+        'isAdaption': function(this: purease.IVue) {
             return this.table?.propBoolean('adaption') ?? false;
         },
     },
     'methods': {
-        updateHeadCount: function(this: types.IVue, o: '+' | '-') {
+        updateHeadCount: function(this: purease.IVue, o: '+' | '-') {
             if (o === '+') {
                 ++this.headCount;
             }
@@ -3785,7 +4120,7 @@ list['pe-table-row'] = {
             }
             this.table ??= this.parentByName('table');
             if (this.index === -1) {
-                this.index = dom.index(this.$el);
+                this.index = lDom.index(this.$el);
             }
             // --- 一些参数 ---
             if (this.table) {
@@ -3793,7 +4128,7 @@ list['pe-table-row'] = {
             }
         }
     },
-    mounted: function(this: types.IVue) {
+    mounted: function(this: purease.IVue) {
         const table = this.parentByName('table');
         if (table) {
             this.table = table;
@@ -3871,7 +4206,7 @@ list['pe-text'] = {
     },
     'methods': {
         /** --- 检测 value 值是否符合 max 和 min --- */
-        checkNumber: function(this: types.IVue, target?: HTMLInputElement | HTMLTextAreaElement) {
+        checkNumber: function(this: purease.IVue, target?: HTMLInputElement | HTMLTextAreaElement) {
             target ??= this.$refs.text as unknown as HTMLInputElement | HTMLTextAreaElement;
             if (this.$props.type !== 'number') {
                 return false;
@@ -3894,13 +4229,13 @@ list['pe-text'] = {
             return change;
         },
         /** --- 文本框的 input 事件 --- */
-        input: function(this: types.IVue, e: InputEvent) {
+        input: function(this: purease.IVue, e: InputEvent) {
             const target = e.target as HTMLInputElement | HTMLTextAreaElement;
             if (this.propNumber('maxlength') && (target.value.length > this.propNumber('maxlength'))) {
                 target.value = target.value.slice(0, this.propNumber('maxlength'));
                 return;
             }
-            const event: types.ITextBeforechangeEvent = {
+            const event: ITextBeforechangeEvent = {
                 'go': true,
                 preventDefault: function() {
                     this.go = false;
@@ -3922,15 +4257,15 @@ list['pe-text'] = {
             this.$emit('update:modelValue', this.value);
         },
         /** --- 文本框的 focus 事件 --- */
-        tfocus: function(this: types.IVue): void {
+        tfocus: function(this: purease.IVue): void {
             this.isFocus = true;
             this.$emit('focus');
         },
-        tblur: function(this: types.IVue, e: FocusEvent): void {
+        tblur: function(this: purease.IVue, e: FocusEvent): void {
             // --- 如果是 number 则要判断数字是否符合 min max，不能在 input 判断，因为会导致用户无法正常输入数字，比如最小值是 10，他在输入 1 的时候就自动重置成 10 了 ---
             const target = e.target as HTMLInputElement | HTMLTextAreaElement;
             if (this.checkNumber(target)) {
-                const event: types.ITextBeforechangeEvent = {
+                const event: ITextBeforechangeEvent = {
                     'go': true,
                     preventDefault: function() {
                         this.go = false;
@@ -3960,7 +4295,7 @@ list['pe-text'] = {
     },
     'watch': {
         'modelValue': {
-            handler: async function(this: types.IVue) {
+            handler: async function(this: purease.IVue) {
                 if (this.value === this.$props.modelValue) {
                     return;
                 }
@@ -3974,7 +4309,7 @@ list['pe-text'] = {
                 if (this.$refs.text.value === this.value) {
                     return;
                 }
-                const event: types.ITextBeforechangeEvent = {
+                const event: ITextBeforechangeEvent = {
                     'go': true,
                     preventDefault: function() {
                         this.go = false;
@@ -3995,10 +4330,10 @@ list['pe-text'] = {
             'immediate': true
         },
         'type': {
-            handler: async function(this: types.IVue) {
+            handler: async function(this: purease.IVue) {
                 await this.$nextTick();
                 if (this.checkNumber()) {
-                    const event: types.ITextBeforechangeEvent = {
+                    const event: ITextBeforechangeEvent = {
                         'go': true,
                         preventDefault: function() {
                             this.go = false;
@@ -4019,9 +4354,9 @@ list['pe-text'] = {
             }
         },
         'max': {
-            handler: function(this: types.IVue) {
+            handler: function(this: purease.IVue) {
                 if (this.checkNumber()) {
-                    const event: types.ITextBeforechangeEvent = {
+                    const event: ITextBeforechangeEvent = {
                         'go': true,
                         preventDefault: function() {
                             this.go = false;
@@ -4042,9 +4377,9 @@ list['pe-text'] = {
             }
         },
         'min': {
-            handler: function(this: types.IVue) {
+            handler: function(this: purease.IVue) {
                 if (this.checkNumber()) {
-                    const event: types.ITextBeforechangeEvent = {
+                    const event: ITextBeforechangeEvent = {
                         'go': true,
                         preventDefault: function() {
                             this.go = false;
@@ -4065,7 +4400,7 @@ list['pe-text'] = {
             }
         },
         'maxlength': {
-            handler: function(this: types.IVue) {
+            handler: function(this: purease.IVue) {
                 if (!this.propNumber('maxlength')) {
                     return;
                 }
@@ -4073,7 +4408,7 @@ list['pe-text'] = {
                     return;
                 }
                 const value = this.value.slice(0, this.propNumber('maxlength'));
-                const event: types.ITextBeforechangeEvent = {
+                const event: ITextBeforechangeEvent = {
                     'go': true,
                     preventDefault: function() {
                         this.go = false;
@@ -4120,7 +4455,7 @@ list['pe-vnumber'] = {
     },
     'watch': {
         'modelValue': {
-            handler: function(this: types.IVue) {
+            handler: function(this: purease.IVue) {
                 if (!this.$refs.input) {
                     return;
                 }
@@ -4148,7 +4483,7 @@ list['pe-vnumber'] = {
         }
     },
     'methods': {
-        input: function(this: types.IVue) {
+        input: function(this: purease.IVue) {
             const value = this.$refs.input.value;
             this.value.length = 0;
             for (const char of value) {

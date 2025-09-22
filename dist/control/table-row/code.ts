@@ -1,5 +1,5 @@
-import * as dom from '../../dom';
-import * as types from '../../../types';
+import * as lDom from '../../dom';
+import * as purease from '../../purease.js';
 
 export const code = {
     'template': '',
@@ -17,12 +17,12 @@ export const code = {
         },
     },
     'computed': {
-        'isAdaption': function(this: types.IVue) {
+        'isAdaption': function(this: purease.IVue) {
             return this.table?.propBoolean('adaption') ?? false;
         },
     },
     'methods': {
-        updateHeadCount: function(this: types.IVue, o: '+' | '-') {
+        updateHeadCount: function(this: purease.IVue, o: '+' | '-') {
             if (o === '+') {
                 ++this.headCount;
             }
@@ -31,7 +31,7 @@ export const code = {
             }
             this.table ??= this.parentByName('table');
             if (this.index === -1) {
-                this.index = dom.index(this.$el);
+                this.index = lDom.index(this.$el);
             }
             // --- 一些参数 ---
             if (this.table) {
@@ -39,7 +39,7 @@ export const code = {
             }
         }
     },
-    mounted: function(this: types.IVue) {
+    mounted: function(this: purease.IVue) {
         const table = this.parentByName('table');
         if (table) {
             this.table = table;

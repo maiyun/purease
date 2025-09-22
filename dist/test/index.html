@@ -4,9 +4,14 @@
 <title>Purease Test</title>
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
-<script src="https://cdn.jsdelivr.net/npm/@litert/loader@3.5.8/dist/loader.min.js?path=index"></script>
+<script type="module" src="./index.pack.js"></script>
 <script>
-pureaseGlobal = {};
+purease = {
+    'config': {
+        'cdn': 'https://cdn.jsdelivr.net',
+    },
+    'global': {},
+};
 </script>
 <!-- 用户 -->
 <link rel="stylesheet" href="index.css" />
@@ -14,8 +19,8 @@ pureaseGlobal = {};
 <body>
 <div id="header">
     <script>
-        pureaseGlobal = {
-            ...pureaseGlobal,
+        purease.global = {
+            ...purease.global,
             'head': '111'
         };
     </script>
@@ -155,14 +160,17 @@ pureaseGlobal = {};
             </template>
         </pe-group>
         <pe-group style="flex: 1;" class="pe-padtitle">
-            111
+            111<br>
+            222
             <template v-slot:bottom>
                 <div class="pe-button pe-dark" style="flex: 1;">Buy</div>
             </template>
         </pe-group>
         <pe-group style="flex: 1;">
             <template v-slot:title>Best</template>
-            111
+            111<br>
+            222<br>
+            333
             <template v-slot:bottom>
                 <div class="pe-button pe-pgrey" style="flex: 1;">Buy</div>
             </template>
@@ -221,6 +229,13 @@ pureaseGlobal = {};
         <pe-check>check1<br>check2<br><a href="./swipe.html" target="_blank">check3<pe-icon></pe-icon></a></pe-check>
         <div>Dlist: {{dlist}}</div>
         <pe-dlist :data="['a', 'b', 'c', { 'title': true, 'label': 'title' }, 'd']" style="width: 400px;" v-model="dlist"></pe-dlist>
+    </div>
+</div>
+<!-- RTL 模式 -->
+<div class="pe-block pe-grey">
+    <div class="pe-btitle">RTL Mode</div>
+    <div class="pe-layout" style="justify-content: center;">
+        <div class="pe-button pe-pgrey" @click="changeRTL">{{rtl ? '' : '!'}}RTL</div>
     </div>
 </div>
 <!-- 脚部 -->

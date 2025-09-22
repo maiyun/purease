@@ -1,4 +1,4 @@
-import * as purease from '../index';
+import * as purease from 'purease';
 
 export default class extends purease.AbstractPanel {
 

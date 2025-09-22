@@ -1,4 +1,5 @@
-import * as types from '../../../types';
+import * as purease from '../../purease.js';
+import * as lControl from '../../control';
 
 export const code = {
     'template': '',
@@ -90,13 +91,29 @@ export const code = {
                 'vi': {
                     'total-of': 'Tổng cộng ?',
                     'page': 'Trang'
+                },
+                'ar': {
+                    'total-of': 'المجموع ?',
+                    'page': 'صفحة'
+                },
+                'id': {
+                    'total-of': 'Total ? item',
+                    'page': 'Hal'
+                },
+                'it': {
+                    'total-of': 'Totale ?',
+                    'page': 'Pag'
+                },
+                'tr': {
+                    'total-of': 'Toplam ?',
+                    'page': 'Sayfa'
                 }
             }
         };
     },
     'computed': {
         /** --- 格式化每页多少条 counts --- */
-        countsComp: function(this: types.IVue): Array<{
+        countsComp: function(this: purease.IVue): Array<{
             'label': string;
             'value': number;
         }> {
@@ -115,7 +132,7 @@ export const code = {
         }
     },
     'methods': {
-        refresh: function(this: types.IVue) {
+        refresh: function(this: purease.IVue) {
             this.prevs.length = 0;
             let min = this.page - this.propNumber('control');
             if (min < 2) {
@@ -134,7 +151,7 @@ export const code = {
                 this.nexts.push(i);
             }
         },
-        refreshMaxPage: function(this: types.IVue) {
+        refreshMaxPage: function(this: purease.IVue) {
             const max = this.propInt('max');
             if (max) {
                 this.maxPage = max;
@@ -153,7 +170,7 @@ export const code = {
             e.preventDefault();
             (e.target as HTMLElement).click();
         },
-        changed: function(this: types.IVue, e: types.ISelectChangedEvent) {
+        changed: function(this: purease.IVue, e: lControl.ISelectChangedEvent) {
             this.$emit('update:count', e.detail.value);
             this.refreshMaxPage();
             this.refresh();
@@ -161,38 +178,38 @@ export const code = {
     },
     'watch': {
         'count': {
-            handler: function(this: types.IVue) {
+            handler: function(this: purease.IVue) {
                 this.countSelect = this.propInt('count');
                 this.refreshMaxPage();
                 this.refresh();
             }
         },
         'modelValue': {
-            handler: function(this: types.IVue) {
+            handler: function(this: purease.IVue) {
                 this.page = this.propInt('modelValue');
                 this.refresh();
             },
             'immediate': true
         },
         'max': {
-            handler: function(this: types.IVue) {
+            handler: function(this: purease.IVue) {
                 this.refreshMaxPage();
                 this.refresh();
             }
         },
         'total': {
-            handler: function(this: types.IVue) {
+            handler: function(this: purease.IVue) {
                 this.refreshMaxPage();
                 this.refresh();
             }
         },
         'control': {
-            handler: function(this: types.IVue) {
+            handler: function(this: purease.IVue) {
                 this.refresh();
             }
         }
     },
-    mounted: function(this: types.IVue) {
+    mounted: function(this: purease.IVue) {
         this.countSelect = this.propInt('count');
         this.refreshMaxPage();
         this.refresh();

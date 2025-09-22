@@ -1,11 +1,11 @@
 .pe-bar {
     display: flex; padding: 0 20px;
     &.pe-theme-dark {
-        background: var(--pe-h-color);
+        background: var(--pe);
         .pe-bar-item {
-            color: var(--pe-h-fcolor);
+            color: var(--pe-fcolor);
             &::after {
-                border-color: var(--pe-h-fcolor);
+                border-color: var(--pe-fcolor);
             }
         }
     }

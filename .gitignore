@@ -1,11 +1,12 @@
 .vscode/
 .VSCodeCounter/
 .vs/
-dist/control/**/*.js
-dist/control/**/*.css
+.git/
 node_modules/
 .DS_Store
-.npmrc
-package-lock.json
 *.d.ts
 !/types/*.d.ts
+package-lock.json
+
+dist/control/**/*.js
+dist/control/**/*.css

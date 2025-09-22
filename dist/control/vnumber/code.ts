@@ -1,4 +1,4 @@
-import * as types from '../../../types';
+import * as purease from '../../purease.js';
 
 export const code = {
     'template': '',
@@ -26,7 +26,7 @@ export const code = {
     },
     'watch': {
         'modelValue': {
-            handler: function(this: types.IVue) {
+            handler: function(this: purease.IVue) {
                 if (!this.$refs.input) {
                     return;
                 }
@@ -54,7 +54,7 @@ export const code = {
         }
     },
     'methods': {
-        input: function(this: types.IVue) {
+        input: function(this: purease.IVue) {
             const value = this.$refs.input.value;
             this.value.length = 0;
             for (const char of value) {

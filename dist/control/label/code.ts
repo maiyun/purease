@@ -1,4 +1,4 @@
-import * as types from '../../../types';
+import * as purease from '../../purease.js';
 
 export const code = {
     'template': '',
@@ -26,7 +26,7 @@ export const code = {
     },
     'computed': {
         /** --- 替换 slot 数据 --- */
-        contentComp: function(this: types.IVue): string {
+        contentComp: function(this: purease.IVue): string {
             if (this.$props.mode !== 'date') {
                 return this.$props.content;
             }

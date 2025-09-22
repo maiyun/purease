@@ -1,5 +1,6 @@
-import * as dom from '../../dom';
-import * as types from '../../../types';
+import * as lDom from '../../dom';
+import * as lControl from '../../control';
+import * as purease from '../../purease.js';
 
 export const code = {
     'template': '',
@@ -370,6 +371,106 @@ export const code = {
                     'today': 'Hôm nay',
                     'back': 'Trở lại',
                     'clear': 'Xóa',
+                },
+                'ar': {
+                    'w0': 'أح',
+                    'w1': 'إث',
+                    'w2': 'ثل',
+                    'w3': 'أر',
+                    'w4': 'خم',
+                    'w5': 'جم',
+                    'w6': 'سب',
+                    'm1': 'ينا',
+                    'm2': 'فبر',
+                    'm3': 'مار',
+                    'm4': 'أبر',
+                    'm5': 'ماي',
+                    'm6': 'يون',
+                    'm7': 'يول',
+                    'm8': 'أغس',
+                    'm9': 'سبت',
+                    'm10': 'أكت',
+                    'm11': 'نوف',
+                    'm12': 'ديس',
+                    'year': 'عام',
+                    'today': 'اليوم',
+                    'back': 'رجوع',
+                    'clear': 'مسح'
+                },
+                'id': {
+                    'w0': 'Min',
+                    'w1': 'Sen',
+                    'w2': 'Sel',
+                    'w3': 'Rab',
+                    'w4': 'Kam',
+                    'w5': 'Jum',
+                    'w6': 'Sab',
+                    'm1': 'Jan',
+                    'm2': 'Feb',
+                    'm3': 'Mar',
+                    'm4': 'Apr',
+                    'm5': 'Mei',
+                    'm6': 'Jun',
+                    'm7': 'Jul',
+                    'm8': 'Agu',
+                    'm9': 'Sep',
+                    'm10': 'Okt',
+                    'm11': 'Nov',
+                    'm12': 'Des',
+                    'year': 'Tahun',
+                    'today': 'Hari ini',
+                    'back': 'Kembali',
+                    'clear': 'Hapus'
+                },
+                'it': {
+                    'w0': 'Dom',
+                    'w1': 'Lun',
+                    'w2': 'Mar',
+                    'w3': 'Mer',
+                    'w4': 'Gio',
+                    'w5': 'Ven',
+                    'w6': 'Sab',
+                    'm1': 'Gen',
+                    'm2': 'Feb',
+                    'm3': 'Mar',
+                    'm4': 'Apr',
+                    'm5': 'Mag',
+                    'm6': 'Giu',
+                    'm7': 'Lug',
+                    'm8': 'Ago',
+                    'm9': 'Set',
+                    'm10': 'Ott',
+                    'm11': 'Nov',
+                    'm12': 'Dic',
+                    'year': 'Anno',
+                    'today': 'Oggi',
+                    'back': 'Indietro',
+                    'clear': 'Pulisci'
+                },
+                'tr': {
+                    'w0': 'Paz',
+                    'w1': 'Pzt',
+                    'w2': 'Sal',
+                    'w3': 'Çar',
+                    'w4': 'Per',
+                    'w5': 'Cum',
+                    'w6': 'Cmt',
+                    'm1': 'Oca',
+                    'm2': 'Şub',
+                    'm3': 'Mar',
+                    'm4': 'Nis',
+                    'm5': 'May',
+                    'm6': 'Haz',
+                    'm7': 'Tem',
+                    'm8': 'Ağu',
+                    'm9': 'Eyl',
+                    'm10': 'Eki',
+                    'm11': 'Kas',
+                    'm12': 'Ara',
+                    'year': 'Yıl',
+                    'today': 'Bugün',
+                    'back': 'Geri',
+                    'clear': 'Sil'
                 }
             },
             /** --- 当前 date 对象 --- */
@@ -423,22 +524,22 @@ export const code = {
         };
     },
     'computed': {
-        dateValueStr: function(this: types.IVue): string {
+        dateValueStr: function(this: purease.IVue): string {
             return this.dateValue.year.toString() + (this.dateValue.month + 1).toString().padStart(2, '0') + this.dateValue.date.toString().padStart(2, '0');
         },
-        startYm: function(this: types.IVue): string {
+        startYm: function(this: purease.IVue): string {
             return this.startValue.year.toString() + (this.startValue.month + 1).toString().padStart(2, '0');
         },
-        startYmd: function(this: types.IVue): string {
+        startYmd: function(this: purease.IVue): string {
             return this.startYm + this.startValue.date.toString().padStart(2, '0');
         },
-        endYm: function(this: types.IVue): string {
+        endYm: function(this: purease.IVue): string {
             return this.endValue.year.toString() + (this.endValue.month + 1).toString().padStart(2, '0');
         },
-        endYmd: function(this: types.IVue): string {
+        endYmd: function(this: purease.IVue): string {
             return this.endYm + this.endValue.date.toString().padStart(2, '0');
         },
-        years: function(this: types.IVue): Array<{
+        years: function(this: purease.IVue): Array<{
             'label': string;
             'value': string;
         }> {
@@ -447,7 +548,7 @@ export const code = {
                 'value': (this.startValue.year + i).toString(),
             }));
         },
-        months: function(this: types.IVue): Array<{
+        months: function(this: purease.IVue): Array<{
             'label': string;
             'value': string;
             'disabled': boolean;
@@ -467,7 +568,7 @@ export const code = {
             }
             return arr;
         },
-        isDisabled: function(this: types.IVue) {
+        isDisabled: function(this: purease.IVue) {
             return (col: {
                 'date': number;
                 'month': number;
@@ -478,7 +579,7 @@ export const code = {
             };
         },
         /** --- col 显示的 class 效果，有四种，1: undefined, 2: range, 3: range-left, 4: range-right --- */
-        toclass: function(this: types.IVue) {
+        toclass: function(this: purease.IVue) {
             return (col: {
                 'date': number;
                 'month': number;
@@ -507,12 +608,12 @@ export const code = {
         }
     },
     'methods': {
-        refreshStartValue: function(this: types.IVue): void {
+        refreshStartValue: function(this: purease.IVue): void {
             this.startValue.date = this.startDate.getUTCDate();
             this.startValue.month = this.startDate.getUTCMonth();
             this.startValue.year = this.startDate.getUTCFullYear();
         },
-        refreshEndValue: function(this: types.IVue): void {
+        refreshEndValue: function(this: purease.IVue): void {
             this.endValue.date = this.endDate.getUTCDate();
             this.endValue.month = this.endDate.getUTCMonth();
             this.endValue.year = this.endDate.getUTCFullYear();
@@ -520,7 +621,7 @@ export const code = {
         /**
          * --- 刷新视图（当时间戳或时区变动时执行） ---
          */
-        refreshView: function(this: types.IVue): void {
+        refreshView: function(this: purease.IVue): void {
             const now = new Date(Date.UTC(parseInt(this.vyear), parseInt(this.vmonth) - 1, 1));
             /** --- 当月 1 号在周几，0 代表周日 --- */
             const day1 = now.getUTCDay();
@@ -548,7 +649,7 @@ export const code = {
         /**
          * --- 刷新 date value 的数据为最新的 ---
          */
-        refreshDateValue: function(this: types.IVue): void {
+        refreshDateValue: function(this: purease.IVue): void {
             this.dateValue.date = this.dateObj.getUTCDate();
             this.dateValue.month = this.dateObj.getUTCMonth();
             this.dateValue.year = this.dateObj.getUTCFullYear();
@@ -556,10 +657,10 @@ export const code = {
         /**
          * --- 更新 time stamp，会自动根据 dateObj 设置时间戳基 ---
          */
-        updateTimestamp: function(this: types.IVue): void {
+        updateTimestamp: function(this: purease.IVue): void {
             if (this.timestamp === undefined) {
                 if (this.$props.modelValue !== undefined) {
-                    const event: types.IDatepanelChangedEvent = {
+                    const event: lControl.IDatepanelChangedEvent = {
                         'detail': {
                             'value': undefined
                         }
@@ -571,7 +672,7 @@ export const code = {
             this.timestamp = this.dateObj.getTime() - this.tzData * 60 * 60_000;
             if (this.propNumber('modelValue') !== this.timestamp) {
                 this.$emit('update:modelValue', this.timestamp);
-                const event: types.IDatepanelChangedEvent = {
+                const event: lControl.IDatepanelChangedEvent = {
                     'detail': {
                         'value': this.timestamp
                     }
@@ -582,7 +683,7 @@ export const code = {
         /**
          * --- 跳转到当前选中的年份和月份 ---
          */
-        goSelected: function(this: types.IVue): void {
+        goSelected: function(this: purease.IVue): void {
             let change = false;
             if (parseInt(this.vyear) !== this.dateValue.year) {
                 this.vyear = this.dateValue.year.toString();
@@ -600,7 +701,7 @@ export const code = {
             }
         },
         /** --- col 点击 --- */
-        colClick: function(this: types.IVue, col: {
+        colClick: function(this: purease.IVue, col: {
             'time': number;
             'date': number;
             'month': number;
@@ -613,7 +714,7 @@ export const code = {
                 if (cols === this.dateValueStr) {
                     // --- range 状态，自己点击自己，只选择一天 ---
                     const endDate = new Date(Date.UTC(col.year, col.month, col.date, 23, 59, 59, 0));
-                    const event: types.IDatepanelRangeEvent = {
+                    const event: lControl.IDatepanelRangeEvent = {
                         'go': true,
                         preventDefault: function() {
                             this.go = false;
@@ -643,7 +744,7 @@ export const code = {
                     if (nhour === 0 && nminute === 0 && nseconds === 0) {
                         edate.setUTCHours(23, 59, 59, 0);
                     }
-                    const event: types.IDatepanelRangeEvent = {
+                    const event: lControl.IDatepanelRangeEvent = {
                         'go': true,
                         preventDefault: function() {
                             this.go = false;
@@ -672,7 +773,7 @@ export const code = {
             this.refreshDateValue();
             this.updateTimestamp();
             this.goSelected();
-            const event: types.IDatepanelSelectedEvent = {
+            const event: lControl.IDatepanelSelectedEvent = {
                 'detail': {
                     'time': col.time,
                     'date': col.date,
@@ -685,7 +786,7 @@ export const code = {
             this.$emit('selected', event);
         },
         /** --- 跳转到今天 --- */
-        today: function(this: types.IVue): void {
+        today: function(this: purease.IVue): void {
             // --- 解除 undefined 限制，使选中的时间戳可以 emit 上去 ---
             this.timestamp = 0;
             const now = new Date();
@@ -695,13 +796,13 @@ export const code = {
             this.goSelected();
         },
         /** --- 返回选中年月 --- */
-        back: function(this: types.IVue): void {
+        back: function(this: purease.IVue): void {
             this.vyear = this.dateValue.year.toString();
             this.vmonth = (this.dateValue.month + 1).toString();
             this.$emit('update:yearmonth', this.vyear + this.vmonth.padStart(2, '0'));
         },
         /** --- 选上个月 --- */
-        prev: function(this: types.IVue): void {
+        prev: function(this: purease.IVue): void {
             const month = parseInt(this.vmonth);
             if (month === 1) {
                 const year = parseInt(this.vyear);
@@ -712,7 +813,7 @@ export const code = {
             this.vmonth = (month - 1).toString();
         },
         // --- 选下个月 ---
-        next: function(this: types.IVue): void {
+        next: function(this: purease.IVue): void {
             const month = parseInt(this.vmonth);
             if (month === 12) {
                 const year = parseInt(this.vyear);
@@ -723,12 +824,12 @@ export const code = {
             this.vmonth = (month + 1).toString();
         },
         /** --- 鼠标移动到 col 上的事件 --- */
-        colenter: function(this: types.IVue, e: MouseEvent | TouchEvent, col: {
+        colenter: function(this: purease.IVue, e: MouseEvent | TouchEvent, col: {
             'date': number;
             'month': number;
             'year': number;
         }): void {
-            if (dom.hasTouchButMouse(e)) {
+            if (lDom.hasTouchButMouse(e)) {
                 return;
             }
             if (!this.propBoolean('range')) {
@@ -741,11 +842,11 @@ export const code = {
             this.$emit('update:cursor', this.cursorDate);
         },
         /** --- 清除所有状态 --- */
-        clear: function(this: types.IVue): void {
+        clear: function(this: purease.IVue): void {
             this.timestamp = undefined;
             this.$emit('update:modelValue', undefined);
             this.rangeDate = undefined;
-            const event: types.IDatepanelChangedEvent = {
+            const event: lControl.IDatepanelChangedEvent = {
                 'detail': {
                     'value': undefined
                 }
@@ -757,7 +858,7 @@ export const code = {
             }
         }
     },
-    mounted: function(this: types.IVue) {
+    mounted: function(this: purease.IVue) {
         // --- 监听最大最小值限定 ---
         this.$watch('start', () => {
             if (this.$props.start === undefined) {

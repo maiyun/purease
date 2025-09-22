@@ -24,7 +24,7 @@
             background: var(--danger); border-color: var(--danger);
         }
         &.pe-type-pe {
-            background: var(--pe-h-color); border-color: var(--pe-h-color);
+            background: var(--pe); border-color: var(--pe);
         }
 
         svg {
@@ -104,7 +104,7 @@
         &.pe-type-pe {
             svg {
                 &:hover {
-                    background: var(--pe-h-color);
+                    background: var(--pe);
                 }
                 &:active {
                     background: var(--pe-color);

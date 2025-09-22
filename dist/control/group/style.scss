@@ -4,11 +4,11 @@
         margin-top: 44px;
     }
     &.pe-point {
-        border: solid 2px var(--pe-h-color);
+        border: solid 2px var(--pe);
     }
 }
 .pe-group-title {
-    padding: 10px; background: var(--pe-h-color); color: var(--pe-h-fcolor); fill: var(--pe-h-fcolor); stroke: var(--pe-h-fcolor); text-align: center; font-weight: bold;
+    padding: 10px; background: var(--pe); color: var(--pe-fcolor); text-align: center; font-weight: bold;
 }
 .pe-group-content {
     padding: var(--pe-padding); flex: 1;

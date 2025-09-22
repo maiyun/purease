@@ -1,5 +1,6 @@
-import * as dom from '../../dom';
-import * as types from '../../../types';
+import * as lDom from '../../dom';
+import * as lControl from '../../control';
+import * as purease from '../../purease.js';
 
 export const code = {
     'template': '',
@@ -67,19 +68,31 @@ export const code = {
                 },
                 'vi': {
                     'search': 'tìm kiếm'
+                },
+                'ar': {
+                    'search': 'بحث'
+                },
+                'id': {
+                    'search': 'Cari'
+                },
+                'it': {
+                    'search': 'Cerca'
+                },
+                'tr': {
+                    'search': 'Ara'
                 }
             }
         };
     },
     'methods': {
-        open: function(this: types.IVue, e: MouseEvent) {
+        open: function(this: purease.IVue, e: MouseEvent) {
             const el = e.target as HTMLElement;
             if (!el.classList.contains('pe-select-label') && !el.classList.contains('pe-select-arrow')) {
                 return;
             }
-            dom.showPop(e, this.$refs.pop);
+            lDom.showPop(e, this.$refs.pop);
         },
-        onModelValue: function(this: types.IVue, v: string) {
+        onModelValue: function(this: purease.IVue, v: string) {
             if (this.value === v) {
                 return;
             }
@@ -94,9 +107,9 @@ export const code = {
             }
             this.$emit('update:modelValue', this.value);
         },
-        click: function(this: types.IVue, e: types.IDlistClickEvent) {
+        click: function(this: purease.IVue, e: lControl.IDlistClickEvent) {
             this.searchValue = '';
-            const event: types.ISelectChangedEvent = {
+            const event: lControl.ISelectChangedEvent = {
                 'detail': {
                     'value': e.detail.value,
                     'index': e.detail.index,
@@ -104,11 +117,11 @@ export const code = {
                 }
             };
             this.$emit('changed', event);
-            dom.hidePop(this.$refs.pop);
+            lDom.hidePop(this.$refs.pop);
         },
     },
     'computed': {
-        dataComp: function(this: types.IVue) {
+        dataComp: function(this: purease.IVue) {
             const ds: Array<{
                 'label': string;
                 'value': string;
@@ -131,7 +144,7 @@ export const code = {
             }
             return ds;
         },
-        searchComp: function(this: types.IVue) {
+        searchComp: function(this: purease.IVue) {
             if (!this.searchValue) {
                 return this.dataComp;
             }
@@ -163,7 +176,7 @@ export const code = {
     },
     'watch': {
         'modelValue': {
-            handler: function(this: types.IVue) {
+            handler: function(this: purease.IVue) {
                 if (this.value === this.$props.modelValue) {
                     return;
                 }

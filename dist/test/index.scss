@@ -20,7 +20,7 @@ html:not(.pe-scroll) .pe-header.swipe, html.pe-scroll .pe-header.swipe:not(.pe-f
 }
 
 .pe-banner.index {
-    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.2)), url(bg.jpg);
+    background-image: linear-gradient(to bottom, oklch(1 0 0 / .9), oklch(1 0 0 / .6)), url(bg.jpg);
 }
 .pe-banner.swipe {
     background-image: url(bg.jpg);

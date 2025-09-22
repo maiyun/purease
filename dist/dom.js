@@ -1,13 +1,6 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.showPop = showPop;
-exports.hidePop = hidePop;
-exports.hasTouchButMouse = hasTouchButMouse;
-exports.findParentByClass = findParentByClass;
-exports.findParentByTag = findParentByTag;
-exports.index = index;
-exports.bindDown = bindDown;
+/** --- 最后一次 touchstart 的时间戳 --- */
 let lastTouchTime = 0;
+// --- 添加 touchstart 事件，既优化了点击行为，也记录了 touch 的时间戳信息 ---
 document.addEventListener('touchstart', function (e) {
     lastTouchTime = Date.now();
     doDown(e);
@@ -17,9 +10,11 @@ document.addEventListener('touchstart', function (e) {
 document.addEventListener('mousedown', (e) => {
     doDown(e);
 });
+/** --- 正在显示中的 pop element --- */
 const showedPop = [];
 const showedPopEl = [];
-function showPop(e, pop) {
+/** --- 将 pop 显示出来 --- */
+export function showPop(e, pop) {
     const el = e.currentTarget;
     const rect = el.getBoundingClientRect();
     pop.classList.add('pe-pshow');
@@ -33,8 +28,8 @@ function showPop(e, pop) {
         pop.dataset.pePopLevel = (showedPop.length - 1).toString();
     }, 34);
 }
-function hidePop(pop) {
-    var _a;
+/** --- 隐藏正在显示的中的 pop --- */
+export function hidePop(pop) {
     if (!pop) {
         if (!showedPop.length) {
             return;
@@ -44,7 +39,7 @@ function hidePop(pop) {
         }
         return;
     }
-    const level = parseInt((_a = pop.dataset.pePopLevel) !== null && _a !== void 0 ? _a : '-1');
+    const level = parseInt(pop.dataset.pePopLevel ?? '-1');
     if (level === -1) {
         return;
     }
@@ -58,10 +53,13 @@ function hidePop(pop) {
         pop.classList.remove('pe-pshow');
     }, 334);
 }
+/** --- 刷新 pop 的位置 --- */
 function refreshPopPosition() {
     for (let i = 0; i < showedPopEl.length; ++i) {
+        /** --- 响应的元素 --- */
         const el = showedPopEl[i];
         const rect = el.getBoundingClientRect();
+        /** --- 弹出的 pop --- */
         const pop = showedPop[i];
         const left = rect.left + 'px';
         const top = rect.top + rect.height + 'px';
@@ -74,20 +72,30 @@ function refreshPopPosition() {
     requestAnimationFrame(refreshPopPosition);
 }
 refreshPopPosition();
-function hasTouchButMouse(e) {
+/**
+ * --- 判断当前的事件是否是含有 touch 的设备触发的，如果当前就是 touch 则直接返回 false（false 代表 OK，true 代表 touch 设备却触发了 mouse 事件） ---
+ */
+export function hasTouchButMouse(e) {
     if (e instanceof TouchEvent || e.type === 'touchstart') {
         return false;
     }
     if ((e.pointerType === 'touch') && (e.type === 'contextmenu')) {
+        // --- 当前是 mouse 但是却是 touch 触发的 ---
         return true;
     }
     const now = Date.now();
-    if (now - lastTouchTime < 60000) {
+    if (now - lastTouchTime < 60_000) {
+        // --- 当前是 mouse 但是 60_000ms 内有 touch start ---
         return true;
     }
     return false;
 }
-function findParentByClass(el, name) {
+/**
+ * --- 通过 class 名查找上层所有标签是否存在 ---
+ * @param el 当前标签
+ * @param name 要查找的 class 名
+ */
+export function findParentByClass(el, name) {
     let parent = el.parentNode;
     while (parent) {
         if (!parent.tagName) {
@@ -104,8 +112,8 @@ function findParentByClass(el, name) {
     }
     return null;
 }
+/** --- 响应按下事件 --- */
 function doDown(e) {
-    var _a;
     if (hasTouchButMouse(e)) {
         return;
     }
@@ -130,7 +138,8 @@ function doDown(e) {
         hidePop();
         return;
     }
-    const level = parseInt((_a = isPop.dataset.pePopLevel) !== null && _a !== void 0 ? _a : '-1');
+    // --- 在 pop 上点击的，只隐藏点击之后的 pop 层 ---
+    const level = parseInt(isPop.dataset.pePopLevel ?? '-1');
     if (level === -1) {
         hidePop();
         return;
@@ -142,7 +151,12 @@ function doDown(e) {
         hidePop(showedPop[i]);
     }
 }
-function findParentByTag(el, name) {
+/**
+ * --- 通过 tagname 查找上层所有标签是否存在 ---
+ * @param el 当前标签
+ * @param name 要查找的 tagname 名，小写，如 table
+ */
+export function findParentByTag(el, name) {
     let parent = el.parentNode;
     while (parent) {
         if (!parent.tagName) {
@@ -159,7 +173,11 @@ function findParentByTag(el, name) {
     }
     return null;
 }
-function index(el) {
+/**
+ * --- 判断一个元素是当前同级的第几位 ---
+ * @param el 要判断的元素
+ */
+export function index(el) {
     let index = 0;
     let p = el.previousElementSibling;
     while (true) {
@@ -171,11 +189,16 @@ function index(el) {
     }
     return index;
 }
-function bindDown(oe, opt) {
-    var _a;
+/**
+ * --- 绑定按下以及弹起事件，touch 和 mouse 只会绑定一个 ---
+ * @param oe MouseEvent | TouchEvent
+ * @param opt 回调选项
+ */
+export function bindDown(oe, opt) {
     if (hasTouchButMouse(oe)) {
         return;
     }
+    /** --- 上一次的坐标 --- */
     let ox, oy;
     if (oe instanceof MouseEvent) {
         ox = oe.clientX;
@@ -185,12 +208,15 @@ function bindDown(oe, opt) {
         ox = oe.touches[0].clientX;
         oy = oe.touches[0].clientY;
     }
+    /** --- 是否是第一次执行 move --- */
     let isStart = false;
     let end = undefined;
     const move = function (e) {
+        // --- 虽然上层已经有 preventDefault 了，但是有可能 e.target 会被注销，这样就响应不到上层的 preventDefault 事件，所以要在这里再加一个 ---
         if (!e.target || !document.body.contains(e.target) && e.cancelable) {
             e.preventDefault();
         }
+        /** --- 本次的移动方向 --- */
         let dir = 'top';
         const x = e instanceof MouseEvent ? e.clientX : e.touches[0].clientX;
         const y = e instanceof MouseEvent ? e.clientY : e.touches[0].clientY;
@@ -200,18 +226,24 @@ function bindDown(oe, opt) {
         const xx = x - ox;
         const xy = y - oy;
         if (Math.abs(xy) > Math.abs(xx)) {
+            // --- 竖向滚动 ---
             if (xy < 0) {
+                // -- 向上移 ---
                 dir = 'top';
             }
             else {
+                // -- 向下移 ---
                 dir = 'bottom';
             }
         }
         else {
+            // --- 横向滚动 ---
             if (xx < 0) {
+                // -- 向左移 ---
                 dir = 'left';
             }
             else {
+                // -- 向右移 ---
                 dir = 'right';
             }
         }
@@ -248,7 +280,6 @@ function bindDown(oe, opt) {
         }
     };
     end = function (e) {
-        var _a, _b;
         if (e instanceof MouseEvent) {
             window.removeEventListener('mousemove', move);
             window.removeEventListener('mouseup', end);
@@ -260,9 +291,9 @@ function bindDown(oe, opt) {
                 oe.target.removeEventListener('touchcancel', end);
             }
         }
-        (_a = opt.up) === null || _a === void 0 ? void 0 : _a.call(opt, e);
+        opt.up?.(e);
         if (isStart) {
-            (_b = opt.end) === null || _b === void 0 ? void 0 : _b.call(opt, e);
+            opt.end?.(e);
         }
     };
     if (oe instanceof MouseEvent) {
@@ -278,5 +309,11 @@ function bindDown(oe, opt) {
         oe.target.addEventListener('touchend', end);
         oe.target.addEventListener('touchcancel', end);
     }
-    (_a = opt.down) === null || _a === void 0 ? void 0 : _a.call(opt, oe);
+    opt.down?.(oe);
+}
+/**
+ * --- 判断是否是 rtl 布局 ---
+ */
+export function isRtl() {
+    return document.getElementsByTagName('html')[0].classList.contains('pe-rtl');
 }

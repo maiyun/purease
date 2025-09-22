@@ -1,5 +1,6 @@
-import * as dom from '../../dom';
-import * as types from '../../../types';
+import * as lDom from '../../dom';
+import * as lControl from '../../control';
+import * as purease from '../../purease.js';
 
 export const code = {
     'template': '',
@@ -180,25 +181,61 @@ export const code = {
                     'cancel': 'Hủy',
                     'ok': 'OK',
                     'please click select': 'Nhấn chọn'
+                },
+                'ar': {
+                    'hour': 'س',
+                    'minute': 'د',
+                    'second': 'ث',
+                    'zone': 'منطقة',
+                    'cancel': 'إلغاء',
+                    'ok': 'موافق',
+                    'please click select': 'انقر للاختيار'
+                },
+                'id': {
+                    'hour': 'Jam',
+                    'minute': 'Mnt',
+                    'second': 'Dtk',
+                    'zone': 'Zona',
+                    'cancel': 'Batal',
+                    'ok': 'OK',
+                    'please click select': 'Klik pilih'
+                },
+                'it': {
+                    'hour': 'Ora',
+                    'minute': 'Min',
+                    'second': 'Sec',
+                    'zone': 'Zona',
+                    'cancel': 'Annulla',
+                    'ok': 'OK',
+                    'please click select': 'Clicca per selez.'
+                },
+                'tr': {
+                    'hour': 'Sa',
+                    'minute': 'Dak',
+                    'second': 'Sn',
+                    'zone': 'Bölge',
+                    'cancel': 'İptal',
+                    'ok': 'Tamam',
+                    'please click select': 'Seç için tıkla'
                 }
             }
         };
     },
     'methods': {
         // --- 单击事件 ---
-        click: function(this: types.IVue, e: MouseEvent, type: 'first' | 'zone'): void {
+        click: function(this: purease.IVue, e: MouseEvent, type: 'first' | 'zone'): void {
             const el = this.$refs[type + 'pop'];
             if (el.classList.contains('pe-show')) {
-                dom.hidePop(el);
+                lDom.hidePop(el);
                 return;
             }
             if (type === 'first' && !this.propBoolean('date')) {
-                dom.showPop(e, this.$refs['timepop']);
+                lDom.showPop(e, this.$refs['timepop']);
                 return;
             }
-            dom.showPop(e, el);
+            lDom.showPop(e, el);
         },
-        zoneOk: function(this: types.IVue): void {
+        zoneOk: function(this: purease.IVue): void {
             const vz = parseInt(this.vzone);
             if (vz >= 0) {
                 this.tzData = vz + (parseInt(this.vzdec) / 60);
@@ -211,16 +248,16 @@ export const code = {
             if (this.timestamp !== undefined && ts !== this.timestamp) {
                 this.timestamp = ts;
                 this.$emit('update:modelValue', this.timestamp);
-                const event: types.IDateChangedEvent = {
+                const event: lControl.IDateChangedEvent = {
                     'detail': {
                         'value': this.timestamp
                     }
                 };
                 this.$emit('changed', event);
             }
-            dom.hidePop();
+            lDom.hidePop();
         },
-        timeOk: function(this: types.IVue): void {
+        timeOk: function(this: purease.IVue): void {
             this.dateObj.setUTCHours(
                 parseInt(this.vhour), parseInt(this.vminute), parseInt(this.vseconds), 0
             );
@@ -228,26 +265,26 @@ export const code = {
             this.dateStr = this.dateObj.getUTCFullYear().toString() + '-' + (this.dateObj.getUTCMonth() + 1).toString().padStart(2, '0') + '-' + this.dateObj.getUTCDate().toString().padStart(2, '0');
             this.timeStr = this.dateObj.getUTCHours().toString().padStart(2, '0') + ':' + this.dateObj.getUTCMinutes().toString().padStart(2, '0') + ':' + this.dateObj.getUTCSeconds().toString().padStart(2, '0');
             this.$emit('update:modelValue', this.timestamp);
-            const event: types.IDateChangedEvent = {
+            const event: lControl.IDateChangedEvent = {
                 'detail': {
                     'value': this.timestamp
                 }
             };
             this.$emit('changed', event);
             this.$emit('update:hourminute', this.vhour + this.vminute + this.vseconds);
-            dom.hidePop();
+            lDom.hidePop();
         },
         cancel: function(): void {
-            dom.hidePop();
+            lDom.hidePop();
         },
-        clear: function(this: types.IVue): void {
+        clear: function(this: purease.IVue): void {
             this.timestamp = undefined;
             this.$emit('update:modelValue', undefined);
         },
         // --- date panel 的 changed ---
-        changed: function(this: types.IVue): void {
+        changed: function(this: purease.IVue): void {
             this.$emit('update:modelValue', this.timestamp);
-            const event: types.IDateChangedEvent = {
+            const event: lControl.IDateChangedEvent = {
                 'detail': {
                     'value': this.timestamp
                 }
@@ -267,11 +304,11 @@ export const code = {
                 this.$emit('update:hourminute', hour + minute + seconds);
             }
         },
-        selected: function(this: types.IVue): void {
-            dom.hidePop(this.$refs.firstpop);
+        selected: function(this: purease.IVue): void {
+            lDom.hidePop(this.$refs.firstpop);
         }
     },
-    'mounted': function(this: types.IVue) {
+    'mounted': function(this: purease.IVue) {
         // --- 填充年时分秒时区 ---
         for (let i = 0; i <= 23; ++i) {
             this.hours.push(i.toString().padStart(2, '0'));

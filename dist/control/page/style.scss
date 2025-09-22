@@ -19,7 +19,7 @@
             box-shadow: var(--pe-outline-shadow); background: #FFF;
         }
         &.pe-selected {
-            border-color: var(--pe-h-color); background: var(--pe-h-color); color: #FFF; fill: #FFF; stroke: #FFF;
+            border-color: var(--pe); background: var(--pe); color: #FFF;
         }
     }
     > :not(:first-child) {

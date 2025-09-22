@@ -54,10 +54,10 @@
             flex: 1; display: flex; flex-direction: column; gap: var(--pe-xxspadding); padding: var(--pe-xxspadding); border-radius: var(--pe-radius); transition: var(--pe-transition); outline: solid .5px transparent; position: relative;
             &:not(.pe-disabled) {
                 &:hover:not(.selected):not(.pe-datepanel-range-left):not(.pe-datepanel-range-right) {
-                    outline: solid 1px var(--pe-h-color);
+                    outline: solid 1px var(--pe);
                 }
                 &:active {
-                    box-shadow: var(--pe-outline-shadow); background: var(--pe-h-bgcolor); outline: solid 1px var(--pe-h-color);
+                    box-shadow: var(--pe-outline-shadow); background: var(--pe-bg); outline: solid 1px var(--pe);
                 }
             }
             &.pe-disabled {
@@ -66,10 +66,10 @@
                 }
             }
             &.pe-selected, &.pe-datepanel-range-left, &.pe-datepanel-range-right {
-                background: var(--pe-h-bgcolor); outline: solid 1px var(--pe-h-color);
+                background: var(--pe-bg); outline: solid 1px var(--pe);
             }
             &::before, &::after {
-                content: ''; position: absolute; top: 0; bottom: 0; width: var(--pe-xxspadding); background: var(--pe-h-color); opacity: 0; transition: var(--pe-transition);
+                content: ''; position: absolute; top: 0; bottom: 0; width: var(--pe-xxspadding); background: var(--pe); opacity: 0; transition: var(--pe-transition);
             }
             &::before {
                 left: calc(0px - var(--pe-xxspadding));
@@ -79,7 +79,7 @@
             }
 
             &.pe-datepanel-range {
-                background: var(--pe-h-color); border-radius: 0; color: #FFF;
+                background: var(--pe); border-radius: 0; color: #FFF;
                 &::before, &::after {
                     opacity: 1;
                 }

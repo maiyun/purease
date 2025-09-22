@@ -1,5 +1,5 @@
-import * as dom from '../../dom';
-import * as types from '../../../types';
+import * as lDom from '../../dom';
+import * as purease from '../../purease.js';
 
 export const code = {
     'template': '',
@@ -30,17 +30,17 @@ export const code = {
         };
     },
     'computed': {
-        isScroll: function(this: types.IVue): boolean {
+        isScroll: function(this: purease.IVue): boolean {
             return this.cwidth > this.width;
         },
     },
     'methods': {
-        select: function(this: types.IVue, index: number) {
+        select: function(this: purease.IVue, index: number) {
             this.index = index;
             this.$emit('modelValue', index);
         },
-        down: function(this: types.IVue, e: TouchEvent | MouseEvent) {
-            if (dom.hasTouchButMouse(e)) {
+        down: function(this: purease.IVue, e: TouchEvent | MouseEvent) {
+            if (lDom.hasTouchButMouse(e)) {
                 return;
             }
             if (this.cwidth <= this.width) {
@@ -55,7 +55,7 @@ export const code = {
             const ox = e instanceof MouseEvent ? e.clientX : e.touches[0].clientX;
             /** --- 上次的 x 位置 --- */
             let x = ox;
-            dom.bindDown(e, {
+            lDom.bindDown(e, {
                 move: (ne) => {
                     // --- 当前的位置 ---
                     const nx = ne instanceof MouseEvent ? ne.clientX : ne.touches[0].clientX;
@@ -63,16 +63,26 @@ export const code = {
                     const cx = nx - x;
                     x = nx;
                     this.translate += cx;
-                    if (this.translate < -this.max) {
-                        this.translate = -this.max;
+                    if (lDom.isRtl()) {
+                        if (this.translate > this.max) {
+                            this.translate = this.max;
+                        }
+                        else if (this.translate < 0) {
+                            this.translate = 0;
+                        }
                     }
-                    else if (this.translate > 0) {
-                        this.translate = 0;
+                    else {
+                        if (this.translate < -this.max) {
+                            this.translate = -this.max;
+                        }
+                        else if (this.translate > 0) {
+                            this.translate = 0;
+                        }
                     }
                 },
             });
         },
-        resize: function(this: types.IVue) {
+        resize: function(this: purease.IVue) {
             this.width = this.$el.offsetWidth;
             this.cwidth = this.$refs.content.offsetWidth;
             if (this.cwidth <= this.width) {
@@ -81,15 +91,25 @@ export const code = {
                 return;
             }
             this.max = this.cwidth - this.width;
-            if (this.translate < -this.max) {
-                this.translate = -this.max;
+            if (lDom.isRtl()) {
+                if (this.translate > this.max) {
+                    this.translate = this.max;
+                }
+                else if (this.translate < 0) {
+                    this.translate = 0;
+                }
             }
-            else if (this.translate > 0) {
-                this.translate = 0;
+            else {
+                if (this.translate < -this.max) {
+                    this.translate = -this.max;
+                }
+                else if (this.translate > 0) {
+                    this.translate = 0;
+                }
             }
         },
     },
-    mounted: function(this: types.IVue) {
+    mounted: function(this: purease.IVue) {
         this.$watch('modelValue', () => {
             this.index = this.$props.modelValue;
         }, {
@@ -98,7 +118,7 @@ export const code = {
         window.addEventListener('resize', this.resize);
         this.resize();
     },
-    unmounted: async function(this: types.IVue) {
+    unmounted: async function(this: purease.IVue) {
         await this.$nextTick();
         window.removeEventListener('resize', this.resize);
     }

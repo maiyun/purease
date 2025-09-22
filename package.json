@@ -1,20 +1,25 @@
 {
     "name": "purease",
-    "version": "0.0.18",
+    "version": "1.0.0",
     "description": "Lightweight and user-friendly front-end library.",
+    "type": "module",
     "keywords": [
         "purease",
         "ui",
         "front"
     ],
-    "main": "dist/index.js",
+    "main": "./dist/index.js",
     "author": "hanguoshuai",
     "license": "Apache-2.0",
-    "types": "./types/index.d.ts",
+    "types": "./purease.d.ts",
     "devDependencies": {
         "@litert/eslint-plugin-rules": "^0.3.1",
-        "@litert/loader": "^3.5.9",
         "@types/node": "^24.0.3",
+        "terser": "^5.44.0",
         "typescript": "^5.8.3"
+    },
+    "dependencies": {
+        "commander": "^14.0.1",
+        "rollup": "^4.50.2"
     }
 }

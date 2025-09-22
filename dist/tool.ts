@@ -1,5 +1,5 @@
 /**
- * Copyright 2024 Han Guoshuai <zohegs@gmail.com>
+ * Copyright 2007 - 2025 MAIYUN.NET
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import * as types from '../types';
 
 interface IClassPrototype {
     'method': Record<string, any>;
@@ -27,10 +26,10 @@ interface IClassPrototype {
  * --- 完整的克隆一份数组/对象 ---
  * @param obj 要克隆的对象
  */
-export function clone(obj: Record<string, any> | any[]): any[] | any {
-    let newObj: any = {};
-    if (obj instanceof Array) {
-        newObj = [];
+export function clone<T>(obj: T): T {
+    if (Array.isArray(obj)) {
+        // --- 数组 ---
+        const newObj = [];
         for (let i = 0; i < obj.length; ++i) {
             if (obj[i] instanceof Date) {
                 newObj[i] = new Date(obj[i].getTime());
@@ -52,28 +51,29 @@ export function clone(obj: Record<string, any> | any[]): any[] | any {
                 newObj[i] = obj[i];
             }
         }
+        return newObj as T;
     }
-    else {
-        for (const key in obj) {
-            if (obj[key] instanceof Date) {
-                newObj[key] = new Date(obj[key].getTime());
+    // --- 对象 ---
+    const newObj: any = {};
+    for (const key in obj) {
+        if (obj[key] instanceof Date) {
+            newObj[key] = new Date(obj[key].getTime());
+        }
+        else if (obj[key] instanceof FormData) {
+            const fd = new FormData();
+            for (const item of obj[key]) {
+                fd.append(item[0], item[1]);
             }
-            else if (obj[key] instanceof FormData) {
-                const fd = new FormData();
-                for (const item of obj[key]) {
-                    fd.append(item[0], item[1]);
-                }
-                newObj[key] = fd;
-            }
-            else if (obj[key] === null) {
-                newObj[key] = null;
-            }
-            else if (typeof obj[key] === 'object') {
-                newObj[key] = clone(obj[key]);
-            }
-            else {
-                newObj[key] = obj[key];
-            }
+            newObj[key] = fd;
+        }
+        else if (obj[key] === null) {
+            newObj[key] = null;
+        }
+        else if (typeof obj[key] === 'object') {
+            newObj[key] = clone(obj[key]);
+        }
+        else {
+            newObj[key] = obj[key];
         }
     }
     return newObj;
@@ -138,7 +138,7 @@ export function getClassPrototype(obj: object, over: string[] = [], level: numbe
  */
 export function sleep(ms: number = 0): Promise<boolean> {
     return new Promise(function(resolve) {
-        window.setTimeout(function() {
+        setTimeout(function() {
             resolve(true);
         }, ms);
     });
@@ -251,11 +251,11 @@ export function escapeHTML(html: string): string {
 }
 
 /**
- * --- 发起一个网络请求 ---
+ * --- 发起一个网络请求，若是返回值是 JSON 则自动解析，否则直接返回字符串 ---
  * @param url 网址
  * @param opt 选项
  */
-export function request(url: string, opt: types.IRequestOptions): Promise<null | any> {
+export function request(url: string, opt: IRequestOptions): Promise<null | any> {
     return new Promise(function(resove) {
         const xhr = new XMLHttpRequest();
         if (opt.credentials === false) {
@@ -264,49 +264,37 @@ export function request(url: string, opt: types.IRequestOptions): Promise<null |
         xhr.upload.onloadstart = function(e: ProgressEvent): void {
             const r = opt.uploadStart?.(e.total);
             if (r && (r instanceof Promise)) {
-                r.catch(function(e) {
-                    console.log(e);
-                });
+                r.catch(() => {});
             }
         };
         xhr.upload.onprogress = function(e: ProgressEvent): void {
             const r = opt.uploadProgress?.(e.loaded, e.total);
             if (r && (r instanceof Promise)) {
-                r.catch(function(e) {
-                    console.log(e);
-                });
+                r.catch(() => {});
             }
         };
         xhr.upload.onloadend = function(): void {
             const r = opt.uploadEnd?.();
             if (r && (r instanceof Promise)) {
-                r.catch(function(e) {
-                    console.log(e);
-                });
+                r.catch(() => {});
             }
         };
         xhr.onloadstart = function(e: ProgressEvent): void {
             const r = opt.start?.(e.total);
             if (r && (r instanceof Promise)) {
-                r.catch(function(e) {
-                    console.log(e);
-                });
+                r.catch(() => {});
             }
         };
         xhr.onprogress = function(e: ProgressEvent): void {
             const r = opt.progress?.(e.loaded, e.total);
             if (r && (r instanceof Promise)) {
-                r.catch(function(e) {
-                    console.log(e);
-                });
+                r.catch(() => {});
             }
         };
         xhr.onloadend = function(): void {
             const r = opt.end?.();
             if (r && (r instanceof Promise)) {
-                r.catch(function(e) {
-                    console.log(e);
-                });
+                r.catch(() => {});
             }
         };
         xhr.onload = function(): void {
@@ -321,18 +309,14 @@ export function request(url: string, opt: types.IRequestOptions): Promise<null |
             }
             const r = opt.load?.(res);
             if (r && (r instanceof Promise)) {
-                r.catch(function(e) {
-                    console.log(e);
-                });
+                r.catch(() => {});
             }
             resove(res);
         };
         xhr.onerror = function(): void {
             const r = opt.error?.();
             if (r && (r instanceof Promise)) {
-                r.catch(function(e) {
-                    console.log(e);
-                });
+                r.catch(() => {});
             }
             resove(null);
         };
@@ -342,8 +326,8 @@ export function request(url: string, opt: types.IRequestOptions): Promise<null |
         if (opt.timeout) {
             xhr.timeout = opt.timeout;
         }
-        if (opt.headers) {
-            for (const k in (opt.headers as Record<string, string>)) {
+        if (opt.headers && !Array.isArray(opt.headers)) {
+            for (const k in opt.headers) {
                 xhr.setRequestHeader(k, (opt.headers as any)[k]);
             }
         }
@@ -352,58 +336,326 @@ export function request(url: string, opt: types.IRequestOptions): Promise<null |
     });
 }
 
-export function fetch(url: string, init?: RequestInit): Promise<string | Blob | null> {
-    return loader.fetch(url, init);
+/**
+ * --- 发起 fetch 请求 ---
+ * @param url 网址
+ * @param init 选项
+ * @returns 文本或二进制数据，失败时返回 null
+ */
+export async function fetch(url: string, init?: RequestInit): Promise<string | Blob | null> {
+    try {
+        const res = await window.fetch(url, init);
+        if (res.status === 200 || res.status === 304) {
+            /** --- 内容类型 --- */
+            const ct = res.headers.get('content-type')?.toLowerCase() ?? '';
+            const types = ['text/', 'javascript', 'json', 'css', 'xml', 'html'];
+            return types.some(item => ct.includes(item)) ? await res.text() : await res.blob();
+        }
+        return null;
+    }
+    catch {
+        return null;
+    }
 }
 
-export function get(url: string, opt?: {
-    'credentials'?: 'include' | 'same-origin' | 'omit';
-    'headers'?: HeadersInit;
-}): Promise<Response | null> {
-    return loader.get(url, opt);
+/** --- 重试间隔 --- */
+const retryTimes = [300, 1_000, 2_000];
+
+/**
+ * --- 发起 GET 请求 ---
+ * @param url 网址
+ * @param init 选项
+ * @param opt 选项
+ * @returns 文本或二进制数据，失败时返回 null
+ */
+export async function get(url: string, init?: RequestInit, opt: {
+    /** --- 重试次数，默认 3 次 --- */
+    'retry'?: number;
+} = {}): Promise<string | Blob | null> {
+    init ??= {};
+    init.method = 'GET';
+    const retry = opt.retry ?? 3;
+    for (let i = 0; i <= retry; ++i) {
+        const res = await fetch(url, init);
+        if (res !== null) {
+            return res;
+        }
+        if (i === retry) {
+            return null;
+        }
+        await sleep(retryTimes[i]);
+    }
+    return null;
 }
 
-export function post(url: string, data: Record<string, any> | FormData, opt?: {
-    'credentials'?: 'include' | 'same-origin' | 'omit';
-    'headers'?: HeadersInit;
-}): Promise<Response | null> {
-    return loader.post(url, data, opt);
+/**
+ * --- 发起 POST 请求 ---
+ * @param url 网址
+ * @param data 数据
+ * @param init 选项
+ * @returns 文本或二进制数据，失败时返回 null
+ */
+export async function post(
+    url: string, data: Record<string, any> | FormData, init?: RequestInit
+): Promise<string | Blob | null> {
+    init ??= {};
+    init.method = 'POST';
+    init.headers ??= {};
+    if (!(data instanceof FormData)) {
+        if (init.headers instanceof Headers) {
+            init.headers.set('content-type', 'application/json');
+        }
+        else {
+            (init.headers as Record<string, string>)['content-type'] = 'application/json';
+        }
+    }
+    init.body = data instanceof FormData ? data : JSON.stringify(data);
+    const res = await fetch(url, init);
+    return res;
 }
 
-/** --- 发送 get 响应为 json 的网络数据，无需 try，失败返回 null --- */
-export async function getResponseJson(url: string, opt?: {
-    'credentials'?: 'include' | 'same-origin' | 'omit';
-    'headers'?: HeadersInit;
-}): Promise<any | null> {
-    return loader.getResponseJson(url, opt);
+/**
+ * --- 发起 GET 请求并解析 JSON 响应 ---
+ * @param url 网址
+ * @param init 选项
+ * @returns JSON 数据，失败时返回 null
+ */
+export async function getResponseJson(url: string, init?: RequestInit): Promise<any | null> {
+    const res = await get(url, init);
+    if (!res) {
+        return null;
+    }
+    if (typeof res !== 'string') {
+        return null;
+    }
+    try {
+        return JSON.parse(res);
+    }
+    catch {
+        return null;
+    }
 }
 
-/** --- 发送 post 响应为 json 的网络数据，无需 try，失败返回 null --- */
-export async function postResponseJson(url: string, data: Record<string, any> | FormData, opt?: {
-    'credentials'?: 'include' | 'same-origin' | 'omit';
-    'headers'?: HeadersInit;
-}): Promise<any | null> {
-    return loader.postResponseJson(url, data, opt);
+/**
+ * --- 发起 POST 请求并解析 JSON 响应 ---
+ * @param url 网址
+ * @param data 数据
+ * @param init 选项
+ * @returns JSON 数据，失败时返回 null
+ */
+export async function postResponseJson(
+    url: string, data: Record<string, any> | FormData, init?: RequestInit
+): Promise<any | null> {
+    const res = await post(url, data, init);
+    if (!res) {
+        return null;
+    }
+    if (typeof res !== 'string') {
+        return null;
+    }
+    try {
+        return JSON.parse(res);
+    }
+    catch {
+        return null;
+    }
 }
 
-export function parseUrl(url: string): ILoaderUrl {
-    return loader.parseUrl(url);
+/**
+ * --- 传输 url 并解析为 IUrl 对象 ---
+ * @param url url 字符串
+ */
+export function parseUrl(url: string): IUrl {
+    // --- test: https://ab-3dc:aak9()$@github.com:80/nodejs/node/blob/master/lib/url.js?mail=abc@def.com#223 ---
+    const rtn: IUrl = {
+        'protocol': null,
+        'auth': null,
+        'user': null,
+        'pass': null,
+        'host': null,
+        'hostname': null,
+        'port': null,
+        'pathname': '/',
+        'path': null,
+        'query': null,
+        'hash': null
+    };
+    const hash = url.indexOf('#');
+    if (hash > -1) {
+        rtn['hash'] = url.slice(hash + 1);
+        url = url.slice(0, hash);
+    }
+    const query = url.indexOf('?');
+    if (query > -1) {
+        rtn['query'] = url.slice(query + 1);
+        url = url.slice(0, query);
+    }
+    const protocol = url.indexOf(':');
+    if (protocol > -1) {
+        rtn['protocol'] = url.slice(0, protocol + 1).toLowerCase();
+        url = url.slice(protocol + 1);
+        if (url.startsWith('//')) {
+            url = url.slice(2);
+        }
+        let path = url.indexOf('/');
+        if (path === -1) {
+            path = url.indexOf('\\');
+        }
+        if (path > -1) {
+            rtn['pathname'] = url.slice(path);
+            url = url.slice(0, path);
+        }
+        const auth = url.indexOf('@');
+        if (auth > -1) {
+            const authStr = url.slice(0, auth);
+            const authSplit = authStr.indexOf(':');
+            if (authSplit > -1) {
+                // --- 有密码 ---
+                rtn['user'] = authStr.slice(0, authSplit);
+                rtn['pass'] = authStr.slice(authSplit + 1);
+                rtn['auth'] = rtn['user'] + ':' + rtn['pass'];
+            }
+            else {
+                rtn['user'] = authStr;
+                rtn['auth'] = authStr;
+            }
+            url = url.slice(auth + 1);
+        }
+        if (url) {
+            const port = url.indexOf(':');
+            if (port > -1) {
+                rtn['hostname'] = url.slice(0, port).toLowerCase();
+                rtn['port'] = url.slice(port + 1);
+                rtn['host'] = rtn['hostname'] + (rtn['port'] ? ':' + rtn['port'] : '');
+            }
+            else {
+                rtn['hostname'] = url.toLowerCase();
+                rtn['host'] = rtn['hostname'];
+            }
+        }
+    }
+    else {
+        // --- 没有 protocol ---
+        rtn['pathname'] = url;
+    }
+    // --- 组合 ---
+    rtn['path'] = rtn['pathname'] + (rtn['query'] ? '?' + rtn['query'] : '');
+    return rtn;
 }
 
+/**
+ * --- 将相对路径根据基准路径进行转换 ---
+ * @param from 基准路径
+ * @param to 相对路径
+ */
 export function urlResolve(from: string, to: string): string {
-    return loader.urlResolve(from, to);
+    from = from.replace(/\\/g, '/');
+    to = to.replace(/\\/g, '/');
+    // --- to 为空，直接返回 form ---
+    if (to === '') {
+        return urlAtom(from);
+    }
+    // --- 获取 from 的 scheme, host, path ---
+    const f = parseUrl(from);
+    // --- 以 // 开头的，加上 from 的 protocol 返回 ---
+    if (to.startsWith('//')) {
+        return urlAtom(f.protocol ? f.protocol + to : to);
+    }
+    if (f.protocol) {
+        // --- 获取小写的 protocol ---
+        from = f.protocol + from.slice(f.protocol.length);
+    }
+    // --- 获取 to 的 scheme, host, path ---
+    const t = parseUrl(to);
+    // --- 已经是绝对路径，直接返回 ---
+    if (t.protocol) {
+        // --- 获取小写的 protocol ---
+        return urlAtom(t.protocol + to.slice(t.protocol.length));
+    }
+    // --- # 或 ? 替换后返回 ---
+    if (to.startsWith('#') || to.startsWith('?')) {
+        const sp = from.indexOf(to[0]);
+        if (sp !== -1) {
+            return urlAtom(from.slice(0, sp) + to);
+        }
+        else {
+            return urlAtom(from + to);
+        }
+    }
+    // --- 处理后面的尾随路径 ---
+    let abs = (f.auth ? f.auth + '@' : '') + (f.host ?? '');
+    if (to.startsWith('/')) {
+        // -- abs 类似是 /xx/xx ---
+        abs += to;
+    }
+    else {
+        // --- to 是 xx/xx 这样的 ---
+        // --- 移除基准 path 不是路径的部分，如 /ab/c 变成了 /ab，/ab 变成了 空 ---
+        const path = f.pathname.replace(/\/[^/]*$/g, '');
+        // --- abs 是 /xx/xx 了，因为如果 path 是空，则跟上了 /，如果 path 不为空，也是 / 开头 ---
+        abs += path + '/' + to;
+    }
+    // --- 返回最终结果 ---
+    if (f.protocol && (f.protocol !== 'file:') && !f.host) {
+        // --- 类似 c:/ ---
+        return urlAtom(f.protocol + abs);
+    }
+    else {
+        // --- 类似 http:// ---
+        return urlAtom((f.protocol ? f.protocol + '//' : '') + abs);
+    }
 }
 
+/** --- 处理 URL 中的 .. / . 等 --- */
 export function urlAtom(url: string): string {
-    return loader.urlAtom(url);
+    // --- 删掉 ./ ---
+    while (url.includes('/./')) {
+        url = url.replace(/\/\.\//g, '/');
+    }
+    // --- 删掉 ../ ---
+    while (/\/(?!\.\.)[^/]+\/\.\.\//.test(url)) {
+        url = url.replace(/\/(?!\.\.)[^/]+\/\.\.\//g, '/');
+    }
+    url = url.replace(/\.\.\//g, '');
+    return url;
 }
 
+/**
+ * --- 将 blob 对象转换为 text ---
+ * @param blob 对象
+ */
 export function blob2Text(blob: Blob): Promise<string> {
-    return loader.blob2Text(blob);
+    return new Promise(function(resove) {
+        const fr = new FileReader();
+        fr.addEventListener('load', function(e) {
+            if (e.target) {
+                resove(e.target.result as string);
+            }
+            else {
+                resove('');
+            }
+        });
+        fr.readAsText(blob);
+    });
 }
 
+/**
+ * --- 将 blob 对象转换为 base64 url ---
+ * @param blob 对象
+ */
 export function blob2DataUrl(blob: Blob): Promise<string> {
-    return loader.blob2DataUrl(blob);
+    return new Promise(function(resove) {
+        const fr = new FileReader();
+        fr.addEventListener('load', function(e) {
+            if (e.target) {
+                resove(e.target.result as string);
+            }
+            else {
+                resove('');
+            }
+        });
+        fr.readAsDataURL(blob);
+    });
 }
 
 /** --- 将秒数格式化为 0:0:0 的字符串 --- */
@@ -531,13 +783,175 @@ export function isPhoneCN(p: string): boolean {
 }
 
 /**
- * --- 去除 html 的空白符、换行 ---
+ * --- 去除 html 的空白符、换行以及注释 ---
  * @param text 要纯净的字符串
  */
 export function purify(text: string): string {
     text = '>' + text + '<';
-    text = text.replace(/<!--([\s\S]*?)-->/g, '').replace(/>([\s\S]*?)</g, function(t: string, t1: string) {
+    const scripts: string[] = [];
+    let num: number = -1;
+    text = text.replace(/<!--([\s\S]*?)-->/g, '').replace(/<script[\s\S]+?<\/script>/g, function(t: string): string {
+        scripts.push(t);
+        return '[SCRIPT]';
+    }).replace(/>([\s\S]*?)</g, function(t: string, t1: string): string {
         return '>' + t1.replace(/\t|\r\n| {2}/g, '').replace(/\n|\r/g, '') + '<';
+    }).replace(/\[SCRIPT\]/g, function(): string {
+        ++num;
+        return scripts[num];
     });
     return text.slice(1, -1);
+}
+
+let headElement: HTMLHeadElement;
+function getHeadElement(): HTMLHeadElement {
+    if (!headElement) {
+        const heads = document.querySelectorAll('head');
+        headElement = heads[heads.length - 1];
+    }
+    return headElement;
+}
+
+/**
+ * --- 加载脚本 ---
+ * @param url 脚本网址
+ */
+export async function loadScript(url: string): Promise<boolean> {
+    return new Promise((resolve) => {
+        const script = document.createElement('script');
+        script.addEventListener('load', function() {
+            resolve(true);
+        });
+        script.addEventListener('error', function() {
+            resolve(false);
+        });
+        script.src = url;
+        getHeadElement().appendChild(script);
+    });
+}
+
+/**
+ * --- 批量加载 js 文件 ---
+ * @param urls js 文件列表
+ * @param opt 选项
+ */
+export async function loadScripts(urls: string[], opt: {
+    'loaded'?: (url: string, state: number) => void;
+} = {}): Promise<void> {
+    return new Promise((resolve) => {
+        let count = 0;
+        for (const url of urls) {
+            loadScript(url).then(res => {
+                ++count;
+                if (res) {
+                    opt.loaded?.(url, 1);
+                }
+                else {
+                    opt.loaded?.(url, 0);
+                }
+                if (count === urls.length) {
+                    resolve();
+                }
+            }).catch(() => {
+                ++count;
+                opt.loaded?.(url, -1);
+                if (count === urls.length) {
+                    resolve();
+                }
+            });
+        }
+    });
+}
+
+/**
+ * --- 加载 css 文件 ---
+ * @param url css 文件网址
+ * @returns 加载是否成功
+ */
+export async function loadLink(url: string, pos: 'before' | 'after' = 'after'): Promise<boolean> {
+    return new Promise((resolve) => {
+        const head = getHeadElement();
+        const link = document.createElement('link');
+        link.addEventListener('load', function() {
+            resolve(true);
+        });
+        link.addEventListener('error', function() {
+            resolve(false);
+        });
+        link.href = url;
+        link.rel = 'stylesheet';
+        if (pos === 'before') {
+            head.insertBefore(link, head.firstChild);
+        }
+        else {
+            head.appendChild(link);
+        }
+    });
+}
+
+/**
+ * --- 批量加载 css 文件 ---
+ * @param urls css 文件列表
+ * @param opt 选项
+ */
+export async function loadLinks(urls: string[], opt: {
+    'loaded'?: (url: string, state: number) => void;
+} = {}): Promise<void> {
+    return new Promise((resolve) => {
+        let count = 0;
+        for (const url of urls) {
+            loadLink(url).then(res => {
+                ++count;
+                if (res) {
+                    opt.loaded?.(url, 1);
+                }
+                else {
+                    opt.loaded?.(url, 0);
+                }
+                if (count === urls.length) {
+                    resolve();
+                }
+            }).catch(() => {
+                ++count;
+                opt.loaded?.(url, -1);
+                if (count === urls.length) {
+                    resolve();
+                }
+            });
+        }
+    });
+}
+
+// --- 类型 ---
+
+/** --- 网址对象 --- */
+export interface IUrl {
+    'auth': string | null;
+    'hash': string | null;
+    'host': string | null;
+    'hostname': string | null;
+    'pass': string | null;
+    'path': string | null;
+    'pathname': string;
+    'protocol': string | null;
+    'port': string | null;
+    'query': string | null;
+    'user': string | null;
+}
+
+export interface IRequestOptions {
+    'credentials'?: boolean;
+    'method'?: 'GET' | 'POST';
+    'body'?: FormData;
+    'timeout'?: number;
+    'responseType'?: XMLHttpRequestResponseType;
+    'headers'?: HeadersInit;
+
+    'uploadStart'?: (total: number) => void | Promise<void>;
+    'uploadProgress'?: (loaded: number, total: number) => void | Promise<void>;
+    'uploadEnd'?: () => void | Promise<void>;
+    'start'?: (total: number) => void | Promise<void>;
+    'end'?: () => void | Promise<void>;
+    'progress'?: (loaded: number, total: number) => void | Promise<void>;
+    'load'?: (res: any) => void | Promise<void>;
+    'error'?: () => void | Promise<void>;
 }

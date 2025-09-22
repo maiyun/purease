@@ -1,4 +1,5 @@
-import * as types from '../../../types';
+import * as purease from '../../purease.js';
+import * as lControl from '../../control';
 
 export const code = {
     'template': '',
@@ -47,7 +48,7 @@ export const code = {
     },
     'methods': {
         /** --- 检测 value 值是否符合 max 和 min --- */
-        checkNumber: function(this: types.IVue, target?: HTMLInputElement | HTMLTextAreaElement) {
+        checkNumber: function(this: purease.IVue, target?: HTMLInputElement | HTMLTextAreaElement) {
             target ??= this.$refs.text as unknown as HTMLInputElement | HTMLTextAreaElement;
             if (this.$props.type !== 'number') {
                 return false;
@@ -70,13 +71,13 @@ export const code = {
             return change;
         },
         /** --- 文本框的 input 事件 --- */
-        input: function(this: types.IVue, e: InputEvent) {
+        input: function(this: purease.IVue, e: InputEvent) {
             const target = e.target as HTMLInputElement | HTMLTextAreaElement;
             if (this.propNumber('maxlength') && (target.value.length > this.propNumber('maxlength'))) {
                 target.value = target.value.slice(0, this.propNumber('maxlength'));
                 return;
             }
-            const event: types.ITextBeforechangeEvent = {
+            const event: lControl.ITextBeforechangeEvent = {
                 'go': true,
                 preventDefault: function() {
                     this.go = false;
@@ -98,15 +99,15 @@ export const code = {
             this.$emit('update:modelValue', this.value);
         },
         /** --- 文本框的 focus 事件 --- */
-        tfocus: function(this: types.IVue): void {
+        tfocus: function(this: purease.IVue): void {
             this.isFocus = true;
             this.$emit('focus');
         },
-        tblur: function(this: types.IVue, e: FocusEvent): void {
+        tblur: function(this: purease.IVue, e: FocusEvent): void {
             // --- 如果是 number 则要判断数字是否符合 min max，不能在 input 判断，因为会导致用户无法正常输入数字，比如最小值是 10，他在输入 1 的时候就自动重置成 10 了 ---
             const target = e.target as HTMLInputElement | HTMLTextAreaElement;
             if (this.checkNumber(target)) {
-                const event: types.ITextBeforechangeEvent = {
+                const event: lControl.ITextBeforechangeEvent = {
                     'go': true,
                     preventDefault: function() {
                         this.go = false;
@@ -136,7 +137,7 @@ export const code = {
     },
     'watch': {
         'modelValue': {
-            handler: async function(this: types.IVue) {
+            handler: async function(this: purease.IVue) {
                 if (this.value === this.$props.modelValue) {
                     return;
                 }
@@ -150,7 +151,7 @@ export const code = {
                 if (this.$refs.text.value === this.value) {
                     return;
                 }
-                const event: types.ITextBeforechangeEvent = {
+                const event: lControl.ITextBeforechangeEvent = {
                     'go': true,
                     preventDefault: function() {
                         this.go = false;
@@ -171,10 +172,10 @@ export const code = {
             'immediate': true
         },
         'type': {
-            handler: async function(this: types.IVue) {
+            handler: async function(this: purease.IVue) {
                 await this.$nextTick();
                 if (this.checkNumber()) {
-                    const event: types.ITextBeforechangeEvent = {
+                    const event: lControl.ITextBeforechangeEvent = {
                         'go': true,
                         preventDefault: function() {
                             this.go = false;
@@ -195,9 +196,9 @@ export const code = {
             }
         },
         'max': {
-            handler: function(this: types.IVue) {
+            handler: function(this: purease.IVue) {
                 if (this.checkNumber()) {
-                    const event: types.ITextBeforechangeEvent = {
+                    const event: lControl.ITextBeforechangeEvent = {
                         'go': true,
                         preventDefault: function() {
                             this.go = false;
@@ -218,9 +219,9 @@ export const code = {
             }
         },
         'min': {
-            handler: function(this: types.IVue) {
+            handler: function(this: purease.IVue) {
                 if (this.checkNumber()) {
-                    const event: types.ITextBeforechangeEvent = {
+                    const event: lControl.ITextBeforechangeEvent = {
                         'go': true,
                         preventDefault: function() {
                             this.go = false;
@@ -241,7 +242,7 @@ export const code = {
             }
         },
         'maxlength': {
-            handler: function(this: types.IVue) {
+            handler: function(this: purease.IVue) {
                 if (!this.propNumber('maxlength')) {
                     return;
                 }
@@ -249,7 +250,7 @@ export const code = {
                     return;
                 }
                 const value = this.value.slice(0, this.propNumber('maxlength'));
-                const event: types.ITextBeforechangeEvent = {
+                const event: lControl.ITextBeforechangeEvent = {
                     'go': true,
                     preventDefault: function() {
                         this.go = false;

@@ -14,7 +14,7 @@
             .pe-anchor-item {
                 border-left: solid 1px var(--pe-border); padding-left: var(--pe-spadding); transition: var(--pe-transition); cursor: pointer;
                 &:hover {
-                    color: var(--pe-h-color);
+                    color: var(--pe);
                 }
 
                 &.pe-anchor-item-h3 {
@@ -31,7 +31,33 @@
                 }
 
                 &.pe-selected {
-                    font-weight: bold; border-left-color: var(--pe-h-color); color: var(--pe-h-color);
+                    font-weight: bold; border-left-color: var(--pe); color: var(--pe);
+                }
+            }
+        }
+    }
+}
+html.pe-rtl {
+    .pe-anchor-right {
+        .pe-anchor-right-content {
+            .pe-anchor-item {
+                border-left: initial; border-right: solid 1px var(--pe-border); padding-left: initial; padding-right: var(--pe-spadding);
+
+                &.pe-anchor-item-h3 {
+                    padding-left: initial; padding-right: calc(var(--pe-spadding) * 2);
+                }
+                &.pe-anchor-item-h4 {
+                    padding-left: initial; padding-right: calc(var(--pe-spadding) * 3);
+                }
+                &.pe-anchor-item-h5 {
+                    padding-left: initial; padding-right: calc(var(--pe-spadding) * 4);
+                }
+                &.pe-anchor-item-h6 {
+                    padding-left: initial; padding-right: calc(var(--pe-spadding) * 5);
+                }
+
+                &.pe-selected {
+                    border-left-color: var(--pe-border); border-right-color: var(--pe);
                 }
             }
         }

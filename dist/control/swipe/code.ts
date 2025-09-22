@@ -1,6 +1,6 @@
-import * as tool from '../../tool';
-import * as dom from '../../dom';
-import * as types from '../../../types';
+import * as lTool from '../../tool';
+import * as lDom from '../../dom';
+import * as purease from '../../purease.js';
 
 export const code = {
     'template': '',
@@ -58,7 +58,7 @@ export const code = {
     },
     'watch': {
         'modelValue': {
-            handler: function(this: types.IVue) {
+            handler: function(this: purease.IVue) {
                 if (this.selected === this.modelValue) {
                     return;
                 }
@@ -72,8 +72,8 @@ export const code = {
             'immediate': true
         },
         'auto': {
-            handler: function(this: types.IVue) {
-                if (tool.getBoolean(this.auto)) {
+            handler: function(this: purease.IVue) {
+                if (lTool.getBoolean(this.auto)) {
                     // --- 静 变 动 ---
                     this.timer = setTimeout(() => {
                         this.timer = null;
@@ -91,11 +91,11 @@ export const code = {
     },
     'computed': {
         /** --- 总宽度 --- */
-        awidth: function(this: types.IVue) {
+        awidth: function(this: purease.IVue) {
             return (this.width * this.pageCount) + (this.propNumber('gutter') * (this.pageCount - 1));
         },
         /** --- 每个 item 应该的宽度 --- */
-        iwidth: function(this: types.IVue): string {
+        iwidth: function(this: purease.IVue): string {
             const iwidth = 100 / this.pitem;
             if (this.pitem > 1) {
                 return 'calc((100% - ' + (this.pitem - 1) * this.propNumber('gutter') + 'px) / ' + this.pitem + ')';
@@ -103,17 +103,17 @@ export const code = {
             return iwidth + '%';
         },
         /** --- 总页数 --- */
-        pageCount: function(this: types.IVue) {
+        pageCount: function(this: purease.IVue) {
             return Math.ceil(this.itemCount / this.pitem);
         },
         /** --- 一页面有多少个 item --- */
-        pitem: function(this: types.IVue): number {
-            return tool.getNumber(this.$root.windowWidth >= 800 ? this.$props.item : this.$props.minitem);
+        pitem: function(this: purease.IVue): number {
+            return lTool.getNumber(this.$root.windowWidth >= 800 ? this.$props.item : this.$props.minitem);
         },
     },
     methods: {
-        down: function(this: types.IVue, e: TouchEvent | MouseEvent) {
-            if (dom.hasTouchButMouse(e)) {
+        down: function(this: purease.IVue, e: TouchEvent | MouseEvent) {
+            if (lDom.hasTouchButMouse(e)) {
                 return;
             }
             if (this.going) {
@@ -129,7 +129,7 @@ export const code = {
             if (target.tagName.toLowerCase() === 'a') {
                 return;
             }
-            const a = dom.findParentByTag(target, 'a');
+            const a = lDom.findParentByTag(target, 'a');
             if (a) {
                 return;
             }
@@ -142,7 +142,7 @@ export const code = {
             /** --- 上次的 x 位置 --- */
             let x = ox;
             const time = Date.now();
-            dom.bindDown(e, {
+            lDom.bindDown(e, {
                 move: (ne) => {
                     // --- 当前的位置 ---
                     const nx = ne instanceof MouseEvent ? ne.clientX : ne.touches[0].clientX;
@@ -166,7 +166,7 @@ export const code = {
                     /** --- 当前的位置 --- */
                     const index = Math.floor(info);
                     /** --- 当前的小数 --- */
-                    const dec = tool.getDecimal(info);
+                    const dec = lTool.getDecimal(info);
                     if (speed > 0.6) {
                         // --- 速度很快，一定到下一条 ---
                         // --- cx 大于 0 为向左滑动 ---
@@ -189,7 +189,7 @@ export const code = {
                 }
             });
         },
-        prev: function(this: types.IVue) {
+        prev: function(this: purease.IVue) {
             if (this.going) {
                 return;
             }
@@ -199,7 +199,7 @@ export const code = {
             this.mvselected = this.selected;
             this.$emit('update:modelValue', this.mvselected);
         },
-        next: function(this: types.IVue) {
+        next: function(this: purease.IVue) {
             if (this.going) {
                 return;
             }
@@ -209,7 +209,7 @@ export const code = {
             this.mvselected = this.selected;
             this.$emit('update:modelValue', this.mvselected);
         },
-        pdown: function(this: types.IVue, p: number) {
+        pdown: function(this: purease.IVue, p: number) {
             if (this.going) {
                 return;
             }
@@ -222,7 +222,7 @@ export const code = {
             this.mvselected = this.selected;
             this.$emit('update:modelValue', this.mvselected);
         },
-        go: async function(this: types.IVue) {
+        go: async function(this: purease.IVue) {
             this.going = true;
             const index = this.selected;
             if (this.selected === -1) {
@@ -237,12 +237,12 @@ export const code = {
             }
             this.$refs.items.style.transition = 'var(--pe-transition)';
             // --- 设置允许缓动 ---
-            await tool.sleep(34);
+            await lTool.sleep(34);
             this.$refs.items.style.transform = 'translateX(' + (-(index * this.width + index * this.propNumber('gutter'))).toString() + 'px)';
             // --- 应用缓动后等待动画执行完成 ---
-            await tool.sleep(334);
+            await lTool.sleep(334);
             this.$refs.items.style.transition = '';
-            await tool.sleep(34);
+            await lTool.sleep(34);
             // --- 移除缓动效果后重置位置 ---
             this.translate = -(this.selected * this.width + this.selected * this.propNumber('gutter'));
             this.$refs.items.style.transform = 'translateX(' + this.translate + 'px)';
@@ -253,7 +253,7 @@ export const code = {
                 this.go();
                 return;
             }
-            if (tool.getBoolean(this.auto)) {
+            if (lTool.getBoolean(this.auto)) {
                 this.timer = setTimeout(() => {
                     this.translate -= 10;
                     this.timer = null;
@@ -264,16 +264,16 @@ export const code = {
                 }, 3000);
             }
         },
-        resize: function(this: types.IVue) {
+        resize: function(this: purease.IVue) {
             this.width = this.$el.offsetWidth;
             this.translate = -(this.selected * this.width);
             this.$refs.items.style.transform = 'translateX(' + this.translate + 'px)';
         }
     },
-    mounted: async function(this: types.IVue) {
-        await tool.sleep(68);
+    mounted: async function(this: purease.IVue) {
+        await lTool.sleep(68);
         this.width = this.$el.offsetWidth;
-        if (tool.getBoolean(this.auto)) {
+        if (lTool.getBoolean(this.auto)) {
             this.timer = setTimeout(() => {
                 this.timer = null;
                 ++this.selected;
@@ -284,7 +284,7 @@ export const code = {
         }
         window.addEventListener('resize', this.resize);
     },
-    unmounted: async function(this: types.IVue) {
+    unmounted: async function(this: purease.IVue) {
         await this.$nextTick();
         window.removeEventListener('resize', this.resize);
         if (!this.timer) {

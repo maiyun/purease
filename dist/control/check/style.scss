@@ -6,21 +6,42 @@
 }
 .pe-check {
     display: inline-flex; align-items: center; cursor: default; transition: var(--pe-transition); -webkit-user-select: none; user-select: none;
-    &:hover {
-        color: var(--pe-h-color); fill: var(--pe-h-color); stroke: var(--pe-h-color);
+
+    &.pe-checked {
         .pe-check-box {
-            background: var(--pe-input-hover-bg);
-        }
-    }
-    &:focus, &:active {
-        .pe-check-box {
-            background: var(--pe-input-bg); box-shadow: var(--pe-outline-shadow);
+            color: var(--pe-fcolor);
+            background: var(--pe);
+            border: solid .5px var(--pe);
         }
     }
     &:not(.pe-checked) {
         .pe-check-box {
             svg {
                 display: none;
+            }
+        }
+    }
+
+    &:hover {
+        color: var(--pe);
+        .pe-check-box {
+            background: var(--pe-input-hover-bg);
+        }
+        &.pe-checked {
+            .pe-check-box {
+                background: var(--pe-hover);
+                border: solid .5px var(--pe-hover);
+            }
+        }
+    }
+    &:focus, &:active {
+        .pe-check-box {
+            background: var(--pe-input-bg); box-shadow: var(--pe-outline-shadow);
+        }
+        &.pe-checked {
+            .pe-check-box {
+                background: var(--pe-active);
+                border: solid .5px var(--pe-active);
             }
         }
     }

@@ -1,4 +1,4 @@
-import * as types from '../../../types';
+import * as purease from '../../purease.js';
 
 export const code = {
     'template': '',
@@ -20,7 +20,7 @@ export const code = {
     },
     'watch': {
         'selected': {
-            handler: function(this: types.IVue) {
+            handler: function(this: purease.IVue) {
                 if (this.modelValue === this.selected) {
                     return;
                 }
@@ -28,7 +28,7 @@ export const code = {
             }
         },
         'modelValue': {
-            handler: function(this: types.IVue) {
+            handler: function(this: purease.IVue) {
                 if (this.modelValue === this.selected) {
                     return;
                 }

@@ -1,5 +1,5 @@
-import * as dom from '../../dom';
-import * as types from '../../../types';
+import * as lDom from '../../dom';
+import * as purease from '../../purease.js';
 
 export const code = {
     'template': '',
@@ -14,7 +14,7 @@ export const code = {
         };
     },
     'methods': {
-        click: function(this: types.IVue, e: MouseEvent) {
+        click: function(this: purease.IVue, e: MouseEvent) {
             const target = e.target as HTMLElement | null;
             if (!target) {
                 return;
@@ -22,7 +22,7 @@ export const code = {
             if (target.tagName.toLowerCase() === 'a') {
                 return;
             }
-            if (dom.findParentByTag(target, 'a')) {
+            if (lDom.findParentByTag(target, 'a')) {
                 return;
             }
             this.value = !this.value;
@@ -31,7 +31,7 @@ export const code = {
     },
     'watch': {
         'modelValue': {
-            handler: function(this: types.IVue) {
+            handler: function(this: purease.IVue) {
                 this.value = this.modelValue;
             },
             'immediate': true

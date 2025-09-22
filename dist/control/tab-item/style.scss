@@ -1,7 +1,7 @@
 .pe-tab-item {
     padding: var(--pe-xspadding) var(--pe-spadding); transition: var(--pe-transition); border-bottom: solid 3px transparent; transform: translateY(1px);
     &.pe-selected {
-        color: var(--pe-h-color); fill: var(--pe-h-color); stroke: var(--pe-h-color); font-weight: bold; border-bottom-color: var(--pe-h-color);
+        color: var(--pe); font-weight: bold; border-bottom-color: var(--pe);
     }
 }
 
@@ -10,13 +10,13 @@
         .pe-tab-item {
             padding: var(--pe-xxspadding) var(--pe-xspadding); border-radius: var(--pe-xlradius); border: none;
             &.pe-selected {
-                background: var(--pe-h-bgcolor);
+                background: var(--pe-bg);
             }
         }
     }
     &.pe-tab-type-rect {
         .pe-tab-item {
-            padding: var(--pe-xxspadding) var(--pe-xspadding); border-radius: var(--pe-radius); border: solid 1px transparent; transform: initial; z-index: 1;
+            padding: var(--pe-xxspadding) var(--pe-xspadding); border: solid 1px transparent; transform: initial; z-index: 1;
             &.pe-selected {
                 font-weight: initial; color: var(--pe-color); fill: var(--pe-color); stroke: var(--pe-color);
             }

@@ -1,4 +1,4 @@
-import * as types from '../../../types';
+import * as purease from '../../purease.js';
 
 export const code = {
     'template': '',
@@ -27,7 +27,7 @@ export const code = {
             });
         },
     },
-    mounted: function(this: types.IVue) {
+    mounted: function(this: purease.IVue) {
         let id = -1;
         const list: NodeListOf<HTMLElement> = this.$refs.left.querySelectorAll('h2,h3,h4,h5,h6');
         for (const item of list) {

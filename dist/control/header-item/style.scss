@@ -1,7 +1,7 @@
 .pe-header-item {
     transition: var(--pe-transition); position: relative; height: 70px; line-height: 70px; padding: 0 30px; display: flex; align-items: center;
     &.pe-hover {
-        color: var(--pe-h-color); fill: var(--pe-h-color); stroke: var(--pe-h-color);
+        color: var(--pe);
     }
 
     &.pe-list {
@@ -11,7 +11,7 @@
         }
         &.pe-hover {
             &::after {
-                border-color: var(--pe-h-color);
+                border-color: var(--pe);
             }
             
             .pe-menu {

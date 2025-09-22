@@ -4,9 +4,14 @@
 <title>Control - Purease Test</title>
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
-<script src="https://cdn.jsdelivr.net/npm/@litert/loader@3.5.8/dist/loader.min.js?path=index"></script>
+<script type="module" src="./index.pack.js"></script>
 <script>
-pureaseGlobal = {};
+purease = {
+    'config': {
+        'cdn': 'https://cdn.jsdelivr.net',
+    },
+    'global': {},
+};
 </script>
 <!-- 用户 -->
 <link rel="stylesheet" href="index.css" />
@@ -172,8 +177,8 @@ pureaseGlobal = {};
 <!-- 脚部 -->
 <div id="footer">
     <script>
-        pureaseGlobal = {
-            ...pureaseGlobal,
+        purease.global = {
+            ...purease.global,
             'head': '222'
         };
     </script>

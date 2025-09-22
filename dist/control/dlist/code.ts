@@ -1,4 +1,5 @@
-import * as types from '../../../types';
+import * as purease from '../../purease.js';
+import * as lControl from '../../control';
 
 export const code = {
     'template': '',
@@ -27,7 +28,7 @@ export const code = {
     },
     'computed': {
         /** --- 初始化后的 map 对象 --- */
-        mapComp: function(this: types.IVue): {
+        mapComp: function(this: purease.IVue): {
             'label': string;
             'value': string;
             'children': string;
@@ -42,11 +43,11 @@ export const code = {
         }
     },
     'methods': {
-        click: function(this: types.IVue, i: number) {
+        click: function(this: purease.IVue, i: number) {
             const item = this.$props.data[i];
             this.value = item[this.mapComp.value] ?? item[this.mapComp.label] ?? item;
             this.$emit('update:modelValue', this.value);
-            const event: types.IDlistChangedEvent = {
+            const event: lControl.IDlistChangedEvent = {
                 'detail': {
                     'value': this.value,
                     'index': i,
@@ -56,7 +57,7 @@ export const code = {
             this.$emit('changed', event);
             this.$emit('click', event);
         },
-        refreshModelValue: function(this: types.IVue) {
+        refreshModelValue: function(this: purease.IVue) {
             let found = false;
             for (const item of this.$props.data) {
                 const val = item[this.mapComp.value] ?? item[this.mapComp.label] ?? item;
@@ -73,7 +74,7 @@ export const code = {
                 if (this.value !== '') {
                     this.value = '';
                     this.$emit('update:modelValue', '');
-                    const event: types.IDlistChangedEvent = {
+                    const event: lControl.IDlistChangedEvent = {
                         'detail': {
                             'value': '',
                             'index': -1,
@@ -88,7 +89,7 @@ export const code = {
             this.value = fitem[this.mapComp.value] ?? fitem[this.mapComp.label] ?? fitem;
             const lab = fitem[this.mapComp.label] ?? fitem[this.mapComp.value] ?? fitem;
             this.$emit('update:modelValue', this.value);
-            const event: types.IDlistChangedEvent = {
+            const event: lControl.IDlistChangedEvent = {
                 'detail': {
                     'value': this.value,
                     'index': 0,
@@ -139,11 +140,23 @@ export const code = {
                 },
                 'vi': {
                     'empty': 'Trống',
+                },
+                'ar': {
+                    'empty': 'فارغ',
+                },
+                'id': {
+                    'empty': 'Kosong',
+                },
+                'it': {
+                    'empty': 'Vuoto',
+                },
+                'tr': {
+                    'empty': 'Boş',
                 }
             }
         };
     },
-    'mounted': function(this: types.IVue) {
+    'mounted': function(this: purease.IVue) {
         this.$watch('modelValue', () => {
             if (this.value && (this.value === this.$props.modelValue)) {
                 return;

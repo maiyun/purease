@@ -1,5 +1,5 @@
-import * as dom from '../../dom';
-import * as types from '../../../types';
+import * as lDom from '../../dom';
+import * as purease from '../../purease.js';
 
 export const code = {
     'template': '',
@@ -15,12 +15,12 @@ export const code = {
         };
     },
     'methods': {
-        enter: function(this: types.IVue, e: MouseEvent | TouchEvent) {
-            if (dom.hasTouchButMouse(e)) {
+        enter: function(this: purease.IVue, e: MouseEvent | TouchEvent) {
+            if (lDom.hasTouchButMouse(e)) {
                 return;
             }
             const target = e.target as HTMLElement;
-            if (target.classList.contains('pe-menu') || dom.findParentByClass(target, 'pe-menu')) {
+            if (target.classList.contains('pe-menu') || lDom.findParentByClass(target, 'pe-menu')) {
                 return;
             }
             if (!this.href) {
@@ -28,8 +28,8 @@ export const code = {
             }
             this.hover = !this.hover;
         },
-        leave: function(this: types.IVue, e: MouseEvent | TouchEvent) {
-            if (dom.hasTouchButMouse(e)) {
+        leave: function(this: purease.IVue, e: MouseEvent | TouchEvent) {
+            if (lDom.hasTouchButMouse(e)) {
                 return;
             }
             this.hover = false;

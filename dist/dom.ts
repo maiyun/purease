@@ -1,6 +1,4 @@
-import * as types from '../types';
-
-/** --- 最后一次 touchstart 的时间戳 */
+/** --- 最后一次 touchstart 的时间戳 --- */
 let lastTouchTime: number = 0;
 // --- 添加 touchstart 事件，既优化了点击行为，也记录了 touch 的时间戳信息 ---
 document.addEventListener('touchstart', function(e: TouchEvent) {
@@ -207,7 +205,7 @@ export function index(el: HTMLElement): number {
  * @param oe MouseEvent | TouchEvent
  * @param opt 回调选项
  */
-export function bindDown<T extends MouseEvent | TouchEvent>(oe: T, opt: types.IBindDownOptions<T>): void {
+export function bindDown<T extends MouseEvent | TouchEvent>(oe: T, opt: IBindDownOptions<T>): void {
     if (hasTouchButMouse(oe)) {
         return;
     }
@@ -326,4 +324,28 @@ export function bindDown<T extends MouseEvent | TouchEvent>(oe: T, opt: types.IB
         (oe.target as HTMLElement).addEventListener('touchcancel', end as (e: TouchEvent) => void);
     }
     opt.down?.(oe);
+}
+
+/**
+ * --- 判断是否是 rtl 布局 ---
+ */
+export function isRtl(): boolean {
+    return document.getElementsByTagName('html')[0].classList.contains('pe-rtl');
+}
+
+// --- 类型 ---
+
+/** --- 方向类型，从左上开始 --- */
+export type TDomBorder = 'lt' | 't' | 'tr' | 'r' | 'rb' | 'b' | 'bl' | 'l' | '';
+
+/** --- 绑定鼠标事件选项 --- */
+export interface IBindDownOptions<T extends MouseEvent | TouchEvent> {
+    'down'?: (e: T) => void;
+    'start'?: (e: T) => any;
+    'move'?: (
+        e: T,
+        dir: 'top' | 'right' | 'bottom' | 'left'
+    ) => any;
+    'up'?: (e: T) => void | Promise<void>;
+    'end'?: (e: T) => void | Promise<void>;
 }

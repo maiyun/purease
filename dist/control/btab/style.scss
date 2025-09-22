@@ -1,5 +1,5 @@
 .pe-btab {
-    -webkit-user-select: none; user-select: none; position: relative;
+    -webkit-user-select: none; user-select: none; position: relative; overflow: hidden;
 
     // --- 左右渐变 ---
     &::before, &::after {
@@ -29,12 +29,12 @@
         .pe-btab-item {
             transition: var(--pe-transition); padding: var(--pe-xspadding) var(--pe-padding);
             &.pe-selected {
-                background: var(--pe-h-color); color: var(--pe-h-fcolor); stroke: var(--pe-h-fcolor); fill: var(--pe-h-fcolor); cursor: default;
+                background: var(--pe); color: var(--pe-fcolor); cursor: default;
             }
             &:not(.pe-selected) {
                 cursor: pointer;
                 &:hover {
-                    color: var(--pe-h-color); stroke: var(--pe-h-color); fill: var(--pe-h-color);
+                    color: var(--pe);
                 }
             }
         }
@@ -59,11 +59,11 @@
             .pe-btab-item {
                 border-radius: var(--pe-xlradius);
                 &.pe-selected {
-                    background: var(--pe-h-bgcolor); font-weight: bold; color: var(--pe-h-color); stroke: var(--pe-h-color); fill: var(--pe-h-color);
+                    background: var(--pe-bg); font-weight: bold; color: var(--pe);
                 }
                 &:not(.pe-selected) {
                     &:hover {
-                        background: var(--pe-h-bgcolor); color: var(--pe-h-color); fill: var(--pe-h-color); stroke: var(--pe-h-color);
+                        background: var(--pe-bg); color: var(--pe);
                     }
                 }
             }

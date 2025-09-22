@@ -1,4 +1,6 @@
-import * as types from '../../../types';
+import * as purease from '../../purease.js';
+import * as lTool from '../../tool';
+import * as lControl from '../../control';
 
 export const code = {
     'template': '',
@@ -79,13 +81,33 @@ export const code = {
                     'click': 'Xác minh',
                     'failed': 'Thất bại, thử lại',
                     'successful': 'Thành công'
+                },
+                'ar': {
+                    'click': 'انقر للتحقق',
+                    'failed': 'فشل، أعد المحاولة',
+                    'successful': 'تم التحقق'
+                },
+                'id': {
+                    'click': 'Klik untuk verifikasi',
+                    'failed': 'Gagal, coba lagi',
+                    'successful': 'Terverifikasi'
+                },
+                'it': {
+                    'click': 'Clicca per verificare',
+                    'failed': 'Fallito, riprova',
+                    'successful': 'Verificato'
+                },
+                'tr': {
+                    'click': 'Doğrula',
+                    'failed': 'Hata, tekrar dene',
+                    'successful': 'Doğrulandı'
                 }
             },
         };
     },
     'methods': {
         /** --- 供外部调用的 --- */
-        reset: function(this: types.IVue): void {
+        reset: function(this: purease.IVue): void {
             if (this.factory === 'tc') {
                 // --- 腾讯云验证码 ---
                 this.state = '';
@@ -99,7 +121,7 @@ export const code = {
             this.access.lib.reset(this.access.instance);
         },
         /** --- 腾讯云验证码显示 --- */
-        click: function(this: types.IVue): void {
+        click: function(this: purease.IVue): void {
             if (!this.access.instance) {
                 return;
             }
@@ -109,14 +131,14 @@ export const code = {
             this.access.instance.show();
         },
     },
-    mounted: async function(this: types.IVue) {
+    mounted: async function(this: purease.IVue) {
         this.access = {
             'instance': undefined,
         };
         if (this.$props.factory === 'tc') {
             // --- 腾讯云验证码 ---
             if (!(window as any).TencentCaptcha) {
-                await loader.loadScripts([
+                await lTool.loadScripts([
                     'https://turing.captcha.qcloud.com/TJCaptcha.js'
                 ]);
             }
@@ -137,7 +159,7 @@ export const code = {
                         this.state = 'failed';
                         this.$el.innerHTML = this.l('failed');
                     }
-                    const event: types.ICaptchaResultEvent = {
+                    const event: lControl.ICaptchaResultEvent = {
                         'detail': {
                             'result': (res.ret === 0 && !res.errorCode) ? 1 : 0,
                             'token': res.ticket + '|' + res.randstr,
@@ -159,7 +181,7 @@ export const code = {
         }
         // --- CF 验证码 ---
         if (!(window as any).turnstile) {
-            await loader.loadScripts([
+            await lTool.loadScripts([
                 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
             ]);
         }
@@ -178,7 +200,7 @@ export const code = {
             'sitekey': this.$props.akey,
             'size': 'flexible',
             callback: (token: string) => {
-                const event: types.ICaptchaResultEvent = {
+                const event: lControl.ICaptchaResultEvent = {
                     'detail': {
                         'result': 1,
                         'token': token,
@@ -190,7 +212,7 @@ export const code = {
         this.access.instance = captcha;
         // --- 初始化成功 ---
     },
-    unmounted: function(this: types.IVue) {
+    unmounted: function(this: purease.IVue) {
         if (this.$props.factory === 'tc') {
             this.access.instance = undefined;
             return;

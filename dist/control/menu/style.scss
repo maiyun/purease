@@ -5,7 +5,7 @@
 .pe-menu-item {
     padding: 15px 35px 15px 15px; transition: var(--pe-transition); display: flex;
     &:hover {
-        background: var(--pe-h-bgcolor); color: var(--pe-h-color); fill: var(--pe-h-color); stroke: var(--pe-h-color); border-radius: var(--pe-radius);
+        background: var(--pe-bg); color: var(--pe); border-radius: var(--pe-radius);
     }
 }
 

@@ -1,9 +1,9 @@
-import * as types from '../../../types';
+import * as purease from '../../purease.js';
 
 export const code = {
     'template': '',
     'methods': {
-        'leftClick': function(this: types.IVue, e: MouseEvent) {
+        'leftClick': function(this: purease.IVue, e: MouseEvent) {
             if (!(e.target as HTMLElement).classList.contains('pe-lnav-left')) {
                 return;
             }

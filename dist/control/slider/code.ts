@@ -1,5 +1,5 @@
-import * as dom from '../../dom';
-import * as types from '../../../types';
+import * as lDom from '../../dom';
+import * as purease from '../../purease.js';
 
 export const code = {
     'template': '',
@@ -24,7 +24,7 @@ export const code = {
         };
     },
     'computed': {
-        barWidth: function(this: types.IVue) {
+        barWidth: function(this: purease.IVue) {
             /**
             原公式：
             100 - this.pos[0] - (100 - this.pos[1])
@@ -36,20 +36,20 @@ export const code = {
             */
             return this.pos[1] - this.pos[0];
         },
-        barLeft: function(this: types.IVue) {
+        barLeft: function(this: purease.IVue) {
             return this.pos[0];
         }
     },
     methods: {
-        down: function(this: types.IVue, e: TouchEvent | MouseEvent, i: number) {
-            if (dom.hasTouchButMouse(e)) {
+        down: function(this: purease.IVue, e: TouchEvent | MouseEvent, i: number) {
+            if (lDom.hasTouchButMouse(e)) {
                 return;
             }
             const bcr = this.$el.getBoundingClientRect();
             /** --- slider 的宽度 --- */
             const width = bcr.width;
             const left = bcr.left;
-            dom.bindDown(e, {
+            lDom.bindDown(e, {
                 move: (ne) => {
                     // --- 当前的位置 ---
                     const nx = ne instanceof MouseEvent ? ne.clientX : ne.touches[0].clientX;
@@ -88,7 +88,7 @@ export const code = {
     },
     'watch': {
         'modelValue': {
-            handler: function(this: types.IVue) {
+            handler: function(this: purease.IVue) {
                 if (!Array.isArray(this.modelValue)) {
                     this.$emit('update:modelValue', [0, 0]);
                     return;

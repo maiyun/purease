@@ -1,35 +1,43 @@
-import * as types from '../types';
-import * as control from './control';
-import * as tool from './tool';
-import * as dom from './dom';
-
-export { tool };
-
+import * as lControl from './control.js';
+import * as lTool from './tool.js';
+import * as lDom from './dom.js';
+export { lControl as control, lTool as tool, lDom as dom };
 /** --- 总大页面 --- */
-export abstract class AbstractPage {
-
-    /** --- 系统当前语言 --- */
-    private readonly _locale: string = 'en';
-
+export class AbstractPage {
     /** --- 获取系统当前语言 --- */
-    public get locale(): string {
+    get locale() {
         return this._locale;
     }
-
-    /** --- 语言包路径，为空则没有加载前端语言包 --- */
-    private readonly _localePath: string = '';
-
     /** --- 获取语言包路径，可能为空 --- */
-    public get localePath(): string {
+    get localePath() {
         return this._localePath;
     }
-
-    public constructor(opt: {
-        /** --- 设定当前的程序语言 --- */
-        'locale'?: string;
-        /** --- 设定语言包所在路径，无所谓是否 / 结尾 --- */
-        'localePath'?: string;
-    }) {
+    constructor(opt) {
+        /** --- 系统当前语言 --- */
+        this._locale = 'en';
+        /** --- 语言包路径，为空则没有加载前端语言包 --- */
+        this._localePath = '';
+        /** --- dialog 信息 --- */
+        this.dialogInfo = {
+            'show': false,
+            'title': '',
+            'content': '',
+            'buttons': ['OK'],
+            'select': undefined
+        };
+        /** --- 底部弹出提示框 --- */
+        this.alertInfo = {
+            'show': false,
+            'content': '',
+            'timer': 0,
+            'type': 'default'
+        };
+        /** --- 整个窗口的宽度 --- */
+        this.windowWidth = 0;
+        /** --- 整个窗口的高度 --- */
+        this.windowHeight = 0;
+        /** --- 是否显示加载框 --- */
+        this.loading = false;
         if (opt.locale) {
             this._locale = opt.locale;
         }
@@ -37,51 +45,41 @@ export abstract class AbstractPage {
             this._localePath = opt.localePath;
         }
     }
-
-    /** --- 入口方法 --- */
-    public abstract main(): void | Promise<void>;
-
-    public onBeforeUpdate(): void | Promise<void> {
+    onBeforeUpdate() {
         return;
     }
-
-    public onUpdated(): void | Promise<void> {
+    onUpdated() {
         return;
     }
-
-    public onBeforeUnmount(): void | Promise<void> {
+    onBeforeUnmount() {
         return;
     }
-
-    public onUnmounted():  void | Promise<void> {
+    onUnmounted() {
         return;
     }
-
     /**
      * --- 获取 refs 情况 ---
      */
-    public get refs(): Record<string, HTMLElement & types.IVue & Record<string, any>> {
-        return (this as any).$refs;
+    get refs() {
+        return this.$refs;
     }
-
     /**
      * --- 等待渲染 ---
      */
-    public get nextTick(): () => Promise<void> {
-        return (this as any).$nextTick;
+    get nextTick() {
+        return this.$nextTick;
     }
-
     /**
      * --- 获取语言内容 ---
      */
-    public get l() {
-        return (key: string, data?: string[]): string => {
-            const loc = (window as any).localeData?.[key] ?? '[LocaleError]' + key;
+    get l() {
+        return (key, data) => {
+            const loc = window.localeData?.[key] ?? '[LocaleError]' + key;
             if (!data) {
                 return loc;
             }
-            let i: number = -1;
-            return (window as any).localeData[this.locale][key].replace(/\?/g, function() {
+            let i = -1;
+            return window.localeData[this.locale][key].replace(/\?/g, function () {
                 ++i;
                 if (!data[i]) {
                     return '';
@@ -90,41 +88,17 @@ export abstract class AbstractPage {
             });
         };
     }
-
     /**
      * --- 监视变动 ---
      * @param name 监视的属性
      * @param cb 回调
      * @param opt 参数
      */
-    public watch<T extends this, TK extends keyof T, TR>(
-        name: TK | (() => TR),
-        cb: (val: T[TK] & TR, old: T[TK] & TR) => void | Promise<void>,
-        opt: {
-            'immediate'?: boolean;
-            'deep'?: boolean;
-        } = {}
-    ): () => void {
-        return (this as any).$watch(name, cb, opt);
+    watch(name, cb, opt = {}) {
+        return this.$watch(name, cb, opt);
     }
-
-    /** --- dialog 信息 --- */
-    public dialogInfo:  {
-        'show': boolean;
-        'title': string;
-        'content': string;
-        'buttons': string[];
-        select?: (button: string) => void | Promise<void>;
-    } = {
-            'show': false,
-            'title': '',
-            'content': '',
-            'buttons': ['OK'],
-            'select': undefined
-        };
-
     /** --- 弹出一个框框 --- */
-    public dialog(opt: string | types.IDialogOptions): Promise<string> {
+    dialog(opt) {
         const o = typeof opt === 'string' ? {
             'content': opt
         } : opt;
@@ -133,7 +107,7 @@ export abstract class AbstractPage {
         this.dialogInfo.content = o.content;
         this.dialogInfo.buttons = o.buttons ?? ['OK'];
         return new Promise((resolve) => {
-            this.dialogInfo.select = async (button: string) => {
+            this.dialogInfo.select = async (button) => {
                 if (!o.select) {
                     this.dialogInfo.show = false;
                     resolve(button);
@@ -149,9 +123,8 @@ export abstract class AbstractPage {
             };
         });
     }
-
     /** --- 弹出一个询问框 --- */
-    public async confirm(opt: string | types.IConfirmOptions): Promise<boolean | number> {
+    async confirm(opt) {
         const o = typeof opt === 'string' ? {
             'content': opt
         } : opt;
@@ -172,17 +145,8 @@ export abstract class AbstractPage {
         }
         return false;
     }
-
-    /** --- 底部弹出提示框 --- */
-    public alertInfo = {
-        'show': false,
-        'content': '',
-        'timer': 0,
-        'type': 'default'
-    };
-
     /** --- 显示一个 alert，支持 html，请注意传入内容的安全 --- */
-    public alert(content: string, type: 'default' | 'primary' | 'info' | 'warning' | 'danger' = 'default'): void {
+    alert(content, type = 'default') {
         if (this.alertInfo.timer) {
             clearTimeout(this.alertInfo.timer);
             this.alertInfo.timer = 0;
@@ -194,18 +158,8 @@ export abstract class AbstractPage {
         }, 3000);
         this.alertInfo.type = type;
     }
-
-    /** --- 整个窗口的宽度 --- */
-    public windowWidth: number = 0;
-
-    /** --- 整个窗口的高度 --- */
-    public windowHeight: number = 0;
-
-    /** --- 是否显示加载框 --- */
-    public loading: boolean = false;
-
     /** --- 滚动到顶部 --- */
-    public toTop(): void {
+    toTop() {
         /*
         document.getElementsByTagName('body')[0].scrollIntoView({
             'behavior': 'smooth'
@@ -216,103 +170,83 @@ export abstract class AbstractPage {
             'behavior': 'smooth',
         });
     }
-
     /** --- 显示 lnav --- */
-    public showLnav(): void {
+    showLnav() {
         document.querySelector('.pe-lnav-left')?.classList.add('pe-show');
     }
-
 }
-
 /** --- 大页面的内嵌页面 --- */
-export abstract class AbstractPanel {
-
-    /** --- 入口方法 --- */
-    public abstract main(): void | Promise<void>;
-
-    public onBeforeUnmount(): void | Promise<void> {
+export class AbstractPanel {
+    onBeforeUnmount() {
         return;
     }
-
-    public onUnmounted():  void | Promise<void> {
+    onUnmounted() {
         return;
     }
-
-    /** --- 获取总大页面对象 --- */
-    public rootPage!: AbstractPage & Record<string, any>;
-
     /**
      * --- 获取语言内容 ---
      */
-    public get l() {
-        return (key: string, data?: string[]): string => {
+    get l() {
+        return (key, data) => {
             return this.rootPage.l(key, data);
         };
     }
-
     /**
      * --- 获取 refs 情况 ---
      */
-    public get refs(): Record<string, HTMLElement & types.IVue & Record<string, any>> {
-        return (this as any).$refs;
+    get refs() {
+        return this.$refs;
     }
-
     /**
      * --- 等待渲染 ---
      */
-    public get nextTick(): () => Promise<void> {
-        return (this as any).$nextTick;
+    get nextTick() {
+        return this.$nextTick;
     }
-
     /**
      * --- 监视变动 ---
      * @param name 监视的属性
      * @param cb 回调
      * @param opt 参数
      */
-    public watch<T extends this, TK extends keyof T, TR>(
-        name: TK | (() => TR),
-        cb: (val: T[TK] & TR, old: T[TK] & TR) => void | Promise<void>,
-        opt: {
-            'immediate'?: boolean;
-            'deep'?: boolean;
-        } = {}
-    ): () => void {
-        return (this as any).$watch(name, cb, opt);
+    watch(name, cb, opt = {}) {
+        return this.$watch(name, cb, opt);
     }
-
 }
-
 /** --- vue 对象 --- */
-export let vue: types.IVueObject;
-
-/** --- 全局属性 --- */
-export let global: Record<string, any> = {
+export let vue;
+const dirname = import.meta.url.slice(0, import.meta.url.lastIndexOf('/'));
+/** --- 获取当前所在目录（参数留空获取 Purease 所在的目录，不以 / 结尾 --- */
+export function getDirname(importUrl) {
+    if (!importUrl) {
+        return dirname;
+    }
+    return importUrl.slice(0, importUrl.lastIndexOf('/'));
+}
+if (!window.purease) {
+    window.purease = {};
+}
+/** --- 用户定义的 Purease 信息 --- */
+const userPurease = window.purease;
+/** --- 用户定义的全局对象 --- */
+export let global = {
     'headerPop': false,
-    ...((window as any).pureaseGlobal ?? {})
+    'debug': false,
+    ...(userPurease.global ?? {})
 };
-
+/** --- 读取用户的 cdn 设置 --- */
+const cdn = userPurease.config?.cdn ?? 'https://cdn.jsdelivr.net';
+/** --- 获取当前 cdn 前缀 --- */
+export function getCdn() {
+    return cdn;
+}
 /** ---运行当前页面 --- */
-export function launcher<T extends AbstractPage>(page: new (opt: {
-    'locale'?: string;
-    'localePath'?: string;
-}) => T, options: {
-    /** --- 生产环境请不要开启，默认不开启，开启后将加载 debug 版框架 --- */
-    'debug'?: boolean;
-    /** --- 设定当前的程序语言 --- */
-    'locale'?: string;
-    /** --- 设定语言包所在路径，无所谓是否 / 结尾 --- */
-    'localePath'?: string;
-    /** --- 要加载的子 panels --- */
-    'panels'?: Array<{
-        'selector': string;
-        'panel': new () => AbstractPanel;
-    }>;
-} = {}): void {
-    (async function() {
+export function launcher(page, options = {}) {
+    (async function () {
+        global.debug = options.debug ?? false;
         const html = document.getElementsByTagName('html')[0];
         // --- 添加全局 scroll class 如果不在顶部的话 ---
-        window.addEventListener('scroll', function() {
+        window.addEventListener('scroll', function () {
             const st = document.documentElement.scrollTop || document.body.scrollTop;
             if (st === 0) {
                 html.classList.remove('pe-scroll');
@@ -326,12 +260,12 @@ export function launcher<T extends AbstractPage>(page: new (opt: {
             html.classList.add('pe-scroll');
         }
         // --- 通过标签加载库 ---
-        const paths: string[] = [
-            `${loader.cdn}/npm/vue@3.4.27/dist/vue.global${options.debug ? '' : '.prod.min'}.js`
+        const paths = [
+            `${cdn}/npm/vue@3.5.21/dist/vue.global${options.debug ? '' : '.prod.min'}.js`
         ];
         // --- 加载 vue 以及必要库 ---
-        await loader.loadScripts(paths);
-        await loader.loadLink(__dirname + '/index.css', undefined, 'before');
+        await lTool.loadScripts(paths);
+        await lTool.loadLink(dirname + '/index.css', 'before');
         const htmls = document.getElementsByTagName('html');
         if (!htmls[0]) {
             return;
@@ -343,11 +277,11 @@ export function launcher<T extends AbstractPage>(page: new (opt: {
         // --- 加载语言包 ---
         if (options.localePath && options.locale) {
             const path = options.localePath.endsWith('/') ? options.localePath : options.localePath + '/';
-            const res = await tool.getResponseJson(path + options.locale + '.json', {
+            const res = await lTool.getResponseJson(path + options.locale + '.json', {
                 'credentials': 'omit'
             });
             if (res) {
-                (window as any).localeData = res;
+                window.localeData = res;
             }
         }
         // --- 实例化 page ---
@@ -356,20 +290,21 @@ export function launcher<T extends AbstractPage>(page: new (opt: {
             'localePath': options.localePath,
         });
         // --- 将整个网页 vue 化 ---
-        vue = (window as any).Vue;
-        global = vue.reactive(global);
-        const styles: string[] = [];
+        vue = window.Vue;
+        userPurease.global = vue.reactive(global);
+        global = userPurease.global;
+        const styles = [];
         /** --- panel 的控件列表 --- */
-        const panelComponents: Record<string, any> = {};
+        const panelComponents = {};
         options.panels ??= [];
         for (const p of options.panels) {
-            const el: HTMLElement | null = document.querySelector(p.selector);
+            const el = document.querySelector(p.selector);
             if (!el) {
                 continue;
             }
             const panel = new p.panel();
             /** --- class 对象类的属性列表 --- */
-            const idata: Record<string, any> = {};
+            const idata = {};
             const cdata = Object.entries(panel);
             for (const item of cdata) {
                 if (item[0] === 'access') {
@@ -379,40 +314,39 @@ export function launcher<T extends AbstractPage>(page: new (opt: {
                 idata[item[0]] = item[1];
             }
             /** --- class 对象的方法和 getter/setter 列表 --- */
-            const prot = tool.getClassPrototype(panel);
+            const prot = lTool.getClassPrototype(panel);
             const methods = prot.method;
             const computed = prot.access;
-
             /** --- panel 自定义 --- */
             const layout = el.outerHTML.replace(/<script>([\s\S]*?)<\/script>/gi, () => {
                 return '';
-            }).replace(/<style>([\s\S]*?)<\/style>/gi, function(t: string, t1: string) {
+            }).replace(/<style>([\s\S]*?)<\/style>/gi, function (t, t1) {
                 styles.push(t1);
                 return '';
             });
-            const panelname = 'pe-panel-' + tool.random(16);
+            const panelname = 'pe-panel-' + lTool.random(16);
             panelComponents[panelname] = {
                 'template': layout,
-                'data': function() {
-                    return tool.clone(idata);
+                'data': function () {
+                    return lTool.clone(idata);
                 },
                 'methods': methods,
                 'computed': computed,
-                'created': function(this: types.IVue) {
-                    if ((page as any).access) {
-                        this.access = tool.clone((page as any).access);
+                'created': function () {
+                    if (page.access) {
+                        this.access = lTool.clone(page.access);
                     }
                 },
-                'mounted': async function(this: types.IVue) {
+                'mounted': async function () {
                     await this.$nextTick();
                     this.rootPage = this.$root;
                     // --- 完成 ---
                     this.main();
                 },
-                'beforeUnmount': function(this: types.IVue) {
+                'beforeUnmount': function () {
                     this.onBeforeUnmount();
                 },
-                'unmounted': async function(this: types.IVue) {
+                'unmounted': async function () {
                     await this.$nextTick();
                     this.onUnmounted();
                 }
@@ -420,7 +354,7 @@ export function launcher<T extends AbstractPage>(page: new (opt: {
             el.replaceWith(document.createElement(panelname));
         }
         /** --- class 对象类的属性列表 --- */
-        const idata: Record<string, any> = {};
+        const idata = {};
         const cdata = Object.entries(cpage);
         for (const item of cdata) {
             if (item[0] === 'access') {
@@ -429,26 +363,24 @@ export function launcher<T extends AbstractPage>(page: new (opt: {
             }
             idata[item[0]] = item[1];
         }
+        idata['isRtl'] = false;
         /** --- class 对象的方法和 getter/setter 列表 --- */
-        const prot = tool.getClassPrototype(cpage);
+        const prot = lTool.getClassPrototype(cpage);
         const methods = prot.method;
         const computed = prot.access;
-        const rtn: {
-            'vapp': types.IVApp;
-            'vroot': types.IVue;
-        } = await new Promise(function(resolve) {
+        const rtn = await new Promise(function (resolve) {
             const vapp = vue.createApp({
-                'data': function() {
-                    return tool.clone(idata);
+                'data': function () {
+                    return lTool.clone(idata);
                 },
                 'methods': methods,
                 'computed': computed,
-                'created': function(this: types.IVue) {
-                    if ((page as any).access) {
-                        this.access = tool.clone((page as any).access);
+                'created': function () {
+                    if (page.access) {
+                        this.access = lTool.clone(page.access);
                     }
                 },
-                'mounted': async function(this: types.IVue) {
+                'mounted': async function () {
                     await this.$nextTick();
                     this.windowWidth = window.innerWidth;
                     this.windowHeight = window.innerHeight;
@@ -477,23 +409,23 @@ export function launcher<T extends AbstractPage>(page: new (opt: {
                         this.$refs.toTop.classList.remove('pe-show');
                     }
                     // --- pe-tree ---
-                    const ptms: NodeListOf<HTMLElement> = document.querySelectorAll('.pe-tree-menu');
+                    const ptms = document.querySelectorAll('.pe-tree-menu');
                     for (const ptm of ptms) {
                         ptm.style.height = '0';
                     }
                     // --- 选中的默认展开 ---
-                    const pitems: NodeListOf<HTMLElement> = document.querySelectorAll('.pe-tree-item.pe-selected');
+                    const pitems = document.querySelectorAll('.pe-tree-item.pe-selected');
                     for (let pitem of pitems) {
                         // --- 从单个 pitem 往上找 pe-tree-menu ---
-                        let parent: HTMLElement | null = null;
-                        while (parent = dom.findParentByClass(pitem, 'pe-tree-menu')) {
+                        let parent = null;
+                        while (parent = lDom.findParentByClass(pitem, 'pe-tree-menu')) {
                             parent.style.height = '';
                             parent.previousElementSibling?.classList.add('pe-open');
                             pitem = parent;
                         }
                     }
                     document.querySelector('.pe-tree')?.addEventListener('click', (e) => {
-                        let target = e.target as HTMLElement;
+                        let target = e.target;
                         if (target.tagName.toLowerCase() !== 'div') {
                             return;
                         }
@@ -501,13 +433,13 @@ export function launcher<T extends AbstractPage>(page: new (opt: {
                             // --- 正常 ---
                         }
                         else {
-                            const parent = dom.findParentByClass(target, 'pe-tree-item');
+                            const parent = lDom.findParentByClass(target, 'pe-tree-item');
                             if (!parent) {
                                 return;
                             }
                             target = parent;
                         }
-                        const next = target.nextElementSibling as HTMLElement;
+                        const next = target.nextElementSibling;
                         if (!next) {
                             return;
                         }
@@ -533,29 +465,37 @@ export function launcher<T extends AbstractPage>(page: new (opt: {
                     if (document.querySelector('.pe-lnav')) {
                         this.$refs.lnavBtn.classList.add('pe-show');
                     }
+                    // --- 判断是不是 rtl 模式 ---
+                    const observer = new MutationObserver(() => {
+                        this.isRtl = lDom.isRtl();
+                    });
+                    observer.observe(htmls[0], {
+                        'attributes': true,
+                        'attributeFilter': ['class'],
+                    });
                     // --- 完成 ---
                     resolve({
                         'vapp': vapp,
                         'vroot': this
                     });
                 },
-                'beforeUpdate': function(this: types.IVue) {
+                'beforeUpdate': function () {
                     this.onBeforeUpdate();
                 },
-                'updated': async function(this: types.IVue) {
+                'updated': async function () {
                     await this.$nextTick();
                     this.onUpdated();
                 },
-                'beforeUnmount': function(this: types.IVue) {
+                'beforeUnmount': function () {
                     this.onBeforeUnmount();
                 },
-                'unmounted': async function(this: types.IVue) {
+                'unmounted': async function () {
                     await this.$nextTick();
                     this.onUnmounted();
                 }
             });
-            vapp.config.errorHandler = function(err: Error, vm: types.IVue, info: string): void {
-                console.error(err.message, err, vm, info);
+            vapp.config.errorHandler = function (err, vm, info) {
+                display(err.message, err, vm, info);
             };
             // --- 剔除 script ---
             const scripts = bodys[0].querySelectorAll('script');
@@ -563,13 +503,13 @@ export function launcher<T extends AbstractPage>(page: new (opt: {
                 script.remove();
             }
             // --- 挂载控件对象到 vapp ---
-            for (const key in control.list) {
-                control.list[key].computed ??= {};
-                control.list[key].computed = {
-                    ...control.list[key].computed,
-                    ...tool.clone(control.common.computed),
+            for (const key in lControl.list) {
+                lControl.list[key].computed ??= {};
+                lControl.list[key].computed = {
+                    ...lControl.list[key].computed,
+                    ...lTool.clone(lControl.common.computed),
                 };
-                vapp.component(key, control.list[key]);
+                vapp.component(key, lControl.list[key]);
             }
             // --- 挂载 panel ---
             for (const key in panelComponents) {
@@ -577,32 +517,32 @@ export function launcher<T extends AbstractPage>(page: new (opt: {
             }
             // --- 挂载 loading、系统 dialog ---
             bodys[0].insertAdjacentHTML('beforeend', `<pe-dialog :title="dialogInfo.title" :content="dialogInfo.content" :buttons="dialogInfo.buttons" :show="dialogInfo.show" @select="dialogInfo.select"></pe-dialog>` +
-            '<div class="pe-popbtns">' +
+                '<div class="pe-popbtns">' +
                 // --- 滚动到顶部 ---
                 '<div class="pe-popbtn pe-popbtn-top" ref="toTop" @click="toTop">' +
-                    '<svg width="24px" height="24px" viewBox="0 0 24 24" fill="none"><path d="M19 15L12 9L10.25 10.5M5 15L7.33333 13" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
+                '<svg width="24px" height="24px" viewBox="0 0 24 24" fill="none"><path d="M19 15L12 9L10.25 10.5M5 15L7.33333 13" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
                 '</div>' +
                 // --- lnav ---
                 '<div class="pe-popbtn pe-popbtn-lnav" ref="lnavBtn" @click="showLnav">' +
-                    '<svg width="24px" height="24px" viewBox="0 0 24 24" fill="none"><path d="M4 7L7 7M20 7L11 7" stroke-width="1.5" stroke-linecap="round"></path><path d="M20 17H17M4 17L13 17" stroke-width="1.5" stroke-linecap="round"></path><path d="M4 12H7L20 12" stroke-width="1.5" stroke-linecap="round"></path></svg>' +
+                '<svg width="24px" height="24px" viewBox="0 0 24 24" fill="none"><path d="M4 7L7 7M20 7L11 7" stroke-width="1.5" stroke-linecap="round"></path><path d="M20 17H17M4 17L13 17" stroke-width="1.5" stroke-linecap="round"></path><path d="M4 12H7L20 12" stroke-width="1.5" stroke-linecap="round"></path></svg>' +
                 '</div>' +
-            '</div>' +
-            `<div class="pe-loading" :class="[loading&&'pe-show']">` +
+                '</div>' +
+                `<div class="pe-loading" :class="[loading&&'pe-show']">` +
                 '<div class="pe-loading-item">' +
-                    '<div class="pe-loading-item-1"></div>' +
-                    '<div class="pe-loading-item-2"></div>' +
+                '<div class="pe-loading-item-1"></div>' +
+                '<div class="pe-loading-item-2"></div>' +
                 '</div>' +
-            '</div>' +
-            `<div class="pe-alert" :class="[alertInfo.show&&'pe-show','pe-'+alertInfo.type]">` +
+                '</div>' +
+                `<div class="pe-alert" :class="[alertInfo.show&&'pe-show','pe-'+alertInfo.type]">` +
                 '<div class="pe-alert-content">' +
-                    `<div class="pe-alert-icon"></div>` +
-                    `<div v-html="alertInfo.content"></div>` +
+                `<div class="pe-alert-icon"></div>` +
+                `<div v-html="alertInfo.content"></div>` +
                 '</div>' +
-            '</div>');
+                '</div>');
             bodys[0].style.setProperty('--pe-windowwidth', window.innerWidth + 'px');
             bodys[0].style.setProperty('--pe-windowheight', window.innerHeight + 'px');
             // --- 处理 body ---
-            bodys[0].innerHTML = tool.purify(bodys[0].innerHTML);
+            bodys[0].innerHTML = lTool.purify(bodys[0].innerHTML);
             // --- 真正挂载 ---
             vapp.mount(bodys[0]);
         });
@@ -614,11 +554,32 @@ export function launcher<T extends AbstractPage>(page: new (opt: {
             }
         }
         // --- 执行回调 ---
-        await tool.sleep(34);
+        await lTool.sleep(34);
         await cpage.main.call(rtn.vroot);
         htmls[0].style.overflow = '';
         htmls[0].style.visibility = '';
-    })().catch(function(e) {
-        console.log('launcher', e);
+    })().catch(function (e) {
+        display('launcher', e);
     });
+}
+/**
+ * --- 打印调试信息，线上环境不会打印 ---
+ * @param message 参数
+ * @param optionalParams 参数
+ */
+export function debug(message, ...optionalParams) {
+    if (!global.debug) {
+        return;
+    }
+    // eslint-disable-next-line no-console
+    console.debug(message, ...optionalParams);
+}
+/**
+ * --- 向控制台直接显示内容，一般情况下禁止使用 ---
+ * @param message 参数
+ * @param optionalParams 参数
+ */
+export function display(message, ...optionalParams) {
+    // eslint-disable-next-line no-console
+    console.log(message, ...optionalParams);
 }

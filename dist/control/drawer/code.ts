@@ -1,4 +1,4 @@
-import * as types from '../../../types';
+import * as purease from '../../purease.js';
 
 export const code = {
     'template': '',
@@ -27,7 +27,7 @@ export const code = {
         }
     },
     'computed': {
-        widthComp: function(this: types.IVue) {
+        widthComp: function(this: purease.IVue) {
             if (typeof this.$props.width === 'number') {
                 return this.$props.width.toString() + 'px';
             }
@@ -36,10 +36,10 @@ export const code = {
     },
     'methods': {
         /** --- 关闭按钮 --- */
-        closeClick: function(this: types.IVue) {
+        closeClick: function(this: purease.IVue) {
             this.$emit('update:modelValue', false);
         },
-        click: function(this: types.IVue, e: MouseEvent): void {
+        click: function(this: purease.IVue, e: MouseEvent): void {
             if (e.target !== this.$el) {
                 return;
             }

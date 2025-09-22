@@ -15,6 +15,15 @@
         }
     }
 }
+html.pe-rtl {
+    .pe-bar-item {
+        &.pe-list {
+            &::after {
+                margin-left: initial; margin-right: 10px;
+            }
+        }
+    }
+}
 
 .pe-bar {
     &.pe-theme-dark {
@@ -45,6 +54,15 @@
 
                 .pe-menu {
                     height: initial; padding: 15px;
+                }
+            }
+        }
+    }
+    html.pe-rtl {
+        .pe-bar-item {
+            &.pe-list {
+                &::after {
+                    right: initial; left: 30px;
                 }
             }
         }

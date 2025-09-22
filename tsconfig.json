@@ -1,21 +1,22 @@
 {
     "compilerOptions": {
-        "module": "CommonJS",
-        "removeComments": true,
+        "module": "esnext",
+        "removeComments": false,
         "preserveConstEnums": true, // 保留 const 和 enum 声明
         // "outDir": "dist/",
         "sourceMap": false,
-        "target": "ES2015",
+        "target": "ES2021",
         "strict": true,             // 严格模式
-        "declaration": true,       // d.ts
+        "declaration": true,        // d.ts
         "declarationMap": false,
         "newLine": "LF",
+        "moduleResolution": "node",
         "resolveJsonModule": true,
-        "typeRoots": [
-            "./node_modules/@types",
-            "./node_modules/@litert/loader"
-        ],
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "paths": {
+            "~/*": ["./*"]
+        }
     },
     "include": [
         "./**/*.ts"

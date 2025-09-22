@@ -1,4 +1,4 @@
-import * as purease from '../../index';
+import * as purease from '../../purease.js';
 
 export const code = {
     'template': '',

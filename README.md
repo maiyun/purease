@@ -20,12 +20,18 @@ Lightweight and user-friendly front-end library.
 
 ## Installation
 
-Load the module loader first, and then load it using the module loader.
+To get started, package your entry file into a single bundle using the command:
+
+```sh
+npx kebab -b index -g https://cdn.jsdelivr.net/npm/purease@1.x.x/dist/index.js
+```
+
+Then, reference the bundled file in your web page.
 
 **index.html**
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@litert/loader@3.5.8/dist/loader.min.js?path=index&npm={'purease':'0.0.18'}"></script>
+<script type="module" src="index.pack.js"></script>
 ```
 
 **index.js**
@@ -37,7 +43,7 @@ class Page extends clickgo.AbstractPage {
         // --- Write here ---
     }
 }
-clickgo.launcher(Page);
+purease.launcher(Page);
 ```
 
 ### NPM

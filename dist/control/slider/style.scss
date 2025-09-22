@@ -2,7 +2,7 @@
     border: solid 1px var(--pe-border); background: var(--pe-input-bg); box-shadow: var(--pe-shadow) inset; position: relative; height: 6px; border-radius: 3px;
 }
 .pe-slider-bar {
-    height: 100%; position: absolute; left: 0; top: 0; background: var(--pe-h-color);
+    height: 100%; position: absolute; left: 0; top: 0; background: var(--pe);
 }
 .pe-slider-block {
     width: 22px; height: 22px; background: var(--pe-input-bg); border: solid 1px var(--pe-border); box-shadow: var(--pe-shadow); border-radius: 11px; position: absolute; top: -9px; transition: var(--pe-transition); transition-property: background-color, box-shadow, transform; outline: none; -webkit-user-select: none; user-select: none;

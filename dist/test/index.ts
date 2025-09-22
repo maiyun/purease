@@ -1,6 +1,5 @@
-import * as purease from '../index';
-import * as types from '../../types';
-import footer from '../test/footer';
+import * as purease from 'purease';
+import footer from '../test/footer.js';
 
 class Page extends purease.AbstractPage {
 
@@ -76,8 +75,20 @@ class Page extends purease.AbstractPage {
 
     public slogo = false;
 
-    public main(): void | Promise<void> {
-        console.log('Inited.', purease);
+    public rtl = false;
+
+    public changeRTL(): void {
+        this.rtl = !this.rtl;
+        if (this.rtl) {
+            document.getElementsByTagName('html')[0].classList.add('pe-rtl');
+        }
+        else {
+            document.getElementsByTagName('html')[0].classList.remove('pe-rtl');
+        }
+    }
+
+    public main(): void {
+        purease.display('Inited.', purease);
     }
 
     public async showDialog(): Promise<void> {
@@ -118,7 +129,7 @@ class Page extends purease.AbstractPage {
     public customDialogSelect(): void {
         if (!this.customDialogText)  {
             // --- 弹出不可为空的提示 ---
-            this.alert('Name can not be empty.');
+            this.alert('Name can not be empty.', 'warning');
             return;
         }
         // --- 隐藏窗体 ---
@@ -198,12 +209,12 @@ class Page extends purease.AbstractPage {
         this.dpts = purease.tool.rand(1504304812000, 1704304812000);
     }
 
-    public dpOnChanged(e: types.IDatepanelChangedEvent): void {
-        console.log('onChanged', e, JSON.stringify(e));
+    public dpOnChanged(e: purease.control.IDatepanelChangedEvent): void {
+        purease.display('onChanged', e, JSON.stringify(e));
     }
 
-    public dpOnRange(e: types.IDatepanelRangeEvent): void {
-        console.log('onRange', e);
+    public dpOnRange(e: purease.control.IDatepanelRangeEvent): void {
+        purease.display('onRange', e);
     }
 
     // --- date 控件 ---
@@ -265,11 +276,11 @@ class Page extends purease.AbstractPage {
 purease.launcher(Page, {
     'debug': true,
     'locale': 'sc',
-    'localePath': __dirname + '/locale',
+    'localePath': purease.getDirname(import.meta.url) + '/locale',
     'panels': [
         {
             'selector': '#footer',
-            'panel': footer
+            'panel': footer,
         }
     ]
 });

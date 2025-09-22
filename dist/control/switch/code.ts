@@ -1,4 +1,5 @@
-import * as types from '../../../types';
+import * as purease from '../../purease.js';
+import * as lControl from '../../control';
 
 export const code = {
     'template': '',
@@ -20,7 +21,7 @@ export const code = {
         };
     },
     'computed': {
-        mapComp: function(this: types.IVue): {
+        mapComp: function(this: purease.IVue): {
             'true': any;
             'false': any;
         } {
@@ -32,7 +33,7 @@ export const code = {
     },
     'watch': {
         'modelValue': {
-            handler: function(this: types.IVue) {
+            handler: function(this: purease.IVue) {
                 if (this.$props.modelValue === undefined) {
                     return;
                 }
@@ -42,8 +43,8 @@ export const code = {
         }
     },
     'methods': {
-        click: function(this: types.IVue): void {
-            const event: types.ISwitchChangeEvent = {
+        click: function(this: purease.IVue): void {
+            const event: lControl.ISwitchChangeEvent = {
                 'go': true,
                 preventDefault: function() {
                     this.go = false;
@@ -58,7 +59,7 @@ export const code = {
                 this.$emit('update:modelValue', this.value);
             }
         },
-        keydown: function(this: types.IVue, e: KeyboardEvent): void {
+        keydown: function(this: purease.IVue, e: KeyboardEvent): void {
             if (e.key !== 'Enter') {
                 return;
             }

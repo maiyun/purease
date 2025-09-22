@@ -1,52 +1,75 @@
-import * as fs from 'fs';
+import * as terser from 'terser';
+import * as rollup from 'rollup';
 
-// --- git config core.ignorecase false ---
+/** --- 压缩 --- */
+export function terserPlugin(es?: terser.ECMA): rollup.InputPluginOption {
+    return {
+        'name': 'pre-terser',
+        generateBundle: async function(options, bundle) {
+            for (const [, chunkOrAsset] of Object.entries(bundle)) {
+                if (chunkOrAsset.type !== 'chunk') {
+                    continue;
+                }
+                const result = await terser.minify(chunkOrAsset.code, es ? {
+                    'module': true,
+                    'ecma': es,
+                } : undefined);
+                chunkOrAsset.code = result.code ?? '';
+            }
+        }
+    };
+}
 
 /**
- * --- 去除 html 的空白符、换行 ---
- * @param text 要纯净的字符串
+ * --- 编译网页上的运行 boot ---
+ * @param path 要编译的 js 入口文件，不以 .js 结尾
+ * @param purease purease 的加载路径，相对路径或网址，完整路径（比如要包含 .js）
+ * @param save 保存编译后的 js 文件路径，不要带扩展名的文件路径 或 以 / 结尾的存储路径
  */
-function purify(text: string): string {
-    text = '>' + text + '<';
-    text = text.replace(/<!--([\s\S]*?)-->/g, '').replace(/>([\s\S]*?)</g, function(t: string, t1: string) {
-        return '>' + t1.replace(/\t|\r\n| {2}/g, '').replace(/\n|\r/g, '') + '<';
-    });
-    return text.slice(1, -1);
-}
-
-async function run(): Promise<void> {
-    // --- control to cgc ---
-    let list = await fs.promises.readdir('dist/control/', {
-        'withFileTypes': true
-    });
-    let code = '';
-    let style = '';
-    for (const item of list) {
-        if (item.name.startsWith('.')) {
-            continue;
+export async function boot(path: string, purease: string, save?: string): Promise<boolean> {
+    if (path.endsWith('.js')) {
+        path = path.slice(0, -3);
+    }
+    const lio = path.lastIndexOf('/');
+    /** --- 保存的文件名 --- */
+    const name = lio === -1 ? path : path.slice(lio + 1);
+    // --- 保存位置 ---
+    if (save) {
+        if (save.endsWith('/')) {
+            save += name + '.pack';
         }
-        // --- 布局 ---
-        const flayout = purify((await fs.promises.readFile('dist/control/' + item.name + '/layout.html')).toString()).replace(/`/g, '\\`');
-        // --- 代码 ---
-        const fcode = (await fs.promises.readFile('dist/control/' + item.name + '/code.ts')).toString().replace(/'template': ''/, `'template': \`${flayout}\``);
-        code += `list['pe-${item.name}'] = ` + fcode.slice(fcode.indexOf('export const code = ') + 20) + '\n';
-        // --- 样式 ---
-        style += (await fs.promises.readFile('dist/control/' + item.name + '/style.scss')).toString() + '\n\n';
     }
-    code = code.slice(0, -1);
-    style = style.slice(0, -2);
-
-    // --- 写入标准文件 ---
-
-    const scode = /^[\s\S]+?\/\/ --- AUTO CODE ---/.exec((await fs.promises.readFile('dist/control.ts')).toString());
-    if (scode) {
-        await fs.promises.writeFile('dist/control.ts', scode[0] + '\n\n' + code);
+    else {
+        const lio = path.lastIndexOf('/');
+        if (lio === -1) {
+            save = name + '.pack';
+        }
+        else {
+            save = path.slice(0, lio + 1) + name + '.pack';
+        }
     }
-    const sstyle = /^[\s\S]+?\/\/ --- AUTO CODE ---/.exec((await fs.promises.readFile('dist/index.scss')).toString());
-    if (sstyle) {
-        await fs.promises.writeFile('dist/index.scss', sstyle[0] + '\n\n' + style);
+
+    // --- 打包 js ---
+    try {
+        const bundle = await rollup.rollup({
+            'input': `${path}.js`,
+            'external': ['purease'],
+            'plugins': [
+                terserPlugin(2020),
+            ],
+        });
+        await bundle.write({
+            'file': `${save}.js`,
+            'format': 'es',
+            'paths': {
+                'purease': purease,
+            },
+        });
+        await bundle.close();
+        return true;
+    }
+    catch (e) {
+        console.error('[BOOT]', e);
+        return false;
     }
 }
-run().catch(function(e) {
-    console.log(e);
-});

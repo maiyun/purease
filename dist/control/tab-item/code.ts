@@ -1,5 +1,5 @@
-import * as dom from '../../dom';
-import * as types from '../../../types';
+import * as lDom from '../../dom';
+import * as purease from '../../purease.js';
 
 export const code = {
     'template': '',
@@ -9,7 +9,7 @@ export const code = {
         };
     },
     'computed': {
-        isSelected: function(this: types.IVue) {
+        isSelected: function(this: purease.IVue) {
             if (!this.$parent) {
                 return 0;
             }
@@ -17,35 +17,35 @@ export const code = {
         }
     },
     'methods': {
-        hover: function(this: types.IVue, e: MouseEvent | TouchEvent) {
+        hover: function(this: purease.IVue, e: MouseEvent | TouchEvent) {
             if (!this.$parent) {
                 return;
             }
-            if (dom.hasTouchButMouse(e)) {
+            if (lDom.hasTouchButMouse(e)) {
                 return;
             }
             this.$parent.selected = this.index;
             this.resize();
         },
-        resize: function(this: types.IVue) {
+        resize: function(this: purease.IVue) {
             if (!this.$parent) {
                 return;
             }
             if (this.$parent.type !== 'rect') {
                 return;
             }
-            this.$parent.tabItemWidth = this.$el.clientWidth;
+            this.$parent.tabItemWidth = this.$el.offsetWidth;
             this.$parent.tabItemLeft = this.$el.offsetLeft;
         }
     },
-    mounted: function(this: types.IVue) {
+    mounted: function(this: purease.IVue) {
         if (!this.$parent) {
             return;
         }
         if (this.$parent.selected === undefined) {
             return;
         }
-        this.index = dom.index(this.$el);
+        this.index = lDom.index(this.$el);
         if (this.index === this.$parent.selected) {
             this.resize();
         }

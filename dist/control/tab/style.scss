@@ -11,7 +11,7 @@
     &.pe-tab-type-rect {
         border-bottom: none; padding: 3px; background: var(--pe-grey); border-radius: var(--pe-radius); position: relative;
         &::before {
-            content: ''; border-color: var(--pe-border); background: #FFF; box-shadow: var(--pe-shadow); position: absolute; left: 3px; top: 3px; height: calc(100% - 6px); width: var(--pe-tab-item-width); transition: var(--pe-transition); transform: translateX(calc(var(--pe-tab-item-left) - 3px));
+            content: ''; border-color: var(--pe-border); border-radius: var(--pe-radius); background: #FFF; box-shadow: var(--pe-shadow-d); position: absolute; left: 3px; top: 3px; height: calc(100% - 6px); width: var(--pe-tab-item-width); transition: var(--pe-transition); transform: translateX(calc(var(--pe-tab-item-left) - 3px));
         }
     }
 }

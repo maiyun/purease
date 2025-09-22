@@ -1,4 +1,4 @@
-import * as types from '../../../types';
+import * as purease from '../../purease.js';
 
 export const code = {
     'template': '',
@@ -28,7 +28,7 @@ export const code = {
     },
     'watch': {
         'modelValue': {
-            handler: function(this: types.IVue) {
+            handler: function(this: purease.IVue) {
                 if (this.modelValue === this.value.join('')) {
                     return;
                 }
@@ -53,7 +53,7 @@ export const code = {
         },
     },
     'methods': {
-        click: function(this: types.IVue, num: string) {
+        click: function(this: purease.IVue, num: string) {
             if (this.value.length === this.length) {
                 return;
             }
@@ -65,7 +65,7 @@ export const code = {
             this.$emit('update:modelValue', mv);
             this.$emit('changed');
         },
-        back: function(this: types.IVue) {
+        back: function(this: purease.IVue) {
             if (!this.value.length) {
                 return;
             }

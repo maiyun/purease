@@ -1,13 +1,18 @@
 // --- sass --watch dist/:dist/ --style compressed --no-source-map ---
 
 html {
-    --pe-color:hsl(0, 0%, 20%);
-    --pe-disabled-color:hsl(0, 0%, 80%);
-    --pe-note-color:hsl(0, 0%, 40%);
-    --pe-inote-color:hsl(0, 0%, 60%);
-    --pe-h-color:hsl(90, 65%, 35%);     // --- 主题色 ---
-    --pe-h-bgcolor:hsl(90, 65%, 95%);
-    --pe-h-fcolor:#FFF;
+    // --- 基础颜色 ---
+    --main:oklch(.7 .23 133);
+    --pe-color:oklch(.45 0 0);
+    --pe-disabled-color:oklch(.7 0 0);
+    --pe-note-color:oklch(.55 0 0);
+    --pe-inote-color:oklch(.6 0 0);
+    --pe:var(--main);     // --- 主题色 ---
+    --pe-hover:color-mix(in oklch, var(--pe), white 10%);
+    --pe-active:color-mix(in oklch, var(--pe), black 10%);
+    --pe-focus:color-mix(in oklch, var(--pe), black 5%);
+    --pe-bg:color-mix(in oklch, var(--pe), white 85%);
+    --pe-fcolor:oklch(1 0 0);
     --pe-cubic:cubic-bezier(0.39, 0.575, 0.565, 1);
     --pe-transition:all .3s var(--pe-cubic);
     --pe-radius:5px;
@@ -15,18 +20,19 @@ html {
     --pe-xlradius:30px;
     --pe-font-life:"Lucida Sans Unicode","Helvetica Neue","Helvetica","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Noto Sans CJK","Source Han Sans","WenQuanYi Micro Hei","Microsoft YaHei","sans-serif";
     --pe-font-comm:'Roboto','SF Pro SC','SF Pro Display','SF Pro Icons','PingFang SC',BlinkMacSystemFont,-apple-system,'Segoe UI','Microsoft Yahei','Ubuntu','Cantarell','Fira Sans','Droid Sans','Helvetica Neue','Helvetica','Arial',"sans-serif";
-    --pe-grey:hsl(210,20%,98%);                 // --- 一般用于浅色背景、或者采用白色背景的组件的 hover ---
-    --pe-grey-hover:hsl(210,20%,96%);           // --- 一般用于采用灰色背景的组件的 hover 效果 ---
-    --pe-dark:hsl(210,20%,2%);                  // --- 一般用于超深背景 ---
-    --pe-input-bg:hsl(210,20%,99.5%);           // --- 输入型控件的默认底色 ---
-    --pe-input-hover-bg:hsl(210,20%,97.5%);     // --- 输入型控件的 hover 底色 ---
-    --pe-border:hsl(220,15%,85%);               // --- 一般用于组件的边框 ---
-    --pe-border-plain:hsl(220,15%,92%);         // --- 一般用于组件内部的轻边框 ---
-    --pe-shadow:0 1px 6px hsla(220,45%,10%,0.05);   // --- 一般用于组件的小阴影 ---
-    --pe-pop-shadow:0px 15px 30px rgba(0,0,0,.07);  // --- 弹出层的阴影 ---
-    --pe-outline-shadow:0 0 0 4px hsl(220,20%,95%); // --- active 状态的类似 outline 边框 ---
+    --pe-grey:oklch(.98 0 0);                  // --- 一般用于浅色背景、或者采用白色背景的组件的 hover ---
+    --pe-grey-hover:oklch(.95 0 0);            // --- 一般用于采用灰色背景的组件的 hover 效果 ---
+    --pe-dark:oklch(.15 0 0);                  // --- 一般用于超深背景 ---
+    --pe-input-bg:oklch(.995 0 0);             // --- 输入型控件的默认底色 ---
+    --pe-input-hover-bg:oklch(.97 0 0);        // --- 输入型控件的 hover 底色 ---
+    --pe-border:oklch(.9 0 0);                 // --- 一般用于组件的边框 ---
+    --pe-border-plain:oklch(.92 0 0);          // --- 一般用于组件内部的轻边框 ---
+    --pe-shadow:0 1px 3px oklch(.2 .0 0 / .05);      // --- 一般用于组件的小阴影 ---
+    --pe-shadow-d:0 1px 3px oklch(.2 0 0 / .35);    // --- 小阴影 dark 版 ---
+    --pe-pop-shadow:0px 15px 30px oklch(0 0 0 / .07);   // --- 弹出层的阴影 ---
+    --pe-outline-shadow:0 0 0 4px oklch(.95 0 0);   // --- active 状态的类似 outline 边框 ---
     ::selection {
-        background: var(--pe-h-color); color: var(--pe-h-fcolor);
+        background: var(--pe); color: var(--pe-fcolor);
     }
 
     // --- 间距 ---
@@ -49,25 +55,25 @@ html {
 
     // --- 基础颜色 ---
 
-    --success:hsl(150, 100%, 40%);
-    --success-hover:hsl(150, 100%, 45%);
-    --success-active:hsl(150, 100%, 30%);
-    --success-bg:hsl(150, 100%, 98%);
+    --success:oklch(.7 .23 150);
+    --success-hover:oklch(.75 .23 150);
+    --success-active:oklch(.6 .23 150);
+    --success-bg:color-mix(in oklch, var(--success), white 85%);
 
-    --info:hsl(210, 100%, 50%);
-    --info-hover:hsl(210, 100%, 60%);
-    --info-active:hsl(210, 100%, 40%);
-    --info-bg:hsl(210, 100%, 98%);
+    --info:oklch(.7 .23 255);
+    --info-hover:oklch(.75 .23 255);
+    --info-active:oklch(.6 .23 255);
+    --info-bg:color-mix(in oklch, var(--info), white 85%);
 
-    --warning:hsl(20, 100%, 70%);
-    --warning-hover:hsl(20, 100%, 80%);
-    --warning-active:hsl(20, 100%, 60%);
-    --warning-bg:hsl(20, 100%, 98%);
+    --warning:oklch(.7 .23 45);
+    --warning-hover:oklch(.75 .23 45);
+    --warning-active:oklch(.6 .23 45);
+    --warning-bg:color-mix(in oklch, var(--warning), white 85%);
 
-    --danger:hsl(350, 100%, 50%);
-    --danger-hover:hsl(350, 100%, 70%);
-    --danger-active:hsl(350, 100%, 40%);
-    --danger-bg:hsl(350, 100%, 98%);
+    --danger:oklch(.7 .23 25);
+    --danger-hover:oklch(.75 .23 25);
+    --danger-active:oklch(.6 .23 25);
+    --danger-bg:color-mix(in oklch, var(--danger), white 85%);
 
     // --- pe-header ---
     
@@ -81,17 +87,23 @@ html {
             --pe-headerheight:100px;
         }
     }
+
+    // --- rtl ---
+
+    &.pe-rtl {
+        direction: rtl;
+    }
 }
 html, body {
     padding: 0; margin: 0;
 }
 body, html, input, select, textarea {
-    font-family: var(--pe-font-life); color: var(--pe-color); fill: var(--pe-color); stroke: var(--pe-color); line-height: 1.5; font-size: var(--pe-size);
+    font-family: var(--pe-font-life); color: var(--pe-color); fill: currentColor; stroke: currentColor; line-height: 1.5; font-size: var(--pe-size);
 }
 a {
-    color: var(--pe-color); fill: var(--pe-color); stroke: var(--pe-color); text-decoration: none; transition: var(--pe-transition); display: inline-flex; align-items: center;
+    color: var(--pe-color); text-decoration: none; transition: var(--pe-transition); display: inline-flex; align-items: center;
     &:hover {
-        color: var(--pe-h-color); fill: var(--pe-h-color); stroke: var(--pe-h-color);
+        color: var(--pe);
     }
     &.line {
         &:hover {
@@ -115,7 +127,7 @@ img {
     }
 }
 .pe-disabled {
-    pointer-events: none; color: var(--pe-disabled-color); fill: var(--pe-disabled-color); stroke: var(--pe-disabled-color); -webkit-user-select: none; user-select: none;
+    pointer-events: none; color: var(--pe-disabled-color); -webkit-user-select: none; user-select: none;
 }
 
 html.pe-full {
@@ -125,7 +137,7 @@ html.pe-full {
     }
 }
 html.pe-dark {
-    color: #FFF; fill: #FFF; stroke: #FFF;
+    color: #FFF;
 }
 // --- 速度 ---
 html.pe-speed-fast {
@@ -150,7 +162,7 @@ html.pe-speed-imme {
     font-size: var(--pe-lsize);
 }
 .pe-gnote {
-    font-size: var(--pe-lsize); color: var(--pe-note-color); fill: var(--pe-note-color); stroke: var(--pe-note-color);
+    font-size: var(--pe-lsize); color: var(--pe-note-color);
 }
 
 // --- pe-loading ---
@@ -193,6 +205,11 @@ html.pe-speed-imme {
 
 .pe-popbtns {
     position: fixed; right: 50px; bottom: 50px; display: flex; flex-direction: column; gap: 20px;
+}
+html.pe-rtl {
+    .pe-popbtns {
+        right: initial; left: 50px;
+    }
 }
 .pe-popbtn {
     width: 48px; height: 48px; border-radius: 24px; box-shadow: var(--pe-pop-shadow); background: #FFF; transition: var(--pe-transition); -webkit-user-select: none; user-select: none; display: flex; align-items: center; justify-content: center; border: solid 1px var(--pe-border);
@@ -301,7 +318,7 @@ html.pe-speed-imme {
     &:not(.pe-plain):not(.pe-pwhite):not(.pe-pgrey):not(.pe-grey):not(.pe-dark) {
         background: #FFF;
         &:hover {
-            background: var(--pe-grey); color: var(--pe-color); fill: var(--pe-color); stroke: var(--pe-color);
+            background: var(--pe-grey); color: var(--pe-color);
         }
         &:focus, &:active {
             background: #FFF; box-shadow: var(--pe-outline-shadow);
@@ -309,17 +326,17 @@ html.pe-speed-imme {
     }
     // --- 朴素按钮 ---
     &.pe-plain {
-        border: solid 1px var(--pe-h-color); color: var(--pe-h-color); fill: var(--pe-h-color); stroke: var(--pe-h-color);
+        border: solid 1px var(--pe); color: var(--pe);
         &:hover {
-            background: var(--pe-h-bgcolor);
+            background: var(--pe-bg);
         }
         &:focus, &:active {
-            background: transparent; box-shadow: 0 0 0 4px var(--pe-h-bgcolor);
+            background: transparent; box-shadow: 0 0 0 4px var(--pe-bg);
         }
     }
     // --- 朴素白 ---
     &.pe-pwhite {
-        border: solid 1px #FFF; color: #FFF; fill: #FFF; stroke: #FFF;
+        border: solid 1px #FFF; color: #FFF;
         &:hover {
             background: rgba(255,255,255,.2);
         }
@@ -331,7 +348,7 @@ html.pe-speed-imme {
     &.pe-pgrey {
         background: #FFF; border: solid 1px var(--pe-border); box-shadow: var(--pe-shadow);
         &:hover {
-            background: var(--pe-grey); color: var(--pe-color); fill: var(--pe-color); stroke: var(--pe-color);
+            background: var(--pe-grey); color: var(--pe-color);
         }
         &:focus, &:active {
             background: #FFF; box-shadow: var(--pe-outline-shadow);
@@ -341,7 +358,7 @@ html.pe-speed-imme {
     &.pe-grey {
         background: var(--pe-grey);
         &:hover {
-            background: var(--pe-grey-hover); color: var(--pe-color); fill: var(--pe-color); stroke: var(--pe-color);
+            background: var(--pe-grey-hover); color: var(--pe-color);
         }
         &:focus, &:active {
             background: var(--pe-grey); box-shadow: var(--pe-outline-shadow);
@@ -349,12 +366,12 @@ html.pe-speed-imme {
     }
     // --- 深色模式 ---
     &.pe-dark {
-        background: var(--pe-h-color); color: var(--pe-h-fcolor); fill: var(--pe-h-fcolor); stroke: var(--pe-h-fcolor);
+        background: var(--pe); color: var(--pe-fcolor);
         &:hover {
             filter: brightness(1.2);
         }
         &:focus, &:active {
-            filter: brightness(0.9); box-shadow: 0 0 0 4px var(--pe-h-bgcolor);
+            filter: brightness(0.9); box-shadow: 0 0 0 4px var(--pe-bg);
         }
 
         &.pe-disabled {
@@ -382,7 +399,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
         &:not(:hover):not(.pe-show) {
             .pe-button {
                 &.pe-plain {
-                    border-color: #FFF; color: #FFF; fill: #FFF; stroke: #FFF;
+                    border-color: #FFF; color: #FFF;
                     &:focus {
                         box-shadow: 0 0 0 4px rgba(255,255,255,.2);
                     }
@@ -426,7 +443,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 .pe-box {
     border: solid 1px var(--pe-border); background: #FFF; border-radius: var(--pe-radius); display: flex; align-items: initial; justify-content: center; flex-direction: column; transition: var(--pe-transition);
     &:hover {
-        color: var(--pe-color); fill: var(--pe-color); stroke: var(--pe-color);
+        color: var(--pe-color);
     }
 
     &.pe-hover {
@@ -458,7 +475,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 .pe-link {
     text-decoration: underline; transition: var(--pe-transition);
     &:hover {
-        color: var(--pe-h-color); background-position: center;
+        color: var(--pe); background-position: center;
     }
 }
 
@@ -470,12 +487,19 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
         content: ''; display: inline-block; width: 6px; height: 6px; border: solid 2px var(--pe-color); border-width: 0 0 2px 2px; transform: rotate(-45deg); margin-left: 10px; transition: var(--pe-transition); margin-top: -3px;
     }
     &:hover {
-        color: var(--pe-h-color); fill: var(--pe-h-color); stroke: var(--pe-h-color);
+        color: var(--pe);
         &::after {
-            border-color: var(--pe-h-color);
+            border-color: var(--pe);
         }
         .pe-menu {
             opacity: 1; transform: translateY(0); pointer-events: initial;
+        }
+    }
+}
+html.pe-rtl {
+    .pe-menudown {
+        &::after {
+            margin-left: initial; margin-right: 10px;
         }
     }
 }
@@ -487,7 +511,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     display: flex; height: 100%;
 }
 .pe-hske-first {
-    flex: 1; background-size: cover; background-position: center; display: flex; flex-direction: column; color: rgb(255, 255, 255, .6); fill: rgb(255, 255, 255, .6); stroke: rgb(255, 255, 255, .6);
+    flex: 1; background-size: cover; background-position: center; display: flex; flex-direction: column; color: oklch(1 0 0 / .6);
 }
 .pe-hske-last {
     flex: 2; display: flex; flex-direction: column;
@@ -502,10 +526,15 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 // --- pe-alert ---
 
 .pe-alert-content {
-    box-shadow: var(--pe-pop-shadow); background: #FFF; border-radius: var(--pe-radius); padding: 20px; transition: var(--pe-transition);
+    box-shadow: var(--pe-pop-shadow); background: #FFF; border: solid 1px transparent; border-radius: var(--pe-radius); padding: 20px; transition: var(--pe-transition); display: flex; align-items: center;
 }
 .pe-alert-icon {
     margin-right: 10px; width: 14px; height: 14px; border-radius: 50%;
+}
+html.pe-rtl {
+    .pe-alert-icon {
+        margin-right: initial; margin-left: 10px;
+    }
 }
 .pe-alert:not(.pe-show) {
     .pe-alert-content {
@@ -586,14 +615,14 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     .pe-tree-item {
         display: flex; flex-direction: column; padding: var(--pe-xspadding) var(--pe-spadding); align-items: initial; transition: var(--pe-transition); border-radius: var(--pe-radius);
         &:hover {
-            background: var(--pe-h-bgcolor); color: var(--pe-h-color); fill: var(--pe-h-color); stroke: var(--pe-h-color);
+            background: var(--pe-bg); color: var(--pe);
             &::after {
-                border-color: var(--pe-h-color);
+                border-color: var(--pe);
             }
         }
 
         &.pe-selected {
-                background: var(--pe-h-bgcolor); font-weight: bold; color: var(--pe-h-color); stroke: var(--pe-h-color); fill: var(--pe-h-color);
+            background: var(--pe-bg); font-weight: bold; color: var(--pe);
         }
     }
     div.pe-tree-item {
@@ -610,6 +639,18 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     }
     .pe-tree-menu {
         margin-left: var(--pe-spadding); transition: var(--pe-transition); overflow: hidden;
+    }
+}
+html.pe-rtl {
+    .pe-tree {
+        div.pe-tree-item {
+            &::after {
+                right: initial; left: var(--pe-spadding);
+            }
+        }
+        .pe-tree-menu {
+            margin-left: initial; margin-right: var(--pe-spadding);
+        }
     }
 }
 
@@ -684,7 +725,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
         flex: 0;
     }
     .pe-hske-bottom {
-        position: fixed; bottom: 0; left: 0; width: 100%; color: rgb(0, 0, 0, .6); fill: rgb(0, 0, 0, .6); stroke: rgb(0, 0, 0, .6);
+        position: fixed; bottom: 0; left: 0; width: 100%; color: oklch(0 0 0 / .6);
     }
     
     // --- pe-popbtns ---
@@ -718,7 +759,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
             .pe-anchor-item {
                 border-left: solid 1px var(--pe-border); padding-left: var(--pe-spadding); transition: var(--pe-transition); cursor: pointer;
                 &:hover {
-                    color: var(--pe-h-color);
+                    color: var(--pe);
                 }
 
                 &.pe-anchor-item-h3 {
@@ -735,7 +776,33 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
                 }
 
                 &.pe-selected {
-                    font-weight: bold; border-left-color: var(--pe-h-color); color: var(--pe-h-color);
+                    font-weight: bold; border-left-color: var(--pe); color: var(--pe);
+                }
+            }
+        }
+    }
+}
+html.pe-rtl {
+    .pe-anchor-right {
+        .pe-anchor-right-content {
+            .pe-anchor-item {
+                border-left: initial; border-right: solid 1px var(--pe-border); padding-left: initial; padding-right: var(--pe-spadding);
+
+                &.pe-anchor-item-h3 {
+                    padding-left: initial; padding-right: calc(var(--pe-spadding) * 2);
+                }
+                &.pe-anchor-item-h4 {
+                    padding-left: initial; padding-right: calc(var(--pe-spadding) * 3);
+                }
+                &.pe-anchor-item-h5 {
+                    padding-left: initial; padding-right: calc(var(--pe-spadding) * 4);
+                }
+                &.pe-anchor-item-h6 {
+                    padding-left: initial; padding-right: calc(var(--pe-spadding) * 5);
+                }
+
+                &.pe-selected {
+                    border-left-color: var(--pe-border); border-right-color: var(--pe);
                 }
             }
         }
@@ -757,7 +824,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     }
     // --- 渐变 ---
     &.pe-grad {
-        background: linear-gradient(to bottom, var(--pe-h-bgcolor), transparent);
+        background: linear-gradient(to bottom, var(--p-bg), transparent);
     }
 }
 .pe-banner-content {
@@ -772,11 +839,11 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 .pe-bar {
     display: flex; padding: 0 20px;
     &.pe-theme-dark {
-        background: var(--pe-h-color);
+        background: var(--pe);
         .pe-bar-item {
-            color: var(--pe-h-fcolor);
+            color: var(--pe-fcolor);
             &::after {
-                border-color: var(--pe-h-fcolor);
+                border-color: var(--pe-fcolor);
             }
         }
     }
@@ -807,6 +874,15 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
         &.pe-hover {
             .pe-menu {
                 opacity: 1; transform: translateY(0); pointer-events: initial;
+            }
+        }
+    }
+}
+html.pe-rtl {
+    .pe-bar-item {
+        &.pe-list {
+            &::after {
+                margin-left: initial; margin-right: 10px;
             }
         }
     }
@@ -845,10 +921,19 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
             }
         }
     }
+    html.pe-rtl {
+        .pe-bar-item {
+            &.pe-list {
+                &::after {
+                    right: initial; left: 30px;
+                }
+            }
+        }
+    }
 }
 
 .pe-btab {
-    -webkit-user-select: none; user-select: none; position: relative;
+    -webkit-user-select: none; user-select: none; position: relative; overflow: hidden;
 
     // --- 左右渐变 ---
     &::before, &::after {
@@ -878,12 +963,12 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
         .pe-btab-item {
             transition: var(--pe-transition); padding: var(--pe-xspadding) var(--pe-padding);
             &.pe-selected {
-                background: var(--pe-h-color); color: var(--pe-h-fcolor); stroke: var(--pe-h-fcolor); fill: var(--pe-h-fcolor); cursor: default;
+                background: var(--pe); color: var(--pe-fcolor); cursor: default;
             }
             &:not(.pe-selected) {
                 cursor: pointer;
                 &:hover {
-                    color: var(--pe-h-color); stroke: var(--pe-h-color); fill: var(--pe-h-color);
+                    color: var(--pe);
                 }
             }
         }
@@ -908,11 +993,11 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
             .pe-btab-item {
                 border-radius: var(--pe-xlradius);
                 &.pe-selected {
-                    background: var(--pe-h-bgcolor); font-weight: bold; color: var(--pe-h-color); stroke: var(--pe-h-color); fill: var(--pe-h-color);
+                    background: var(--pe-bg); font-weight: bold; color: var(--pe);
                 }
                 &:not(.pe-selected) {
                     &:hover {
-                        background: var(--pe-h-bgcolor); color: var(--pe-h-color); fill: var(--pe-h-color); stroke: var(--pe-h-color);
+                        background: var(--pe-bg); color: var(--pe);
                     }
                 }
             }
@@ -935,7 +1020,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
         }
 
         &:hover {
-            border: solid 1px var(--pe-h-color); color: var(--pe-h-color); fill: var(--pe-h-color); stroke: var(--pe-h-color);
+            border: solid 1px var(--pe); color: var(--pe);
         }
         &:active {
             box-shadow: var(--pe-outline-shadow);
@@ -952,21 +1037,42 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 }
 .pe-check {
     display: inline-flex; align-items: center; cursor: default; transition: var(--pe-transition); -webkit-user-select: none; user-select: none;
-    &:hover {
-        color: var(--pe-h-color); fill: var(--pe-h-color); stroke: var(--pe-h-color);
+
+    &.pe-checked {
         .pe-check-box {
-            background: var(--pe-input-hover-bg);
-        }
-    }
-    &:focus, &:active {
-        .pe-check-box {
-            background: var(--pe-input-bg); box-shadow: var(--pe-outline-shadow);
+            color: var(--pe-fcolor);
+            background: var(--pe);
+            border: solid .5px var(--pe);
         }
     }
     &:not(.pe-checked) {
         .pe-check-box {
             svg {
                 display: none;
+            }
+        }
+    }
+
+    &:hover {
+        color: var(--pe);
+        .pe-check-box {
+            background: var(--pe-input-hover-bg);
+        }
+        &.pe-checked {
+            .pe-check-box {
+                background: var(--pe-hover);
+                border: solid .5px var(--pe-hover);
+            }
+        }
+    }
+    &:focus, &:active {
+        .pe-check-box {
+            background: var(--pe-input-bg); box-shadow: var(--pe-outline-shadow);
+        }
+        &.pe-checked {
+            .pe-check-box {
+                background: var(--pe-active);
+                border: solid .5px var(--pe-active);
             }
         }
     }
@@ -1099,10 +1205,10 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
             flex: 1; display: flex; flex-direction: column; gap: var(--pe-xxspadding); padding: var(--pe-xxspadding); border-radius: var(--pe-radius); transition: var(--pe-transition); outline: solid .5px transparent; position: relative;
             &:not(.pe-disabled) {
                 &:hover:not(.selected):not(.pe-datepanel-range-left):not(.pe-datepanel-range-right) {
-                    outline: solid 1px var(--pe-h-color);
+                    outline: solid 1px var(--pe);
                 }
                 &:active {
-                    box-shadow: var(--pe-outline-shadow); background: var(--pe-h-bgcolor); outline: solid 1px var(--pe-h-color);
+                    box-shadow: var(--pe-outline-shadow); background: var(--pe-bg); outline: solid 1px var(--pe);
                 }
             }
             &.pe-disabled {
@@ -1111,10 +1217,10 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
                 }
             }
             &.pe-selected, &.pe-datepanel-range-left, &.pe-datepanel-range-right {
-                background: var(--pe-h-bgcolor); outline: solid 1px var(--pe-h-color);
+                background: var(--pe-bg); outline: solid 1px var(--pe);
             }
             &::before, &::after {
-                content: ''; position: absolute; top: 0; bottom: 0; width: var(--pe-xxspadding); background: var(--pe-h-color); opacity: 0; transition: var(--pe-transition);
+                content: ''; position: absolute; top: 0; bottom: 0; width: var(--pe-xxspadding); background: var(--pe); opacity: 0; transition: var(--pe-transition);
             }
             &::before {
                 left: calc(0px - var(--pe-xxspadding));
@@ -1124,7 +1230,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
             }
 
             &.pe-datepanel-range {
-                background: var(--pe-h-color); border-radius: 0; color: #FFF;
+                background: var(--pe); border-radius: 0; color: #FFF;
                 &::before, &::after {
                     opacity: 1;
                 }
@@ -1377,11 +1483,11 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
         margin-top: 44px;
     }
     &.pe-point {
-        border: solid 2px var(--pe-h-color);
+        border: solid 2px var(--pe);
     }
 }
 .pe-group-title {
-    padding: 10px; background: var(--pe-h-color); color: var(--pe-h-fcolor); fill: var(--pe-h-fcolor); stroke: var(--pe-h-fcolor); text-align: center; font-weight: bold;
+    padding: 10px; background: var(--pe); color: var(--pe-fcolor); text-align: center; font-weight: bold;
 }
 .pe-group-content {
     padding: var(--pe-padding); flex: 1;
@@ -1500,7 +1606,7 @@ html.pe-sheader {
 .pe-header-item {
     transition: var(--pe-transition); position: relative; height: 70px; line-height: 70px; padding: 0 30px; display: flex; align-items: center;
     &.pe-hover {
-        color: var(--pe-h-color); fill: var(--pe-h-color); stroke: var(--pe-h-color);
+        color: var(--pe);
     }
 
     &.pe-list {
@@ -1510,7 +1616,7 @@ html.pe-sheader {
         }
         &.pe-hover {
             &::after {
-                border-color: var(--pe-h-color);
+                border-color: var(--pe);
             }
             
             .pe-menu {
@@ -1650,7 +1756,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 .pe-menu-item {
     padding: 15px 35px 15px 15px; transition: var(--pe-transition); display: flex;
     &:hover {
-        background: var(--pe-h-bgcolor); color: var(--pe-h-color); fill: var(--pe-h-color); stroke: var(--pe-h-color); border-radius: var(--pe-radius);
+        background: var(--pe-bg); color: var(--pe); border-radius: var(--pe-radius);
     }
 }
 
@@ -1730,7 +1836,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
             box-shadow: var(--pe-outline-shadow); background: #FFF;
         }
         &.pe-selected {
-            border-color: var(--pe-h-color); background: var(--pe-h-color); color: #FFF; fill: #FFF; stroke: #FFF;
+            border-color: var(--pe); background: var(--pe); color: #FFF;
         }
     }
     > :not(:first-child) {
@@ -1796,7 +1902,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     border: solid 1px var(--pe-border); background: var(--pe-input-bg); box-shadow: var(--pe-shadow) inset; position: relative; height: 6px; border-radius: 3px;
 }
 .pe-slider-bar {
-    height: 100%; position: absolute; left: 0; top: 0; background: var(--pe-h-color);
+    height: 100%; position: absolute; left: 0; top: 0; background: var(--pe);
 }
 .pe-slider-block {
     width: 22px; height: 22px; background: var(--pe-input-bg); border: solid 1px var(--pe-border); box-shadow: var(--pe-shadow); border-radius: 11px; position: absolute; top: -9px; transition: var(--pe-transition); transition-property: background-color, box-shadow, transform; outline: none; -webkit-user-select: none; user-select: none;
@@ -1888,25 +1994,22 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 }
 
 .pe-switch-block {
-    left: 3px; top: 3px; width: calc(var(--pe-switch-size) - 8px); height: calc(100% - 6px); background: var(--pe-input-bg); position: absolute; transition: all .3s var(--pe-cubic); border: solid 1px var(--pe-border); box-shadow: var(--pe-shadow); border-radius: 100%;
-    &:hover {
-        background: var(--pe-grey);
-    }
+    left: 3px; top: 3px; width: calc(var(--pe-switch-size) - 6px); height: calc(100% - 6px); background: var(--pe-input-bg); position: absolute; transition: all .3s var(--pe-cubic); box-shadow: var(--pe-shadow-d); border-radius: 100%;
 }
 .pe-switch {
-    --pe-switch-size:35px; outline: none; width: calc(var(--pe-switch-size) * 2); height: var(--pe-switch-size); border: solid 1px var(--pe-border); background: var(--pe-input-bg); box-shadow: var(--pe-shadow) inset; border-radius: calc(var(--pe-switch-size) / 2); transition: var(--pe-transition); position: relative;
+    --pe-switch-size:35px; outline: none; width: calc(var(--pe-switch-size) * 2); height: var(--pe-switch-size); background: var(--pe-grey); border-radius: calc(var(--pe-switch-size) / 2); transition: var(--pe-transition); position: relative;
     // --- 选中模式 ---
     &:not(.pe-disabled) {
         &.pe-checked {
-            background: var(--pe-h-color);
+            background: var(--pe);
             .pe-switch-block {
                 left: calc(var(--pe-switch-size) + 3px);
             }
         }
-        &:focus, &:active {
-            box-shadow: var(--pe-shadow) inset, var(--pe-outline-shadow);
-            .pe-switch-block {
-                background: var(--pe-input-bg);
+        &:hover, &:focus, &:active {
+            background: var(--pe-grey-hover);
+            &.pe-checked {
+                background: var(--pe-hover);
             }
         }
     }
@@ -1925,7 +2028,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     &.pe-tab-type-rect {
         border-bottom: none; padding: 3px; background: var(--pe-grey); border-radius: var(--pe-radius); position: relative;
         &::before {
-            content: ''; border-color: var(--pe-border); background: #FFF; box-shadow: var(--pe-shadow); position: absolute; left: 3px; top: 3px; height: calc(100% - 6px); width: var(--pe-tab-item-width); transition: var(--pe-transition); transform: translateX(calc(var(--pe-tab-item-left) - 3px));
+            content: ''; border-color: var(--pe-border); border-radius: var(--pe-radius); background: #FFF; box-shadow: var(--pe-shadow-d); position: absolute; left: 3px; top: 3px; height: calc(100% - 6px); width: var(--pe-tab-item-width); transition: var(--pe-transition); transform: translateX(calc(var(--pe-tab-item-left) - 3px));
         }
     }
 }
@@ -1933,7 +2036,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 .pe-tab-item {
     padding: var(--pe-xspadding) var(--pe-spadding); transition: var(--pe-transition); border-bottom: solid 3px transparent; transform: translateY(1px);
     &.pe-selected {
-        color: var(--pe-h-color); fill: var(--pe-h-color); stroke: var(--pe-h-color); font-weight: bold; border-bottom-color: var(--pe-h-color);
+        color: var(--pe); font-weight: bold; border-bottom-color: var(--pe);
     }
 }
 
@@ -1942,13 +2045,13 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
         .pe-tab-item {
             padding: var(--pe-xxspadding) var(--pe-xspadding); border-radius: var(--pe-xlradius); border: none;
             &.pe-selected {
-                background: var(--pe-h-bgcolor);
+                background: var(--pe-bg);
             }
         }
     }
     &.pe-tab-type-rect {
         .pe-tab-item {
-            padding: var(--pe-xxspadding) var(--pe-xspadding); border-radius: var(--pe-radius); border: solid 1px transparent; transform: initial; z-index: 1;
+            padding: var(--pe-xxspadding) var(--pe-xspadding); border: solid 1px transparent; transform: initial; z-index: 1;
             &.pe-selected {
                 font-weight: initial; color: var(--pe-color); fill: var(--pe-color); stroke: var(--pe-color);
             }
@@ -2054,7 +2157,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
             background: var(--danger); border-color: var(--danger);
         }
         &.pe-type-pe {
-            background: var(--pe-h-color); border-color: var(--pe-h-color);
+            background: var(--pe); border-color: var(--pe);
         }
 
         svg {
@@ -2134,7 +2237,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
         &.pe-type-pe {
             svg {
                 &:hover {
-                    background: var(--pe-h-color);
+                    background: var(--pe);
                 }
                 &:active {
                     background: var(--pe-color);

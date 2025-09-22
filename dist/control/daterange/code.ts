@@ -1,6 +1,7 @@
-import * as dom from '../../dom';
-import * as tool from '../../tool';
-import * as types from '../../../types';
+import * as lDom from '../../dom';
+import * as lTool from '../../tool';
+import * as lControl from '../../control';
+import * as purease from '../../purease.js';
 
 export const code = {
     'template': '',
@@ -147,6 +148,34 @@ export const code = {
                     'cancel': 'Hủy',
                     'ok': 'OK',
                     'please click select': 'Nhấn chọn'
+                },
+                'ar': {
+                    'minute': 'د',
+                    'zone': 'منطقة',
+                    'cancel': 'إلغاء',
+                    'ok': 'موافق',
+                    'please click select': 'انقر للاختيار'
+                },
+                'id': {
+                    'minute': 'Mnt',
+                    'zone': 'Zona',
+                    'cancel': 'Batal',
+                    'ok': 'OK',
+                    'please click select': 'Klik pilih'
+                },
+                'it': {
+                    'minute': 'Min',
+                    'zone': 'Zona',
+                    'cancel': 'Annulla',
+                    'ok': 'OK',
+                    'please click select': 'Clicca per selez.'
+                },
+                'tr': {
+                    'minute': 'Dak',
+                    'zone': 'Bölge',
+                    'cancel': 'İptal',
+                    'ok': 'Tamam',
+                    'please click select': 'Seç için tıkla'
                 }
             },
 
@@ -162,18 +191,18 @@ export const code = {
     },
     'methods': {
         // --- 单击事件 ---
-        click: function(this: types.IVue, e: MouseEvent, type: 'first' | 'zone'): void {
+        click: function(this: purease.IVue, e: MouseEvent, type: 'first' | 'zone'): void {
             const el = this.$refs[type + 'pop'];
             if (el.classList.contains('pe-show')) {
-                dom.hidePop(el);
+                lDom.hidePop(el);
                 return;
             }
             if (type === 'first') {
                 this.showTwoDatePanel = window.innerWidth >= 600 ? true : false;
             }
-            dom.showPop(e, el);
+            lDom.showPop(e, el);
         },
-        zoneOk: function(this: types.IVue): void {
+        zoneOk: function(this: purease.IVue): void {
             const vz = parseInt(this.vzone);
             if (vz >= 0) {
                 this.tzData = vz + (parseInt(this.vzdec) / 60);
@@ -188,41 +217,41 @@ export const code = {
                     this.dateObj[1].getTime() - this.tzData * 60 * 60_000
                 ]);
             }
-            dom.hidePop();
+            lDom.hidePop();
         },
         cancel: function(): void {
-            dom.hidePop();
+            lDom.hidePop();
         },
         // --- 清除已选中的 ---
-        clear: function(this: types.IVue): void {
+        clear: function(this: purease.IVue): void {
             this.ts = undefined;
             this.dateStr.length = 0;
             this.$emit('update:modelValue', []);
         },
-        onRange: function(this: types.IVue, e: types.IDatepanelRangeEvent): void {
+        onRange: function(this: purease.IVue, e: lControl.IDatepanelRangeEvent): void {
             e.preventDefault();
             const value: number[] = [];
             // --- start ---
-            let res = tool.formatTime(e.detail.start, this.tzData);
+            let res = lTool.formatTime(e.detail.start, this.tzData);
             this.dateStr[0] = res.date;
             this.timeStr[0] = res.time;
             value.push(e.detail.start);
             this.dateObj[0].setTime(e.detail.start + this.tzData * 60 * 60_000);
             // --- end ---
-            res = tool.formatTime(e.detail.end, this.tzData);
+            res = lTool.formatTime(e.detail.end, this.tzData);
             this.dateStr[1] = res.date;
             this.timeStr[1] = res.time;
             value.push(e.detail.end);
             this.dateObj[1].setTime(e.detail.end + this.tzData * 60 * 60_000);
             // --- 提交数据 ---
             this.$emit('update:modelValue', value);
-            dom.hidePop(this.$refs.firstpop);
+            lDom.hidePop(this.$refs.firstpop);
             // --- 清空选中 ---
             this.$refs.firstpanel.clear();
             this.$refs.endpanel.clear();
         },
         /** --- 左侧的 changed --- */
-        firstChanged: function(this: types.IVue, e: types.IDatepanelChangedEvent): void {
+        firstChanged: function(this: purease.IVue, e: lControl.IDatepanelChangedEvent): void {
             if (e.detail.value === undefined) {
                 this.ts2 = undefined;
                 return;
@@ -231,7 +260,7 @@ export const code = {
             date.setUTCHours(23, 59, 59, 0);
             this.ts2 = date.getTime() - this.tzData * 60 * 60_000;
         },
-        onYmChange: function(this: types.IVue): void {
+        onYmChange: function(this: purease.IVue): void {
             if (this.endym > this.firstym) {
                 return;
             }
@@ -240,7 +269,7 @@ export const code = {
             this.endym = date.getUTCFullYear().toString() + (date.getUTCMonth() + 1).toString().padStart(2, '0');
         }
     },
-    'mounted': function(this: types.IVue) {
+    'mounted': function(this: purease.IVue) {
         // --- 填充时区 ---
         for (let i = -12; i <= 14; ++i) {
             this.zones.push((i >= 0 ? '+' : '') + i.toString());
@@ -275,7 +304,7 @@ export const code = {
             const modelValue = this.propArray('modelValue');
             for (let i = 0; i <= 1; ++i) {
                 const ts = typeof modelValue[i] === 'string' ? parseInt(modelValue[i]) : modelValue[i];
-                const res = tool.formatTime(ts, this.tzData);
+                const res = lTool.formatTime(ts, this.tzData);
                 this.dateStr[i] = res.date;
                 this.timeStr[i] = res.time;
             }
