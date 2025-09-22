@@ -1,6 +1,6 @@
 {
     "name": "purease",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "Lightweight and user-friendly front-end library.",
     "type": "module",
     "keywords": [
@@ -14,7 +14,7 @@
     "bin": {
         "purease": "./bin/purease.js"
     },
-    "types": "./purease.d.ts",
+    "types": "./dist/purease.d.ts",
     "devDependencies": {
         "@litert/eslint-plugin-rules": "^0.3.1",
         "@types/node": "^24.0.3",

@@ -6,7 +6,7 @@ const program = new cmd.Command();
 program
     .name('purease')
     .description('Lightweight and user-friendly front-end library.')
-    .version('1.0.2', '-v, --version');
+    .version('1.0.3', '-v, --version');
 
 program
     // --- boot ---
