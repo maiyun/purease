@@ -45,6 +45,10 @@ export class AbstractPage {
             this._localePath = opt.localePath;
         }
     }
+    /** --- 完全加载完成后执行，不会阻塞加载进程 --- */
+    onReady() {
+        return;
+    }
     onBeforeUpdate() {
         return;
     }
@@ -558,6 +562,8 @@ export function launcher(page, options = {}) {
         await cpage.main.call(rtn.vroot);
         htmls[0].style.overflow = '';
         htmls[0].style.visibility = '';
+        // --- 执行 onReady ---
+        await cpage.onReady.call(rtn.vroot);
     })().catch(function (e) {
         display('launcher', e);
     });

@@ -37,8 +37,13 @@ export abstract class AbstractPage {
         }
     }
 
-    /** --- 入口方法 --- */
+    /** --- 入口方法，会阻塞加载进程 --- */
     public abstract main(): void | Promise<void>;
+
+    /** --- 完全加载完成后执行，不会阻塞加载进程 --- */
+    public onReady(): void | Promise<void> {
+        return;
+    }
 
     public onBeforeUpdate(): void | Promise<void> {
         return;
@@ -651,6 +656,8 @@ export function launcher<T extends AbstractPage>(page: new (opt: {
         await cpage.main.call(rtn.vroot);
         htmls[0].style.overflow = '';
         htmls[0].style.visibility = '';
+        // --- 执行 onReady ---
+        await cpage.onReady.call(rtn.vroot);
     })().catch(function(e) {
         display('launcher', e);
     });
