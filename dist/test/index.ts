@@ -91,6 +91,10 @@ class Page extends purease.AbstractPage {
         purease.display('Inited.', purease);
     }
 
+    public onReady(): void {
+        purease.display('onReady', purease);
+    }
+
     public async showDialog(): Promise<void> {
         await this.dialog('This is a dialog.');
     }
