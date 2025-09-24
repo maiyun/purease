@@ -16,9 +16,9 @@ package-lock.json
 /dist/control/
 /dist/test/
 /dist/purease.js
-/dist/control*
-/dist/dom*
-/dist/tool*
+/dist/control.js
+/dist/dom.js
+/dist/tool.js
 /dist/pack*
 /dist/index.scss
 /types/
