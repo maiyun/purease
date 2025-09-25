@@ -106,9 +106,13 @@ This library is published under [Apache-2.0](./LICENSE) license.
 
 [Language SVG Vector](https://www.svgrepo.com/svg/451017/language)
 
-#### Backspace
+##### backspace
 
 [Backspace SVG Vector](https://www.svgrepo.com/svg/529359/backspace)
+
+##### switch
+
+[Switch SVG Vector](https://www.svgrepo.com/svg/391098/switch)
 
 ### **LICENSE:** MIT License **AUTHOR:** sigurdarson
 
