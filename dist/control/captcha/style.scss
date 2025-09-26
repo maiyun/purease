@@ -1,10 +1,10 @@
 .pe-captcha {
     transition: var(--pe-transition); border-radius: var(--pe-radius); cursor: default; -webkit-user-select: none; user-select: none; box-shadow: var(--pe-shadow);
     &.pe-not {
-        border: dotted 1px var(--pe-color); display: flex; align-items: center; justify-content: center; padding: var(--pe-xspadding) var(--pe-spadding);
+        border: dotted 1px var(--pe-color); display: flex; align-items: center; justify-content: center; padding: var(--pe-padding-xs) var(--pe-padding-s);
     }
     &.pe-captcha-tc {
-        border: solid 1px var(--pe-border); background: var(--pe-input-bg); display: flex; align-items: center; justify-content: center; padding: var(--pe-xspadding) var(--pe-spadding);
+        border: solid 1px var(--pe-border); background: var(--pe-input-bg); display: flex; align-items: center; justify-content: center; padding: var(--pe-padding-xs) var(--pe-padding-s);
         &.pe-captcha-failed {
             color: var(--danger); border-color: var(--danger);
         }

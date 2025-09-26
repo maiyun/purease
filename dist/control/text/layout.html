@@ -4,7 +4,10 @@
         <slot name="prepend"></slot>
     </div>
     <textarea v-if="type==='multi'" ref="text" :placeholder="placeholder" :value="value" @input="input" @focus="tfocus" @blur="tblur"></textarea>
-    <input v-else ref="text" :placeholder="placeholder" :value="value" @input="input" @focus="tfocus" @blur="tblur" :type="type">
+    <input v-else ref="text" :placeholder="placeholder" :value="value" @input="input" @focus="tfocus" @blur="tblur" :type="type === 'password' ? (showPassword ? 'text' : 'password') : type">
+    <div v-if="type === 'password'" class="pe-text-sicon" @click="showPassword=!showPassword">
+        <pe-icon :name="showPassword ? 'eye' : 'eye-slash'"></pe-icon>
+    </div>
     <div v-if="$slots['append']" class="pe-append">
         <slot name="append"></slot>
     </div>

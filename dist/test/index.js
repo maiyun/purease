@@ -28,6 +28,9 @@ class Page extends purease.AbstractPage {
         this.sheader = false;
         this.slogo = false;
         this.rtl = false;
+        this.settingHover = false;
+        this.settingPlain = false;
+        this.tabHover = false;
         this.customDialog = false;
         this.customDialogText = '';
         // --- page 控件演示 ---
@@ -124,7 +127,7 @@ class Page extends purease.AbstractPage {
         await this.dialog({
             'title': 'Title',
             'content': 'Has title',
-            'buttons': ['Cancel', 'OK']
+            'buttons': ['Cancel', 'OK'],
         });
     }
     async showConfirm() {

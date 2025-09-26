@@ -5,10 +5,10 @@
     display: flex; align-items: center;
 }
 .pe-drawer-title {
-    flex: 1; padding: var(--pe-padding); font-size: var(--pe-xxlsize);
+    flex: 1; padding: var(--pe-padding); font-size: var(--pe-size-xxl);
 }
 .pe-drawer-close {
-    padding: var(--pe-xspadding); margin-right: var(--pe-padding); display: flex; align-items: center; transition: var(--pe-transition); border-radius: var(--pe-radius);
+    padding: var(--pe-padding-xs); margin-right: var(--pe-padding); display: flex; align-items: center; transition: var(--pe-transition); border-radius: var(--pe-radius);
     &:hover {
         background: var(--pe-grey);
     }

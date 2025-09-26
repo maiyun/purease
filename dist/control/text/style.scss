@@ -11,16 +11,24 @@
     }
 
     input, textarea {
-        -webkit-appearance: none; appearance: none; background: transparent; flex: 1; width: 0; outline: none; border: none; padding: var(--pe-xspadding); resize: none;
+        -webkit-appearance: none; appearance: none; background: transparent; flex: 1; width: 0; outline: none; border: none; padding: var(--pe-padding-xs); resize: none;
     }
 
     .pe-before, .pe-after {
         display: flex;
     }
     .pe-prepend {
-        display: flex; align-items: center; padding-left: var(--pe-xspadding);
+        display: flex; align-items: center; padding-left: var(--pe-padding-xs);
     }
+
+    .pe-text-sicon {
+        display: flex; align-items: center; padding-right: var(--pe-padding-xs); opacity: .6; transition: var(--pe-transition);
+        &:hover {
+            opacity: 1;
+        }
+    }
+
     .pe-append {
-        display: flex; align-items: center; padding-right: var(--pe-xspadding);
+        display: flex; align-items: center; padding-right: var(--pe-padding-xs);
     }
 }

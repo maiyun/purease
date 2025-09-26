@@ -1,0 +1,12 @@
+.pe-setting {
+    border-radius: var(--pe-radius-l); border: solid .5px var(--pe-border-plain); text-align: initial; overflow: hidden;
+
+    > :not(:last-child) {
+        border-bottom: solid .5px var(--pe-border-plain);
+    }
+
+    &.pe-setting-plain {
+        border-left: none; border-right: none; border-radius: 0;
+    }
+
+}

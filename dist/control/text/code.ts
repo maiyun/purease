@@ -43,7 +43,8 @@ export const code = {
     'data': function() {
         return {
             'isFocus': false,
-            'value': ''
+            'value': '',
+            'showPassword': false,
         };
     },
     'methods': {

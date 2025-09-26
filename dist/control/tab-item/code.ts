@@ -24,6 +24,19 @@ export const code = {
             if (lDom.hasTouchButMouse(e)) {
                 return;
             }
+            if (!this.$parent.propBoolean('hover')) {
+                return;
+            }
+            this.$parent.selected = this.index;
+            this.resize();
+        },
+        click: function(this: purease.IVue) {
+            if (!this.$parent) {
+                return;
+            }
+            if (this.$parent.propBoolean('hover')) {
+                return;
+            }
             this.$parent.selected = this.index;
             this.resize();
         },

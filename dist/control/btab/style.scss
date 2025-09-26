@@ -27,7 +27,7 @@
     .pe-btab-content {
         display: flex; margin: 0 auto; width: min-content;
         .pe-btab-item {
-            transition: var(--pe-transition); padding: var(--pe-xspadding) var(--pe-padding);
+            transition: var(--pe-transition); padding: var(--pe-padding-xs) var(--pe-padding);
             &.pe-selected {
                 background: var(--pe); color: var(--pe-fcolor); cursor: default;
             }
@@ -57,7 +57,7 @@
         .pe-btab-content {
             gap: 10px;
             .pe-btab-item {
-                border-radius: var(--pe-xlradius);
+                border-radius: var(--pe-radius-xl);
                 &.pe-selected {
                     background: var(--pe-bg); font-weight: bold; color: var(--pe);
                 }

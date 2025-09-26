@@ -1,5 +1,5 @@
 .pe-datepanel-wrap {
-    border-radius: var(--pe-radius); display: flex; flex-direction: column; gap: var(--pe-xspadding); padding: var(--pe-xspadding);
+    border-radius: var(--pe-radius); display: flex; flex-direction: column; gap: var(--pe-padding-xs); padding: var(--pe-padding-xs);
     &:not(.pe-plain) {
         border: solid 1px var(--pe-border); background: var(--pe-input-bg);
     }
@@ -13,7 +13,7 @@
         display: flex; white-space: nowrap;
 
         .pe-datepanel-left {
-            flex: 1; display: flex; gap: var(--pe-xxspadding);
+            flex: 1; display: flex; gap: var(--pe-padding-xxs);
 
             .pe-datepanel-monthleft, .pe-datepanel-monthright {
                 .pe-datepanel-arrow {
@@ -35,7 +35,7 @@
             }
         }
         .pe-datepanel-right {
-            justify-content: right; display: flex; gap: var(--pe-xxspadding); padding-left: var(--pe-xxspadding);
+            justify-content: right; display: flex; gap: var(--pe-padding-xxs); padding-left: var(--pe-padding-xxs);
         }
     }
 
@@ -43,15 +43,15 @@
         display: flex;
 
         > * {
-            flex: 1; display: flex; justify-content: center; padding: var(--pe-xxspadding);
+            flex: 1; display: flex; justify-content: center; padding: var(--pe-padding-xxs);
         }
     }
 
     .pe-datepanel-row {
-        display: flex; gap: var(--pe-xxspadding); flex: 1;
+        display: flex; gap: var(--pe-padding-xxs); flex: 1;
 
         .pe-datepanel-col {
-            flex: 1; display: flex; flex-direction: column; gap: var(--pe-xxspadding); padding: var(--pe-xxspadding); border-radius: var(--pe-radius); transition: var(--pe-transition); outline: solid .5px transparent; position: relative;
+            flex: 1; display: flex; flex-direction: column; gap: var(--pe-padding-xxs); padding: var(--pe-padding-xxs); border-radius: var(--pe-radius); transition: var(--pe-transition); outline: solid .5px transparent; position: relative;
             &:not(.pe-disabled) {
                 &:hover:not(.selected):not(.pe-datepanel-range-left):not(.pe-datepanel-range-right) {
                     outline: solid 1px var(--pe);
@@ -69,13 +69,13 @@
                 background: var(--pe-bg); outline: solid 1px var(--pe);
             }
             &::before, &::after {
-                content: ''; position: absolute; top: 0; bottom: 0; width: var(--pe-xxspadding); background: var(--pe); opacity: 0; transition: var(--pe-transition);
+                content: ''; position: absolute; top: 0; bottom: 0; width: var(--pe-padding-xxs); background: var(--pe); opacity: 0; transition: var(--pe-transition);
             }
             &::before {
-                left: calc(0px - var(--pe-xxspadding));
+                left: calc(0px - var(--pe-padding-xxs));
             }
             &::after {
-                right: calc(0px - var(--pe-xxspadding));
+                right: calc(0px - var(--pe-padding-xxs));
             }
 
             &.pe-datepanel-range {
@@ -107,6 +107,6 @@
     }
 
     .pe-datepanel-footer {
-        display: flex; gap: var(--pe-xxspadding); align-items: center; justify-content: center;
+        display: flex; gap: var(--pe-padding-xxs); align-items: center; justify-content: center;
     }
 }

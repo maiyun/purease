@@ -12,7 +12,7 @@ export const code = {
             'default': false
         },
         'size': {
-            // --- 'm' | 'l' ---
+            // --- 'xs', 's', 'm' | 'l' ---
             'default': 'm'
         },
         'close': {

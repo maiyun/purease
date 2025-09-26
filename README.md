@@ -100,7 +100,7 @@ This library is published under [Apache-2.0](./LICENSE) license.
 
 ##### link
 
-[Square Top Down SVG Vector 6](https://www.svgrepo.com/svg/529231/square-top-down)  
+[Square Top Down SVG Vector 6](https://www.svgrepo.com/svg/529231/square-top-down)
 
 ##### language
 
@@ -113,6 +113,18 @@ This library is published under [Apache-2.0](./LICENSE) license.
 ##### switch
 
 [Switch SVG Vector](https://www.svgrepo.com/svg/391098/switch)
+
+### **LICENSE:** CC Attribution License **AUTHOR:** Dazzle UI
+
+#### Icon
+
+##### eye
+
+[Eye Slash Alt SVG](https://www.svgrepo.com/svg/532463/eye-slash-alt)
+
+##### eye-alt
+
+[Eye Alt SVG Vector ](https://www.svgrepo.com/svg/532492/eye-alt)
 
 ### **LICENSE:** MIT License **AUTHOR:** sigurdarson
 

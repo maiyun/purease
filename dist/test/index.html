@@ -177,7 +177,7 @@ purease = {
         </pe-group>
     </div>
     <div class="pe-bnote">Style 2</div>
-    <div class="pe-alayout pe-content pe-padding-lr pe-gap" style="align-items: center;">
+    <div class="pe-alayout pe-content pe-padding-lr pe-gap pe-align-center-max">
         <pe-group style="flex: 1;">
             111
             <template v-slot:bottom>
@@ -236,6 +236,24 @@ purease = {
     <div class="pe-btitle">RTL Mode</div>
     <div class="pe-layout" style="justify-content: center;">
         <div class="pe-button pe-pgrey" @click="changeRTL">{{rtl ? '' : '!'}}RTL</div>
+    </div>
+</div>
+<!-- Setting -->
+<div class="pe-block">
+    <div class="pe-btitle">Setting</div>
+    <div class="pe-layout pe-content pe-padding-lr pe-gap" style="flex-direction: column;">
+        <pe-setting :hover="settingHover" :plain="settingPlain">
+            <pe-setting-item title="How are you" note="Ok, I'm ok, you?">END</pe-setting-item>
+            <pe-setting-item title="How are you" note="Ok, I'm ok, you?">
+                <pe-switch />
+            </pe-setting-item>
+            <pe-setting-item title="How are you" note="No right"></pe-setting-item>
+            <pe-setting-item v-slot:left>v-slot:left</pe-setting-item>
+        </pe-setting>
+        <div class="pe-layout pe-sgap" style="justify-content: center;">
+            <div class="pe-button pe-pgrey" @click="settingHover = !settingHover">{{settingHover ? '' : '!'}}hover</div>
+            <div class="pe-button pe-pgrey" @click="settingPlain = !settingPlain">{{settingPlain ? '' : '!'}}plain</div>
+        </div>
     </div>
 </div>
 <!-- 脚部 -->

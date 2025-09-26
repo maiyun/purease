@@ -192,27 +192,30 @@
 <!-- tab -->
 <div class="pe-block">
     <div class="pe-btitle">Tab</div>
-    <pe-tab>
+    <pe-tab :hover="tabHover">
         <pe-tab-item>Tab1</pe-tab-item>
         <pe-tab-item>Tab2</pe-tab-item>
         <pe-tab-item>Tab3</pe-tab-item>
     </pe-tab>
-    <pe-tab type="plain">
+    <pe-tab type="plain" :hover="tabHover">
         <pe-tab-item>Tab1</pe-tab-item>
         <pe-tab-item>Tab2</pe-tab-item>
         <pe-tab-item>Tab3</pe-tab-item>
     </pe-tab>
-    <pe-tab type="light">
+    <pe-tab type="light" :hover="tabHover">
         <pe-tab-item>Tab1</pe-tab-item>
         <pe-tab-item>Tab2</pe-tab-item>
         <pe-tab-item>Tab3</pe-tab-item>
     </pe-tab>
     <div class="pe-layout" style="justify-content: center;">
-        <pe-tab type="rect">
+        <pe-tab type="rect" :hover="tabHover">
             <pe-tab-item>Tab1</pe-tab-item>
             <pe-tab-item>Tab2222</pe-tab-item>
             <pe-tab-item>Tab34</pe-tab-item>
         </pe-tab>
+    </div>
+    <div class="pe-layout" style="justify-content: center;">
+        <div class="pe-button pe-pgrey" @click="tabHover = !tabHover">{{tabHover ? '' : '!'}}hover</div>
     </div>
 </div>
 <!-- 脚部 -->

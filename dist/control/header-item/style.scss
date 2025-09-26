@@ -29,9 +29,9 @@ html.pe-sheader {
 html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     &.pe-theme-rev:not(.pe-black) {
         &:not(:hover):not(.pe-show) {
-            color: #FFF; fill: #FFF; stroke: #FFF;
+            color: #FFF;
             .pe-header-item {
-                color: #FFF; fill: #FFF; stroke: #FFF;
+                color: #FFF;
                 &.pe-list {
                     &::after {
                         border-color: #FFF;

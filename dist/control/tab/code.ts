@@ -17,6 +17,9 @@ export const code = {
             // --- default, plain, light, rect ---
             'default': 'default',
         },
+        'hover': {
+            'default': false,
+        }
     },
     'watch': {
         'selected': {

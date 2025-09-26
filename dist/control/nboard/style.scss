@@ -5,7 +5,7 @@
     }
 
     .pe-nboard-title {
-        font-size: var(--pe-xlsize); padding: var(--pe-padding); padding-bottom: 0;
+        font-size: var(--pe-size-xl); padding: var(--pe-padding); padding-bottom: 0;
     }
 
     .pe-nboard-wrap {
@@ -14,7 +14,7 @@
         .pe-nboard-input {
             display: flex; border: solid 1px var(--pe-border-plain); border-radius: var(--pe-radius);
             > .pe-nboard-item {
-                width: calc(var(--pe-spadding) * 2 + var(--pe-size)); height: calc(var(--pe-spadding) * 2 + var(--pe-size)); display: flex; align-items: center; justify-content: center; 
+                width: calc(var(--pe-padding-s) * 2 + var(--pe-size)); height: calc(var(--pe-padding-s) * 2 + var(--pe-size)); display: flex; align-items: center; justify-content: center; 
                 &:not(:last-child) {
                     border-right: solid 1px var(--pe-border-plain);
                 }
@@ -24,7 +24,7 @@
     }
 
     .pe-nboard-line {
-        display: flex; font-size: var(--pe-lsize); border-top: solid 1px var(--pe-border-plain);
+        display: flex; font-size: var(--pe-size-l); border-top: solid 1px var(--pe-border-plain);
         > div {
             padding: var(--pe-padding); flex: 1; transition: var(--pe-transition); display: flex; align-items: center; justify-content: center;
             &:not(:last-child) {
@@ -40,7 +40,7 @@
         }
 
         .pe-icon {
-            width: var(--pe-xlsize); height: var(--pe-xlsize);
+            width: var(--pe-size-xl); height: var(--pe-size-xl);
         }
     }
 }

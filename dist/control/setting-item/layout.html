@@ -1,0 +1,14 @@
+<div class="pe-setting-item">
+    <div class="pe-setting-item-left">
+        <template v-if="$slots['left']">
+            <slot name="left"></slot>
+        </template>
+        <template v-else>
+            <div class="pe-setting-item-title">{{title}}</div>
+            <div class="pe-setting-item-note">{{note}}</div>
+        </template>
+    </div>
+    <div class="pe-setting-item-right" :style="{'align-items': direction === 'v' ? alignHComp : alignVComp, 'justify-content': direction === 'v' ? alignVComp : alignHComp, 'gap': propNumber('gutter') ? (gutter + 'px') : '0'}">
+        <slot></slot>
+    </div>
+</div>

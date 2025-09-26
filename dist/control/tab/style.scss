@@ -1,5 +1,5 @@
 .pe-tab {
-    display: flex; justify-content: center; cursor: default; -webkit-user-select: none; user-select: none; border-bottom: solid 1px var(--pe-border); color: var(--pe-inote-color); fill: var(--pe-inote-color); stroke: var(--pe-inote-color);
+    display: flex; justify-content: center; cursor: default; -webkit-user-select: none; user-select: none; border-bottom: solid 1px var(--pe-border); color: var(--pe-inote-color);
 
     // --- 朴素模式 ---
     &.pe-tab-type-plain {
@@ -11,7 +11,7 @@
     &.pe-tab-type-rect {
         border-bottom: none; padding: 3px; background: var(--pe-grey); border-radius: var(--pe-radius); position: relative;
         &::before {
-            content: ''; border-color: var(--pe-border); border-radius: var(--pe-radius); background: #FFF; box-shadow: var(--pe-shadow-d); position: absolute; left: 3px; top: 3px; height: calc(100% - 6px); width: var(--pe-tab-item-width); transition: var(--pe-transition); transform: translateX(calc(var(--pe-tab-item-left) - 3px));
+            content: ''; border-color: var(--pe-border); border-radius: var(--pe-radius); background: #FFF; position: absolute; left: 3px; top: 3px; height: calc(100% - 6px); width: var(--pe-tab-item-width); transition: var(--pe-transition); transform: translateX(calc(var(--pe-tab-item-left) - 3px));
         }
     }
 }

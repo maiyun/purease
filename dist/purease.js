@@ -2,6 +2,81 @@ import * as lControl from './control.js';
 import * as lTool from './tool.js';
 import * as lDom from './dom.js';
 export { lControl as control, lTool as tool, lDom as dom };
+/** --- 语言包 --- */
+const locale = {
+    'en': {
+        'ok': 'OK',
+        'yes': 'Yes',
+        'no': 'No',
+        'cancel': 'Cancel',
+    },
+    'sc': {
+        'ok': '好',
+        'yes': '是',
+        'no': '否',
+        'cancel': '取消',
+    },
+    'tc': {
+        'ok': '好',
+        'yes': '是',
+        'no': '否',
+        'cancel': '取消',
+    },
+    'ja': {
+        'ok': '好',
+        'yes': 'はい',
+        'no': 'いいえ',
+        'cancel': 'キャンセル',
+    },
+    'ko': {
+        'ok': '확인',
+        'yes': '예',
+        'no': '아니오',
+        'cancel': '취소',
+    },
+    'th': {
+        'ok': 'ตกลง',
+        'yes': 'ใช่',
+        'no': 'ไม่',
+        'cancel': 'ยกเลิก',
+    },
+    'es': {
+        'ok': 'Aceptar',
+        'yes': 'Sí',
+        'no': 'No',
+        'cancel': 'Cancelar',
+    },
+    'de': {
+        'ok': 'OK',
+        'yes': 'Ja',
+        'no': 'Nein',
+        'cancel': 'Abbrechen',
+    },
+    'fr': {
+        'ok': 'OK',
+        'yes': 'Oui',
+        'no': 'Non',
+        'cancel': 'Annuler',
+    },
+    'pt': {
+        'ok': 'OK',
+        'yes': 'Sim',
+        'no': 'Não',
+        'cancel': 'Cancelar',
+    },
+    'ru': {
+        'ok': 'OK',
+        'yes': 'Да',
+        'no': 'Нет',
+        'cancel': 'Отмена',
+    },
+    'vi': {
+        'ok': '好',
+        'yes': 'Có',
+        'no': 'Không',
+        'cancel': 'Hủy bỏ',
+    },
+};
 /** --- 总大页面 --- */
 export class AbstractPage {
     /** --- 获取系统当前语言 --- */
@@ -109,7 +184,7 @@ export class AbstractPage {
         this.dialogInfo.show = true;
         this.dialogInfo.title = o.title ?? '';
         this.dialogInfo.content = o.content;
-        this.dialogInfo.buttons = o.buttons ?? ['OK'];
+        this.dialogInfo.buttons = o.buttons ?? [locale[this.locale].ok];
         return new Promise((resolve) => {
             this.dialogInfo.select = async (button) => {
                 if (!o.select) {
@@ -132,19 +207,19 @@ export class AbstractPage {
         const o = typeof opt === 'string' ? {
             'content': opt
         } : opt;
-        const buttons = ['No', 'Yes'];
+        const buttons = [locale[this.locale].no, locale[this.locale].yes];
         if (o.cancel) {
-            buttons.unshift('Cancel');
+            buttons.unshift(locale[this.locale].cancel);
         }
         const res = await this.dialog({
             'title': o.title,
             'content': o.content,
-            'buttons': buttons
+            'buttons': buttons,
         });
-        if (res === 'Yes') {
+        if (res === locale[this.locale].yes) {
             return true;
         }
-        if (res === 'Cancel') {
+        if (res === locale[this.locale].cancel) {
             return 0;
         }
         return false;

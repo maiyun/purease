@@ -12,22 +12,22 @@
             position: sticky; top: calc(var(--pe-headerheight) + var(--pe-padding)); line-height: 2;
 
             .pe-anchor-item {
-                border-left: solid 1px var(--pe-border); padding-left: var(--pe-spadding); transition: var(--pe-transition); cursor: pointer;
+                border-left: solid 1px var(--pe-border); padding-left: var(--pe-padding-s); transition: var(--pe-transition); cursor: pointer;
                 &:hover {
                     color: var(--pe);
                 }
 
                 &.pe-anchor-item-h3 {
-                    padding-left: calc(var(--pe-spadding) * 2);
+                    padding-left: calc(var(--pe-padding-s) * 2);
                 }
                 &.pe-anchor-item-h4 {
-                    padding-left: calc(var(--pe-spadding) * 3);
+                    padding-left: calc(var(--pe-padding-s) * 3);
                 }
                 &.pe-anchor-item-h5 {
-                    padding-left: calc(var(--pe-spadding) * 4);
+                    padding-left: calc(var(--pe-padding-s) * 4);
                 }
                 &.pe-anchor-item-h6 {
-                    padding-left: calc(var(--pe-spadding) * 5);
+                    padding-left: calc(var(--pe-padding-s) * 5);
                 }
 
                 &.pe-selected {
@@ -41,19 +41,19 @@ html.pe-rtl {
     .pe-anchor-right {
         .pe-anchor-right-content {
             .pe-anchor-item {
-                border-left: initial; border-right: solid 1px var(--pe-border); padding-left: initial; padding-right: var(--pe-spadding);
+                border-left: initial; border-right: solid 1px var(--pe-border); padding-left: initial; padding-right: var(--pe-padding-s);
 
                 &.pe-anchor-item-h3 {
-                    padding-left: initial; padding-right: calc(var(--pe-spadding) * 2);
+                    padding-left: initial; padding-right: calc(var(--pe-padding-s) * 2);
                 }
                 &.pe-anchor-item-h4 {
-                    padding-left: initial; padding-right: calc(var(--pe-spadding) * 3);
+                    padding-left: initial; padding-right: calc(var(--pe-padding-s) * 3);
                 }
                 &.pe-anchor-item-h5 {
-                    padding-left: initial; padding-right: calc(var(--pe-spadding) * 4);
+                    padding-left: initial; padding-right: calc(var(--pe-padding-s) * 4);
                 }
                 &.pe-anchor-item-h6 {
-                    padding-left: initial; padding-right: calc(var(--pe-spadding) * 5);
+                    padding-left: initial; padding-right: calc(var(--pe-padding-s) * 5);
                 }
 
                 &.pe-selected {

@@ -25,7 +25,7 @@
 }
 
 .pe-vnumber-item {
-    border-right: solid 1px var(--pe-border-plain); width: calc(var(--pe-spadding) * 2 + var(--pe-size)); height: calc(var(--pe-spadding) * 2 + var(--pe-size)); display: flex; align-items: center; justify-content: center; -webkit-user-select: none; user-select: none;
+    border-right: solid 1px var(--pe-border-plain); width: calc(var(--pe-padding-s) * 2 + var(--pe-size)); height: calc(var(--pe-padding-s) * 2 + var(--pe-size)); display: flex; align-items: center; justify-content: center; -webkit-user-select: none; user-select: none;
 }
 .pe-vnumber-insert {
     animation: pe-vnumber-insert 1s linear infinite;

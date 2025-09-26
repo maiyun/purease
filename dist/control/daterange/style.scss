@@ -5,7 +5,7 @@
         display: flex; justify-content: center; flex: 1;
 
         > div {
-            padding: var(--pe-xspadding); gap: var(--pe-xspadding); display: flex;
+            padding: var(--pe-padding-xs); gap: var(--pe-padding-xs); display: flex;
         }
     }
 
@@ -42,12 +42,12 @@
             }
         }
         &.pe-daterange-list {
-            padding: var(--pe-xspadding); flex-direction: column; height: 350px;
+            padding: var(--pe-padding-xs); flex-direction: column; height: 350px;
             > :first-child {
                 // --- 列表项 ---
                 display: flex; flex: 1; height: 0;
                 > :not(:last-child) {
-                    margin-right: var(--pe-xspadding);
+                    margin-right: var(--pe-padding-xs);
                 }
         
                 .pe-daterange-item {
@@ -56,15 +56,15 @@
                         text-align: center;
                     }
                     .pe-dlist {
-                        width: 120px; flex: 1; height: 0; margin-top: var(--pe-xspadding)
+                        width: 120px; flex: 1; height: 0; margin-top: var(--pe-padding-xs)
                     }
                 }
             }
             > :last-child {
                 // --- 控制按钮 ---
-                display: flex; margin-top: var(--pe-xspadding);
+                display: flex; margin-top: var(--pe-padding-xs);
                 > :first-child {
-                    margin-right: var(--pe-xspadding);
+                    margin-right: var(--pe-padding-xs);
                 }
                 > * {
                     flex: 1;

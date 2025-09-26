@@ -77,6 +77,12 @@ class Page extends purease.AbstractPage {
 
     public rtl = false;
 
+    public settingHover = false;
+
+    public settingPlain = false;
+
+    public tabHover = false;
+
     public changeRTL(): void {
         this.rtl = !this.rtl;
         if (this.rtl) {
@@ -103,7 +109,7 @@ class Page extends purease.AbstractPage {
         await this.dialog({
             'title': 'Title',
             'content': 'Has title',
-            'buttons': ['Cancel', 'OK']
+            'buttons': ['Cancel', 'OK'],
         });
     }
 

@@ -16,14 +16,14 @@ html {
     --pe-cubic:cubic-bezier(0.39, 0.575, 0.565, 1);
     --pe-transition:all .3s var(--pe-cubic);
     --pe-radius:5px;
-    --pe-lradius:10px;
-    --pe-xlradius:30px;
+    --pe-radius-l:10px;
+    --pe-radius-xl:30px;
     --pe-font-life:"Lucida Sans Unicode","Helvetica Neue","Helvetica","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Noto Sans CJK","Source Han Sans","WenQuanYi Micro Hei","Microsoft YaHei","sans-serif";
     --pe-font-comm:'Roboto','SF Pro SC','SF Pro Display','SF Pro Icons','PingFang SC',BlinkMacSystemFont,-apple-system,'Segoe UI','Microsoft Yahei','Ubuntu','Cantarell','Fira Sans','Droid Sans','Helvetica Neue','Helvetica','Arial',"sans-serif";
     --pe-grey:oklch(.98 0 0);                  // --- 一般用于浅色背景、或者采用白色背景的组件的 hover ---
     --pe-grey-hover:oklch(.95 0 0);            // --- 一般用于采用灰色背景的组件的 hover 效果 ---
     --pe-dark:oklch(.15 0 0);                  // --- 一般用于超深背景 ---
-    --pe-input-bg:oklch(.995 0 0);             // --- 输入型控件的默认底色 ---
+    --pe-input-bg:oklch(.999 0 0);             // --- 输入型控件的默认底色 ---
     --pe-input-hover-bg:oklch(.97 0 0);        // --- 输入型控件的 hover 底色 ---
     --pe-border:oklch(.9 0 0);                 // --- 一般用于组件的边框 ---
     --pe-border-plain:oklch(.92 0 0);          // --- 一般用于组件内部的轻边框 ---
@@ -37,20 +37,20 @@ html {
 
     // --- 间距 ---
 
-    --pe-lpadding:60px;
+    --pe-padding-l:60px;
     --pe-padding:40px;
-    --pe-spadding:20px;
-    --pe-xspadding:15px;
-    --pe-xxspadding:8px;
+    --pe-padding-s:20px;
+    --pe-padding-xs:15px;
+    --pe-padding-xxs:8px;
 
     // --- 字号 ---
 
-    --pe-xxxlsize:42px;
-    --pe-xxlsize:32px;
-    --pe-xlsize:26px;
-    --pe-lsize:22px;
+    --pe-size-xxxl:42px;
+    --pe-size-xxl:32px;
+    --pe-size-xl:26px;
+    --pe-size-l:22px;
     --pe-size:16px;
-    --pe-ssize:14px;
+    --pe-size-s:14px;
     --pe-xssize:12px;
 
     // --- 基础颜色 ---
@@ -150,19 +150,19 @@ html.pe-speed-imme {
 // --- 文字相关 ---
 
 .pe-btitle {
-    font-size: var(--pe-xxxlsize);
+    font-size: var(--pe-size-xxxl);
 }
 .pe-title {
-    font-size: var(--pe-xxlsize);
+    font-size: var(--pe-size-xxl);
 }
 .pe-bnote {
-    font-size: var(--pe-xlsize);
+    font-size: var(--pe-size-xl);
 }
 .pe-note {
-    font-size: var(--pe-lsize);
+    font-size: var(--pe-size-l);
 }
 .pe-gnote {
-    font-size: var(--pe-lsize); color: var(--pe-note-color);
+    font-size: var(--pe-size-l); color: var(--pe-note-color);
 }
 
 // --- pe-loading ---
@@ -260,7 +260,7 @@ html.pe-rtl {
 }
 
 .pe-lpadding-lr {
-    padding-left: var(--pe-lpadding); padding-right: var(--pe-lpadding);
+    padding-left: var(--pe-padding-l); padding-right: var(--pe-padding-l);
 }
 
 .pe-padding {
@@ -268,15 +268,15 @@ html.pe-rtl {
 }
 
 .pe-spadding {
-    padding: var(--pe-spadding);
+    padding: var(--pe-padding-s);
 }
 
 .pe-xspadding {
-    padding: var(--pe-xspadding);
+    padding: var(--pe-padding-xs);
 }
 
 .pe-xxspadding {
-    padding: var(--pe-xxspadding);
+    padding: var(--pe-padding-xxs);
 }
 
 // --- pe-layout ---
@@ -308,10 +308,16 @@ html.pe-rtl {
     gap: 10px;
 }
 
+// --- pe 对齐 ---
+
+.pe-align-center-max {
+    align-items: center;
+}
+
 // --- pe-button ---
 
 .pe-button {
-    padding: var(--pe-xspadding) var(--pe-spadding); border-radius: var(--pe-radius); line-height: 1; display: inline-flex; justify-content: center; align-items: center; gap: 10px; transition: var(--pe-transition); outline: none; -webkit-user-select: none; user-select: none; white-space: nowrap;
+    padding: var(--pe-padding-xs) var(--pe-padding-s); border-radius: var(--pe-radius); line-height: 1; display: inline-flex; justify-content: center; align-items: center; gap: 10px; transition: var(--pe-transition); outline: none; -webkit-user-select: none; user-select: none; white-space: nowrap;
     &:not(a) {
         cursor: default;
     }
@@ -520,7 +526,7 @@ html.pe-rtl {
     flex: 1; background-position: center; background-size: auto 80px; background-repeat: no-repeat;
 }
 .pe-hske-bottom {
-    padding: 0 var(--pe-spadding) var(--pe-spadding) var(--pe-spadding); text-align: center; font-size: var(--pe-xssize);
+    padding: 0 var(--pe-padding-s) var(--pe-padding-s) var(--pe-padding-s); text-align: center; font-size: var(--pe-xssize);
 }
 
 // --- pe-alert ---
@@ -596,7 +602,7 @@ html.pe-rtl {
         display: inline-flex; align-items: center;
 
         &::after {
-            content: ''; border: solid 1px var(--pe-disabled-color); border-width: 0 1px 1px 0; width: 6px; height: 6px; display: block; transform: translateY(-1px) rotate(-45deg); margin: 0 var(--pe-spadding);
+            content: ''; border: solid 1px var(--pe-disabled-color); border-width: 0 1px 1px 0; width: 6px; height: 6px; display: block; transform: translateY(-1px) rotate(-45deg); margin: 0 var(--pe-padding-s);
         }
     }
 
@@ -610,10 +616,10 @@ html.pe-rtl {
 .pe-tree {
     display: flex; flex-direction: column;
     .pe-tree-title {
-        font-weight: bold; padding: var(--pe-xspadding) var(--pe-spadding);
+        font-weight: bold; padding: var(--pe-padding-xs) var(--pe-padding-s);
     }
     .pe-tree-item {
-        display: flex; flex-direction: column; padding: var(--pe-xspadding) var(--pe-spadding); align-items: initial; transition: var(--pe-transition); border-radius: var(--pe-radius);
+        display: flex; flex-direction: column; padding: var(--pe-padding-xs) var(--pe-padding-s); align-items: initial; transition: var(--pe-transition); border-radius: var(--pe-radius);
         &:hover {
             background: var(--pe-bg); color: var(--pe);
             &::after {
@@ -628,7 +634,7 @@ html.pe-rtl {
     div.pe-tree-item {
         position: relative;
         &::after {
-            content: ''; border: solid 1px var(--pe-color); border-width: 0 1px 1px 0; width: 6px; height: 6px; display: block; position: absolute; right: var(--pe-spadding); top: 50%; transform: translateY(-5px) rotate(45deg); transition: var(--pe-transition);
+            content: ''; border: solid 1px var(--pe-color); border-width: 0 1px 1px 0; width: 6px; height: 6px; display: block; position: absolute; right: var(--pe-padding-s); top: 50%; transform: translateY(-5px) rotate(45deg); transition: var(--pe-transition);
         }
 
         &.pe-open {
@@ -638,18 +644,18 @@ html.pe-rtl {
         }
     }
     .pe-tree-menu {
-        margin-left: var(--pe-spadding); transition: var(--pe-transition); overflow: hidden;
+        margin-left: var(--pe-padding-s); transition: var(--pe-transition); overflow: hidden;
     }
 }
 html.pe-rtl {
     .pe-tree {
         div.pe-tree-item {
             &::after {
-                right: initial; left: var(--pe-spadding);
+                right: initial; left: var(--pe-padding-s);
             }
         }
         .pe-tree-menu {
-            margin-left: initial; margin-right: var(--pe-spadding);
+            margin-left: initial; margin-right: var(--pe-padding-s);
         }
     }
 }
@@ -659,19 +665,19 @@ html.pe-rtl {
 @media screen and (max-width: 800px) {
 
     html {
-        --pe-xlradius:20px;
+        --pe-radius-xl:20px;
         // --- 间距 ---
-        --pe-lpadding:40px;
+        --pe-padding-l:40px;
         --pe-padding:30px;
-        --pe-spadding:14px;
-        --pe-xspadding:12px;
+        --pe-padding-s:14px;
+        --pe-padding-xs:12px;
         // --- 字号 ---
-        --pe-xxxlsize:32px;
-        --pe-xxlsize:22px;
-        --pe-xlsize:20px;
-        --pe-lsize:18px;
+        --pe-size-xxxl:32px;
+        --pe-size-xxl:22px;
+        --pe-size-xl:20px;
+        --pe-size-l:18px;
         --pe-size:14px;
-        --pe-ssize:13px;
+        --pe-size-s:13px;
 
         &.pe-dheader {
             --pe-headerheight:70px;
@@ -695,6 +701,12 @@ html.pe-rtl {
 
     .pe-sgap {
         gap: 15px;
+    }
+
+    // --- pe 对齐 ---
+
+    .pe-align-center-max {
+        align-items: initial;
     }
 
     // --- pe-alayout ---
@@ -757,22 +769,22 @@ html.pe-rtl {
             position: sticky; top: calc(var(--pe-headerheight) + var(--pe-padding)); line-height: 2;
 
             .pe-anchor-item {
-                border-left: solid 1px var(--pe-border); padding-left: var(--pe-spadding); transition: var(--pe-transition); cursor: pointer;
+                border-left: solid 1px var(--pe-border); padding-left: var(--pe-padding-s); transition: var(--pe-transition); cursor: pointer;
                 &:hover {
                     color: var(--pe);
                 }
 
                 &.pe-anchor-item-h3 {
-                    padding-left: calc(var(--pe-spadding) * 2);
+                    padding-left: calc(var(--pe-padding-s) * 2);
                 }
                 &.pe-anchor-item-h4 {
-                    padding-left: calc(var(--pe-spadding) * 3);
+                    padding-left: calc(var(--pe-padding-s) * 3);
                 }
                 &.pe-anchor-item-h5 {
-                    padding-left: calc(var(--pe-spadding) * 4);
+                    padding-left: calc(var(--pe-padding-s) * 4);
                 }
                 &.pe-anchor-item-h6 {
-                    padding-left: calc(var(--pe-spadding) * 5);
+                    padding-left: calc(var(--pe-padding-s) * 5);
                 }
 
                 &.pe-selected {
@@ -786,19 +798,19 @@ html.pe-rtl {
     .pe-anchor-right {
         .pe-anchor-right-content {
             .pe-anchor-item {
-                border-left: initial; border-right: solid 1px var(--pe-border); padding-left: initial; padding-right: var(--pe-spadding);
+                border-left: initial; border-right: solid 1px var(--pe-border); padding-left: initial; padding-right: var(--pe-padding-s);
 
                 &.pe-anchor-item-h3 {
-                    padding-left: initial; padding-right: calc(var(--pe-spadding) * 2);
+                    padding-left: initial; padding-right: calc(var(--pe-padding-s) * 2);
                 }
                 &.pe-anchor-item-h4 {
-                    padding-left: initial; padding-right: calc(var(--pe-spadding) * 3);
+                    padding-left: initial; padding-right: calc(var(--pe-padding-s) * 3);
                 }
                 &.pe-anchor-item-h5 {
-                    padding-left: initial; padding-right: calc(var(--pe-spadding) * 4);
+                    padding-left: initial; padding-right: calc(var(--pe-padding-s) * 4);
                 }
                 &.pe-anchor-item-h6 {
-                    padding-left: initial; padding-right: calc(var(--pe-spadding) * 5);
+                    padding-left: initial; padding-right: calc(var(--pe-padding-s) * 5);
                 }
 
                 &.pe-selected {
@@ -961,7 +973,7 @@ html.pe-rtl {
     .pe-btab-content {
         display: flex; margin: 0 auto; width: min-content;
         .pe-btab-item {
-            transition: var(--pe-transition); padding: var(--pe-xspadding) var(--pe-padding);
+            transition: var(--pe-transition); padding: var(--pe-padding-xs) var(--pe-padding);
             &.pe-selected {
                 background: var(--pe); color: var(--pe-fcolor); cursor: default;
             }
@@ -991,7 +1003,7 @@ html.pe-rtl {
         .pe-btab-content {
             gap: 10px;
             .pe-btab-item {
-                border-radius: var(--pe-xlradius);
+                border-radius: var(--pe-radius-xl);
                 &.pe-selected {
                     background: var(--pe-bg); font-weight: bold; color: var(--pe);
                 }
@@ -1008,10 +1020,10 @@ html.pe-rtl {
 .pe-captcha {
     transition: var(--pe-transition); border-radius: var(--pe-radius); cursor: default; -webkit-user-select: none; user-select: none; box-shadow: var(--pe-shadow);
     &.pe-not {
-        border: dotted 1px var(--pe-color); display: flex; align-items: center; justify-content: center; padding: var(--pe-xspadding) var(--pe-spadding);
+        border: dotted 1px var(--pe-color); display: flex; align-items: center; justify-content: center; padding: var(--pe-padding-xs) var(--pe-padding-s);
     }
     &.pe-captcha-tc {
-        border: solid 1px var(--pe-border); background: var(--pe-input-bg); display: flex; align-items: center; justify-content: center; padding: var(--pe-xspadding) var(--pe-spadding);
+        border: solid 1px var(--pe-border); background: var(--pe-input-bg); display: flex; align-items: center; justify-content: center; padding: var(--pe-padding-xs) var(--pe-padding-s);
         &.pe-captcha-failed {
             color: var(--danger); border-color: var(--danger);
         }
@@ -1085,7 +1097,7 @@ html.pe-rtl {
         display: flex; justify-content: center; flex: 1;
 
         > div {
-            padding: var(--pe-xspadding); gap: var(--pe-xspadding); display: flex;
+            padding: var(--pe-padding-xs); gap: var(--pe-padding-xs); display: flex;
         }
     }
 
@@ -1117,12 +1129,12 @@ html.pe-rtl {
     .pe-pop {
         display: flex;
         &.pe-date-list {
-            padding: var(--pe-xspadding); flex-direction: column; height: 350px;
+            padding: var(--pe-padding-xs); flex-direction: column; height: 350px;
             > :first-child {
                 // --- 列表项 ---
                 display: flex; flex: 1; height: 0;
                 > :not(:last-child) {
-                    margin-right: var(--pe-xspadding);
+                    margin-right: var(--pe-padding-xs);
                 }
         
                 .pe-date-item {
@@ -1131,15 +1143,15 @@ html.pe-rtl {
                         text-align: center;
                     }
                     .pe-dlist {
-                        width: 120px; flex: 1; height: 0; margin-top: var(--pe-xspadding);
+                        width: 120px; flex: 1; height: 0; margin-top: var(--pe-padding-xs);
                     }
                 }
             }
             > :last-child {
                 // --- 控制按钮 ---
-                display: flex; margin-top: var(--pe-xspadding);
+                display: flex; margin-top: var(--pe-padding-xs);
                 > :first-child {
-                    margin-right: var(--pe-xspadding);
+                    margin-right: var(--pe-padding-xs);
                 }
                 > * {
                     flex: 1;
@@ -1150,7 +1162,7 @@ html.pe-rtl {
 }
 
 .pe-datepanel-wrap {
-    border-radius: var(--pe-radius); display: flex; flex-direction: column; gap: var(--pe-xspadding); padding: var(--pe-xspadding);
+    border-radius: var(--pe-radius); display: flex; flex-direction: column; gap: var(--pe-padding-xs); padding: var(--pe-padding-xs);
     &:not(.pe-plain) {
         border: solid 1px var(--pe-border); background: var(--pe-input-bg);
     }
@@ -1164,7 +1176,7 @@ html.pe-rtl {
         display: flex; white-space: nowrap;
 
         .pe-datepanel-left {
-            flex: 1; display: flex; gap: var(--pe-xxspadding);
+            flex: 1; display: flex; gap: var(--pe-padding-xxs);
 
             .pe-datepanel-monthleft, .pe-datepanel-monthright {
                 .pe-datepanel-arrow {
@@ -1186,7 +1198,7 @@ html.pe-rtl {
             }
         }
         .pe-datepanel-right {
-            justify-content: right; display: flex; gap: var(--pe-xxspadding); padding-left: var(--pe-xxspadding);
+            justify-content: right; display: flex; gap: var(--pe-padding-xxs); padding-left: var(--pe-padding-xxs);
         }
     }
 
@@ -1194,15 +1206,15 @@ html.pe-rtl {
         display: flex;
 
         > * {
-            flex: 1; display: flex; justify-content: center; padding: var(--pe-xxspadding);
+            flex: 1; display: flex; justify-content: center; padding: var(--pe-padding-xxs);
         }
     }
 
     .pe-datepanel-row {
-        display: flex; gap: var(--pe-xxspadding); flex: 1;
+        display: flex; gap: var(--pe-padding-xxs); flex: 1;
 
         .pe-datepanel-col {
-            flex: 1; display: flex; flex-direction: column; gap: var(--pe-xxspadding); padding: var(--pe-xxspadding); border-radius: var(--pe-radius); transition: var(--pe-transition); outline: solid .5px transparent; position: relative;
+            flex: 1; display: flex; flex-direction: column; gap: var(--pe-padding-xxs); padding: var(--pe-padding-xxs); border-radius: var(--pe-radius); transition: var(--pe-transition); outline: solid .5px transparent; position: relative;
             &:not(.pe-disabled) {
                 &:hover:not(.selected):not(.pe-datepanel-range-left):not(.pe-datepanel-range-right) {
                     outline: solid 1px var(--pe);
@@ -1220,13 +1232,13 @@ html.pe-rtl {
                 background: var(--pe-bg); outline: solid 1px var(--pe);
             }
             &::before, &::after {
-                content: ''; position: absolute; top: 0; bottom: 0; width: var(--pe-xxspadding); background: var(--pe); opacity: 0; transition: var(--pe-transition);
+                content: ''; position: absolute; top: 0; bottom: 0; width: var(--pe-padding-xxs); background: var(--pe); opacity: 0; transition: var(--pe-transition);
             }
             &::before {
-                left: calc(0px - var(--pe-xxspadding));
+                left: calc(0px - var(--pe-padding-xxs));
             }
             &::after {
-                right: calc(0px - var(--pe-xxspadding));
+                right: calc(0px - var(--pe-padding-xxs));
             }
 
             &.pe-datepanel-range {
@@ -1258,7 +1270,7 @@ html.pe-rtl {
     }
 
     .pe-datepanel-footer {
-        display: flex; gap: var(--pe-xxspadding); align-items: center; justify-content: center;
+        display: flex; gap: var(--pe-padding-xxs); align-items: center; justify-content: center;
     }
 }
 
@@ -1269,7 +1281,7 @@ html.pe-rtl {
         display: flex; justify-content: center; flex: 1;
 
         > div {
-            padding: var(--pe-xspadding); gap: var(--pe-xspadding); display: flex;
+            padding: var(--pe-padding-xs); gap: var(--pe-padding-xs); display: flex;
         }
     }
 
@@ -1306,12 +1318,12 @@ html.pe-rtl {
             }
         }
         &.pe-daterange-list {
-            padding: var(--pe-xspadding); flex-direction: column; height: 350px;
+            padding: var(--pe-padding-xs); flex-direction: column; height: 350px;
             > :first-child {
                 // --- 列表项 ---
                 display: flex; flex: 1; height: 0;
                 > :not(:last-child) {
-                    margin-right: var(--pe-xspadding);
+                    margin-right: var(--pe-padding-xs);
                 }
         
                 .pe-daterange-item {
@@ -1320,15 +1332,15 @@ html.pe-rtl {
                         text-align: center;
                     }
                     .pe-dlist {
-                        width: 120px; flex: 1; height: 0; margin-top: var(--pe-xspadding)
+                        width: 120px; flex: 1; height: 0; margin-top: var(--pe-padding-xs)
                     }
                 }
             }
             > :last-child {
                 // --- 控制按钮 ---
-                display: flex; margin-top: var(--pe-xspadding);
+                display: flex; margin-top: var(--pe-padding-xs);
                 > :first-child {
-                    margin-right: var(--pe-xspadding);
+                    margin-right: var(--pe-padding-xs);
                 }
                 > * {
                     flex: 1;
@@ -1358,7 +1370,7 @@ html.pe-rtl {
 }
 
 .pe-dlist {
-    padding: var(--pe-xspadding); overflow-y: auto; border-radius: var(--pe-radius); text-align: initial;
+    padding: var(--pe-padding-xs); overflow-y: auto; border-radius: var(--pe-radius); text-align: initial;
     &.pe-empty {
         display: flex; align-items: center; justify-content: center; color: var(--pe-note-color); min-height: 80px;
     }
@@ -1367,7 +1379,7 @@ html.pe-rtl {
     }
 }
 .pe-dlist-item {
-    padding: var(--pe-xspadding); border-radius: var(--pe-radius); transition: var(--pe-transition);
+    padding: var(--pe-padding-xs); border-radius: var(--pe-radius); transition: var(--pe-transition);
     &:hover, &.pe-selected {
         background: var(--pe-grey);
     }
@@ -1380,10 +1392,10 @@ html.pe-rtl {
     display: flex; align-items: center;
 }
 .pe-drawer-title {
-    flex: 1; padding: var(--pe-padding); font-size: var(--pe-xxlsize);
+    flex: 1; padding: var(--pe-padding); font-size: var(--pe-size-xxl);
 }
 .pe-drawer-close {
-    padding: var(--pe-xspadding); margin-right: var(--pe-padding); display: flex; align-items: center; transition: var(--pe-transition); border-radius: var(--pe-radius);
+    padding: var(--pe-padding-xs); margin-right: var(--pe-padding); display: flex; align-items: center; transition: var(--pe-transition); border-radius: var(--pe-radius);
     &:hover {
         background: var(--pe-grey);
     }
@@ -1418,9 +1430,9 @@ html.pe-rtl {
     &.pe-dark {
         background: var(--pe-dark); color: #FFF;
         a {
-            color: hsl(0, 0%, 80%); fill: hsl(0, 0%, 80%); stroke: hsl(0, 0%, 80%);
+            color: hsl(0, 0%, 80%);
             &:hover {
-                color: hsl(0, 0%, 100%); fill: hsl(0, 0%, 100%); stroke: hsl(0, 0%, 100%);
+                color: hsl(0, 0%, 100%);
             }
         }
     }
@@ -1435,18 +1447,18 @@ html.pe-rtl {
     display: block; background-size: 100%; background-position: top left; background-repeat: no-repeat; width: 60%; height: 150px;
 }
 .pe-footer-list {
-    display: flex; flex-direction: column; gap: var(--pe-spadding);
+    display: flex; flex-direction: column; gap: var(--pe-padding-s);
 }
 .pe-footer-title {
-    padding-bottom: 10px; font-size: var(--pe-lsize);
+    padding-bottom: 10px; font-size: var(--pe-size-l);
 }
 .pe-footer-bottom {
-    margin-top: 80px; margin-bottom: -40px; display: flex; flex-direction: column; gap: 10px; font-size: var(--pe-ssize); color: hsl(0, 0%, 40%); fill: hsl(0, 0%, 40%); stroke: hsl(0, 0%, 40%);
+    margin-top: 80px; margin-bottom: -40px; display: flex; flex-direction: column; gap: 10px; font-size: var(--pe-size-s); color: hsl(0, 0%, 40%);
 }
 .pe-footer {
     &.pe-dark {
         .pe-footer-bottom {
-            color: hsl(0, 0%, 60%); fill: hsl(0, 0%, 60%); stroke: hsl(0, 0%, 60%);
+            color: hsl(0, 0%, 60%);
         }
     }
 }
@@ -1634,9 +1646,9 @@ html.pe-sheader {
 html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     &.pe-theme-rev:not(.pe-black) {
         &:not(:hover):not(.pe-show) {
-            color: #FFF; fill: #FFF; stroke: #FFF;
+            color: #FFF;
             .pe-header-item {
-                color: #FFF; fill: #FFF; stroke: #FFF;
+                color: #FFF;
                 &.pe-list {
                     &::after {
                         border-color: #FFF;
@@ -1708,10 +1720,10 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     display: inline-flex; align-items: center;
 }
 .pe-label-tip {
-    color: var(--pe-note-color); fill: var(--pe-note-color); stroke: var(--pe-note-color);
+    color: var(--pe-note-color);
 }
 .pe-label-mtip {
-    color: var(--pe-note-color); fill: var(--pe-note-color); stroke: var(--pe-note-color); margin-top: 10px;
+    color: var(--pe-note-color); margin-top: 10px;
 }
 
 .pe-lnav {
@@ -1750,7 +1762,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 }
 
 .pe-menu {
-    position: absolute; background: #FFF; border-radius: var(--pe-radius); box-shadow: 0px 15px 30px rgba(0, 0, 0, .07); opacity: 0; pointer-events: none; transform: translateY(10px); transition: var(--pe-transition); left: -30px; top: 100%; line-height: 1.5; padding: var(--pe-xspadding); display: flex; flex-direction: column; color: var(--pe-color); fill: var(--pe-color); stroke: var(--pe-color); min-width: 180px; white-space: nowrap; z-index: 1;
+    position: absolute; background: #FFF; border-radius: var(--pe-radius); box-shadow: 0px 15px 30px rgba(0, 0, 0, .07); opacity: 0; pointer-events: none; transform: translateY(10px); transition: var(--pe-transition); left: -30px; top: 100%; line-height: 1.5; padding: var(--pe-padding-xs); display: flex; flex-direction: column; color: var(--pe-color); min-width: 180px; white-space: nowrap; z-index: 1;
 }
 
 .pe-menu-item {
@@ -1775,7 +1787,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     }
 
     .pe-nboard-title {
-        font-size: var(--pe-xlsize); padding: var(--pe-padding); padding-bottom: 0;
+        font-size: var(--pe-size-xl); padding: var(--pe-padding); padding-bottom: 0;
     }
 
     .pe-nboard-wrap {
@@ -1784,7 +1796,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
         .pe-nboard-input {
             display: flex; border: solid 1px var(--pe-border-plain); border-radius: var(--pe-radius);
             > .pe-nboard-item {
-                width: calc(var(--pe-spadding) * 2 + var(--pe-size)); height: calc(var(--pe-spadding) * 2 + var(--pe-size)); display: flex; align-items: center; justify-content: center; 
+                width: calc(var(--pe-padding-s) * 2 + var(--pe-size)); height: calc(var(--pe-padding-s) * 2 + var(--pe-size)); display: flex; align-items: center; justify-content: center; 
                 &:not(:last-child) {
                     border-right: solid 1px var(--pe-border-plain);
                 }
@@ -1794,7 +1806,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     }
 
     .pe-nboard-line {
-        display: flex; font-size: var(--pe-lsize); border-top: solid 1px var(--pe-border-plain);
+        display: flex; font-size: var(--pe-size-l); border-top: solid 1px var(--pe-border-plain);
         > div {
             padding: var(--pe-padding); flex: 1; transition: var(--pe-transition); display: flex; align-items: center; justify-content: center;
             &:not(:last-child) {
@@ -1810,7 +1822,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
         }
 
         .pe-icon {
-            width: var(--pe-xlsize); height: var(--pe-xlsize);
+            width: var(--pe-size-xl); height: var(--pe-size-xl);
         }
     }
 }
@@ -1889,7 +1901,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     }
 }
 .pe-select-label {
-    flex: 1; padding: var(--pe-xspadding); text-align: initial; display: flex; align-items: center;
+    flex: 1; padding: var(--pe-padding-xs); text-align: initial; display: flex; align-items: center;
 }
 .pe-select-arrow {
     display: flex; justify-content: center; align-items: center; width: 20px;
@@ -1897,6 +1909,46 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
         content: ''; border: solid 1px var(--pe-color); border-width: 0 1px 1px 0; width: 6px; height: 6px; transform: rotate(45deg); margin-top: -3px;
     }
 }
+
+.pe-setting {
+    border-radius: var(--pe-radius-l); border: solid .5px var(--pe-border-plain); text-align: initial; overflow: hidden;
+
+    > :not(:last-child) {
+        border-bottom: solid .5px var(--pe-border-plain);
+    }
+
+    &.pe-setting-plain {
+        border-left: none; border-right: none; border-radius: 0;
+    }
+
+}
+
+.pe-setting-item {
+    padding: var(--pe-padding); display: flex; transition: var(--pe-transition); background: var(--pe-input-bg);
+    .pe-setting-item-left {
+        flex: 1; display: flex; flex-direction: column; gap: var(--pe-padding-s);
+
+        .pe-setting-item-title {
+            font-size: var(--pe-size-l);
+        }
+
+        .pe-setting-item-note {
+            color: var(--pe-note-color);
+        }
+    }
+    .pe-setting-item-right {
+        display: flex;
+    }
+}
+
+.pe-setting.pe-setting-hover {
+    .pe-setting-item {
+        &:hover {
+            background: var(--pe-input-hover-bg);
+        }
+    }
+}
+
 
 .pe-slider {
     border: solid 1px var(--pe-border); background: var(--pe-input-bg); box-shadow: var(--pe-shadow) inset; position: relative; height: 6px; border-radius: 3px;
@@ -2016,7 +2068,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 }
 
 .pe-tab {
-    display: flex; justify-content: center; cursor: default; -webkit-user-select: none; user-select: none; border-bottom: solid 1px var(--pe-border); color: var(--pe-inote-color); fill: var(--pe-inote-color); stroke: var(--pe-inote-color);
+    display: flex; justify-content: center; cursor: default; -webkit-user-select: none; user-select: none; border-bottom: solid 1px var(--pe-border); color: var(--pe-inote-color);
 
     // --- 朴素模式 ---
     &.pe-tab-type-plain {
@@ -2028,13 +2080,13 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     &.pe-tab-type-rect {
         border-bottom: none; padding: 3px; background: var(--pe-grey); border-radius: var(--pe-radius); position: relative;
         &::before {
-            content: ''; border-color: var(--pe-border); border-radius: var(--pe-radius); background: #FFF; box-shadow: var(--pe-shadow-d); position: absolute; left: 3px; top: 3px; height: calc(100% - 6px); width: var(--pe-tab-item-width); transition: var(--pe-transition); transform: translateX(calc(var(--pe-tab-item-left) - 3px));
+            content: ''; border-color: var(--pe-border); border-radius: var(--pe-radius); background: #FFF; position: absolute; left: 3px; top: 3px; height: calc(100% - 6px); width: var(--pe-tab-item-width); transition: var(--pe-transition); transform: translateX(calc(var(--pe-tab-item-left) - 3px));
         }
     }
 }
 
 .pe-tab-item {
-    padding: var(--pe-xspadding) var(--pe-spadding); transition: var(--pe-transition); border-bottom: solid 3px transparent; transform: translateY(1px);
+    padding: var(--pe-padding-xs) var(--pe-padding-s); transition: var(--pe-transition); border-bottom: solid 3px transparent; transform: translateY(1px);
     &.pe-selected {
         color: var(--pe); font-weight: bold; border-bottom-color: var(--pe);
     }
@@ -2043,7 +2095,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 .pe-tab {
     &.pe-tab-type-light {
         .pe-tab-item {
-            padding: var(--pe-xxspadding) var(--pe-xspadding); border-radius: var(--pe-xlradius); border: none;
+            padding: var(--pe-padding-xxs) var(--pe-padding-xs); border-radius: var(--pe-radius-xl); border: none;
             &.pe-selected {
                 background: var(--pe-bg);
             }
@@ -2051,9 +2103,9 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     }
     &.pe-tab-type-rect {
         .pe-tab-item {
-            padding: var(--pe-xxspadding) var(--pe-xspadding); border: solid 1px transparent; transform: initial; z-index: 1;
+            padding: var(--pe-padding-xxs) var(--pe-padding-xs); border: solid 1px transparent; transform: initial; z-index: 1;
             &.pe-selected {
-                font-weight: initial; color: var(--pe-color); fill: var(--pe-color); stroke: var(--pe-color);
+                font-weight: initial; color: var(--pe-color);
             }
         }
     }
@@ -2083,11 +2135,11 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 }
 
 .pe-table-cell {
-    padding: var(--pe-xspadding); text-align: center;
+    padding: var(--pe-padding-xs); text-align: center;
 }
 
 .pe-table-head {
-    padding: var(--pe-xspadding); font-weight: bold; text-align: center;
+    padding: var(--pe-padding-xs); font-weight: bold; text-align: center;
 }
 
 .pe-table-row {
@@ -2132,8 +2184,14 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 }
 
 .pe-tag {
-    border-radius: var(--pe-lradius); display: inline-flex; align-items: center; justify-content: center; transition: var(--pe-transition); border: solid 1px transparent; line-height: 1;
+    border-radius: var(--pe-radius-l); display: inline-flex; align-items: center; justify-content: center; transition: var(--pe-transition); border: solid 1px transparent; line-height: 1;
 
+    &.pe-size-xs {
+        padding: 0 4px;
+    }
+    &.pe-size-s {
+        padding: 3px 7px;
+    }
     &.pe-size-m {
         padding: 6px 10px;
     }
@@ -2143,7 +2201,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 
     
     &:not(.pe-plain) {
-        background: var(--pe-border); color: #FFF; fill: #FFF; stroke: #FFF; border: solid .5px transparent;
+        background: var(--pe-border); color: #FFF; border: solid .5px transparent;
         &.pe-type-primary {
             background: var(--success); border-color: var(--success);
         }
@@ -2158,6 +2216,9 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
         }
         &.pe-type-pe {
             background: var(--pe); border-color: var(--pe);
+        }
+        &.pe-type-current {
+            background: var(--pe-color);
         }
 
         svg {
@@ -2178,9 +2239,9 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
             }
         }
 
-        &:not(.pe-type-pe) {
+        &:not(.pe-type-pe, .pe-type-current) {
             // --- default ---
-            color: var(--pe-border); fill: var(--pe-border); stroke: var(--pe-border);
+            color: var(--pe-border);
             svg {
                 &:hover {
                     background: var(--pe-border);
@@ -2191,7 +2252,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
             }
         }
         &.pe-type-primary {
-            border-color: var(--success); color: var(--success); fill: var(--success); stroke: var(--success); background: var(--success-bg);
+            border-color: var(--success); color: var(--success); background: var(--success-bg);
             svg {
                 &:hover {
                     background: var(--success);
@@ -2202,7 +2263,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
             }
         }
         &.pe-type-info {
-            border-color: var(--info); color: var(--info); fill: var(--info); stroke: var(--info); background: var(--info-bg);
+            border-color: var(--info); color: var(--info); background: var(--info-bg);
             svg {
                 &:hover {
                     background: var(--info);
@@ -2213,7 +2274,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
             }
         }
         &.pe-type-warning {
-            border-color: var(--warning); color: var(--warning); fill: var(--warning); stroke: var(--warning); background: var(--warning-bg);
+            border-color: var(--warning); color: var(--warning); background: var(--warning-bg);
             svg {
                 &:hover {
                     background: var(--warning);
@@ -2224,7 +2285,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
             }
         }
         &.pe-type-danger {
-            border-color: var(--danger); color: var(--danger); fill: var(--danger); stroke: var(--danger); background: var(--danger-bg);
+            border-color: var(--danger); color: var(--danger); background: var(--danger-bg);
             svg {
                 &:hover {
                     background: var(--danger);
@@ -2244,10 +2305,21 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
                 }
             }
         }
+        &.pe-type-current {
+            border-color: currentColor;
+            svg {
+                &:hover {
+                    background: currentColor;
+                }
+                &:active {
+                    background: var(--pe-color);
+                }
+            }
+        }
     }
 
     svg {
-        margin-left: 10px; transition: var(--pe-transition); border-radius: var(--pe-radius);
+        margin-left: 7px; transition: var(--pe-transition); border-radius: var(--pe-radius);
     }
 }
 
@@ -2264,17 +2336,25 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     }
 
     input, textarea {
-        -webkit-appearance: none; appearance: none; background: transparent; flex: 1; width: 0; outline: none; border: none; padding: var(--pe-xspadding); resize: none;
+        -webkit-appearance: none; appearance: none; background: transparent; flex: 1; width: 0; outline: none; border: none; padding: var(--pe-padding-xs); resize: none;
     }
 
     .pe-before, .pe-after {
         display: flex;
     }
     .pe-prepend {
-        display: flex; align-items: center; padding-left: var(--pe-xspadding);
+        display: flex; align-items: center; padding-left: var(--pe-padding-xs);
     }
+
+    .pe-text-sicon {
+        display: flex; align-items: center; padding-right: var(--pe-padding-xs); opacity: .6; transition: var(--pe-transition);
+        &:hover {
+            opacity: 1;
+        }
+    }
+
     .pe-append {
-        display: flex; align-items: center; padding-right: var(--pe-xspadding);
+        display: flex; align-items: center; padding-right: var(--pe-padding-xs);
     }
 }
 
@@ -2305,7 +2385,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 }
 
 .pe-vnumber-item {
-    border-right: solid 1px var(--pe-border-plain); width: calc(var(--pe-spadding) * 2 + var(--pe-size)); height: calc(var(--pe-spadding) * 2 + var(--pe-size)); display: flex; align-items: center; justify-content: center; -webkit-user-select: none; user-select: none;
+    border-right: solid 1px var(--pe-border-plain); width: calc(var(--pe-padding-s) * 2 + var(--pe-size)); height: calc(var(--pe-padding-s) * 2 + var(--pe-size)); display: flex; align-items: center; justify-content: center; -webkit-user-select: none; user-select: none;
 }
 .pe-vnumber-insert {
     animation: pe-vnumber-insert 1s linear infinite;

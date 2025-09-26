@@ -3,9 +3,9 @@
     &.pe-dark {
         background: var(--pe-dark); color: #FFF;
         a {
-            color: hsl(0, 0%, 80%); fill: hsl(0, 0%, 80%); stroke: hsl(0, 0%, 80%);
+            color: hsl(0, 0%, 80%);
             &:hover {
-                color: hsl(0, 0%, 100%); fill: hsl(0, 0%, 100%); stroke: hsl(0, 0%, 100%);
+                color: hsl(0, 0%, 100%);
             }
         }
     }
@@ -20,18 +20,18 @@
     display: block; background-size: 100%; background-position: top left; background-repeat: no-repeat; width: 60%; height: 150px;
 }
 .pe-footer-list {
-    display: flex; flex-direction: column; gap: var(--pe-spadding);
+    display: flex; flex-direction: column; gap: var(--pe-padding-s);
 }
 .pe-footer-title {
-    padding-bottom: 10px; font-size: var(--pe-lsize);
+    padding-bottom: 10px; font-size: var(--pe-size-l);
 }
 .pe-footer-bottom {
-    margin-top: 80px; margin-bottom: -40px; display: flex; flex-direction: column; gap: 10px; font-size: var(--pe-ssize); color: hsl(0, 0%, 40%); fill: hsl(0, 0%, 40%); stroke: hsl(0, 0%, 40%);
+    margin-top: 80px; margin-bottom: -40px; display: flex; flex-direction: column; gap: 10px; font-size: var(--pe-size-s); color: hsl(0, 0%, 40%);
 }
 .pe-footer {
     &.pe-dark {
         .pe-footer-bottom {
-            color: hsl(0, 0%, 60%); fill: hsl(0, 0%, 60%); stroke: hsl(0, 0%, 60%);
+            color: hsl(0, 0%, 60%);
         }
     }
 }
