@@ -563,6 +563,9 @@ list['pe-captcha'] = {
             if (this.$props.factory !== 'tc') {
                 return;
             }
+            if (this.state === 'successful') {
+                return;
+            }
             this.access.instance.show();
         },
     },
