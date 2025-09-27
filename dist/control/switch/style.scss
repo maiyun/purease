@@ -19,3 +19,11 @@
         }
     }
 }
+
+@media screen and (max-width: 800px) {
+
+    .pe-switch {
+        --pe-switch-size:25px;
+    }
+
+}

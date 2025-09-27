@@ -109,22 +109,22 @@ purease = {
                 <div class="pe-layout" style="flex: 1; justify-content: center;">{{d.year}}</div>
             </template>
         </pe-daterange>
-        <div class="pe-layout pe-sgap" style="justify-content: center;">
+        <div class="pe-layout pe-gap-s" style="justify-content: center;">
             <div class="pe-button pe-pgrey" @click="dptime = !dptime">{{dptime ? '' : '!'}}time</div>
             <div class="pe-button pe-pgrey" @click="dpzone = !dpzone">{{dpzone ? '' : '!'}}zone</div>
             <div class="pe-button pe-pgrey" @click="dpbottom = !dpbottom">{{dpbottom ? '' : '!'}}bottom</div>
         </div>
-        <div class="pe-layout pe-sgap" style="justify-content: center;">
+        <div class="pe-layout pe-gap-s" style="justify-content: center;">
             <div class="pe-button pe-pgrey" @click="dpdisabled = !dpdisabled">{{dpdisabled ? '' : '!'}}disabled</div>
             <div class="pe-button pe-pgrey" @click="dpplain = !dpplain">{{dpplain ? '' : '!'}}plain</div>
             <div class="pe-button pe-pgrey" @click="dpsettime">Set time</div>
         </div>
-        <div class="pe-layout pe-sgap" style="justify-content: center;">
+        <div class="pe-layout pe-gap-s" style="justify-content: center;">
             <div class="pe-button pe-pgrey" @click="dpts = 1577808000_000">Set 1577808000</div>
             <div class="pe-button pe-pgrey" @click="dprange = !dprange">{{dprange ? '' : '!'}}range</div>
             <div class="pe-button pe-pgrey" @click="dpstart = !dpstart">{{dpstart ? '' : '!'}}start</div>
         </div>
-        <div class="pe-layout pe-sgap" style="justify-content: center;">
+        <div class="pe-layout pe-gap-s" style="justify-content: center;">
             <div class="pe-button pe-pgrey" @click="dpym = '200708'">Set yearmonth</div>
             <div class="pe-button pe-pgrey" @click="dphm = '220232'">Set hourminute</div>
             <div class="pe-button pe-pgrey" @click="dptz = 7.5">Set tz</div>
@@ -138,7 +138,7 @@ purease = {
     <div class="pe-layout pe-content pe-padding-lr pe-gap" style="align-items: center; flex-direction: column;">
         <pe-vnumber v-model="vnumber" :disabled="vnumberDisabled"></pe-vnumber>
         <div>value: {{vnumber}}</div>
-        <div class="pe-layout pe-sgap" style="justify-content: center;">
+        <div class="pe-layout pe-gap-s" style="justify-content: center;">
             <div class="pe-button pe-pgrey" @click="vnumberDisabled = !vnumberDisabled">{{vnumberDisabled ? '' : '!'}}disabled</div>
             <div class="pe-button pe-pgrey" @click="vnumber = '200505'">Set value</div>
         </div>
@@ -147,18 +147,22 @@ purease = {
 <!-- nboard -->
 <div class="pe-block pe-grey">
     <div class="pe-btitle">nboard</div>
-    <div class="pe-layout pe-content pe-padding-lr pe-gap" style="align-items: center; flex-direction: column;">
-        <pe-nboard v-model="nboard" :disabled="nboardDisabled" :plain="nboardPlain">
+    <div class="pe-layout pe-content pe-padding-lr pe-gap" style="flex-direction: column;">
+        <pe-nboard v-model="nboard" :disabled="nboardDisabled" :plain="nboardPlain" :split="nboardSplit" :custom="nboardCustom ? '#' : undefined">
             <template v-if="nboardTitle" v-slot:title>
                 <span>This is a title</span>
             </template>
         </pe-nboard>
         <div>value: {{nboard}}</div>
-        <div class="pe-layout pe-sgap" style="justify-content: center;">
+        <div class="pe-layout pe-gap-s" style="justify-content: center;">
             <div class="pe-button pe-pgrey" @click="nboardDisabled = !nboardDisabled">{{nboardDisabled ? '' : '!'}}disabled</div>
             <div class="pe-button pe-pgrey" @click="nboard = '200707'">Set value</div>
             <div class="pe-button pe-pgrey" @click="nboardTitle = !nboardTitle">{{nboardTitle ? '' : '!'}}title</div>
             <div class="pe-button pe-pgrey" @click="nboardPlain = !nboardPlain">{{nboardPlain ? '' : '!'}}plain</div>
+        </div>
+        <div class="pe-layout pe-gap-s" style="justify-content: center;">
+            <div class="pe-button pe-pgrey" @click="nboardSplit = !nboardSplit">{{nboardSplit ? '' : '!'}}split</div>
+            <div class="pe-button pe-pgrey" @click="nboardCustom = !nboardCustom">{{nboardCustom ? '' : '!'}}custom</div>
         </div>
     </div>
 </div>
@@ -211,7 +215,7 @@ purease = {
         </div>
         <template v-slot:bottom>
             <div class="pe-footer-bottom-row">
-                <div class="pe-alayout pe-xsgap" style="align-items: center;">
+                <div class="pe-alayout pe-gap-xs" style="align-items: center;">
                     <div>This is some footer information</div>
                     <div class="teststyle">Note2</div>
                 </div>

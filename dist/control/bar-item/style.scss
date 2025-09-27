@@ -10,7 +10,7 @@
         }
         &.pe-hover {
             .pe-menu {
-                opacity: 1; transform: translateY(0); pointer-events: initial;
+                opacity: 1; transform: translateY(0); pointer-events: inherit;
             }
         }
     }
@@ -45,7 +45,7 @@ html.pe-rtl {
             }
 
             .pe-menu {
-                position: initial; opacity: initial; transform: initial; pointer-events: initial; height: 0; padding: 0; overflow: hidden; margin: 0 -30px; border-radius: 0;
+                position: initial; opacity: initial; transform: initial; height: 0; padding: 0; overflow: hidden; margin: 0 -30px; border-radius: 0;
             }
             &.pe-hover {
                 &::after {

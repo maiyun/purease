@@ -23,7 +23,7 @@ Lightweight and user-friendly front-end library.
 To get started, package your entry file into a single bundle using the command:
 
 ```sh
-npx kebab -b index -g https://cdn.jsdelivr.net/npm/purease@1.x.x/dist/index.js
+npx purease -b index -p https://cdn.jsdelivr.net/npm/purease@1.x.x/dist/index.js
 ```
 
 Then, reference the bundled file in your web page.
@@ -125,6 +125,10 @@ This library is published under [Apache-2.0](./LICENSE) license.
 ##### eye-alt
 
 [Eye Alt SVG Vector ](https://www.svgrepo.com/svg/532492/eye-alt)
+
+### **LICENSE:** Apache License **AUTHOR:** topcoat
+
+[Back Light SVG Vector](https://www.svgrepo.com/svg/370957/back-light)
 
 ### **LICENSE:** MIT License **AUTHOR:** sigurdarson
 

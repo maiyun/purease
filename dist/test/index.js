@@ -77,11 +77,18 @@ class Page extends purease.AbstractPage {
         this.nboardDisabled = false;
         this.nboardTitle = false;
         this.nboardPlain = false;
+        this.nboardSplit = false;
+        this.nboardCustom = false;
         // --- captcha ---
         this.tcResult = 'waiting...';
         this.cfResult = 'waiting...';
         this.tcKey = '';
         this.cfKey = '';
+        // --- spa ---
+        this.spaPlain = false;
+        /** --- 全屏 --- */
+        this.spaFull = false;
+        this.spaFooter = '1';
     }
     changeNBottom() {
         this.nbottom = !this.nbottom;
@@ -186,6 +193,15 @@ class Page extends purease.AbstractPage {
     cfOnReset() {
         this.cfResult = 'waiting...';
         this.refs.cf.reset();
+    }
+    spaGo(path) {
+        window.location.hash = '#' + path;
+    }
+    spaShow2(e) {
+        purease.display('spaShow2', e);
+    }
+    spaHide2(e) {
+        purease.display('spaHide2', e);
     }
 }
 purease.launcher(Page, {

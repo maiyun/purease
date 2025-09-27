@@ -62,7 +62,7 @@ purease = {
 <pe-banner class="index" direction="v" style="height: 600px;">
     <div class="pe-btitle">I'm glad to see you</div>
     <div class="pe-bnote">With Purease, you can quickly build a versatile, minimalist webpage.</div>
-    <div class="pe-layout pe-sgap" style="align-items: center;">
+    <div class="pe-layout pe-gap-s" style="align-items: center;">
         <a class="pe-button pe-plain" href="./">Download</a>
         <a class="pe-button pe-dark" href="./">Download</a>
     </div>
@@ -71,12 +71,12 @@ purease = {
 <div class="pe-block">
     <div class="pe-btitle">Rapid prototyping</div>
     <div class="pe-gnote">Web development shouldn't take up too much time</div>
-    <div class="pe-layout pe-sgap" style="justify-content: center;">
+    <div class="pe-layout pe-gap-s" style="justify-content: center;">
         <a class="pe-button" href="./">Discuss</a>
         <a class="pe-button pe-pgrey" href="./">Discuss2</a>
         <a class="pe-button pe-grey" href="./">Discuss3</a>
     </div>
-    <div class="pe-layout pe-sgap" style="justify-content: center;">
+    <div class="pe-layout pe-gap-s" style="justify-content: center; flex-wrap: wrap;">
         <a class="pe-button pe-disabled" href="./">Discuss</a>
         <a class="pe-button pe-pgrey pe-disabled" href="./">Discuss2</a>
         <a class="pe-button pe-grey pe-disabled" href="./">Discuss3</a>
@@ -88,7 +88,7 @@ purease = {
 <div class="pe-block pe-grey">
     <div class="pe-btitle">Rapid prototyping</div>
     <div class="pe-gnote">Web development shouldn't take up too much time</div>
-    <div class="pe-layout pe-sgap" style="justify-content: center;">
+    <div class="pe-layout pe-gap-s" style="justify-content: center;">
         <a class="pe-button pe-pgrey" href="./">Discuss</a>
         <a class="pe-button pe-pgrey" href="./">Discuss2</a>
         <a class="pe-button pe-pgrey" href="./">Discuss3</a>
@@ -97,7 +97,7 @@ purease = {
 <!-- 横向变纵向排列元素 -->
 <div class="pe-block">
     <div class="pe-btitle">Alayout</div>
-    <div class="pe-alayout pe-content pe-padding-lr pe-sgap">
+    <div class="pe-alayout pe-content pe-padding-lr pe-gap-s">
         <a class="pe-button pe-dark" href="./" style="flex: 1;">AAA</a>
         <a class="pe-button pe-dark" href="./" style="flex: 1;">BBB</a>
         <a class="pe-button pe-dark" href="./" style="flex: 1;">CCC</a>
@@ -107,17 +107,17 @@ purease = {
 <div class="pe-block pe-grey">
     <div class="pe-btitle">Box</div>
     <div class="pe-alayout pe-content pe-padding-lr pe-gap">
-        <a class="pe-box pe-padding pe-xsgap" href="./" style="justify-content: center; flex: 1;">
+        <a class="pe-box pe-padding pe-gap-xs" href="./" style="justify-content: center; flex: 1;">
             <div class="pe-title">AAA</div>
             <div class="pe-note">1111111111</div>
         </a>
-        <a class="pe-box pe-padding pe-hover pe-xsgap" href="./" style="justify-content: center; flex: 1;">
+        <a class="pe-box pe-padding pe-hover pe-gap-xs" href="./" style="justify-content: center; flex: 1;">
             <div class="pe-title">Hover</div>
             <div class="pe-note">2222222222</div>
         </a>
         <a class="pe-box pe-thover" href="./" style="flex: 1;">
             <div class="pe-img boximg"></div>
-            <div class="pe-spadding">
+            <div class="pe-padding-s">
                 <div class="pe-title">Thover</div>
                 <div class="pe-note">2222222222</div>
             </div>
@@ -131,7 +131,7 @@ purease = {
         <a class="pe-box" href="./" style="flex: 1;">
             <div class="pe-lralyout">
                 <div class="pe-img boximg2"></div>
-                <div class="pe-spadding">
+                <div class="pe-padding-s">
                     <div class="pe-title">Article1</div>
                     <div class="pe-note">Article note</div>
                 </div>
@@ -140,7 +140,7 @@ purease = {
         <a class="pe-box" href="./" style="flex: 1;">
             <div class="pe-lralyout">
                 <div class="pe-img boximg2 pe-hover"></div>
-                <div class="pe-spadding">
+                <div class="pe-padding-s">
                     <div class="pe-title">Article2</div>
                     <div class="pe-note">Article note</div>
                 </div>
@@ -250,7 +250,7 @@ purease = {
             <pe-setting-item title="How are you" note="No right"></pe-setting-item>
             <pe-setting-item v-slot:left>v-slot:left</pe-setting-item>
         </pe-setting>
-        <div class="pe-layout pe-sgap" style="justify-content: center;">
+        <div class="pe-layout pe-gap-s" style="justify-content: center;">
             <div class="pe-button pe-pgrey" @click="settingHover = !settingHover">{{settingHover ? '' : '!'}}hover</div>
             <div class="pe-button pe-pgrey" @click="settingPlain = !settingPlain">{{settingPlain ? '' : '!'}}plain</div>
         </div>

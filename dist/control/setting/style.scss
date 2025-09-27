@@ -1,12 +1,16 @@
 .pe-setting {
-    border-radius: var(--pe-radius-l); border: solid .5px var(--pe-border-plain); text-align: initial; overflow: hidden;
-
-    > :not(:last-child) {
-        border-bottom: solid .5px var(--pe-border-plain);
-    }
+    border-radius: var(--pe-radius-l); border: solid .5px var(--pe-border); text-align: initial; overflow: hidden;
 
     &.pe-setting-plain {
-        border-left: none; border-right: none; border-radius: 0;
+        border-color: var(--pe-grey); border-left: none; border-right: none; border-radius: 0;
+        > :not(:last-child) {
+            border-bottom: solid .5px var(--pe-grey);
+        }
+    }
+    &:not(.pe-setting-plain) {
+        > :not(:last-child) {
+            border-bottom: solid .5px var(--pe-border-plain);
+        }
     }
 
 }

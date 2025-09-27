@@ -15,7 +15,7 @@
             }
             
             .pe-menu {
-                opacity: 1; transform: translateY(0); pointer-events: initial;
+                opacity: 1; transform: translateY(0); pointer-events: inherit;
             }
         }
     }
@@ -59,7 +59,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
             }
 
             .pe-menu {
-                position: initial; opacity: initial; transform: initial; pointer-events: initial; height: 0; padding: 0; overflow: hidden;
+                position: initial; opacity: initial; transform: initial; height: 0; padding: 0; overflow: hidden;
             }
             &.pe-hover {
                 &::after {

@@ -1,0 +1,4 @@
+<div class="pe-spa-footer-icon" :class="[(modelValue===value)&&'pe-selected']" @click="click">
+    <slot></slot>
+    <div v-if="title" class="pe-spa-footer-icon-title">{{title}}</div>
+</div>

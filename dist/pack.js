@@ -17,8 +17,13 @@ async function run() {
         // --- 布局 ---
         const flayout = lTool.purify((await fs.promises.readFile('dist/control/' + item.name + '/layout.html')).toString()).replace(/`/g, '\\`');
         // --- 代码 ---
-        const fcode = (await fs.promises.readFile('dist/control/' + item.name + '/code.ts')).toString().replace(/'template': ''/, `'template': \`${flayout}\``);
-        code += `list['pe-${item.name}'] = ` + fcode.slice(fcode.indexOf('export const code = ') + 20).replace(/lControl./g, '') + '\n';
+        try {
+            const fcode = (await fs.promises.readFile('dist/control/' + item.name + '/code.ts')).toString().replace(/'template': ''/, `'template': \`${flayout}\``);
+            code += `list['pe-${item.name}'] = ` + fcode.slice(fcode.indexOf('export const code = ') + 20).replace(/lControl./g, '') + '\n';
+        }
+        catch {
+            code += `list['pe-${item.name}'] = { 'template': \`${flayout}\` };\n\n`;
+        }
         // --- 样式 ---
         style += (await fs.promises.readFile('dist/control/' + item.name + '/style.scss')).toString() + '\n\n';
     }

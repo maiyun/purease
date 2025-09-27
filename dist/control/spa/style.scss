@@ -1,0 +1,11 @@
+.pe-spa {
+    overflow: hidden; position: relative; text-align: initial;
+
+    &:not(.pe-spa-plain) {
+        border: solid 1px var(--pe-border-plain); border-radius: var(--pe-radius); background: oklch(1 0 0);
+    }
+    /** --- 全屏 --- */
+    &.pe-spa-full {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 2;
+    }
+}

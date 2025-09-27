@@ -79,13 +79,13 @@
 </pe-banner>
 <div class="pe-block">
     <div class="pe-btitle">Control header</div>
-    <div class="pe-alayout pe-content pe-sgap" style="justify-content: center;">
-        <div class="pe-layout pe-sgap" style="justify-content: center;">
+    <div class="pe-alayout pe-content pe-gap-s" style="justify-content: center;">
+        <div class="pe-layout pe-gap-s" style="justify-content: center;">
             <div class="pe-button pe-grey" @click="changeNBottom">{{nbottom ? '' : '!'}}Bottom</div>
             <div class="pe-button pe-grey" @click="changeSheader">{{sheader ? '' : '!'}}Sheader</div>
             <div class="pe-button pe-grey" @click="slogo = !slogo">{{slogo ? '' : '!'}}slogo</div>
         </div>
-        <div class="pe-layout pe-sgap" style="justify-content: center; align-items: center;">
+        <div class="pe-layout pe-gap-s" style="justify-content: center; align-items: center;">
             <div>Theme:</div>
             <pe-select style="width: 200px;" v-model="dbottom" :data="['default', 'dark']"></pe-select>
         </div>
@@ -101,11 +101,11 @@
         <pe-page v-model="p4" total="1282" count="20" :control="control"></pe-page>
         <pe-page v-model="p5" :total="total5" count="20" :control="control"></pe-page>
         <pe-page v-model="p6" total="1000" v-model:count="count6" :counts="[20,50,100]" :control="control" />
-        <div class="pe-layout pe-sgap">
+        <div class="pe-layout pe-gap-s">
             <div class="pe-button pe-pgrey" @click="total5 = total5 ? 0 : 300" style="flex: 2;">total to {{total5 ? 0 : 300}}</div>
             <div class="pe-button pe-pgrey" @click="control=2" style="flex: 2;">control to 2</div>
         </div>
-        <div class="pe-layout pe-sgap">
+        <div class="pe-layout pe-gap-s">
             <div class="pe-button pe-pgrey" @click="control=5" style="flex: 1;">to 5</div>
             <div class="pe-button pe-pgrey"@click="control=0" style="flex: 1;">to 0</div>
             <div class="pe-button pe-pgrey" @click="control=1" style="flex: 1;">to 1</div>
@@ -137,7 +137,7 @@
 <!-- drawer -->
 <div class="pe-block pe-grey">
     <div class="pe-btitle">Drawer</div>
-    <div class="pe-layout pe-content pe-padding-lr pe-sgap" style="flex-direction: column; align-items: center;">
+    <div class="pe-layout pe-content pe-padding-lr pe-gap-s" style="flex-direction: column; align-items: center;">
         <label>drawer: {{drawer ? 'true' : 'false'}}</label>
         <a class="pe-button pe-pgrey" @click="drawer = true">Open</a>
     </div>
@@ -167,9 +167,9 @@
 <!-- tag -->
 <div class="pe-block">
     <div class="pe-btitle">Tag</div>
-    <div class="pe-layout pe-content pe-padding-lr pe-sgap" style="flex-direction: column; align-items: center;">
+    <div class="pe-layout pe-content pe-padding-lr pe-gap-s" style="flex-direction: column; align-items: center;">
         <div>Default</div>
-        <div class="pe-layout pe-xsgap">
+        <div class="pe-layout pe-gap-xs" style="flex-wrap: wrap;">
             <pe-tag :close="tagclose">Default</pe-tag>
             <pe-tag :close="tagclose" type="primary">Primary</pe-tag>
             <pe-tag :close="tagclose" type="info">Info</pe-tag>
@@ -179,7 +179,7 @@
             <pe-tag :close="tagclose" type="current">Current</pe-tag>
         </div>
         <div>Plain</div>
-        <div class="pe-layout pe-xsgap">
+        <div class="pe-layout pe-gap-xs" style="flex-wrap: wrap;">
             <pe-tag :close="tagclose" plain>Default</pe-tag>
             <pe-tag :close="tagclose" type="primary" plain>Primary</pe-tag>
             <pe-tag :close="tagclose" type="info" plain>Info</pe-tag>
@@ -189,20 +189,93 @@
             <pe-tag :close="tagclose" type="current" plain>Current</pe-tag>
         </div>
         <div>Size</div>
-        <div class="pe-layout pe-xsgap" style="align-items: center;">
+        <div class="pe-layout pe-gap-xs" style="align-items: center;">
             <pe-tag :close="tagclose" type="primary" plain size="l">l</pe-tag>
             <pe-tag :close="tagclose" type="primary" plain size="m">m</pe-tag>
             <pe-tag :close="tagclose" type="primary" plain size="s">s</pe-tag>
             <pe-tag :close="tagclose" type="primary" plain size="xs">xs</pe-tag>
         </div>
         <div>Event</div>
-        <div class="pe-layout pe-xsgap" style="align-items: center;">
+        <div class="pe-layout pe-gap-xs" style="align-items: center; flex-wrap: wrap;">
             <pe-tag :close="tagclose" v-for="item, index of taglist" type="pe" size="l" plain @close="taglist.splice(index, 1)">{{item}}</pe-tag>
             <div class="pe-button pe-pgrey" v-if="taglist.length < 6" @click="taglist.push('tag' + taglist.length)">Add</div>
         </div>
-        <div class="pe-layout pe-xsgap">
+        <div class="pe-layout pe-gap-xs">
             <div class="pe-button pe-pgrey" @click="tagclose = !tagclose">{{tagclose ? '' : '!'}}close</div>
         </div>
     </div>
+</div>
+<!-- spa -->
+<div class="pe-block pe-grey">
+    <div class="pe-btitle">Spa</div>
+    <div class="pe-layout pe-content pe-padding-lr pe-gap-s" style="flex-direction: column; align-items: center;">
+        <pe-spa :plain="spaPlain" :full="spaFull" style="min-width: 400px; min-height: 700px;">
+            <!-- 第一页 -->
+            <pe-spa-page path="/">
+                <pe-spa-header>Hello world</pe-spa-header>
+                <pe-spa-content>
+                    <div v-if="spaFooter === '1'" class="pe-layout pe-padding-s pe-gap-s" style="flex-direction: column;">
+                        <div>has padding</div>
+                        <div class="pe-button pe-grey" @click="spaFull = !spaFull">{{spaFull ? '' : '!'}}full</div>
+                    </div>
+                    <div v-else-if="spaFooter === '2'" class="pe-layout pe-gap-s" style="flex-direction: column;">
+                        <pe-setting plain hover style="margin-top: var(--pe-padding-s);">
+                            <pe-setting-item title="Name">Nick</pe-setting-item>
+                            <pe-setting-item note="Age">18</pe-setting-item>
+                        </pe-setting>
+                        <div class="pe-button pe-dark" style="margin: 0 var(--pe-padding-s);" @click="spaGo('/2')">Logout</div>
+                    </div>
+                    <div v-else-if="spaFooter === '3'" class="pe-layout pe-padding-s pe-gap-s" style="flex-direction: column;">
+                        <pe-setting :hover="settingHover" :plain="settingPlain">
+                            <pe-setting-item title="How are you" note="Ok, I'm ok, you?">END</pe-setting-item>
+                            <pe-setting-item title="How are you" note="Ok, I'm ok, you?">
+                                <pe-switch />
+                            </pe-setting-item>
+                            <pe-setting-item title="How are you" note="No right"></pe-setting-item>
+                            <pe-setting-item v-slot:left>v-slot:left</pe-setting-item>
+                        </pe-setting>
+                        <div class="pe-button pe-dark" @click="settingHover = !settingHover" @click="spaGo('/2')">{{settingHover ? '' : '!'}}hover</div>
+                        <div class="pe-button pe-grey" @click="settingPlain = !settingPlain" @click="spaGo('/3')">{{settingPlain ? '' : '!'}}plain</div>
+                    </div>
+                </pe-spa-content>
+                <pe-spa-footer>
+                    <pe-spa-footer-icon title="Full" v-model="spaFooter" value="1">
+                        <pe-icon name="eye"></pe-icon>
+                    </pe-spa-footer-icon>
+                    <pe-spa-footer-icon title="Text" v-model="spaFooter" value="2"></pe-spa-footer-icon>
+                    <pe-spa-footer-icon v-model="spaFooter" value="3">
+                        <pe-icon name="language"></pe-icon>
+                    </pe-spa-footer-icon>
+                </pe-spa-footer>
+            </pe-spa-page>
+            <!-- 第二页 -->
+            <pe-spa-page path="/2" @show="spaShow2" @hide="spaHide2">
+                <pe-spa-header back>The 2 Page</pe-spa-header>
+                <pe-spa-content>
+                    test test<br><br>
+                    <div class="pe-button pe-pgrey">Button</div>
+                </pe-spa-content>
+            </pe-spa-page>
+            <!-- 第三页 -->
+            <pe-spa-page path="/3">
+                <pe-spa-header back>The 3 Page</pe-spa-header>
+                <pe-spa-content>
+                    <div class="pe-layout pe-padding-s">
+                        has padding
+                    </div>
+                </pe-spa-content>
+            </pe-spa-page>
+        </pe-spa>
+        <div class="pe-layout pe-gap-xs">
+            <div class="pe-button pe-pgrey" @click="spaPlain = !spaPlain">{{spaPlain ? '' : '!'}}plain</div>
+            <div class="pe-button pe-pgrey" @click="spaFull = !spaFull">{{spaFull ? '' : '!'}}full</div>
+        </div>
+        <div class="pe-layout pe-gap-xs">
+            <div class="pe-button pe-pgrey" @click="spaGo('/')">index</div>
+            <div class="pe-button pe-pgrey" @click="spaGo('/2')">go 2</div>
+            <div class="pe-button pe-pgrey" @click="spaGo('/3')">go 3</div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

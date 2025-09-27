@@ -253,6 +253,10 @@ class Page extends purease.AbstractPage {
 
     public nboardPlain: boolean = false;
 
+    public nboardSplit: boolean = false;
+
+    public nboardCustom: boolean = false;
+
     // --- captcha ---
 
     public tcResult: string = 'waiting...';
@@ -279,6 +283,27 @@ class Page extends purease.AbstractPage {
     public cfOnReset(): void {
         this.cfResult = 'waiting...';
         this.refs.cf.reset();
+    }
+
+    // --- spa ---
+
+    public spaPlain: boolean = false;
+
+    /** --- 全屏 --- */
+    public spaFull: boolean = false;
+
+    public spaFooter = '1';
+
+    public spaGo(path: string): void {
+        window.location.hash = '#' + path;
+    }
+
+    public spaShow2(e: purease.control.ISpaShowEvent): void {
+        purease.display('spaShow2', e);
+    }
+
+    public spaHide2(e: purease.control.ISpaHideEvent): void {
+        purease.display('spaHide2', e);
     }
 
 }

@@ -13,12 +13,18 @@ export const code = {
         'plain': {
             'default': false,
         },
+        'custom': {
+            'default': '',
+        },
 
         'modelValue': {
             'default': '',
         },
         'length': {
             'default': 6
+        },
+        'split': {
+            'default': false,
         },
     },
     data: function() {
@@ -54,6 +60,9 @@ export const code = {
     },
     'methods': {
         click: function(this: purease.IVue, num: string) {
+            if (num === '') {
+                return;
+            }
             if (this.value.length === this.length) {
                 return;
             }

@@ -1,4 +1,4 @@
-<div class="pe-nboard" :class="[propBoolean('disabled')&&'pe-disabled',propBoolean('plain')&&'pe-plain']">
+<div class="pe-nboard" :class="[propBoolean('disabled')&&'pe-disabled',propBoolean('plain')&&'pe-plain',propBoolean('split')&&'pe-nboard-split']">
     <template v-if="$slots['title']">
         <div class="pe-nboard-title">
             <slot name="title"></slot>
@@ -27,7 +27,7 @@
         <div @click="click('9')">9</div>
     </div>
     <div class="pe-nboard-line">
-        <div></div>
+        <div @click="click(custom)">{{custom}}</div>
         <div @click="click('0')">0</div>
         <div @click="back">
             <pe-icon name="backspace"></pe-icon>

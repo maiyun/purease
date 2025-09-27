@@ -98,7 +98,7 @@ html, body {
     padding: 0; margin: 0;
 }
 body, html, input, select, textarea {
-    font-family: var(--pe-font-life); color: var(--pe-color); fill: currentColor; stroke: currentColor; line-height: 1.5; font-size: var(--pe-size);
+    font-family: var(--pe-font-life); color: var(--pe-color); fill: currentColor; stroke: currentColor; line-height: 1.5; font-size: var(--pe-size); -webkit-font-smoothing: antialiased; text-shadow: 0 0 1px color-mix(in srgb, currentColor 40%, transparent);
 }
 a {
     color: var(--pe-color); text-decoration: none; transition: var(--pe-transition); display: inline-flex; align-items: center;
@@ -115,7 +115,7 @@ img {
     vertical-align: middle;
 }
 * {
-    box-sizing: border-box;
+    box-sizing: border-box; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     &::-webkit-scrollbar {
         width: 6px; cursor: default;
     }
@@ -267,15 +267,15 @@ html.pe-rtl {
     padding: var(--pe-padding);
 }
 
-.pe-spadding {
+.pe-padding-s {
     padding: var(--pe-padding-s);
 }
 
-.pe-xspadding {
+.pe-padding-xs {
     padding: var(--pe-padding-xs);
 }
 
-.pe-xxspadding {
+.pe-padding-xxs {
     padding: var(--pe-padding-xxs);
 }
 
@@ -300,11 +300,11 @@ html.pe-rtl {
     gap: 40px;
 }
 
-.pe-sgap {
+.pe-gap-s {
     gap: 20px;
 }
 
-.pe-xsgap {
+.pe-gap-xs {
     gap: 10px;
 }
 
@@ -671,6 +671,7 @@ html.pe-rtl {
         --pe-padding:30px;
         --pe-padding-s:14px;
         --pe-padding-xs:12px;
+        --pe-padding-xxs:4px;
         // --- 字号 ---
         --pe-size-xxxl:32px;
         --pe-size-xxl:22px;
@@ -699,7 +700,7 @@ html.pe-rtl {
         gap: 25px;
     }
 
-    .pe-sgap {
+    .pe-gap-s {
         gap: 15px;
     }
 
@@ -836,7 +837,7 @@ html.pe-rtl {
     }
     // --- 渐变 ---
     &.pe-grad {
-        background: linear-gradient(to bottom, var(--p-bg), transparent);
+        background: linear-gradient(to bottom, var(--pe-bg), transparent);
     }
 }
 .pe-banner-content {
@@ -885,7 +886,7 @@ html.pe-rtl {
         }
         &.pe-hover {
             .pe-menu {
-                opacity: 1; transform: translateY(0); pointer-events: initial;
+                opacity: 1; transform: translateY(0); pointer-events: inherit;
             }
         }
     }
@@ -920,7 +921,7 @@ html.pe-rtl {
             }
 
             .pe-menu {
-                position: initial; opacity: initial; transform: initial; pointer-events: initial; height: 0; padding: 0; overflow: hidden; margin: 0 -30px; border-radius: 0;
+                position: initial; opacity: initial; transform: initial; height: 0; padding: 0; overflow: hidden; margin: 0 -30px; border-radius: 0;
             }
             &.pe-hover {
                 &::after {
@@ -1632,7 +1633,7 @@ html.pe-sheader {
             }
             
             .pe-menu {
-                opacity: 1; transform: translateY(0); pointer-events: initial;
+                opacity: 1; transform: translateY(0); pointer-events: inherit;
             }
         }
     }
@@ -1676,7 +1677,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
             }
 
             .pe-menu {
-                position: initial; opacity: initial; transform: initial; pointer-events: initial; height: 0; padding: 0; overflow: hidden;
+                position: initial; opacity: initial; transform: initial; height: 0; padding: 0; overflow: hidden;
             }
             &.pe-hover {
                 &::after {
@@ -1781,7 +1782,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 }
 
 .pe-nboard {
-    width: 100%; max-width: 550px; border-radius: var(--pe-radius); border: solid 1px var(--pe-border); box-shadow: var(--pe-shadow); background: #FFF; -webkit-user-select: none; user-select: none; cursor: default;
+    border-radius: var(--pe-radius); border: solid 1px var(--pe-border); box-shadow: var(--pe-shadow); background: #FFF; -webkit-user-select: none; user-select: none; cursor: default;
     &.pe-plain {
         border: none; box-shadow: none;
     }
@@ -1796,14 +1797,21 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
         .pe-nboard-input {
             display: flex; border: solid 1px var(--pe-border-plain); border-radius: var(--pe-radius);
             > .pe-nboard-item {
-                width: calc(var(--pe-padding-s) * 2 + var(--pe-size)); height: calc(var(--pe-padding-s) * 2 + var(--pe-size)); display: flex; align-items: center; justify-content: center; 
+                width: calc(var(--pe-padding-s) * 2 + var(--pe-size)); height: calc(var(--pe-padding-s) * 2 + var(--pe-size)); display: flex; align-items: center; justify-content: center;
+            }
+        }
+    }
+    &.pe-nboard-split {
+        .pe-nboard-input {
+            > .pe-nboard-item {
                 &:not(:last-child) {
                     border-right: solid 1px var(--pe-border-plain);
                 }
             }
         }
-
     }
+
+
 
     .pe-nboard-line {
         display: flex; font-size: var(--pe-size-l); border-top: solid 1px var(--pe-border-plain);
@@ -1911,22 +1919,26 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 }
 
 .pe-setting {
-    border-radius: var(--pe-radius-l); border: solid .5px var(--pe-border-plain); text-align: initial; overflow: hidden;
-
-    > :not(:last-child) {
-        border-bottom: solid .5px var(--pe-border-plain);
-    }
+    border-radius: var(--pe-radius-l); border: solid .5px var(--pe-border); text-align: initial; overflow: hidden;
 
     &.pe-setting-plain {
-        border-left: none; border-right: none; border-radius: 0;
+        border-color: var(--pe-grey); border-left: none; border-right: none; border-radius: 0;
+        > :not(:last-child) {
+            border-bottom: solid .5px var(--pe-grey);
+        }
+    }
+    &:not(.pe-setting-plain) {
+        > :not(:last-child) {
+            border-bottom: solid .5px var(--pe-border-plain);
+        }
     }
 
 }
 
 .pe-setting-item {
-    padding: var(--pe-padding); display: flex; transition: var(--pe-transition); background: var(--pe-input-bg);
+    padding: var(--pe-padding-s); display: flex; transition: var(--pe-transition); background: var(--pe-input-bg);
     .pe-setting-item-left {
-        flex: 1; display: flex; flex-direction: column; gap: var(--pe-padding-s);
+        flex: 1; display: flex; flex-direction: column; gap: var(--pe-padding-xxs);
 
         .pe-setting-item-title {
             font-size: var(--pe-size-l);
@@ -1943,7 +1955,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 
 .pe-setting.pe-setting-hover {
     .pe-setting-item {
-        &:hover {
+        &.pe-hover {
             background: var(--pe-input-hover-bg);
         }
     }
@@ -1963,6 +1975,66 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     }
     &:focus, &:active {
         transform: scale(1.3); background: var(--pe-input-bg); box-shadow: var(--pe-outline-shadow);
+    }
+}
+
+.pe-spa {
+    overflow: hidden; position: relative; text-align: initial;
+
+    &:not(.pe-spa-plain) {
+        border: solid 1px var(--pe-border-plain); border-radius: var(--pe-radius); background: oklch(1 0 0);
+    }
+    /** --- 全屏 --- */
+    &.pe-spa-full {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 2;
+    }
+}
+
+.pe-spa-content {
+    display: flex; flex-direction: column; flex: 1; height: 0; overflow: auto;
+}
+
+.pe-spa-footer {
+    display: flex;
+}
+
+.pe-spa-footer-icon {
+    flex: 1; padding: var(--pe-padding-xs); display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--pe-note-color); font-size: var(--pe-size-s); cursor: pointer; user-select: none; /* transition: var(--pe-transition); --- 禁止加 transition --- */
+
+    &.pe-selected {
+        color: var(--pe);
+    }
+
+    .pe-icon {
+        width: 24px; height: 24px;
+    }
+}
+
+.pe-spa-header {
+    padding: var(--pe-padding-s); display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: var(--pe-size-l); position: relative;
+
+    .pe-spa-header-back {
+        position: absolute; left: 0; top: 0; height: 100%; padding: 0 var(--pe-padding-s); display: flex; align-items: center;
+    }
+}
+
+.pe-spa-page {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: oklch(1 0 0); flex-direction: column; transition: var(--pe-transition);
+
+    // --- 真实显示 ---
+    &.pe-display {
+        display: flex;
+    }
+    &:not(.pe-display) {
+        display: none;
+    }
+
+    // --- 过度动画 ---
+    &.pe-show {
+        transform: translateX(0px); opacity: 1;
+    }
+    &:not(.pe-show) {
+        transform: translateX(10px); opacity: 0;
     }
 }
 
@@ -2066,6 +2138,15 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
         }
     }
 }
+
+@media screen and (max-width: 800px) {
+
+    .pe-switch {
+        --pe-switch-size:25px;
+    }
+
+}
+
 
 .pe-tab {
     display: flex; justify-content: center; cursor: default; -webkit-user-select: none; user-select: none; border-bottom: solid 1px var(--pe-border); color: var(--pe-inote-color);

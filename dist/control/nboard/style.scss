@@ -1,5 +1,5 @@
 .pe-nboard {
-    width: 100%; max-width: 550px; border-radius: var(--pe-radius); border: solid 1px var(--pe-border); box-shadow: var(--pe-shadow); background: #FFF; -webkit-user-select: none; user-select: none; cursor: default;
+    border-radius: var(--pe-radius); border: solid 1px var(--pe-border); box-shadow: var(--pe-shadow); background: #FFF; -webkit-user-select: none; user-select: none; cursor: default;
     &.pe-plain {
         border: none; box-shadow: none;
     }
@@ -14,14 +14,21 @@
         .pe-nboard-input {
             display: flex; border: solid 1px var(--pe-border-plain); border-radius: var(--pe-radius);
             > .pe-nboard-item {
-                width: calc(var(--pe-padding-s) * 2 + var(--pe-size)); height: calc(var(--pe-padding-s) * 2 + var(--pe-size)); display: flex; align-items: center; justify-content: center; 
+                width: calc(var(--pe-padding-s) * 2 + var(--pe-size)); height: calc(var(--pe-padding-s) * 2 + var(--pe-size)); display: flex; align-items: center; justify-content: center;
+            }
+        }
+    }
+    &.pe-nboard-split {
+        .pe-nboard-input {
+            > .pe-nboard-item {
                 &:not(:last-child) {
                     border-right: solid 1px var(--pe-border-plain);
                 }
             }
         }
-
     }
+
+
 
     .pe-nboard-line {
         display: flex; font-size: var(--pe-size-l); border-top: solid 1px var(--pe-border-plain);
