@@ -533,7 +533,7 @@ html.pe-rtl {
     flex: 1; background-position: center; background-size: auto 80px; background-repeat: no-repeat;
 }
 .pe-hske-bottom {
-    padding: 0 var(--pe-padding-s) var(--pe-padding-s) var(--pe-padding-s); text-align: center; font-size: var(--pe-xssize);
+    padding: 0 var(--pe-padding-s) var(--pe-padding-s) var(--pe-padding-s); text-align: center; font-size: var(--pe-xssize); display: flex; flex-direction: column; gap: var(--pe-gap-xs);
 }
 
 // --- pe-alert ---
