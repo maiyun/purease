@@ -7,7 +7,7 @@ html {
     --pe-disabled-color:oklch(.7 0 0);
     --pe-note-color:oklch(.55 0 0);
     --pe-inote-color:oklch(.6 0 0);
-    --pe:var(--main);     // --- 主题色 ---
+    --pe:var(--main);       // --- 主题色 ---
     --pe-hover:color-mix(in oklch, var(--pe), white 10%);
     --pe-active:color-mix(in oklch, var(--pe), black 10%);
     --pe-focus:color-mix(in oklch, var(--pe), black 5%);
@@ -2123,10 +2123,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 }
 
 .pe-spa-header {
-    padding: var(--pe-padding-s) 0; display: flex; align-items: center; justify-content: center; font-size: var(--pe-size-l); position: relative; gap: var(--pe-gap-xxs); line-height: 1;
-    &.pe-spa-header-hasnote {
-        padding: var(--pe-padding-xs) 0;
-    }
+    display: flex; height: 65px; align-items: center; justify-content: center; font-size: var(--pe-size-l); position: relative; gap: var(--pe-gap-xxs); line-height: 1;
 
     .pe-spa-header-back {
         position: absolute; left: 0; top: 0; height: 100%; padding: 0 var(--pe-padding-s); display: flex; align-items: center;
@@ -2136,6 +2133,15 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
         font-size: var(--pe-size-s); color: var(--pe-note-color); text-align: center;
     }
 }
+
+@media screen and (max-width: 800px) {
+
+    .pe-spa-header {
+        height: 50px;
+    }
+
+}
+
 
 .pe-spa-page {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: oklch(1 0 0); flex-direction: column; transition: var(--pe-transition);
