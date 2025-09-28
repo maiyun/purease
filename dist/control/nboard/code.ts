@@ -5,6 +5,7 @@ export const code = {
     'emits': {
         'changed': null,
         'update:modelValue': null,
+        'button': null,
     },
     'props': {
         'disabled': {
@@ -15,6 +16,9 @@ export const code = {
         },
         'custom': {
             'default': '',
+        },
+        'buttons': {
+            'default': [],
         },
 
         'modelValue': {
@@ -73,6 +77,9 @@ export const code = {
             }
             this.$emit('update:modelValue', mv);
             this.$emit('changed');
+        },
+        buttonClick: function(this: purease.IVue, item: string) {
+            this.$emit('button', item);
         },
         back: function(this: purease.IVue) {
             if (!this.value.length) {

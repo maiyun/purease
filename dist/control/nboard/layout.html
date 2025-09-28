@@ -33,4 +33,7 @@
             <pe-icon name="backspace"></pe-icon>
         </div>
     </div>
+    <div v-if="buttons.length" class="pe-nboard-line pe-nboard-buttons">
+        <div v-for="item of buttons" @click="buttonClick(item)">{{item}}</div>
+    </div>
 </div>

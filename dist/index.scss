@@ -591,6 +591,15 @@ html.pe-rtl {
             background: var(--danger);
         }
     }
+    &.pe-pe {
+        color: var(--pe);
+        .pe-alert-content {
+            border-color: var(--pe); background: var(--pe-bg);
+        }
+        .pe-alert-icon {
+            background: var(--pe);
+        }
+    }
 }
 
 // --- pe-crumb ---
@@ -1782,9 +1791,12 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 }
 
 .pe-nboard {
-    border-radius: var(--pe-radius); border: solid 1px var(--pe-border); box-shadow: var(--pe-shadow); background: #FFF; -webkit-user-select: none; user-select: none; cursor: default;
-    &.pe-plain {
-        border: none; box-shadow: none;
+    background: var(--pe-input-bg); -webkit-user-select: none; user-select: none; cursor: default;
+    &:not(.pe-plain) {
+        border-radius: var(--pe-radius); border: solid 1px var(--pe-border); box-shadow: var(--pe-shadow);
+        .pe-nboard-buttons :last-child {
+            border-bottom-right-radius: var(--pe-radius);
+        }
     }
 
     .pe-nboard-title {
@@ -1811,10 +1823,9 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
         }
     }
 
-
-
     .pe-nboard-line {
         display: flex; font-size: var(--pe-size-l); border-top: solid 1px var(--pe-border-plain);
+
         > div {
             padding: var(--pe-padding); flex: 1; transition: var(--pe-transition); display: flex; align-items: center; justify-content: center;
             &:not(:last-child) {
@@ -1828,12 +1839,24 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
                 background: #FFF; box-shadow: var(--pe-outline-shadow);
             }
         }
+        &.pe-nboard-buttons {
+            :last-child {
+                background: var(--pe); color: var(--pe-fcolor);
+                &:hover {
+                    filter: brightness(1.2);
+                }
+                &:focus, &:active {
+                    filter: brightness(0.9); box-shadow: 0 0 0 4px var(--pe-bg);
+                }
+            }
+        }
 
         .pe-icon {
             width: var(--pe-size-xl); height: var(--pe-size-xl);
         }
     }
 }
+
 
 .pe-page {
     cursor: default; -webkit-user-select: none; user-select: none;

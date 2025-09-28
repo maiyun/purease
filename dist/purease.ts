@@ -267,7 +267,7 @@ export abstract class AbstractPage {
     };
 
     /** --- 显示一个 alert，支持 html，请注意传入内容的安全 --- */
-    public alert(content: string, type: 'default' | 'primary' | 'info' | 'warning' | 'danger' = 'default'): void {
+    public alert(content: string, type: 'default' | 'primary' | 'info' | 'warning' | 'danger' | 'pe' = 'default'): void {
         if (this.alertInfo.timer) {
             clearTimeout(this.alertInfo.timer);
             this.alertInfo.timer = 0;

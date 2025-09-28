@@ -79,6 +79,7 @@ class Page extends purease.AbstractPage {
         this.nboardPlain = false;
         this.nboardSplit = false;
         this.nboardCustom = false;
+        this.nboardButtons = false;
         // --- captcha ---
         this.tcResult = 'waiting...';
         this.cfResult = 'waiting...';
@@ -179,6 +180,9 @@ class Page extends purease.AbstractPage {
     }
     dpOnRange(e) {
         purease.display('onRange', e);
+    }
+    nboardButton(btn) {
+        this.alert(btn, 'pe');
     }
     tcOnResult(res) {
         this.tcResult = res;

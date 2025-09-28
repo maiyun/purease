@@ -257,6 +257,12 @@ class Page extends purease.AbstractPage {
 
     public nboardCustom: boolean = false;
 
+    public nboardButtons: boolean = false;
+
+    public nboardButton(btn: string): void {
+        this.alert(btn, 'pe');
+    }
+
     // --- captcha ---
 
     public tcResult: string = 'waiting...';

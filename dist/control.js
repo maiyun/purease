@@ -2700,10 +2700,11 @@ list['pe-menu'] = {
     }
 };
 list['pe-nboard'] = {
-    'template': `<div class="pe-nboard" :class="[propBoolean('disabled')&&'pe-disabled',propBoolean('plain')&&'pe-plain',propBoolean('split')&&'pe-nboard-split']"><template v-if="$slots['title']"><div class="pe-nboard-title"><slot name="title"></slot></div></template><div class="pe-nboard-wrap"><div class="pe-nboard-input"><div v-for="item of length" class="pe-nboard-item"><span v-if="value[item - 1]">{{value[item - 1]}}</span></div></div></div><div class="pe-nboard-line"><div @click="click('1')">1</div><div @click="click('2')">2</div><div @click="click('3')">3</div></div><div class="pe-nboard-line"><div @click="click('4')">4</div><div @click="click('5')">5</div><div @click="click('6')">6</div></div><div class="pe-nboard-line"><div @click="click('7')">7</div><div @click="click('8')">8</div><div @click="click('9')">9</div></div><div class="pe-nboard-line"><div @click="click(custom)">{{custom}}</div><div @click="click('0')">0</div><div @click="back"><pe-icon name="backspace"></pe-icon></div></div></div>`,
+    'template': `<div class="pe-nboard" :class="[propBoolean('disabled')&&'pe-disabled',propBoolean('plain')&&'pe-plain',propBoolean('split')&&'pe-nboard-split']"><template v-if="$slots['title']"><div class="pe-nboard-title"><slot name="title"></slot></div></template><div class="pe-nboard-wrap"><div class="pe-nboard-input"><div v-for="item of length" class="pe-nboard-item"><span v-if="value[item - 1]">{{value[item - 1]}}</span></div></div></div><div class="pe-nboard-line"><div @click="click('1')">1</div><div @click="click('2')">2</div><div @click="click('3')">3</div></div><div class="pe-nboard-line"><div @click="click('4')">4</div><div @click="click('5')">5</div><div @click="click('6')">6</div></div><div class="pe-nboard-line"><div @click="click('7')">7</div><div @click="click('8')">8</div><div @click="click('9')">9</div></div><div class="pe-nboard-line"><div @click="click(custom)">{{custom}}</div><div @click="click('0')">0</div><div @click="back"><pe-icon name="backspace"></pe-icon></div></div><div v-if="buttons.length" class="pe-nboard-line pe-nboard-buttons"><div v-for="item of buttons" @click="buttonClick(item)">{{item}}</div></div></div>`,
     'emits': {
         'changed': null,
         'update:modelValue': null,
+        'button': null,
     },
     'props': {
         'disabled': {
@@ -2714,6 +2715,9 @@ list['pe-nboard'] = {
         },
         'custom': {
             'default': '',
+        },
+        'buttons': {
+            'default': [],
         },
         'modelValue': {
             'default': '',
@@ -2771,6 +2775,9 @@ list['pe-nboard'] = {
             }
             this.$emit('update:modelValue', mv);
             this.$emit('changed');
+        },
+        buttonClick: function (item) {
+            this.$emit('button', item);
         },
         back: function () {
             if (!this.value.length) {
