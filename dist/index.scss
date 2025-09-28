@@ -2440,7 +2440,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
         }
     }
     &.pe-plain {
-        border-color: var(--pe-border); background: var(--pe-input-bg);
+        border-color: var(--pe-border);
 
         svg {
             &:hover, &:active {
