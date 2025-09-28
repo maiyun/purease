@@ -1,14 +1,12 @@
-<div class="pe-setting-item" @mouseenter="enter" @mouseleave="leave" @touchstart="enter" @touchend="leave">
-    <div class="pe-setting-item-left">
-        <template v-if="$slots['left']">
-            <slot name="left"></slot>
-        </template>
-        <template v-else>
-            <div v-if="title" class="pe-setting-item-title">{{title}}</div>
-            <div v-if="note" class="pe-setting-item-note">{{note}}</div>
-        </template>
+<div class="pe-setting-item" :class="[propBoolean('nopadding')&&'pe-setting-item-nopadding',propBoolean('nogap')&&'pe-setting-item-nogap']" @mouseenter="enter" @mouseleave="leave" @touchstart="enter" @touchend="leave">
+    <template v-if="$slots['left']">
+        <slot name="left"></slot>
+    </template>
+    <div v-else class="pe-setting-item-left">
+        <div v-if="title" class="pe-setting-item-title">{{title}}</div>
+        <div v-if="note" class="pe-setting-item-note">{{note}}</div>
     </div>
-    <div class="pe-setting-item-right" :style="{'align-items': direction === 'v' ? alignHComp : alignVComp, 'justify-content': direction === 'v' ? alignVComp : alignHComp, 'gap': propNumber('gutter') ? (gutter + 'px') : '0'}">
+    <div v-if="$slots['default']" class="pe-setting-item-right" :style="{'align-items': direction === 'v' ? alignHComp : alignVComp, 'justify-content': direction === 'v' ? alignVComp : alignHComp, 'gap': gap ? `var(--pe-gap-${gap})` : undefined}">
         <slot></slot>
     </div>
 </div>

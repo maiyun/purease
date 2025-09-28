@@ -583,6 +583,22 @@ list['pe-check'] = {
         }
     },
 };
+list['pe-circle'] = {
+    'template': `<div class="pe-circle" :class="['pe-circle-type-' + type, propBoolean('plain') && 'pe-plain', 'pe-circle-size-' + size]" ><slot></slot></div>`,
+    'props': {
+        /** ---  'default' | 'primary' | 'info' | 'warning' | 'danger' | 'pe' --- */
+        'type': {
+            'default': 'default',
+        },
+        'plain': {
+            'default': false,
+        },
+        /** --- 'l'| 'm' | 's' | 'xs' | 'xxs' --- */
+        'size': {
+            'default': 'xxs',
+        },
+    },
+};
 list['pe-date'] = {
     'template': `<div class="pe-date-wrap" :class="[propBoolean('disabled')&&'pe-disabled']"><div class="pe-date-first"><div @click="click($event, 'first')" ref="first" v-if="propBoolean('date') || propBoolean('time')"><template v-if="timestamp === undefined"><div>{{l('please click select')}}</div></template><template v-else><div v-if="propBoolean('date')">{{dateStr}}</div><div v-if="propBoolean('time')">{{timeStr}}</div></template></div><div v-if="propBoolean('zone')" @click="click($event, 'zone')" ref="zone">UTC{{tzData >= 0 ? '+' : ''}}{{tzData}}</div></div><div class="pe-date-clear" @click="clear" v-if="timestamp !== undefined"><svg viewBox="0 0 24 24" stroke="none"><path d="m7.53033 6.46967c-.29289-.29289-.76777-.29289-1.06066 0s-.29289.76777 0 1.06066l4.46963 4.46967-4.46963 4.4697c-.29289.2929-.29289.7677 0 1.0606s.76777.2929 1.06066 0l4.46967-4.4696 4.4697 4.4696c.2929.2929.7677.2929 1.0606 0s.2929-.7677 0-1.0606l-4.4696-4.4697 4.4696-4.46967c.2929-.29289.2929-.76777 0-1.06066s-.7677-.29289-1.0606 0l-4.4697 4.46963z" /></svg></div><div v-if="propBoolean('date')" ref="firstpop" class="pe-pop"><pe-datepanel plain :tz="tzData" :yearmonth="yearmonth" :hourminute="hourminute" @update:yearmonth="$emit('update:yearmonth')" :clearbtn="false" :time="propBoolean('time')" :start="start" :end="end" v-model="timestamp" @changed="changed" @selected="selected"><template v-if="$slots['default']" v-slot="col"><slot :year="col.year" :month="col.month" :date="col.date" :day="col.day" :str="col.str" :time="col.time"></slot></template></pe-datepanel></div><div v-if="!propBoolean('date') && propBoolean('time')" ref="timepop" class="pe-pop pe-date-list"><div><div class="pe-date-item"><div class="pe-date-title">{{l('hour')}}</div><pe-dlist :data="hours" v-model="vhour"></pe-dlist></div><div class="pe-date-item"><div class="pe-date-title">{{l('minute')}}</div><pe-dlist :data="minutes" v-model="vminute"></pe-dlist></div><div class="pe-date-item"><div class="pe-date-title">{{l('second')}}</div><pe-dlist :data="seconds" v-model="vseconds"></pe-dlist></div></div><div><div class="pe-button pe-pgrey" @click="cancel">{{l('cancel')}}</div><div class="pe-button pe-pgrey" @click="timeOk">{{l('ok')}}</div></div></div><div v-if="propBoolean('zone')" ref="zonepop" class="pe-pop pe-date-list"><div><div class="pe-date-item"><div class="pe-date-title">{{l('zone')}}</div><pe-dlist :data="zones" v-model="vzone"></pe-dlist></div><div class="pe-date-item"><div class="pe-date-title">{{l('minute')}}</div><pe-dlist :data="zdecs" v-model="vzdec"></pe-dlist></div></div><div><div class="pe-button pe-pgrey" @click="cancel">{{l('cancel')}}</div><div class="pe-button pe-pgrey" @click="zoneOk">{{l('ok')}}</div></div></div></div>`,
     'emits': {
@@ -3183,7 +3199,7 @@ list['pe-select'] = {
     }
 };
 list['pe-setting'] = {
-    'template': `<div class="pe-setting" :class="[propBoolean('hover')&&'pe-setting-hover',propBoolean('plain')&&'pe-setting-plain']"><slot></slot></div>`,
+    'template': `<div class="pe-setting" :class="[propBoolean('hover')&&'pe-setting-hover',propBoolean('plain')&&'pe-setting-plain',propBoolean('light')&&'pe-setting-light']"><slot></slot></div>`,
     'props': {
         'type': {
             'default': ''
@@ -3193,11 +3209,42 @@ list['pe-setting'] = {
         },
         'plain': {
             'default': false,
-        }
+        },
+        'light': {
+            'default': false,
+        },
+    },
+};
+list['pe-setting-block'] = {
+    'template': `<div class="pe-setting-block" @mouseenter="enter" @mouseleave="leave" @touchstart="enter" @touchend="leave"><slot></slot></div>`,
+    'props': {
+        'hover': {
+            'default': false,
+        },
+    },
+    'methods': {
+        enter: function (e) {
+            if (lDom.hasTouchButMouse(e)) {
+                return;
+            }
+            if (!this.propBoolean('hover')) {
+                return;
+            }
+            this.$el.classList.add('pe-hover');
+        },
+        leave: function (e) {
+            if (lDom.hasTouchButMouse(e)) {
+                return;
+            }
+            if (!this.propBoolean('hover')) {
+                return;
+            }
+            this.$el.classList.remove('pe-hover');
+        },
     },
 };
 list['pe-setting-item'] = {
-    'template': `<div class="pe-setting-item" @mouseenter="enter" @mouseleave="leave" @touchstart="enter" @touchend="leave"><div class="pe-setting-item-left"><template v-if="$slots['left']"><slot name="left"></slot></template><template v-else><div v-if="title" class="pe-setting-item-title">{{title}}</div><div v-if="note" class="pe-setting-item-note">{{note}}</div></template></div><div class="pe-setting-item-right" :style="{'align-items': direction === 'v' ? alignHComp : alignVComp, 'justify-content': direction === 'v' ? alignVComp : alignHComp, 'gap': propNumber('gutter') ? (gutter + 'px') : '0'}"><slot></slot></div></div>`,
+    'template': `<div class="pe-setting-item" :class="[propBoolean('nopadding')&&'pe-setting-item-nopadding',propBoolean('nogap')&&'pe-setting-item-nogap']" @mouseenter="enter" @mouseleave="leave" @touchstart="enter" @touchend="leave"><template v-if="$slots['left']"><slot name="left"></slot></template><div v-else class="pe-setting-item-left"><div v-if="title" class="pe-setting-item-title">{{title}}</div><div v-if="note" class="pe-setting-item-note">{{note}}</div></div><div v-if="$slots['default']" class="pe-setting-item-right" :style="{'align-items': direction === 'v' ? alignHComp : alignVComp, 'justify-content': direction === 'v' ? alignVComp : alignHComp, 'gap': gap ? \`var(--pe-gap-\${gap})\` : undefined}"><slot></slot></div></div>`,
     'props': {
         'type': {
             'default': ''
@@ -3205,7 +3252,8 @@ list['pe-setting-item'] = {
         'direction': {
             'default': 'h'
         },
-        'gutter': {
+        // --- right 的 gap ---
+        'gap': {
             'default': ''
         },
         'alignH': {
@@ -3213,6 +3261,16 @@ list['pe-setting-item'] = {
         },
         'alignV': {
             'default': 'center'
+        },
+        'hover': {
+            'default': false
+        },
+        'nopadding': {
+            'default': false
+        },
+        // --- 顶层的默认 gap 去除 ---
+        'nogap': {
+            'default': false
         },
         'title': {
             'default': ''
@@ -3415,11 +3473,14 @@ list['pe-spa-header'] = {
     },
 };
 list['pe-spa-page'] = {
-    'template': `<div class="pe-spa-page"><slot></slot></div>`,
+    'template': `<div class="pe-spa-page" :class="propBoolean('grey')&&'pe-spa-page-grey'"><slot></slot></div>`,
     'emits': ['show', 'hide'],
     'props': {
         'path': {
             'default': '',
+        },
+        'grey': {
+            'default': false,
         },
     },
     'computed': {

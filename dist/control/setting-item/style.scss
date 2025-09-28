@@ -1,7 +1,13 @@
 .pe-setting-item {
-    padding: var(--pe-padding-s); display: flex; transition: var(--pe-transition); background: var(--pe-input-bg);
+    display: flex; transition: var(--pe-transition); background: var(--pe-input-bg);
+    &:not(.pe-setting-item-nopadding) {
+        padding: var(--pe-padding-s);
+    }
+    &:not(.pe-setting-item-nogap) {
+        gap: var(--pe-gap-xs);
+    }
     .pe-setting-item-left {
-        flex: 1; display: flex; flex-direction: column; gap: var(--pe-padding-xxs);
+        flex: 1; display: flex; flex-direction: column; gap: var(--pe-gap-xs);
 
         .pe-setting-item-title {
             font-size: var(--pe-size-l);
@@ -12,14 +18,14 @@
         }
     }
     .pe-setting-item-right {
-        display: flex;
+        display: flex; flex-wrap: wrap;
     }
 }
 
 .pe-setting.pe-setting-hover {
     .pe-setting-item {
         &.pe-hover {
-            background: var(--pe-input-hover-bg);
+            background: var(--pe-grey);
         }
     }
 }

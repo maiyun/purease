@@ -1,0 +1,6 @@
+.pe-setting-block {
+    padding: var(--pe-padding-s); transition: var(--pe-transition); display: flex; align-items: center; gap: var(--pe-gap-xs);
+    &.pe-hover {
+        background: var(--pe-grey);
+    }
+}

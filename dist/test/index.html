@@ -242,7 +242,7 @@ purease = {
 <div class="pe-block">
     <div class="pe-btitle">Setting</div>
     <div class="pe-layout pe-content pe-padding-lr pe-gap" style="flex-direction: column;">
-        <pe-setting :hover="settingHover" :plain="settingPlain">
+        <pe-setting :hover="settingHover" :plain="settingPlain" :light="settingLight">
             <pe-setting-item title="How are you" note="Ok, I'm ok, you?">END</pe-setting-item>
             <pe-setting-item title="How are you" note="Ok, I'm ok, you?">
                 <pe-switch />
@@ -253,6 +253,7 @@ purease = {
         <div class="pe-layout pe-gap-s" style="justify-content: center;">
             <div class="pe-button pe-pgrey" @click="settingHover = !settingHover">{{settingHover ? '' : '!'}}hover</div>
             <div class="pe-button pe-pgrey" @click="settingPlain = !settingPlain">{{settingPlain ? '' : '!'}}plain</div>
+            <div class="pe-button pe-pgrey" @click="settingLight = !settingLight">{{settingLight ? '' : '!'}}light</div>
         </div>
     </div>
 </div>

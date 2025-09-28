@@ -30,6 +30,7 @@ class Page extends purease.AbstractPage {
         this.rtl = false;
         this.settingHover = false;
         this.settingPlain = false;
+        this.settingLight = false;
         this.tabHover = false;
         this.customDialog = false;
         this.customDialogText = '';
@@ -90,6 +91,7 @@ class Page extends purease.AbstractPage {
         /** --- 全屏 --- */
         this.spaFull = false;
         this.spaFooter = '1';
+        this.spaTag = '1';
     }
     changeNBottom() {
         this.nbottom = !this.nbottom;

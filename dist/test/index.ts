@@ -81,6 +81,8 @@ class Page extends purease.AbstractPage {
 
     public settingPlain = false;
 
+    public settingLight = false;
+
     public tabHover = false;
 
     public changeRTL(): void {
@@ -299,6 +301,8 @@ class Page extends purease.AbstractPage {
     public spaFull: boolean = false;
 
     public spaFooter = '1';
+
+    public spaTag = '1';
 
     public spaGo(path: string): void {
         window.location.hash = '#' + path;

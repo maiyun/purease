@@ -9,6 +9,9 @@ export const code = {
         },
         'plain': {
             'default': false,
-        }
+        },
+        'light': {
+            'default': false,
+        },
     },
 };

@@ -219,9 +219,9 @@
                         <div class="pe-button pe-grey" @click="spaFull = !spaFull">{{spaFull ? '' : '!'}}full</div>
                     </div>
                     <div v-else-if="spaFooter === '2'" class="pe-layout pe-gap-s" style="flex-direction: column;">
-                        <pe-setting plain hover style="margin-top: var(--pe-padding-s);">
-                            <pe-setting-item title="Name">Nick</pe-setting-item>
-                            <pe-setting-item note="Age">18</pe-setting-item>
+                        <pe-setting plain hover light style="margin-top: var(--pe-padding-s);">
+                            <pe-setting-item title="Name" @click="spaGo('/2')">Nick</pe-setting-item>
+                            <pe-setting-item note="Age" @click="spaGo('/3')">18</pe-setting-item>
                         </pe-setting>
                         <div class="pe-button pe-dark" style="margin: 0 var(--pe-padding-s);" @click="spaGo('/2')">Logout</div>
                     </div>
@@ -234,8 +234,8 @@
                             <pe-setting-item title="How are you" note="No right"></pe-setting-item>
                             <pe-setting-item v-slot:left>v-slot:left</pe-setting-item>
                         </pe-setting>
-                        <div class="pe-button pe-dark" @click="settingHover = !settingHover" @click="spaGo('/2')">{{settingHover ? '' : '!'}}hover</div>
-                        <div class="pe-button pe-grey" @click="settingPlain = !settingPlain" @click="spaGo('/3')">{{settingPlain ? '' : '!'}}plain</div>
+                        <div class="pe-button pe-dark" @click="settingHover = !settingHover">{{settingHover ? '' : '!'}}hover</div>
+                        <div class="pe-button pe-grey" @click="settingPlain = !settingPlain">{{settingPlain ? '' : '!'}}plain</div>
                     </div>
                 </pe-spa-content>
                 <pe-spa-footer>
@@ -257,11 +257,37 @@
                 </pe-spa-content>
             </pe-spa-page>
             <!-- 第三页 -->
-            <pe-spa-page path="/3">
+            <pe-spa-page path="/3" grey>
                 <pe-spa-header back>The 3 Page</pe-spa-header>
                 <pe-spa-content>
-                    <div class="pe-layout pe-padding-s">
-                        has padding
+                    <div class="pe-layout pe-padding-s pe-gap-s" style="flex-direction: column;">
+                        <pe-setting hover light>
+                            <pe-setting-item title="Name">Nick</pe-setting-item>
+                            <pe-setting-item note="Age">18</pe-setting-item>
+                        </pe-setting>
+                        <div>the 2</div>
+                        <pe-setting light>
+                            <pe-setting-item note="Addr">Heheda</pe-setting-item>
+                            <pe-setting-item note="company">Thank</pe-setting-item>
+                        </pe-setting>
+                        <div>the 3</div>
+                        <!-- 测试组合 -->
+                        <pe-setting light>
+                            <pe-setting-item note="Tag" gap="xs" style="flex-direction: column;">
+                                <pe-tag type="pe" :plain="spaTag !== '1'" @click="spaTag = '1'">Tag 1</pe-tag>
+                                <pe-tag type="pe" :plain="spaTag !== '2'" @click="spaTag = '2'">Tag 2</pe-tag>
+                                <pe-tag type="pe" :plain="spaTag !== '3'" @click="spaTag = '3'">Tag 3</pe-tag>
+                                <pe-tag type="pe" :plain="spaTag !== '4'" @click="spaTag = '4'">Tag 4</pe-tag>
+                                <pe-tag type="pe" :plain="spaTag !== '5'" @click="spaTag = '5'">Tag 5</pe-tag>
+                                <pe-tag type="pe" :plain="spaTag !== '6'" @click="spaTag = '6'">Tag 6</pe-tag>
+                                <pe-tag type="pe" :plain="spaTag !== '7'" @click="spaTag = '7'">Tag 7</pe-tag>
+                            </pe-setting-item>
+                            <pe-setting-item nopadding nogap v-slot:left>
+                                <pe-setting-block style="flex: 1;" hover>1</pe-setting-block>
+                                <pe-setting-block style="flex: 1;" hover>2</pe-setting-block>
+                                <pe-setting-block style="flex: 1;" hover>3</pe-setting-block>
+                            </pe-setting-item>
+                        </pe-setting>
                     </div>
                 </pe-spa-content>
             </pe-spa-page>
@@ -274,6 +300,42 @@
             <div class="pe-button pe-pgrey" @click="spaGo('/')">index</div>
             <div class="pe-button pe-pgrey" @click="spaGo('/2')">go 2</div>
             <div class="pe-button pe-pgrey" @click="spaGo('/3')">go 3</div>
+        </div>
+    </div>
+</div>
+<!-- circle -->
+<div class="pe-block">
+    <div class="pe-btitle">Circle</div>
+    <div class="pe-layout pe-content pe-padding-lr pe-gap-s" style="flex-direction: column; align-items: center;">
+        <div>Default</div>
+        <div class="pe-layout pe-gap-xs" style="flex-wrap: wrap;">
+            <pe-circle type="pe"></pe-circle>
+            <pe-circle type="primary"></pe-circle>
+            <pe-circle type="info"></pe-circle>
+            <pe-circle type="warning"></pe-circle>
+            <pe-circle type="danger"></pe-circle>
+        </div>
+        <div>Plain</div>
+        <div class="pe-layout pe-gap-xs" style="flex-wrap: wrap;">
+            <pe-circle type="pe" plain></pe-circle>
+            <pe-circle type="primary" plain></pe-circle>
+            <pe-circle type="info" plain></pe-circle>
+            <pe-circle type="warning" plain></pe-circle>
+            <pe-circle type="danger" plain></pe-circle>
+        </div>
+        <div>Size</div>
+        <div class="pe-layout pe-gap-xs" style="align-items: center;">
+            <pe-circle type="primary" size="l">l</pe-circle>
+            <pe-circle type="primary" size="m">m</pe-circle>
+            <pe-circle type="primary" size="s">s</pe-circle>
+            <pe-circle type="primary" size="xs">xs</pe-circle>
+            <pe-circle type="primary" size="xxs">xxs</pe-circle>
+        </div>
+        <div>Slot</div>
+        <div class="pe-layout pe-gap-xs" style="flex-wrap: wrap;">
+            <pe-circle type="pe" size="m">S</pe-circle>
+            <pe-circle type="primary" size="m">寄</pe-circle>
+            <pe-circle type="warning" size="m">수</pe-circle>
         </div>
     </div>
 </div>

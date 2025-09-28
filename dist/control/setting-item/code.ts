@@ -10,7 +10,8 @@ export const code = {
         'direction': {
             'default': 'h'
         },
-        'gutter': {
+        // --- right 的 gap ---
+        'gap': {
             'default': ''
         },
         'alignH': {
@@ -18,6 +19,16 @@ export const code = {
         },
         'alignV': {
             'default': 'center'
+        },
+        'hover': {
+            'default': false
+        },
+        'nopadding': {
+            'default': false
+        },
+        // --- 顶层的默认 gap 去除 ---
+        'nogap': {
+            'default': false
         },
 
         'title': {

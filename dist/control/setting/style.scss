@@ -1,13 +1,20 @@
 .pe-setting {
-    border-radius: var(--pe-radius-l); border: solid .5px var(--pe-border); text-align: initial; overflow: hidden;
+    border-radius: var(--pe-radius-l); border: solid .5px var(--pe-border); text-align: initial; overflow: hidden; background: var(--pe-input-bg);
 
     &.pe-setting-plain {
-        border-color: var(--pe-grey); border-left: none; border-right: none; border-radius: 0;
+        // --- 朴素模式 ---
+        border-left: none; border-right: none; border-radius: 0;
+    }
+
+    &.pe-setting-light {
+        // --- 轻色模式 ---
+        border-color: var(--pe-grey);
         > :not(:last-child) {
             border-bottom: solid .5px var(--pe-grey);
         }
     }
-    &:not(.pe-setting-plain) {
+    &:not(.pe-setting-light) {
+        // --- 深色模式 ---
         > :not(:last-child) {
             border-bottom: solid .5px var(--pe-border-plain);
         }

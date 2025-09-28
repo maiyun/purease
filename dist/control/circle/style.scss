@@ -1,0 +1,59 @@
+.pe-circle {
+    border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; background-image: radial-gradient(circle at 35% 30%, oklch(1 0 0 / .5), oklch(0 0 0 / 0)); box-shadow: var(--pe-shadow);
+
+    &.pe-circle-size-l {
+        width: var(--pe-padding-l); height: var(--pe-padding-l);
+    }
+    &.pe-circle-size-m {
+        width: var(--pe-padding); height: var(--pe-padding);
+    }
+    &.pe-circle-size-s {
+        width: var(--pe-padding-s); height: var(--pe-padding-s);
+    }
+    &.pe-circle-size-xs {
+        width: var(--pe-padding-xs); height: var(--pe-padding-xs);
+    }
+    &.pe-circle-size-xxs {
+        width: var(--pe-padding-xxs); height: var(--pe-padding-xxs);
+    }
+
+    &:not(.pe-plain) {
+        background-color: var(--pe-border-plain); color: oklch(1 0 0); border: solid .5px transparent;
+
+        &.pe-circle-type-primary {
+            background-color: var(--success); border-color: var(--success);
+        }
+        &.pe-circle-type-info {
+            background-color: var(--info); border-color: var(--info);
+        }
+        &.pe-circle-type-warning {
+            background-color: var(--warning); border-color: var(--warning);
+        }
+        &.pe-circle-type-danger {
+            background-color: var(--danger); border-color: var(--danger);
+        }
+        &.pe-circle-type-pe {
+            background-color: var(--pe); border-color: var(--pe);
+        }
+    }
+    &.pe-plain {
+        border: solid .5px var(--pe-border-plain); background-color: var(--pe-border-plain);
+
+        &:not(.pe-circle-type-pe) {
+            // --- default ---
+            color: var(--pe-border-plain);
+        }
+        &.pe-circle-type-primary {
+            border-color: var(--success); color: var(--success); background-color: var(--success-bg);
+        }
+        &.pe-circle-type-info {
+            border-color: var(--info); color: var(--info); background-color: var(--info-bg);
+        }
+        &.pe-circle-type-warning {
+            border-color: var(--warning); color: var(--warning); background-color: var(--warning-bg);
+        }
+        &.pe-circle-type-danger {
+            border-color: var(--danger); color: var(--danger); background-color: var(--danger-bg);
+        }
+    }
+}

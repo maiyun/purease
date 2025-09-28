@@ -7,6 +7,9 @@ export const code = {
         'path': {
             'default': '',
         },
+        'grey': {
+            'default': false,
+        },
     },
     'computed': {
         currentPath: function(this: purease.IVue) {

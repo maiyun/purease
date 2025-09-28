@@ -35,13 +35,19 @@ html {
         background: var(--pe); color: var(--pe-fcolor);
     }
 
-    // --- 间距 ---
+    // --- 内边距 ---
 
     --pe-padding-l:60px;
     --pe-padding:40px;
     --pe-padding-s:20px;
     --pe-padding-xs:15px;
     --pe-padding-xxs:8px;
+
+    // --- 间距 ---
+
+    --pe-gap-m:40px;
+    --pe-gap-s:20px;
+    --pe-gap-xs:10px;
 
     // --- 字号 ---
 
@@ -297,15 +303,15 @@ html.pe-rtl {
 // --- pe-gap ---
 
 .pe-gap {
-    gap: 40px;
+    gap: var(--pe-gap-m);
 }
 
 .pe-gap-s {
-    gap: 20px;
+    gap: var(--pe-gap-s);
 }
 
 .pe-gap-xs {
-    gap: 10px;
+    gap: var(--pe-gap-xs);
 }
 
 // --- pe 对齐 ---
@@ -1096,6 +1102,66 @@ html.pe-rtl {
                 background: var(--pe-active);
                 border: solid .5px var(--pe-active);
             }
+        }
+    }
+}
+
+.pe-circle {
+    border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; background-image: radial-gradient(circle at 35% 30%, oklch(1 0 0 / .5), oklch(0 0 0 / 0)); box-shadow: var(--pe-shadow);
+
+    &.pe-circle-size-l {
+        width: var(--pe-padding-l); height: var(--pe-padding-l);
+    }
+    &.pe-circle-size-m {
+        width: var(--pe-padding); height: var(--pe-padding);
+    }
+    &.pe-circle-size-s {
+        width: var(--pe-padding-s); height: var(--pe-padding-s);
+    }
+    &.pe-circle-size-xs {
+        width: var(--pe-padding-xs); height: var(--pe-padding-xs);
+    }
+    &.pe-circle-size-xxs {
+        width: var(--pe-padding-xxs); height: var(--pe-padding-xxs);
+    }
+
+    &:not(.pe-plain) {
+        background-color: var(--pe-border-plain); color: oklch(1 0 0); border: solid .5px transparent;
+
+        &.pe-circle-type-primary {
+            background-color: var(--success); border-color: var(--success);
+        }
+        &.pe-circle-type-info {
+            background-color: var(--info); border-color: var(--info);
+        }
+        &.pe-circle-type-warning {
+            background-color: var(--warning); border-color: var(--warning);
+        }
+        &.pe-circle-type-danger {
+            background-color: var(--danger); border-color: var(--danger);
+        }
+        &.pe-circle-type-pe {
+            background-color: var(--pe); border-color: var(--pe);
+        }
+    }
+    &.pe-plain {
+        border: solid .5px var(--pe-border-plain); background-color: var(--pe-border-plain);
+
+        &:not(.pe-circle-type-pe) {
+            // --- default ---
+            color: var(--pe-border-plain);
+        }
+        &.pe-circle-type-primary {
+            border-color: var(--success); color: var(--success); background-color: var(--success-bg);
+        }
+        &.pe-circle-type-info {
+            border-color: var(--info); color: var(--info); background-color: var(--info-bg);
+        }
+        &.pe-circle-type-warning {
+            border-color: var(--warning); color: var(--warning); background-color: var(--warning-bg);
+        }
+        &.pe-circle-type-danger {
+            border-color: var(--danger); color: var(--danger); background-color: var(--danger-bg);
         }
     }
 }
@@ -1942,15 +2008,22 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 }
 
 .pe-setting {
-    border-radius: var(--pe-radius-l); border: solid .5px var(--pe-border); text-align: initial; overflow: hidden;
+    border-radius: var(--pe-radius-l); border: solid .5px var(--pe-border); text-align: initial; overflow: hidden; background: var(--pe-input-bg);
 
     &.pe-setting-plain {
-        border-color: var(--pe-grey); border-left: none; border-right: none; border-radius: 0;
+        // --- 朴素模式 ---
+        border-left: none; border-right: none; border-radius: 0;
+    }
+
+    &.pe-setting-light {
+        // --- 轻色模式 ---
+        border-color: var(--pe-grey);
         > :not(:last-child) {
             border-bottom: solid .5px var(--pe-grey);
         }
     }
-    &:not(.pe-setting-plain) {
+    &:not(.pe-setting-light) {
+        // --- 深色模式 ---
         > :not(:last-child) {
             border-bottom: solid .5px var(--pe-border-plain);
         }
@@ -1958,10 +2031,25 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 
 }
 
+
+.pe-setting-block {
+    padding: var(--pe-padding-s); transition: var(--pe-transition); display: flex; align-items: center; gap: var(--pe-gap-xs);
+    &.pe-hover {
+        background: var(--pe-grey);
+    }
+}
+
+
 .pe-setting-item {
-    padding: var(--pe-padding-s); display: flex; transition: var(--pe-transition); background: var(--pe-input-bg);
+    display: flex; transition: var(--pe-transition); background: var(--pe-input-bg);
+    &:not(.pe-setting-item-nopadding) {
+        padding: var(--pe-padding-s);
+    }
+    &:not(.pe-setting-item-nogap) {
+        gap: var(--pe-gap-xs);
+    }
     .pe-setting-item-left {
-        flex: 1; display: flex; flex-direction: column; gap: var(--pe-padding-xxs);
+        flex: 1; display: flex; flex-direction: column; gap: var(--pe-gap-xs);
 
         .pe-setting-item-title {
             font-size: var(--pe-size-l);
@@ -1972,14 +2060,14 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
         }
     }
     .pe-setting-item-right {
-        display: flex;
+        display: flex; flex-wrap: wrap;
     }
 }
 
 .pe-setting.pe-setting-hover {
     .pe-setting-item {
         &.pe-hover {
-            background: var(--pe-input-hover-bg);
+            background: var(--pe-grey);
         }
     }
 }
@@ -2043,6 +2131,9 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 
 .pe-spa-page {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: oklch(1 0 0); flex-direction: column; transition: var(--pe-transition);
+    &.pe-spa-page-grey {
+        background: var(--pe-grey);
+    }
 
     // --- 真实显示 ---
     &.pe-display {
