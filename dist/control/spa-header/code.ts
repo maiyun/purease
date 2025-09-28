@@ -3,7 +3,10 @@ export const code = {
     'props': {
         'back': {
             'default': false,
-        }
+        },
+        'note': {
+            'default': '',
+        },
     },
     'methods': {
         backClick: function() {

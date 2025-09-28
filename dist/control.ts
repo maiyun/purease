@@ -3702,11 +3702,14 @@ list['pe-spa-footer-icon'] = {
 };
 
 list['pe-spa-header'] = {
-    'template': `<div class="pe-spa-header"><slot></slot><div v-if="propBoolean('back')" class="pe-spa-header-back" @click="backClick"><pe-icon name="back"></pe-icon></div></div>`,
+    'template': `<div class="pe-spa-header" :class="[note&&'pe-spa-header-hasnote']"><slot></slot><div v-if="note" class="pe-spa-header-note">{{note}}</div><div v-if="propBoolean('back')" class="pe-spa-header-back" @click="backClick"><pe-icon name="back"></pe-icon></div></div>`,
     'props': {
         'back': {
             'default': false,
-        }
+        },
+        'note': {
+            'default': '',
+        },
     },
     'methods': {
         backClick: function() {

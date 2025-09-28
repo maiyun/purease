@@ -1,7 +1,14 @@
 .pe-spa-header {
-    padding: var(--pe-padding-s); display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: var(--pe-size-l); position: relative;
+    padding: var(--pe-padding-s) 0; display: flex; align-items: center; justify-content: center; font-size: var(--pe-size-l); position: relative; gap: var(--pe-gap-xxs); line-height: 1;
+    &.pe-spa-header-hasnote {
+        padding: var(--pe-padding-xs) 0;
+    }
 
     .pe-spa-header-back {
         position: absolute; left: 0; top: 0; height: 100%; padding: 0 var(--pe-padding-s); display: flex; align-items: center;
+    }
+
+    .pe-spa-header-note {
+        font-size: var(--pe-size-s); color: var(--pe-note-color); text-align: center;
     }
 }

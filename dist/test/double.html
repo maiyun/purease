@@ -250,7 +250,10 @@
             </pe-spa-page>
             <!-- 第二页 -->
             <pe-spa-page path="/2" @show="spaShow2" @hide="spaHide2">
-                <pe-spa-header back>The 2 Page</pe-spa-header>
+                <pe-spa-header back>
+                    <pe-circle type="pe" size="s"></pe-circle>
+                    <div>The 2 Page</div>
+                </pe-spa-header>
                 <pe-spa-content>
                     test test<br><br>
                     <div class="pe-button pe-pgrey">Button</div>
@@ -258,7 +261,7 @@
             </pe-spa-page>
             <!-- 第三页 -->
             <pe-spa-page path="/3" grey>
-                <pe-spa-header back>The 3 Page</pe-spa-header>
+                <pe-spa-header style="flex-direction: column;" note="the note text" back>The 3 Page</pe-spa-header>
                 <pe-spa-content>
                     <div class="pe-layout pe-padding-s pe-gap-s" style="flex-direction: column;">
                         <pe-setting hover light>

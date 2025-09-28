@@ -1,5 +1,5 @@
 .pe-circle {
-    border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; background-image: radial-gradient(circle at 35% 30%, oklch(1 0 0 / .5), oklch(0 0 0 / 0)); box-shadow: var(--pe-shadow);
+    border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; background-image: radial-gradient(circle at 35% 30%, oklch(1 0 0 / .5), oklch(0 0 0 / 0)); box-shadow: var(--pe-shadow); overflow: hidden;
 
     &.pe-circle-size-l {
         width: var(--pe-padding-l); height: var(--pe-padding-l);
