@@ -38,9 +38,9 @@ async function run(): Promise<void> {
     if (scode) {
         await fs.promises.writeFile('dist/control.ts', scode[0] + '\n\n' + code);
     }
-    const sstyle = /^[\s\S]+?\/\/ --- AUTO CODE ---/.exec((await fs.promises.readFile('dist/index.scss')).toString());
+    const sstyle = /^([\s\S]+?\/\/ --- AUTO CODE START ---)[\s\S]+?(\/\/ --- AUTO CODE END ---[\s\S]+?)$/.exec((await fs.promises.readFile('dist/index.scss')).toString());
     if (sstyle) {
-        await fs.promises.writeFile('dist/index.scss', sstyle[0] + '\n\n' + style);
+        await fs.promises.writeFile('dist/index.scss', sstyle[1] + '\n\n' + style + '\n\n' + sstyle[2]);
     }
     console.log('CONTROL');
 
