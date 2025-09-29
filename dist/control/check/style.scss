@@ -1,16 +1,16 @@
 .pe-check-box {
-    background: var(--pe-input-bg); border-radius: var(--pe-radius); transition: var(--pe-transition); margin-right: 10px; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border: solid 1px var(--pe-border); box-shadow: var(--pe-shadow);
+    background-color: var(--pe-input-bg); border-radius: var(--pe-radius); transition: var(--pe-transition); width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border: solid 1px var(--pe-border); box-shadow: var(--pe-shadow);
     svg {
         width: 18px; height: 18px; vertical-align: middle;
     }
 }
 .pe-check {
-    display: inline-flex; align-items: center; cursor: default; transition: var(--pe-transition); -webkit-user-select: none; user-select: none;
+    display: inline-flex; align-items: center; cursor: default; transition: var(--pe-transition); -webkit-user-select: none; user-select: none; gap: var(--pe-gap-xs);
 
     &.pe-checked {
         .pe-check-box {
             color: var(--pe-fcolor);
-            background: var(--pe);
+            background-color: var(--pe);
             border: solid .5px var(--pe);
         }
     }
@@ -25,22 +25,22 @@
     &:hover {
         color: var(--pe);
         .pe-check-box {
-            background: var(--pe-input-hover-bg);
+            background-color: var(--pe-input-hover-bg);
         }
         &.pe-checked {
             .pe-check-box {
-                background: var(--pe-hover);
+                background-color: var(--pe-hover);
                 border: solid .5px var(--pe-hover);
             }
         }
     }
     &:focus, &:active {
         .pe-check-box {
-            background: var(--pe-input-bg); box-shadow: var(--pe-outline-shadow);
+            background-color: var(--pe-input-bg); box-shadow: var(--pe-outline-shadow);
         }
         &.pe-checked {
             .pe-check-box {
-                background: var(--pe-active);
+                background-color: var(--pe-active);
                 border: solid .5px var(--pe-active);
             }
         }

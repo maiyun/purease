@@ -1,8 +1,8 @@
 .pe-table-row {
-    background: var(--pe-input-bg); display: grid; grid-template-columns: repeat(var(--pe-cols), 1fr); transition: var(--pe-transition);
+    background-color: var(--pe-input-bg); display: grid; grid-template-columns: repeat(var(--pe-cols), 1fr); transition: var(--pe-transition);
 
     &:hover {
-        background: var(--pe-input-hover-bg);
+        background-color: var(--pe-input-hover-bg);
     }
 
     &.pe-table-row-title {

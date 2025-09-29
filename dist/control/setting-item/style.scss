@@ -1,5 +1,5 @@
 .pe-setting-item {
-    display: flex; transition: var(--pe-transition); background: var(--pe-input-bg); position: relative;
+    display: flex; transition: var(--pe-transition); background-color: var(--pe-input-bg); position: relative;
     &:not(.pe-setting-item-nopadding) {
         padding: var(--pe-padding-s);
     }
@@ -30,14 +30,14 @@
     }
 
     .pe-setting-item-mark {
-        padding: var(--pe-padding-xxs) var(--pe-padding-xs); background: var(--pe); color: var(--pe-fcolor); position: absolute; right: 0; top: 0; border-bottom-left-radius: var(--pe-radius);
+        padding: var(--pe-padding-xxs) var(--pe-padding-xs); background-color: var(--pe); color: var(--pe-fcolor); position: absolute; right: 0; top: 0; border-bottom-left-radius: var(--pe-radius);
     }
 }
 
 .pe-setting.pe-setting-hover {
     .pe-setting-item {
         &.pe-hover {
-            background: var(--pe-grey);
+            background-color: var(--pe-grey);
         }
     }
 }

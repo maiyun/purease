@@ -6,6 +6,9 @@ export const code = {
     'props': {
         'modelValue': {
             'default': false
+        },
+        'direction': {
+            'default': 'h',
         }
     },
     'data': function() {

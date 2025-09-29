@@ -463,6 +463,14 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     }
 }
 
+// --- pe-stripe ---
+
+// --- 背景条纹 ---
+.pe-stripe {
+    background-image: linear-gradient(135deg, var(--pe-border-plain) 25%, transparent 25%, transparent 50%, var(--pe-border-plain) 50%, var(--pe-border-plain) 75%, transparent 75%, transparent);
+    background-size: 6px 6px;
+}
+
 // --- pe-menudown - 显示可下拉的箭头 ---
 
 .pe-menudown {
@@ -1030,18 +1038,18 @@ html.pe-rtl {
 
 
 .pe-check-box {
-    background: var(--pe-input-bg); border-radius: var(--pe-radius); transition: var(--pe-transition); margin-right: 10px; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border: solid 1px var(--pe-border); box-shadow: var(--pe-shadow);
+    background-color: var(--pe-input-bg); border-radius: var(--pe-radius); transition: var(--pe-transition); width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border: solid 1px var(--pe-border); box-shadow: var(--pe-shadow);
     svg {
         width: 18px; height: 18px; vertical-align: middle;
     }
 }
 .pe-check {
-    display: inline-flex; align-items: center; cursor: default; transition: var(--pe-transition); -webkit-user-select: none; user-select: none;
+    display: inline-flex; align-items: center; cursor: default; transition: var(--pe-transition); -webkit-user-select: none; user-select: none; gap: var(--pe-gap-xs);
 
     &.pe-checked {
         .pe-check-box {
             color: var(--pe-fcolor);
-            background: var(--pe);
+            background-color: var(--pe);
             border: solid .5px var(--pe);
         }
     }
@@ -1056,22 +1064,22 @@ html.pe-rtl {
     &:hover {
         color: var(--pe);
         .pe-check-box {
-            background: var(--pe-input-hover-bg);
+            background-color: var(--pe-input-hover-bg);
         }
         &.pe-checked {
             .pe-check-box {
-                background: var(--pe-hover);
+                background-color: var(--pe-hover);
                 border: solid .5px var(--pe-hover);
             }
         }
     }
     &:focus, &:active {
         .pe-check-box {
-            background: var(--pe-input-bg); box-shadow: var(--pe-outline-shadow);
+            background-color: var(--pe-input-bg); box-shadow: var(--pe-outline-shadow);
         }
         &.pe-checked {
             .pe-check-box {
-                background: var(--pe-active);
+                background-color: var(--pe-active);
                 border: solid .5px var(--pe-active);
             }
         }
@@ -2019,7 +2027,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 
 
 .pe-setting-item {
-    display: flex; transition: var(--pe-transition); background: var(--pe-input-bg); position: relative;
+    display: flex; transition: var(--pe-transition); background-color: var(--pe-input-bg); position: relative;
     &:not(.pe-setting-item-nopadding) {
         padding: var(--pe-padding-s);
     }
@@ -2050,14 +2058,14 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     }
 
     .pe-setting-item-mark {
-        padding: var(--pe-padding-xxs) var(--pe-padding-xs); background: var(--pe); color: var(--pe-fcolor); position: absolute; right: 0; top: 0; border-bottom-left-radius: var(--pe-radius);
+        padding: var(--pe-padding-xxs) var(--pe-padding-xs); background-color: var(--pe); color: var(--pe-fcolor); position: absolute; right: 0; top: 0; border-bottom-left-radius: var(--pe-radius);
     }
 }
 
 .pe-setting.pe-setting-hover {
     .pe-setting-item {
         &.pe-hover {
-            background: var(--pe-grey);
+            background-color: var(--pe-grey);
         }
     }
 }
@@ -2341,10 +2349,10 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 }
 
 .pe-table-row {
-    background: var(--pe-input-bg); display: grid; grid-template-columns: repeat(var(--pe-cols), 1fr); transition: var(--pe-transition);
+    background-color: var(--pe-input-bg); display: grid; grid-template-columns: repeat(var(--pe-cols), 1fr); transition: var(--pe-transition);
 
     &:hover {
-        background: var(--pe-input-hover-bg);
+        background-color: var(--pe-input-hover-bg);
     }
 
     &.pe-table-row-title {
