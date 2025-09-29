@@ -1538,10 +1538,10 @@ html.pe-rtl {
     display: flex; flex-direction: column; gap: var(--pe-padding-s);
 }
 .pe-footer-title {
-    padding-bottom: 10px; font-size: var(--pe-size-l);
+    padding-bottom: var(--pe-padding-xxs); font-size: var(--pe-size-l);
 }
 .pe-footer-bottom {
-    margin-top: 80px; margin-bottom: -40px; display: flex; flex-direction: column; gap: 10px; font-size: var(--pe-size-s); color: hsl(0, 0%, 40%);
+    margin-top: 80px; margin-bottom: -40px; display: flex; flex-direction: column; gap: var(--pe-gap-xs); font-size: var(--pe-size-s); color: hsl(0, 0%, 40%);
 }
 .pe-footer {
     &.pe-dark {
@@ -1551,7 +1551,7 @@ html.pe-rtl {
     }
 }
 .pe-footer-bottom-row {
-    display: flex; justify-content: center; align-items: center; gap: 10px;
+    display: flex; justify-content: center; align-items: center; gap: var(--pe-gap-xs);
 }
 
 @media screen and (max-width: 800px) {
@@ -1631,7 +1631,7 @@ html.pe-sheader {
     }
 }
 .pe-logo {
-    display: block; background-size: 80px; background-position: center; background-repeat: no-repeat; min-width: 180px; height: 70px;
+    display: block; background-size: 80px; background-position: center; background-repeat: no-repeat; width: 180px; height: 70px;
 }
 html.pe-sheader {
     .pe-logo {
@@ -2407,7 +2407,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     border-radius: var(--pe-radius-l); display: inline-flex; align-items: center; justify-content: center; transition: var(--pe-transition); border: solid 1px transparent; line-height: 1;
 
     &.pe-size-xs {
-        padding: 0 4px;
+        padding: 1px 5px;
     }
     &.pe-size-s {
         padding: 3px 7px;
