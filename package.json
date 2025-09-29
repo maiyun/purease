@@ -1,6 +1,6 @@
 {
     "name": "purease",
-    "version": "1.0.12",
+    "version": "1.0.13",
     "description": "Lightweight and user-friendly front-end library.",
     "type": "module",
     "keywords": [
