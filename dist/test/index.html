@@ -249,7 +249,8 @@ purease = {
                 <pe-switch />
             </pe-setting-item>
             <pe-setting-item title="How are you" note="No right"></pe-setting-item>
-            <pe-setting-item v-slot:left>v-slot:left</pe-setting-item>
+            <pe-setting-item v-slot:left mark="#12">v-slot:left</pe-setting-item>
+            <pe-setting-item title="How are you" note="No right" arrow></pe-setting-item>
         </pe-setting>
         <div class="pe-layout pe-gap-s" style="justify-content: center;">
             <div class="pe-button pe-pgrey" @click="settingHover = !settingHover">{{settingHover ? '' : '!'}}hover</div>

@@ -2019,13 +2019,14 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 
 
 .pe-setting-item {
-    display: flex; transition: var(--pe-transition); background: var(--pe-input-bg);
+    display: flex; transition: var(--pe-transition); background: var(--pe-input-bg); position: relative;
     &:not(.pe-setting-item-nopadding) {
         padding: var(--pe-padding-s);
     }
     &:not(.pe-setting-item-nogap) {
         gap: var(--pe-gap-xs);
     }
+
     .pe-setting-item-left {
         flex: 1; display: flex; flex-direction: column; gap: var(--pe-gap-xs);
 
@@ -2039,6 +2040,17 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     }
     .pe-setting-item-right {
         display: flex; flex-wrap: wrap;
+    }
+
+    .pe-setting-item-arrow {
+        display: flex; align-items: center; justify-content: center;
+        .pe-icon {
+            transform: scaleX(-1);
+        }
+    }
+
+    .pe-setting-item-mark {
+        padding: var(--pe-padding-xxs) var(--pe-padding-xs); background: var(--pe); color: var(--pe-fcolor); position: absolute; right: 0; top: 0; border-bottom-left-radius: var(--pe-radius);
     }
 }
 

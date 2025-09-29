@@ -3480,13 +3480,19 @@ list['pe-setting-block'] = {
 };
 
 list['pe-setting-item'] = {
-    'template': `<div class="pe-setting-item" :class="[propBoolean('nopadding')&&'pe-setting-item-nopadding',propBoolean('nogap')&&'pe-setting-item-nogap']" @mouseenter="enter" @mouseleave="leave" @touchstart="enter" @touchend="leave"><template v-if="$slots['left']"><slot name="left"></slot></template><div v-else class="pe-setting-item-left"><div v-if="title" class="pe-setting-item-title">{{title}}</div><div v-if="note" class="pe-setting-item-note">{{note}}</div></div><div v-if="$slots['default']" class="pe-setting-item-right" :style="{'align-items': direction === 'v' ? alignHComp : alignVComp, 'justify-content': direction === 'v' ? alignVComp : alignHComp, 'gap': gap ? \`var(--pe-gap-\${gap})\` : undefined}"><slot></slot></div></div>`,
+    'template': `<div class="pe-setting-item" :class="[propBoolean('nopadding')&&'pe-setting-item-nopadding',propBoolean('nogap')&&'pe-setting-item-nogap']" @mouseenter="enter" @mouseleave="leave" @touchstart="enter" @touchend="leave"><template v-if="$slots['left']"><slot name="left"></slot></template><div v-else class="pe-setting-item-left"><div v-if="title" class="pe-setting-item-title">{{title}}</div><div v-if="note" class="pe-setting-item-note">{{note}}</div></div><div v-if="$slots['default']" class="pe-setting-item-right" :style="{'align-items': direction === 'v' ? alignHComp : alignVComp, 'justify-content': direction === 'v' ? alignVComp : alignHComp, 'gap': gap ? \`var(--pe-gap-\${gap})\` : undefined}"><slot></slot></div><div v-if="propBoolean('arrow')" class="pe-setting-item-arrow"><pe-icon name="back"></pe-icon></div><div v-if="mark" class="pe-setting-item-mark">{{mark}}</div></div>`,
     'props': {
         'type': {
             'default': ''
         },
         'direction': {
             'default': 'h'
+        },
+        'arrow': {
+            'default': false
+        },
+        'mark': {
+            'default': ''
         },
         // --- right 的 gap ---
         'gap': {

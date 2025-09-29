@@ -10,6 +10,12 @@ export const code = {
         'direction': {
             'default': 'h'
         },
+        'arrow': {
+            'default': false
+        },
+        'mark': {
+            'default': ''
+        },
         // --- right 的 gap ---
         'gap': {
             'default': ''

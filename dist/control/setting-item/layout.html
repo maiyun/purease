@@ -9,4 +9,8 @@
     <div v-if="$slots['default']" class="pe-setting-item-right" :style="{'align-items': direction === 'v' ? alignHComp : alignVComp, 'justify-content': direction === 'v' ? alignVComp : alignHComp, 'gap': gap ? `var(--pe-gap-${gap})` : undefined}">
         <slot></slot>
     </div>
+    <div v-if="propBoolean('arrow')" class="pe-setting-item-arrow">
+        <pe-icon name="back"></pe-icon>
+    </div>
+    <div v-if="mark" class="pe-setting-item-mark">{{mark}}</div>
 </div>
