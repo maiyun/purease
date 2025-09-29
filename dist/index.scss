@@ -58,7 +58,7 @@ html {
     --pe-size-l:22px;
     --pe-size:16px;
     --pe-size-s:14px;
-    --pe-xssize:12px;
+    --pe-size-xs:12px;
 
     // --- 基础颜色 ---
 
@@ -326,6 +326,30 @@ html.pe-rtl {
     gap: var(--pe-gap-xs);
 }
 
+// --- pe-size ---
+
+.pe-size-xxxl {
+    font-size: var(--pe-size-xxxl);
+}
+.pe-size-xxl {
+    font-size: var(--pe-size-xxl);
+}
+.pe-size-xl {
+    font-size: var(--pe-size-xl);
+}
+.pe-size-l {
+    font-size: var(--pe-size-l);
+}
+.pe-size {
+    font-size: var(--pe-size);
+}
+.pe-size-s {
+    font-size: var(--pe-size-s);
+}
+.pe-size-xs {
+    font-size: var(--pe-size-xs);
+}
+
 // --- pe 对齐 ---
 
 .pe-align-center-max {
@@ -544,7 +568,7 @@ html.pe-rtl {
     flex: 1; background-position: center; background-size: auto 80px; background-repeat: no-repeat;
 }
 .pe-hske-bottom {
-    padding: 0 var(--pe-padding-s) var(--pe-padding-s) var(--pe-padding-s); text-align: center; font-size: var(--pe-xssize); display: flex; flex-direction: column; gap: var(--pe-gap-xs);
+    padding: 0 var(--pe-padding-s) var(--pe-padding-s) var(--pe-padding-s); text-align: center; font-size: var(--pe-size-xs); display: flex; flex-direction: column; gap: var(--pe-gap-xs);
 }
 
 // --- pe-alert ---
@@ -1542,16 +1566,22 @@ html.pe-rtl {
 }
 .pe-footer-bottom {
     margin-top: 80px; margin-bottom: -40px; display: flex; flex-direction: column; gap: var(--pe-gap-xs); font-size: var(--pe-size-s); color: hsl(0, 0%, 40%);
+    a {
+        color: hsl(0, 0%, 40%)
+    }
 }
 .pe-footer {
     &.pe-dark {
         .pe-footer-bottom {
             color: hsl(0, 0%, 60%);
+            a {
+                color: hsl(0, 0%, 60%);
+            }
         }
     }
 }
 .pe-footer-bottom-row {
-    display: flex; justify-content: center; align-items: center; gap: var(--pe-gap-xs);
+    display: flex; justify-content: center; align-items: center; gap: var(--pe-gap-xs); flex-wrap: wrap;
 }
 
 @media screen and (max-width: 800px) {
