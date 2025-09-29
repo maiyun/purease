@@ -260,6 +260,17 @@ html.pe-rtl {
     width: 100%; max-width: 1600px; margin: 0 auto;
 }
 
+// --- pe-article ---
+
+.pe-article {
+    a {
+        display: inline; text-decoration: underline;
+    }
+    p {
+        text-indent: 2em;
+    }
+}
+
 // --- pe-padding ---
 
 .pe-padding-lr {
@@ -1620,7 +1631,7 @@ html.pe-sheader {
     }
 }
 .pe-logo {
-    display: block; background-size: 80px; background-position: center; background-repeat: no-repeat; width: 180px; height: 70px;
+    display: block; background-size: 80px; background-position: center; background-repeat: no-repeat; min-width: 180px; height: 70px;
 }
 html.pe-sheader {
     .pe-logo {
