@@ -1597,7 +1597,7 @@ html.pe-sheader {
     }
 }
 .pe-logo {
-    display: block; background-size: 80px; background-position: center; background-repeat: no-repeat; width: 180px; height: 70px;
+    display: block; background-size: 80px; background-position: center; background-repeat: no-repeat; min-width: 180px; height: 70px;
 }
 html.pe-sheader {
     .pe-logo {
@@ -1790,7 +1790,7 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     }
 }
 .pe-lnav-right {
-    flex: 1;
+    flex: 1; display: flex; flex-direction: column;
 }
 
 @media screen and (max-width: 800px) {
