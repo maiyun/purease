@@ -20,18 +20,32 @@ Lightweight and user-friendly front-end library.
 
 ## Installation
 
-To get started, package your entry file into a single bundle using the command:
-
-```sh
-npx purease -b index -p https://cdn.jsdelivr.net/npm/purease@1.x.x/dist/index.js
-```
-
-Then, reference the bundled file in your web page.
+To get started, set the loading path for the Purease module, then import your entry file.
 
 **index.html**
 
 ```html
-<script type="module" src="index.pack.js"></script>
+<script type="importmap">
+{
+    "imports": {
+        "purease": "https://cdn.jsdelivr.net/npm/purease@1.x.x/dist/index.js"
+    }
+}
+</script>
+<script type="module" src="index.js"></script>
+```
+
+It can also carry parameters and global variables.
+
+```html
+<script>
+purease = {
+    'config': {
+        'cdn': 'https://cdn.jsdelivr.net',
+    },
+    'global': {},
+};
+</script>
 ```
 
 **index.js**

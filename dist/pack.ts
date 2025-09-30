@@ -69,13 +69,8 @@ async function run(): Promise<void> {
             await pureaseBundle.close();
 
             console.log('PUREASE');
-
-            // --- 打包测试 ---
-
-            const testBoot = await lCompiler.boot('dist/test/index', '../index.js');
-            console.log('BOOT', `[test]`, testBoot);
         })().catch(() => {});
-    }, 2_000);
+    }, 1_500);
 }
 run().catch(function(e) {
     console.log(e);

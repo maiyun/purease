@@ -1,6 +1,5 @@
 import * as cmd from 'commander';
 import * as fs from 'fs';
-import * as compiler from './dist/compiler.js';
 
 /** --- 使用的语言包列表 --- */
 const appLocaleList: string[] = [];
@@ -52,27 +51,16 @@ const program = new cmd.Command();
 program
     .name('purease')
     .description('Lightweight and user-friendly front-end library.')
-    .version('1.0.3', '-v, --version');
+    .version('1.0.17', '-v, --version');
 
 program
-    // --- boot ---
-    .option('-b, --boot <path>', 'compile boot')
-    .option('-p, --purease <path>', 'purease path')
     // --- locale ---
     .option('-l, --locale <path>', 'locale path')
     .option('-d, --dir <path>', 'dir path')
-    // --- save ---
-    .option('-s, --save <path>', 'save path')
     .action(async function(): Promise<void> {
         try {
             const opts = program.opts();
-            if (opts.boot) {
-                // --- boot ---
-                compiler.boot(opts.boot, opts.purease, opts.save).then((r: any) => {
-                    console.log(`Boot result: ${r}.`);
-                }).catch(() => {});
-            }
-            else if (opts.locale) {
+            if (opts.locale) {
                 // --- locale ---
                 // --- 检查一个 locale 语言与实际使用中进行比对，看看哪些没用上，哪些没有却用了 ---
                 // --- node ./main -l ./dist/test/locale/sc -d ./dist/test ---
