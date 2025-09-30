@@ -287,6 +287,18 @@ html.pe-rtl {
     }
 }
 
+// --- pe-grid ---
+
+.pe-grid {
+    display: grid;
+}
+
+// --- pe-info ---
+
+.pe-igrid {
+    display: grid; grid-template-columns: auto 1fr; gap: var(--pe-gap-xs);
+}
+
 // --- pe 对齐 ---
 
 .pe-align-center-max {
