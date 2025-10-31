@@ -81,6 +81,7 @@ class Page extends purease.AbstractPage {
         this.nboardSplit = false;
         this.nboardCustom = false;
         this.nboardButtons = false;
+        this.nboardSize = 'default';
         // --- captcha ---
         this.tcResult = 'waiting...';
         this.cfResult = 'waiting...';

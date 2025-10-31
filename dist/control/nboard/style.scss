@@ -8,24 +8,36 @@
     }
 
     .pe-nboard-title {
-        font-size: var(--pe-size-xl); padding: var(--pe-padding); padding-bottom: 0;
+        font-size: var(--pe-size-xl); padding: var(--pe-padding-s);
     }
 
     .pe-nboard-wrap {
-        padding: var(--pe-padding); display: flex; justify-content: center;
+        display: flex; padding: var(--pe-padding-s);
 
         .pe-nboard-input {
-            display: flex; border: solid 1px var(--pe-border-plain); border-radius: var(--pe-radius);
+            display: flex; border-radius: var(--pe-radius);
             > .pe-nboard-item {
                 width: calc(var(--pe-padding-s) * 2 + var(--pe-size)); height: calc(var(--pe-padding-s) * 2 + var(--pe-size)); display: flex; align-items: center; justify-content: center;
             }
         }
     }
+    &.pe-nboard-hastitle {
+        .pe-nboard-wrap {
+            border-top: solid 1px var(--pe-border-plain);
+        }
+    }
     &.pe-nboard-split {
-        .pe-nboard-input {
-            > .pe-nboard-item {
-                &:not(:last-child) {
-                    border-right: solid 1px var(--pe-border-plain);
+        .pe-nboard-title {
+            padding-bottom: 0;
+        }
+        .pe-nboard-wrap {
+            justify-content: center; border-top: none;
+            .pe-nboard-input {
+                border: solid 1px var(--pe-border-plain);
+                > .pe-nboard-item {
+                    &:not(:last-child) {
+                        border-right: solid 1px var(--pe-border-plain);
+                    }
                 }
             }
         }
@@ -54,13 +66,27 @@
                     filter: brightness(1.2);
                 }
                 &:focus, &:active {
-                    filter: brightness(0.9); box-shadow: 0 0 0 4px var(--pe-bg);
+                    filter: brightness(.9); box-shadow: 0 0 0 4px var(--pe-bg);
                 }
             }
         }
 
         .pe-icon {
             width: var(--pe-size-xl); height: var(--pe-size-xl);
+        }
+    }
+    &.pe-nboard-size-s {
+        .pe-nboard-line {
+            > div {
+                padding: var(--pe-padding-s);
+            }
+        }
+    }
+    &.pe-nboard-size-xs {
+        .pe-nboard-line {
+            > div {
+                padding: var(--pe-padding-xs);
+            }
         }
     }
 }

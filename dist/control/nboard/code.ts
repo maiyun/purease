@@ -20,6 +20,9 @@ export const code = {
         'buttons': {
             'default': [],
         },
+        'size': {
+            'default': undefined,
+        },
 
         'modelValue': {
             'default': '',

@@ -265,6 +265,8 @@ class Page extends purease.AbstractPage {
         this.alert(btn, 'pe');
     }
 
+    public nboardSize: string = 'default';
+
     // --- captcha ---
 
     public tcResult: string = 'waiting...';

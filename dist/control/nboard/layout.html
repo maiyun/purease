@@ -1,4 +1,4 @@
-<div class="pe-nboard" :class="[propBoolean('disabled')&&'pe-disabled',propBoolean('plain')&&'pe-plain',propBoolean('split')&&'pe-nboard-split']">
+<div class="pe-nboard" :class="[propBoolean('disabled')&&'pe-disabled',propBoolean('plain')&&'pe-plain',propBoolean('split')&&'pe-nboard-split',size&&'pe-nboard-size-'+size,$slots['title']&&'pe-nboard-hastitle']">
     <template v-if="$slots['title']">
         <div class="pe-nboard-title">
             <slot name="title"></slot>

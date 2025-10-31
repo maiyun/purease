@@ -155,7 +155,7 @@ purease = {
 <div class="pe-block pe-grey">
     <div class="pe-btitle">nboard</div>
     <div class="pe-layout pe-content pe-padding-lr pe-gap" style="flex-direction: column;">
-        <pe-nboard v-model="nboard" :disabled="nboardDisabled" :plain="nboardPlain" :split="nboardSplit" :custom="nboardCustom ? '#' : undefined" :buttons="nboardButtons ? ['Cancel', 'OK'] : []" @button="nboardButton">
+        <pe-nboard v-model="nboard" :disabled="nboardDisabled" :plain="nboardPlain" :split="nboardSplit" :custom="nboardCustom ? '#' : undefined" :buttons="nboardButtons ? ['Cancel', 'OK'] : []" @button="nboardButton" :size="nboardSize !== 'default' ? nboardSize : undefined">
             <template v-if="nboardTitle" v-slot:title>
                 <span>This is a title</span>
             </template>
@@ -171,6 +171,7 @@ purease = {
             <div class="pe-button pe-pgrey" @click="nboardSplit = !nboardSplit">{{nboardSplit ? '' : '!'}}split</div>
             <div class="pe-button pe-pgrey" @click="nboardCustom = !nboardCustom">{{nboardCustom ? '' : '!'}}custom</div>
             <div class="pe-button pe-pgrey" @click="nboardButtons = !nboardButtons">{{nboardButtons ? '' : '!'}}buttons</div>
+            <pe-select :data="['default', 's', 'xs']" v-model="nboardSize"></pe-select>
         </div>
     </div>
 </div>
