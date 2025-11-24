@@ -1,5 +1,44 @@
-import * as purease from '../../purease.js';
+﻿import * as purease from '../../purease.js';
 import * as lControl from '../../control';
+
+export interface IPageVue extends purease.IVue {
+    /** --- 当前页码，默认 1 --- */
+    'modelValue': number;
+    /** --- 最大页数，默认 0 --- */
+    'max': number;
+    /** --- 总条数，默认 0 --- */
+    'total': number;
+    /** --- 每页条数，默认 10 --- */
+    'count': number;
+    /** --- 每页条数选项 --- */
+    'counts': number[];
+    /** --- 显示的页码控制数，默认 10 --- */
+    'control': number;
+    /** --- SVG 图标 --- */
+    'svg': string;
+    /** --- 每页条数选择 --- */
+    'countSelect': number;
+    /** --- 上方页码序列 --- */
+    'prevs': number[];
+    /** --- 下方页码序列 --- */
+    'nexts': number[];
+    /** --- 当前页码 --- */
+    'page': number;
+    /** --- 最大页数 --- */
+    'maxPage': number;
+    /** --- 多语言数据 --- */
+    'localeData': Record<string, Record<string, string>>;
+    /** --- 格式化后的每页条数选项 --- */
+    'countsComp': Array<{ 'label': string; 'value': number; }>;
+    /** --- 刷新页码显示 --- */
+    refresh: () => void;
+    /** --- 刷新最大页数 --- */
+    refreshMaxPage: () => void;
+    /** --- 键盘事件 --- */
+    keydown: (e: KeyboardEvent) => void;
+    /** --- 每页条数改变事件 --- */
+    changed: (e: lControl.ISelectChangedEvent) => void;
+}
 
 export const code = {
     'template': '',
@@ -113,7 +152,7 @@ export const code = {
     },
     'computed': {
         /** --- 格式化每页多少条 counts --- */
-        countsComp: function(this: purease.IVue): Array<{
+        countsComp: function(this: IPageVue): Array<{
             'label': string;
             'value': number;
         }> {
@@ -132,7 +171,7 @@ export const code = {
         }
     },
     'methods': {
-        refresh: function(this: purease.IVue) {
+        refresh: function(this: IPageVue) {
             this.prevs.length = 0;
             let min = this.page - this.propNumber('control');
             if (min < 2) {
@@ -151,7 +190,7 @@ export const code = {
                 this.nexts.push(i);
             }
         },
-        refreshMaxPage: function(this: purease.IVue) {
+        refreshMaxPage: function(this: IPageVue) {
             const max = this.propInt('max');
             if (max) {
                 this.maxPage = max;
@@ -170,7 +209,7 @@ export const code = {
             e.preventDefault();
             (e.target as HTMLElement).click();
         },
-        changed: function(this: purease.IVue, e: lControl.ISelectChangedEvent) {
+        changed: function(this: IPageVue, e: lControl.ISelectChangedEvent) {
             this.$emit('update:count', e.detail.value);
             this.refreshMaxPage();
             this.refresh();
@@ -178,38 +217,38 @@ export const code = {
     },
     'watch': {
         'count': {
-            handler: function(this: purease.IVue) {
+            handler: function(this: IPageVue) {
                 this.countSelect = this.propInt('count');
                 this.refreshMaxPage();
                 this.refresh();
             }
         },
         'modelValue': {
-            handler: function(this: purease.IVue) {
+            handler: function(this: IPageVue) {
                 this.page = this.propInt('modelValue');
                 this.refresh();
             },
             'immediate': true
         },
         'max': {
-            handler: function(this: purease.IVue) {
+            handler: function(this: IPageVue) {
                 this.refreshMaxPage();
                 this.refresh();
             }
         },
         'total': {
-            handler: function(this: purease.IVue) {
+            handler: function(this: IPageVue) {
                 this.refreshMaxPage();
                 this.refresh();
             }
         },
         'control': {
-            handler: function(this: purease.IVue) {
+            handler: function(this: IPageVue) {
                 this.refresh();
             }
         }
     },
-    mounted: function(this: purease.IVue) {
+    mounted: function(this: IPageVue) {
         this.countSelect = this.propInt('count');
         this.refreshMaxPage();
         this.refresh();

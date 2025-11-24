@@ -1,6 +1,23 @@
-import * as purease from '../../purease.js';
+﻿import * as purease from '../../purease.js';
 import * as lTool from '../../tool';
 import * as lControl from '../../control';
+
+export interface ICaptchaVue extends purease.IVue {
+    /** --- 验证码服务商，默认 tc --- */
+    'factory': 'tc' | 'cf';
+    /** --- 验证码 key --- */
+    'akey': string;
+    /** --- 是否没有初始化 --- */
+    'notInit': boolean;
+    /** --- 当前状态 --- */
+    'state': string;
+    /** --- 多语言数据 --- */
+    'localeData': Record<string, Record<string, string>>;
+    /** --- 重置验证码 --- */
+    reset: () => void;
+    /** --- 点击事件 --- */
+    click: () => void;
+}
 
 export const code = {
     'template': '',
@@ -107,7 +124,7 @@ export const code = {
     },
     'methods': {
         /** --- 供外部调用的 --- */
-        reset: function(this: purease.IVue): void {
+        reset: function(this: ICaptchaVue): void {
             if (this.factory === 'tc') {
                 // --- 腾讯云验证码 ---
                 this.state = '';
@@ -121,7 +138,7 @@ export const code = {
             this.access.lib.reset(this.access.instance);
         },
         /** --- 腾讯云验证码显示 --- */
-        click: function(this: purease.IVue): void {
+        click: function(this: ICaptchaVue): void {
             if (!this.access.instance) {
                 return;
             }
@@ -134,7 +151,7 @@ export const code = {
             this.access.instance.show();
         },
     },
-    mounted: async function(this: purease.IVue) {
+    mounted: async function(this: ICaptchaVue) {
         this.access = {
             'instance': undefined,
         };
@@ -215,7 +232,7 @@ export const code = {
         this.access.instance = captcha;
         // --- 初始化成功 ---
     },
-    unmounted: function(this: purease.IVue) {
+    unmounted: function(this: ICaptchaVue) {
         if (this.$props.factory === 'tc') {
             this.access.instance = undefined;
             return;

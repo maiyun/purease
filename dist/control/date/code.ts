@@ -1,6 +1,69 @@
-import * as lDom from '../../dom';
+﻿import * as lDom from '../../dom';
 import * as lControl from '../../control';
 import * as purease from '../../purease.js';
+
+export interface IDateVue extends purease.IVue {
+    /** --- 是否禁用，默认 false --- */
+    'disabled': boolean;
+    /** --- 当前日期时间戳，毫秒 --- */
+    'modelValue': number | undefined;
+    /** --- 时区，如 8 --- */
+    'tz': number | undefined;
+    /** --- 年份月份的组合，默认 200708 --- */
+    'yearmonth': string;
+    /** --- 时分秒的字符串 --- */
+    'hourminute': string;
+    /** --- 限定可选的最小时间 --- */
+    'start': number | undefined;
+    /** --- 限定可选的最大时间 --- */
+    'end': number | undefined;
+    /** --- 是否显示日期，默认 true --- */
+    'date': boolean;
+    /** --- 是否显示时间，默认 true --- */
+    'time': boolean;
+    /** --- 是否显示时区，默认 false --- */
+    'zone': boolean;
+    /** --- 日期对象 --- */
+    'dateObj': Date;
+    /** --- 时间戳基数 --- */
+    'timestamp': number | undefined;
+    /** --- 日期字符串 --- */
+    'dateStr': string;
+    /** --- 时间字符串 --- */
+    'timeStr': string;
+    /** --- 当前时区信息（小时） --- */
+    'tzData': number;
+    /** --- 小时选项 --- */
+    'vhour': string;
+    'hours': string[];
+    /** --- 分钟选项 --- */
+    'vminute': string;
+    'minutes': string[];
+    /** --- 秒选项 --- */
+    'vseconds': string;
+    'seconds': string[];
+    /** --- 时区选项 --- */
+    'vzone': string;
+    'zones': string[];
+    'vzdec': string;
+    'zdecs': string[];
+    /** --- 多语言数据 --- */
+    'localeData': Record<string, Record<string, string>>;
+    /** --- 点击事件 --- */
+    click: (e: MouseEvent, type: 'first' | 'zone') => void;
+    /** --- 时区确定 --- */
+    zoneOk: () => void;
+    /** --- 时间确定 --- */
+    timeOk: () => void;
+    /** --- 取消 --- */
+    cancel: () => void;
+    /** --- 清除 --- */
+    clear: () => void;
+    /** --- datepanel changed 事件 --- */
+    changed: () => void;
+    /** --- datepanel selected 事件 --- */
+    selected: () => void;
+}
 
 export const code = {
     'template': '',
@@ -223,7 +286,7 @@ export const code = {
     },
     'methods': {
         // --- 单击事件 ---
-        click: function(this: purease.IVue, e: MouseEvent, type: 'first' | 'zone'): void {
+        click: function(this: IDateVue, e: MouseEvent, type: 'first' | 'zone'): void {
             const el = this.$refs[type + 'pop'];
             if (el.classList.contains('pe-show')) {
                 lDom.hidePop(el);
@@ -235,7 +298,7 @@ export const code = {
             }
             lDom.showPop(e, el);
         },
-        zoneOk: function(this: purease.IVue): void {
+        zoneOk: function(this: IDateVue): void {
             const vz = parseInt(this.vzone);
             if (vz >= 0) {
                 this.tzData = vz + (parseInt(this.vzdec) / 60);
@@ -257,7 +320,7 @@ export const code = {
             }
             lDom.hidePop();
         },
-        timeOk: function(this: purease.IVue): void {
+        timeOk: function(this: IDateVue): void {
             this.dateObj.setUTCHours(
                 parseInt(this.vhour), parseInt(this.vminute), parseInt(this.vseconds), 0
             );
@@ -277,12 +340,12 @@ export const code = {
         cancel: function(): void {
             lDom.hidePop();
         },
-        clear: function(this: purease.IVue): void {
+        clear: function(this: IDateVue): void {
             this.timestamp = undefined;
             this.$emit('update:modelValue', undefined);
         },
         // --- date panel 的 changed ---
-        changed: function(this: purease.IVue): void {
+        changed: function(this: IDateVue): void {
             this.$emit('update:modelValue', this.timestamp);
             const event: lControl.IDateChangedEvent = {
                 'detail': {
@@ -304,11 +367,11 @@ export const code = {
                 this.$emit('update:hourminute', hour + minute + seconds);
             }
         },
-        selected: function(this: purease.IVue): void {
+        selected: function(this: IDateVue): void {
             lDom.hidePop(this.$refs.firstpop);
         }
     },
-    'mounted': function(this: purease.IVue) {
+    'mounted': function(this: IDateVue) {
         // --- 填充年时分秒时区 ---
         for (let i = 0; i <= 23; ++i) {
             this.hours.push(i.toString().padStart(2, '0'));
@@ -358,7 +421,7 @@ export const code = {
                 return;
             }
             this.timestamp = this.propInt('modelValue');
-            this.dateObj.setTime(this.timestamp + this.tzData * 60 * 60 * 1_000);
+            this.dateObj.setTime(this.timestamp! + this.tzData * 60 * 60 * 1_000);
             this.dateStr = this.dateObj.getUTCFullYear().toString() + '-' + (this.dateObj.getUTCMonth() + 1).toString().padStart(2, '0') + '-' + this.dateObj.getUTCDate().toString().padStart(2, '0');
             this.timeStr = this.dateObj.getUTCHours().toString().padStart(2, '0') + ':' + this.dateObj.getUTCMinutes().toString().padStart(2, '0') + ':' + this.dateObj.getUTCSeconds().toString().padStart(2, '0');
             this.vhour = this.dateObj.getUTCHours().toString().padStart(2, '0');

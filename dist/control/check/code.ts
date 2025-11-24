@@ -1,4 +1,4 @@
-import * as lDom from '../../dom';
+﻿import * as lDom from '../../dom';
 import * as purease from '../../purease.js';
 
 export interface ICheckVue extends purease.IVue {
@@ -45,7 +45,7 @@ export const code = {
     },
     'watch': {
         'modelValue': {
-            handler: function(this: purease.IVue) {
+            handler: function(this: ICheckVue) {
                 this.value = this.modelValue;
             },
             'immediate': true

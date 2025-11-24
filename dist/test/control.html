@@ -99,14 +99,14 @@ purease = {
         <div>yearmonth: {{dpym}}, hourminute: {{dphm}}</div>
         <pe-datepanel v-model="dpts" v-model:tz="dptz" v-model:yearmonth="dpym" v-model:hourminute="dphm" :time="dptime" :zone="dpzone" :disabled="dpdisabled" :plain="dpplain" :range="dprange" @range="dpOnRange" :start="dpstart ? 1704067200_000 : undefined" :lockhm="dplockhm" @changed="dpOnChanged">
             <template v-if="dpbottom" v-slot="d">
-                <div class="pe-layout" style="flex: 1; justify-content: center;">{{d.year}}</layout>
+                <div class="pe-layout" style="flex: 1; justify-content: center;">{{d.year}}</div>
             </template>
         </pe-datepanel>
         <!-- pe-date -->
         <div>Timestamp: {{dts}}</div>
         <pe-date v-model="dts" v-model:tz="dptz" :date="ddate" :time="dptime" :zone="dpzone" :disabled="dpdisabled" :start="dpstart ? 1704067200_000 : undefined" v-model:yearmonth="dpym" v-model:hourminute="dphm">
             <template v-if="dpbottom" v-slot="d">
-                <div class="pe-layout" style="flex: 1; justify-content: center;">{{d.year}}</layout>
+                <div class="pe-layout" style="flex: 1; justify-content: center;">{{d.year}}</div>
             </template>
         </pe-date>
         <!-- pe-daterange -->

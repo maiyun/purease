@@ -1,4 +1,19 @@
-import * as purease from '../../purease.js';
+﻿import * as purease from '../../purease.js';
+
+export interface ITabVue extends purease.IVue {
+    /** --- 当前选中索引 --- */
+    'modelValue': number;
+    /** --- 类型样式，默认 default --- */
+    'type': 'default' | 'plain' | 'light' | 'rect';
+    /** --- 是否悬停切换，默认 false --- */
+    'hover': boolean;
+    /** --- 内部选中索引 --- */
+    'selected': number;
+    /** --- tab 项宽度 --- */
+    'tabItemWidth': number;
+    /** --- tab 项左侧位置 --- */
+    'tabItemLeft': number;
+}
 
 export const code = {
     'template': '',
@@ -23,7 +38,7 @@ export const code = {
     },
     'watch': {
         'selected': {
-            handler: function(this: purease.IVue) {
+            handler: function(this: ITabVue) {
                 if (this.modelValue === this.selected) {
                     return;
                 }
@@ -31,7 +46,7 @@ export const code = {
             }
         },
         'modelValue': {
-            handler: function(this: purease.IVue) {
+            handler: function(this: ITabVue) {
                 if (this.modelValue === this.selected) {
                     return;
                 }

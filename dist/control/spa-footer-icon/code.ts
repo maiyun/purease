@@ -1,4 +1,15 @@
-import * as purease from '../../purease.js';
+﻿import * as purease from '../../purease.js';
+
+export interface ISpaFooterIconVue extends purease.IVue {
+    /** --- 标题 --- */
+    'title': string;
+    /** --- 当前选中值 --- */
+    'modelValue': string;
+    /** --- 当前图标的值 --- */
+    'value': string;
+    /** --- 点击事件 --- */
+    click: () => void;
+}
 
 export const code = {
     'template': '',
@@ -14,7 +25,7 @@ export const code = {
         },
     },
     'methods': {
-        'click': function(this: purease.IVue) {
+        'click': function(this: ISpaFooterIconVue) {
             this.$emit('update:modelValue', this.value);
         },
     }

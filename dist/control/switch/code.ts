@@ -1,5 +1,22 @@
-import * as purease from '../../purease.js';
+﻿import * as purease from '../../purease.js';
 import * as lControl from '../../control';
+
+export interface ISwitchVue extends purease.IVue {
+    /** --- 是否禁用，默认 false --- */
+    'disabled': boolean;
+    /** --- 值映射，默认 {} --- */
+    'map': { 'true'?: any; 'false'?: any; };
+    /** --- 当前值，默认 false --- */
+    'modelValue': boolean | any;
+    /** --- 内部值 --- */
+    'value': boolean | any;
+    /** --- 格式化后的映射 --- */
+    'mapComp': { 'true': any; 'false': any; };
+    /** --- 点击事件 --- */
+    click: () => void;
+    /** --- 键盘事件 --- */
+    keydown: (e: KeyboardEvent) => void;
+}
 
 export const code = {
     'template': '',
@@ -21,7 +38,7 @@ export const code = {
         };
     },
     'computed': {
-        mapComp: function(this: purease.IVue): {
+        mapComp: function(this: ISwitchVue): {
             'true': any;
             'false': any;
         } {
@@ -33,7 +50,7 @@ export const code = {
     },
     'watch': {
         'modelValue': {
-            handler: function(this: purease.IVue) {
+            handler: function(this: ISwitchVue) {
                 if (this.$props.modelValue === undefined) {
                     return;
                 }
@@ -43,7 +60,7 @@ export const code = {
         }
     },
     'methods': {
-        click: function(this: purease.IVue): void {
+        click: function(this: ISwitchVue): void {
             const event: lControl.ISwitchChangeEvent = {
                 'go': true,
                 preventDefault: function() {
@@ -59,7 +76,7 @@ export const code = {
                 this.$emit('update:modelValue', this.value);
             }
         },
-        keydown: function(this: purease.IVue, e: KeyboardEvent): void {
+        keydown: function(this: ISwitchVue, e: KeyboardEvent): void {
             if (e.key !== 'Enter') {
                 return;
             }

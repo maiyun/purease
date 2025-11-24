@@ -1,5 +1,18 @@
-import * as lDom from '../../dom';
+﻿import * as lDom from '../../dom';
 import * as purease from '../../purease.js';
+
+export interface IBarItemVue extends purease.IVue {
+    /** --- 链接地址 --- */
+    'href': string | undefined;
+    /** --- 菜单数量 --- */
+    'menuCount': number;
+    /** --- 是否悬浮 --- */
+    'hover': boolean;
+    /** --- 鼠标进入事件 --- */
+    enter: (e: MouseEvent | TouchEvent) => void;
+    /** --- 鼠标离开事件 --- */
+    leave: (e: MouseEvent | TouchEvent) => void;
+}
 
 export const code = {
     'template': '',
@@ -15,7 +28,7 @@ export const code = {
         };
     },
     'methods': {
-        enter: function(this: purease.IVue, e: MouseEvent | TouchEvent) {
+        enter: function(this: IBarItemVue, e: MouseEvent | TouchEvent) {
             if (lDom.hasTouchButMouse(e)) {
                 return;
             }
@@ -28,7 +41,7 @@ export const code = {
             }
             this.hover = !this.hover;
         },
-        leave: function(this: purease.IVue, e: MouseEvent | TouchEvent) {
+        leave: function(this: IBarItemVue, e: MouseEvent | TouchEvent) {
             if (lDom.hasTouchButMouse(e)) {
                 return;
             }

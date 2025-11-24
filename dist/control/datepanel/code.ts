@@ -1,6 +1,173 @@
-import * as lDom from '../../dom';
+﻿import * as lDom from '../../dom';
 import * as lControl from '../../control';
 import * as purease from '../../purease.js';
+
+export interface IDatepanelVue extends purease.IVue {
+    /** --- 是否禁用，默认 false --- */
+    'disabled': boolean;
+    /** --- 是否只读，默认 false --- */
+    'readonly': boolean;
+    /** --- 是否朴素模式，默认 false --- */
+    'plain': boolean;
+    /** --- 当前时间戳，毫秒 --- */
+    'modelValue': number | undefined;
+    /** --- 最小时间 --- */
+    'start': number | undefined;
+    /** --- 最大时间 --- */
+    'end': number | undefined;
+    /** --- 时区 --- */
+    'tz': number | undefined;
+    /** --- 年月 --- */
+    'yearmonth': string;
+    /** --- 时分秒 --- */
+    'hourminute': string;
+    /** --- 光标位置 --- */
+    'cursor': string;
+    /** --- 是否跳转，默认 true --- */
+    'jump': boolean;
+    /** --- 是否显示时间，默认 true --- */
+    'time': boolean;
+    /** --- 是否显示时区，默认 false --- */
+    'zone': boolean;
+    /** --- 是否范围选择，默认 false --- */
+    'range': boolean;
+    /** --- 是否显示清除按钮，默认 true --- */
+    'clearbtn': boolean;
+    /** --- 是否显示返回按钮，默认 true --- */
+    'backbtn': boolean;
+    /** --- 多语言数据 --- */
+    'localeData': Record<string, Record<string, string>>;
+    /** --- 当前日期对象 --- */
+    'dateObj': Date;
+    /** --- 当前日期 --- */
+    'dateValue': {
+        'year': number;
+        'month': number;
+        'date': number;
+    };
+    /** --- 时间戳 --- */
+    'timestamp': number | undefined;
+    /** --- 开始日期 --- */
+    'startDate': Date;
+    'startTs': number;
+    'startValue': {
+        'year': number;
+        'month': number;
+        'date': number;
+    };
+    /** --- 结束日期 --- */
+    'endDate': Date;
+    'endTs': number;
+    'endValue': {
+        'year': number;
+        'month': number;
+        'date': number;
+    };
+    /** --- 时区数据 --- */
+    'tzData': number;
+    /** --- 日历视图 --- */
+    'maps': Array<Array<{
+        'time': number;
+        'date': number;
+        'month': number;
+        'year': number;
+        'day': number;
+        'str': string;
+    }>>;
+    /** --- 年份 --- */
+    'vyear': string;
+    /** --- 上个月的年月字符串 --- */
+    'prevYm': string;
+    /** --- 下个月的年月字符串 --- */
+    'nextYm': string;
+    /** --- 月份 --- */
+    'vmonth': string;
+    /** --- 时间选择相关 --- */
+    'vhour': string;
+    'hours': string[];
+    'vminute': string;
+    'minutes': string[];
+    'vseconds': string;
+    'seconds': string[];
+    'vzone': string;
+    'zones': string[];
+    'vzdec': string;
+    'zdecs': string[];
+    /** --- 光标日期 --- */
+    'cursorDate': string;
+    /** --- 范围日期 --- */
+    'rangeDate': Date | undefined;
+    /** --- 日期值字符串 --- */
+    'dateValueStr': string;
+    /** --- 开始年月 --- */
+    'startYm': string;
+    /** --- 开始年月日 --- */
+    'startYmd': string;
+    /** --- 结束年月 --- */
+    'endYm': string;
+    /** --- 结束年月日 --- */
+    'endYmd': string;
+    /** --- 年份选项 --- */
+    'years': Array<{
+        'label': string;
+        'value': string;
+    }>;
+    /** --- 月份选项 --- */
+    'months': Array<{
+        'label': string;
+        'value': string;
+        'disabled': boolean;
+    }>;
+    /** --- 是否禁用 --- */
+    isDisabled: (col: {
+        'date': number;
+        'month': number;
+        'year': number;
+    }) => boolean;
+    /** --- 转换 class --- */
+    toclass: (col: {
+        'date': number;
+        'month': number;
+        'year': number;
+    }) => string | undefined;
+    /** --- 刷新开始 --- */
+    refreshStartValue: () => void;
+    /** --- 刷新结束 --- */
+    refreshEndValue: () => void;
+    /** --- 刷新视图 --- */
+    refreshView: () => void;
+    /** --- 刷新日期 --- */
+    refreshDateValue: () => void;
+    /** --- 更新时间 --- */
+    updateTimestamp: () => void;
+    /** --- 跳转到选中 --- */
+    goSelected: () => void;
+    /** --- 列点击 --- */
+    colClick: (col: {
+        'time': number;
+        'date': number;
+        'month': number;
+        'year': number;
+        'day': number;
+        'str': string;
+    }) => void;
+    /** --- 跳转到今天 --- */
+    today: () => void;
+    /** --- 返回选中年月 --- */
+    back: () => void;
+    /** --- 上个月 --- */
+    prev: () => void;
+    /** --- 下个月 --- */
+    next: () => void;
+    /** --- 列鼠标进入 --- */
+    colenter: (e: MouseEvent | TouchEvent, col: {
+        'date': number;
+        'month': number;
+        'year': number;
+    }) => void;
+    /** --- 清除 --- */
+    clear: () => void;
+}
 
 export const code = {
     'template': '',
@@ -524,22 +691,22 @@ export const code = {
         };
     },
     'computed': {
-        dateValueStr: function(this: purease.IVue): string {
+        dateValueStr: function(this: IDatepanelVue): string {
             return this.dateValue.year.toString() + (this.dateValue.month + 1).toString().padStart(2, '0') + this.dateValue.date.toString().padStart(2, '0');
         },
-        startYm: function(this: purease.IVue): string {
+        startYm: function(this: IDatepanelVue): string {
             return this.startValue.year.toString() + (this.startValue.month + 1).toString().padStart(2, '0');
         },
-        startYmd: function(this: purease.IVue): string {
+        startYmd: function(this: IDatepanelVue): string {
             return this.startYm + this.startValue.date.toString().padStart(2, '0');
         },
-        endYm: function(this: purease.IVue): string {
+        endYm: function(this: IDatepanelVue): string {
             return this.endValue.year.toString() + (this.endValue.month + 1).toString().padStart(2, '0');
         },
-        endYmd: function(this: purease.IVue): string {
+        endYmd: function(this: IDatepanelVue): string {
             return this.endYm + this.endValue.date.toString().padStart(2, '0');
         },
-        years: function(this: purease.IVue): Array<{
+        years: function(this: IDatepanelVue): Array<{
             'label': string;
             'value': string;
         }> {
@@ -548,7 +715,7 @@ export const code = {
                 'value': (this.startValue.year + i).toString(),
             }));
         },
-        months: function(this: purease.IVue): Array<{
+        months: function(this: IDatepanelVue): Array<{
             'label': string;
             'value': string;
             'disabled': boolean;
@@ -568,7 +735,7 @@ export const code = {
             }
             return arr;
         },
-        isDisabled: function(this: purease.IVue) {
+        isDisabled: function(this: IDatepanelVue) {
             return (col: {
                 'date': number;
                 'month': number;
@@ -579,7 +746,7 @@ export const code = {
             };
         },
         /** --- col 显示的 class 效果，有四种，1: undefined, 2: range, 3: range-left, 4: range-right --- */
-        toclass: function(this: purease.IVue) {
+        toclass: function(this: IDatepanelVue) {
             return (col: {
                 'date': number;
                 'month': number;
@@ -608,12 +775,12 @@ export const code = {
         }
     },
     'methods': {
-        refreshStartValue: function(this: purease.IVue): void {
+        refreshStartValue: function(this: IDatepanelVue): void {
             this.startValue.date = this.startDate.getUTCDate();
             this.startValue.month = this.startDate.getUTCMonth();
             this.startValue.year = this.startDate.getUTCFullYear();
         },
-        refreshEndValue: function(this: purease.IVue): void {
+        refreshEndValue: function(this: IDatepanelVue): void {
             this.endValue.date = this.endDate.getUTCDate();
             this.endValue.month = this.endDate.getUTCMonth();
             this.endValue.year = this.endDate.getUTCFullYear();
@@ -621,7 +788,7 @@ export const code = {
         /**
          * --- 刷新视图（当时间戳或时区变动时执行） ---
          */
-        refreshView: function(this: purease.IVue): void {
+        refreshView: function(this: IDatepanelVue): void {
             const now = new Date(Date.UTC(parseInt(this.vyear), parseInt(this.vmonth) - 1, 1));
             /** --- 当月 1 号在周几，0 代表周日 --- */
             const day1 = now.getUTCDay();
@@ -649,7 +816,7 @@ export const code = {
         /**
          * --- 刷新 date value 的数据为最新的 ---
          */
-        refreshDateValue: function(this: purease.IVue): void {
+        refreshDateValue: function(this: IDatepanelVue): void {
             this.dateValue.date = this.dateObj.getUTCDate();
             this.dateValue.month = this.dateObj.getUTCMonth();
             this.dateValue.year = this.dateObj.getUTCFullYear();
@@ -657,7 +824,7 @@ export const code = {
         /**
          * --- 更新 time stamp，会自动根据 dateObj 设置时间戳基 ---
          */
-        updateTimestamp: function(this: purease.IVue): void {
+        updateTimestamp: function(this: IDatepanelVue): void {
             if (this.timestamp === undefined) {
                 if (this.$props.modelValue !== undefined) {
                     const event: lControl.IDatepanelChangedEvent = {
@@ -683,7 +850,7 @@ export const code = {
         /**
          * --- 跳转到当前选中的年份和月份 ---
          */
-        goSelected: function(this: purease.IVue): void {
+        goSelected: function(this: IDatepanelVue): void {
             let change = false;
             if (parseInt(this.vyear) !== this.dateValue.year) {
                 this.vyear = this.dateValue.year.toString();
@@ -701,7 +868,7 @@ export const code = {
             }
         },
         /** --- col 点击 --- */
-        colClick: function(this: purease.IVue, col: {
+        colClick: function(this: IDatepanelVue, col: {
             'time': number;
             'date': number;
             'month': number;
@@ -786,7 +953,7 @@ export const code = {
             this.$emit('selected', event);
         },
         /** --- 跳转到今天 --- */
-        today: function(this: purease.IVue): void {
+        today: function(this: IDatepanelVue): void {
             // --- 解除 undefined 限制，使选中的时间戳可以 emit 上去 ---
             this.timestamp = 0;
             const now = new Date();
@@ -796,13 +963,13 @@ export const code = {
             this.goSelected();
         },
         /** --- 返回选中年月 --- */
-        back: function(this: purease.IVue): void {
+        back: function(this: IDatepanelVue): void {
             this.vyear = this.dateValue.year.toString();
             this.vmonth = (this.dateValue.month + 1).toString();
             this.$emit('update:yearmonth', this.vyear + this.vmonth.padStart(2, '0'));
         },
         /** --- 选上个月 --- */
-        prev: function(this: purease.IVue): void {
+        prev: function(this: IDatepanelVue): void {
             const month = parseInt(this.vmonth);
             if (month === 1) {
                 const year = parseInt(this.vyear);
@@ -813,7 +980,7 @@ export const code = {
             this.vmonth = (month - 1).toString();
         },
         // --- 选下个月 ---
-        next: function(this: purease.IVue): void {
+        next: function(this: IDatepanelVue): void {
             const month = parseInt(this.vmonth);
             if (month === 12) {
                 const year = parseInt(this.vyear);
@@ -824,7 +991,7 @@ export const code = {
             this.vmonth = (month + 1).toString();
         },
         /** --- 鼠标移动到 col 上的事件 --- */
-        colenter: function(this: purease.IVue, e: MouseEvent | TouchEvent, col: {
+        colenter: function(this: IDatepanelVue, e: MouseEvent | TouchEvent, col: {
             'date': number;
             'month': number;
             'year': number;
@@ -842,7 +1009,7 @@ export const code = {
             this.$emit('update:cursor', this.cursorDate);
         },
         /** --- 清除所有状态 --- */
-        clear: function(this: purease.IVue): void {
+        clear: function(this: IDatepanelVue): void {
             this.timestamp = undefined;
             this.$emit('update:modelValue', undefined);
             this.rangeDate = undefined;
@@ -858,7 +1025,7 @@ export const code = {
             }
         }
     },
-    mounted: function(this: purease.IVue) {
+    mounted: function(this: IDatepanelVue) {
         // --- 监听最大最小值限定 ---
         this.$watch('start', () => {
             if (this.$props.start === undefined) {
@@ -993,7 +1160,7 @@ export const code = {
                 this.tzData = this.propNumber('tz');
             }
             const z = this.tzData.toString().split('.');
-            this.vzone = (parseInt(z) >= 0 ? '+' : '') + z[0];
+            this.vzone = (parseInt(z[0]) >= 0 ? '+' : '') + z[0];
             this.vzdec = z[1] ? (parseFloat('0.' + z[1]) * 60).toString() : '00';
             this.updateTimestamp();
             // --- 更新 start 和 end ---
@@ -1017,7 +1184,7 @@ export const code = {
         this.$watch('modelValue', () => {
             if (this.$props.modelValue !== undefined) {
                 this.timestamp = this.propNumber('modelValue');
-                this.dateObj.setTime(this.timestamp + this.tzData * 60 * 60 * 1000);
+                this.dateObj.setTime(this.timestamp! + this.tzData * 60 * 60 * 1000);
                 this.dateObj.setMilliseconds(0);
                 this.vhour = this.dateObj.getUTCHours().toString().padStart(2, '0');
                 this.vminute = this.dateObj.getUTCMinutes().toString().padStart(2, '0');

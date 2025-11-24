@@ -1,5 +1,32 @@
-import * as lDom from '../../dom';
+﻿import * as lDom from '../../dom';
 import * as purease from '../../purease.js';
+
+export interface IBtabVue extends purease.IVue {
+    /** --- 选中的索引，默认 0 --- */
+    'modelValue': number;
+    /** --- tab 数据列表，默认空数组 --- */
+    'data': string[];
+    /** --- 类型，默认 default --- */
+    'type': 'default' | 'plain' | 'light';
+    /** --- 当前位置 --- */
+    'translate': number;
+    /** --- 当前选中 --- */
+    'index': number;
+    /** --- 最大位移 --- */
+    'max': number;
+    /** --- 全宽 --- */
+    'width': number;
+    /** --- 内容宽度 --- */
+    'cwidth': number;
+    /** --- 是否可滚动 --- */
+    'isScroll': boolean;
+    /** --- 选择事件 --- */
+    select: (index: number) => void;
+    /** --- 鼠标按下事件 --- */
+    down: (e: TouchEvent | MouseEvent) => void;
+    /** --- 调整大小事件 --- */
+    resize: () => void;
+}
 
 export const code = {
     'template': '',
@@ -25,21 +52,21 @@ export const code = {
             'max': 0,
             /** --- 全宽 --- */
             'width': 0,
-            /** --- 内容宽 --- */
+            /** --- 内容宽度 --- */
             'cwidth': 0,
         };
     },
     'computed': {
-        isScroll: function(this: purease.IVue): boolean {
+        isScroll: function(this: IBtabVue): boolean {
             return this.cwidth > this.width;
         },
     },
     'methods': {
-        select: function(this: purease.IVue, index: number) {
+        select: function(this: IBtabVue, index: number) {
             this.index = index;
             this.$emit('modelValue', index);
         },
-        down: function(this: purease.IVue, e: TouchEvent | MouseEvent) {
+        down: function(this: IBtabVue, e: TouchEvent | MouseEvent) {
             if (lDom.hasTouchButMouse(e)) {
                 return;
             }
@@ -57,7 +84,7 @@ export const code = {
             let x = ox;
             lDom.bindDown(e, {
                 move: (ne) => {
-                    // --- 当前的位置 ---
+                    // --- 当前的位置---
                     const nx = ne instanceof MouseEvent ? ne.clientX : ne.touches[0].clientX;
                     /** --- 移动的差值 --- */
                     const cx = nx - x;
@@ -82,7 +109,7 @@ export const code = {
                 },
             });
         },
-        resize: function(this: purease.IVue) {
+        resize: function(this: IBtabVue) {
             this.width = this.$el.offsetWidth;
             this.cwidth = this.$refs.content.offsetWidth;
             if (this.cwidth <= this.width) {
@@ -109,7 +136,7 @@ export const code = {
             }
         },
     },
-    mounted: function(this: purease.IVue) {
+    mounted: function(this: IBtabVue) {
         this.$watch('modelValue', () => {
             this.index = this.$props.modelValue;
         }, {
@@ -118,7 +145,7 @@ export const code = {
         window.addEventListener('resize', this.resize);
         this.resize();
     },
-    unmounted: async function(this: purease.IVue) {
+    unmounted: async function(this: IBtabVue) {
         await this.$nextTick();
         window.removeEventListener('resize', this.resize);
     }

@@ -1,4 +1,19 @@
-import * as purease from '../../purease.js';
+﻿import * as purease from '../../purease.js';
+
+export interface IVnumberVue extends purease.IVue {
+    /** --- 是否禁用，默认 false --- */
+    'disabled': boolean;
+    /** --- 当前输入的验证码值 --- */
+    'modelValue': string;
+    /** --- 长度，默认 6 --- */
+    'length': number;
+    /** --- 内部值数组 --- */
+    'value': string[];
+    /** --- 是否获得焦点 --- */
+    'isFocus': boolean;
+    /** --- 输入事件 --- */
+    input: () => void;
+}
 
 export const code = {
     'template': '',
@@ -26,7 +41,7 @@ export const code = {
     },
     'watch': {
         'modelValue': {
-            handler: function(this: purease.IVue) {
+            handler: function(this: IVnumberVue) {
                 if (!this.$refs.input) {
                     return;
                 }
@@ -54,7 +69,7 @@ export const code = {
         }
     },
     'methods': {
-        input: function(this: purease.IVue) {
+        input: function(this: IVnumberVue) {
             const value = this.$refs.input.value;
             this.value.length = 0;
             for (const char of value) {

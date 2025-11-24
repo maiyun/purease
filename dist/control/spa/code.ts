@@ -1,4 +1,13 @@
-import * as purease from '../../purease';
+﻿import * as purease from '../../purease';
+
+export interface ISpaVue extends purease.IVue {
+    /** --- 是否为朴素风格，默认 false --- */
+    'plain': boolean;
+    /** --- 是否全屏显示，默认 false --- */
+    'full': boolean;
+    /** --- 当前路径 --- */
+    'path': string;
+}
 
 export const code = {
     'template': '',
@@ -16,7 +25,7 @@ export const code = {
             'path': '',
         };
     },
-    mounted: function(this: purease.IVue) {
+    mounted: function(this: ISpaVue) {
         this.path = window.location.hash.slice(1);
         window.addEventListener('hashchange', () => {
             this.path = window.location.hash.slice(1);

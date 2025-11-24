@@ -1,5 +1,29 @@
-import * as purease from '../../purease.js';
+﻿import * as purease from '../../purease.js';
 import * as lControl from '../../control';
+
+export interface IDlistVue extends purease.IVue {
+    /** --- 当前选中的值 --- */
+    'modelValue': string;
+    /** --- 数据列表，默认空数组 --- */
+    'data': Array<Record<string, any>> | string[];
+    /** --- 是否朴素模式，默认 false --- */
+    'plain': boolean;
+    /** --- 字段映射，包含 label, value, children, title --- */
+    'map': Record<string, string>;
+    /** --- 是否多选，默认 false --- */
+    'multi': boolean;
+    /** --- 内部选中值 --- */
+    'value': string;
+    /** --- 映射计算属性 --- */
+    'mapComp': {
+        'label': string;
+        'value': string;
+        'children': string;
+        'title': string;
+    };
+    /** --- 点击事件 --- */
+    click: (i: number) => void;
+}
 
 export const code = {
     'template': '',
@@ -28,39 +52,39 @@ export const code = {
     },
     'computed': {
         /** --- 初始化后的 map 对象 --- */
-        mapComp: function(this: purease.IVue): {
+        mapComp: function(this: IDlistVue): {
             'label': string;
             'value': string;
             'children': string;
             'title': string;
         } {
             return {
-                'children': this.$props.map.children ?? 'children',
-                'label': this.$props.map.label ?? 'label',
-                'value': this.$props.map.value ?? 'value',
-                'title': this.$props.map.title ?? 'title',
+                'children': this.map.children ?? 'children',
+                'label': this.map.label ?? 'label',
+                'value': this.map.value ?? 'value',
+                'title': this.map.title ?? 'title',
             };
         }
     },
     'methods': {
-        click: function(this: purease.IVue, i: number) {
-            const item = this.$props.data[i];
-            this.value = item[this.mapComp.value] ?? item[this.mapComp.label] ?? item;
+        click: function(this: IDlistVue, i: number) {
+            const item = this.data[i];
+            this.value = typeof item === 'string' ? item : (item[this.mapComp.value] ?? item[this.mapComp.label]);
             this.$emit('update:modelValue', this.value);
             const event: lControl.IDlistChangedEvent = {
                 'detail': {
                     'value': this.value,
                     'index': i,
-                    'label': item[this.mapComp.label] ?? item[this.mapComp.value] ?? item
+                    'label': typeof item === 'string' ? item : (item[this.mapComp.label] ?? item[this.mapComp.value])
                 }
             };
             this.$emit('changed', event);
             this.$emit('click', event);
         },
-        refreshModelValue: function(this: purease.IVue) {
+        refreshModelValue: function(this: IDlistVue) {
             let found = false;
-            for (const item of this.$props.data) {
-                const val = item[this.mapComp.value] ?? item[this.mapComp.label] ?? item;
+            for (const item of this.data) {
+                const val = typeof item === 'string' ? item : (item[this.mapComp.value] ?? item[this.mapComp.label]);
                 if (val !== this.value) {
                     continue;
                 }
@@ -70,7 +94,7 @@ export const code = {
             if (found) {
                 return;
             }
-            if (!this.$props.data[0]) {
+            if (!this.data[0]) {
                 if (this.value !== '') {
                     this.value = '';
                     this.$emit('update:modelValue', '');
@@ -85,9 +109,9 @@ export const code = {
                 }
                 return;
             }
-            const fitem = this.$props.data[0];
-            this.value = fitem[this.mapComp.value] ?? fitem[this.mapComp.label] ?? fitem;
-            const lab = fitem[this.mapComp.label] ?? fitem[this.mapComp.value] ?? fitem;
+            const fitem = this.data[0];
+            this.value = typeof fitem === 'string' ? fitem : (fitem[this.mapComp.value] ?? fitem[this.mapComp.label]);
+            const lab = typeof fitem === 'string' ? fitem : (fitem[this.mapComp.label] ?? fitem[this.mapComp.value]);
             this.$emit('update:modelValue', this.value);
             const event: lControl.IDlistChangedEvent = {
                 'detail': {
@@ -156,7 +180,7 @@ export const code = {
             }
         };
     },
-    'mounted': function(this: purease.IVue) {
+    'mounted': function(this: IDlistVue) {
         this.$watch('modelValue', () => {
             if (this.value && (this.value === this.$props.modelValue)) {
                 return;

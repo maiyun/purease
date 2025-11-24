@@ -1,5 +1,22 @@
-import * as lDom from '../../dom';
+﻿import * as lDom from '../../dom';
 import * as purease from '../../purease.js';
+
+export interface ITableRowVue extends purease.IVue {
+    /** --- 控件名称 --- */
+    'controlName': string;
+    /** --- 表头数量 --- */
+    'headCount': number;
+    /** --- 父级 table 引用 --- */
+    'table': purease.IVue | null;
+    /** --- 当前行索引 --- */
+    'index': number;
+    /** --- 是否为标题行，默认 false --- */
+    'title': boolean;
+    /** --- 是否自适应布局 --- */
+    'isAdaption': boolean;
+    /** --- 更新表头数量 --- */
+    updateHeadCount: (o: '+' | '-') => void;
+}
 
 export const code = {
     'template': '',
@@ -17,12 +34,12 @@ export const code = {
         },
     },
     'computed': {
-        'isAdaption': function(this: purease.IVue) {
+        'isAdaption': function(this: ITableRowVue) {
             return this.table?.propBoolean('adaption') ?? false;
         },
     },
     'methods': {
-        updateHeadCount: function(this: purease.IVue, o: '+' | '-') {
+        updateHeadCount: function(this: ITableRowVue, o: '+' | '-') {
             if (o === '+') {
                 ++this.headCount;
             }
@@ -39,7 +56,7 @@ export const code = {
             }
         }
     },
-    mounted: function(this: purease.IVue) {
+    mounted: function(this: ITableRowVue) {
         const table = this.parentByName('table');
         if (table) {
             this.table = table;

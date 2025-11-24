@@ -1,4 +1,14 @@
-import * as purease from '../../purease';
+﻿import * as purease from '../../purease';
+import * as lControl from '../../control';
+
+export interface ISpaPageVue extends purease.IVue {
+    /** --- 页面路径 --- */
+    'path': string;
+    /** --- 是否灰色背景，默认 false --- */
+    'grey': boolean;
+    /** --- 当前路径 --- */
+    'currentPath': string;
+}
 
 export const code = {
     'template': '',
@@ -12,13 +22,13 @@ export const code = {
         },
     },
     'computed': {
-        currentPath: function(this: purease.IVue) {
+        currentPath: function(this: ISpaPageVue) {
             return this.$parent?.path ?? '';
         },
     },
     'watch': {
         'currentPath': {
-            handler: async function(this: purease.IVue, newPath: string, oldPath: string) {
+            handler: async function(this: ISpaPageVue, newPath: string, oldPath: string) {
                 if (newPath === oldPath) {
                     return;
                 }
@@ -52,7 +62,7 @@ export const code = {
             },
         }
     },
-    mounted: async function(this: purease.IVue) {
+    mounted: async function(this: ISpaPageVue) {
         await this.$nextTick();
         if (this.path !== this.currentPath) {
             return;

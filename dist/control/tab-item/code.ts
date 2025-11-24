@@ -1,5 +1,18 @@
-import * as lDom from '../../dom';
+﻿import * as lDom from '../../dom';
 import * as purease from '../../purease.js';
+
+export interface ITabItemVue extends purease.IVue {
+    /** --- 当前 item 索引 --- */
+    'index': number;
+    /** --- 是否被选中 --- */
+    'isSelected': boolean;
+    /** --- 鼠标悬停事件 --- */
+    hover: (e: MouseEvent | TouchEvent) => void;
+    /** --- 点击事件 --- */
+    click: () => void;
+    /** --- 窗口大小改变事件 --- */
+    resize: () => void;
+}
 
 export const code = {
     'template': '',
@@ -9,7 +22,7 @@ export const code = {
         };
     },
     'computed': {
-        isSelected: function(this: purease.IVue) {
+        isSelected: function(this: ITabItemVue) {
             if (!this.$parent) {
                 return 0;
             }
@@ -17,7 +30,7 @@ export const code = {
         }
     },
     'methods': {
-        hover: function(this: purease.IVue, e: MouseEvent | TouchEvent) {
+        hover: function(this: ITabItemVue, e: MouseEvent | TouchEvent) {
             if (!this.$parent) {
                 return;
             }
@@ -30,7 +43,7 @@ export const code = {
             this.$parent.selected = this.index;
             this.resize();
         },
-        click: function(this: purease.IVue) {
+        click: function(this: ITabItemVue) {
             if (!this.$parent) {
                 return;
             }
@@ -40,7 +53,7 @@ export const code = {
             this.$parent.selected = this.index;
             this.resize();
         },
-        resize: function(this: purease.IVue) {
+        resize: function(this: ITabItemVue) {
             if (!this.$parent) {
                 return;
             }
@@ -51,7 +64,7 @@ export const code = {
             this.$parent.tabItemLeft = this.$el.offsetLeft;
         }
     },
-    mounted: function(this: purease.IVue) {
+    mounted: function(this: ITabItemVue) {
         if (!this.$parent) {
             return;
         }

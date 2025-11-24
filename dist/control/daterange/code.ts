@@ -1,12 +1,69 @@
-import * as lDom from '../../dom';
+﻿import * as lDom from '../../dom';
 import * as lTool from '../../tool';
 import * as lControl from '../../control';
 import * as purease from '../../purease.js';
 
+export interface IDaterangeVue extends purease.IVue {
+    /** --- 是否禁用，默认为 false --- */
+    'disabled': boolean;
+    /** --- 当前时间范围，数组[开始时间戳, 结束时间戳] --- */
+    'modelValue': number[];
+    /** --- 时区 --- */
+    'tz': number | undefined;
+    /** --- 最小时间 --- */
+    'start': number | undefined;
+    /** --- 最大时间 --- */
+    'end': number | undefined;
+    /** --- 是否显示时间，默认为 true --- */
+    'time': boolean;
+    /** --- 是否显示时区，默认为 false --- */
+    'zone': boolean;
+    /** --- 日期对象数组 --- */
+    'dateObj': Date[];
+    /** --- 光标位置 --- */
+    'cursor': string;
+    /** --- 第一个时间戳 --- */
+    'ts': number | undefined;
+    /** --- 第二个时间戳 --- */
+    'ts2': number | undefined;
+    /** --- 日期字符串数组 --- */
+    'dateStr': string[];
+    /** --- 时间字符串数组 --- */
+    'timeStr': string[];
+    /** --- 时区数据 --- */
+    'tzData': number;
+    /** --- 时区选项 --- */
+    'vzone': string;
+    'zones': string[];
+    'vzdec': string;
+    'zdecs': string[];
+    /** --- 多语言数据 --- */
+    'localeData': Record<string, Record<string, string>>;
+    /** --- 是否显示两个日期面板 --- */
+    'showTwoDatePanel': boolean;
+    /** --- 第一个年月 --- */
+    'firstym': string;
+    /** --- 结束年月 --- */
+    'endym': string;
+    /** --- 点击事件 --- */
+    click: (e: MouseEvent, type: 'first' | 'zone') => void;
+    /** --- 时区确定 --- */
+    zoneOk: () => void;
+    /** --- 取消 --- */
+    cancel: () => void;
+    /** --- 清除 --- */
+    clear: () => void;
+    /** --- 范围选择事件 --- */
+    onRange: (e: lControl.IDatepanelRangeEvent) => void;
+    /** --- 第一个面板变化事件 --- */
+    firstChanged: (e: lControl.IDatepanelChangedEvent) => void;
+    /** --- 年月变化事件 --- */
+    onYmChange: () => void;
+}
+
 export const code = {
     'template': '',
     'emits': {
-        'changed': null,
         'update:modelValue': null,
         'update:tz': null,
     },
@@ -191,7 +248,7 @@ export const code = {
     },
     'methods': {
         // --- 单击事件 ---
-        click: function(this: purease.IVue, e: MouseEvent, type: 'first' | 'zone'): void {
+        click: function(this: IDaterangeVue, e: MouseEvent, type: 'first' | 'zone'): void {
             const el = this.$refs[type + 'pop'];
             if (el.classList.contains('pe-show')) {
                 lDom.hidePop(el);
@@ -202,7 +259,7 @@ export const code = {
             }
             lDom.showPop(e, el);
         },
-        zoneOk: function(this: purease.IVue): void {
+        zoneOk: function(this: IDaterangeVue): void {
             const vz = parseInt(this.vzone);
             if (vz >= 0) {
                 this.tzData = vz + (parseInt(this.vzdec) / 60);
@@ -223,12 +280,12 @@ export const code = {
             lDom.hidePop();
         },
         // --- 清除已选中的 ---
-        clear: function(this: purease.IVue): void {
+        clear: function(this: IDaterangeVue): void {
             this.ts = undefined;
             this.dateStr.length = 0;
             this.$emit('update:modelValue', []);
         },
-        onRange: function(this: purease.IVue, e: lControl.IDatepanelRangeEvent): void {
+        onRange: function(this: IDaterangeVue, e: lControl.IDatepanelRangeEvent): void {
             e.preventDefault();
             const value: number[] = [];
             // --- start ---
@@ -251,7 +308,7 @@ export const code = {
             this.$refs.endpanel.clear();
         },
         /** --- 左侧的 changed --- */
-        firstChanged: function(this: purease.IVue, e: lControl.IDatepanelChangedEvent): void {
+        firstChanged: function(this: IDaterangeVue, e: lControl.IDatepanelChangedEvent): void {
             if (e.detail.value === undefined) {
                 this.ts2 = undefined;
                 return;
@@ -260,7 +317,7 @@ export const code = {
             date.setUTCHours(23, 59, 59, 0);
             this.ts2 = date.getTime() - this.tzData * 60 * 60_000;
         },
-        onYmChange: function(this: purease.IVue): void {
+        onYmChange: function(this: IDaterangeVue): void {
             if (this.endym > this.firstym) {
                 return;
             }
@@ -269,7 +326,7 @@ export const code = {
             this.endym = date.getUTCFullYear().toString() + (date.getUTCMonth() + 1).toString().padStart(2, '0');
         }
     },
-    'mounted': function(this: purease.IVue) {
+    'mounted': function(this: IDaterangeVue) {
         // --- 填充时区 ---
         for (let i = -12; i <= 14; ++i) {
             this.zones.push((i >= 0 ? '+' : '') + i.toString());

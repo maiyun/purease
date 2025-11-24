@@ -1,5 +1,24 @@
-import * as lDom from '../../dom';
+﻿import * as lDom from '../../dom';
 import * as purease from '../../purease.js';
+
+export interface ISliderVue extends purease.IVue {
+    /** --- 当前值，默认 [0, 0] --- */
+    'modelValue': [number, number];
+    /** --- 最小值，默认 0 --- */
+    'min': number;
+    /** --- 最大值，默认 100 --- */
+    'max': number;
+    /** --- 是否为范围选择，默认 false --- */
+    'range': boolean;
+    /** --- 滑块位置百分比 --- */
+    'pos': [number, number];
+    /** --- 进度条宽度 --- */
+    'barWidth': number;
+    /** --- 进度条左侧位置 --- */
+    'barLeft': number;
+    /** --- 鼠标按下事件 --- */
+    down: (e: TouchEvent | MouseEvent, i: number) => void;
+}
 
 export const code = {
     'template': '',
@@ -24,7 +43,7 @@ export const code = {
         };
     },
     'computed': {
-        barWidth: function(this: purease.IVue) {
+        barWidth: function(this: ISliderVue) {
             /**
             原公式：
             100 - this.pos[0] - (100 - this.pos[1])
@@ -36,12 +55,12 @@ export const code = {
             */
             return this.pos[1] - this.pos[0];
         },
-        barLeft: function(this: purease.IVue) {
+        barLeft: function(this: ISliderVue) {
             return this.pos[0];
         }
     },
     methods: {
-        down: function(this: purease.IVue, e: TouchEvent | MouseEvent, i: number) {
+        down: function(this: ISliderVue, e: TouchEvent | MouseEvent, i: number) {
             if (lDom.hasTouchButMouse(e)) {
                 return;
             }
@@ -88,7 +107,7 @@ export const code = {
     },
     'watch': {
         'modelValue': {
-            handler: function(this: purease.IVue) {
+            handler: function(this: ISliderVue) {
                 if (!Array.isArray(this.modelValue)) {
                     this.$emit('update:modelValue', [0, 0]);
                     return;

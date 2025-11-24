@@ -1,3 +1,16 @@
+import * as purease from '../../purease.js';
+
+export interface ITableVue extends purease.IVue {
+    /** --- 控件名称 --- */
+    'controlName': string;
+    /** --- 表头数量 --- */
+    'headCount': number;
+    /** --- 是否自适应布局，默认 false --- */
+    'adaption': boolean;
+    /** --- 是否为朴素风格，默认 false --- */
+    'plain': boolean;
+}
+
 export const code = {
     'template': '',
     'data': function() {

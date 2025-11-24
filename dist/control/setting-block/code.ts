@@ -1,5 +1,14 @@
-import * as purease from '../../purease.js';
+﻿import * as purease from '../../purease.js';
 import * as lDom from '../../dom.js';
+
+export interface ISettingBlockVue extends purease.IVue {
+    /** --- 是否启用悬停效果，默认 false --- */
+    'hover': boolean;
+    /** --- 鼠标进入事件处理 --- */
+    enter: (e: MouseEvent | TouchEvent) => void;
+    /** --- 鼠标离开事件处理 --- */
+    leave: (e: MouseEvent | TouchEvent) => void;
+}
 
 export const code = {
     'template': '',
@@ -9,7 +18,7 @@ export const code = {
         },
     },
     'methods': {
-        enter: function(this: purease.IVue, e: MouseEvent | TouchEvent) {
+        enter: function(this: ISettingBlockVue, e: MouseEvent | TouchEvent) {
             if (lDom.hasTouchButMouse(e)) {
                 return;
             }
@@ -18,7 +27,7 @@ export const code = {
             }
             this.$el.classList.add('pe-hover');
         },
-        leave: function(this: purease.IVue, e: MouseEvent | TouchEvent) {
+        leave: function(this: ISettingBlockVue, e: MouseEvent | TouchEvent) {
             if (lDom.hasTouchButMouse(e)) {
                 return;
             }

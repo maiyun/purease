@@ -1,4 +1,21 @@
-import * as purease from '../../purease.js';
+﻿import * as purease from '../../purease.js';
+
+export interface ILabelVue extends purease.IVue {
+    /** --- 显示模式，默认 default --- */
+    'mode': 'default' | 'tip' | 'mtip' | 'date';
+    /** --- 内容文本或时间戳 --- */
+    'content': string | number;
+    /** --- 是否显示时间，默认 true --- */
+    'time': boolean;
+    /** --- 是否显示日期，默认 true --- */
+    'date': boolean;
+    /** --- 是否显示时区，默认 false --- */
+    'zone': boolean;
+    /** --- 时区偏移 --- */
+    'tz': number | undefined;
+    /** --- 计算后的内容 --- */
+    'contentComp': string;
+}
 
 export const code = {
     'template': '',
@@ -26,7 +43,7 @@ export const code = {
     },
     'computed': {
         /** --- 替换 slot 数据 --- */
-        contentComp: function(this: purease.IVue): string {
+        contentComp: function(this: ILabelVue): string {
             if (this.$props.mode !== 'date') {
                 return this.$props.content;
             }
