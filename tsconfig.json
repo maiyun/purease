@@ -5,18 +5,19 @@
         "preserveConstEnums": true, // 保留 const 和 enum 声明
         // "outDir": "dist/",
         "sourceMap": false,
-        "target": "ES2021",
+        "target": "ES2022",
+        "useDefineForClassFields": false,
         "strict": true,             // 严格模式
         "declaration": true,        // d.ts
         "declarationMap": false,
         "newLine": "LF",
+        "paths": {
+            "#purease/*": ["./*"]
+        },
         "moduleResolution": "node",
         "resolveJsonModule": true,
         "esModuleInterop": true,
-        "skipLibCheck": true,
-        "paths": {
-            "~/*": ["./*"]
-        }
+        "skipLibCheck": true
     },
     "include": [
         "./**/*.ts"

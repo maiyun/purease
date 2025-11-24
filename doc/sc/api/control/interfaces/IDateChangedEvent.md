@@ -1,0 +1,21 @@
+[**Documents for purease**](../../index.md)
+
+***
+
+[Documents for purease](../../index.md) / [control](../index.md) / IDateChangedEvent
+
+# Interface: IDateChangedEvent
+
+Defined in: control.ts:176
+
+## Properties
+
+### detail
+
+> **detail**: `object`
+
+Defined in: control.ts:177
+
+#### value?
+
+> `optional` **value**: `number`

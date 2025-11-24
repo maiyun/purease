@@ -50,7 +50,7 @@ purease = {
 
 **index.js**
 
-```typescript
+```ts
 import * as purease from 'purease';
 class Page extends clickgo.AbstractPage {
     public async main(): Promise<void> {

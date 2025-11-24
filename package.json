@@ -14,15 +14,23 @@
     "bin": {
         "purease": "./bin/purease.js"
     },
+    "imports": {
+        "#purease/*": "./*"
+    },
     "types": "./dist/purease.d.ts",
+    "scripts": {
+        "build-md-doc": "bash ./utils/generate-api-doc-md.sh"
+    },
     "devDependencies": {
         "@litert/eslint-plugin-rules": "^0.3.1",
-        "@types/node": "^24.0.3",
-        "typescript": "^5.8.3"
+        "@types/node": "^24.10.1",
+        "typedoc": "^0.28.14",
+        "typedoc-plugin-markdown": "^4.9.0",
+        "typescript": "^5.9.3"
     },
     "dependencies": {
-        "commander": "^14.0.1",
-        "rollup": "^4.50.2",
-        "terser": "^5.44.0"
+        "commander": "^14.0.2",
+        "rollup": "^4.53.3",
+        "terser": "^5.44.1"
     }
 }

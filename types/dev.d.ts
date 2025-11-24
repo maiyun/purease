@@ -1,3 +1,3 @@
 declare module 'purease' {
-    export * from '~/dist/purease';
+    export * from '#purease/dist/purease';
 }

@@ -1,7 +1,25 @@
 import * as purease from '../../purease.js';
 
+export interface IAnchorVue extends purease.IVue {
+    /** --- 目录列表 --- */
+    'list': Array<{
+        /** --- 目录项的唯一标识 --- */
+        'id': number;
+        /** --- 目录项的文本内容 --- */
+        'text': string;
+        /** --- 目录项的级别（2-6） --- */
+        'level': string;
+    }>;
+    /** --- 当前选中的导航项 id --- */
+    'selected': number;
+    /**
+     * --- 滚动到指定标题位置的方法 ---
+     * @param id 目录项的 id ---
+     */
+    'scrollTo': (id: number) => void;
+}
+
 export const code = {
-    'template': '',
     'data': function(): {
         'list': Array<{
             'id': number;
@@ -16,7 +34,7 @@ export const code = {
         };
     },
     'methods': {
-        'scrollTo': function(id: number) {
+        'scrollTo': function(this: IAnchorVue, id: number) {
             const el = document.getElementById('anchor-' + id);
             if (!el) {
                 return;
@@ -27,7 +45,7 @@ export const code = {
             });
         },
     },
-    mounted: function(this: purease.IVue) {
+    mounted: function(this: IAnchorVue) {
         let id = -1;
         const list: NodeListOf<HTMLElement> = this.$refs.left.querySelectorAll('h2,h3,h4,h5,h6');
         for (const item of list) {
@@ -38,7 +56,7 @@ export const code = {
             });
             item.id = 'anchor-' + id;
         }
-        // --- scroll ---
+        // --- 滚动事件监听器，用于实时更新当前选中的导航项 ---
         window.addEventListener('scroll', () => {
             this.selected = -1;
             if (!list.item(0)) {

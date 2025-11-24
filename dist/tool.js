@@ -712,7 +712,7 @@ export function isIPv6(ip) {
 }
 /**
  * --- 判断是否是域名 ---
- * @param string $domain
+ * @param domain 域名
  * @return bool
  */
 export function isDomain(domain) {

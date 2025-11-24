@@ -98,6 +98,10 @@ export const list = {};
 // --- AUTO CODE ---
 list['pe-anchor'] = {
     'template': `<div class="pe-anchor"><div class="pe-anchor-left" ref="left"><slot></slot></div><div class="pe-anchor-right"><div class="pe-anchor-right-content"><div v-for="item of list" class="pe-anchor-item" :class="['pe-anchor-item-h' + item.level, {'pe-selected': item.id === selected}]" @click="scrollTo(item.id)">{{item.text}}</div></div></div></div>`,
+    /**
+     * --- 初始化数据 ---
+     * @returns 包含目录列表和当前选中项的数据对象
+     */
     'data': function () {
         return {
             'list': [],
@@ -105,6 +109,10 @@ list['pe-anchor'] = {
         };
     },
     'methods': {
+        /**
+         * --- 滚动到指定的标题位置 ---
+         * @param id 目录项的 id
+         */
         'scrollTo': function (id) {
             const el = document.getElementById('anchor-' + id);
             if (!el) {
@@ -116,6 +124,12 @@ list['pe-anchor'] = {
             });
         },
     },
+    /**
+     * --- 组件挂载完成后的初始化 ---
+     *
+     * 自动扫描左侧插槽内的标题（h2-h6），为其生成唯一 id，
+     * 并设置滚动事件监听器用于实时更新当前选中的导航项。
+     */
     mounted: function () {
         let id = -1;
         const list = this.$refs.left.querySelectorAll('h2,h3,h4,h5,h6');
@@ -127,7 +141,7 @@ list['pe-anchor'] = {
             });
             item.id = 'anchor-' + id;
         }
-        // --- scroll ---
+        // --- 滚动事件监听器，用于实时更新当前选中的导航项 ---
         window.addEventListener('scroll', () => {
             this.selected = -1;
             if (!list.item(0)) {

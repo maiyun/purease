@@ -1,6 +1,17 @@
 import * as lDom from '../../dom';
 import * as purease from '../../purease.js';
 
+export interface ICheckVue extends purease.IVue {
+    /** --- 选中状态，默认 false --- */
+    'modelValue': boolean;
+    /** --- 布局流向，默认 h --- */
+    'direction': 'h' | 'v';
+    /** --- 内部选中状态，默认 false --- */
+    'value': boolean;
+    /** --- 点击事件 --- */
+    click: (e: MouseEvent) => void;
+}
+
 export const code = {
     'template': '',
     'props': {
@@ -17,7 +28,7 @@ export const code = {
         };
     },
     'methods': {
-        click: function(this: purease.IVue, e: MouseEvent) {
+        click: function(this: ICheckVue, e: MouseEvent) {
             const target = e.target as HTMLElement | null;
             if (!target) {
                 return;
