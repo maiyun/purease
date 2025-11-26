@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-interface IClassPrototype {
+export interface IClassPrototype {
     'method': Record<string, any>;
     'access': Record<string, {
         'get'?: any;
