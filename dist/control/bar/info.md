@@ -18,6 +18,8 @@ logo 图地址
 
 ### 方法
 
+### 插槽
+
 ### 样式
 
 类似 Bootstrap 的 Navbar，采用水平弹性布局，左侧可选配 logo（固定宽度 110px），右侧为导航项。提供 default 和 dark 两种主题，dark 主题使用主题色背景和白色文字。

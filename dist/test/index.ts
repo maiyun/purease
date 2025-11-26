@@ -13,6 +13,33 @@ class Page extends purease.AbstractPage {
 
     public dlist = 'a';
 
+    public dlistChildren = 'item1';
+
+    public dlistChildrenTree = 'item1';
+
+    public dlistChildrenData = [
+        { 'label': 'Item 1', 'value': 'item1' },
+        {
+            'label': 'Item 2',
+            'value': 'item2',
+            'children': [
+                {
+                    'label': 'Sub Item 2-1',
+                    'value': 'item2-1'
+                },
+                {
+                    'label': 'Sub Item 2-2',
+                    'value': 'item2-2',
+                    'children': [
+                        { 'label': 'Deep Item 2-2-1', 'value': 'item2-2-1' },
+                        { 'label': 'Deep Item 2-2-2', 'value': 'item2-2-2' }
+                    ]
+                }
+            ]
+        },
+        { 'label': 'Item 3', 'value': 'item3' }
+    ];
+
     public search = false;
 
     // --- swipe ---

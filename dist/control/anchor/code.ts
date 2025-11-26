@@ -20,6 +20,7 @@ export interface IAnchorVue extends purease.IVue {
 }
 
 export const code = {
+    'template': '',
     'data': function(): {
         'list': Array<{
             'id': number;

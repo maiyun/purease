@@ -1,5 +1,4 @@
-````markdown
-SPA 页面头部控件
+﻿SPA 页面头部控件
 
 ### 参数
 
@@ -13,7 +12,13 @@ SPA 页面头部控件
 
 `string`
 
-备注文本，显示在标题下方
+备注文本，显示在默认插槽（通常是标题）后方
+
+#### direction
+
+`'h'` | `'v'`
+
+布局流向，默认 `'h'`
 
 ### 类属性
 
@@ -25,24 +30,17 @@ SPA 页面头部控件
 
 标题和备注行高为 1，间距小。移动端自动缩小高度保持紧凑。
 
-#### backClick
-
-`() => void`
-
-返回按钮点击事件，默认调用 `window.history.back()`
-
 ### 示例
 
 ```html
 <pe-spa>
-    <pe-spa-page path="/">
-        <pe-spa-header>首页</pe-spa-header>
-        <div>首页内容</div>
+    <pe-spa-page path="/2" @show="spaShow2" @hide="spaHide2">
+        <pe-spa-header back>The 2 Page</pe-spa-header>
+        <pe-spa-content> ... </pe-spa-content>
     </pe-spa-page>
-    <pe-spa-page path="/detail">
-        <pe-spa-header :back="true" note="详细信息">详情页</pe-spa-header>
-        <div>详情内容</div>
+    <pe-spa-page path="/3" grey>
+        <pe-spa-header direction="v" note="the note text" back>The 3 Page</pe-spa-header>
+        <pe-spa-content> ... </pe-spa-content>
     </pe-spa-page>
 </pe-spa>
 ```
-````

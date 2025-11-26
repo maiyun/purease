@@ -29,6 +29,8 @@
 
 `void`
 
+### 插槽
+
 ### 事件
 
 #### result(event)
@@ -54,12 +56,16 @@
 ```
 
 ```typescript
-function onCaptchaResult(e: lControl.ICaptchaResultEvent) {
-    if (e.detail.result === 1) {
-        console.log('验证成功', e.detail.token);
+class Page extends purease.AbstractPage {
+
+    public onCaptchaResult(e: lControl.ICaptchaResultEvent) {
+        if (e.detail.result === 1) {
+            console.log('验证成功', e.detail.token);
+        }
+        else {
+            console.log('验证失败');
+        }
     }
-    else {
-        console.log('验证失败');
-    }
+
 }
 ```

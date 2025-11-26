@@ -1,5 +1,4 @@
-````markdown
-轮播图控件，支持触摸滑动和自动播放
+﻿轮播图控件，支持触摸滑动和自动播放
 
 ### 参数
 
@@ -53,30 +52,6 @@ item 之间的间距，默认 0
 
 ### 类属性
 
-#### itemCount
-
-`number`
-
-子项总数
-
-#### selected
-
-`number`
-
-当前选中页
-
-#### width
-
-`number`
-
-单页宽度
-
-#### pageCount
-
-`number`
-
-总页数
-
 ### 方法
 
 ### 样式
@@ -87,53 +62,12 @@ item 之间的间距，默认 0
 
 禁用用户选择，cursor default。子项（swipe-item）绝对定位，动态计算 left 和 width。
 
-#### prev
-
-`() => void`
-
-切换到上一页
-
-#### next
-
-`() => void`
-
-切换到下一页
-
-#### pdown
-
-`(p: number) => void`
-
-跳转到指定页
-
-#### go
-
-`() => Promise<void>`
-
-执行滚动动画
-
-#### resize
-
-`() => void`
-
-窗口大小改变事件处理
-
 ### 示例
 
 ```html
-<pe-swipe v-model="current" :auto="true" :item="1" :gutter="10">
-    <pe-swipe-item>
-        <img src="/image1.jpg" />
-    </pe-swipe-item>
-    <pe-swipe-item>
-        <img src="/image2.jpg" />
-    </pe-swipe-item>
-    <pe-swipe-item>
-        <img src="/image3.jpg" />
-    </pe-swipe-item>
+<pe-swipe auto :page="swipePage">
+    <pe-swipe-item direction="v" style="background: rgba(0,0,0,.9); color: #FFF;"> ... </pe-swipe-item>
+    <pe-swipe-item direction="v" style="background: #000; color: #FFF; font-size: 48px;"> ... </pe-swipe-item>
+    <pe-swipe-item direction="v" style="background: hsl(240, 50%, 30%); color: #FFF; font-size: 48px;"> ... </pe-swipe-item>
 </pe-swipe>
 ```
-
-```typescript
-const current = ref(0);
-```
-````

@@ -1,4 +1,4 @@
-下拉列表控件，用于在有限的空间内展示大量选项
+数据列表控件，用于在有限的空间内展示大量选项
 
 ### 参数
 
@@ -35,15 +35,17 @@
 
 字段映射，包含 label, value, children, title
 
-#### multi
+#### tree
 
 `boolean`
 
-是否多选，默认 false
+是否树形模式，默认 false。为 true 时支持展开折叠子节点，为 false 时平铺展示所有节点
 
 ### 类属性
 
 ### 方法
+
+### 插槽
 
 ### 样式
 
@@ -71,6 +73,44 @@
 
 ### 示例
 
+基础用法：
+
 ```html
-<pe-dlist :data="minutes" v-model="vminute"></pe-dlist>
+<pe-dlist :data="['a', 'b', 'c']" v-model="value"></pe-dlist>
+```
+
+平铺树形结构（默认展开所有节点）：
+
+```html
+<pe-dlist :data="treeData" v-model="value"></pe-dlist>
+```
+
+可展开折叠的树形结构：
+
+```html
+<pe-dlist :data="treeData" v-model="value" tree></pe-dlist>
+```
+
+```typescript
+class Page extends purease.AbstractPage {
+
+    public treeData = [
+        { 'label': 'Item 1', 'value': 'item1' },
+        {
+            'label': 'Item 2',
+            'value': 'item2',
+            'children': [
+                { 'label': 'Sub Item 2-1', 'value': 'item2-1' },
+                {
+                    'label': 'Sub Item 2-2',
+                    'value': 'item2-2',
+                    'children': [
+                        { 'label': 'Deep Item 2-2-1', 'value': 'item2-2-1' }
+                    ]
+                }
+            ]
+        }
+    ];
+
+}
 ```

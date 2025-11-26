@@ -1,4 +1,3 @@
-````markdown
 分页控件，用于数据分页展示
 
 ### 参数
@@ -25,7 +24,7 @@
 
 `number`
 
-每页显示条数，默认 10
+每页显示条数，默认 10，支持 v-model
 
 #### counts
 
@@ -41,37 +40,9 @@
 
 ### 类属性
 
-#### countSelect
-
-`number`
-
-当前选择的每页条数
-
-#### page
-
-`number`
-
-当前页码
-
-#### maxPage
-
-`number`
-
-最大页数
-
-#### prevs
-
-`number[]`
-
-前方页码序列
-
-#### nexts
-
-`number[]`
-
-后方页码序列
-
 ### 方法
+
+### 插槽
 
 ### 样式
 
@@ -81,58 +52,20 @@
 
 底部可选总数提示文字，居中显示，顶部间距 10px。按钮间距 10px。
 
-#### refresh
-
-`() => void`
-
-刷新页码显示
-
-#### refreshMaxPage
-
-`() => void`
-
-刷新最大页数计算
-
-#### keydown
-
-`(e: KeyboardEvent) => void`
-
-键盘事件处理
-
-#### changed
-
-`(e: lControl.ISelectChangedEvent) => void`
-
-每页条数改变事件处理
-
 ### 事件
 
-#### change
+#### change(page)
 
-页码改变事件
+页码改变后事件
 
-#### update:modelValue
+##### page
 
-双向绑定页码更新事件
-
-#### update:count
-
-双向绑定每页条数更新事件
+`number`
 
 ### 示例
 
 ```html
-<pe-page v-model="currentPage" :total="total" :count="count" :counts="[10, 20, 50]" @change="onPageChange"></pe-page>
+<pe-page v-model="p1" max="10" :control="control"></pe-page>
+<pe-page v-model="p2" max="30" :control="control"></pe-page>
+<pe-page v-model="p3" total="1282" :control="control"></pe-page>
 ```
-
-```typescript
-const currentPage = ref(1);
-const total = ref(100);
-const count = ref(10);
-
-function onPageChange() {
-    console.log('当前页:', currentPage.value);
-    // 加载数据...
-}
-```
-````

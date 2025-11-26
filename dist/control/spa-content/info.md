@@ -1,5 +1,4 @@
-````markdown
-SPA 内容区域控件
+﻿SPA 内容区域控件，用于 pe-spa-page 内
 
 ### 参数
 
@@ -15,12 +14,15 @@ SPA 内容区域控件
 
 ```html
 <pe-spa>
-    <pe-spa-page path="/">
-        <pe-spa-header>首页</pe-spa-header>
+    <pe-spa-page path="/2" @show="spaShow2" @hide="spaHide2">
+        <pe-spa-header back>
+            <pe-circle type="pe" size="s"></pe-circle>
+            <div>The 2 Page</div>
+        </pe-spa-header>
         <pe-spa-content>
-            <div>这里是页面主要内容</div>
+            test test<br><br>
+            <div class="pe-button pe-pgrey">Button</div>
         </pe-spa-content>
     </pe-spa-page>
 </pe-spa>
 ```
-````

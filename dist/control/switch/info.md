@@ -1,5 +1,4 @@
-````markdown
-开关控件
+﻿开关控件
 
 ### 参数
 
@@ -11,29 +10,15 @@
 
 #### map
 
-`{ true?: any; false?: any }`
+`{ 'true'?: boolean | string | number; 'false'?: boolean | string | number; }`
 
 值映射对象，可以自定义开关的真假值，默认 {}
 
 #### modelValue
 
-`boolean` | `any`
+`boolean` | `string` | `number`
 
 当前值，默认 false
-
-### 类属性
-
-#### value
-
-`boolean` | `any`
-
-内部值状态
-
-#### mapComp
-
-`{ true: any; false: any }`
-
-格式化后的值映射
 
 ### 方法
 
@@ -45,45 +30,20 @@
 
 禁用状态下无交互和颜色变化。outline none。
 
-#### click
-
-`() => void`
-
-点击切换事件
-
-#### keydown
-
-`(e: KeyboardEvent) => void`
-
-键盘事件处理
-
 ### 事件
 
-#### change
+#### change(event)
 
-值改变事件，返回 `ISwitchChangeEvent` 对象，可通过 `preventDefault()` 阻止切换
+值改变事件
 
-#### update:modelValue
+##### event
 
-双向绑定值更新事件
+`ISwitchChangeEvent`
 
 ### 示例
 
 ```html
-<pe-switch v-model="enabled" @change="onChange"></pe-switch>
-
-<!-- 自定义值映射 -->
-<pe-switch v-model="status" :map="{ true: 1, false: 0 }"></pe-switch>
+<pe-switch v-model="switch1"></pe-switch>
+<div>{{switch2}}</div>
+<pe-switch v-model="switch2" :map="{'true':'a','false':'b'}"></pe-switch>
 ```
-
-```typescript
-const enabled = ref(false);
-const status = ref(0);
-
-function onChange(e: lControl.ISwitchChangeEvent) {
-    console.log('当前值:', e.detail.value);
-    // 可以阻止切换
-    // e.preventDefault();
-}
-```
-````

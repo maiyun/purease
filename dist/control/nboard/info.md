@@ -1,4 +1,3 @@
-````markdown
 数字键盘控件，用于输入数字密码或验证码
 
 ### 参数
@@ -31,7 +30,7 @@
 
 `string` | `undefined`
 
-尺寸大小
+尺寸大小，默认 m，可设置 xs、s
 
 #### modelValue
 
@@ -53,13 +52,13 @@
 
 ### 类属性
 
-#### value
-
-`string[]`
-
-内部值数组
-
 ### 方法
+
+### 插槽
+
+#### title
+
+数字键盘顶部标题区域
 
 ### 样式
 
@@ -69,51 +68,36 @@
 
 支持 plain 模式（无外边框）、size 尺寸调整（s/xs）。非 plain 模式下带圆角、边框和阴影，底部按钮右下角圆角。
 
-#### click
-
-`(num: string) => void`
-
-数字按钮点击事件
-
-#### buttonClick
-
-`(item: string) => void`
-
-底部按钮点击事件
-
-#### back
-
-`() => void`
-
-退格删除方法
-
 ### 事件
 
-#### changed
+#### changed()
 
 值改变事件
 
-#### update:modelValue
-
-双向绑定值更新事件
-
-#### button
+#### button(item)
 
 底部按钮点击事件
+
+##### item
+
+`string`
 
 ### 示例
 
 ```html
-<pe-nboard v-model="password" :length="6" :split="true" :buttons="['确认']" @button="onButtonClick"></pe-nboard>
+<pe-nboard v-model="nboard" :disabled="nboardDisabled" :plain="nboardPlain" :split="nboardSplit" :custom="nboardCustom ? '#' : undefined" :buttons="nboardButtons ? ['Cancel', 'OK'] : []" @button="nboardButton" :size="nboardSize !== 'default' ? nboardSize : undefined">
+    <template v-if="nboardTitle" v-slot:title>
+        <span>This is a title</span>
+    </template>
+</pe-nboard>
 ```
 
 ```typescript
-const password = ref('');
+class Page extends purease.AbstractPage {
 
-function onButtonClick(button: string) {
-    if (button === '确认') {
-        console.log('密码:', password.value);
+    public nboardButton(btn: string): void {
+        this.alert(btn, 'pe');
     }
+
 }
 ```
-````

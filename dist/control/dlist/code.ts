@@ -1,28 +1,58 @@
 ﻿import * as purease from '../../purease.js';
 import * as lControl from '../../control';
 
+/** --- dlist 数据项类型 --- */
+type TDlistItem = Record<string, any> | string;
+
+/** --- dlist 扁平化后的数据项 --- */
+interface IFlatItem {
+    'item': TDlistItem;
+    'level': number;
+    'path': number[];
+}
+
+/** --- dlist 字段映射类型 --- */
+interface IMapComp {
+    'label': string;
+    'value': string;
+    'children': string;
+    'title': string;
+}
+
 export interface IDlistVue extends purease.IVue {
     /** --- 当前选中的值 --- */
     'modelValue': string;
     /** --- 数据列表，默认空数组 --- */
-    'data': Array<Record<string, any>> | string[];
+    'data': TDlistItem[];
     /** --- 是否朴素模式，默认 false --- */
     'plain': boolean;
     /** --- 字段映射，包含 label, value, children, title --- */
     'map': Record<string, string>;
-    /** --- 是否多选，默认 false --- */
-    'multi': boolean;
+    /** --- 是否树形模式，默认 false，为 true 时支持展开折叠 --- */
+    'tree': boolean;
     /** --- 内部选中值 --- */
     'value': string;
+    /** --- 展开的路径集合 --- */
+    'expandedPaths': Record<string, boolean>;
     /** --- 映射计算属性 --- */
-    'mapComp': {
-        'label': string;
-        'value': string;
-        'children': string;
-        'title': string;
-    };
+    'mapComp': IMapComp;
+    /** --- 扁平化后的数据列表 --- */
+    'flatData': IFlatItem[];
+
+    /** --- 获取项的 value --- */
+    getItemValue: (item: TDlistItem) => string;
+    /** --- 获取项的 label --- */
+    getItemLabel: (item: TDlistItem) => string;
     /** --- 点击事件 --- */
     click: (i: number) => void;
+    /** --- 递归扁平化数据 --- */
+    flattenData: (data: TDlistItem[], level: number, path: number[]) => IFlatItem[];
+    /** --- 切换展开状态 --- */
+    toggleExpand: (path: number[]) => void;
+    /** --- 判断路径是否展开 --- */
+    isExpanded: (path: number[]) => boolean;
+    /** --- 判断项是否有子节点 --- */
+    hasChildren: (item: TDlistItem) => boolean;
 }
 
 export const code = {
@@ -41,7 +71,7 @@ export const code = {
         'map': {
             'default': {}
         },
-        'multi': {
+        'tree': {
             'default': false
         },
     },
@@ -52,81 +82,123 @@ export const code = {
     },
     'computed': {
         /** --- 初始化后的 map 对象 --- */
-        mapComp: function(this: IDlistVue): {
-            'label': string;
-            'value': string;
-            'children': string;
-            'title': string;
-        } {
+        mapComp: function(this: IDlistVue): IMapComp {
             return {
-                'children': this.map.children ?? 'children',
                 'label': this.map.label ?? 'label',
                 'value': this.map.value ?? 'value',
+                'children': this.map.children ?? 'children',
                 'title': this.map.title ?? 'title',
             };
+        },
+        /** --- 扁平化后的数据列表 --- */
+        flatData: function(this: IDlistVue): IFlatItem[] {
+            return this.flattenData(this.data, 0, []);
         }
     },
     'methods': {
+        /** --- 获取项的 value --- */
+        getItemValue: function(this: IDlistVue, item: TDlistItem): string {
+            return typeof item === 'string' ? item : (item[this.mapComp.value] ?? item[this.mapComp.label]);
+        },
+        /** --- 获取项的 label --- */
+        getItemLabel: function(this: IDlistVue, item: TDlistItem): string {
+            return typeof item === 'string' ? item : (item[this.mapComp.label] ?? item[this.mapComp.value]);
+        },
         click: function(this: IDlistVue, i: number) {
-            const item = this.data[i];
-            this.value = typeof item === 'string' ? item : (item[this.mapComp.value] ?? item[this.mapComp.label]);
+            const flatItem = this.flatData[i];
+            if (!flatItem) {
+                return;
+            }
+            this.value = this.getItemValue(flatItem.item);
             this.$emit('update:modelValue', this.value);
             const event: lControl.IDlistChangedEvent = {
                 'detail': {
                     'value': this.value,
                     'index': i,
-                    'label': typeof item === 'string' ? item : (item[this.mapComp.label] ?? item[this.mapComp.value])
+                    'label': this.getItemLabel(flatItem.item)
                 }
             };
             this.$emit('changed', event);
             this.$emit('click', event);
         },
-        refreshModelValue: function(this: IDlistVue) {
-            let found = false;
-            for (const item of this.data) {
-                const val = typeof item === 'string' ? item : (item[this.mapComp.value] ?? item[this.mapComp.label]);
-                if (val !== this.value) {
-                    continue;
+        /** --- 递归扁平化数据 --- */
+        flattenData: function(this: IDlistVue, data: TDlistItem[], level: number, path: number[]): IFlatItem[] {
+            const result: IFlatItem[] = [];
+            for (let i = 0; i < data.length; ++i) {
+                const item = data[i];
+                const currentPath = [...path, i];
+                result.push({
+                    'item': item,
+                    'level': level,
+                    'path': currentPath
+                });
+                if (this.hasChildren(item)) {
+                    if (!this.propBoolean('tree') || this.isExpanded(currentPath)) {
+                        const itemObj = item as Record<string, any>;
+                        const children = this.flattenData(itemObj[this.mapComp.children], level + 1, currentPath);
+                        result.push(...children);
+                    }
                 }
-                found = true;
-                break;
             }
+            return result;
+        },
+        /** --- 切换展开状态 --- */
+        toggleExpand: function(this: IDlistVue, path: number[]) {
+            const pathKey = path.join('-');
+            if (this.expandedPaths[pathKey]) {
+                delete this.expandedPaths[pathKey];
+            }
+            else {
+                this.expandedPaths[pathKey] = true;
+            }
+        },
+        /** --- 判断路径是否展开 --- */
+        isExpanded: function(this: IDlistVue, path: number[]): boolean {
+            return !!this.expandedPaths[path.join('-')];
+        },
+        /** --- 判断项是否有子节点 --- */
+        hasChildren: function(this: IDlistVue, item: TDlistItem): boolean {
+            if (typeof item === 'string') {
+                return false;
+            }
+            const children = item[this.mapComp.children];
+            return Array.isArray(children) && children.length > 0;
+        },
+        refreshModelValue: function(this: IDlistVue) {
+            // --- 查找当前值是否存在于列表中 ---
+            const found = this.flatData.some(flatItem => this.getItemValue(flatItem.item) === this.value);
             if (found) {
                 return;
             }
-            if (!this.data[0]) {
+            // --- 未找到，重置为第一项或空 ---
+            const firstItem = this.flatData[0];
+            if (!firstItem) {
                 if (this.value !== '') {
                     this.value = '';
                     this.$emit('update:modelValue', '');
-                    const event: lControl.IDlistChangedEvent = {
-                        'detail': {
-                            'value': '',
-                            'index': -1,
-                            'label': ''
-                        }
-                    };
-                    this.$emit('changed', event);
+                    this.$emit('changed', {
+                        'detail': { 'value': '', 'index': -1, 'label': '' }
+                    } as lControl.IDlistChangedEvent);
                 }
                 return;
             }
-            const fitem = this.data[0];
-            this.value = typeof fitem === 'string' ? fitem : (fitem[this.mapComp.value] ?? fitem[this.mapComp.label]);
-            const lab = typeof fitem === 'string' ? fitem : (fitem[this.mapComp.label] ?? fitem[this.mapComp.value]);
+            this.value = this.getItemValue(firstItem.item);
             this.$emit('update:modelValue', this.value);
-            const event: lControl.IDlistChangedEvent = {
+            this.$emit('changed', {
                 'detail': {
                     'value': this.value,
                     'index': 0,
-                    'label': lab
+                    'label': this.getItemLabel(firstItem.item)
                 }
-            };
-            this.$emit('changed', event);
+            } as lControl.IDlistChangedEvent);
         }
     },
     'data': function() {
         return {
             /** --- 当前选定的值 --- */
             'value': '',
+            /** --- 展开的路径集合 --- */
+            'expandedPaths': {},
             /** --- 语言包 --- */
             'localeData': {
                 'en': {

@@ -238,6 +238,10 @@ purease = {
         <pe-check>check1<br>check2<br><a href="./swipe.html" target="_blank">check3<pe-icon></pe-icon></a></pe-check>
         <div>Dlist: {{dlist}}</div>
         <pe-dlist :data="['a', 'b', 'c', { 'title': true, 'label': 'title' }, 'd']" style="width: 400px;" v-model="dlist"></pe-dlist>
+        <div>Dlist with children (flat): {{dlistChildren}}</div>
+        <pe-dlist :data="dlistChildrenData" style="width: 400px;" v-model="dlistChildren"></pe-dlist>
+        <div>Dlist with children (tree): {{dlistChildrenTree}}</div>
+        <pe-dlist :data="dlistChildrenData" style="width: 400px;" v-model="dlistChildrenTree" tree></pe-dlist>
     </div>
 </div>
 <!-- RTL 模式 -->

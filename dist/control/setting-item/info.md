@@ -1,4 +1,3 @@
-````markdown
 设置项控件，用于显示单个设置项
 
 ### 参数
@@ -45,12 +44,6 @@
 
 垂直对齐方式，默认 center
 
-#### hover
-
-`boolean`
-
-是否启用悬停效果，默认 false
-
 #### nopadding
 
 `boolean`
@@ -79,6 +72,12 @@
 
 ### 方法
 
+### 插槽
+
+#### left
+
+左侧区域，替代默认的 title/note 布局
+
 ### 样式
 
 单个设置项，采用横向弹性布局。左侧为标题+备注区域（纵向排列，标题大字号，备注灰色小字号），右侧为操作区域（支持横向/纵向布局和对齐方式，可换行）。
@@ -87,30 +86,16 @@
 
 父容器启用 hover 模式时，悬停显示灰色背景。背景色继承输入框背景色，相对定位便于标记绝对定位。
 
-#### enter
-
-`(e: MouseEvent | TouchEvent) => void`
-
-鼠标进入事件处理
-
-#### leave
-
-`(e: MouseEvent | TouchEvent) => void`
-
-鼠标离开事件处理
-
 ### 示例
 
 ```html
-<pe-setting>
-    <pe-setting-block>
-        <pe-setting-item title="通知" note="接收系统通知" :arrow="true" :hover="true">
-            <pe-switch v-model="notification"></pe-switch>
-        </pe-setting-item>
-        <pe-setting-item title="语言" mark="中文">
-            <pe-select v-model="language" :data="languages"></pe-select>
-        </pe-setting-item>
-    </pe-setting-block>
+<pe-setting :hover="settingHover" :plain="settingPlain" :light="settingLight">
+    <pe-setting-item title="How are you" note="Ok, I'm ok, you?" mark="New">END</pe-setting-item>
+    <pe-setting-item title="How are you" note="Ok, I'm ok, you?">
+        <pe-switch />
+    </pe-setting-item>
+    <pe-setting-item title="How are you" note="stripe" class="pe-stripe"></pe-setting-item>
+    <pe-setting-item v-slot:left mark="#12">v-slot:left</pe-setting-item>
+    <pe-setting-item title="How are you" note="No right" arrow></pe-setting-item>
 </pe-setting>
 ```
-````

@@ -1,5 +1,4 @@
-````markdown
-表格容器控件
+﻿表格容器控件
 
 ### 参数
 
@@ -15,20 +14,6 @@
 
 是否为朴素风格，默认 false
 
-### 类属性
-
-#### controlName
-
-`string`
-
-控件名称标识
-
-#### headCount
-
-`number`
-
-表头单元格数量
-
 ### 方法
 
 ### 样式
@@ -40,22 +25,24 @@ plain 模式下无外边框和阴影（仅底部 1px 边框），首行底部边
 ### 示例
 
 ```html
-<pe-table :adaption="true">
-    <pe-table-row :title="true">
-        <pe-table-head>姓名</pe-table-head>
-        <pe-table-head>年龄</pe-table-head>
-        <pe-table-head>城市</pe-table-head>
-    </pe-table-row>
+<pe-table adaption plain>
     <pe-table-row>
-        <pe-table-cell>张三</pe-table-cell>
-        <pe-table-cell>25</pe-table-cell>
-        <pe-table-cell>北京</pe-table-cell>
+        <pe-table-head>Title</pe-table-head>
+        <pe-table-head>Head1</pe-table-head>
+        <pe-table-head>Head2</pe-table-head>
     </pe-table-row>
-    <pe-table-row>
-        <pe-table-cell>李四</pe-table-cell>
-        <pe-table-cell>30</pe-table-cell>
-        <pe-table-cell>上海</pe-table-cell>
+    <pe-table-row v-for="i of 3">
+        <pe-table-cell>Title</pe-table-cell>
+        <pe-table-cell>Cell1</pe-table-cell>
+        <pe-table-cell>Cell2</pe-table-cell>
+    </pe-table-row>
+    <pe-table-row title>
+        <pe-table-cell>Sub title</pe-table-cell>
+    </pe-table-row>
+    <pe-table-row v-for="i of 2">
+        <pe-table-cell>Title</pe-table-cell>
+        <pe-table-cell>Cell1</pe-table-cell>
+        <pe-table-cell>Cell2</pe-table-cell>
     </pe-table-row>
 </pe-table>
 ```
-````

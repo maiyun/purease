@@ -18,8 +18,12 @@ async function run() {
         const flayout = lTool.purify((await fs.promises.readFile('dist/control/' + item.name + '/layout.html')).toString()).replace(/`/g, '\\`');
         // --- 代码 ---
         try {
-            const fcode = (await fs.promises.readFile('dist/control/' + item.name + '/code.ts')).toString().replace(/'template': ''/, `'template': \`${flayout.replace(/`/g, '\`').replace(/\${/g, '\\${')}\``);
-            code += `list['pe-${item.name}'] = ` + fcode.slice(fcode.indexOf('export const code = ') + 20).replace(/lControl./g, '') + '\n';
+            const fcode = (await fs.promises.readFile('dist/control/' + item.name + '/code.ts')).toString()
+                // .replace(/([\w)]+: )[IT][\w[\]]+/g, '$1 any')
+                .replace(/'template': ''/, `'template': \`${flayout.replace(/`/g, '\`').replace(/\${/g, '\\${')}\``);
+            code += `list['pe-${item.name}'] = ` + fcode
+                .slice(fcode.indexOf('export const code = ') + 20)
+                .replace(/lControl./g, '') + '\n';
         }
         catch {
             code += `list['pe-${item.name}'] = { 'template': \`${flayout}\` };\n\n`;

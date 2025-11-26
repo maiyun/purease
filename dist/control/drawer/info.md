@@ -48,6 +48,12 @@
 
 ### 方法
 
+### 插槽
+
+#### footer
+
+抽屉底部区域，用于放置操作按钮
+
 ### 样式
 
 类似 Ant Design 的 Drawer 抽屉组件，从右侧滑出的面板。采用固定定位，全屏半透明遮罩（rgba(0,0,0,.3)）配合白色抽屉主体，带阴影效果。
@@ -59,7 +65,8 @@
 ### 示例
 
 ```html
-<pe-drawer v-model="showDrawer" title="设置" width="50%">
-    <div>抽屉内容</div>
+<pe-drawer title="Drawer" gutter="10" v-model="drawer" direction="v" width="50%">
+    <div>123</div>
+    <div class="pe-button pe-pgrey" @click="drawer2 = true">456</div>
 </pe-drawer>
 ```

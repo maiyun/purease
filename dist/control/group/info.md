@@ -1,11 +1,28 @@
-````markdown
-分组容器控件，用于组织和包裹相关内容
+大卡片容器控件，用于组织和包裹相关内容
 
 ### 参数
 
 ### 类属性
 
+#### pe-padtitle
+
+让上方增加一块和 header 等高的 margin，通常用于没有 title 的与有 title 的 group 对齐
+
+#### pe-point
+
+焦点模式，边框变的明显
+
 ### 方法
+
+### 插槽
+
+#### title
+
+标题区域
+
+#### bottom
+
+底部区域
 
 ### 样式
 
@@ -18,10 +35,13 @@
 ### 示例
 
 ```html
-<pe-group>
-    <pe-check>选项1</pe-check>
-    <pe-check>选项2</pe-check>
-    <pe-check>选项3</pe-check>
+<pe-group style="flex: 1;">
+    <template v-slot:title>Best</template>
+    111<br>
+    222<br>
+    333
+    <template v-slot:bottom>
+        <div class="pe-button pe-pgrey" style="flex: 1;">Buy</div>
+    </template>
 </pe-group>
 ```
-````

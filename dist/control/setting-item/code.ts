@@ -16,8 +16,6 @@ export interface ISettingItemVue extends purease.IVue {
     'alignH': string | undefined;
     /** --- 垂直对齐方式，默认 center --- */
     'alignV': string;
-    /** --- 是否启用悬停效果，默认 false --- */
-    'hover': boolean;
     /** --- 是否无内边距，默认 false --- */
     'nopadding': boolean;
     /** --- 是否无间距，默认 false --- */
@@ -56,9 +54,6 @@ export const code = {
         },
         'alignV': {
             'default': 'center'
-        },
-        'hover': {
-            'default': false
         },
         'nopadding': {
             'default': false

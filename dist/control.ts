@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck
+// --- 合并文件，无需做类型检查 ---
+
 import * as purease from './purease.js';
 import * as lTool from './tool.js';
 import * as lDom from './dom.js';
@@ -113,6 +117,7 @@ export const list: Record<string, {
 
 interface ICustomEvent {
     'go': boolean;
+    /** --- 阻止默认行为 --- */
     preventDefault: () => void;
 }
 
@@ -167,7 +172,7 @@ export interface ISelectChangedEvent {
 
 export interface ISwitchChangeEvent extends ICustomEvent {
     'detail': {
-        'value': boolean;
+        'value': any;
     };
 }
 
@@ -217,10 +222,6 @@ export interface ICaptchaResultEvent {
 
 list['pe-anchor'] = {
     'template': `<div class="pe-anchor"><div class="pe-anchor-left" ref="left"><slot></slot></div><div class="pe-anchor-right"><div class="pe-anchor-right-content"><div v-for="item of list" class="pe-anchor-item" :class="['pe-anchor-item-h' + item.level, {'pe-selected': item.id === selected}]" @click="scrollTo(item.id)">{{item.text}}</div></div></div></div>`,
-    /**
-     * --- 初始化数据 ---
-     * @returns 包含目录列表和当前选中项的数据对象
-     */
     'data': function(): {
         'list': Array<{
             'id': number;
@@ -235,11 +236,7 @@ list['pe-anchor'] = {
         };
     },
     'methods': {
-        /**
-         * --- 滚动到指定的标题位置 ---
-         * @param id 目录项的 id
-         */
-        'scrollTo': function(id: number) {
+        'scrollTo': function(this: IAnchorVue, id: number) {
             const el = document.getElementById('anchor-' + id);
             if (!el) {
                 return;
@@ -250,13 +247,7 @@ list['pe-anchor'] = {
             });
         },
     },
-    /**
-     * --- 组件挂载完成后的初始化 ---
-     *
-     * 自动扫描左侧插槽内的标题（h2-h6），为其生成唯一 id，
-     * 并设置滚动事件监听器用于实时更新当前选中的导航项。
-     */
-    mounted: function(this: purease.IVue) {
+    mounted: function(this: IAnchorVue) {
         let id = -1;
         const list: NodeListOf<HTMLElement> = this.$refs.left.querySelectorAll('h2,h3,h4,h5,h6');
         for (const item of list) {
@@ -304,7 +295,7 @@ list['pe-bar'] = {
         },
         'theme': {
             'default': 'default'
-        }
+        },
     }
 };
 
@@ -322,7 +313,7 @@ list['pe-bar-item'] = {
         };
     },
     'methods': {
-        enter: function(this: purease.IVue, e: MouseEvent | TouchEvent) {
+        enter: function(this: IBarItemVue, e: MouseEvent | TouchEvent) {
             if (lDom.hasTouchButMouse(e)) {
                 return;
             }
@@ -335,7 +326,7 @@ list['pe-bar-item'] = {
             }
             this.hover = !this.hover;
         },
-        leave: function(this: purease.IVue, e: MouseEvent | TouchEvent) {
+        leave: function(this: IBarItemVue, e: MouseEvent | TouchEvent) {
             if (lDom.hasTouchButMouse(e)) {
                 return;
             }
@@ -368,21 +359,21 @@ list['pe-btab'] = {
             'max': 0,
             /** --- 全宽 --- */
             'width': 0,
-            /** --- 内容宽 --- */
+            /** --- 内容宽度 --- */
             'cwidth': 0,
         };
     },
     'computed': {
-        isScroll: function(this: purease.IVue): boolean {
+        isScroll: function(this: IBtabVue): boolean {
             return this.cwidth > this.width;
         },
     },
     'methods': {
-        select: function(this: purease.IVue, index: number) {
+        select: function(this: IBtabVue, index: number) {
             this.index = index;
             this.$emit('modelValue', index);
         },
-        down: function(this: purease.IVue, e: TouchEvent | MouseEvent) {
+        down: function(this: IBtabVue, e: TouchEvent | MouseEvent) {
             if (lDom.hasTouchButMouse(e)) {
                 return;
             }
@@ -400,7 +391,7 @@ list['pe-btab'] = {
             let x = ox;
             lDom.bindDown(e, {
                 move: (ne) => {
-                    // --- 当前的位置 ---
+                    // --- 当前的位置---
                     const nx = ne instanceof MouseEvent ? ne.clientX : ne.touches[0].clientX;
                     /** --- 移动的差值 --- */
                     const cx = nx - x;
@@ -425,7 +416,7 @@ list['pe-btab'] = {
                 },
             });
         },
-        resize: function(this: purease.IVue) {
+        resize: function(this: IBtabVue) {
             this.width = this.$el.offsetWidth;
             this.cwidth = this.$refs.content.offsetWidth;
             if (this.cwidth <= this.width) {
@@ -452,7 +443,7 @@ list['pe-btab'] = {
             }
         },
     },
-    mounted: function(this: purease.IVue) {
+    mounted: function(this: IBtabVue) {
         this.$watch('modelValue', () => {
             this.index = this.$props.modelValue;
         }, {
@@ -461,7 +452,7 @@ list['pe-btab'] = {
         window.addEventListener('resize', this.resize);
         this.resize();
     },
-    unmounted: async function(this: purease.IVue) {
+    unmounted: async function(this: IBtabVue) {
         await this.$nextTick();
         window.removeEventListener('resize', this.resize);
     }
@@ -572,7 +563,7 @@ list['pe-captcha'] = {
     },
     'methods': {
         /** --- 供外部调用的 --- */
-        reset: function(this: purease.IVue): void {
+        reset: function(this: ICaptchaVue): void {
             if (this.factory === 'tc') {
                 // --- 腾讯云验证码 ---
                 this.state = '';
@@ -586,7 +577,7 @@ list['pe-captcha'] = {
             this.access.lib.reset(this.access.instance);
         },
         /** --- 腾讯云验证码显示 --- */
-        click: function(this: purease.IVue): void {
+        click: function(this: ICaptchaVue): void {
             if (!this.access.instance) {
                 return;
             }
@@ -599,7 +590,7 @@ list['pe-captcha'] = {
             this.access.instance.show();
         },
     },
-    mounted: async function(this: purease.IVue) {
+    mounted: async function(this: ICaptchaVue) {
         this.access = {
             'instance': undefined,
         };
@@ -680,7 +671,7 @@ list['pe-captcha'] = {
         this.access.instance = captcha;
         // --- 初始化成功 ---
     },
-    unmounted: function(this: purease.IVue) {
+    unmounted: function(this: ICaptchaVue) {
         if (this.$props.factory === 'tc') {
             this.access.instance = undefined;
             return;
@@ -708,7 +699,7 @@ list['pe-check'] = {
         };
     },
     'methods': {
-        click: function(this: purease.IVue, e: MouseEvent) {
+        click: function(this: ICheckVue, e: MouseEvent) {
             const target = e.target as HTMLElement | null;
             if (!target) {
                 return;
@@ -725,7 +716,7 @@ list['pe-check'] = {
     },
     'watch': {
         'modelValue': {
-            handler: function(this: purease.IVue) {
+            handler: function(this: ICheckVue) {
                 this.value = this.modelValue;
             },
             'immediate': true
@@ -971,7 +962,7 @@ list['pe-date'] = {
     },
     'methods': {
         // --- 单击事件 ---
-        click: function(this: purease.IVue, e: MouseEvent, type: 'first' | 'zone'): void {
+        click: function(this: IDateVue, e: MouseEvent, type: 'first' | 'zone'): void {
             const el = this.$refs[type + 'pop'];
             if (el.classList.contains('pe-show')) {
                 lDom.hidePop(el);
@@ -983,7 +974,7 @@ list['pe-date'] = {
             }
             lDom.showPop(e, el);
         },
-        zoneOk: function(this: purease.IVue): void {
+        zoneOk: function(this: IDateVue): void {
             const vz = parseInt(this.vzone);
             if (vz >= 0) {
                 this.tzData = vz + (parseInt(this.vzdec) / 60);
@@ -1005,7 +996,7 @@ list['pe-date'] = {
             }
             lDom.hidePop();
         },
-        timeOk: function(this: purease.IVue): void {
+        timeOk: function(this: IDateVue): void {
             this.dateObj.setUTCHours(
                 parseInt(this.vhour), parseInt(this.vminute), parseInt(this.vseconds), 0
             );
@@ -1025,12 +1016,12 @@ list['pe-date'] = {
         cancel: function(): void {
             lDom.hidePop();
         },
-        clear: function(this: purease.IVue): void {
+        clear: function(this: IDateVue): void {
             this.timestamp = undefined;
             this.$emit('update:modelValue', undefined);
         },
         // --- date panel 的 changed ---
-        changed: function(this: purease.IVue): void {
+        changed: function(this: IDateVue): void {
             this.$emit('update:modelValue', this.timestamp);
             const event: IDateChangedEvent = {
                 'detail': {
@@ -1052,11 +1043,11 @@ list['pe-date'] = {
                 this.$emit('update:hourminute', hour + minute + seconds);
             }
         },
-        selected: function(this: purease.IVue): void {
+        selected: function(this: IDateVue): void {
             lDom.hidePop(this.$refs.firstpop);
         }
     },
-    'mounted': function(this: purease.IVue) {
+    'mounted': function(this: IDateVue) {
         // --- 填充年时分秒时区 ---
         for (let i = 0; i <= 23; ++i) {
             this.hours.push(i.toString().padStart(2, '0'));
@@ -1106,7 +1097,7 @@ list['pe-date'] = {
                 return;
             }
             this.timestamp = this.propInt('modelValue');
-            this.dateObj.setTime(this.timestamp + this.tzData * 60 * 60 * 1_000);
+            this.dateObj.setTime(this.timestamp! + this.tzData * 60 * 60 * 1_000);
             this.dateStr = this.dateObj.getUTCFullYear().toString() + '-' + (this.dateObj.getUTCMonth() + 1).toString().padStart(2, '0') + '-' + this.dateObj.getUTCDate().toString().padStart(2, '0');
             this.timeStr = this.dateObj.getUTCHours().toString().padStart(2, '0') + ':' + this.dateObj.getUTCMinutes().toString().padStart(2, '0') + ':' + this.dateObj.getUTCSeconds().toString().padStart(2, '0');
             this.vhour = this.dateObj.getUTCHours().toString().padStart(2, '0');
@@ -1655,22 +1646,22 @@ list['pe-datepanel'] = {
         };
     },
     'computed': {
-        dateValueStr: function(this: purease.IVue): string {
+        dateValueStr: function(this: IDatepanelVue): string {
             return this.dateValue.year.toString() + (this.dateValue.month + 1).toString().padStart(2, '0') + this.dateValue.date.toString().padStart(2, '0');
         },
-        startYm: function(this: purease.IVue): string {
+        startYm: function(this: IDatepanelVue): string {
             return this.startValue.year.toString() + (this.startValue.month + 1).toString().padStart(2, '0');
         },
-        startYmd: function(this: purease.IVue): string {
+        startYmd: function(this: IDatepanelVue): string {
             return this.startYm + this.startValue.date.toString().padStart(2, '0');
         },
-        endYm: function(this: purease.IVue): string {
+        endYm: function(this: IDatepanelVue): string {
             return this.endValue.year.toString() + (this.endValue.month + 1).toString().padStart(2, '0');
         },
-        endYmd: function(this: purease.IVue): string {
+        endYmd: function(this: IDatepanelVue): string {
             return this.endYm + this.endValue.date.toString().padStart(2, '0');
         },
-        years: function(this: purease.IVue): Array<{
+        years: function(this: IDatepanelVue): Array<{
             'label': string;
             'value': string;
         }> {
@@ -1679,7 +1670,7 @@ list['pe-datepanel'] = {
                 'value': (this.startValue.year + i).toString(),
             }));
         },
-        months: function(this: purease.IVue): Array<{
+        months: function(this: IDatepanelVue): Array<{
             'label': string;
             'value': string;
             'disabled': boolean;
@@ -1699,7 +1690,7 @@ list['pe-datepanel'] = {
             }
             return arr;
         },
-        isDisabled: function(this: purease.IVue) {
+        isDisabled: function(this: IDatepanelVue) {
             return (col: {
                 'date': number;
                 'month': number;
@@ -1710,7 +1701,7 @@ list['pe-datepanel'] = {
             };
         },
         /** --- col 显示的 class 效果，有四种，1: undefined, 2: range, 3: range-left, 4: range-right --- */
-        toclass: function(this: purease.IVue) {
+        toclass: function(this: IDatepanelVue) {
             return (col: {
                 'date': number;
                 'month': number;
@@ -1739,12 +1730,12 @@ list['pe-datepanel'] = {
         }
     },
     'methods': {
-        refreshStartValue: function(this: purease.IVue): void {
+        refreshStartValue: function(this: IDatepanelVue): void {
             this.startValue.date = this.startDate.getUTCDate();
             this.startValue.month = this.startDate.getUTCMonth();
             this.startValue.year = this.startDate.getUTCFullYear();
         },
-        refreshEndValue: function(this: purease.IVue): void {
+        refreshEndValue: function(this: IDatepanelVue): void {
             this.endValue.date = this.endDate.getUTCDate();
             this.endValue.month = this.endDate.getUTCMonth();
             this.endValue.year = this.endDate.getUTCFullYear();
@@ -1752,7 +1743,7 @@ list['pe-datepanel'] = {
         /**
          * --- 刷新视图（当时间戳或时区变动时执行） ---
          */
-        refreshView: function(this: purease.IVue): void {
+        refreshView: function(this: IDatepanelVue): void {
             const now = new Date(Date.UTC(parseInt(this.vyear), parseInt(this.vmonth) - 1, 1));
             /** --- 当月 1 号在周几，0 代表周日 --- */
             const day1 = now.getUTCDay();
@@ -1780,7 +1771,7 @@ list['pe-datepanel'] = {
         /**
          * --- 刷新 date value 的数据为最新的 ---
          */
-        refreshDateValue: function(this: purease.IVue): void {
+        refreshDateValue: function(this: IDatepanelVue): void {
             this.dateValue.date = this.dateObj.getUTCDate();
             this.dateValue.month = this.dateObj.getUTCMonth();
             this.dateValue.year = this.dateObj.getUTCFullYear();
@@ -1788,7 +1779,7 @@ list['pe-datepanel'] = {
         /**
          * --- 更新 time stamp，会自动根据 dateObj 设置时间戳基 ---
          */
-        updateTimestamp: function(this: purease.IVue): void {
+        updateTimestamp: function(this: IDatepanelVue): void {
             if (this.timestamp === undefined) {
                 if (this.$props.modelValue !== undefined) {
                     const event: IDatepanelChangedEvent = {
@@ -1814,7 +1805,7 @@ list['pe-datepanel'] = {
         /**
          * --- 跳转到当前选中的年份和月份 ---
          */
-        goSelected: function(this: purease.IVue): void {
+        goSelected: function(this: IDatepanelVue): void {
             let change = false;
             if (parseInt(this.vyear) !== this.dateValue.year) {
                 this.vyear = this.dateValue.year.toString();
@@ -1832,7 +1823,7 @@ list['pe-datepanel'] = {
             }
         },
         /** --- col 点击 --- */
-        colClick: function(this: purease.IVue, col: {
+        colClick: function(this: IDatepanelVue, col: {
             'time': number;
             'date': number;
             'month': number;
@@ -1917,7 +1908,7 @@ list['pe-datepanel'] = {
             this.$emit('selected', event);
         },
         /** --- 跳转到今天 --- */
-        today: function(this: purease.IVue): void {
+        today: function(this: IDatepanelVue): void {
             // --- 解除 undefined 限制，使选中的时间戳可以 emit 上去 ---
             this.timestamp = 0;
             const now = new Date();
@@ -1927,13 +1918,13 @@ list['pe-datepanel'] = {
             this.goSelected();
         },
         /** --- 返回选中年月 --- */
-        back: function(this: purease.IVue): void {
+        back: function(this: IDatepanelVue): void {
             this.vyear = this.dateValue.year.toString();
             this.vmonth = (this.dateValue.month + 1).toString();
             this.$emit('update:yearmonth', this.vyear + this.vmonth.padStart(2, '0'));
         },
         /** --- 选上个月 --- */
-        prev: function(this: purease.IVue): void {
+        prev: function(this: IDatepanelVue): void {
             const month = parseInt(this.vmonth);
             if (month === 1) {
                 const year = parseInt(this.vyear);
@@ -1944,7 +1935,7 @@ list['pe-datepanel'] = {
             this.vmonth = (month - 1).toString();
         },
         // --- 选下个月 ---
-        next: function(this: purease.IVue): void {
+        next: function(this: IDatepanelVue): void {
             const month = parseInt(this.vmonth);
             if (month === 12) {
                 const year = parseInt(this.vyear);
@@ -1955,7 +1946,7 @@ list['pe-datepanel'] = {
             this.vmonth = (month + 1).toString();
         },
         /** --- 鼠标移动到 col 上的事件 --- */
-        colenter: function(this: purease.IVue, e: MouseEvent | TouchEvent, col: {
+        colenter: function(this: IDatepanelVue, e: MouseEvent | TouchEvent, col: {
             'date': number;
             'month': number;
             'year': number;
@@ -1973,7 +1964,7 @@ list['pe-datepanel'] = {
             this.$emit('update:cursor', this.cursorDate);
         },
         /** --- 清除所有状态 --- */
-        clear: function(this: purease.IVue): void {
+        clear: function(this: IDatepanelVue): void {
             this.timestamp = undefined;
             this.$emit('update:modelValue', undefined);
             this.rangeDate = undefined;
@@ -1989,7 +1980,7 @@ list['pe-datepanel'] = {
             }
         }
     },
-    mounted: function(this: purease.IVue) {
+    mounted: function(this: IDatepanelVue) {
         // --- 监听最大最小值限定 ---
         this.$watch('start', () => {
             if (this.$props.start === undefined) {
@@ -2124,7 +2115,7 @@ list['pe-datepanel'] = {
                 this.tzData = this.propNumber('tz');
             }
             const z = this.tzData.toString().split('.');
-            this.vzone = (parseInt(z) >= 0 ? '+' : '') + z[0];
+            this.vzone = (parseInt(z[0]) >= 0 ? '+' : '') + z[0];
             this.vzdec = z[1] ? (parseFloat('0.' + z[1]) * 60).toString() : '00';
             this.updateTimestamp();
             // --- 更新 start 和 end ---
@@ -2148,7 +2139,7 @@ list['pe-datepanel'] = {
         this.$watch('modelValue', () => {
             if (this.$props.modelValue !== undefined) {
                 this.timestamp = this.propNumber('modelValue');
-                this.dateObj.setTime(this.timestamp + this.tzData * 60 * 60 * 1000);
+                this.dateObj.setTime(this.timestamp! + this.tzData * 60 * 60 * 1000);
                 this.dateObj.setMilliseconds(0);
                 this.vhour = this.dateObj.getUTCHours().toString().padStart(2, '0');
                 this.vminute = this.dateObj.getUTCMinutes().toString().padStart(2, '0');
@@ -2224,7 +2215,6 @@ list['pe-datepanel'] = {
 list['pe-daterange'] = {
     'template': `<div class="pe-daterange-wrap" :class="[propBoolean('disabled')&&'pe-disabled']"><div class="pe-daterange-first"><div @click="click($event, 'first')" ref="first"><template v-if="dateStr.length"><div>{{dateStr[0]}}</div><div v-if="propBoolean('time')">{{timeStr[0]}}</div><div>-</div><div>{{dateStr[1]}}</div><div v-if="propBoolean('time')">{{timeStr[1]}}</div></template><template v-else><div>{{l('please click select')}}</div></template></div><div v-if="propBoolean('zone')" @click="click($event, 'zone')" ref="zone">UTC{{tzData >= 0 ? '+' : ''}}{{tzData}}</div></div><div class="pe-daterange-clear" @click="clear" v-if="dateStr.length"><svg viewBox="0 0 24 24" stroke="none"><path d="m7.53033 6.46967c-.29289-.29289-.76777-.29289-1.06066 0s-.29289.76777 0 1.06066l4.46963 4.46967-4.46963 4.4697c-.29289.2929-.29289.7677 0 1.0606s.76777.2929 1.06066 0l4.46967-4.4696 4.4697 4.4696c.2929.2929.7677.2929 1.0606 0s.2929-.7677 0-1.0606l-4.4696-4.4697 4.4696-4.46967c.2929-.29289.2929-.76777 0-1.06066s-.7677-.29289-1.0606 0l-4.4697 4.46963z" /></svg></div><div ref="firstpop" class="pe-pop pe-daterange-first"><pe-datepanel plain :tz="tzData" :time="propBoolean('time')" v-model="ts" v-model:cursor="cursor" range :clearbtn="false" ref="firstpanel" @range="onRange" @changed="firstChanged" :yearmonth="firstym" @update:yearmonth="firstym=$event;onYmChange()" :start="start" :end="end"><template v-if="$slots['default']" v-slot="col"><slot :year="col.year" :month="col.month" :date="col.date" :day="col.day" :str="col.str" :time="col.time"></slot></template></pe-datepanel><pe-datepanel v-show="showTwoDatePanel" plain :tz="tzData" hourminute="235959" :time="propBoolean('time')" :modelValue="ts2" v-model:cursor="cursor" range :start="ts" :end="end" :clearbtn="false" :backbtn="false" ref="endpanel" @range="onRange" :yearmonth="endym" @update:yearmonth="endym=$event;onYmChange()" :jump="false"><template v-if="$slots['default']" v-slot="col"><slot :year="col.year" :month="col.month" :date="col.date" :day="col.day" :str="col.str" :time="col.time"></slot></template></pe-datepanel></div><div v-if="propBoolean('zone')" ref="zonepop" class="pe-pop pe-daterange-list"><div><div class="pe-daterange-item"><div class="pe-daterange-title">{{l('zone')}}</div><pe-dlist :data="zones" v-model="vzone"></pe-dlist></div><div class="pe-daterange-item"><div class="pe-daterange-title">{{l('minute')}}</div><pe-dlist :data="zdecs" v-model="vzdec"></pe-dlist></div></div><div><div class="pe-button pe-pgrey" @click="cancel">{{l('cancel')}}</div><div class="pe-button pe-pgrey" @click="zoneOk">{{l('ok')}}</div></div></div></div>`,
     'emits': {
-        'changed': null,
         'update:modelValue': null,
         'update:tz': null,
     },
@@ -2409,7 +2399,7 @@ list['pe-daterange'] = {
     },
     'methods': {
         // --- 单击事件 ---
-        click: function(this: purease.IVue, e: MouseEvent, type: 'first' | 'zone'): void {
+        click: function(this: IDaterangeVue, e: MouseEvent, type: 'first' | 'zone'): void {
             const el = this.$refs[type + 'pop'];
             if (el.classList.contains('pe-show')) {
                 lDom.hidePop(el);
@@ -2420,7 +2410,7 @@ list['pe-daterange'] = {
             }
             lDom.showPop(e, el);
         },
-        zoneOk: function(this: purease.IVue): void {
+        zoneOk: function(this: IDaterangeVue): void {
             const vz = parseInt(this.vzone);
             if (vz >= 0) {
                 this.tzData = vz + (parseInt(this.vzdec) / 60);
@@ -2441,12 +2431,12 @@ list['pe-daterange'] = {
             lDom.hidePop();
         },
         // --- 清除已选中的 ---
-        clear: function(this: purease.IVue): void {
+        clear: function(this: IDaterangeVue): void {
             this.ts = undefined;
             this.dateStr.length = 0;
             this.$emit('update:modelValue', []);
         },
-        onRange: function(this: purease.IVue, e: IDatepanelRangeEvent): void {
+        onRange: function(this: IDaterangeVue, e: IDatepanelRangeEvent): void {
             e.preventDefault();
             const value: number[] = [];
             // --- start ---
@@ -2469,7 +2459,7 @@ list['pe-daterange'] = {
             this.$refs.endpanel.clear();
         },
         /** --- 左侧的 changed --- */
-        firstChanged: function(this: purease.IVue, e: IDatepanelChangedEvent): void {
+        firstChanged: function(this: IDaterangeVue, e: IDatepanelChangedEvent): void {
             if (e.detail.value === undefined) {
                 this.ts2 = undefined;
                 return;
@@ -2478,7 +2468,7 @@ list['pe-daterange'] = {
             date.setUTCHours(23, 59, 59, 0);
             this.ts2 = date.getTime() - this.tzData * 60 * 60_000;
         },
-        onYmChange: function(this: purease.IVue): void {
+        onYmChange: function(this: IDaterangeVue): void {
             if (this.endym > this.firstym) {
                 return;
             }
@@ -2487,7 +2477,7 @@ list['pe-daterange'] = {
             this.endym = date.getUTCFullYear().toString() + (date.getUTCMonth() + 1).toString().padStart(2, '0');
         }
     },
-    'mounted': function(this: purease.IVue) {
+    'mounted': function(this: IDaterangeVue) {
         // --- 填充时区 ---
         for (let i = -12; i <= 14; ++i) {
             this.zones.push((i >= 0 ? '+' : '') + i.toString());
@@ -2555,7 +2545,7 @@ list['pe-dialog'] = {
 };
 
 list['pe-dlist'] = {
-    'template': `<div class="pe-dlist" :class="[!data.length&&'pe-empty',propBoolean('plain')&&'pe-plain']"><div v-if="data.length" v-for="item, i of data" class="pe-dlist-item" :class="[(value===(item[mapComp.value]??item[mapComp.label]??item))&&'pe-selected',item.disabled&&'pe-disabled']" @click="click(i)">{{item[mapComp.label]??item[mapComp.value]??item}}</div><div v-else>{{l('empty')}}</div></div>`,
+    'template': `<div class="pe-dlist" :class="[!data.length&&'pe-empty',propBoolean('plain')&&'pe-plain',propBoolean('tree')&&'pe-tree']"><div v-if="data.length" v-for="flatItem, i of flatData" class="pe-dlist-item" :class="[getItemValue(flatItem.item)===value&&'pe-selected',typeof flatItem.item==='object'&&flatItem.item.disabled&&'pe-disabled']" :style="{'padding-left': 'calc(var(--pe-padding-xs) + ' + (flatItem.level * 20) + 'px)'}"><div v-if="propBoolean('tree')" class="pe-dlist-arrow" :class="[isExpanded(flatItem.path)&&'pe-expanded',!hasChildren(flatItem.item)&&'pe-empty']" @click.stop="hasChildren(flatItem.item)&&toggleExpand(flatItem.path)"></div><div class="pe-dlist-label" @click="click(i)">{{getItemLabel(flatItem.item)}}</div></div><div v-else>{{l('empty')}}</div></div>`,
     'props': {
         'modelValue': {
             'default': ''
@@ -2570,7 +2560,7 @@ list['pe-dlist'] = {
         'map': {
             'default': {}
         },
-        'multi': {
+        'tree': {
             'default': false
         },
     },
@@ -2581,81 +2571,123 @@ list['pe-dlist'] = {
     },
     'computed': {
         /** --- 初始化后的 map 对象 --- */
-        mapComp: function(this: purease.IVue): {
-            'label': string;
-            'value': string;
-            'children': string;
-            'title': string;
-        } {
+        mapComp: function(this: IDlistVue): IMapComp {
             return {
-                'children': this.$props.map.children ?? 'children',
-                'label': this.$props.map.label ?? 'label',
-                'value': this.$props.map.value ?? 'value',
-                'title': this.$props.map.title ?? 'title',
+                'label': this.map.label ?? 'label',
+                'value': this.map.value ?? 'value',
+                'children': this.map.children ?? 'children',
+                'title': this.map.title ?? 'title',
             };
+        },
+        /** --- 扁平化后的数据列表 --- */
+        flatData: function(this: IDlistVue): IFlatItem[] {
+            return this.flattenData(this.data, 0, []);
         }
     },
     'methods': {
-        click: function(this: purease.IVue, i: number) {
-            const item = this.$props.data[i];
-            this.value = item[this.mapComp.value] ?? item[this.mapComp.label] ?? item;
+        /** --- 获取项的 value --- */
+        getItemValue: function(this: IDlistVue, item: TDlistItem): string {
+            return typeof item === 'string' ? item : (item[this.mapComp.value] ?? item[this.mapComp.label]);
+        },
+        /** --- 获取项的 label --- */
+        getItemLabel: function(this: IDlistVue, item: TDlistItem): string {
+            return typeof item === 'string' ? item : (item[this.mapComp.label] ?? item[this.mapComp.value]);
+        },
+        click: function(this: IDlistVue, i: number) {
+            const flatItem = this.flatData[i];
+            if (!flatItem) {
+                return;
+            }
+            this.value = this.getItemValue(flatItem.item);
             this.$emit('update:modelValue', this.value);
             const event: IDlistChangedEvent = {
                 'detail': {
                     'value': this.value,
                     'index': i,
-                    'label': item[this.mapComp.label] ?? item[this.mapComp.value] ?? item
+                    'label': this.getItemLabel(flatItem.item)
                 }
             };
             this.$emit('changed', event);
             this.$emit('click', event);
         },
-        refreshModelValue: function(this: purease.IVue) {
-            let found = false;
-            for (const item of this.$props.data) {
-                const val = item[this.mapComp.value] ?? item[this.mapComp.label] ?? item;
-                if (val !== this.value) {
-                    continue;
+        /** --- 递归扁平化数据 --- */
+        flattenData: function(this: IDlistVue, data: TDlistItem[], level: number, path: number[]): IFlatItem[] {
+            const result: IFlatItem[] = [];
+            for (let i = 0; i < data.length; ++i) {
+                const item = data[i];
+                const currentPath = [...path, i];
+                result.push({
+                    'item': item,
+                    'level': level,
+                    'path': currentPath
+                });
+                if (this.hasChildren(item)) {
+                    if (!this.propBoolean('tree') || this.isExpanded(currentPath)) {
+                        const itemObj = item as Record<string, any>;
+                        const children = this.flattenData(itemObj[this.mapComp.children], level + 1, currentPath);
+                        result.push(...children);
+                    }
                 }
-                found = true;
-                break;
             }
+            return result;
+        },
+        /** --- 切换展开状态 --- */
+        toggleExpand: function(this: IDlistVue, path: number[]) {
+            const pathKey = path.join('-');
+            if (this.expandedPaths[pathKey]) {
+                delete this.expandedPaths[pathKey];
+            }
+            else {
+                this.expandedPaths[pathKey] = true;
+            }
+        },
+        /** --- 判断路径是否展开 --- */
+        isExpanded: function(this: IDlistVue, path: number[]): boolean {
+            return !!this.expandedPaths[path.join('-')];
+        },
+        /** --- 判断项是否有子节点 --- */
+        hasChildren: function(this: IDlistVue, item: TDlistItem): boolean {
+            if (typeof item === 'string') {
+                return false;
+            }
+            const children = item[this.mapComp.children];
+            return Array.isArray(children) && children.length > 0;
+        },
+        refreshModelValue: function(this: IDlistVue) {
+            // --- 查找当前值是否存在于列表中 ---
+            const found = this.flatData.some(flatItem => this.getItemValue(flatItem.item) === this.value);
             if (found) {
                 return;
             }
-            if (!this.$props.data[0]) {
+            // --- 未找到，重置为第一项或空 ---
+            const firstItem = this.flatData[0];
+            if (!firstItem) {
                 if (this.value !== '') {
                     this.value = '';
                     this.$emit('update:modelValue', '');
-                    const event: IDlistChangedEvent = {
-                        'detail': {
-                            'value': '',
-                            'index': -1,
-                            'label': ''
-                        }
-                    };
-                    this.$emit('changed', event);
+                    this.$emit('changed', {
+                        'detail': { 'value': '', 'index': -1, 'label': '' }
+                    } as IDlistChangedEvent);
                 }
                 return;
             }
-            const fitem = this.$props.data[0];
-            this.value = fitem[this.mapComp.value] ?? fitem[this.mapComp.label] ?? fitem;
-            const lab = fitem[this.mapComp.label] ?? fitem[this.mapComp.value] ?? fitem;
+            this.value = this.getItemValue(firstItem.item);
             this.$emit('update:modelValue', this.value);
-            const event: IDlistChangedEvent = {
+            this.$emit('changed', {
                 'detail': {
                     'value': this.value,
                     'index': 0,
-                    'label': lab
+                    'label': this.getItemLabel(firstItem.item)
                 }
-            };
-            this.$emit('changed', event);
+            } as IDlistChangedEvent);
         }
     },
     'data': function() {
         return {
             /** --- 当前选定的值 --- */
             'value': '',
+            /** --- 展开的路径集合 --- */
+            'expandedPaths': {},
             /** --- 语言包 --- */
             'localeData': {
                 'en': {
@@ -2709,7 +2741,7 @@ list['pe-dlist'] = {
             }
         };
     },
-    'mounted': function(this: purease.IVue) {
+    'mounted': function(this: IDlistVue) {
         this.$watch('modelValue', () => {
             if (this.value && (this.value === this.$props.modelValue)) {
                 return;
@@ -2757,7 +2789,7 @@ list['pe-drawer'] = {
         }
     },
     'computed': {
-        widthComp: function(this: purease.IVue) {
+        widthComp: function(this: IDrawerVue) {
             if (typeof this.$props.width === 'number') {
                 return this.$props.width.toString() + 'px';
             }
@@ -2766,10 +2798,10 @@ list['pe-drawer'] = {
     },
     'methods': {
         /** --- 关闭按钮 --- */
-        closeClick: function(this: purease.IVue) {
+        closeClick: function(this: IDrawerVue) {
             this.$emit('update:modelValue', false);
         },
-        click: function(this: purease.IVue, e: MouseEvent): void {
+        click: function(this: IDrawerVue, e: MouseEvent): void {
             if (e.target !== this.$el) {
                 return;
             }
@@ -2833,7 +2865,7 @@ list['pe-header-item'] = {
         };
     },
     'methods': {
-        enter: function(this: purease.IVue, e: MouseEvent | TouchEvent) {
+        enter: function(this: IHeaderItemVue, e: MouseEvent | TouchEvent) {
             if (lDom.hasTouchButMouse(e)) {
                 return;
             }
@@ -2846,7 +2878,7 @@ list['pe-header-item'] = {
             }
             this.hover = !this.hover;
         },
-        leave: function(this: purease.IVue, e: MouseEvent | TouchEvent) {
+        leave: function(this: IHeaderItemVue, e: MouseEvent | TouchEvent) {
             if (lDom.hasTouchButMouse(e)) {
                 return;
             }
@@ -2890,7 +2922,7 @@ list['pe-label'] = {
     },
     'computed': {
         /** --- 替换 slot 数据 --- */
-        contentComp: function(this: purease.IVue): string {
+        contentComp: function(this: ILabelVue): string {
             if (this.$props.mode !== 'date') {
                 return this.$props.content;
             }
@@ -2919,7 +2951,7 @@ list['pe-label'] = {
 list['pe-lnav'] = {
     'template': `<div class="pe-lnav"><div class="pe-lnav-left" ref="left" @click="leftClick"><div class="pe-lnav-left-content"><slot name="left"></slot></div></div><div class="pe-lnav-right"><slot></slot></div></div>`,
     'methods': {
-        'leftClick': function(this: purease.IVue, e: MouseEvent) {
+        'leftClick': function(this: ILnavVue, e: MouseEvent) {
             if (!(e.target as HTMLElement).classList.contains('pe-lnav-left')) {
                 return;
             }
@@ -2986,7 +3018,7 @@ list['pe-nboard'] = {
     },
     'watch': {
         'modelValue': {
-            handler: function(this: purease.IVue) {
+            handler: function(this: INboardVue) {
                 if (this.modelValue === this.value.join('')) {
                     return;
                 }
@@ -3011,7 +3043,7 @@ list['pe-nboard'] = {
         },
     },
     'methods': {
-        click: function(this: purease.IVue, num: string) {
+        click: function(this: INboardVue, num: string) {
             if (num === '') {
                 return;
             }
@@ -3026,10 +3058,10 @@ list['pe-nboard'] = {
             this.$emit('update:modelValue', mv);
             this.$emit('changed');
         },
-        buttonClick: function(this: purease.IVue, item: string) {
+        buttonClick: function(this: INboardVue, item: string) {
             this.$emit('button', item);
         },
-        back: function(this: purease.IVue) {
+        back: function(this: INboardVue) {
             if (!this.value.length) {
                 return;
             }
@@ -3156,7 +3188,7 @@ list['pe-page'] = {
     },
     'computed': {
         /** --- 格式化每页多少条 counts --- */
-        countsComp: function(this: purease.IVue): Array<{
+        countsComp: function(this: IPageVue): Array<{
             'label': string;
             'value': number;
         }> {
@@ -3175,7 +3207,7 @@ list['pe-page'] = {
         }
     },
     'methods': {
-        refresh: function(this: purease.IVue) {
+        refresh: function(this: IPageVue) {
             this.prevs.length = 0;
             let min = this.page - this.propNumber('control');
             if (min < 2) {
@@ -3194,7 +3226,7 @@ list['pe-page'] = {
                 this.nexts.push(i);
             }
         },
-        refreshMaxPage: function(this: purease.IVue) {
+        refreshMaxPage: function(this: IPageVue) {
             const max = this.propInt('max');
             if (max) {
                 this.maxPage = max;
@@ -3213,7 +3245,7 @@ list['pe-page'] = {
             e.preventDefault();
             (e.target as HTMLElement).click();
         },
-        changed: function(this: purease.IVue, e: ISelectChangedEvent) {
+        changed: function(this: IPageVue, e: ISelectChangedEvent) {
             this.$emit('update:count', e.detail.value);
             this.refreshMaxPage();
             this.refresh();
@@ -3221,38 +3253,38 @@ list['pe-page'] = {
     },
     'watch': {
         'count': {
-            handler: function(this: purease.IVue) {
+            handler: function(this: IPageVue) {
                 this.countSelect = this.propInt('count');
                 this.refreshMaxPage();
                 this.refresh();
             }
         },
         'modelValue': {
-            handler: function(this: purease.IVue) {
+            handler: function(this: IPageVue) {
                 this.page = this.propInt('modelValue');
                 this.refresh();
             },
             'immediate': true
         },
         'max': {
-            handler: function(this: purease.IVue) {
+            handler: function(this: IPageVue) {
                 this.refreshMaxPage();
                 this.refresh();
             }
         },
         'total': {
-            handler: function(this: purease.IVue) {
+            handler: function(this: IPageVue) {
                 this.refreshMaxPage();
                 this.refresh();
             }
         },
         'control': {
-            handler: function(this: purease.IVue) {
+            handler: function(this: IPageVue) {
                 this.refresh();
             }
         }
     },
-    mounted: function(this: purease.IVue) {
+    mounted: function(this: IPageVue) {
         this.countSelect = this.propInt('count');
         this.refreshMaxPage();
         this.refresh();
@@ -3342,14 +3374,14 @@ list['pe-select'] = {
         };
     },
     'methods': {
-        open: function(this: purease.IVue, e: MouseEvent) {
+        open: function(this: ISelectVue, e: MouseEvent) {
             const el = e.target as HTMLElement;
             if (!el.classList.contains('pe-select-label') && !el.classList.contains('pe-select-arrow')) {
                 return;
             }
             lDom.showPop(e, this.$refs.pop);
         },
-        onModelValue: function(this: purease.IVue, v: string) {
+        onModelValue: function(this: ISelectVue, v: string) {
             if (this.value === v) {
                 return;
             }
@@ -3364,7 +3396,7 @@ list['pe-select'] = {
             }
             this.$emit('update:modelValue', this.value);
         },
-        click: function(this: purease.IVue, e: IDlistClickEvent) {
+        click: function(this: ISelectVue, e: IDlistClickEvent) {
             this.searchValue = '';
             const event: ISelectChangedEvent = {
                 'detail': {
@@ -3378,7 +3410,7 @@ list['pe-select'] = {
         },
     },
     'computed': {
-        dataComp: function(this: purease.IVue) {
+        dataComp: function(this: ISelectVue) {
             const ds: Array<{
                 'label': string;
                 'value': string;
@@ -3401,7 +3433,7 @@ list['pe-select'] = {
             }
             return ds;
         },
-        searchComp: function(this: purease.IVue) {
+        searchComp: function(this: ISelectVue) {
             if (!this.searchValue) {
                 return this.dataComp;
             }
@@ -3433,7 +3465,7 @@ list['pe-select'] = {
     },
     'watch': {
         'modelValue': {
-            handler: function(this: purease.IVue) {
+            handler: function(this: ISelectVue) {
                 if (this.value === this.$props.modelValue) {
                     return;
                 }
@@ -3478,7 +3510,7 @@ list['pe-setting-block'] = {
         },
     },
     'methods': {
-        enter: function(this: purease.IVue, e: MouseEvent | TouchEvent) {
+        enter: function(this: ISettingBlockVue, e: MouseEvent | TouchEvent) {
             if (lDom.hasTouchButMouse(e)) {
                 return;
             }
@@ -3487,7 +3519,7 @@ list['pe-setting-block'] = {
             }
             this.$el.classList.add('pe-hover');
         },
-        leave: function(this: purease.IVue, e: MouseEvent | TouchEvent) {
+        leave: function(this: ISettingBlockVue, e: MouseEvent | TouchEvent) {
             if (lDom.hasTouchButMouse(e)) {
                 return;
             }
@@ -3514,7 +3546,7 @@ list['pe-setting-item'] = {
         'mark': {
             'default': ''
         },
-        // --- right 的 gap ---
+        // --- 右侧间距 gap ---
         'gap': {
             'default': ''
         },
@@ -3543,13 +3575,13 @@ list['pe-setting-item'] = {
         },
     },
     'methods': {
-        enter: function(this: purease.IVue, e: MouseEvent | TouchEvent) {
+        enter: function(this: ISettingItemVue, e: MouseEvent | TouchEvent) {
             if (lDom.hasTouchButMouse(e)) {
                 return;
             }
             this.$el.classList.add('pe-hover');
         },
-        leave: function(this: purease.IVue, e: MouseEvent | TouchEvent) {
+        leave: function(this: ISettingItemVue, e: MouseEvent | TouchEvent) {
             if (lDom.hasTouchButMouse(e)) {
                 return;
             }
@@ -3581,7 +3613,7 @@ list['pe-slider'] = {
         };
     },
     'computed': {
-        barWidth: function(this: purease.IVue) {
+        barWidth: function(this: ISliderVue) {
             /**
             原公式：
             100 - this.pos[0] - (100 - this.pos[1])
@@ -3593,12 +3625,12 @@ list['pe-slider'] = {
             */
             return this.pos[1] - this.pos[0];
         },
-        barLeft: function(this: purease.IVue) {
+        barLeft: function(this: ISliderVue) {
             return this.pos[0];
         }
     },
     methods: {
-        down: function(this: purease.IVue, e: TouchEvent | MouseEvent, i: number) {
+        down: function(this: ISliderVue, e: TouchEvent | MouseEvent, i: number) {
             if (lDom.hasTouchButMouse(e)) {
                 return;
             }
@@ -3645,7 +3677,7 @@ list['pe-slider'] = {
     },
     'watch': {
         'modelValue': {
-            handler: function(this: purease.IVue) {
+            handler: function(this: ISliderVue) {
                 if (!Array.isArray(this.modelValue)) {
                     this.$emit('update:modelValue', [0, 0]);
                     return;
@@ -3695,7 +3727,7 @@ list['pe-spa'] = {
             'path': '',
         };
     },
-    mounted: function(this: purease.IVue) {
+    mounted: function(this: ISpaVue) {
         this.path = window.location.hash.slice(1);
         window.addEventListener('hashchange', () => {
             this.path = window.location.hash.slice(1);
@@ -3703,9 +3735,18 @@ list['pe-spa'] = {
     },
 };
 
-list['pe-spa-content'] = { 'template': `<div class="pe-spa-content"><slot></slot></div>` };
+list['pe-spa-content'] = {
+    'template': `<div class="pe-spa-content"><slot></slot></div>`
+};
 
-list['pe-spa-footer'] = { 'template': `<div class="pe-spa-footer"><slot></slot></div>` };
+list['pe-spa-footer'] = {
+    'template': `<div class="pe-spa-footer"><slot></slot></div>`,
+    'props': {
+        'modelValue': {
+            'default': ''
+        }
+    }
+};
 
 list['pe-spa-footer-icon'] = {
     'template': `<div class="pe-spa-footer-icon" :class="[(modelValue===value)&&'pe-selected']" @click="click"><slot></slot><div v-if="title" class="pe-spa-footer-icon-title">{{title}}</div></div>`,
@@ -3721,7 +3762,7 @@ list['pe-spa-footer-icon'] = {
         },
     },
     'methods': {
-        'click': function(this: purease.IVue) {
+        'click': function(this: ISpaFooterIconVue) {
             this.$emit('update:modelValue', this.value);
         },
     }
@@ -3757,13 +3798,13 @@ list['pe-spa-page'] = {
         },
     },
     'computed': {
-        currentPath: function(this: purease.IVue) {
+        currentPath: function(this: ISpaPageVue) {
             return this.$parent?.path ?? '';
         },
     },
     'watch': {
         'currentPath': {
-            handler: async function(this: purease.IVue, newPath: string, oldPath: string) {
+            handler: async function(this: ISpaPageVue, newPath: string, oldPath: string) {
                 if (newPath === oldPath) {
                     return;
                 }
@@ -3797,7 +3838,7 @@ list['pe-spa-page'] = {
             },
         }
     },
-    mounted: async function(this: purease.IVue) {
+    mounted: async function(this: ISpaPageVue) {
         await this.$nextTick();
         if (this.path !== this.currentPath) {
             return;
@@ -3851,7 +3892,7 @@ list['pe-swipe'] = {
             /** --- 用户设置的 selected --- */
             'mvselected': 0,
             /** --- 自动滚动的 timer  --- */
-            'timer': null,
+            'timer': undefined,
 
             /** --- 当前 swipe 的位置 --- */
             'translate': 0,
@@ -3864,7 +3905,7 @@ list['pe-swipe'] = {
     },
     'watch': {
         'modelValue': {
-            handler: function(this: purease.IVue) {
+            handler: function(this: ISwipeVue) {
                 if (this.selected === this.modelValue) {
                     return;
                 }
@@ -3873,35 +3914,35 @@ list['pe-swipe'] = {
                     return;
                 }
                 this.selected = this.mvselected;
-                this.go();
+                this.go().catch(() => {});
             },
             'immediate': true
         },
         'auto': {
-            handler: function(this: purease.IVue) {
+            handler: function(this: ISwipeVue) {
                 if (lTool.getBoolean(this.auto)) {
-                    // --- 静 变 动 ---
-                    this.timer = setTimeout(() => {
-                        this.timer = null;
+                    // --- 启动 ---
+                    this.timer = window.setTimeout(() => {
+                        this.timer = undefined;
                         ++this.selected;
-                        this.go();
+                        this.go().catch(() => {});
                         this.mvselected = this.selected;
                         this.$emit('update:modelValue', this.mvelected);
                     }, 3000);
                     return;
                 }
                 clearTimeout(this.timer);
-                this.timer = null;
+                this.timer = undefined;
             }
         }
     },
     'computed': {
         /** --- 总宽度 --- */
-        awidth: function(this: purease.IVue) {
+        awidth: function(this: ISwipeVue) {
             return (this.width * this.pageCount) + (this.propNumber('gutter') * (this.pageCount - 1));
         },
         /** --- 每个 item 应该的宽度 --- */
-        iwidth: function(this: purease.IVue): string {
+        iwidth: function(this: ISwipeVue): string {
             const iwidth = 100 / this.pitem;
             if (this.pitem > 1) {
                 return 'calc((100% - ' + (this.pitem - 1) * this.propNumber('gutter') + 'px) / ' + this.pitem + ')';
@@ -3909,16 +3950,16 @@ list['pe-swipe'] = {
             return iwidth + '%';
         },
         /** --- 总页数 --- */
-        pageCount: function(this: purease.IVue) {
+        pageCount: function(this: ISwipeVue) {
             return Math.ceil(this.itemCount / this.pitem);
         },
         /** --- 一页面有多少个 item --- */
-        pitem: function(this: purease.IVue): number {
+        pitem: function(this: ISwipeVue): number {
             return lTool.getNumber(this.$root.windowWidth >= 800 ? this.$props.item : this.$props.minitem);
         },
     },
     methods: {
-        down: function(this: purease.IVue, e: TouchEvent | MouseEvent) {
+        down: function(this: ISwipeVue, e: TouchEvent | MouseEvent) {
             if (lDom.hasTouchButMouse(e)) {
                 return;
             }
@@ -3941,7 +3982,7 @@ list['pe-swipe'] = {
             }
             if (this.timer) {
                 clearTimeout(this.timer);
-                this.timer = null;
+                this.timer = undefined;
             }
             /** --- 原始 x 位置 --- */
             const ox = e instanceof MouseEvent ? e.clientX : e.touches[0].clientX;
@@ -3974,10 +4015,10 @@ list['pe-swipe'] = {
                     /** --- 当前的小数 --- */
                     const dec = lTool.getDecimal(info);
                     if (speed > 0.6) {
-                        // --- 速度很快，一定到下一条 ---
+                        // --- 速度很快，一定到下一页 ---
                         // --- cx 大于 0 为向左滑动 ---
                         this.selected = cx > 0 ? index : index + 1;
-                        this.go();
+                        this.go().catch(() => {});
                         this.mvselected = this.selected;
                         this.$emit('update:modelValue', this.mvselected);
                         return;
@@ -3989,33 +4030,33 @@ list['pe-swipe'] = {
                     else {
                         this.selected = dec >= -0.5 ? index + 1 : index;
                     }
-                    this.go();
+                    this.go().catch(() => {});
                     this.mvselected = this.selected;
                     this.$emit('update:modelValue', this.mvselected);
                 }
             });
         },
-        prev: function(this: purease.IVue) {
+        prev: function(this: ISwipeVue) {
             if (this.going) {
                 return;
             }
             this.translate += 10;
             --this.selected;
-            this.go();
+            this.go().catch(() => {});
             this.mvselected = this.selected;
             this.$emit('update:modelValue', this.mvselected);
         },
-        next: function(this: purease.IVue) {
+        next: function(this: ISwipeVue) {
             if (this.going) {
                 return;
             }
             this.translate -= 10;
             ++this.selected;
-            this.go();
+            this.go().catch(() => {});
             this.mvselected = this.selected;
             this.$emit('update:modelValue', this.mvselected);
         },
-        pdown: function(this: purease.IVue, p: number) {
+        pdown: function(this: ISwipeVue, p: number) {
             if (this.going) {
                 return;
             }
@@ -4024,11 +4065,11 @@ list['pe-swipe'] = {
                 return;
             }
             this.selected = p;
-            this.go();
+            this.go().catch(() => {});
             this.mvselected = this.selected;
             this.$emit('update:modelValue', this.mvselected);
         },
-        go: async function(this: purease.IVue) {
+        go: async function(this: ISwipeVue) {
             this.going = true;
             const index = this.selected;
             if (this.selected === -1) {
@@ -4039,13 +4080,13 @@ list['pe-swipe'] = {
             }
             if (this.timer) {
                 clearTimeout(this.timer);
-                this.timer = null;
+                this.timer = undefined;
             }
             this.$refs.items.style.transition = 'var(--pe-transition)';
             // --- 设置允许缓动 ---
             await lTool.sleep(34);
             this.$refs.items.style.transform = 'translateX(' + (-(index * this.width + index * this.propNumber('gutter'))).toString() + 'px)';
-            // --- 应用缓动后等待动画执行完成 ---
+            // --- 应用缓动后等待动画执行完毕 ---
             await lTool.sleep(334);
             this.$refs.items.style.transition = '';
             await lTool.sleep(34);
@@ -4056,41 +4097,41 @@ list['pe-swipe'] = {
             // --- 判断 ---
             if (this.mvselected !== this.selected) {
                 this.selected = this.mvselected;
-                this.go();
+                this.go().catch(() => {});
                 return;
             }
             if (lTool.getBoolean(this.auto)) {
-                this.timer = setTimeout(() => {
+                this.timer = window.setTimeout(() => {
                     this.translate -= 10;
-                    this.timer = null;
+                    this.timer = undefined;
                     ++this.selected;
-                    this.go();
+                    this.go().catch(() => {});
                     this.mvselected = this.selected;
                     this.$emit('update:modelValue', this.mvselected);
                 }, 3000);
             }
         },
-        resize: function(this: purease.IVue) {
+        resize: function(this: ISwipeVue) {
             this.width = this.$el.offsetWidth;
             this.translate = -(this.selected * this.width);
             this.$refs.items.style.transform = 'translateX(' + this.translate + 'px)';
         }
     },
-    mounted: async function(this: purease.IVue) {
+    mounted: async function(this: ISwipeVue) {
         await lTool.sleep(68);
         this.width = this.$el.offsetWidth;
         if (lTool.getBoolean(this.auto)) {
-            this.timer = setTimeout(() => {
-                this.timer = null;
+            this.timer = window.setTimeout(() => {
+                this.timer = undefined;
                 ++this.selected;
-                this.go();
+                this.go().catch(() => {});
                 this.mvselected = this.selected;
                 this.$emit('update:modelValue', this.mvelected);
             }, 3000);
         }
         window.addEventListener('resize', this.resize);
     },
-    unmounted: async function(this: purease.IVue) {
+    unmounted: async function(this: ISwipeVue) {
         await this.$nextTick();
         window.removeEventListener('resize', this.resize);
         if (!this.timer) {
@@ -4114,20 +4155,20 @@ list['pe-swipe-item'] = {
     },
     'computed': {
         /** --- 当前 item 应该在第几页显示 --- */
-        npage: function(this: purease.IVue) {
+        npage: function(this: ISwipeItemVue) {
             if (!this.$parent) {
                 return 0;
             }
             return Math.floor(this.index / this.$parent.pitem);
         },
         /** --- 当前 item 在当前页的 index --- */
-        pindex: function(this: purease.IVue) {
+        pindex: function(this: ISwipeItemVue) {
             if (!this.$parent) {
                 return 0;
             }
             return this.index % this.$parent.pitem;
         },
-        left: function(this: purease.IVue): string {
+        left: function(this: ISwipeItemVue): string {
             if (!this.$parent) {
                 return '0';
             }
@@ -4151,35 +4192,28 @@ list['pe-swipe-item'] = {
             }
             return left + 'px';
         },
-        // --- 一个页面的宽度 ---
-        width: function(this: purease.IVue) {
-            if (!this.$parent) {
-                return 0;
-            }
-            return this.$parent.width;
-        },
         // --- 总宽度 ---
-        awidth: function(this: purease.IVue) {
+        awidth: function(this: ISwipeItemVue) {
             if (!this.$parent) {
                 return 0;
             }
             return this.$parent.awidth;
         },
         // --- 当前 item 应该的宽度百分比 ---
-        iwidth: function(this: purease.IVue) {
+        iwidth: function(this: ISwipeItemVue) {
             if (!this.$parent) {
                 return '100%';
             }
             return this.$parent.iwidth;
         },
-        translate: function(this: purease.IVue) {
+        translate: function(this: ISwipeItemVue) {
             if (!this.$parent) {
                 return 0;
             }
             return this.$parent.translate;
         }
     },
-    mounted: function(this: purease.IVue) {
+    mounted: function(this: ISwipeItemVue) {
         if (!this.$parent) {
             return;
         }
@@ -4189,7 +4223,7 @@ list['pe-swipe-item'] = {
         ++this.$parent.itemCount;
         this.index = lDom.index(this.$el);
     },
-    unmounted: async function(this: purease.IVue) {
+    unmounted: async function(this: ISwipeItemVue) {
         await this.$nextTick();
         if (!this.$parent) {
             return;
@@ -4221,7 +4255,7 @@ list['pe-switch'] = {
         };
     },
     'computed': {
-        mapComp: function(this: purease.IVue): {
+        mapComp: function(this: ISwitchVue): {
             'true': any;
             'false': any;
         } {
@@ -4233,7 +4267,7 @@ list['pe-switch'] = {
     },
     'watch': {
         'modelValue': {
-            handler: function(this: purease.IVue) {
+            handler: function(this: ISwitchVue) {
                 if (this.$props.modelValue === undefined) {
                     return;
                 }
@@ -4243,7 +4277,7 @@ list['pe-switch'] = {
         }
     },
     'methods': {
-        click: function(this: purease.IVue): void {
+        click: function(this: ISwitchVue): void {
             const event: ISwitchChangeEvent = {
                 'go': true,
                 preventDefault: function() {
@@ -4259,7 +4293,7 @@ list['pe-switch'] = {
                 this.$emit('update:modelValue', this.value);
             }
         },
-        keydown: function(this: purease.IVue, e: KeyboardEvent): void {
+        keydown: function(this: ISwitchVue, e: KeyboardEvent): void {
             if (e.key !== 'Enter') {
                 return;
             }
@@ -4292,7 +4326,7 @@ list['pe-tab'] = {
     },
     'watch': {
         'selected': {
-            handler: function(this: purease.IVue) {
+            handler: function(this: ITabVue) {
                 if (this.modelValue === this.selected) {
                     return;
                 }
@@ -4300,7 +4334,7 @@ list['pe-tab'] = {
             }
         },
         'modelValue': {
-            handler: function(this: purease.IVue) {
+            handler: function(this: ITabVue) {
                 if (this.modelValue === this.selected) {
                     return;
                 }
@@ -4319,7 +4353,7 @@ list['pe-tab-item'] = {
         };
     },
     'computed': {
-        isSelected: function(this: purease.IVue) {
+        isSelected: function(this: ITabItemVue) {
             if (!this.$parent) {
                 return 0;
             }
@@ -4327,7 +4361,7 @@ list['pe-tab-item'] = {
         }
     },
     'methods': {
-        hover: function(this: purease.IVue, e: MouseEvent | TouchEvent) {
+        hover: function(this: ITabItemVue, e: MouseEvent | TouchEvent) {
             if (!this.$parent) {
                 return;
             }
@@ -4340,7 +4374,7 @@ list['pe-tab-item'] = {
             this.$parent.selected = this.index;
             this.resize();
         },
-        click: function(this: purease.IVue) {
+        click: function(this: ITabItemVue) {
             if (!this.$parent) {
                 return;
             }
@@ -4350,7 +4384,7 @@ list['pe-tab-item'] = {
             this.$parent.selected = this.index;
             this.resize();
         },
-        resize: function(this: purease.IVue) {
+        resize: function(this: ITabItemVue) {
             if (!this.$parent) {
                 return;
             }
@@ -4361,7 +4395,7 @@ list['pe-tab-item'] = {
             this.$parent.tabItemLeft = this.$el.offsetLeft;
         }
     },
-    mounted: function(this: purease.IVue) {
+    mounted: function(this: ITabItemVue) {
         if (!this.$parent) {
             return;
         }
@@ -4399,13 +4433,13 @@ list['pe-table-cell'] = {
 
 list['pe-table-head'] = {
     'template': `<div class="pe-table-head"><slot></slot></div>`,
-    mounted: function(this: purease.IVue) {
+    mounted: function(this: ITableHeadVue) {
         const row = this.parentByName('table-row');
         if (row) {
             row.updateHeadCount('+');
         }
     },
-    unmounted: function(this: purease.IVue) {
+    unmounted: function(this: ITableHeadVue) {
         const row = this.parentByName('table-row');
         if (row) {
             row.updateHeadCount('-');
@@ -4429,12 +4463,12 @@ list['pe-table-row'] = {
         },
     },
     'computed': {
-        'isAdaption': function(this: purease.IVue) {
+        'isAdaption': function(this: ITableRowVue) {
             return this.table?.propBoolean('adaption') ?? false;
         },
     },
     'methods': {
-        updateHeadCount: function(this: purease.IVue, o: '+' | '-') {
+        updateHeadCount: function(this: ITableRowVue, o: '+' | '-') {
             if (o === '+') {
                 ++this.headCount;
             }
@@ -4451,7 +4485,7 @@ list['pe-table-row'] = {
             }
         }
     },
-    mounted: function(this: purease.IVue) {
+    mounted: function(this: ITableRowVue) {
         const table = this.parentByName('table');
         if (table) {
             this.table = table;
@@ -4530,7 +4564,7 @@ list['pe-text'] = {
     },
     'methods': {
         /** --- 检测 value 值是否符合 max 和 min --- */
-        checkNumber: function(this: purease.IVue, target?: HTMLInputElement | HTMLTextAreaElement) {
+        checkNumber: function(this: ITextVue, target?: HTMLInputElement | HTMLTextAreaElement) {
             target ??= this.$refs.text as unknown as HTMLInputElement | HTMLTextAreaElement;
             if (this.$props.type !== 'number') {
                 return false;
@@ -4553,7 +4587,7 @@ list['pe-text'] = {
             return change;
         },
         /** --- 文本框的 input 事件 --- */
-        input: function(this: purease.IVue, e: InputEvent) {
+        input: function(this: ITextVue, e: InputEvent) {
             const target = e.target as HTMLInputElement | HTMLTextAreaElement;
             if (this.propNumber('maxlength') && (target.value.length > this.propNumber('maxlength'))) {
                 target.value = target.value.slice(0, this.propNumber('maxlength'));
@@ -4581,12 +4615,12 @@ list['pe-text'] = {
             this.$emit('update:modelValue', this.value);
         },
         /** --- 文本框的 focus 事件 --- */
-        tfocus: function(this: purease.IVue): void {
+        tfocus: function(this: ITextVue): void {
             this.isFocus = true;
             this.$emit('focus');
         },
-        tblur: function(this: purease.IVue, e: FocusEvent): void {
-            // --- 如果是 number 则要判断数字是否符合 min max，不能在 input 判断，因为会导致用户无法正常输入数字，比如最小值是 10，他在输入 1 的时候就自动重置成 10 了 ---
+        tblur: function(this: ITextVue, e: FocusEvent): void {
+            // --- 如果是 number 则要判断数字是否符合 min max，不能在 input 判断，因为会导致用户无法正常输入数字，比如最小值是 10，他在输入 1 的时候就自动重置为 10 了 ---
             const target = e.target as HTMLInputElement | HTMLTextAreaElement;
             if (this.checkNumber(target)) {
                 const event: ITextBeforechangeEvent = {
@@ -4619,7 +4653,7 @@ list['pe-text'] = {
     },
     'watch': {
         'modelValue': {
-            handler: async function(this: purease.IVue) {
+            handler: async function(this: ITextVue) {
                 if (this.value === this.$props.modelValue) {
                     return;
                 }
@@ -4629,7 +4663,7 @@ list['pe-text'] = {
                 if (this.propNumber('maxlength') && this.$refs.text.value.length > this.propNumber('maxlength')) {
                     this.$refs.text.value = this.$refs.text.value.slice(0, this.propNumber('maxlength'));
                 }
-                // --- 有可能设置后控件实际值和设置的值不同，所以要重新判断一下 ---
+                // --- 有可能设置后控件实际值和设置的值不同，所以要重新判断一次 ---
                 if (this.$refs.text.value === this.value) {
                     return;
                 }
@@ -4654,7 +4688,7 @@ list['pe-text'] = {
             'immediate': true
         },
         'type': {
-            handler: async function(this: purease.IVue) {
+            handler: async function(this: ITextVue) {
                 await this.$nextTick();
                 if (this.checkNumber()) {
                     const event: ITextBeforechangeEvent = {
@@ -4678,7 +4712,7 @@ list['pe-text'] = {
             }
         },
         'max': {
-            handler: function(this: purease.IVue) {
+            handler: function(this: ITextVue) {
                 if (this.checkNumber()) {
                     const event: ITextBeforechangeEvent = {
                         'go': true,
@@ -4701,7 +4735,7 @@ list['pe-text'] = {
             }
         },
         'min': {
-            handler: function(this: purease.IVue) {
+            handler: function(this: ITextVue) {
                 if (this.checkNumber()) {
                     const event: ITextBeforechangeEvent = {
                         'go': true,
@@ -4724,7 +4758,7 @@ list['pe-text'] = {
             }
         },
         'maxlength': {
-            handler: function(this: purease.IVue) {
+            handler: function(this: ITextVue) {
                 if (!this.propNumber('maxlength')) {
                     return;
                 }
@@ -4779,7 +4813,7 @@ list['pe-vnumber'] = {
     },
     'watch': {
         'modelValue': {
-            handler: function(this: purease.IVue) {
+            handler: function(this: IVnumberVue) {
                 if (!this.$refs.input) {
                     return;
                 }
@@ -4807,7 +4841,7 @@ list['pe-vnumber'] = {
         }
     },
     'methods': {
-        input: function(this: purease.IVue) {
+        input: function(this: IVnumberVue) {
             const value = this.$refs.input.value;
             this.value.length = 0;
             for (const char of value) {

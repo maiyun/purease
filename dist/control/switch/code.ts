@@ -5,13 +5,19 @@ export interface ISwitchVue extends purease.IVue {
     /** --- 是否禁用，默认 false --- */
     'disabled': boolean;
     /** --- 值映射，默认 {} --- */
-    'map': { 'true'?: any; 'false'?: any; };
+    'map': {
+        'true'?: boolean | string | number;
+        'false'?: boolean | string | number;
+    };
     /** --- 当前值，默认 false --- */
-    'modelValue': boolean | any;
+    'modelValue': boolean | string | number;
     /** --- 内部值 --- */
-    'value': boolean | any;
+    'value': boolean | string | number;
     /** --- 格式化后的映射 --- */
-    'mapComp': { 'true': any; 'false': any; };
+    'mapComp': {
+        'true': boolean | string | number;
+        'false': boolean | string | number;
+    };
     /** --- 点击事件 --- */
     click: () => void;
     /** --- 键盘事件 --- */
@@ -20,6 +26,11 @@ export interface ISwitchVue extends purease.IVue {
 
 export const code = {
     'template': '',
+    'emits': {
+        'change': null,
+
+        'update:modelValue': null,
+    },
     'props': {
         'disabled': {
             'default': false,
@@ -39,22 +50,22 @@ export const code = {
     },
     'computed': {
         mapComp: function(this: ISwitchVue): {
-            'true': any;
-            'false': any;
+            'true': boolean | string | number;
+            'false': boolean | string | number;
         } {
             return {
-                'true': this.$props.map.true ?? true,
-                'false': this.$props.map.false ?? false
+                'true': this.map.true ?? true,
+                'false': this.map.false ?? false
             };
         }
     },
     'watch': {
         'modelValue': {
             handler: function(this: ISwitchVue) {
-                if (this.$props.modelValue === undefined) {
+                if (this.modelValue === undefined) {
                     return;
                 }
-                this.value = this.$props.modelValue;
+                this.value = this.modelValue;
             },
             'immediate': true
         }

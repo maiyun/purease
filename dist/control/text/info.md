@@ -1,5 +1,4 @@
-````markdown
-文本输入控件，支持单行、多行、密码和数字输入
+﻿文本输入控件，支持单行、多行、密码和数字输入
 
 ### 参数
 
@@ -20,10 +19,10 @@
 `'text'` | `'multi'` | `'password'` | `'number'`
 
 输入框类型，默认 text
-- text: 单行文本
-- multi: 多行文本
-- password: 密码
-- number: 数字
+- `text`: 单行文本
+- `multi`: 多行文本
+- `password`: 密码
+- `number`: 数字
 
 #### placeholder
 
@@ -63,25 +62,25 @@
 
 ### 类属性
 
-#### isFocus
-
-`boolean`
-
-是否处于焦点状态
-
-#### value
-
-`string`
-
-内部值
-
-#### showPassword
-
-`boolean`
-
-是否显示密码（密码类型时）
-
 ### 方法
+
+### 插槽
+
+#### before
+
+输入框前置插槽，用于在输入框左侧显示内容，通常用于插入控件
+
+#### prepend
+
+输入框预装插槽，用于在输入框左侧显示内容，与 before 的区别是有垂直居中和 padding
+
+#### append
+
+输入框追加插槽，用于在输入框右侧显示内容，与 after 的区别是有垂直居中和 padding
+
+#### after
+
+输入框后置插槽，用于在输入框右侧显示内容，通常用于插入控件
 
 ### 样式
 
@@ -91,78 +90,31 @@ input/textarea 元素去除默认样式，透明背景，弹性扩展（width 0�
 
 密码类型右侧显示眼睛图标切换显示/隐藏（悬停时不透明度提升）。plain 模式无边框。
 
-#### checkNumber
-
-`(target?: HTMLInputElement | HTMLTextAreaElement) => boolean`
-
-检测数字值是否符合 max 和 min 范围
-
-#### input
-
-`(e: InputEvent) => void`
-
-输入事件处理
-
-#### tfocus
-
-`() => void`
-
-获得焦点事件处理
-
-#### tblur
-
-`(e: FocusEvent) => void`
-
-失去焦点事件处理
-
 ### 事件
 
-#### beforechange
+#### beforechange(event)
 
-值改变前事件，返回 `ITextBeforechangeEvent` 对象，可通过 `preventDefault()` 阻止改变
+值改变前事件
 
-#### focus
+##### event
+
+`ITextBeforechangeEvent`
+
+#### focus()
 
 获得焦点事件
 
-#### blur
+#### blur()
 
 失去焦点事件
-
-#### update:modelValue
-
-双向绑定值更新事件
 
 ### 示例
 
 ```html
-<!-- 单行文本 -->
-<pe-text v-model="text" placeholder="请输入文本"></pe-text>
-
-<!-- 多行文本 -->
-<pe-text v-model="content" type="multi" placeholder="请输入内容"></pe-text>
-
-<!-- 密码 -->
-<pe-text v-model="password" type="password" placeholder="请输入密码"></pe-text>
-
-<!-- 数字 -->
-<pe-text v-model="age" type="number" :min="0" :max="150" placeholder="请输入年龄"></pe-text>
-
-<!-- 限制长度 -->
-<pe-text v-model="username" :maxlength="20" @beforechange="onBeforeChange"></pe-text>
+<pe-text style="width: 400px;" v-model="text"></pe-text>
+<pe-text style="width: 400px;" v-model="text" plain></pe-text>
+<pe-text style="width: 400px;" v-model="text">
+    <template v-slot:prepend>Hello:</template>
+    <template v-slot:append>KG</template>
+</pe-text>
 ```
-
-```typescript
-const text = ref('');
-const password = ref('');
-const age = ref('');
-
-function onBeforeChange(e: lControl.ITextBeforechangeEvent) {
-    console.log('值将改变为:', e.detail.value);
-    // 可以修改值
-    // e.detail.change = '修改后的值';
-    // 或阻止改变
-    // e.preventDefault();
-}
-```
-````

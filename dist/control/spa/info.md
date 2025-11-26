@@ -1,5 +1,4 @@
-````markdown
-单页应用容器控件，基于 hash 路由
+﻿单页应用容器控件，基于 hash 路由
 
 ### 参数
 
@@ -17,12 +16,6 @@
 
 ### 类属性
 
-#### path
-
-`string`
-
-当前路由路径
-
 ### 方法
 
 ### 样式
@@ -34,15 +27,24 @@ plain 模式下无边框和圆角。full 模式下切换为全屏固定定位（
 ### 示例
 
 ```html
-<pe-spa :full="true">
+<pe-spa :plain="spaPlain" :full="spaFull" style="min-width: 400px; min-height: 700px;">
+    <!-- 第一页 -->
     <pe-spa-page path="/">
-        <pe-spa-header>首页</pe-spa-header>
-        <div>首页内容</div>
+        <pe-spa-header>Hello world</pe-spa-header>
+        <pe-spa-content> ... </pe-spa-content>
     </pe-spa-page>
-    <pe-spa-page path="/about">
-        <pe-spa-header :back="true">关于</pe-spa-header>
-        <div>关于内容</div>
+    <!-- 第二页 -->
+    <pe-spa-page path="/2" @show="spaShow2" @hide="spaHide2">
+        <pe-spa-header back>
+            <pe-circle type="pe" size="s"></pe-circle>
+            <div>The 2 Page</div>
+        </pe-spa-header>
+        <pe-spa-content> ... </pe-spa-content>
+    </pe-spa-page>
+    <!-- 第三页 -->
+    <pe-spa-page path="/3" grey>
+        <pe-spa-header style="flex-direction: column;" note="the note text" back>The 3 Page</pe-spa-header>
+        <pe-spa-content> ... </pe-spa-content>
     </pe-spa-page>
 </pe-spa>
 ```
-````

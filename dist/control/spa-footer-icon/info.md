@@ -1,5 +1,4 @@
-````markdown
-SPA 底部导航图标项
+﻿SPA 底部导航图标项
 
 ### 参数
 
@@ -31,28 +30,22 @@ SPA 底部导航图标项
 
 禁用过渡动画（避免页面切换时闪烁）。支持 cursor pointer 和 user-select none。
 
-#### click
-
-`() => void`
-
-点击事件处理
-
 ### 示例
 
 ```html
-<pe-spa>
-    <pe-spa-footer v-model="selectedTab">
-        <pe-spa-footer-icon value="home" title="首页">
-            <pe-icon name="home"></pe-icon>
-        </pe-spa-footer-icon>
-        <pe-spa-footer-icon value="profile" title="我的">
-            <pe-icon name="user"></pe-icon>
-        </pe-spa-footer-icon>
-    </pe-spa-footer>
+<pe-spa plain full>
+    <pe-spa-page path="/">
+        <pe-spa-header>Hello world</pe-spa-header>
+        <pe-spa-content> ... </pe-spa-content>
+        <pe-spa-footer>
+            <pe-spa-footer-icon title="Full" v-model="spaFooter" value="1">
+                <pe-icon name="eye"></pe-icon>
+            </pe-spa-footer-icon>
+            <pe-spa-footer-icon title="Text" v-model="spaFooter" value="2"></pe-spa-footer-icon>
+            <pe-spa-footer-icon v-model="spaFooter" value="3">
+                <pe-icon name="language"></pe-icon>
+            </pe-spa-footer-icon>
+        </pe-spa-footer>
+    </pe-spa-page>
 </pe-spa>
 ```
-
-```typescript
-const selectedTab = ref('home');
-```
-````

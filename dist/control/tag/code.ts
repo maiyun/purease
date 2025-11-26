@@ -2,7 +2,7 @@ import * as purease from '../../purease.js';
 
 export interface ITagVue extends purease.IVue {
     /** --- 类型样式，默认 default --- */
-    'type': 'default' | 'primary' | 'info' | 'warning' | 'danger' | 'cg';
+    'type': 'default' | 'primary' | 'info' | 'warning' | 'danger' | 'pe';
     /** --- 是否为朴素风格，默认 false --- */
     'plain': boolean;
     /** --- 尺寸大小，默认 m --- */
@@ -18,14 +18,14 @@ export const code = {
     },
     'props': {
         'type': {
-            // --- default' | 'primary' | 'info' | 'warning' | 'danger' | 'cg' ---
+            // --- default' | 'primary' | 'info' | 'warning' | 'danger' | 'pe' ---
             'default': 'default'
         },
         'plain': {
             'default': false
         },
         'size': {
-            // --- 'xs', 's', 'm' | 'l' ---
+            // --- 'xs', 's', 'm', 'l' ---
             'default': 'm'
         },
         'close': {

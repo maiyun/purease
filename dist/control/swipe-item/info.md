@@ -1,5 +1,4 @@
-````markdown
-轮播图子项控件
+﻿轮播图子项控件
 
 ### 参数
 
@@ -11,42 +10,6 @@
 
 ### 类属性
 
-#### index
-
-`number`
-
-当前 item 在所有 item 中的索引
-
-#### npage
-
-`number`
-
-当前 item 所在的页码
-
-#### pindex
-
-`number`
-
-当前 item 在当前页内的索引
-
-#### left
-
-`string`
-
-左侧位置样式值
-
-#### width
-
-`number`
-
-单页宽度
-
-#### iwidth
-
-`string`
-
-item 宽度样式值
-
 ### 方法
 
 ### 样式
@@ -56,13 +19,15 @@ item 宽度样式值
 ### 示例
 
 ```html
-<pe-swipe v-model="current">
-    <pe-swipe-item>
-        <img src="/image1.jpg" />
+<pe-swipe v-model="tab" :page="swipePage" :control="swipeControl" radius="10" style="height: 500px;">
+    <pe-swipe-item direction="v" style="background: hsl(160, 50%, 30%); color: #FFF; font-size: 48px;">
+        <div class="pe-layout" style="align-items: center; justify-content: center; flex: 1;">Info1</div>
     </pe-swipe-item>
-    <pe-swipe-item>
-        <img src="/image2.jpg" />
+    <pe-swipe-item direction="v" style="background: hsl(200, 50%, 30%); color: #FFF; font-size: 48px;">
+        <div class="pe-layout" style="align-items: center; justify-content: center; flex: 1;">Info2</div>
+    </pe-swipe-item>
+    <pe-swipe-item direction="v" style="background: hsl(240, 50%, 30%); color: #FFF; font-size: 48px;">
+        <div class="pe-layout" style="align-items: center; justify-content: center; flex: 1;">Info3</div>
     </pe-swipe-item>
 </pe-swipe>
 ```
-````

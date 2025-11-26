@@ -1,5 +1,4 @@
 ﻿import * as purease from '../../purease';
-import * as lControl from '../../control';
 
 export interface ISpaPageVue extends purease.IVue {
     /** --- 页面路径 --- */

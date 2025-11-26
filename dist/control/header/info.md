@@ -1,4 +1,3 @@
-````markdown
 生成网页头部导航栏
 
 ### 参数
@@ -7,7 +6,13 @@
 
 `string`
 
-logo 图地址
+点击 logo 后的跳转地址，一般为首页地址。logo 图自行用 css 设置，例如：
+
+```scss
+.pe-logo {
+    background-image: url(../../doc/logo.png);
+}
+```
 
 #### fixed
 
@@ -29,13 +34,17 @@ logo 图地址
 
 ### 类属性
 
-#### headerPop
-
-`boolean`
-
-头部弹出状态
-
 ### 方法
+
+### 插槽
+
+#### bottom
+
+导航栏底部区域
+
+#### right
+
+导航栏右侧区域，用于放置操作按钮等
 
 ### 样式
 
@@ -48,16 +57,36 @@ logo 图地址
 ### 示例
 
 ```html
-<pe-header :fixed="true" :theme="'default'" :logo-href="'/logo.png'">
-    <pe-header-item href="/">首页</pe-header-item>
-    <pe-header-item href="/about">关于</pe-header-item>
+<pe-header logo-href="./" fixed>
+    <a class="pe-header-item" href="./">Home</a>
     <pe-header-item>
-        产品
+        List
         <pe-menu>
-            <a class="pe-menu-item" href="/product1">产品1</a>
-            <a class="pe-menu-item" href="/product2">产品2</a>
+            <a class="pe-menu-item" href="./swipe.html">Swipe</a>
+            <a class="pe-menu-item" href="./login.html">Login</a>
+            <a class="pe-menu-item" href="./lnav.html">Lnav</a>
         </pe-menu>
     </pe-header-item>
+    <a class="pe-header-item" href="./swipe.html">Swipe</a>
+    <pe-header-item>
+        Double
+        <pe-menu>
+            <div class="pe-layoutlist">
+                <div>
+                    <a class="pe-menu-item" href="./">111342342342334</a>
+                    <a class="pe-menu-item" href="./">222</a>
+                </div>
+                <div>
+                    <a class="pe-menu-item" href="./">333</a>
+                    <a class="pe-menu-item" href="./">444</a>
+                </div>
+            </div>
+        </pe-menu>
+    </pe-header-item>
+    <a class="pe-header-item" href="./">About</a>
+    <template v-slot:right>
+        <a class="pe-header-item" href="./">OK</a>
+        <a class="pe-button pe-plain pe-bold" href="./">Hello</a>
+    </template>
 </pe-header>
 ```
-````

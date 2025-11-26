@@ -1,5 +1,4 @@
-````markdown
-滑块控件，支持单值和范围选择
+﻿滑块控件，支持单值和范围选择
 
 ### 参数
 
@@ -29,24 +28,6 @@
 
 ### 类属性
 
-#### pos
-
-`[number, number]`
-
-滑块位置百分比数组
-
-#### barWidth
-
-`number`
-
-进度条宽度百分比
-
-#### barLeft
-
-`number`
-
-进度条左侧位置百分比
-
 ### 方法
 
 ### 样式
@@ -57,24 +38,10 @@
 
 范围模式下显示两个手柄和中间的填充条。所有交互元素均禁用用户选择，过渡动画流畅。
 
-#### down
-
-`(e: TouchEvent | MouseEvent, i: number) => void`
-
-滑块鼠标按下事件处理
-
 ### 示例
 
 ```html
-<!-- 单值模式 -->
-<pe-slider v-model="value" :min="0" :max="100"></pe-slider>
-
-<!-- 范围模式 -->
-<pe-slider v-model="rangeValue" :min="0" :max="100" :range="true"></pe-slider>
+<pe-slider v-model="slider1"></pe-slider>
+<div>min: 100, max: 500, {{slider2}}</div>
+<pe-slider v-model="slider2" range min="100" max="500"></pe-slider>
 ```
-
-```typescript
-const value = ref([50, 0]);
-const rangeValue = ref([20, 80]);
-```
-````

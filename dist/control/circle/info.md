@@ -24,6 +24,8 @@
 
 ### 方法
 
+### 插槽
+
 ### 样式
 
 类似 Ant Design 的 Avatar，呈现为圆形容器。提供 5 种尺寸（l/m/s/xs/xxs）和 6 种类型（default/primary/info/warning/danger/pe）。

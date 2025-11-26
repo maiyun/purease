@@ -1,5 +1,4 @@
-````markdown
-SPA 单个页面控件
+﻿SPA 单个页面控件
 
 ### 参数
 
@@ -17,12 +16,6 @@ SPA 单个页面控件
 
 ### 类属性
 
-#### currentPath
-
-`string`
-
-当前激活的路径
-
 ### 方法
 
 ### 样式
@@ -33,36 +26,43 @@ grey 模式下背景变为灰色。显示状态（display）通过类控制：pe
 
 ### 事件
 
-#### show
+#### show(event)
 
-页面显示事件，返回 `ISpaShowEvent` 对象
+页面显示事件
 
-#### hide
+##### event
 
-页面隐藏事件，返回 `ISpaHideEvent` 对象
+`ISpaShowEvent`
+
+#### hide(event)
+
+页面隐藏事件
+
+##### event
+
+`ISpaHideEvent`
 
 ### 示例
 
 ```html
-<pe-spa>
-    <pe-spa-page path="/" @show="onHomeShow" @hide="onHomeHide">
-        <pe-spa-header>首页</pe-spa-header>
-        <div>首页内容</div>
-    </pe-spa-page>
-    <pe-spa-page path="/settings" :grey="true">
-        <pe-spa-header :back="true">设置</pe-spa-header>
-        <div>设置内容</div>
+<pe-spa plain full>
+    <pe-spa-page path="/" @show="spaShow" @hide="spaHide">
+        <pe-spa-header back>The Page</pe-spa-header>
+        <pe-spa-content> ... </pe-spa-content>
     </pe-spa-page>
 </pe-spa>
 ```
 
 ```typescript
-function onHomeShow(e: lControl.ISpaShowEvent) {
-    console.log('首页显示', e.detail.prev, e.detail.path);
-}
+class Page extends purease.AbstractPage {
 
-function onHomeHide(e: lControl.ISpaHideEvent) {
-    console.log('首页隐藏', e.detail.path, e.detail.next);
+    public spaShow(e: purease.control.ISpaShowEvent): void {
+        purease.display('spaShow', e);
+    }
+
+    public spaHide(e: purease.control.ISpaHideEvent): void {
+        purease.display('spaHide', e);
+    }
+
 }
 ```
-````

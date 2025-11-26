@@ -1,5 +1,4 @@
-````markdown
-选项卡容器控件
+﻿选项卡容器控件
 
 ### 参数
 
@@ -23,24 +22,6 @@
 
 ### 类属性
 
-#### selected
-
-`number`
-
-内部选中的索引
-
-#### tabItemWidth
-
-`number`
-
-tab 项宽度（rect 类型使用）
-
-#### tabItemLeft
-
-`number`
-
-tab 项左侧位置（rect 类型使用）
-
 ### 方法
 
 ### 样式
@@ -54,18 +35,9 @@ plain 类型无底部边框。light 类型无底部边框且带 10px 间距，�
 ### 示例
 
 ```html
-<pe-tab v-model="selectedTab" type="default">
-    <pe-tab-item>选项1</pe-tab-item>
-    <pe-tab-item>选项2</pe-tab-item>
-    <pe-tab-item>选项3</pe-tab-item>
+<pe-tab v-model="tab">
+    <pe-tab-item>Tab1</pe-tab-item>
+    <pe-tab-item>Tab2</pe-tab-item>
+    <pe-tab-item>Tab3</pe-tab-item>
 </pe-tab>
-
-<div v-if="selectedTab === 0">内容1</div>
-<div v-if="selectedTab === 1">内容2</div>
-<div v-if="selectedTab === 2">内容3</div>
 ```
-
-```typescript
-const selectedTab = ref(0);
-```
-````

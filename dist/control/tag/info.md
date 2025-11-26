@@ -1,11 +1,10 @@
-````markdown
-标签控件，用于标记和分类
+﻿标签控件，用于标记和分类；搭配 `plain` 参数和 `click` 事件可以做出标签选中效果
 
 ### 参数
 
 #### type
 
-`'default'` | `'primary'` | `'info'` | `'warning'` | `'danger'` | `'cg'`
+`'default'` | `'primary'` | `'info'` | `'warning'` | `'danger'` | `'pe'`
 
 类型样式，默认 default
 
@@ -48,15 +47,19 @@
 ### 示例
 
 ```html
-<pe-tag type="primary">主要</pe-tag>
-<pe-tag type="info" size="s">信息</pe-tag>
-<pe-tag type="warning" :plain="true">警告</pe-tag>
-<pe-tag type="danger" :close="true" @close="onTagClose">错误</pe-tag>
+<pe-tag type="pe" :plain="spaTag !== '1'" @click="spaTag = '1'">Tag 1</pe-tag>
+<pe-tag type="pe" :plain="spaTag !== '2'" @click="spaTag = '2'">Tag 2</pe-tag>
+<pe-tag type="pe" :plain="spaTag !== '3'" @click="spaTag = '3'">Tag 3</pe-tag>
+<pe-tag type="pe" :plain="spaTag !== '4'" @click="spaTag = '4'">Tag 4</pe-tag>
+<pe-tag type="pe" :plain="spaTag !== '5'" @click="spaTag = '5'">Tag 5</pe-tag>
+<pe-tag type="pe" :plain="spaTag !== '6'" @click="spaTag = '6'">Tag 6</pe-tag>
+<pe-tag type="pe" :plain="spaTag !== '7'" @click="spaTag = '7'">Tag 7</pe-tag>
 ```
 
 ```typescript
-function onTagClose() {
-    console.log('标签已关闭');
+class Page extends purease.AbstractPage {
+
+    public spaTag = '1';
+
 }
 ```
-````

@@ -8,6 +8,30 @@ class Page extends purease.AbstractPage {
         this.select = 'h';
         this.textSelect = ['a', { 'value': 'ok', 'label': 'v is ok' }, 'c', this.l('ok')];
         this.dlist = 'a';
+        this.dlistChildren = 'item1';
+        this.dlistChildrenTree = 'item1';
+        this.dlistChildrenData = [
+            { 'label': 'Item 1', 'value': 'item1' },
+            {
+                'label': 'Item 2',
+                'value': 'item2',
+                'children': [
+                    {
+                        'label': 'Sub Item 2-1',
+                        'value': 'item2-1'
+                    },
+                    {
+                        'label': 'Sub Item 2-2',
+                        'value': 'item2-2',
+                        'children': [
+                            { 'label': 'Deep Item 2-2-1', 'value': 'item2-2-1' },
+                            { 'label': 'Deep Item 2-2-2', 'value': 'item2-2-2' }
+                        ]
+                    }
+                ]
+            },
+            { 'label': 'Item 3', 'value': 'item3' }
+        ];
         this.search = false;
         // --- swipe ---
         this.tab = 0;

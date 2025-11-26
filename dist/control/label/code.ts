@@ -3,7 +3,7 @@
 export interface ILabelVue extends purease.IVue {
     /** --- 显示模式，默认 default --- */
     'mode': 'default' | 'tip' | 'mtip' | 'date';
-    /** --- 内容文本或时间戳 --- */
+    /** --- 内容文本或秒级时间戳 --- */
     'content': string | number;
     /** --- 是否显示时间，默认 true --- */
     'time': boolean;
@@ -44,8 +44,8 @@ export const code = {
     'computed': {
         /** --- 替换 slot 数据 --- */
         contentComp: function(this: ILabelVue): string {
-            if (this.$props.mode !== 'date') {
-                return this.$props.content;
+            if (this.mode !== 'date') {
+                return this.content.toString();
             }
             if (this.propNumber('content') === 0) {
                 return '';

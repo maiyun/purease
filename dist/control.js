@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck
+// --- 合并文件，无需做类型检查 ---
 import * as purease from './purease.js';
 import * as lTool from './tool.js';
 import * as lDom from './dom.js';
@@ -98,10 +101,6 @@ export const list = {};
 // --- AUTO CODE ---
 list['pe-anchor'] = {
     'template': `<div class="pe-anchor"><div class="pe-anchor-left" ref="left"><slot></slot></div><div class="pe-anchor-right"><div class="pe-anchor-right-content"><div v-for="item of list" class="pe-anchor-item" :class="['pe-anchor-item-h' + item.level, {'pe-selected': item.id === selected}]" @click="scrollTo(item.id)">{{item.text}}</div></div></div></div>`,
-    /**
-     * --- 初始化数据 ---
-     * @returns 包含目录列表和当前选中项的数据对象
-     */
     'data': function () {
         return {
             'list': [],
@@ -109,10 +108,6 @@ list['pe-anchor'] = {
         };
     },
     'methods': {
-        /**
-         * --- 滚动到指定的标题位置 ---
-         * @param id 目录项的 id
-         */
         'scrollTo': function (id) {
             const el = document.getElementById('anchor-' + id);
             if (!el) {
@@ -124,12 +119,6 @@ list['pe-anchor'] = {
             });
         },
     },
-    /**
-     * --- 组件挂载完成后的初始化 ---
-     *
-     * 自动扫描左侧插槽内的标题（h2-h6），为其生成唯一 id，
-     * 并设置滚动事件监听器用于实时更新当前选中的导航项。
-     */
     mounted: function () {
         let id = -1;
         const list = this.$refs.left.querySelectorAll('h2,h3,h4,h5,h6');
@@ -176,7 +165,7 @@ list['pe-bar'] = {
         },
         'theme': {
             'default': 'default'
-        }
+        },
     }
 };
 list['pe-bar-item'] = {
@@ -238,7 +227,7 @@ list['pe-btab'] = {
             'max': 0,
             /** --- 全宽 --- */
             'width': 0,
-            /** --- 内容宽 --- */
+            /** --- 内容宽度 --- */
             'cwidth': 0,
         };
     },
@@ -270,7 +259,7 @@ list['pe-btab'] = {
             let x = ox;
             lDom.bindDown(e, {
                 move: (ne) => {
-                    // --- 当前的位置 ---
+                    // --- 当前的位置---
                     const nx = ne instanceof MouseEvent ? ne.clientX : ne.touches[0].clientX;
                     /** --- 移动的差值 --- */
                     const cx = nx - x;
@@ -1947,7 +1936,7 @@ list['pe-datepanel'] = {
                 this.tzData = this.propNumber('tz');
             }
             const z = this.tzData.toString().split('.');
-            this.vzone = (parseInt(z) >= 0 ? '+' : '') + z[0];
+            this.vzone = (parseInt(z[0]) >= 0 ? '+' : '') + z[0];
             this.vzdec = z[1] ? (parseFloat('0.' + z[1]) * 60).toString() : '00';
             this.updateTimestamp();
             // --- 更新 start 和 end ---
@@ -2046,7 +2035,6 @@ list['pe-datepanel'] = {
 list['pe-daterange'] = {
     'template': `<div class="pe-daterange-wrap" :class="[propBoolean('disabled')&&'pe-disabled']"><div class="pe-daterange-first"><div @click="click($event, 'first')" ref="first"><template v-if="dateStr.length"><div>{{dateStr[0]}}</div><div v-if="propBoolean('time')">{{timeStr[0]}}</div><div>-</div><div>{{dateStr[1]}}</div><div v-if="propBoolean('time')">{{timeStr[1]}}</div></template><template v-else><div>{{l('please click select')}}</div></template></div><div v-if="propBoolean('zone')" @click="click($event, 'zone')" ref="zone">UTC{{tzData >= 0 ? '+' : ''}}{{tzData}}</div></div><div class="pe-daterange-clear" @click="clear" v-if="dateStr.length"><svg viewBox="0 0 24 24" stroke="none"><path d="m7.53033 6.46967c-.29289-.29289-.76777-.29289-1.06066 0s-.29289.76777 0 1.06066l4.46963 4.46967-4.46963 4.4697c-.29289.2929-.29289.7677 0 1.0606s.76777.2929 1.06066 0l4.46967-4.4696 4.4697 4.4696c.2929.2929.7677.2929 1.0606 0s.2929-.7677 0-1.0606l-4.4696-4.4697 4.4696-4.46967c.2929-.29289.2929-.76777 0-1.06066s-.7677-.29289-1.0606 0l-4.4697 4.46963z" /></svg></div><div ref="firstpop" class="pe-pop pe-daterange-first"><pe-datepanel plain :tz="tzData" :time="propBoolean('time')" v-model="ts" v-model:cursor="cursor" range :clearbtn="false" ref="firstpanel" @range="onRange" @changed="firstChanged" :yearmonth="firstym" @update:yearmonth="firstym=$event;onYmChange()" :start="start" :end="end"><template v-if="$slots['default']" v-slot="col"><slot :year="col.year" :month="col.month" :date="col.date" :day="col.day" :str="col.str" :time="col.time"></slot></template></pe-datepanel><pe-datepanel v-show="showTwoDatePanel" plain :tz="tzData" hourminute="235959" :time="propBoolean('time')" :modelValue="ts2" v-model:cursor="cursor" range :start="ts" :end="end" :clearbtn="false" :backbtn="false" ref="endpanel" @range="onRange" :yearmonth="endym" @update:yearmonth="endym=$event;onYmChange()" :jump="false"><template v-if="$slots['default']" v-slot="col"><slot :year="col.year" :month="col.month" :date="col.date" :day="col.day" :str="col.str" :time="col.time"></slot></template></pe-datepanel></div><div v-if="propBoolean('zone')" ref="zonepop" class="pe-pop pe-daterange-list"><div><div class="pe-daterange-item"><div class="pe-daterange-title">{{l('zone')}}</div><pe-dlist :data="zones" v-model="vzone"></pe-dlist></div><div class="pe-daterange-item"><div class="pe-daterange-title">{{l('minute')}}</div><pe-dlist :data="zdecs" v-model="vzdec"></pe-dlist></div></div><div><div class="pe-button pe-pgrey" @click="cancel">{{l('cancel')}}</div><div class="pe-button pe-pgrey" @click="zoneOk">{{l('ok')}}</div></div></div></div>`,
     'emits': {
-        'changed': null,
         'update:modelValue': null,
         'update:tz': null,
     },
@@ -2359,7 +2347,7 @@ list['pe-dialog'] = {
     },
 };
 list['pe-dlist'] = {
-    'template': `<div class="pe-dlist" :class="[!data.length&&'pe-empty',propBoolean('plain')&&'pe-plain']"><div v-if="data.length" v-for="item, i of data" class="pe-dlist-item" :class="[(value===(item[mapComp.value]??item[mapComp.label]??item))&&'pe-selected',item.disabled&&'pe-disabled']" @click="click(i)">{{item[mapComp.label]??item[mapComp.value]??item}}</div><div v-else>{{l('empty')}}</div></div>`,
+    'template': `<div class="pe-dlist" :class="[!data.length&&'pe-empty',propBoolean('plain')&&'pe-plain',propBoolean('tree')&&'pe-tree']"><div v-if="data.length" v-for="flatItem, i of flatData" class="pe-dlist-item" :class="[getItemValue(flatItem.item)===value&&'pe-selected',typeof flatItem.item==='object'&&flatItem.item.disabled&&'pe-disabled']" :style="{'padding-left': 'calc(var(--pe-padding-xs) + ' + (flatItem.level * 20) + 'px)'}"><div v-if="propBoolean('tree')" class="pe-dlist-arrow" :class="[isExpanded(flatItem.path)&&'pe-expanded',!hasChildren(flatItem.item)&&'pe-empty']" @click.stop="hasChildren(flatItem.item)&&toggleExpand(flatItem.path)"></div><div class="pe-dlist-label" @click="click(i)">{{getItemLabel(flatItem.item)}}</div></div><div v-else>{{l('empty')}}</div></div>`,
     'props': {
         'modelValue': {
             'default': ''
@@ -2374,7 +2362,7 @@ list['pe-dlist'] = {
         'map': {
             'default': {}
         },
-        'multi': {
+        'tree': {
             'default': false
         },
     },
@@ -2387,74 +2375,121 @@ list['pe-dlist'] = {
         /** --- 初始化后的 map 对象 --- */
         mapComp: function () {
             return {
-                'children': this.$props.map.children ?? 'children',
-                'label': this.$props.map.label ?? 'label',
-                'value': this.$props.map.value ?? 'value',
-                'title': this.$props.map.title ?? 'title',
+                'label': this.map.label ?? 'label',
+                'value': this.map.value ?? 'value',
+                'children': this.map.children ?? 'children',
+                'title': this.map.title ?? 'title',
             };
+        },
+        /** --- 扁平化后的数据列表 --- */
+        flatData: function () {
+            return this.flattenData(this.data, 0, []);
         }
     },
     'methods': {
+        /** --- 获取项的 value --- */
+        getItemValue: function (item) {
+            return typeof item === 'string' ? item : (item[this.mapComp.value] ?? item[this.mapComp.label]);
+        },
+        /** --- 获取项的 label --- */
+        getItemLabel: function (item) {
+            return typeof item === 'string' ? item : (item[this.mapComp.label] ?? item[this.mapComp.value]);
+        },
         click: function (i) {
-            const item = this.$props.data[i];
-            this.value = item[this.mapComp.value] ?? item[this.mapComp.label] ?? item;
+            const flatItem = this.flatData[i];
+            if (!flatItem) {
+                return;
+            }
+            this.value = this.getItemValue(flatItem.item);
             this.$emit('update:modelValue', this.value);
             const event = {
                 'detail': {
                     'value': this.value,
                     'index': i,
-                    'label': item[this.mapComp.label] ?? item[this.mapComp.value] ?? item
+                    'label': this.getItemLabel(flatItem.item)
                 }
             };
             this.$emit('changed', event);
             this.$emit('click', event);
         },
-        refreshModelValue: function () {
-            let found = false;
-            for (const item of this.$props.data) {
-                const val = item[this.mapComp.value] ?? item[this.mapComp.label] ?? item;
-                if (val !== this.value) {
-                    continue;
+        /** --- 递归扁平化数据 --- */
+        flattenData: function (data, level, path) {
+            const result = [];
+            for (let i = 0; i < data.length; ++i) {
+                const item = data[i];
+                const currentPath = [...path, i];
+                result.push({
+                    'item': item,
+                    'level': level,
+                    'path': currentPath
+                });
+                if (this.hasChildren(item)) {
+                    if (!this.propBoolean('tree') || this.isExpanded(currentPath)) {
+                        const itemObj = item;
+                        const children = this.flattenData(itemObj[this.mapComp.children], level + 1, currentPath);
+                        result.push(...children);
+                    }
                 }
-                found = true;
-                break;
             }
+            return result;
+        },
+        /** --- 切换展开状态 --- */
+        toggleExpand: function (path) {
+            const pathKey = path.join('-');
+            if (this.expandedPaths[pathKey]) {
+                delete this.expandedPaths[pathKey];
+            }
+            else {
+                this.expandedPaths[pathKey] = true;
+            }
+        },
+        /** --- 判断路径是否展开 --- */
+        isExpanded: function (path) {
+            return !!this.expandedPaths[path.join('-')];
+        },
+        /** --- 判断项是否有子节点 --- */
+        hasChildren: function (item) {
+            if (typeof item === 'string') {
+                return false;
+            }
+            const children = item[this.mapComp.children];
+            return Array.isArray(children) && children.length > 0;
+        },
+        refreshModelValue: function () {
+            // --- 查找当前值是否存在于列表中 ---
+            const found = this.flatData.some(flatItem => this.getItemValue(flatItem.item) === this.value);
             if (found) {
                 return;
             }
-            if (!this.$props.data[0]) {
+            // --- 未找到，重置为第一项或空 ---
+            const firstItem = this.flatData[0];
+            if (!firstItem) {
                 if (this.value !== '') {
                     this.value = '';
                     this.$emit('update:modelValue', '');
-                    const event = {
-                        'detail': {
-                            'value': '',
-                            'index': -1,
-                            'label': ''
-                        }
-                    };
-                    this.$emit('changed', event);
+                    this.$emit('changed', {
+                        'detail': { 'value': '', 'index': -1, 'label': '' }
+                    });
                 }
                 return;
             }
-            const fitem = this.$props.data[0];
-            this.value = fitem[this.mapComp.value] ?? fitem[this.mapComp.label] ?? fitem;
-            const lab = fitem[this.mapComp.label] ?? fitem[this.mapComp.value] ?? fitem;
+            this.value = this.getItemValue(firstItem.item);
             this.$emit('update:modelValue', this.value);
-            const event = {
+            this.$emit('changed', {
                 'detail': {
                     'value': this.value,
                     'index': 0,
-                    'label': lab
+                    'label': this.getItemLabel(firstItem.item)
                 }
-            };
-            this.$emit('changed', event);
+            });
         }
     },
     'data': function () {
         return {
             /** --- 当前选定的值 --- */
             'value': '',
+            /** --- 展开的路径集合 --- */
+            'expandedPaths': {},
             /** --- 语言包 --- */
             'localeData': {
                 'en': {
@@ -3278,7 +3313,7 @@ list['pe-setting-item'] = {
         'mark': {
             'default': ''
         },
-        // --- right 的 gap ---
+        // --- 右侧间距 gap ---
         'gap': {
             'default': ''
         },
@@ -3463,8 +3498,17 @@ list['pe-spa'] = {
         });
     },
 };
-list['pe-spa-content'] = { 'template': `<div class="pe-spa-content"><slot></slot></div>` };
-list['pe-spa-footer'] = { 'template': `<div class="pe-spa-footer"><slot></slot></div>` };
+list['pe-spa-content'] = {
+    'template': `<div class="pe-spa-content"><slot></slot></div>`
+};
+list['pe-spa-footer'] = {
+    'template': `<div class="pe-spa-footer"><slot></slot></div>`,
+    'props': {
+        'modelValue': {
+            'default': ''
+        }
+    }
+};
 list['pe-spa-footer-icon'] = {
     'template': `<div class="pe-spa-footer-icon" :class="[(modelValue===value)&&'pe-selected']" @click="click"><slot></slot><div v-if="title" class="pe-spa-footer-icon-title">{{title}}</div></div>`,
     'props': {
@@ -3606,7 +3650,7 @@ list['pe-swipe'] = {
             /** --- 用户设置的 selected --- */
             'mvselected': 0,
             /** --- 自动滚动的 timer  --- */
-            'timer': null,
+            'timer': undefined,
             /** --- 当前 swipe 的位置 --- */
             'translate': 0,
             /** --- 当前 swipe 的宽度 --- */
@@ -3626,25 +3670,25 @@ list['pe-swipe'] = {
                     return;
                 }
                 this.selected = this.mvselected;
-                this.go();
+                this.go().catch(() => { });
             },
             'immediate': true
         },
         'auto': {
             handler: function () {
                 if (lTool.getBoolean(this.auto)) {
-                    // --- 静 变 动 ---
-                    this.timer = setTimeout(() => {
-                        this.timer = null;
+                    // --- 启动 ---
+                    this.timer = window.setTimeout(() => {
+                        this.timer = undefined;
                         ++this.selected;
-                        this.go();
+                        this.go().catch(() => { });
                         this.mvselected = this.selected;
                         this.$emit('update:modelValue', this.mvelected);
                     }, 3000);
                     return;
                 }
                 clearTimeout(this.timer);
-                this.timer = null;
+                this.timer = undefined;
             }
         }
     },
@@ -3694,7 +3738,7 @@ list['pe-swipe'] = {
             }
             if (this.timer) {
                 clearTimeout(this.timer);
-                this.timer = null;
+                this.timer = undefined;
             }
             /** --- 原始 x 位置 --- */
             const ox = e instanceof MouseEvent ? e.clientX : e.touches[0].clientX;
@@ -3727,10 +3771,10 @@ list['pe-swipe'] = {
                     /** --- 当前的小数 --- */
                     const dec = lTool.getDecimal(info);
                     if (speed > 0.6) {
-                        // --- 速度很快，一定到下一条 ---
+                        // --- 速度很快，一定到下一页 ---
                         // --- cx 大于 0 为向左滑动 ---
                         this.selected = cx > 0 ? index : index + 1;
-                        this.go();
+                        this.go().catch(() => { });
                         this.mvselected = this.selected;
                         this.$emit('update:modelValue', this.mvselected);
                         return;
@@ -3742,7 +3786,7 @@ list['pe-swipe'] = {
                     else {
                         this.selected = dec >= -0.5 ? index + 1 : index;
                     }
-                    this.go();
+                    this.go().catch(() => { });
                     this.mvselected = this.selected;
                     this.$emit('update:modelValue', this.mvselected);
                 }
@@ -3754,7 +3798,7 @@ list['pe-swipe'] = {
             }
             this.translate += 10;
             --this.selected;
-            this.go();
+            this.go().catch(() => { });
             this.mvselected = this.selected;
             this.$emit('update:modelValue', this.mvselected);
         },
@@ -3764,7 +3808,7 @@ list['pe-swipe'] = {
             }
             this.translate -= 10;
             ++this.selected;
-            this.go();
+            this.go().catch(() => { });
             this.mvselected = this.selected;
             this.$emit('update:modelValue', this.mvselected);
         },
@@ -3777,7 +3821,7 @@ list['pe-swipe'] = {
                 return;
             }
             this.selected = p;
-            this.go();
+            this.go().catch(() => { });
             this.mvselected = this.selected;
             this.$emit('update:modelValue', this.mvselected);
         },
@@ -3792,13 +3836,13 @@ list['pe-swipe'] = {
             }
             if (this.timer) {
                 clearTimeout(this.timer);
-                this.timer = null;
+                this.timer = undefined;
             }
             this.$refs.items.style.transition = 'var(--pe-transition)';
             // --- 设置允许缓动 ---
             await lTool.sleep(34);
             this.$refs.items.style.transform = 'translateX(' + (-(index * this.width + index * this.propNumber('gutter'))).toString() + 'px)';
-            // --- 应用缓动后等待动画执行完成 ---
+            // --- 应用缓动后等待动画执行完毕 ---
             await lTool.sleep(334);
             this.$refs.items.style.transition = '';
             await lTool.sleep(34);
@@ -3809,15 +3853,15 @@ list['pe-swipe'] = {
             // --- 判断 ---
             if (this.mvselected !== this.selected) {
                 this.selected = this.mvselected;
-                this.go();
+                this.go().catch(() => { });
                 return;
             }
             if (lTool.getBoolean(this.auto)) {
-                this.timer = setTimeout(() => {
+                this.timer = window.setTimeout(() => {
                     this.translate -= 10;
-                    this.timer = null;
+                    this.timer = undefined;
                     ++this.selected;
-                    this.go();
+                    this.go().catch(() => { });
                     this.mvselected = this.selected;
                     this.$emit('update:modelValue', this.mvselected);
                 }, 3000);
@@ -3833,10 +3877,10 @@ list['pe-swipe'] = {
         await lTool.sleep(68);
         this.width = this.$el.offsetWidth;
         if (lTool.getBoolean(this.auto)) {
-            this.timer = setTimeout(() => {
-                this.timer = null;
+            this.timer = window.setTimeout(() => {
+                this.timer = undefined;
                 ++this.selected;
-                this.go();
+                this.go().catch(() => { });
                 this.mvselected = this.selected;
                 this.$emit('update:modelValue', this.mvelected);
             }, 3000);
@@ -3902,13 +3946,6 @@ list['pe-swipe-item'] = {
                 return 'calc(' + (left + (gutter * this.pindex)) + 'px + ' + this.iwidth + ' * ' + this.pindex + ')';
             }
             return left + 'px';
-        },
-        // --- 一个页面的宽度 ---
-        width: function () {
-            if (!this.$parent) {
-                return 0;
-            }
-            return this.$parent.width;
         },
         // --- 总宽度 ---
         awidth: function () {
@@ -4324,7 +4361,7 @@ list['pe-text'] = {
             this.$emit('focus');
         },
         tblur: function (e) {
-            // --- 如果是 number 则要判断数字是否符合 min max，不能在 input 判断，因为会导致用户无法正常输入数字，比如最小值是 10，他在输入 1 的时候就自动重置成 10 了 ---
+            // --- 如果是 number 则要判断数字是否符合 min max，不能在 input 判断，因为会导致用户无法正常输入数字，比如最小值是 10，他在输入 1 的时候就自动重置为 10 了 ---
             const target = e.target;
             if (this.checkNumber(target)) {
                 const event = {
@@ -4367,7 +4404,7 @@ list['pe-text'] = {
                 if (this.propNumber('maxlength') && this.$refs.text.value.length > this.propNumber('maxlength')) {
                     this.$refs.text.value = this.$refs.text.value.slice(0, this.propNumber('maxlength'));
                 }
-                // --- 有可能设置后控件实际值和设置的值不同，所以要重新判断一下 ---
+                // --- 有可能设置后控件实际值和设置的值不同，所以要重新判断一次 ---
                 if (this.$refs.text.value === this.value) {
                     return;
                 }

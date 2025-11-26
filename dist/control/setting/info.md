@@ -1,4 +1,3 @@
-````markdown
 设置容器控件，用于包裹设置项
 
 ### 参数
@@ -31,6 +30,8 @@
 
 ### 方法
 
+### 插槽
+
 ### 样式
 
 类似 iOS 设置界面的列表容器，采用垂直排列布局。默认圆角、边框和背景色，子项间带细分隔线。支持三种风格：默认（深色分隔线）、plain（无左右边框，直角）、light（浅色分隔线和边框）。
@@ -40,15 +41,13 @@
 ### 示例
 
 ```html
-<pe-setting :hover="true" :plain="false">
-    <pe-setting-block>
-        <pe-setting-item title="通知">
-            <pe-switch v-model="notification"></pe-switch>
-        </pe-setting-item>
-        <pe-setting-item title="语言">
-            <pe-select v-model="language" :data="languages"></pe-select>
-        </pe-setting-item>
-    </pe-setting-block>
+<pe-setting :hover="settingHover" :plain="settingPlain" :light="settingLight">
+    <pe-setting-item title="How are you" note="Ok, I'm ok, you?" mark="New">END</pe-setting-item>
+    <pe-setting-item title="How are you" note="Ok, I'm ok, you?">
+        <pe-switch />
+    </pe-setting-item>
+    <pe-setting-item title="How are you" note="stripe" class="pe-stripe"></pe-setting-item>
+    <pe-setting-item v-slot:left mark="#12">v-slot:left</pe-setting-item>
+    <pe-setting-item title="How are you" note="No right" arrow></pe-setting-item>
 </pe-setting>
 ```
-````

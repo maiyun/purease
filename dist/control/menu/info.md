@@ -1,11 +1,12 @@
-````markdown
-下拉菜单控件，通常配合 header-item 使用
+﻿下拉菜单控件，通常配合 pe-header-item、pe-menudown 使用
 
 ### 参数
 
 ### 类属性
 
 ### 方法
+
+### 插槽
 
 ### 样式
 
@@ -16,13 +17,19 @@
 ### 示例
 
 ```html
-<pe-header-item>
-    产品
+<div class="pe-menudown pe-padding-xs">
+    Language
     <pe-menu>
-        <a class="pe-menu-item" href="/product1">产品1</a>
-        <a class="pe-menu-item" href="/product2">产品2</a>
-        <a class="pe-menu-item" href="/product3">产品3</a>
+        <div class="pe-layoutlist">
+            <div>
+                <a class="pe-menu-item" href="javascript:void(0);">简体中文</a>
+                <a class="pe-menu-item" href="javascript:void(0);">繁體中文</a>
+            </div>
+            <div>
+                <a class="pe-menu-item" href="javascript:void(0);">English</a>
+                <a class="pe-menu-item pe-disabled" href="javascript:void(0);">Français</a>
+            </div>
+        </div>
     </pe-menu>
-</pe-header-item>
+</div>
 ```
-````

@@ -5,6 +5,8 @@ export interface ISpaHeaderVue extends purease.IVue {
     'back': boolean;
     /** --- 备注文本 --- */
     'note': string;
+    /** --- 布局方向，h 横向，v 纵向，默认 h --- */
+    'direction': 'h' | 'v';
     /** --- 返回按钮点击事件 --- */
     backClick: () => void;
 }
@@ -17,6 +19,9 @@ export const code = {
         },
         'note': {
             'default': '',
+        },
+        'direction': {
+            'default': 'h',
         },
     },
     'methods': {
