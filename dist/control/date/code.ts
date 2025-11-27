@@ -1,4 +1,4 @@
-﻿import * as lDom from '../../dom';
+import * as lDom from '../../dom';
 import * as lControl from '../../control';
 import * as purease from '../../purease.js';
 

@@ -48,6 +48,23 @@ for f in "${extra_files[@]}"; do
   fi
 done
 
+# --- 处理控件目录下的 info.md（总标题及每个控件子标题） ---
+if [ -d "dist/control" ]; then
+  printf "\n\n%s\n---" "# 控件" >> "doc/purease-rag.md"
+
+  # 遍历 dist/control 下的一层目录，按字母顺序
+  find dist/control -maxdepth 1 -mindepth 1 -type d | sort | while read dir; do
+    name=$(basename "$dir")
+    info_file="$dir/info.md"
+    if [ -f "$info_file" ]; then
+      printf "\n\n%s\n---\n\n" "## $name" >> "doc/purease-rag.md"
+      cat "$info_file" >> "doc/purease-rag.md"
+    fi
+  done
+fi
+
+
+
 # --- 合并所有 md 成一个文件，保留模块标题 ---
 find "$API_DOC_OUTPUT_DIR" -name "*.md" | sort | while read file; do
   # --- 计算相对路径（相对于 API_DOC_OUTPUT_DIR） ---
