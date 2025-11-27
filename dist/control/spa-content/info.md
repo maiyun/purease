@@ -1,4 +1,4 @@
-﻿SPA 内容区域控件，用于 pe-spa-page 内
+SPA 内容区域控件，用于 pe-spa-page 内
 
 ### 参数
 

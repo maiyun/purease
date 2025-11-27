@@ -1,4 +1,4 @@
-﻿import * as purease from '../../purease.js';
+import * as purease from '../../purease.js';
 
 export interface IDrawerVue extends purease.IVue {
     /** --- 是否显示，默认 false --- */

@@ -1,4 +1,4 @@
-﻿import * as purease from '../../purease';
+import * as purease from '../../purease';
 
 export interface ISpaPageVue extends purease.IVue {
     /** --- 页面路径 --- */

@@ -1,4 +1,4 @@
-﻿下拉菜单控件，通常配合 pe-header-item、pe-menudown 使用
+下拉菜单控件，通常配合 pe-header-item、pe-menudown 使用
 
 ### 参数
 

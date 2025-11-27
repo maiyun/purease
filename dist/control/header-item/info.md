@@ -1,4 +1,4 @@
-﻿头部导航栏的单个项目，为了 SEO 优化，链接模式可以直接用 a 标签加 `pe-header-item` 的 class。
+头部导航栏的单个项目，为了 SEO 优化，链接模式可以直接用 a 标签加 `pe-header-item` 的 class。
 
 ### 参数
 

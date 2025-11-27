@@ -1,4 +1,4 @@
-﻿import * as purease from '../../purease.js';
+import * as purease from '../../purease.js';
 import * as lTool from '../../tool';
 import * as lControl from '../../control';
 

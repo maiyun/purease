@@ -1,4 +1,4 @@
-﻿import * as lTool from '../../tool';
+import * as lTool from '../../tool';
 import * as lDom from '../../dom';
 import * as purease from '../../purease.js';
 

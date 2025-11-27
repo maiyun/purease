@@ -1,4 +1,4 @@
-﻿import * as lDom from '../../dom';
+import * as lDom from '../../dom';
 import * as purease from '../../purease.js';
 
 export interface ITabItemVue extends purease.IVue {

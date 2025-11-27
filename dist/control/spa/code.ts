@@ -1,4 +1,4 @@
-﻿import * as purease from '../../purease';
+import * as purease from '../../purease';
 
 export interface ISpaVue extends purease.IVue {
     /** --- 是否为朴素风格，默认 false --- */

@@ -1,4 +1,4 @@
-﻿import * as purease from '../../purease.js';
+import * as purease from '../../purease.js';
 import * as lDom from '../../dom.js';
 
 export interface ISettingBlockVue extends purease.IVue {

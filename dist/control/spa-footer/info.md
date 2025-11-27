@@ -1,4 +1,4 @@
-﻿SPA 底部导航栏控件，用于 pe-spa-page 的底部
+SPA 底部导航栏控件，用于 pe-spa-page 的底部
 
 ### 参数
 

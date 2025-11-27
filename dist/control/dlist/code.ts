@@ -1,4 +1,4 @@
-﻿import * as purease from '../../purease.js';
+import * as purease from '../../purease.js';
 import * as lControl from '../../control';
 
 /** --- dlist 数据项类型 --- */

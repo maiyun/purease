@@ -1,4 +1,4 @@
-﻿import * as purease from '../../purease.js';
+import * as purease from '../../purease.js';
 
 export interface ILabelVue extends purease.IVue {
     /** --- 显示模式，默认 default --- */

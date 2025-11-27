@@ -1,4 +1,4 @@
-﻿import * as purease from '../../purease.js';
+import * as purease from '../../purease.js';
 
 export interface ISpaFooterIconVue extends purease.IVue {
     /** --- 标题 --- */

@@ -1,4 +1,4 @@
-﻿import * as purease from '../../purease.js';
+import * as purease from '../../purease.js';
 
 export interface INboardVue extends purease.IVue {
     /** --- 是否禁用，默认 false --- */

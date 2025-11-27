@@ -1,4 +1,4 @@
-﻿import * as purease from '../../purease.js';
+import * as purease from '../../purease.js';
 import * as lControl from '../../control';
 
 export interface IPageVue extends purease.IVue {
