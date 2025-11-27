@@ -1,5 +1,5 @@
 import * as purease from 'purease';
-import footer from '../test/footer.js';
+import footer from './footer.js';
 
 class Page extends purease.AbstractPage {
 

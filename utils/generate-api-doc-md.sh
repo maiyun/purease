@@ -12,7 +12,7 @@ if [[ -n $(git status --porcelain "./dist") ]]; then
 fi
 
 rm -rf $API_DOC_OUTPUT_DIR
-rm -f doc/sc/purease-rag.md
+rm -f doc/purease-rag.md
 
 mkdir -p $(dirname $API_DOC_OUTPUT_DIR)
 
@@ -35,7 +35,7 @@ done
 
 # --- 定义额外的单文件列表 ---
 # extra_files=("doc/sc/quick-start.md" "doc/sc/another-single.md")
-extra_files=("doc/sc/quick-start.md")
+extra_files=("doc/sc/quick-start.md" "doc/sc/combo-page.md")
 
 # --- 处理单文件 ---
 for f in "${extra_files[@]}"; do
@@ -43,8 +43,8 @@ for f in "${extra_files[@]}"; do
     # --- 去掉路径和 .md ---
     # filename=$(basename "$f" .md)
     filename=$(basename "$f")
-    printf "\n%s\n---\n\n" "$filename" >> "doc/sc/purease-rag.md"
-    cat "$f" >> "doc/sc/purease-rag.md"
+    printf "\n%s\n---\n\n" "$filename" >> "doc/purease-rag.md"
+    cat "$f" >> "doc/purease-rag.md"
   fi
 done
 
@@ -55,7 +55,7 @@ find "$API_DOC_OUTPUT_DIR" -name "*.md" | sort | while read file; do
   # --- 去掉 .md 扩展名 ---
   # module_name="${relpath%.md}"
 
-  # printf "\n%s\n---\n\n" "$module_name" >> "doc/sc/purease-rag.md"
-  printf "\n%s\n---\n\n" "$relpath" >> "doc/sc/purease-rag.md"
-  cat "$file" >> "doc/sc/purease-rag.md"
+  # printf "\n%s\n---\n\n" "$module_name" >> "doc/purease-rag.md"
+  printf "\n%s\n---\n\n" "$relpath" >> "doc/purease-rag.md"
+  cat "$file" >> "doc/purease-rag.md"
 done

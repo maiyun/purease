@@ -28,7 +28,7 @@ To get started, set the loading path for the Purease module, then import your en
 <script type="importmap">
 {
     "imports": {
-        "purease": "https://cdn.jsdelivr.net/npm/purease@1.x.x/dist/index.js"
+        "purease": "https://cdn.jsdelivr.net/npm/purease@x.x.x/dist/index.js"
     }
 }
 </script>

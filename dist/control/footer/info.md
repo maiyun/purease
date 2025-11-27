@@ -10,6 +10,32 @@
 
 ### 类属性
 
+### 子类属性
+
+#### pe-footer-list
+
+链接列表容器，可包含标题和链接元素。设置 flex 列向布局
+
+#### pe-footer-title
+
+链接列表的标题样式，用于显示列表分类名称，用于 `pe-footer-list` 之内。设置较大字号和下边距
+
+#### pe-footer-end
+
+标记列表为末尾位置，在响应式下会排序到最后，与 `pe-footer-list` 搭配使用。通常用于放置 logo 区域
+
+#### pe-footer-logo
+
+Logo 展示区域，使用背景图模式显示。响应式下会缩小尺寸
+
+#### pe-footer-bottom
+
+底部信息区域容器，用于承载底部插槽内容。字号较小，色调偏灰
+
+#### pe-footer-bottom-row
+
+底部行容器，用于排列底部信息项。采用居中对齐和 flex 换行布局
+
 ### 方法
 
 ### 插槽
@@ -31,7 +57,7 @@
 ```html
 <pe-footer dark>
     <div class="pe-footer-list pe-footer-end">
-        <div class="pe-footer-logo dark"></div>
+        <div class="pe-footer-logo"></div>
     </div>
     <div class="pe-footer-list">
         <div class="pe-footer-title">List 1</div>

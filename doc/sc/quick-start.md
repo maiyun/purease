@@ -10,7 +10,7 @@
 <script type="importmap">
 {
     "imports": {
-        "purease": "https://cdn.jsdelivr.net/npm/purease@1.x.x/dist/index.js"
+        "purease": "https://cdn.jsdelivr.net/npm/purease@x.x.x/dist/index.js"
     }
 }
 </script>
@@ -30,6 +30,21 @@ purease = {
 </script>
 ```
 
+布局代码直接写在 `body` 内即可，例如：
+
+```html
+<body>
+<pe-banner class="index" direction="v" style="height: 600px;">
+    <div class="pe-btitle">I'm glad to see you</div>
+    <div class="pe-bnote">With Purease, you can quickly build a versatile, minimalist webpage.</div>
+    <div class="pe-layout pe-gap-s" style="align-items: center;">
+        <a class="pe-button pe-plain" href="./">Download</a>
+        <a class="pe-button pe-dark" href="./">Download</a>
+    </div>
+</pe-banner>
+</body>
+```
+
 **index.js**
 
 ```ts
@@ -41,6 +56,8 @@ class Page extends clickgo.AbstractPage {
 }
 purease.launcher(Page);
 ```
+
+根据情况可以多个页面共用同一个 Page（即载入同一个定义了 Page 类的 js 文件）。
 
 ## 代码提示
 
