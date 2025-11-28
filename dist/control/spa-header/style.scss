@@ -13,6 +13,17 @@
     }
 }
 
+html.pe-rtl {
+    .pe-spa-header {
+        .pe-spa-header-back {
+            left: initial; right: 0;
+            .pe-icon {
+                transform: scaleX(-1);
+            }
+        }
+    }
+}
+
 @media screen and (max-width: 800px) {
 
     .pe-spa-header {

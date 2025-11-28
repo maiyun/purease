@@ -42,6 +42,21 @@
     margin-top: 10px; text-align: center;
 }
 
+html.pe-rtl {
+    .pe-page-list {
+        > :not(:first-child) {
+            margin-left: initial; margin-right: 10px;
+        }
+    }
+
+    .pe-page-left::before {
+        transform: translateX(-2px) rotate(-135deg);
+    }
+    .pe-page-right::before {
+        transform: translateX(2px) rotate(-135deg);
+    }
+}
+
 @media screen and (max-width: 800px) {
 
     .pe-page-list {

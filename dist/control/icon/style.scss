@@ -4,3 +4,11 @@
         margin-right: 5px;
     }
 }
+
+html.pe-rtl {
+    .pe-icon {
+        svg, img {
+            margin-right: initial; margin-left: 5px;
+        }
+    }
+}

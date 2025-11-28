@@ -73,3 +73,26 @@
         }
     }
 }
+html.pe-rtl {
+    .pe-daterange-wrap {
+        .pe-pop {
+            &.pe-daterange-first {
+                > :first-child {
+                    border-right: initial; border-left: solid .5px var(--pe-border-plain);
+                }
+            }
+            &.pe-daterange-list {
+                > :first-child {
+                    > :not(:last-child) {
+                        margin-right: initial; margin-left: var(--pe-padding-xs);
+                    }
+                }
+                > :last-child {
+                    > :first-child {
+                        margin-right: initial; margin-left: var(--pe-padding-xs);
+                    }
+                }
+            }
+        }
+    }
+}

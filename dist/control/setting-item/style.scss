@@ -41,3 +41,16 @@
         }
     }
 }
+
+html.pe-rtl {
+    .pe-setting-item {
+        .pe-setting-item-arrow {
+            .pe-icon {
+                transform: scaleX(1);
+            }
+        }
+        .pe-setting-item-mark {
+            right: initial; left: 0; border-bottom-left-radius: initial; border-bottom-right-radius: var(--pe-radius);
+        }
+    }
+}

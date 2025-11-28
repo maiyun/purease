@@ -42,30 +42,59 @@
 .pe-swipe-next {
     top: calc(100% / 2); transform: rotateZ(-45deg); border-width: 0 3px 3px 0;
 }
-.pe-swipe.pe-control-inner {
-    .pe-swipe-prev, .pe-swipe-next {
-        &:hover {
-            border-color: rgba(255,255,255,.9);
+.pe-swipe {
+    &.pe-control-inner {
+        .pe-swipe-prev, .pe-swipe-next {
+            &:hover {
+                border-color: rgba(255,255,255,.9);
+            }
+        }
+        .pe-swipe-prev {
+            left: 20px;
+        }
+        .pe-swipe-next {
+            right: 20px;
         }
     }
-    .pe-swipe-prev {
-        left: 20px;
-    }
-    .pe-swipe-next {
-        right: 20px;
+    &.pe-control-outer {
+        .pe-swipe-prev, .pe-swipe-next {
+            border-color: rgba(0,0,0,.3);
+            &:hover {
+                border-color: rgba(0,0,0,.9);
+            }
+        }
+        .pe-swipe-prev {
+            left: -30px;
+        }
+        .pe-swipe-next {
+            right: -30px;
+        }
     }
 }
-.pe-swipe.pe-control-outer {
-    .pe-swipe-prev, .pe-swipe-next {
-        border-color: rgba(0,0,0,.3);
-        &:hover {
-            border-color: rgba(0,0,0,.9);
-        }
-    }
+
+html.pe-rtl {
     .pe-swipe-prev {
-        left: -30px;
+        border-width: 0 3px 3px 0;
     }
     .pe-swipe-next {
-        right: -30px;
+        border-width: 3px 0 0 3px;
+    }
+    .pe-swipe {
+        &.pe-control-inner {
+            .pe-swipe-prev {
+                left: initial; right: 20px;
+            }
+            .pe-swipe-next {
+                right: initial; left: 20px;
+            }
+        }
+        &.pe-control-outer {
+            .pe-swipe-prev {
+                left: initial; right: -30px;
+            }
+            .pe-swipe-next {
+                right: initial; left: -30px;
+            }
+        }
     }
 }

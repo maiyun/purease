@@ -95,6 +95,12 @@ html {
         }
     }
 
+    // --- 有弹出层时 ---
+
+    &.pe-header-pop {
+        overflow: hidden;
+    }
+
     // --- rtl ---
 
     &.pe-rtl {
@@ -655,11 +661,17 @@ html.pe-rtl {
         margin-left: var(--pe-padding-s); transition: var(--pe-transition); overflow: hidden;
     }
 }
+
 html.pe-rtl {
     .pe-tree {
         div.pe-tree-item {
             &::after {
-                right: initial; left: var(--pe-padding-s);
+                right: initial; left: var(--pe-padding-s); transform: translateY(-5px) rotate(135deg);
+            }
+            &.pe-open {
+                &::after {
+                    transform: translateY(-1px) rotate(45deg);
+                }
             }
         }
         .pe-tree-menu {
@@ -1229,6 +1241,24 @@ html.pe-rtl {
         }
     }
 }
+html.pe-rtl {
+    .pe-date-wrap {
+        .pe-pop {
+            &.pe-date-list {
+                > :first-child {
+                    > :not(:last-child) {
+                        margin-right: initial; margin-left: var(--pe-padding-xs);
+                    }
+                }
+                > :last-child {
+                    > :first-child {
+                        margin-right: initial; margin-left: var(--pe-padding-xs);
+                    }
+                }
+            }
+        }
+    }
+}
 
 .pe-datepanel-wrap {
     border-radius: var(--pe-radius); display: flex; flex-direction: column; gap: var(--pe-padding-xs); padding: var(--pe-padding-xs);
@@ -1342,6 +1372,27 @@ html.pe-rtl {
         display: flex; gap: var(--pe-padding-xxs); align-items: center; justify-content: center;
     }
 }
+html.pe-rtl {
+    .pe-datepanel-wrap {
+        .pe-datepanel-header {
+            .pe-datepanel-left {
+                .pe-datepanel-monthleft {
+                    .pe-datepanel-arrow::after {
+                        border-width: 1px 1px 0 0; margin-left: initial; margin-right: 3px;
+                    }
+                }
+                .pe-datepanel-monthright {
+                    .pe-datepanel-arrow::after {
+                        border-width: 0 0 1px 1px; margin-right: initial; margin-left: 3px;
+                    }
+                }
+            }
+            .pe-datepanel-right {
+                padding-left: initial; padding-right: var(--pe-padding-xxs);
+            }
+        }
+    }
+}
 
 .pe-daterange-wrap {
     display: flex; outline: none; border-radius: var(--pe-radius); border-style: solid; border-width: .5px; transition: var(--pe-transition); position: relative;
@@ -1418,6 +1469,29 @@ html.pe-rtl {
         }
     }
 }
+html.pe-rtl {
+    .pe-daterange-wrap {
+        .pe-pop {
+            &.pe-daterange-first {
+                > :first-child {
+                    border-right: initial; border-left: solid .5px var(--pe-border-plain);
+                }
+            }
+            &.pe-daterange-list {
+                > :first-child {
+                    > :not(:last-child) {
+                        margin-right: initial; margin-left: var(--pe-padding-xs);
+                    }
+                }
+                > :last-child {
+                    > :first-child {
+                        margin-right: initial; margin-left: var(--pe-padding-xs);
+                    }
+                }
+            }
+        }
+    }
+}
 
 .pe-dialog {
     display: flex; align-items: center; justify-content: center; position: fixed; left: 0; top: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, .3); z-index: 10; transition: var(--pe-transition);
@@ -1469,7 +1543,19 @@ html.pe-rtl {
     }
 }
 .pe-dlist-label {
-    flex: 1; cursor: pointer;
+    flex: 1;
+}
+
+html.pe-rtl {
+    .pe-dlist-arrow {
+        margin-right: initial; margin-left: 4px;
+        &::before {
+            border-width: 4px 5px 4px 0; border-color: transparent var(--pe-color) transparent transparent;
+        }
+        &.pe-expanded {
+            transform: rotate(-90deg);
+        }
+    }
 }
 
 .pe-drawer-body {
@@ -1509,6 +1595,15 @@ html.pe-rtl {
         .pe-drawer-body {
             transform: translateX(0);
         }
+    }
+}
+
+html.pe-rtl {
+    .pe-drawer-body {
+        transform: translateX(-1500px);
+    }
+    .pe-drawer-close {
+        margin-right: initial; margin-left: var(--pe-padding);
     }
 }
 
@@ -1557,6 +1652,13 @@ html.pe-rtl {
 }
 .pe-footer-bottom-row {
     display: flex; justify-content: center; align-items: center; gap: var(--pe-gap-xs); flex-wrap: wrap;
+}
+
+
+html.pe-rtl {
+    .pe-footer-logo {
+        background-position: top right;
+    }
 }
 
 @media screen and (max-width: 800px) {
@@ -1667,6 +1769,15 @@ html.pe-sheader {
     }
 }
 
+html.pe-rtl {
+    .pe-nav-bottom {
+        margin-left: initial; margin-right: -180px;
+    }
+    .pe-nav-right {
+        padding-right: initial; padding-left: 20px;
+    }
+}
+
 @media screen and (max-width: 800px) {
 
     html.pe-scroll .pe-header.pe-fixed, .pe-header:hover, .pe-header.pe-show {
@@ -1703,6 +1814,21 @@ html.pe-sheader {
     html.pe-sheader {
         .pe-header-control {
             right: 10px; top: 9px;
+        }
+    }
+
+    html.pe-rtl {
+        .pe-header-control {
+            right: initial; left: 20px;
+        }
+        &.pe-sheader {
+            .pe-header-control {
+                right: initial; left: 10px;
+            }
+        }
+
+        .pe-nav-bottom {
+            margin-right: initial;
         }
     }
 
@@ -1747,6 +1873,16 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
                         border-color: #FFF;
                     }
                 }
+            }
+        }
+    }
+}
+
+html.pe-rtl {
+    .pe-header-item {
+        &.pe-list {
+            &::after {
+                margin-left: initial; margin-right: 10px;
             }
         }
     }
@@ -1800,12 +1936,30 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
         }
     }
 
+    html.pe-rtl {
+        .pe-header-item {
+            &.pe-list {
+                &::after {
+                    right: initial; left: 30px;
+                }
+            }
+        }
+    }
+
 }
 
 .pe-icon {
     display: flex; align-items: center; width: 18px; height: 18px; margin: 0 5px;
     svg, img {
         margin-right: 5px;
+    }
+}
+
+html.pe-rtl {
+    .pe-icon {
+        svg, img {
+            margin-right: initial; margin-left: 5px;
+        }
     }
 }
 
@@ -1832,10 +1986,16 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     flex: 1; display: flex; flex-direction: column;
 }
 
+html.pe-rtl {
+    .pe-lnav-left {
+        border-right: initial; border-left: solid 1px var(--pe-border-plain);
+    }
+}
+
 @media screen and (max-width: 800px) {
 
     .pe-lnav-left {
-        position: fixed; left: 0; top: 0; width: 100%; height: 100%; display: flex; background: rgba(0, 0, 0, 0); transition: var(--pe-transition); z-index: 1; display: block;
+        position: fixed; left: 0; top: 0; width: 100%; height: 100%; display: flex; background: rgba(0, 0, 0, 0); transition: var(--pe-transition); z-index: 1; display: block;  border-right: initial;
 
         .pe-lnav-left-content {
             display: flex; flex-direction: column; background: #FFF; width: 80%; height: 100%; overflow: auto; box-shadow: var(--pe-pop-shadow); transition: var(--pe-transition); transition-property: transform; transform: translateX(-1500px);
@@ -1852,6 +2012,20 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
         }
     }
 
+    html.pe-rtl {
+        .pe-lnav-left {
+            border-left: initial;
+            .pe-lnav-left-content {
+                transform: translateX(1500px);
+            }
+            &.pe-show {
+                .pe-lnav-left-content {
+                    transform: translateX(0);
+                }
+            }
+        }
+    }
+
 }
 
 .pe-menu {
@@ -1862,6 +2036,15 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     padding: 15px 35px 15px 15px; transition: var(--pe-transition); display: flex;
     &:hover {
         background: var(--pe-bg); color: var(--pe); border-radius: var(--pe-radius);
+    }
+}
+
+html.pe-rtl {
+    .pe-menu {
+        left: initial; right: -30px;
+    }
+    .pe-menu-item {
+        padding: 15px 15px 15px 35px;
     }
 }
 
@@ -2011,6 +2194,21 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     margin-top: 10px; text-align: center;
 }
 
+html.pe-rtl {
+    .pe-page-list {
+        > :not(:first-child) {
+            margin-left: initial; margin-right: 10px;
+        }
+    }
+
+    .pe-page-left::before {
+        transform: translateX(-2px) rotate(-135deg);
+    }
+    .pe-page-right::before {
+        transform: translateX(2px) rotate(-135deg);
+    }
+}
+
 @media screen and (max-width: 800px) {
 
     .pe-page-list {
@@ -2127,6 +2325,18 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     }
 }
 
+html.pe-rtl {
+    .pe-setting-item {
+        .pe-setting-item-arrow {
+            .pe-icon {
+                transform: scaleX(1);
+            }
+        }
+        .pe-setting-item-mark {
+            right: initial; left: 0; border-bottom-left-radius: initial; border-bottom-right-radius: var(--pe-radius);
+        }
+    }
+}
 
 .pe-slider {
     border: solid 1px var(--pe-border); background: var(--pe-input-bg); box-shadow: var(--pe-shadow) inset; position: relative; height: 6px; border-radius: 3px;
@@ -2178,6 +2388,9 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 
 .pe-spa-header {
     display: flex; height: 65px; align-items: center; justify-content: center; font-size: var(--pe-size-l); position: relative; gap: var(--pe-gap-xxs); line-height: 1;
+    &.pe-direction-v {
+        flex-direction: column;
+    }
 
     .pe-spa-header-back {
         position: absolute; left: 0; top: 0; height: 100%; padding: 0 var(--pe-padding-s); display: flex; align-items: center;
@@ -2185,6 +2398,17 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 
     .pe-spa-header-note {
         font-size: var(--pe-size-s); color: var(--pe-note-color); text-align: center;
+    }
+}
+
+html.pe-rtl {
+    .pe-spa-header {
+        .pe-spa-header-back {
+            left: initial; right: 0;
+            .pe-icon {
+                transform: scaleX(-1);
+            }
+        }
     }
 }
 
@@ -2264,31 +2488,60 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 .pe-swipe-next {
     top: calc(100% / 2); transform: rotateZ(-45deg); border-width: 0 3px 3px 0;
 }
-.pe-swipe.pe-control-inner {
-    .pe-swipe-prev, .pe-swipe-next {
-        &:hover {
-            border-color: rgba(255,255,255,.9);
+.pe-swipe {
+    &.pe-control-inner {
+        .pe-swipe-prev, .pe-swipe-next {
+            &:hover {
+                border-color: rgba(255,255,255,.9);
+            }
+        }
+        .pe-swipe-prev {
+            left: 20px;
+        }
+        .pe-swipe-next {
+            right: 20px;
         }
     }
-    .pe-swipe-prev {
-        left: 20px;
-    }
-    .pe-swipe-next {
-        right: 20px;
+    &.pe-control-outer {
+        .pe-swipe-prev, .pe-swipe-next {
+            border-color: rgba(0,0,0,.3);
+            &:hover {
+                border-color: rgba(0,0,0,.9);
+            }
+        }
+        .pe-swipe-prev {
+            left: -30px;
+        }
+        .pe-swipe-next {
+            right: -30px;
+        }
     }
 }
-.pe-swipe.pe-control-outer {
-    .pe-swipe-prev, .pe-swipe-next {
-        border-color: rgba(0,0,0,.3);
-        &:hover {
-            border-color: rgba(0,0,0,.9);
-        }
-    }
+
+html.pe-rtl {
     .pe-swipe-prev {
-        left: -30px;
+        border-width: 0 3px 3px 0;
     }
     .pe-swipe-next {
-        right: -30px;
+        border-width: 3px 0 0 3px;
+    }
+    .pe-swipe {
+        &.pe-control-inner {
+            .pe-swipe-prev {
+                left: initial; right: 20px;
+            }
+            .pe-swipe-next {
+                right: initial; left: 20px;
+            }
+        }
+        &.pe-control-outer {
+            .pe-swipe-prev {
+                left: initial; right: -30px;
+            }
+            .pe-swipe-next {
+                right: initial; left: -30px;
+            }
+        }
     }
 }
 
@@ -2586,6 +2839,14 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     }
 }
 
+html.pe-rtl {
+    .pe-tag {
+        svg {
+            margin-left: initial; margin-right: 7px;
+        }
+    }
+}
+
 .pe-text {
     background: var(--pe-input-bg); border-radius: var(--pe-radius); transition: var(--pe-transition); display: flex; border: solid 1px var(--pe-border);
     &:hover {
@@ -2618,6 +2879,20 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
 
     .pe-append {
         display: flex; align-items: center; padding-right: var(--pe-padding-xs);
+    }
+}
+
+html.pe-rtl {
+    .pe-text {
+        .pe-prepend {
+            padding-left: initial; padding-right: var(--pe-padding-xs);
+        }
+        .pe-text-sicon {
+            padding-right: initial; padding-left: var(--pe-padding-xs);
+        }
+        .pe-append {
+            padding-right: initial; padding-left: var(--pe-padding-xs);
+        }
     }
 }
 

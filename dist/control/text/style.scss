@@ -32,3 +32,17 @@
         display: flex; align-items: center; padding-right: var(--pe-padding-xs);
     }
 }
+
+html.pe-rtl {
+    .pe-text {
+        .pe-prepend {
+            padding-left: initial; padding-right: var(--pe-padding-xs);
+        }
+        .pe-text-sicon {
+            padding-right: initial; padding-left: var(--pe-padding-xs);
+        }
+        .pe-append {
+            padding-right: initial; padding-left: var(--pe-padding-xs);
+        }
+    }
+}

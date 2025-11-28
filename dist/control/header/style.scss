@@ -54,6 +54,15 @@ html.pe-sheader {
     }
 }
 
+html.pe-rtl {
+    .pe-nav-bottom {
+        margin-left: initial; margin-right: -180px;
+    }
+    .pe-nav-right {
+        padding-right: initial; padding-left: 20px;
+    }
+}
+
 @media screen and (max-width: 800px) {
 
     html.pe-scroll .pe-header.pe-fixed, .pe-header:hover, .pe-header.pe-show {
@@ -90,6 +99,21 @@ html.pe-sheader {
     html.pe-sheader {
         .pe-header-control {
             right: 10px; top: 9px;
+        }
+    }
+
+    html.pe-rtl {
+        .pe-header-control {
+            right: initial; left: 20px;
+        }
+        &.pe-sheader {
+            .pe-header-control {
+                right: initial; left: 10px;
+            }
+        }
+
+        .pe-nav-bottom {
+            margin-right: initial;
         }
     }
 

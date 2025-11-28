@@ -1,5 +1,5 @@
 <div class="pe-dlist" :class="[!data.length&&'pe-empty',propBoolean('plain')&&'pe-plain',propBoolean('tree')&&'pe-tree']">
-    <div v-if="data.length" v-for="flatItem, i of flatData" class="pe-dlist-item" :class="[getItemValue(flatItem.item)===value&&'pe-selected',typeof flatItem.item==='object'&&flatItem.item.disabled&&'pe-disabled']" :style="{'padding-left': 'calc(var(--pe-padding-xs) + ' + (flatItem.level * 20) + 'px)'}">
+    <div v-if="data.length" v-for="flatItem, i of flatData" class="pe-dlist-item" :class="[getItemValue(flatItem.item)===value&&'pe-selected',typeof flatItem.item==='object'&&flatItem.item.disabled&&'pe-disabled']" :style="{[isRtl?'padding-right':'padding-left']: 'calc(var(--pe-padding-xs) + ' + (flatItem.level * 20) + 'px)'}">
         <div v-if="propBoolean('tree')" class="pe-dlist-arrow" :class="[isExpanded(flatItem.path)&&'pe-expanded',!hasChildren(flatItem.item)&&'pe-empty']" @click.stop="hasChildren(flatItem.item)&&toggleExpand(flatItem.path)"></div>
         <div class="pe-dlist-label" @click="click(i)">{{getItemLabel(flatItem.item)}}</div>
     </div>

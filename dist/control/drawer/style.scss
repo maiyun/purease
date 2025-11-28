@@ -37,3 +37,12 @@
         }
     }
 }
+
+html.pe-rtl {
+    .pe-drawer-body {
+        transform: translateX(-1500px);
+    }
+    .pe-drawer-close {
+        margin-right: initial; margin-left: var(--pe-padding);
+    }
+}

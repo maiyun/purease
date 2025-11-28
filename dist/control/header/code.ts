@@ -38,5 +38,12 @@ export const code = {
                 purease.global.headerPop = v;
             }
         }
+    },
+    'methods': {
+        /** --- 切换头部弹出状态 --- */
+        'toggleHeaderPop': function(this: IHeaderVue) {
+            this.headerPop = !this.headerPop;
+            document.getElementsByTagName('html')[0].classList.toggle('pe-header-pop', this.headerPop);
+        }
     }
 };

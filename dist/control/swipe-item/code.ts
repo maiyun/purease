@@ -74,6 +74,13 @@ export const code = {
             }
             return left + 'px';
         },
+        // --- 一个页面的宽度 ---
+        width: function(this: ISwipeItemVue) {
+            if (!this.$parent) {
+                return 0;
+            }
+            return this.$parent.width;
+        },
         // --- 总宽度 ---
         awidth: function(this: ISwipeItemVue) {
             if (!this.$parent) {

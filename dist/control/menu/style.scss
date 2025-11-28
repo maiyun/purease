@@ -9,6 +9,15 @@
     }
 }
 
+html.pe-rtl {
+    .pe-menu {
+        left: initial; right: -30px;
+    }
+    .pe-menu-item {
+        padding: 15px 15px 15px 35px;
+    }
+}
+
 .pe-header {
     &.pe-theme-rev {
         .pe-menu {

@@ -42,6 +42,16 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     }
 }
 
+html.pe-rtl {
+    .pe-header-item {
+        &.pe-list {
+            &::after {
+                margin-left: initial; margin-right: 10px;
+            }
+        }
+    }
+}
+
 @media screen and (max-width: 1200px) and (min-width: 800px) {
     .pe-header-item {
         padding: 0 15px;
@@ -85,6 +95,16 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
                     &::after {
                         top: 25px;
                     }
+                }
+            }
+        }
+    }
+
+    html.pe-rtl {
+        .pe-header-item {
+            &.pe-list {
+                &::after {
+                    right: initial; left: 30px;
                 }
             }
         }

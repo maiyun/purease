@@ -45,6 +45,8 @@ purease = {
 </body>
 ```
 
+- 注意：html 元素需要增加 `style="visibility: hidden; overflow: hidden;"` 样式，防止还未加载完之前显示错版页面。
+
 **index.js**
 
 ```ts

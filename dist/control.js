@@ -2347,7 +2347,7 @@ list['pe-dialog'] = {
     },
 };
 list['pe-dlist'] = {
-    'template': `<div class="pe-dlist" :class="[!data.length&&'pe-empty',propBoolean('plain')&&'pe-plain',propBoolean('tree')&&'pe-tree']"><div v-if="data.length" v-for="flatItem, i of flatData" class="pe-dlist-item" :class="[getItemValue(flatItem.item)===value&&'pe-selected',typeof flatItem.item==='object'&&flatItem.item.disabled&&'pe-disabled']" :style="{'padding-left': 'calc(var(--pe-padding-xs) + ' + (flatItem.level * 20) + 'px)'}"><div v-if="propBoolean('tree')" class="pe-dlist-arrow" :class="[isExpanded(flatItem.path)&&'pe-expanded',!hasChildren(flatItem.item)&&'pe-empty']" @click.stop="hasChildren(flatItem.item)&&toggleExpand(flatItem.path)"></div><div class="pe-dlist-label" @click="click(i)">{{getItemLabel(flatItem.item)}}</div></div><div v-else>{{l('empty')}}</div></div>`,
+    'template': `<div class="pe-dlist" :class="[!data.length&&'pe-empty',propBoolean('plain')&&'pe-plain',propBoolean('tree')&&'pe-tree']"><div v-if="data.length" v-for="flatItem, i of flatData" class="pe-dlist-item" :class="[getItemValue(flatItem.item)===value&&'pe-selected',typeof flatItem.item==='object'&&flatItem.item.disabled&&'pe-disabled']" :style="{[isRtl?'padding-right':'padding-left']: 'calc(var(--pe-padding-xs) + ' + (flatItem.level * 20) + 'px)'}"><div v-if="propBoolean('tree')" class="pe-dlist-arrow" :class="[isExpanded(flatItem.path)&&'pe-expanded',!hasChildren(flatItem.item)&&'pe-empty']" @click.stop="hasChildren(flatItem.item)&&toggleExpand(flatItem.path)"></div><div class="pe-dlist-label" @click="click(i)">{{getItemLabel(flatItem.item)}}</div></div><div v-else>{{l('empty')}}</div></div>`,
     'props': {
         'modelValue': {
             'default': ''
@@ -2621,7 +2621,7 @@ list['pe-group'] = {
     'template': `<div class="pe-group" :class="[$slots['title']&&'pe-hastitle']"><div v-if="$slots['title']" class="pe-group-title"><slot name="title"></slot></div><div class="pe-group-content"><slot></slot></div><div v-if="$slots['bottom']" class="pe-group-bottom"><slot name="bottom"></slot></div></div>`
 };
 list['pe-header'] = {
-    'template': `<div class="pe-header" :class="[propBoolean('fixed')&&'pe-fixed','pe-theme-'+theme,headerPop&&'pe-show',propBoolean('line')&&'pe-line']"><a class="pe-logo" :href="logoHref"></a><div class="pe-nav"><div class="pe-nav-left"><div class="pe-nav-top"><slot></slot></div><div v-if="$slots['bottom']" class="pe-nav-bottom"><slot name="bottom"></slot></div></div><div class="pe-nav-right"><slot name="right"></slot></div></div><svg v-if="headerPop" @click="headerPop=false" class="pe-header-control" viewBox="0 0 24 24" fill="none"><path d="M14.5 9.50002L9.5 14.5M9.49998 9.5L14.5 14.5" stroke-width="1.5" stroke-linecap="round"/><path d="M22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C21.5093 4.43821 21.8356 5.80655 21.9449 8" stroke-width="1.5" stroke-linecap="round"/></svg><svg v-else @click="headerPop=true" class="pe-header-control" viewBox="0 0 24 24" fill="none"><path d="M4 7L7 7M20 7L11 7" stroke-width="1.5" stroke-linecap="round"/><path d="M20 17H17M4 17L13 17" stroke-width="1.5" stroke-linecap="round"/><path d="M4 12H7L20 12" stroke-width="1.5" stroke-linecap="round"/></svg></div>`,
+    'template': `<div class="pe-header" :class="[propBoolean('fixed')&&'pe-fixed','pe-theme-'+theme,headerPop&&'pe-show',propBoolean('line')&&'pe-line']"><a class="pe-logo" :href="logoHref"></a><div class="pe-nav"><div class="pe-nav-left"><div class="pe-nav-top"><slot></slot></div><div v-if="$slots['bottom']" class="pe-nav-bottom"><slot name="bottom"></slot></div></div><div class="pe-nav-right"><slot name="right"></slot></div></div><svg v-if="headerPop" @click="toggleHeaderPop" class="pe-header-control" viewBox="0 0 24 24" fill="none"><path d="M14.5 9.50002L9.5 14.5M9.49998 9.5L14.5 14.5" stroke-width="1.5" stroke-linecap="round"/><path d="M22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C21.5093 4.43821 21.8356 5.80655 21.9449 8" stroke-width="1.5" stroke-linecap="round"/></svg><svg v-else @click="toggleHeaderPop" class="pe-header-control" viewBox="0 0 24 24" fill="none"><path d="M4 7L7 7M20 7L11 7" stroke-width="1.5" stroke-linecap="round"/><path d="M20 17H17M4 17L13 17" stroke-width="1.5" stroke-linecap="round"/><path d="M4 12H7L20 12" stroke-width="1.5" stroke-linecap="round"/></svg></div>`,
     'props': {
         'logoHref': {
             'default': '',
@@ -2644,6 +2644,13 @@ list['pe-header'] = {
             set: function (v) {
                 purease.global.headerPop = v;
             }
+        }
+    },
+    'methods': {
+        /** --- 切换头部弹出状态 --- */
+        'toggleHeaderPop': function () {
+            this.headerPop = !this.headerPop;
+            document.getElementsByTagName('html')[0].classList.toggle('pe-header-pop', this.headerPop);
         }
     }
 };
@@ -2716,8 +2723,8 @@ list['pe-label'] = {
     'computed': {
         /** --- 替换 slot 数据 --- */
         contentComp: function () {
-            if (this.$props.mode !== 'date') {
-                return this.$props.content;
+            if (this.mode !== 'date') {
+                return this.content.toString();
             }
             if (this.propNumber('content') === 0) {
                 return '';
@@ -3323,9 +3330,6 @@ list['pe-setting-item'] = {
         'alignV': {
             'default': 'center'
         },
-        'hover': {
-            'default': false
-        },
         'nopadding': {
             'default': false
         },
@@ -3536,6 +3540,9 @@ list['pe-spa-header'] = {
         },
         'note': {
             'default': '',
+        },
+        'direction': {
+            'default': 'h',
         },
     },
     'methods': {
@@ -3947,6 +3954,13 @@ list['pe-swipe-item'] = {
             }
             return left + 'px';
         },
+        // --- 一个页面的宽度 ---
+        width: function () {
+            if (!this.$parent) {
+                return 0;
+            }
+            return this.$parent.width;
+        },
         // --- 总宽度 ---
         awidth: function () {
             if (!this.$parent) {
@@ -3991,6 +4005,10 @@ list['pe-swipe-item'] = {
 };
 list['pe-switch'] = {
     'template': `<div class="pe-switch" :class="[value===mapComp.true&&'pe-checked',propBoolean('disabled')&&'pe-disabled']" :tabindex="!propBoolean('disabled') ? '0' : undefined" @click="click" @keydown="keydown"><div class="pe-switch-block"></div></div>`,
+    'emits': {
+        'change': null,
+        'update:modelValue': null,
+    },
     'props': {
         'disabled': {
             'default': false,
@@ -4010,18 +4028,18 @@ list['pe-switch'] = {
     'computed': {
         mapComp: function () {
             return {
-                'true': this.$props.map.true ?? true,
-                'false': this.$props.map.false ?? false
+                'true': this.map.true ?? true,
+                'false': this.map.false ?? false
             };
         }
     },
     'watch': {
         'modelValue': {
             handler: function () {
-                if (this.$props.modelValue === undefined) {
+                if (this.modelValue === undefined) {
                     return;
                 }
-                this.value = this.$props.modelValue;
+                this.value = this.modelValue;
             },
             'immediate': true
         }
@@ -4243,14 +4261,14 @@ list['pe-tag'] = {
     },
     'props': {
         'type': {
-            // --- default' | 'primary' | 'info' | 'warning' | 'danger' | 'cg' ---
+            // --- default' | 'primary' | 'info' | 'warning' | 'danger' | 'pe' ---
             'default': 'default'
         },
         'plain': {
             'default': false
         },
         'size': {
-            // --- 'xs', 's', 'm' | 'l' ---
+            // --- 'xs', 's', 'm', 'l' ---
             'default': 'm'
         },
         'close': {

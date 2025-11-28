@@ -110,3 +110,24 @@
         display: flex; gap: var(--pe-padding-xxs); align-items: center; justify-content: center;
     }
 }
+html.pe-rtl {
+    .pe-datepanel-wrap {
+        .pe-datepanel-header {
+            .pe-datepanel-left {
+                .pe-datepanel-monthleft {
+                    .pe-datepanel-arrow::after {
+                        border-width: 1px 1px 0 0; margin-left: initial; margin-right: 3px;
+                    }
+                }
+                .pe-datepanel-monthright {
+                    .pe-datepanel-arrow::after {
+                        border-width: 0 0 1px 1px; margin-right: initial; margin-left: 3px;
+                    }
+                }
+            }
+            .pe-datepanel-right {
+                padding-left: initial; padding-right: var(--pe-padding-xxs);
+            }
+        }
+    }
+}

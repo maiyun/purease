@@ -137,3 +137,11 @@
         margin-left: 7px; transition: var(--pe-transition); border-radius: var(--pe-radius);
     }
 }
+
+html.pe-rtl {
+    .pe-tag {
+        svg {
+            margin-left: initial; margin-right: 7px;
+        }
+    }
+}
