@@ -305,9 +305,9 @@ html.pe-rtl {
     display: grid; grid-template-columns: auto 1fr; gap: var(--pe-gap-xs);
 }
 
-// --- pe 对齐 ---
+// --- pe-align-center-desktop ---
 
-.pe-align-center-max {
+.pe-align-center-desktop {
     align-items: center;
 }
 
@@ -392,7 +392,8 @@ html.pe-rtl {
     &.pe-plain, &.pe-pwhite, &.pe-pgrey {
         // --- 加粗模式 ---
         &.pe-bold {
-            font-weight: bold; border-width: 2px;
+            // --- 文本本身就会被加粗 ---
+            border-width: 2px;
         }
     }
 }
@@ -724,9 +725,9 @@ html.pe-rtl {
         gap: 15px;
     }
 
-    // --- pe 对齐 ---
+    // --- pe-align-center-desktop ---
 
-    .pe-align-center-max {
+    .pe-align-center-desktop {
         align-items: initial;
     }
 
