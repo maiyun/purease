@@ -110,6 +110,8 @@ class Page extends purease.AbstractPage {
 
     public settingLight = false;
 
+    public rectTabItemValue = 0;
+
     public tabHover = false;
 
     public changeRTL(): void {

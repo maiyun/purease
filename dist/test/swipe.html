@@ -214,8 +214,9 @@
         <pe-tab-item>Tab2</pe-tab-item>
         <pe-tab-item>Tab3</pe-tab-item>
     </pe-tab>
+    <div>v-model: {{rectTabItemValue}}</div>
     <div class="pe-layout" style="justify-content: center;">
-        <pe-tab type="rect" :hover="tabHover">
+        <pe-tab v-model="rectTabItemValue" type="rect" :hover="tabHover">
             <pe-tab-item>Tab1</pe-tab-item>
             <pe-tab-item>Tab2222</pe-tab-item>
             <pe-tab-item>Tab34</pe-tab-item>

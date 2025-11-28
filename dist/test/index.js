@@ -55,6 +55,7 @@ class Page extends purease.AbstractPage {
         this.settingHover = false;
         this.settingPlain = false;
         this.settingLight = false;
+        this.rectTabItemValue = 0;
         this.tabHover = false;
         this.customDialog = false;
         this.customDialogText = '';

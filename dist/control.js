@@ -4126,6 +4126,18 @@ list['pe-tab-item'] = {
             return this.$parent.selected === this.index;
         }
     },
+    'watch': {
+        isRtl: async function () {
+            if (!this.$parent) {
+                return;
+            }
+            if (this.$parent.selected !== this.index) {
+                return;
+            }
+            await purease.tool.sleep(34);
+            this.resize();
+        }
+    },
     'methods': {
         hover: function (e) {
             if (!this.$parent) {

@@ -29,6 +29,18 @@ export const code = {
             return this.$parent.selected === this.index;
         }
     },
+    'watch': {
+        isRtl: async function(this: ITabItemVue) {
+            if (!this.$parent) {
+                return;
+            }
+            if (this.$parent.selected !== this.index) {
+                return;
+            }
+            await purease.tool.sleep(34);
+            this.resize();
+        }
+    },
     'methods': {
         hover: function(this: ITabItemVue, e: MouseEvent | TouchEvent) {
             if (!this.$parent) {
