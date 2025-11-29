@@ -11,327 +11,760 @@
     }
 }
 </script>
-<script>
-purease = {
-    'config': {
-        'cdn': 'https://cdn.jsdelivr.net',
-    },
-    'global': {},
-};
-</script>
 <script type="module" src="./index.js"></script>
-<!-- 用户 -->
 <link rel="stylesheet" href="index.css" />
 </head>
 <body>
+<!-- 头部 -->
 <div id="header">
-    <script>
-        purease.global = {
-            ...purease.global,
-            'head': '111'
-        };
-    </script>
-    <pe-header logo-href="./" fixed>
+    <pe-header logo-href="./" line fixed>
         <a class="pe-header-item" href="./">Home</a>
         <pe-header-item>
-            List
+            Pages
             <pe-menu>
+                <a class="pe-menu-item" href="./banner.html">Banner</a>
                 <a class="pe-menu-item" href="./swipe.html">Swipe</a>
                 <a class="pe-menu-item" href="./login.html">Login</a>
-                <a class="pe-menu-item" href="./double.html">Double</a>
-                <a class="pe-menu-item" href="./control.html">Control</a>
-                <a class="pe-menu-item" href="./lnav.html">Lnav</a>
+                <a class="pe-menu-item" href="./header.html">Header</a>
+                <a class="pe-menu-item" href="./spa.html">SPA</a>
             </pe-menu>
         </pe-header-item>
-        <a class="pe-header-item" href="./swipe.html">Swipe</a>
-        <pe-header-item>
-            Double
-            <pe-menu>
-                <div class="pe-layoutlist">
-                    <div>
-                        <a class="pe-menu-item" href="./">111342342342334</a>
-                        <a class="pe-menu-item" href="./">222</a>
-                    </div>
-                    <div>
-                        <a class="pe-menu-item" href="./">333</a>
-                        <a class="pe-menu-item" href="./">444</a>
-                    </div>
-                </div>
-            </pe-menu>
-        </pe-header-item>
-        <a class="pe-header-item" href="./">About</a>
         <template v-slot:right>
-            <a class="pe-header-item" href="./">OK</a>
-            <a class="pe-button pe-plain pe-bold" href="./">Hello</a>
+            <div class="pe-button pe-pgrey" @click="changeRTL">{{rtl ? '' : '!'}}RTL</div>
         </template>
     </pe-header>
 </div>
-<pe-banner class="index" direction="v" style="height: 600px;">
-    <div class="pe-btitle">I'm glad to see you</div>
-    <div class="pe-bnote">With Purease, you can quickly build a versatile, minimalist webpage.</div>
-    <div class="pe-layout pe-gap-s" style="align-items: center;">
-        <a class="pe-button pe-plain" href="./">Download</a>
-        <a class="pe-button pe-dark" href="./">Download</a>
-    </div>
-</pe-banner>
-<!-- 块状元素 -->
-<div class="pe-block">
-    <div class="pe-btitle">Rapid prototyping</div>
-    <div class="pe-gnote">Web development shouldn't take up too much time</div>
-    <div class="pe-layout pe-gap-s" style="justify-content: center; align-items: center;">
-        <a class="pe-button" href="./">Discuss</a>
-        <a class="pe-button pe-pgrey" href="./">Discuss2</a>
-        <a class="pe-button pe-grey" href="./">Discuss3</a>
-        <a class="pe-button pe-pgrey pe-padding-xxs" href="./">xs</a>
-    </div>
-    <div class="pe-layout pe-gap-s" style="justify-content: center; flex-wrap: wrap;">
-        <a class="pe-button pe-disabled" href="./">Discuss</a>
-        <a class="pe-button pe-pgrey pe-disabled" href="./">Discuss2</a>
-        <a class="pe-button pe-grey pe-disabled" href="./">Discuss3</a>
-        <a class="pe-button pe-plain pe-disabled" href="./">Discuss4</a>
-        <a class="pe-button pe-dark pe-disabled" href="./">Discuss5</a>
-    </div>
-</div>
-<!-- 灰底块状元素 -->
-<div class="pe-block pe-grey">
-    <div class="pe-btitle">Rapid prototyping</div>
-    <div class="pe-gnote">Web development shouldn't take up too much time</div>
-    <div class="pe-layout pe-gap-s" style="justify-content: center;">
-        <a class="pe-button pe-pgrey" href="./">Discuss</a>
-        <a class="pe-button pe-pgrey" href="./">Discuss2</a>
-        <a class="pe-button pe-pgrey" href="./">Discuss3</a>
-    </div>
-</div>
-<!-- 横向变纵向排列元素 -->
-<div class="pe-block">
-    <div class="pe-btitle">Alayout</div>
-    <div class="pe-alayout pe-content pe-padding-lr pe-gap-s">
-        <a class="pe-button pe-dark" href="./" style="flex: 1;">AAA</a>
-        <a class="pe-button pe-dark" href="./" style="flex: 1;">BBB</a>
-        <a class="pe-button pe-dark" href="./" style="flex: 1;">CCC</a>
-    </div>
-</div>
-<!-- 带框框的 box -->
-<div class="pe-block pe-grey">
-    <div class="pe-btitle">Box</div>
-    <div class="pe-alayout pe-content pe-padding-lr pe-gap">
-        <a class="pe-box pe-padding pe-gap-xs" href="./" style="justify-content: center; flex: 1;">
-            <div class="pe-title">AAA</div>
-            <div class="pe-note">1111111111</div>
-        </a>
-        <a class="pe-box pe-padding pe-hover pe-gap-xs" href="./" style="justify-content: center; flex: 1;">
-            <div class="pe-title">Hover</div>
-            <div class="pe-note">2222222222</div>
-        </a>
-        <a class="pe-box pe-thover" href="./" style="flex: 1;">
-            <div class="pe-img boximg"></div>
-            <div class="pe-padding-s">
-                <div class="pe-title">Thover</div>
-                <div class="pe-note">2222222222</div>
-            </div>
-        </a>
-    </div>
-</div>
-<!-- 左右排布小窗为上下 -->
-<div class="pe-block">
-    <div class="pe-btitle">Lralyout</div>
-    <div class="pe-alayout pe-content pe-padding-lr pe-gap">
-        <a class="pe-box" href="./" style="flex: 1;">
-            <div class="pe-lralyout">
-                <div class="pe-img boximg2"></div>
-                <div class="pe-padding-s">
-                    <div class="pe-title">Article1</div>
-                    <div class="pe-note">Article note</div>
+<!-- 内容 -->
+<pe-lnav>
+    <!-- 左侧分类导航 -->
+    <template v-slot:left>
+        <div class="pe-tree" style="min-width: 200px;">
+            <a class="pe-tree-item" href="#form">{{l('form')}}</a>
+            <div class="pe-tree-title">{{l('form')}}</div>
+            <a class="pe-tree-item" href="#text">Text</a>
+            <a class="pe-tree-item" href="#select">Select</a>
+            <a class="pe-tree-item" href="#check">Check</a>
+            <a class="pe-tree-item" href="#switch">Switch</a>
+            <a class="pe-tree-item" href="#dlist">Dlist</a>
+            <a class="pe-tree-item" href="#slider">Slider</a>
+            <a class="pe-tree-item" href="#vnumber">Vnumber</a>
+            <a class="pe-tree-item" href="#nboard">Nboard</a>
+
+            <div class="pe-tree-title">{{l('display')}}</div>
+            <a class="pe-tree-item" href="#tag">Tag</a>
+            <a class="pe-tree-item" href="#circle">Circle</a>
+            <a class="pe-tree-item" href="#label">Label</a>
+            <a class="pe-tree-item" href="#icon">Icon</a>
+            <a class="pe-tree-item" href="#table">Table</a>
+
+            <div class="pe-tree-title">{{l('date')}}</div>
+            <a class="pe-tree-item" href="#datepanel">Datepanel</a>
+            <a class="pe-tree-item" href="#date">Date</a>
+            <a class="pe-tree-item" href="#daterange">Daterange</a>
+
+            <div class="pe-tree-title">{{l('feedback')}}</div>
+            <a class="pe-tree-item" href="#dialog">Dialog</a>
+            <a class="pe-tree-item" href="#drawer">Drawer</a>
+            <a class="pe-tree-item" href="#page">Page</a>
+            <div class="pe-tree-title">Simple</div>
+            <a class="pe-tree-item" href="#button">Button</a>
+            <a class="pe-tree-item" href="#layout">Layout</a>
+            <a class="pe-tree-item" href="#block">Block</a>
+            <a class="pe-tree-item" href="#content">Content</a>
+            <a class="pe-tree-item" href="#link">Link</a>
+            <a class="pe-tree-item" href="#stripe">Stripe</a>
+            <a class="pe-tree-item" href="#crumb">Crumb</a>
+            <a class="pe-tree-item" href="#tree">Tree</a>
+            <a class="pe-tree-item" href="#img">Img</a>
+            <a class="pe-tree-item" href="#menudown">Menudown</a>
+            <div class="pe-tree-title">{{l('container')}}</div>
+            <a class="pe-tree-item" href="#tab">Tab</a>
+            <a class="pe-tree-item" href="#btab">Btab</a>
+            <a class="pe-tree-item" href="#group">Group</a>
+            <a class="pe-tree-item" href="#setting">Setting</a>
+            <a class="pe-tree-item" href="#box">Box</a>
+            <a class="pe-tree-item" href="#grid">Grid</a>
+        </div>
+    </template>
+    <!-- 右侧 -->
+    <pe-banner class="pe-grad" direction="v" style="height: 200px; padding-top: 0;">
+        <div class="pe-crumb">
+            <a class="pe-crumb-item" href="./">Home</a>
+            <div class="pe-crumb-item">Test</div>
+        </div>
+        <div class="pe-btitle">Purease Control Test</div>
+        <div class="pe-bnote">Test all controls in one page</div>
+    </pe-banner>
+    <div class="pe-content">
+        <pe-anchor>
+            <!-- ==================== 表单控件 ==================== -->
+            <h2 id="form">{{l('form')}}</h2>
+
+            <!-- Text -->
+            <h3 id="text">Text</h3>
+            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start;">
+                <div>Value: {{text}}</div>
+                <pe-text style="width: 300px;" v-model="text" :disabled="textDisabled" :plain="textPlain" :readonly="textReadonly" placeholder="Enter text..."></pe-text>
+                <pe-text style="width: 300px;" v-model="text" :disabled="textDisabled" :plain="textPlain" :readonly="textReadonly">
+                    <template v-slot:prepend>Prefix:</template>
+                    <template v-slot:append>Suffix</template>
+                </pe-text>
+                <pe-text style="width: 300px;" v-model="text" :disabled="textDisabled" :plain="textPlain" :readonly="textReadonly">
+                    <template v-slot:before>
+                        <pe-select :data="textSelect" plain style="width: 100px;"></pe-select>
+                    </template>
+                </pe-text>
+                <div>Multi Value: {{textMulti}}</div>
+                <pe-text style="width: 300px; height: 100px;" v-model="textMulti" type="multi" :disabled="textDisabled" :plain="textPlain" :readonly="textReadonly"></pe-text>
+                <div>Number Value: {{textNumber}}</div>
+                <pe-text style="width: 300px;" v-model="textNumber" type="number" :min="0" :max="200" :disabled="textDisabled" :plain="textPlain" :readonly="textReadonly"></pe-text>
+                <div>Password</div>
+                <pe-text style="width: 300px;" v-model="textPassword" type="password" :disabled="textDisabled" :plain="textPlain" :readonly="textReadonly" placeholder="Enter password..."></pe-text>
+                <div class="pe-layout pe-gap-s">
+                    <div class="pe-button pe-pgrey" @click="textDisabled = !textDisabled">{{textDisabled ? '' : '!'}}disabled</div>
+                    <div class="pe-button pe-pgrey" @click="textPlain = !textPlain">{{textPlain ? '' : '!'}}plain</div>
+                    <div class="pe-button pe-pgrey" @click="textReadonly = !textReadonly">{{textReadonly ? '' : '!'}}readonly</div>
                 </div>
             </div>
-        </a>
-        <a class="pe-box" href="./" style="flex: 1;">
-            <div class="pe-lralyout">
-                <div class="pe-img boximg2 pe-hover"></div>
-                <div class="pe-padding-s">
-                    <div class="pe-title">Article2</div>
-                    <div class="pe-note">Article note</div>
+
+            <!-- Select -->
+            <h3 id="select">Select</h3>
+            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start;">
+                <div>Value: {{select}}</div>
+                <pe-select style="width: 300px;" v-model="select" :data="selectData" :search="selectSearch" :disabled="selectDisabled" :plain="selectPlain"></pe-select>
+                <div class="pe-layout pe-gap-s">
+                    <div class="pe-button pe-pgrey" @click="selectSearch = !selectSearch">{{selectSearch ? '' : '!'}}search</div>
+                    <div class="pe-button pe-pgrey" @click="selectDisabled = !selectDisabled">{{selectDisabled ? '' : '!'}}disabled</div>
+                    <div class="pe-button pe-pgrey" @click="selectPlain = !selectPlain">{{selectPlain ? '' : '!'}}plain</div>
                 </div>
             </div>
-        </a>
-    </div>
-</div>
-<!-- Group 控件 -->
-<div class="pe-block pe-grey">
-    <div class="pe-btitle">Group</div>
-    <div class="pe-bnote">Style 1</div>
-    <div class="pe-alayout pe-content pe-padding-lr pe-gap">
-        <pe-group style="flex: 1;" class="pe-padtitle">
-            111
-            <template v-slot:bottom>
-                <div class="pe-button pe-plain" style="flex: 1;">Buy</div>
-            </template>
-        </pe-group>
-        <pe-group style="flex: 1;" class="pe-padtitle">
-            111<br>
-            222
-            <template v-slot:bottom>
-                <div class="pe-button pe-dark" style="flex: 1;">Buy</div>
-            </template>
-        </pe-group>
-        <pe-group style="flex: 1;">
-            <template v-slot:title>Best</template>
-            111<br>
-            222<br>
-            333
-            <template v-slot:bottom>
-                <div class="pe-button pe-pgrey" style="flex: 1;">Buy</div>
-            </template>
-        </pe-group>
-    </div>
-    <div class="pe-bnote">Style 2</div>
-    <div class="pe-alayout pe-content pe-padding-lr pe-gap pe-align-center-desktop">
-        <pe-group style="flex: 1;">
-            111
-            <template v-slot:bottom>
-                <div class="pe-button pe-pgrey" style="flex: 1;">Buy</div>
-            </template>
-        </pe-group>
-        <pe-group style="flex: 1;" class="pe-point">
-            111<br>
-            222<br>
-            333<br>
-            444<br>
-            555
-            <template v-slot:bottom>
-                <div class="pe-button pe-dark" style="flex: 1;">Buy</div>
-            </template>
-        </pe-group>
-        <pe-group style="flex: 1;">
-            111
-            <template v-slot:bottom>
-                <div class="pe-button pe-pgrey" style="flex: 1;">Buy</div>
-            </template>
-        </pe-group>
-    </div>
-</div>
-<!-- 文本框 -->
-<div class="pe-block">
-    <div class="pe-btitle">Text + Select</div>
-    <div class="pe-layout pe-gap" style="flex-direction: column; align-items: center;">
-        <pe-text style="width: 400px;" v-model="text"></pe-text>
-        <pe-text style="width: 400px;" v-model="text" plain></pe-text>
-        <pe-text style="width: 400px;" v-model="text">
-            <template v-slot:prepend>Hello:</template>
-            <template v-slot:append>KG</template>
-        </pe-text>
-        <pe-text style="width: 400px; height: 200px;" v-model="textmulti" type="multi">
-            <template v-slot:prepend>Hello:</template>
-            <template v-slot:append>KG</template>
-        </pe-text>
-        <div>Text is: {{text}}</div>
-        <div>Select is: {{select}}</div>
-        <pe-select style="width: 400px;" v-model="select" :search="search" :data="['a', { 'value': 'ok', 'label': 'v is ok' }, 'c', 'd', 'e', 'f', 'g', 'h']"></pe-select>
-        <div class="pe-button pe-pgrey" @click="search = !search">{{search ? '' : '!'}}Search</div>
-        <pe-text style="width: 400px;" v-model="text">
-            <template v-slot:before>
-                <pe-select :data="textSelect" plain></pe-select>
-            </template>
-        </pe-text>
-        <pe-check>check</pe-check>
-        <pe-check direction="v">check</pe-check>
-        <pe-check>check1<br>check2<br><a href="./swipe.html" target="_blank">check3<pe-icon></pe-icon></a></pe-check>
-        <div>Dlist: {{dlist}}</div>
-        <pe-dlist :data="['a', 'b', 'c', { 'title': true, 'label': 'title' }, 'd']" style="width: 400px;" v-model="dlist"></pe-dlist>
-        <div>Dlist with children (flat): {{dlistChildren}}</div>
-        <pe-dlist :data="dlistChildrenData" style="width: 400px;" v-model="dlistChildren"></pe-dlist>
-        <div>Dlist with children (tree): {{dlistChildrenTree}}</div>
-        <pe-dlist :data="dlistChildrenData" style="width: 400px;" v-model="dlistChildrenTree" tree></pe-dlist>
-    </div>
-</div>
-<!-- RTL 模式 -->
-<div class="pe-block pe-grey">
-    <div class="pe-btitle">RTL Mode</div>
-    <div class="pe-layout" style="justify-content: center;">
-        <div class="pe-button pe-pgrey" @click="changeRTL">{{rtl ? '' : '!'}}RTL</div>
-    </div>
-</div>
-<!-- Setting -->
-<div class="pe-block">
-    <div class="pe-btitle">Setting</div>
-    <div class="pe-layout pe-content pe-padding-lr pe-gap" style="flex-direction: column;">
-        <pe-setting :hover="settingHover" :plain="settingPlain" :light="settingLight">
-            <pe-setting-item title="How are you" note="Ok, I'm ok, you?" mark="New">END</pe-setting-item>
-            <pe-setting-item title="How are you" note="Ok, I'm ok, you?">
-                <pe-switch />
-            </pe-setting-item>
-            <pe-setting-item title="How are you" note="stripe" class="pe-stripe"></pe-setting-item>
-            <pe-setting-item v-slot:left mark="#12">v-slot:left</pe-setting-item>
-            <pe-setting-item title="How are you" note="No right" arrow></pe-setting-item>
-        </pe-setting>
-        <div class="pe-layout pe-gap-s" style="justify-content: center;">
-            <div class="pe-button pe-pgrey" @click="settingHover = !settingHover">{{settingHover ? '' : '!'}}hover</div>
-            <div class="pe-button pe-pgrey" @click="settingPlain = !settingPlain">{{settingPlain ? '' : '!'}}plain</div>
-            <div class="pe-button pe-pgrey" @click="settingLight = !settingLight">{{settingLight ? '' : '!'}}light</div>
-        </div>
-    </div>
-</div>
-<!-- grid -->
-<div class="pe-block pe-grey">
-    <div class="pe-btitle">Grid + Igrid</div>
-    <div class="pe-layout pe-gap" style="flex-direction: column; align-items: center;">
-        <div class="pe-grid pe-gap" style="grid-template-columns: repeat(3, 1fr);">
-            <div>1</div>
-            <div>2</div>
-            <div>3</div>
-            <div>4</div>
-            <div>5</div>
-            <div>6</div>
-        </div>
-        <div class="pe-igrid" style="width: 100%; max-width: 600px;">
-            <div class="pe-padding-s">1</div>
-            <div class="pe-padding-s">2</div>
-            <div class="pe-padding-s">3</div>
-            <div class="pe-padding-s">4</div>
-            <div class="pe-padding-s">5</div>
-            <div class="pe-padding-s">6</div>
-        </div>
-    </div>
-</div>
-<!-- 脚部 -->
-<div id="footer">
-    <pe-footer>
-        <div class="pe-footer-list pe-footer-end">
-            <div class="pe-footer-logo"></div>
-        </div>
-        <div class="pe-footer-list">
-            <div class="pe-footer-title">List 1</div>
-            <a href="./">Page 1</a>
-            <a href="./">Page 2</a>
-            <a href="./">Page 3</a>
-        </div>
-        <div class="pe-footer-list">
-            <div class="pe-footer-title">List 2</div>
-            <a href="./" target="_blank">Page 1<pe-icon></pe-icon></a>
-            <a href="./">Page 2</a>
-            <a href="./">Page 3</a>
-        </div>
-        <div class="pe-footer-list">
-            <div class="pe-footer-title">List 3</div>
-            <a href="./">Page 1</a>
-            <a href="./">Page 2</a>
-            <a href="./">Page 3</a>
-        </div>
-        <template v-slot:bottom>
-            <div class="pe-footer-bottom-row">
-                <div class="pe-alayout" style="gap: 10px; align-items: center;">
-                    <div>This is some footer information</div>
-                    <div>Note2</div>
+
+            <!-- Check -->
+            <h3 id="check">Check</h3>
+            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start;">
+                <div>Value: {{check}}</div>
+                <pe-check v-model="check">Horizontal check</pe-check>
+                <pe-check v-model="check" direction="v">Vertical check<br>Line 2<br>Line 3</pe-check>
+                <pe-check v-model="check">With link: <a href="javascript:void(0);">Click here<pe-icon></pe-icon></a></pe-check>
+            </div>
+
+            <!-- Switch -->
+            <h3 id="switch">Switch</h3>
+            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start;">
+                <div>Boolean Value: {{switch1}}</div>
+                <pe-switch v-model="switch1" :disabled="switchDisabled"></pe-switch>
+                <div>Mapped Value: {{switch2}}</div>
+                <pe-switch v-model="switch2" :map="{'true': 'on', 'false': 'off'}" :disabled="switchDisabled"></pe-switch>
+                <div class="pe-layout pe-gap-s">
+                    <div class="pe-button pe-pgrey" @click="switchDisabled = !switchDisabled">{{switchDisabled ? '' : '!'}}disabled</div>
                 </div>
             </div>
-            <div class="pe-footer-bottom-row">
-                <div class="pe-layout">Item1</div>
-                <div class="pe-layout">Item2</div>
-                <div class="pe-layout">Item3</div>
-                <div class="pe-layout">{{text}}</div>
+
+            <!-- Dlist -->
+            <h3 id="dlist">Dlist</h3>
+            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start;">
+                <div>Value: {{dlist}}</div>
+                <pe-dlist style="width: 300px;" v-model="dlist" :data="dlistData" :tree="dlistTree"></pe-dlist>
+                <div class="pe-layout pe-gap-s">
+                    <div class="pe-button pe-pgrey" @click="dlistTree = !dlistTree">{{dlistTree ? '' : '!'}}tree</div>
+                </div>
             </div>
-        </template>
-    </pe-footer>
-</div>
+
+            <!-- Slider -->
+            <h3 id="slider">Slider</h3>
+            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start; max-width: 400px;">
+                <div>Value: {{slider}}</div>
+                <pe-slider v-model="slider" style="width: 100%;"></pe-slider>
+                <div>Range Value: {{sliderRange}} (min: 50, max: 300)</div>
+                <pe-slider v-model="sliderRange" range :min="50" :max="300" style="width: 100%;"></pe-slider>
+            </div>
+
+            <!-- Vnumber -->
+            <h3 id="vnumber">Vnumber</h3>
+            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start;">
+                <div>Value: {{vnumber}}</div>
+                <pe-vnumber v-model="vnumber" :disabled="vnumberDisabled"></pe-vnumber>
+                <div class="pe-layout pe-gap-s">
+                    <div class="pe-button pe-pgrey" @click="vnumberDisabled = !vnumberDisabled">{{vnumberDisabled ? '' : '!'}}disabled</div>
+                    <div class="pe-button pe-pgrey" @click="vnumber = '123456'">Set value</div>
+                </div>
+            </div>
+
+            <!-- Nboard -->
+            <h3 id="nboard">Nboard</h3>
+            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start;">
+                <div>Value: {{nboard}}</div>
+                <pe-nboard v-model="nboard" :disabled="nboardDisabled" :plain="nboardPlain" :split="nboardSplit" :size="nboardSize !== 'default' ? nboardSize : undefined">
+                    <template v-if="nboardTitle" v-slot:title>
+                        <span>Enter Code</span>
+                    </template>
+                </pe-nboard>
+                <div class="pe-layout pe-gap-s" style="flex-wrap: wrap;">
+                    <div class="pe-button pe-pgrey" @click="nboardDisabled = !nboardDisabled">{{nboardDisabled ? '' : '!'}}disabled</div>
+                    <div class="pe-button pe-pgrey" @click="nboardPlain = !nboardPlain">{{nboardPlain ? '' : '!'}}plain</div>
+                    <div class="pe-button pe-pgrey" @click="nboardSplit = !nboardSplit">{{nboardSplit ? '' : '!'}}split</div>
+                    <div class="pe-button pe-pgrey" @click="nboardTitle = !nboardTitle">{{nboardTitle ? '' : '!'}}title</div>
+                    <pe-select :data="['default', 's', 'xs']" v-model="nboardSize" style="width: 100px;"></pe-select>
+                </div>
+            </div>
+
+            <!-- ==================== 数据展示控件 ==================== -->
+            <h2 id="display">{{l('display')}}</h2>
+
+            <!-- Tag -->
+            <h3 id="tag">Tag</h3>
+            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start;">
+                <div>Types:</div>
+                <div class="pe-layout pe-gap-xs" style="flex-wrap: wrap;">
+                    <pe-tag :close="tagClose" :plain="tagPlain" :size="tagSize">Default</pe-tag>
+                    <pe-tag :close="tagClose" :plain="tagPlain" :size="tagSize" type="primary">Primary</pe-tag>
+                    <pe-tag :close="tagClose" :plain="tagPlain" :size="tagSize" type="info">Info</pe-tag>
+                    <pe-tag :close="tagClose" :plain="tagPlain" :size="tagSize" type="warning">Warning</pe-tag>
+                    <pe-tag :close="tagClose" :plain="tagPlain" :size="tagSize" type="danger">Danger</pe-tag>
+                    <pe-tag :close="tagClose" :plain="tagPlain" :size="tagSize" type="pe">Pe</pe-tag>
+                    <pe-tag :close="tagClose" :plain="tagPlain" :size="tagSize" type="current">Current</pe-tag>
+                </div>
+                <div>Dynamic tags:</div>
+                <div class="pe-layout pe-gap-xs" style="flex-wrap: wrap;">
+                    <pe-tag v-for="(item, index) of tagList" type="pe" :plain="tagPlain" :close="tagClose" @close="removeTag(index)">{{item}}</pe-tag>
+                    <div class="pe-button pe-pgrey" @click="addTag">Add</div>
+                </div>
+                <div class="pe-layout pe-gap-s" style="flex-wrap: wrap;">
+                    <div class="pe-button pe-pgrey" @click="tagClose = !tagClose">{{tagClose ? '' : '!'}}close</div>
+                    <div class="pe-button pe-pgrey" @click="tagPlain = !tagPlain">{{tagPlain ? '' : '!'}}plain</div>
+                    <pe-select :data="['l', 'm', 's', 'xs']" v-model="tagSize" style="width: 80px;"></pe-select>
+                </div>
+            </div>
+
+            <!-- Circle -->
+            <h3 id="circle">Circle</h3>
+            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start;">
+                <div>Types:</div>
+                <div class="pe-layout pe-gap-xs" style="flex-wrap: wrap;">
+                    <pe-circle type="pe"></pe-circle>
+                    <pe-circle type="primary"></pe-circle>
+                    <pe-circle type="info"></pe-circle>
+                    <pe-circle type="warning"></pe-circle>
+                    <pe-circle type="danger"></pe-circle>
+                </div>
+                <div>Plain:</div>
+                <div class="pe-layout pe-gap-xs" style="flex-wrap: wrap;">
+                    <pe-circle type="pe" plain></pe-circle>
+                    <pe-circle type="primary" plain></pe-circle>
+                    <pe-circle type="info" plain></pe-circle>
+                    <pe-circle type="warning" plain></pe-circle>
+                    <pe-circle type="danger" plain></pe-circle>
+                </div>
+                <div>Sizes:</div>
+                <div class="pe-layout pe-gap-xs" style="align-items: center;">
+                    <pe-circle type="primary" size="l">L</pe-circle>
+                    <pe-circle type="primary" size="m">M</pe-circle>
+                    <pe-circle type="primary" size="s">S</pe-circle>
+                    <pe-circle type="primary" size="xs">XS</pe-circle>
+                    <pe-circle type="primary" size="xxs"></pe-circle>
+                </div>
+                <div>With text:</div>
+                <div class="pe-layout pe-gap-xs" style="flex-wrap: wrap;">
+                    <pe-circle type="pe" size="m">A</pe-circle>
+                    <pe-circle type="primary" size="m">中</pe-circle>
+                    <pe-circle type="warning" size="m">수</pe-circle>
+                </div>
+            </div>
+
+            <!-- Label -->
+            <h3 id="label">Label</h3>
+            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start;">
+                <div>Default:</div>
+                <pe-label>This is a label</pe-label>
+                <div>Tip mode:</div>
+                <pe-label mode="tip">Username</pe-label>
+                <pe-text style="width: 200px;"></pe-text>
+                <div>With icon:</div>
+                <pe-label>
+                    <pe-icon name="language"></pe-icon>
+                    Language
+                </pe-label>
+            </div>
+
+            <!-- Icon -->
+            <h3 id="icon">Icon</h3>
+            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start;">
+                <div>Available icons:</div>
+                <div class="pe-layout pe-gap-s" style="flex-wrap: wrap;">
+                    <pe-icon></pe-icon>
+                    <pe-icon name="language"></pe-icon>
+                    <pe-icon name="eye"></pe-icon>
+                </div>
+            </div>
+
+            <!-- Table -->
+            <h3 id="table">Table</h3>
+            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start; width: 100%;">
+                <pe-table :adaption="tableAdaption" :plain="tablePlain">
+                    <pe-table-row>
+                        <pe-table-head>Name</pe-table-head>
+                        <pe-table-head>Age</pe-table-head>
+                        <pe-table-head>City</pe-table-head>
+                        <pe-table-head>Action</pe-table-head>
+                    </pe-table-row>
+                    <pe-table-row v-for="i of 3">
+                        <pe-table-cell>User {{i}}</pe-table-cell>
+                        <pe-table-cell>{{20 + i}}</pe-table-cell>
+                        <pe-table-cell>City {{i}}</pe-table-cell>
+                        <pe-table-cell>
+                            <div class="pe-button pe-pgrey pe-padding-xxs">Edit</div>
+                        </pe-table-cell>
+                    </pe-table-row>
+                    <pe-table-row v-if="tablePlain" title>
+                        <pe-table-cell>Sub Title</pe-table-cell>
+                    </pe-table-row>
+                    <pe-table-row v-if="tablePlain">
+                        <pe-table-cell>User 4</pe-table-cell>
+                        <pe-table-cell>24</pe-table-cell>
+                        <pe-table-cell>City 4</pe-table-cell>
+                        <pe-table-cell>
+                            <div class="pe-button pe-pgrey pe-padding-xxs">Edit</div>
+                        </pe-table-cell>
+                    </pe-table-row>
+                </pe-table>
+                <div class="pe-layout pe-gap-s">
+                    <div class="pe-button pe-pgrey" @click="tableAdaption = !tableAdaption">{{tableAdaption ? '' : '!'}}adaption</div>
+                    <div class="pe-button pe-pgrey" @click="tablePlain = !tablePlain">{{tablePlain ? '' : '!'}}plain</div>
+                </div>
+            </div>
+
+            <!-- ==================== 日期控件 ==================== -->
+            <h2 id="date-section">{{l('date')}}</h2>
+
+            <!-- Datepanel -->
+            <h3 id="datepanel">Datepanel</h3>
+            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start;">
+                <div>Timestamp: {{dpTimestamp}}, Timezone: {{dpTimezone}}</div>
+                <div>YearMonth: {{dpYearMonth}}, HourMinute: {{dpHourMinute}}</div>
+                <pe-datepanel
+                    v-model="dpTimestamp"
+                    v-model:tz="dpTimezone"
+                    v-model:yearmonth="dpYearMonth"
+                    v-model:hourminute="dpHourMinute"
+                    :time="dpTime"
+                    :zone="dpZone"
+                    :disabled="dpDisabled"
+                    :plain="dpPlain"
+                    :range="dpRange"
+                    @changed="dpOnChanged"
+                    @range="dpOnRange"
+                ></pe-datepanel>
+                <div class="pe-layout pe-gap-s" style="flex-wrap: wrap;">
+                    <div class="pe-button pe-pgrey" @click="dpTime = !dpTime">{{dpTime ? '' : '!'}}time</div>
+                    <div class="pe-button pe-pgrey" @click="dpZone = !dpZone">{{dpZone ? '' : '!'}}zone</div>
+                    <div class="pe-button pe-pgrey" @click="dpDisabled = !dpDisabled">{{dpDisabled ? '' : '!'}}disabled</div>
+                    <div class="pe-button pe-pgrey" @click="dpPlain = !dpPlain">{{dpPlain ? '' : '!'}}plain</div>
+                    <div class="pe-button pe-pgrey" @click="dpRange = !dpRange">{{dpRange ? '' : '!'}}range</div>
+                </div>
+                <div class="pe-layout pe-gap-s" style="flex-wrap: wrap;">
+                    <div class="pe-button pe-pgrey" @click="setRandomTimestamp">Random time</div>
+                    <div class="pe-button pe-pgrey" @click="dpTimestamp = undefined">Clear</div>
+                </div>
+            </div>
+
+            <!-- Date -->
+            <h3 id="date">Date</h3>
+            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start;">
+                <div>Timestamp: {{dateTimestamp}}</div>
+                <pe-date
+                    v-model="dateTimestamp"
+                    :date="dateShowDate"
+                    :time="dpTime"
+                    :zone="dpZone"
+                    :disabled="dpDisabled"
+                ></pe-date>
+                <div class="pe-layout pe-gap-s">
+                    <div class="pe-button pe-pgrey" @click="dateShowDate = !dateShowDate">{{dateShowDate ? '' : '!'}}date</div>
+                </div>
+            </div>
+
+            <!-- Daterange -->
+            <h3 id="daterange">Daterange</h3>
+            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start;">
+                <div>Timestamp: {{daterangeTimestamp}}</div>
+                <pe-daterange
+                    v-model="daterangeTimestamp"
+                    :time="dpTime"
+                    :zone="dpZone"
+                    :disabled="dpDisabled"
+                ></pe-daterange>
+            </div>
+
+            <!-- ==================== 反馈控件 ==================== -->
+            <h2 id="feedback-section">{{l('feedback')}}</h2>
+
+            <!-- Dialog -->
+            <h3 id="dialog">Dialog</h3>
+            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start;">
+                <div class="pe-layout pe-gap-s" style="flex-wrap: wrap;">
+                    <div class="pe-button pe-pgrey" @click="showDialog">Dialog</div>
+                    <div class="pe-button pe-pgrey" @click="showDialog2">Dialog with title</div>
+                    <div class="pe-button pe-pgrey" @click="showConfirm">Confirm</div>
+                    <div class="pe-button pe-pgrey" @click="showConfirm2">Confirm with cancel</div>
+                    <div class="pe-button pe-pgrey" @click="showCustomDialog">Custom dialog</div>
+                    <div class="pe-button pe-pgrey" @click="showLoading">Loading</div>
+                </div>
+            </div>
+            <pe-dialog :show="customDialog" @select="customDialogConfirm" title="Custom Dialog">
+                <pe-text style="width: 250px;" v-model="customDialogText" placeholder="Enter something..."></pe-text>
+            </pe-dialog>
+
+            <!-- Drawer -->
+            <h3 id="drawer">Drawer</h3>
+            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start;">
+                <div>drawer: {{drawer}}</div>
+                <div class="pe-button pe-pgrey" @click="drawer = true">Open Drawer</div>
+            </div>
+            <pe-drawer title="Drawer" gutter="10" v-model="drawer" direction="v" width="400">
+                <div>Drawer content</div>
+                <div class="pe-button pe-pgrey" @click="drawer2 = true">Open nested drawer</div>
+                <template v-slot:footer>
+                    <div class="pe-layout" style="flex: 1; justify-content: flex-end;">
+                        <div class="pe-button pe-dark" @click="drawer = false">Close</div>
+                    </div>
+                </template>
+            </pe-drawer>
+            <pe-drawer title="Nested Drawer" gutter="10" v-model="drawer2" direction="v">
+                <div>Nested content</div>
+                <template v-slot:footer>
+                    <div class="pe-layout" style="flex: 1; justify-content: flex-end;">
+                        <div class="pe-button pe-dark" @click="drawer2 = false">Close</div>
+                    </div>
+                </template>
+            </pe-drawer>
+
+            <!-- Page -->
+            <h3 id="page">Page</h3>
+            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start;">
+                <div>Page 1: {{page1}}</div>
+                <pe-page v-model="page1" max="10"></pe-page>
+                <div>Page 2: {{page2}}</div>
+                <pe-page v-model="page2" max="20" :control="2"></pe-page>
+                <div>Page 3: {{page3}}, Total: {{pageTotal}}, Count: {{pageCount}}</div>
+                <pe-page v-model="page3" :total="pageTotal" v-model:count="pageCount" :counts="[10, 20, 50]"></pe-page>
+            </div>
+
+            <!-- --- 简单控件 --- -->
+            <h2 id="simple-section">{{l('simple')}}</h2>
+
+            <!-- Button -->
+            <h3 id="button">Button</h3>
+            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start;">
+                <div>Styles:</div>
+                <div class="pe-layout pe-gap-s" style="flex-wrap: wrap;">
+                    <div class="pe-button">Default</div>
+                    <div class="pe-button pe-plain">Plain</div>
+                    <div class="pe-button pe-pwhite">Pwhite</div>
+                    <div class="pe-button pe-pgrey">Pgrey</div>
+                    <div class="pe-button pe-grey">Grey</div>
+                    <div class="pe-button pe-dark">Dark</div>
+                    <div class="pe-button pe-bold">Bold</div>
+                </div>
+                <div>Sizes:</div>
+                <div class="pe-layout pe-gap-s" style="flex-wrap: wrap; align-items: center;">
+                    <div class="pe-button pe-padding-l">Large</div>
+                    <div class="pe-button">Default</div>
+                    <div class="pe-button pe-padding-s">Small</div>
+                    <div class="pe-button pe-padding-xs">XS</div>
+                </div>
+                <div>Disabled:</div>
+                <div class="pe-layout pe-gap-s" style="flex-wrap: wrap;">
+                    <div class="pe-button" disabled>Default</div>
+                    <div class="pe-button pe-plain" disabled>Plain</div>
+                    <div class="pe-button pe-dark" disabled>Dark</div>
+                </div>
+            </div>
+
+            <!-- Layout -->
+            <h3 id="layout">Layout</h3>
+            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start; width: 100%;">
+                <div>pe-layout (horizontal):</div>
+                <div class="pe-layout pe-gap-s" style="width: 100%;">
+                    <div class="pe-box pe-padding" style="flex: 1;">Item 1</div>
+                    <div class="pe-box pe-padding" style="flex: 1;">Item 2</div>
+                    <div class="pe-box pe-padding" style="flex: 1;">Item 3</div>
+                </div>
+                <div>pe-alayout (vertical):</div>
+                <div class="pe-alayout pe-gap-s" style="width: 100%;">
+                    <div class="pe-box pe-padding" style="flex: 1;">Item 1</div>
+                    <div class="pe-box pe-padding" style="flex: 1;">Item 2</div>
+                    <div class="pe-box pe-padding" style="flex: 1;">Item 3</div>
+                </div>
+                <div>pe-lralayout (left-right):</div>
+                <div class="pe-lralayout pe-gap-s" style="width: 100%;">
+                    <div class="pe-box pe-padding">Left</div>
+                    <div class="pe-box pe-padding">Center (flex)</div>
+                    <div class="pe-box pe-padding">Right</div>
+                </div>
+            </div>
+
+            <!-- Block -->
+            <h3 id="block">Block</h3>
+            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start; width: 100%;">
+                <div class="pe-block" style="width: 100%;">Default block content</div>
+                <div class="pe-block pe-grey" style="width: 100%;">Grey block content</div>
+            </div>
+
+            <!-- Content -->
+            <h3 id="content">Content</h3>
+            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start; width: 100%;">
+                <div>pe-content is used to wrap main content area with proper padding. This section is inside pe-content.</div>
+            </div>
+
+            <!-- Link -->
+            <h3 id="link">Link</h3>
+            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start;">
+                <div>Link styles:</div>
+                <div class="pe-layout pe-gap-s" style="flex-wrap: wrap;">
+                    <a class="pe-link" href="javascript:void(0);">Default link<pe-icon></pe-icon></a>
+                    <a class="pe-link pe-under" href="javascript:void(0);">Underline link</a>
+                </div>
+            </div>
+
+            <!-- Stripe -->
+            <h3 id="stripe">Stripe</h3>
+            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start; width: 100%;">
+                <div class="pe-stripe" style="width: 100%;">
+                    <span>Section Title</span>
+                    <span class="pe-sep"></span>
+                </div>
+                <div class="pe-stripe" style="width: 100%;">
+                    <span class="pe-sep"></span>
+                    <span>Center Title</span>
+                    <span class="pe-sep"></span>
+                </div>
+            </div>
+
+            <!-- Crumb -->
+            <h3 id="crumb">Crumb</h3>
+            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start;">
+                <div class="pe-crumb">
+                    <a class="pe-crumb-item" href="javascript:void(0);">Home</a>
+                    <a class="pe-crumb-item" href="javascript:void(0);">Products</a>
+                    <div class="pe-crumb-item">Detail</div>
+                </div>
+            </div>
+
+            <!-- Tree -->
+            <h3 id="tree">Tree</h3>
+            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start; width: 100%;">
+                <div class="pe-alayout pe-gap" style="width: 100%;">
+                    <div class="pe-tree" style="min-width: 220px;">
+                        <div class="pe-tree-title">Getting Started</div>
+                        <a class="pe-tree-item pe-selected" href="javascript:void(0);">Introduction</a>
+                        <a class="pe-tree-item" href="javascript:void(0);">Installation</a>
+                        <div class="pe-tree-title">Components</div>
+                        <a class="pe-tree-item" href="javascript:void(0);">Button</a>
+                        <div class="pe-tree-item pe-open" @click="toggleTreeMenu($event)">Form</div>
+                        <div class="pe-tree-menu">
+                            <a class="pe-tree-item" href="javascript:void(0);">Text</a>
+                            <a class="pe-tree-item" href="javascript:void(0);">Select</a>
+                            <a class="pe-tree-item" href="javascript:void(0);">Check</a>
+                        </div>
+                        <div class="pe-tree-item" @click="toggleTreeMenu($event)">Display</div>
+                        <div class="pe-tree-menu" style="height: 0;">
+                            <a class="pe-tree-item" href="javascript:void(0);">Tag</a>
+                            <a class="pe-tree-item" href="javascript:void(0);">Circle</a>
+                            <div class="pe-tree-item" @click="toggleTreeMenu($event)">Nested</div>
+                            <div class="pe-tree-menu" style="height: 0;">
+                                <a class="pe-tree-item" href="javascript:void(0);">Level 3-1</a>
+                                <a class="pe-tree-item" href="javascript:void(0);">Level 3-2</a>
+                            </div>
+                        </div>
+                        <div class="pe-tree-title">API Reference</div>
+                        <a class="pe-tree-item" href="javascript:void(0);">Purease</a>
+                        <a class="pe-tree-item" href="javascript:void(0);">Dom</a>
+                        <a class="pe-tree-item" href="javascript:void(0);">Tool</a>
+                    </div>
+                    <div class="pe-box pe-padding" style="flex: 1;">
+                        <div class="pe-note">pe-tree is typically used for sidebar navigation. Use div.pe-tree-item to create expandable items with arrow. Click "Form" or "Display" to toggle submenu.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Img -->
+            <h3 id="img">Img</h3>
+            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start;">
+                <div>pe-img with hover effect (used in pe-box):</div>
+                <div class="pe-alayout pe-gap">
+                    <a class="pe-box pe-thover" href="javascript:void(0);" style="width: 200px;">
+                        <div class="pe-img bg-img" style="height: 120px;"></div>
+                        <div class="pe-padding-s">
+                            <div class="pe-title">Card Title</div>
+                            <div class="pe-note">Card description</div>
+                        </div>
+                    </a>
+                    <a class="pe-box pe-thover" href="javascript:void(0);" style="width: 200px;">
+                        <div class="pe-img pe-hover bg-img" style="height: 120px;"></div>
+                        <div class="pe-padding-s">
+                            <div class="pe-title">With pe-hover</div>
+                            <div class="pe-note">Image scales on hover</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Menudown -->
+            <h3 id="menudown">Menudown</h3>
+            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start;">
+                <div>Menudown is used in header. See the <a href="./header.html">Header page</a> for demo.</div>
+            </div>
+
+            <!-- ==================== 容器控件 ==================== -->
+            <h2 id="container-section">{{l('container')}}</h2>
+
+            <!-- Tab -->
+            <h3 id="tab">Tab</h3>
+            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start;">
+                <div>Value: {{tab}}</div>
+                <pe-tab v-model="tab" :hover="tabHover">
+                    <pe-tab-item>Tab 1</pe-tab-item>
+                    <pe-tab-item>Tab 2</pe-tab-item>
+                    <pe-tab-item>Tab 3</pe-tab-item>
+                </pe-tab>
+                <pe-tab v-model="tab" type="plain" :hover="tabHover">
+                    <pe-tab-item>Tab 1</pe-tab-item>
+                    <pe-tab-item>Tab 2</pe-tab-item>
+                    <pe-tab-item>Tab 3</pe-tab-item>
+                </pe-tab>
+                <pe-tab v-model="tab" type="light" :hover="tabHover">
+                    <pe-tab-item>Tab 1</pe-tab-item>
+                    <pe-tab-item>Tab 2</pe-tab-item>
+                    <pe-tab-item>Tab 3</pe-tab-item>
+                </pe-tab>
+                <pe-tab v-model="tab" type="rect" :hover="tabHover">
+                    <pe-tab-item>Tab 1</pe-tab-item>
+                    <pe-tab-item>Tab 2</pe-tab-item>
+                    <pe-tab-item>Tab 3</pe-tab-item>
+                </pe-tab>
+                <div class="pe-layout pe-gap-s">
+                    <div class="pe-button pe-pgrey" @click="tabHover = !tabHover">{{tabHover ? '' : '!'}}hover</div>
+                </div>
+            </div>
+
+            <!-- Btab -->
+            <h3 id="btab">Btab</h3>
+            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start; width: 100%;">
+                <pe-btab :data="['Tab 1', 'Tab 2', 'Tab 3', 'Tab 4', 'Tab 5', 'Tab 6']" v-model="btab"></pe-btab>
+                <pe-btab :data="['Tab 1', 'Tab 2', 'Tab 3', 'Tab 4', 'Tab 5', 'Tab 6']" v-model="btab" type="plain"></pe-btab>
+                <pe-btab :data="['Tab 1', 'Tab 2', 'Tab 3', 'Tab 4', 'Tab 5', 'Tab 6']" v-model="btab" type="light"></pe-btab>
+            </div>
+
+            <!-- Group -->
+            <h3 id="group">Group</h3>
+            <div class="pe-alayout pe-gap" style="width: 100%;">
+                <pe-group style="flex: 1;">
+                    Basic plan<br>Feature 1<br>Feature 2
+                    <template v-slot:bottom>
+                        <div class="pe-button pe-pgrey" style="flex: 1;">Select</div>
+                    </template>
+                </pe-group>
+                <pe-group style="flex: 1;" class="pe-padtitle">
+                    <template v-slot:title>Recommend</template>
+                    Pro plan<br>Feature 1<br>Feature 2<br>Feature 3
+                    <template v-slot:bottom>
+                        <div class="pe-button pe-dark" style="flex: 1;">Select</div>
+                    </template>
+                </pe-group>
+                <pe-group style="flex: 1;">
+                    Enterprise<br>Feature 1<br>Feature 2<br>Feature 3<br>Feature 4
+                    <template v-slot:bottom>
+                        <div class="pe-button pe-plain" style="flex: 1;">Contact</div>
+                    </template>
+                </pe-group>
+            </div>
+
+            <!-- Setting -->
+            <h3 id="setting">Setting</h3>
+            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start; width: 100%;">
+                <pe-setting :hover="settingHover" :plain="settingPlain" :light="settingLight">
+                    <pe-setting-item title="Name" note="Your display name">Nick</pe-setting-item>
+                    <pe-setting-item title="Theme" note="Choose theme">
+                        <pe-switch v-model="switch1"></pe-switch>
+                    </pe-setting-item>
+                    <pe-setting-item title="Language" arrow>English</pe-setting-item>
+                    <pe-setting-item title="With mark" mark="New">Value</pe-setting-item>
+                </pe-setting>
+                <div class="pe-layout pe-gap-s">
+                    <div class="pe-button pe-pgrey" @click="settingHover = !settingHover">{{settingHover ? '' : '!'}}hover</div>
+                    <div class="pe-button pe-pgrey" @click="settingPlain = !settingPlain">{{settingPlain ? '' : '!'}}plain</div>
+                    <div class="pe-button pe-pgrey" @click="settingLight = !settingLight">{{settingLight ? '' : '!'}}light</div>
+                </div>
+            </div>
+
+            <!-- Box -->
+            <h3 id="box">Box</h3>
+            <div class="pe-alayout pe-gap" style="width: 100%;">
+                <a class="pe-box pe-padding pe-gap-xs" href="javascript:void(0);" style="justify-content: center; flex: 1;">
+                    <div class="pe-title">Basic Box</div>
+                    <div class="pe-note">Simple box style</div>
+                </a>
+                <a class="pe-box pe-padding pe-hover pe-gap-xs" href="javascript:void(0);" style="justify-content: center; flex: 1;">
+                    <div class="pe-title">Hover Box</div>
+                    <div class="pe-note">With hover effect</div>
+                </a>
+                <a class="pe-box pe-thover" href="javascript:void(0);" style="flex: 1;">
+                    <div class="pe-img bg-img"></div>
+                    <div class="pe-padding-s">
+                        <div class="pe-title">Image Box</div>
+                        <div class="pe-note">With image and thover</div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Grid -->
+            <h3 id="grid">Grid</h3>
+            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start; width: 100%;">
+                <div>Grid:</div>
+                <div class="pe-grid pe-gap" style="grid-template-columns: repeat(3, 1fr); width: 100%;">
+                    <div class="pe-box pe-padding" style="text-align: center;">1</div>
+                    <div class="pe-box pe-padding" style="text-align: center;">2</div>
+                    <div class="pe-box pe-padding" style="text-align: center;">3</div>
+                    <div class="pe-box pe-padding" style="text-align: center;">4</div>
+                    <div class="pe-box pe-padding" style="text-align: center;">5</div>
+                    <div class="pe-box pe-padding" style="text-align: center;">6</div>
+                </div>
+                <div>Igrid (infinite auto grid):</div>
+                <div class="pe-igrid" style="width: 100%;">
+                    <div class="pe-padding-s">1</div>
+                    <div class="pe-padding-s">2</div>
+                    <div class="pe-padding-s">3</div>
+                    <div class="pe-padding-s">4</div>
+                    <div class="pe-padding-s">5</div>
+                    <div class="pe-padding-s">6</div>
+                </div>
+            </div>
+
+        </pe-anchor>
+    </div>
+    <!-- 脚部 -->
+    <div id="footer">
+        <pe-footer>
+            <div class="pe-footer-list pe-footer-end">
+                <div class="pe-footer-logo"></div>
+            </div>
+            <div class="pe-footer-list">
+                <div class="pe-footer-title">Pages</div>
+                <a href="./banner.html">Banner</a>
+                <a href="./swipe.html">Swipe</a>
+                <a href="./login.html">Login</a>
+            </div>
+            <div class="pe-footer-list">
+                <div class="pe-footer-title">Resources</div>
+                <a href="https://github.com/maiyun/purease" target="_blank">GitHub<pe-icon></pe-icon></a>
+            </div>
+            <template v-slot:bottom>
+                <div class="pe-footer-bottom-row">
+                    <div class="pe-layout">Purease Test</div>
+                </div>
+            </template>
+        </pe-footer>
+    </div>
+</pe-lnav>
 </body>
 </html>

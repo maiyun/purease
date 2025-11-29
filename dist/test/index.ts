@@ -1,362 +1,434 @@
 import * as purease from 'purease';
-import footer from './footer.js';
 
 class Page extends purease.AbstractPage {
 
-    public text = '123';
-
-    public textmulti = '456';
-
-    public select = 'h';
-
-    public textSelect = ['a', { 'value': 'ok', 'label': 'v is ok' }, 'c', this.l('ok')];
-
-    public dlist = 'a';
-
-    public dlistChildren = 'item1';
-
-    public dlistChildrenTree = 'item1';
-
-    public dlistChildrenData = [
-        { 'label': 'Item 1', 'value': 'item1' },
-        {
-            'label': 'Item 2',
-            'value': 'item2',
-            'children': [
-                {
-                    'label': 'Sub Item 2-1',
-                    'value': 'item2-1'
-                },
-                {
-                    'label': 'Sub Item 2-2',
-                    'value': 'item2-2',
-                    'children': [
-                        { 'label': 'Deep Item 2-2-1', 'value': 'item2-2-1' },
-                        { 'label': 'Deep Item 2-2-2', 'value': 'item2-2-2' }
-                    ]
-                }
-            ]
-        },
-        { 'label': 'Item 3', 'value': 'item3' }
-    ];
-
-    public search = false;
-
-    // --- swipe ---
-
-    public tab = 0;
-
-    public swipePage = 'center';
-
-    public swipeControl = 'inner';
-
-    // --- login ---
-
-    public user = '';
-
-    public pwd = '';
-
-    // --- double 页 ---
-
-    public nbottom = true;
-
-    public dbottom = 'dark';
-
-    // --- slider ---
-
-    public slider1 = [15, 0];
-
-    public slider2 = [200, 300];
-
-    // --- drawer ---
-
-    public drawer = false;
-
-    public drawer2 = false;
-
-    public changeNBottom(): void {
-        this.nbottom = !this.nbottom;
-        if (this.nbottom) {
-            // --- 不显示 -> 显示 ---
-            document.getElementsByTagName('html')[0].classList.add('pe-dheader');
-        }
-        else {
-            // --- 显示 -> 不显示 ---
-            document.getElementsByTagName('html')[0].classList.remove('pe-dheader');
-        }
-    }
-
-    public sheader = false;
-
-    public changeSheader(): void {
-        this.sheader = !this.sheader;
-        if (this.sheader) {
-            // --- 大 -> 小 ---
-            document.getElementsByTagName('html')[0].classList.add('pe-sheader');
-        }
-        else {
-            // --- 小 -> 大 ---
-            document.getElementsByTagName('html')[0].classList.remove('pe-sheader');
-        }
-    }
-
-    public slogo = false;
+    // --- RTL ---
 
     public rtl = false;
 
-    public settingHover = false;
+    // --- 表单控件 ---
 
-    public settingPlain = false;
+    /** --- 文本框值 --- */
+    public text = 'Hello';
 
-    public settingLight = false;
+    /** --- 多行文本框值 --- */
+    public textMulti = 'Line 1\nLine 2';
 
-    public rectTabItemValue = 0;
+    /** --- 数字输入框值 --- */
+    public textNumber = '100';
 
+    /** --- 密码框值 --- */
+    public textPassword = '';
+
+    /** --- 文本框前缀选择 --- */
+    public textSelect = ['http://', 'https://'];
+
+    /** --- 文本框是否禁用 --- */
+    public textDisabled = false;
+
+    /** --- 文本框是否朴素 --- */
+    public textPlain = false;
+
+    /** --- 文本框是否只读 --- */
+    public textReadonly = false;
+
+    /** --- 下拉选择值 --- */
+    public select = 'apple';
+
+    /** --- 下拉选择数据 --- */
+    public selectData = [
+        'apple',
+        { 'value': 'banana', 'label': 'Banana 🍌' },
+        'cherry',
+        { 'value': 'disabled', 'label': 'Disabled', 'disabled': true },
+        'elderberry'
+    ];
+
+    /** --- 下拉选择是否搜索 --- */
+    public selectSearch = false;
+
+    /** --- 下拉选择是否禁用 --- */
+    public selectDisabled = false;
+
+    /** --- 下拉选择是否朴素 --- */
+    public selectPlain = false;
+
+    /** --- 复选框值 --- */
+    public check = false;
+
+    /** --- 开关值 --- */
+    public switch1 = false;
+
+    /** --- 开关映射值 --- */
+    public switch2 = 'on';
+
+    /** --- 开关是否禁用 --- */
+    public switchDisabled = false;
+
+    /** --- 下拉列表值 --- */
+    public dlist = 'item1';
+
+    /** --- 下拉列表数据 --- */
+    public dlistData = [
+        { 'label': 'Item 1', 'value': 'item1' },
+        { 'title': true, 'label': 'Title' },
+        { 'label': 'Item 2', 'value': 'item2' },
+        {
+            'label': 'Item 3',
+            'value': 'item3',
+            'children': [
+                { 'label': 'Sub 3-1', 'value': 'item3-1' },
+                { 'label': 'Sub 3-2', 'value': 'item3-2' }
+            ]
+        }
+    ];
+
+    /** --- 下拉列表是否树形 --- */
+    public dlistTree = false;
+
+    /** --- 滑块值 --- */
+    public slider = [30, 0];
+
+    /** --- 滑块范围值 --- */
+    public sliderRange = [100, 200];
+
+    /** --- 验证码数字 --- */
+    public vnumber = '';
+
+    /** --- 验证码数字是否禁用 --- */
+    public vnumberDisabled = false;
+
+    /** --- 数字键盘值 --- */
+    public nboard = '';
+
+    /** --- 数字键盘是否禁用 --- */
+    public nboardDisabled = false;
+
+    /** --- 数字键盘是否朴素 --- */
+    public nboardPlain = false;
+
+    /** --- 数字键盘是否分隔 --- */
+    public nboardSplit = false;
+
+    /** --- 数字键盘是否显示标题 --- */
+    public nboardTitle = false;
+
+    /** --- 数字键盘尺寸 --- */
+    public nboardSize = 'default';
+
+    // --- 数据展示控件 ---
+
+    /** --- 标签列表 --- */
+    public tagList: string[] = ['Tag 1', 'Tag 2'];
+
+    /** --- 标签是否显示关闭 --- */
+    public tagClose = false;
+
+    /** --- 标签类型 --- */
+    public tagType = 'default';
+
+    /** --- 标签是否朴素 --- */
+    public tagPlain = false;
+
+    /** --- 标签尺寸 --- */
+    public tagSize = 'm';
+
+    // --- 日期控件 ---
+
+    /** --- 日期面板时间戳 --- */
+    public dpTimestamp?: number = undefined;
+
+    /** --- 日期面板时区 --- */
+    public dpTimezone?: number = undefined;
+
+    /** --- 日期面板年月 --- */
+    public dpYearMonth = '';
+
+    /** --- 日期面板时分 --- */
+    public dpHourMinute = '';
+
+    /** --- 日期面板是否显示时间 --- */
+    public dpTime = true;
+
+    /** --- 日期面板是否显示时区 --- */
+    public dpZone = true;
+
+    /** --- 日期面板是否禁用 --- */
+    public dpDisabled = false;
+
+    /** --- 日期面板是否朴素 --- */
+    public dpPlain = false;
+
+    /** --- 日期面板是否范围选择 --- */
+    public dpRange = false;
+
+    /** --- 日期控件时间戳 --- */
+    public dateTimestamp?: number = undefined;
+
+    /** --- 日期控件是否显示日期 --- */
+    public dateShowDate = true;
+
+    /** --- 日期范围时间戳 --- */
+    public daterangeTimestamp: number[] = [];
+
+    // --- 反馈控件 ---
+
+    /** --- 自定义对话框是否显示 --- */
+    public customDialog = false;
+
+    /** --- 自定义对话框文本 --- */
+    public customDialogText = '';
+
+    /** --- 抽屉是否显示 --- */
+    public drawer = false;
+
+    /** --- 抽屉2是否显示 --- */
+    public drawer2 = false;
+
+    /** --- 分页页码 --- */
+    public page1 = 1;
+
+    public page2 = 5;
+
+    public page3 = 1;
+
+    /** --- 分页总数 --- */
+    public pageTotal = 500;
+
+    /** --- 分页每页条数 --- */
+    public pageCount = 20;
+
+    // --- 选项卡控件 ---
+
+    /** --- 选项卡值 --- */
+    public tab = 0;
+
+    /** --- 选项卡是否 hover --- */
     public tabHover = false;
 
+    /** --- 选项卡类型 --- */
+    public tabType = 'default';
+
+    /** --- 大选项卡值 --- */
+    public btab = 0;
+
+    /** --- 大选项卡类型 --- */
+    public btabType = 'default';
+
+    // --- 容器控件 ---
+
+    /** --- Setting 是否 hover --- */
+    public settingHover = false;
+
+    /** --- Setting 是否 plain --- */
+    public settingPlain = false;
+
+    /** --- Setting 是否 light --- */
+    public settingLight = false;
+
+    // --- 单页应用控件 ---
+
+    /** --- SPA 是否 plain --- */
+    public spaPlain = false;
+
+    /** --- SPA 是否全屏 --- */
+    public spaFull = false;
+
+    /** --- SPA 底部选项卡 --- */
+    public spaFooter = '1';
+
+    // --- 头部导航控件 ---
+
+    /** --- 是否显示底部栏 --- */
+    public headerBottom = false;
+
+    /** --- 底部栏主题 --- */
+    public headerBottomTheme = 'default';
+
+    // --- 表格控件 ---
+
+    /** --- 表格是否自适应 --- */
+    public tableAdaption = false;
+
+    /** --- 表格是否朴素 --- */
+    public tablePlain = false;
+
+    // --- 方法 ---
+
+    /**
+     * --- 切换 RTL ---
+     */
     public changeRTL(): void {
         this.rtl = !this.rtl;
         if (this.rtl) {
-            document.getElementsByTagName('html')[0].classList.add('pe-rtl');
+            document.documentElement.classList.add('pe-rtl');
         }
         else {
-            document.getElementsByTagName('html')[0].classList.remove('pe-rtl');
+            document.documentElement.classList.remove('pe-rtl');
         }
     }
 
-    public main(): void {
-        purease.display('Inited.', purease);
-    }
-
-    public onReady(): void {
-        purease.display('onReady', purease);
-    }
-
+    /**
+     * --- 显示对话框 ---
+     */
     public async showDialog(): Promise<void> {
-        await this.dialog('This is a dialog.');
+        await this.dialog('This is a simple dialog message.');
     }
 
+    /**
+     * --- 显示带标题的对话框 ---
+     */
     public async showDialog2(): Promise<void> {
         await this.dialog({
-            'title': 'Title',
-            'content': 'Has title',
-            'buttons': ['Cancel', 'OK'],
+            'title': 'Dialog Title',
+            'content': 'This dialog has a title and custom buttons.',
+            'buttons': ['Cancel', 'OK']
         });
     }
 
+    /**
+     * --- 显示确认框 ---
+     */
     public async showConfirm(): Promise<void> {
-        const res = await this.confirm('This is a confirm');
-        await this.dialog('Result: ' + JSON.stringify(res) + ' (' + typeof res + ')');
+        const res = await this.confirm('Do you want to continue?');
+        await this.dialog(`Result: ${res}`);
     }
 
+    /**
+     * --- 显示带取消的确认框 ---
+     */
     public async showConfirm2(): Promise<void> {
         const res = await this.confirm({
-            'title': 'Has cancel',
-            'content': 'This is a confirm',
+            'title': 'Confirm',
+            'content': 'Do you want to continue?',
             'cancel': true
         });
-        await this.dialog('Result: ' + JSON.stringify(res) + ' (' + typeof res + ')');
+        await this.dialog(`Result: ${res}`);
     }
 
-    public showCustom(): void {
+    /**
+     * --- 显示自定义对话框 ---
+     */
+    public showCustomDialog(): void {
         this.customDialogText = '';
         this.customDialog = true;
     }
 
-    public customDialog = false;
-
-    public customDialogText = '';
-
-    public customDialogSelect(): void {
-        if (!this.customDialogText)  {
-            // --- 弹出不可为空的提示 ---
-            this.alert('Name can not be empty.', 'warning');
+    /**
+     * --- 自定义对话框确认 ---
+     */
+    public customDialogConfirm(): void {
+        if (!this.customDialogText) {
+            this.alert('Please input some text.', 'warning');
             return;
         }
-        // --- 隐藏窗体 ---
         this.customDialog = false;
+        this.alert(`You entered: ${this.customDialogText}`, 'pe');
     }
 
+    /**
+     * --- 显示加载 ---
+     */
     public async showLoading(): Promise<void> {
         this.loading = true;
         await purease.tool.sleep(1500);
         this.loading = false;
     }
 
-    public get testhead(): string {
-        return purease.global.head ?? 'none';
+    /**
+     * --- 添加标签 ---
+     */
+    public addTag(): void {
+        this.tagList.push(`Tag ${this.tagList.length + 1}`);
     }
 
-    // --- page 控件演示 ---
-
-    public p1: number = 3;
-
-    public p2: number = 25;
-
-    public p3: number = 30;
-
-    public p4: number = 50;
-
-    public p5: number = 1;
-
-    public p6: number = 2;
-
-    public total5: number = 0;
-
-    public count6: number = 20;
-
-    public control: number = 2;
-
-    public switch1: boolean = false;
-
-    public switch2: string = 'a';
-
-    // --- Tag 控件 ---
-
-    public taglist: string[] = [];
-
-    public tagclose = false;
-
-    // --- Datepanel 控件 ---
-
-    public dpbottom: boolean = false;
-
-    public dptime: boolean = true;
-
-    public dpzone: boolean = true;
-
-    /** --- 当前选中的时间戳 --- */
-    public dpts?: number = undefined;
-
-    /** --- 当前设置的日历组件的时区 --- */
-    public dptz?: number = undefined;
-
-    public dpdisabled: boolean = false;
-
-    public dpplain: boolean = false;
-
-    public dprange: boolean = false;
-
-    public dpstart: boolean = false;
-
-    public dpym: string = '';
-
-    public dphm: string = '';
-
-    public dplockhm: boolean = false;
-
-    // --- 指定时间戳 ---
-    public dpsettime(): void {
-        this.dpts = purease.tool.rand(1504304812000, 1704304812000);
+    /**
+     * --- 删除标签 ---
+     */
+    public removeTag(index: number): void {
+        this.tagList.splice(index, 1);
     }
 
-    public dpOnChanged(e: purease.control.IDatepanelChangedEvent): void {
-        purease.display('onChanged', e, JSON.stringify(e));
-    }
-
-    public dpOnRange(e: purease.control.IDatepanelRangeEvent): void {
-        purease.display('onRange', e);
-    }
-
-    // --- date 控件 ---
-
-    public ddate: boolean = true;
-
-    /** --- 当前选中的时间戳 --- */
-    public dts?: number = undefined;
-
-    /** --- daterange 的时间戳 --- */
-    public drts: number[] = [];
-
-    // --- vnumber ---
-
-    public vnumber: string = '';
-
-    public vnumberDisabled: boolean = false;
-
-    // --- nboard ---
-
-    public nboard: string = '';
-
-    public nboardDisabled: boolean = false;
-
-    public nboardTitle: boolean = false;
-
-    public nboardPlain: boolean = false;
-
-    public nboardSplit: boolean = false;
-
-    public nboardCustom: boolean = false;
-
-    public nboardButtons: boolean = false;
-
+    /**
+     * --- 数字键盘按钮点击 ---
+     */
     public nboardButton(btn: string): void {
-        this.alert(btn, 'pe');
+        this.alert(`Button clicked: ${btn}`, 'pe');
     }
 
-    public nboardSize: string = 'default';
-
-    // --- captcha ---
-
-    public tcResult: string = 'waiting...';
-
-    public cfResult: string = 'waiting...';
-
-    public tcKey = '';
-
-    public cfKey = '';
-
-    public tcOnResult(res: any): void {
-        this.tcResult = res;
+    /**
+     * --- 日期面板改变事件 ---
+     */
+    public dpOnChanged(e: purease.control.IDatepanelChangedEvent): void {
+        purease.display('dpOnChanged', e);
     }
 
-    public tcOnReset(): void {
-        this.tcResult = 'waiting...';
-        this.refs.tc.reset();
+    /**
+     * --- 日期面板范围事件 ---
+     */
+    public dpOnRange(e: purease.control.IDatepanelRangeEvent): void {
+        purease.display('dpOnRange', e);
     }
 
-    public cfOnResult(res: any): void {
-        this.cfResult = res;
+    /**
+     * --- 设置随机时间戳 ---
+     */
+    public setRandomTimestamp(): void {
+        this.dpTimestamp = purease.tool.rand(1504304812000, 1704304812000);
     }
 
-    public cfOnReset(): void {
-        this.cfResult = 'waiting...';
-        this.refs.cf.reset();
-    }
-
-    // --- spa ---
-
-    public spaPlain: boolean = false;
-
-    /** --- 全屏 --- */
-    public spaFull: boolean = false;
-
-    public spaFooter = '1';
-
-    public spaTag = '1';
-
+    /**
+     * --- SPA 导航 ---
+     */
     public spaGo(path: string): void {
         window.location.hash = '#' + path;
     }
 
-    public spaShow2(e: purease.control.ISpaShowEvent): void {
-        purease.display('spaShow2', e);
+    /**
+     * --- SPA 显示事件 ---
+     */
+    public spaShow(e: purease.control.ISpaShowEvent): void {
+        purease.display('spaShow', e);
     }
 
-    public spaHide2(e: purease.control.ISpaHideEvent): void {
-        purease.display('spaHide2', e);
+    /**
+     * --- SPA 隐藏事件 ---
+     */
+    public spaHide(e: purease.control.ISpaHideEvent): void {
+        purease.display('spaHide', e);
+    }
+
+    /**
+     * --- 切换 Tree 菜单 ---
+     * @param e 点击事件
+     */
+    public toggleTreeMenu(e: MouseEvent): void {
+        const el = e.currentTarget as HTMLElement;
+        const menu = el.nextElementSibling as HTMLElement;
+        if (!menu || !menu.classList.contains('pe-tree-menu')) {
+            return;
+        }
+        if (el.classList.contains('pe-open')) {
+            el.classList.remove('pe-open');
+            menu.style.height = '0';
+        }
+        else {
+            el.classList.add('pe-open');
+            menu.style.height = 'auto';
+        }
+    }
+
+    /**
+     * --- 页面入口 ---
+     */
+    public main(): void {
+        purease.display('Page initialized.');
     }
 
 }
 
 purease.launcher(Page, {
     'debug': true,
-    'locale': 'sc',
-    'localePath': purease.getDirname(import.meta.url) + '/locale',
-    'panels': [
-        {
-            'selector': '#footer',
-            'panel': footer,
-        }
-    ]
+    'locale': 'en',
+    'localePath': purease.getDirname(import.meta.url) + '/locale'
 });

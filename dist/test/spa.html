@@ -1,0 +1,142 @@
+<!DOCTYPE HTML>
+<html style="visibility: hidden; overflow: hidden;">
+<head>
+<title>SPA - Purease Test</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+<script type="importmap">
+{
+    "imports": {
+        "purease": "../index.js"
+    }
+}
+</script>
+<script type="module" src="./spa.js"></script>
+<link rel="stylesheet" href="index.css" />
+</head>
+<body>
+<!-- 头部 -->
+<div id="header">
+    <pe-header logo-href="./" line fixed>
+        <a class="pe-header-item" href="./">Home</a>
+        <a class="pe-header-item" href="./spa.html">SPA</a>
+        <template v-slot:right>
+            <div class="pe-button pe-pgrey" @click="changeRTL">{{rtl ? '' : '!'}}RTL</div>
+        </template>
+    </pe-header>
+</div>
+<pe-banner class="pe-grad" direction="v" style="height: 200px; padding-top: 0;">
+    <div class="pe-crumb">
+        <a class="pe-crumb-item" href="./">Home</a>
+        <div class="pe-crumb-item">SPA</div>
+    </div>
+    <div class="pe-btitle">SPA Control Test</div>
+    <div class="pe-bnote">Single Page Application component</div>
+</pe-banner>
+<!-- SPA 控件 -->
+<div class="pe-block">
+    <div class="pe-btitle">SPA Component</div>
+    <div class="pe-layout pe-gap" style="flex-direction: column; align-items: center;">
+        <pe-spa :plain="spaPlain" :full="spaFull" style="min-width: 400px; min-height: 600px;">
+            <!-- 第一页 -->
+            <pe-spa-page path="/">
+                <pe-spa-header>Home</pe-spa-header>
+                <pe-spa-content>
+                    <div class="pe-layout pe-padding-s pe-gap-s" style="flex-direction: column;">
+                        <div>Welcome to SPA demo</div>
+                        <pe-setting plain hover light>
+                            <pe-setting-item title="Profile" @click="spaGo('/profile')">View</pe-setting-item>
+                            <pe-setting-item title="Settings" @click="spaGo('/settings')">Open</pe-setting-item>
+                        </pe-setting>
+                    </div>
+                </pe-spa-content>
+                <pe-spa-footer>
+                    <pe-spa-footer-icon title="Home" v-model="spaFooter" value="home">
+                        <pe-icon name="eye"></pe-icon>
+                    </pe-spa-footer-icon>
+                    <pe-spa-footer-icon title="Search" v-model="spaFooter" value="search"></pe-spa-footer-icon>
+                    <pe-spa-footer-icon title="Settings" v-model="spaFooter" value="settings">
+                        <pe-icon name="language"></pe-icon>
+                    </pe-spa-footer-icon>
+                </pe-spa-footer>
+            </pe-spa-page>
+            <!-- 个人资料页 -->
+            <pe-spa-page path="/profile" @show="spaShow" @hide="spaHide">
+                <pe-spa-header back>
+                    <pe-circle type="pe" size="s"></pe-circle>
+                    <div>Profile</div>
+                </pe-spa-header>
+                <pe-spa-content>
+                    <div class="pe-layout pe-padding-s pe-gap-s" style="flex-direction: column;">
+                        <pe-setting hover light>
+                            <pe-setting-item title="Name">John Doe</pe-setting-item>
+                            <pe-setting-item title="Email">john@example.com</pe-setting-item>
+                            <pe-setting-item title="Phone">+1 234 567 8900</pe-setting-item>
+                        </pe-setting>
+                        <div class="pe-button pe-dark" @click="spaGo('/')">Back to Home</div>
+                    </div>
+                </pe-spa-content>
+            </pe-spa-page>
+            <!-- 设置页 -->
+            <pe-spa-page path="/settings" grey>
+                <pe-spa-header style="flex-direction: column;" note="Manage your preferences" back>Settings</pe-spa-header>
+                <pe-spa-content>
+                    <div class="pe-layout pe-padding-s pe-gap-s" style="flex-direction: column;">
+                        <pe-setting hover light>
+                            <pe-setting-item title="Notifications">
+                                <pe-switch v-model="notifications"></pe-switch>
+                            </pe-setting-item>
+                            <pe-setting-item title="Dark Mode">
+                                <pe-switch v-model="darkMode"></pe-switch>
+                            </pe-setting-item>
+                            <pe-setting-item title="Language" arrow>English</pe-setting-item>
+                        </pe-setting>
+                        <div>Tags:</div>
+                        <pe-setting light>
+                            <pe-setting-item gap="xs" style="flex-direction: column;">
+                                <pe-tag type="pe" :plain="spaTag !== '1'" @click="spaTag = '1'">Option 1</pe-tag>
+                                <pe-tag type="pe" :plain="spaTag !== '2'" @click="spaTag = '2'">Option 2</pe-tag>
+                                <pe-tag type="pe" :plain="spaTag !== '3'" @click="spaTag = '3'">Option 3</pe-tag>
+                            </pe-setting-item>
+                            <pe-setting-item nopadding nogap v-slot:left>
+                                <pe-setting-block style="flex: 1;" hover>A</pe-setting-block>
+                                <pe-setting-block style="flex: 1;" hover>B</pe-setting-block>
+                                <pe-setting-block style="flex: 1;" hover>C</pe-setting-block>
+                            </pe-setting-item>
+                        </pe-setting>
+                    </div>
+                </pe-spa-content>
+            </pe-spa-page>
+        </pe-spa>
+        <div class="pe-layout pe-gap-s">
+            <div class="pe-button pe-pgrey" @click="spaPlain = !spaPlain">{{spaPlain ? '' : '!'}}plain</div>
+            <div class="pe-button pe-pgrey" @click="spaFull = !spaFull">{{spaFull ? '' : '!'}}full</div>
+        </div>
+        <div class="pe-layout pe-gap-s">
+            <div class="pe-button pe-pgrey" @click="spaGo('/')">Home</div>
+            <div class="pe-button pe-pgrey" @click="spaGo('/profile')">Profile</div>
+            <div class="pe-button pe-pgrey" @click="spaGo('/settings')">Settings</div>
+        </div>
+    </div>
+</div>
+<!-- 脚部 -->
+<div id="footer">
+    <pe-footer>
+        <div class="pe-footer-list pe-footer-end">
+            <div class="pe-footer-logo"></div>
+        </div>
+        <div class="pe-footer-list">
+            <div class="pe-footer-title">Pages</div>
+            <a href="./">Home</a>
+            <a href="./banner.html">Banner</a>
+            <a href="./swipe.html">Swipe</a>
+        </div>
+        <template v-slot:bottom>
+            <div class="pe-footer-bottom-row">
+                <div class="pe-layout">SPA Test Page</div>
+            </div>
+        </template>
+    </pe-footer>
+</div>
+</body>
+</html>

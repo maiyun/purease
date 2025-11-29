@@ -1,0 +1,110 @@
+<!DOCTYPE HTML>
+<html style="visibility: hidden; overflow: hidden;">
+<head>
+<title>Banner - Purease Test</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+<script type="importmap">
+{
+    "imports": {
+        "purease": "../index.js"
+    }
+}
+</script>
+<script type="module" src="./index.js"></script>
+<link rel="stylesheet" href="index.css" />
+</head>
+<body>
+<!-- 头部 -->
+<div id="header">
+    <pe-header logo-href="./" fixed>
+        <a class="pe-header-item" href="./">Home</a>
+        <a class="pe-header-item" href="./banner.html">Banner</a>
+        <template v-slot:right>
+            <div class="pe-button pe-pgrey" @click="changeRTL">{{rtl ? '' : '!'}}RTL</div>
+        </template>
+    </pe-header>
+</div>
+<!-- Banner 1 - 基础 Banner -->
+<pe-banner direction="v" style="height: 400px;">
+    <div class="pe-btitle">Basic Banner</div>
+    <div class="pe-bnote">This is a basic banner with vertical direction</div>
+    <div class="pe-layout pe-gap-s">
+        <a class="pe-button" href="javascript:void(0);">Primary</a>
+        <a class="pe-button pe-grey" href="javascript:void(0);">Secondary</a>
+    </div>
+</pe-banner>
+<!-- Banner 2 - 带背景图的 Banner -->
+<pe-banner class="index-banner" direction="v" style="height: 500px;">
+    <div class="pe-btitle">Banner with Background</div>
+    <div class="pe-bnote">With background image and gradient overlay</div>
+    <div class="pe-layout pe-gap-s">
+        <a class="pe-button pe-plain" href="javascript:void(0);">Download</a>
+        <a class="pe-button pe-dark" href="javascript:void(0);">Learn More</a>
+    </div>
+</pe-banner>
+<!-- Banner 3 - 渐变 Banner -->
+<pe-banner class="pe-grad" direction="v" style="height: 300px;">
+    <div class="pe-crumb">
+        <a class="pe-crumb-item" href="./">Home</a>
+        <div class="pe-crumb-item">Products</div>
+        <div class="pe-crumb-item">Details</div>
+    </div>
+    <div class="pe-btitle">Gradient Banner</div>
+    <div class="pe-bnote">Banner with gradient background and breadcrumb</div>
+</pe-banner>
+<!-- Banner 4 - 灰色 Banner -->
+<pe-banner class="pe-grey" direction="v" style="height: 300px;">
+    <div class="pe-btitle">Grey Banner</div>
+    <div class="pe-bnote">Simple grey background banner</div>
+</pe-banner>
+<!-- 块状元素 -->
+<div class="pe-block">
+    <div class="pe-btitle">Block Title</div>
+    <div class="pe-gnote">This is a block with grey note</div>
+    <div class="pe-layout pe-gap-s" style="justify-content: center;">
+        <a class="pe-button" href="javascript:void(0);">Button 1</a>
+        <a class="pe-button pe-pgrey" href="javascript:void(0);">Button 2</a>
+        <a class="pe-button pe-grey" href="javascript:void(0);">Button 3</a>
+    </div>
+</div>
+<div class="pe-block pe-grey">
+    <div class="pe-btitle">Grey Block</div>
+    <div class="pe-bnote">Block with grey background</div>
+    <div class="pe-layout pe-gap-s" style="justify-content: center;">
+        <a class="pe-button pe-dark" href="javascript:void(0);">Dark Button</a>
+        <a class="pe-button pe-plain" href="javascript:void(0);">Plain Button</a>
+    </div>
+</div>
+<!-- 禁用按钮展示 -->
+<div class="pe-block">
+    <div class="pe-btitle">Disabled Buttons</div>
+    <div class="pe-layout pe-gap-s" style="justify-content: center; flex-wrap: wrap;">
+        <a class="pe-button pe-disabled" href="javascript:void(0);">Default</a>
+        <a class="pe-button pe-pgrey pe-disabled" href="javascript:void(0);">Pgrey</a>
+        <a class="pe-button pe-grey pe-disabled" href="javascript:void(0);">Grey</a>
+        <a class="pe-button pe-plain pe-disabled" href="javascript:void(0);">Plain</a>
+        <a class="pe-button pe-dark pe-disabled" href="javascript:void(0);">Dark</a>
+    </div>
+</div>
+<!-- 脚部 -->
+<div id="footer">
+    <pe-footer>
+        <div class="pe-footer-list pe-footer-end">
+            <div class="pe-footer-logo"></div>
+        </div>
+        <div class="pe-footer-list">
+            <div class="pe-footer-title">Pages</div>
+            <a href="./">Home</a>
+            <a href="./swipe.html">Swipe</a>
+            <a href="./login.html">Login</a>
+        </div>
+        <template v-slot:bottom>
+            <div class="pe-footer-bottom-row">
+                <div class="pe-layout">Banner Test Page</div>
+            </div>
+        </template>
+    </pe-footer>
+</div>
+</body>
+</html>

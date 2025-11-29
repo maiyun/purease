@@ -1,67 +1,63 @@
 .pe-logo {
     background-image: url(../../doc/logo.png);
 }
-html:not(.pe-scroll) .pe-header.swipe, html.pe-scroll .pe-header.swipe:not(.pe-fixed) {
-    &:not(:hover) {
-        .pe-logo {
-            background-image: url(../../doc/logo-white.png);
-        }
-    }
+html:not(.pe-scroll) .pe-header.rev:not(:hover) .pe-logo,
+html.pe-scroll .pe-header.rev:not(.pe-fixed):not(:hover) .pe-logo {
+    background-image: url(../../doc/logo-white.png);
 }
 .pe-bar-logo {
     background-image: url(../../doc/logo.png);
 }
-.pe-bar {
-    &.pe-theme-dark {
-        .pe-bar-logo {
-            background-image: url(../../doc/logo-white.png);
-        }
-    }
-}
-
-.pe-banner.index {
-    background-image: linear-gradient(to bottom, oklch(1 0 0 / .9), oklch(1 0 0 / .6)), url(bg.jpg);
-}
-.pe-banner.swipe {
-    background-image: url(bg.jpg);
+.pe-bar.pe-theme-dark .pe-bar-logo {
+    background-image: url(../../doc/logo-white.png);
 }
 .pe-footer-logo {
     background-image: url(../../doc/logo.png);
-    &.dark {
-        background-image: url(../../doc/logo-white.png);
-    }
+}
+.pe-footer-logo.dark {
+    background-image: url(../../doc/logo-white.png);
 }
 
-.boximg {
-    background-image: url(./bg.jpg); height: 200px;
+/* --- 背景图片 --- */
+.bg-img {
+    background-image: url(./images/bg.jpg);
+    height: 200px;
 }
-.boximg2 {
-    background-image: url(./bg.jpg);
-}
-.infoimg {
-    background-image: url(./bg.jpg); min-height: 300px;
-}
-
-// --- pe-igrid ---
-
-.pe-igrid {
-    div {
-        background-color: var(--pe); color: var(--pe-fcolor);
-    }
+.bg-img-small {
+    background-image: url(./images/bg.jpg);
+    min-height: 150px;
 }
 
-// --- login ---
+/* --- Banner 样式 --- */
+.pe-banner.index-banner {
+    background-image: linear-gradient(to bottom, oklch(100% 0 0deg / 0.8), oklch(100% 0 0deg / 0.5)), url(./images/bg.jpg);
+}
 
+/* --- 测试 igrid 样式 --- */
+.pe-igrid div {
+    background-color: var(--pe);
+    color: var(--pe-fcolor);
+}
+
+/* --- 登录页 --- */
 html.login {
     height: 100%;
-    body {
-        height: 100%;
-    }
 }
-
+html.login body {
+    height: 100%;
+}
 .pe-hske-first {
-    background-image: url(./bg.jpg);
+    background-image: url(./images/bg.jpg);
 }
 .pe-hske-content {
+    background-image: url(../../doc/logo-white.png);
+}
+
+/* --- Swipe 页 Banner 样式 --- */
+.pe-banner.swipe-banner {
+    background-image: url(./images/bg.jpg);
+}
+html:not(.pe-scroll) .pe-header.swipe:not(:hover) .pe-logo,
+html.pe-scroll .pe-header.swipe:not(.pe-fixed):not(:hover) .pe-logo {
     background-image: url(../../doc/logo-white.png);
 }

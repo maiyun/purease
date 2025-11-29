@@ -1,4 +1,5 @@
 .github/
+.playwright-mcp/
 .vscode/
 .VSCodeCounter/
 .vs/
@@ -16,6 +17,7 @@ package-lock.json
 
 /utils/
 /dist/control/
+/dist/demo/
 /dist/test/
 /dist/purease.js
 /dist/control.js

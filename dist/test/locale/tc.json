@@ -1,3 +1,11 @@
 {
-    "ok": "好"
+    "ok": "好",
+    "form": "表單",
+    "display": "展示",
+    "date": "日期",
+    "feedback": "反饋",
+    "navigation": "導航",
+    "container": "容器",
+    "simple": "簡單控件",
+    "spa": "單頁應用"
 }

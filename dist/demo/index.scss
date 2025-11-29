@@ -1,0 +1,67 @@
+.pe-logo {
+    background-image: url(../../doc/logo.png);
+}
+html:not(.pe-scroll) .pe-header.swipe, html.pe-scroll .pe-header.swipe:not(.pe-fixed) {
+    &:not(:hover) {
+        .pe-logo {
+            background-image: url(../../doc/logo-white.png);
+        }
+    }
+}
+.pe-bar-logo {
+    background-image: url(../../doc/logo.png);
+}
+.pe-bar {
+    &.pe-theme-dark {
+        .pe-bar-logo {
+            background-image: url(../../doc/logo-white.png);
+        }
+    }
+}
+
+.pe-banner.index {
+    background-image: linear-gradient(to bottom, oklch(1 0 0 / .9), oklch(1 0 0 / .6)), url(bg.jpg);
+}
+.pe-banner.swipe {
+    background-image: url(bg.jpg);
+}
+.pe-footer-logo {
+    background-image: url(../../doc/logo.png);
+    &.dark {
+        background-image: url(../../doc/logo-white.png);
+    }
+}
+
+.boximg {
+    background-image: url(./bg.jpg); height: 200px;
+}
+.boximg2 {
+    background-image: url(./bg.jpg);
+}
+.infoimg {
+    background-image: url(./bg.jpg); min-height: 300px;
+}
+
+// --- pe-igrid ---
+
+.pe-igrid {
+    div {
+        background-color: var(--pe); color: var(--pe-fcolor);
+    }
+}
+
+// --- login ---
+
+html.login {
+    height: 100%;
+    body {
+        height: 100%;
+    }
+}
+
+.pe-hske-first {
+    background-image: url(./bg.jpg);
+}
+.pe-hske-content {
+    background-image: url(../../doc/logo-white.png);
+}

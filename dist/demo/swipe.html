@@ -1,0 +1,270 @@
+<!DOCTYPE HTML>
+<html style="visibility: hidden; overflow: hidden;">
+<head>
+<title>Swipe - Purease Test</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+<script type="importmap">
+{
+    "imports": {
+        "purease": "../index.js"
+    }
+}
+</script>
+<script type="module" src="./index.js"></script>
+<!-- 用户 -->
+<link rel="stylesheet" href="index.css" />
+</head>
+<body>
+<div id="header">
+    <pe-header logo-href="./" fixed theme="rev" class="swipe">
+        <a class="pe-header-item" href="./">Home</a>
+        <pe-header-item>
+            List
+            <pe-menu>
+                <a class="pe-menu-item" href="./">111</a>
+                <a class="pe-menu-item" href="./">222</a>
+            </pe-menu>
+        </pe-header-item>
+        <a class="pe-header-item" href="./swipe.html">Swipe</a>
+        <pe-header-item>
+            Double
+            <pe-menu>
+                <div class="pe-layoutlist">
+                    <div>
+                        <a class="pe-menu-item" href="./">111342342342334</a>
+                        <a class="pe-menu-item" href="./">222</a>
+                    </div>
+                    <div>
+                        <a class="pe-menu-item" href="./">333</a>
+                        <a class="pe-menu-item" href="./">444</a>
+                    </div>
+                </div>
+            </pe-menu>
+        </pe-header-item>
+        <a class="pe-header-item" href="./">About</a>
+        <!-- 右侧 -->
+        <template v-slot:right>
+            <pe-header-item>
+                <pe-label>
+                    <pe-icon name="language"></pe-icon>
+                    Language
+                </pe-label>
+                <pe-menu>
+                    <div class="pe-layoutlist">
+                        <div>
+                            <a class="pe-menu-item" href="javascript:void(0);">简体中文</a>
+                            <a class="pe-menu-item" href="javascript:void(0);">繁體中文</a>
+                        </div>
+                        <div>
+                            <a class="pe-menu-item" href="javascript:void(0);">English</a>
+                            <a class="pe-menu-item" href="javascript:void(0);">Français</a>
+                        </div>
+                    </div>
+                </pe-menu>
+            </pe-header-item>
+            <a class="pe-button pe-plain pe-bold" href="./">Hello</a>
+        </template>
+    </pe-header>
+</div>
+<pe-swipe auto :page="swipePage">
+    <pe-swipe-item direction="v" style="background: rgba(0,0,0,.9); color: #FFF;">
+        <pe-banner class="swipe" direction="v" style="flex: 1;">
+            <div class="pe-btitle">I'm glad to see you</div>
+            <div class="pe-bnote">With Purease, you can quickly build a versatile, minimalist webpage.</div>
+            <div class="pe-layout pe-gap-s" style="align-items: center;">
+                <a class="pe-button pe-pwhite" href="javascript:void(0);">Download</a>
+                <a class="pe-button pe-dark" href="javascript:void(0);">Download</a>
+            </div>
+        </pe-banner>
+    </pe-swipe-item>
+    <pe-swipe-item direction="v" style="background: #000; color: #FFF; font-size: 48px;">
+        <div class="pe-layout" style="align-items: center; justify-content: center; flex: 1;">222</div>
+    </pe-swipe-item>
+    <pe-swipe-item direction="v" style="background: hsl(240, 50%, 30%); color: #FFF; font-size: 48px;">
+        <div class="pe-layout" style="align-items: center; justify-content: center; flex: 1;">333</div>
+    </pe-swipe-item>
+</pe-swipe>
+<!-- 和首页重复的演示 -->
+<div class="pe-block">
+    <div class="pe-btitle">Rapid prototyping</div>
+    <div class="pe-gnote">Web development shouldn't take up too much time</div>
+    <div class="pe-layout pe-gap-s" style="justify-content: center;">
+        <a class="pe-button" href="./">Discuss</a>
+        <a class="pe-button pe-pgrey" href="./">Discuss2</a>
+        <a class="pe-button pe-grey" href="./">Discuss3</a>
+    </div>
+</div>
+<!-- 选项卡 -->
+<div class="pe-block pe-grey">
+    <div class="pe-btitle">Screenshot</div>
+    <pe-tab v-model="tab">
+        <pe-tab-item>Tab1</pe-tab-item>
+        <pe-tab-item>Tab2</pe-tab-item>
+        <pe-tab-item>Tab3</pe-tab-item>
+    </pe-tab>
+    <div class="pe-content pe-lpadding-lr">
+        <pe-swipe v-model="tab" :page="swipePage" :control="swipeControl" radius="10" style="height: 500px;">
+            <pe-swipe-item direction="v" style="background: hsl(160, 50%, 30%); color: #FFF; font-size: 48px;">
+                <div class="pe-layout" style="align-items: center; justify-content: center; flex: 1;">Info1</div>
+            </pe-swipe-item>
+            <pe-swipe-item direction="v" style="background: hsl(200, 50%, 30%); color: #FFF; font-size: 48px;">
+                <div class="pe-layout" style="align-items: center; justify-content: center; flex: 1;">Info2</div>
+            </pe-swipe-item>
+            <pe-swipe-item direction="v" style="background: hsl(240, 50%, 30%); color: #FFF; font-size: 48px;">
+                <div class="pe-layout" style="align-items: center; justify-content: center; flex: 1;">Info3</div>
+            </pe-swipe-item>
+        </pe-swipe>
+    </div>
+    <div class="pe-alayout pe-gap" style="justify-content: center;">
+        <div class="pe-layout pe-gap-s" style="align-items: center; justify-content: center;">
+            <div>Page:</div>
+            <div class="pe-button pe-grey" @click="swipePage = 'left'">Left</div>
+            <div class="pe-button pe-grey" @click="swipePage = 'center'">Center</div>
+            <div class="pe-button pe-grey" @click="swipePage = 'right'">Right</div>
+        </div>
+        <div class="pe-layout pe-gap-s" style="align-items: center; justify-content: center;">
+            <div>Control:</div>
+            <div class="pe-button pe-grey" @click="swipeControl = 'inner'">Inner</div>
+            <div class="pe-button pe-grey" @click="swipeControl = 'outer'">Outer</div>
+        </div>
+    </div>
+</div>
+<div class="pe-block">
+    <div class="pe-alayout pe-content pe-padding-lr pe-gap">
+        <div class="pe-layout pe-gap-s" style="flex-direction: column; text-align: initial; justify-content: center; flex: 1;">
+            <div class="pe-title">This is a title</div>
+            <div class="pe-note">Hey, ok.</div>
+        </div>
+        <div class="pe-img infoimg" style="align-items: flex-end; justify-content: center; padding-bottom: 20px; flex: 1;">
+            OK
+        </div>
+    </div>
+</div>
+<div class="pe-block pe-grey">
+    <div class="pe-alayout pe-content pe-padding-lr pe-reverse pe-gap">
+        <div class="pe-layout pe-gap-s" style="flex-direction: column; text-align: initial; justify-content: center; flex: 1;">
+            <div class="pe-title">This is a title</div>
+            <div class="pe-note">Hey, ok.</div>
+        </div>
+        <div class="pe-img pe-hover infoimg" style="flex: 1;"></div>
+    </div>
+</div>
+<!-- 显示各种提示框 -->
+<div class="pe-block">
+    <div class="pe-btitle">Dialog</div>
+    <div class="pe-layout pe-gap-s" style="justify-content: center; margin-top: 20px;">
+        <div class="pe-button pe-pgrey" @click="showDialog">Dialog</div>
+        <div class="pe-button pe-pgrey" @click="showDialog2">Dialog2</div>
+    </div>
+    <div class="pe-layout pe-gap-s" style="justify-content: center; margin-top: 20px;">
+        <div class="pe-button pe-pgrey" @click="showConfirm">Confirm</div>
+        <div class="pe-button pe-pgrey" @click="showConfirm2">Confirm2</div>
+        <div class="pe-button pe-pgrey" @click="showCustom">Custom</div>
+    </div>
+</div>
+<!-- 一页面显示多个 -->
+<div class="pe-block pe-grey">
+    <div class="pe-btitle">Multi swipe</div>
+    <div class="pe-content pe-lpadding-lr">
+        <pe-swipe style="height: 500px;" control="outer" item="3" gutter="20">
+            <pe-swipe-item style="color: #FFF; font-size: 48px; background: hsl(160, 50%, 30%); border-radius: 10px; align-items: center; justify-content: center;">Info1</pe-swipe-item>
+            <pe-swipe-item style="color: #FFF; font-size: 48px; background: hsl(160, 50%, 30%); border-radius: 10px; align-items: center; justify-content: center;">Info2</pe-swipe-item>
+            <pe-swipe-item style="color: #FFF; font-size: 48px; background: hsl(160, 50%, 30%); border-radius: 10px; align-items: center; justify-content: center;">Info3</pe-swipe-item>
+            <pe-swipe-item style="color: #FFF; font-size: 48px; background: hsl(200, 50%, 30%); border-radius: 10px; align-items: center; justify-content: center;">Info4</pe-swipe-item>
+            <pe-swipe-item style="color: #FFF; font-size: 48px; background: hsl(200, 50%, 30%); border-radius: 10px; align-items: center; justify-content: center;">Info5</pe-swipe-item>
+            <pe-swipe-item style="color: #FFF; font-size: 48px; background: hsl(200, 50%, 30%); border-radius: 10px; align-items: center; justify-content: center;">Info6</pe-swipe-item>
+            <pe-swipe-item style="color: #FFF; font-size: 48px; background: hsl(240, 50%, 30%); border-radius: 10px; align-items: center; justify-content: center;">Info7</pe-swipe-item>
+            <pe-swipe-item style="color: #FFF; font-size: 48px; background: hsl(240, 50%, 30%); border-radius: 10px; align-items: center; justify-content: center;">Info8</pe-swipe-item>
+        </pe-swipe>
+    </div>
+</div>
+<pe-dialog :show="customDialog" @select="customDialogSelect" title="Please input name">
+    <pe-text style="width: 250px;" v-model="customDialogText"></pe-text>
+</pe-dialog>
+<!-- 显示加载框 -->
+<div class="pe-block">
+    <div class="pe-btitle">Loading</div>
+    <div class="pe-layout" style="justify-content: center; margin-top: 20px;">
+        <div class="pe-button pe-pgrey" @click="showLoading">Show loading</div>
+    </div>
+</div>
+<!-- btab -->
+<div class="pe-block pe-grey">
+    <div class="pe-btitle">Btab</div>
+</div>
+<pe-btab :data="['Tab1', 'Tab2', 'Other', 'Hehe', 'Mutton', 'Kebab', 'ClickGo', 'Purease']"></pe-btab>
+<pe-btab :data="['Tab1', 'Tab2', 'Other', 'Hehe', 'Mutton', 'Kebab', 'ClickGo', 'Purease']" type="plain"></pe-btab>
+<pe-btab :data="['Tab1', 'Tab2', 'Other', 'Hehe', 'Mutton', 'Kebab', 'ClickGo', 'Purease']" type="light"></pe-btab>
+<!-- tab -->
+<div class="pe-block">
+    <div class="pe-btitle">Tab</div>
+    <pe-tab :hover="tabHover">
+        <pe-tab-item>Tab1</pe-tab-item>
+        <pe-tab-item>Tab2</pe-tab-item>
+        <pe-tab-item>Tab3</pe-tab-item>
+    </pe-tab>
+    <pe-tab type="plain" :hover="tabHover">
+        <pe-tab-item>Tab1</pe-tab-item>
+        <pe-tab-item>Tab2</pe-tab-item>
+        <pe-tab-item>Tab3</pe-tab-item>
+    </pe-tab>
+    <pe-tab type="light" :hover="tabHover">
+        <pe-tab-item>Tab1</pe-tab-item>
+        <pe-tab-item>Tab2</pe-tab-item>
+        <pe-tab-item>Tab3</pe-tab-item>
+    </pe-tab>
+    <div>v-model: {{rectTabItemValue}}</div>
+    <div class="pe-layout" style="justify-content: center;">
+        <pe-tab v-model="rectTabItemValue" type="rect" :hover="tabHover">
+            <pe-tab-item>Tab1</pe-tab-item>
+            <pe-tab-item>Tab2222</pe-tab-item>
+            <pe-tab-item>Tab34</pe-tab-item>
+        </pe-tab>
+    </div>
+    <div class="pe-layout" style="justify-content: center;">
+        <div class="pe-button pe-pgrey" @click="tabHover = !tabHover">{{tabHover ? '' : '!'}}hover</div>
+    </div>
+</div>
+<!-- 脚部 -->
+<div id="footer">
+    <pe-footer dark>
+        <div class="pe-footer-list pe-footer-end">
+            <div class="pe-footer-logo dark"></div>
+        </div>
+        <div class="pe-footer-list">
+            <div class="pe-footer-title">List 1</div>
+            <a href="./">Page 1</a>
+            <a href="./">Page 2</a>
+            <a href="./">Page 3</a>
+        </div>
+        <div class="pe-footer-list">
+            <div class="pe-footer-title">List 2</div>
+            <a href="./" target="_blank">Page 1<pe-icon></pe-icon></a>
+            <a href="./">Page 2</a>
+            <a href="./">Page 3</a>
+        </div>
+        <div class="pe-footer-list">
+            <div class="pe-footer-title">List 3</div>
+            <a href="./">Page 1</a>
+            <a href="./">Page 2</a>
+            <a href="./">Page 3</a>
+        </div>
+        <template v-slot:bottom>
+            <div class="pe-footer-bottom-row">
+                <div class="pe-alayout pe-gap-xs" style="align-items: center;">
+                    <div>This is some footer information</div>
+                    <div>Note2</div>
+                </div>
+            </div>
+            <div class="pe-footer-bottom-row">
+                <div class="pe-layout">Item1</div>
+                <div class="pe-layout">Item2</div>
+                <div class="pe-layout">Item3</div>
+                <div class="pe-layout">{{text}}</div>
+            </div>
+        </template>
+    </pe-footer>
+</div>
+</body>
+</html>

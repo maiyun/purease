@@ -1,3 +1,11 @@
 {
-    "ok": "OK"
+    "ok": "OK",
+    "form": "Form",
+    "display": "Display",
+    "date": "Date",
+    "feedback": "Feedback",
+    "navigation": "Navigation",
+    "container": "Container",
+    "simple": "Simple Controls",
+    "spa": "SPA"
 }

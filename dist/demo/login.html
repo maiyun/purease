@@ -2,7 +2,7 @@
 <html class="login" style="visibility: hidden; overflow: hidden;">
 <head>
 <title>Login - Purease Test</title>
-<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta http-equiv="content-type" content="text/html;charset=utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
 <script type="importmap">
 {
@@ -11,7 +11,8 @@
     }
 }
 </script>
-<script type="module" src="./login.js"></script>
+<script type="module" src="./index.js"></script>
+<!-- 用户 -->
 <link rel="stylesheet" href="index.css" />
 </head>
 <body>
@@ -19,8 +20,8 @@
     <div class="pe-hske-first">
         <div class="pe-hske-content"></div>
         <div class="pe-hske-bottom">
-            <div>Welcome Back</div>
-            <div>Sign in to your account to continue</div>
+            <div>I'm glad to see you</div>
+            <div>With Purease, you can quickly build a versatile, minimalist webpage.</div>
         </div>
     </div>
     <div class="pe-hske-last">
@@ -42,36 +43,34 @@
                         </div>
                     </pe-menu>
                 </div>
-                <div class="pe-button pe-pgrey pe-padding-xs" @click="changeRTL">{{rtl ? '' : '!'}}RTL</div>
             </div>
             <div class="pe-layout pe-gap-s" style="align-items: center;">
-                <div>Not registered?</div>
-                <div class="pe-button pe-grey">Sign Up</div>
+                <div>Not yet?</div>
+                <div class="pe-button pe-grey">Register</div>
             </div>
         </div>
         <!-- 主面板 -->
         <div class="pe-layout" style="flex: 1; align-items: center; justify-content: center;">
             <div class="pe-layout pe-gap" style="flex-direction: column;">
-                <div class="pe-title" style="text-align: center;">Sign In</div>
+                <div class="pe-title" style="text-align: center;">Login</div>
                 <pe-tab v-model="tab">
+                    <pe-tab-item>Mobile</pe-tab-item>
                     <pe-tab-item>Email</pe-tab-item>
-                    <pe-tab-item>Phone</pe-tab-item>
                 </pe-tab>
                 <div>
-                    <pe-label mode="tip">{{tab === 0 ? 'Email' : 'Phone'}}</pe-label>
-                    <pe-text style="width: 300px;" v-model="user" :placeholder="tab === 0 ? 'Enter your email' : 'Enter your phone'"></pe-text>
+                    <pe-label mode="tip">User</pe-label>
+                    <pe-text style="width: 300px;" v-model="user"></pe-text>
                 </div>
                 <div>
-                    <pe-label mode="tip">Password</pe-label>
-                    <pe-text style="width: 300px;" v-model="pwd" type="password" placeholder="Enter your password"></pe-text>
+                    <pe-label mode="tip">Pwd</pe-label>
+                    <pe-text style="width: 300px;" v-model="pwd" type="password"></pe-text>
                 </div>
-                <pe-check v-model="agree">
-                    I agree to the<br>
-                    <a href="javascript:void(0);">Terms of Service<pe-icon></pe-icon></a><br>
-                    <a href="javascript:void(0);">Privacy Policy<pe-icon></pe-icon></a>
+                <pe-check>
+                    I agree<br>
+                    <a href="javascript:void(0);">Rule2<pe-icon></pe-icon></a><br>
+                    <a href="javascript:void(0);">Rule2<pe-icon></pe-icon></a>
                 </pe-check>
-                <div class="pe-button pe-dark" @click="login">Sign In</div>
-                <a href="./" style="text-align: center;">Back to Home</a>
+                <div class="pe-button pe-dark">Login</div>
             </div>
         </div>
     </div>

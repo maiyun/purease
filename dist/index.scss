@@ -781,7 +781,7 @@ html.pe-rtl {
     display: flex; padding: var(--pe-padding);
 
     .pe-anchor-left {
-        flex: 1;
+        flex: 1; width: 0;
     }
 
     .pe-anchor-right {
@@ -1984,7 +1984,7 @@ html.pe-rtl {
     }
 }
 .pe-lnav-right {
-    flex: 1; display: flex; flex-direction: column;
+    flex: 1; width: 0; display: flex; flex-direction: column;
 }
 
 html.pe-rtl {

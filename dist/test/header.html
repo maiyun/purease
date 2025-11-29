@@ -1,0 +1,151 @@
+<!DOCTYPE HTML>
+<html class="pe-dheader" style="visibility: hidden; overflow: hidden;">
+<head>
+<title>Header - Purease Test</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+<script type="importmap">
+{
+    "imports": {
+        "purease": "../index.js"
+    }
+}
+</script>
+<script type="module" src="./header.js"></script>
+<link rel="stylesheet" href="index.css" />
+</head>
+<body>
+<!-- 头部 -->
+<div id="header">
+    <pe-header logo-href="./" fixed :theme="headerTheme" :line="headerLine">
+        <a class="pe-header-item" href="./">Home</a>
+        <a class="pe-header-item" href="./header.html">Header</a>
+        <pe-header-item>
+            Pages
+            <pe-menu>
+                <a class="pe-menu-item" href="./banner.html">Banner</a>
+                <a class="pe-menu-item" href="./swipe.html">Swipe</a>
+                <a class="pe-menu-item" href="./login.html">Login</a>
+            </pe-menu>
+        </pe-header-item>
+        <pe-header-item>
+            Multi Menu
+            <pe-menu>
+                <div class="pe-layoutlist">
+                    <div>
+                        <a class="pe-menu-item" href="javascript:void(0);">Menu 1-1</a>
+                        <a class="pe-menu-item" href="javascript:void(0);">Menu 1-2</a>
+                    </div>
+                    <div>
+                        <a class="pe-menu-item" href="javascript:void(0);">Menu 2-1</a>
+                        <a class="pe-menu-item" href="javascript:void(0);">Menu 2-2</a>
+                    </div>
+                </div>
+            </pe-menu>
+        </pe-header-item>
+        <!-- 右侧 -->
+        <template v-slot:right>
+            <pe-header-item>
+                <pe-label>
+                    <pe-icon name="language"></pe-icon>
+                    Language
+                </pe-label>
+                <pe-menu>
+                    <div class="pe-layoutlist">
+                        <div>
+                            <a class="pe-menu-item" href="javascript:void(0);">简体中文</a>
+                            <a class="pe-menu-item" href="javascript:void(0);">繁體中文</a>
+                        </div>
+                        <div>
+                            <a class="pe-menu-item" href="javascript:void(0);">English</a>
+                            <a class="pe-menu-item" href="javascript:void(0);">Français</a>
+                        </div>
+                    </div>
+                </pe-menu>
+            </pe-header-item>
+            <div class="pe-button pe-pgrey" @click="changeRTL">{{rtl ? '' : '!'}}RTL</div>
+            <a class="pe-button pe-plain pe-bold" href="javascript:void(0);">Sign In</a>
+        </template>
+        <!-- 底部 -->
+        <template v-if="headerBottom" v-slot:bottom>
+            <pe-bar :theme="barTheme" :logo-href="barLogo ? 'javascript:void(0);' : undefined">
+                <pe-bar-item>Sub 1</pe-bar-item>
+                <pe-bar-item>Sub 2</pe-bar-item>
+                <pe-bar-item>
+                    Sub 3
+                    <pe-menu>
+                        <a class="pe-menu-item" href="./banner.html">Banner</a>
+                        <a class="pe-menu-item" href="./swipe.html">Swipe</a>
+                        <a class="pe-menu-item" href="./login.html">Login</a>
+                    </pe-menu>
+                </pe-bar-item>
+                <pe-bar-item>Sub 4</pe-bar-item>
+                <pe-bar-item>Sub 5</pe-bar-item>
+                <pe-bar-item>Sub 6</pe-bar-item>
+            </pe-bar>
+        </template>
+    </pe-header>
+</div>
+<!-- Banner -->
+<pe-banner class="pe-grey" direction="v" style="height: 350px;">
+    <div class="pe-btitle">Header Test</div>
+    <div class="pe-bnote">Test header with bar and menu</div>
+</pe-banner>
+<!-- 控制选项 -->
+<div class="pe-block">
+    <div class="pe-btitle">Header Options</div>
+    <div class="pe-layout pe-gap" style="flex-direction: column; align-items: center;">
+        <div class="pe-layout pe-gap-s" style="flex-wrap: wrap; justify-content: center;">
+            <div class="pe-button pe-pgrey" @click="toggleBottom">{{headerBottom ? '' : '!'}}Bottom bar</div>
+            <div class="pe-button pe-pgrey" @click="headerLine = !headerLine">{{headerLine ? '' : '!'}}Line</div>
+            <div class="pe-button pe-pgrey" @click="toggleSheader">{{sheader ? '' : '!'}}Sheader</div>
+        </div>
+        <div class="pe-layout pe-gap-s" style="align-items: center;">
+            <div>Theme:</div>
+            <pe-select style="width: 150px;" v-model="headerTheme" :data="['default', 'dark', 'rev']"></pe-select>
+        </div>
+        <div v-if="headerBottom" class="pe-layout pe-gap-s" style="align-items: center;">
+            <div>Bar Theme:</div>
+            <pe-select style="width: 150px;" v-model="barTheme" :data="['default', 'dark']"></pe-select>
+            <div class="pe-button pe-pgrey" @click="barLogo = !barLogo">{{barLogo ? '' : '!'}}Bar logo</div>
+        </div>
+    </div>
+</div>
+<!-- 内容填充 -->
+<div class="pe-block pe-grey">
+    <div class="pe-btitle">Content</div>
+    <div class="pe-bnote">Scroll down to see header effects</div>
+</div>
+<div class="pe-block">
+    <div class="pe-btitle">Section 1</div>
+    <div class="pe-bnote">Some content here</div>
+</div>
+<div class="pe-block pe-grey">
+    <div class="pe-btitle">Section 2</div>
+    <div class="pe-bnote">Some more content</div>
+</div>
+<div class="pe-block">
+    <div class="pe-btitle">Section 3</div>
+    <div class="pe-bnote">Even more content</div>
+</div>
+<!-- 脚部 -->
+<div id="footer">
+    <pe-footer>
+        <div class="pe-footer-list pe-footer-end">
+            <div class="pe-footer-logo"></div>
+        </div>
+        <div class="pe-footer-list">
+            <div class="pe-footer-title">Pages</div>
+            <a href="./">Home</a>
+            <a href="./banner.html">Banner</a>
+            <a href="./swipe.html">Swipe</a>
+        </div>
+        <template v-slot:bottom>
+            <div class="pe-footer-bottom-row">
+                <div class="pe-layout">Header Test Page</div>
+            </div>
+        </template>
+    </pe-footer>
+</div>
+</body>
+</html>
