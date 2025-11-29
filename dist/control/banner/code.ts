@@ -1,6 +1,6 @@
-import * as purease from '../../purease.js';
+import * as lControl from '../../control.js';
 
-export interface IBannerVue extends purease.IVue {
+export interface IBannerVue extends lControl.IControlVue {
     /** --- 布局流向，默认 h --- */
     'direction': 'h' | 'v';
 }

@@ -6,6 +6,29 @@ import * as purease from './purease.js';
 import * as lTool from './tool.js';
 import * as lDom from './dom.js';
 
+export interface IControlVue extends purease.IVue {
+
+    /** --- 获取 props 中的 boolean 类型的值 --- */
+    propBoolean: (name: string) => boolean;
+    /** --- 获取 props 中的 number 类型的值 --- */
+    propNumber: (name: string) => number;
+    /** --- 获取 props 中的 int 类型的值 --- */
+    propInt: (name: string) => number;
+    /** --- 获取 props 中的 array 类型的值 --- */
+    propArray: (name: string) => any[];
+    /** --- 根据 control name 查询上层控件 --- */
+    parentByName: (controlName: string) => IControlVue | null;
+    /** --- 获取语言包内容 --- */
+    l: (key: string, data?: string[]) => string;
+    /** --- 获取 alignH 的 css 属性模式，请确保 $props.alignH 存在 --- */
+    alignHComp: string | undefined;
+    /** --- 获取 alignH 的 css 属性模式，请确保 props.alignH 存在 --- */
+    alignVComp: string | undefined;
+    /** --- 是否是 rtl 模式 --- */
+    isRtl: boolean;
+
+}
+
 /** --- 通用的一些方法和 computed --- */
 export const common = {
     'computed': {
@@ -397,7 +420,7 @@ list['pe-btab'] = {
                     const cx = nx - x;
                     x = nx;
                     this.translate += cx;
-                    if (lDom.isRtl()) {
+                    if (this.isRtl) {
                         if (this.translate > this.max) {
                             this.translate = this.max;
                         }
@@ -425,7 +448,7 @@ list['pe-btab'] = {
                 return;
             }
             this.max = this.cwidth - this.width;
-            if (lDom.isRtl()) {
+            if (this.isRtl) {
                 if (this.translate > this.max) {
                     this.translate = this.max;
                 }
@@ -1097,7 +1120,7 @@ list['pe-date'] = {
                 return;
             }
             this.timestamp = this.propInt('modelValue');
-            this.dateObj.setTime(this.timestamp! + this.tzData * 60 * 60 * 1_000);
+            this.dateObj.setTime(this.timestamp + this.tzData * 60 * 60 * 1_000);
             this.dateStr = this.dateObj.getUTCFullYear().toString() + '-' + (this.dateObj.getUTCMonth() + 1).toString().padStart(2, '0') + '-' + this.dateObj.getUTCDate().toString().padStart(2, '0');
             this.timeStr = this.dateObj.getUTCHours().toString().padStart(2, '0') + ':' + this.dateObj.getUTCMinutes().toString().padStart(2, '0') + ':' + this.dateObj.getUTCSeconds().toString().padStart(2, '0');
             this.vhour = this.dateObj.getUTCHours().toString().padStart(2, '0');
@@ -2139,7 +2162,7 @@ list['pe-datepanel'] = {
         this.$watch('modelValue', () => {
             if (this.$props.modelValue !== undefined) {
                 this.timestamp = this.propNumber('modelValue');
-                this.dateObj.setTime(this.timestamp! + this.tzData * 60 * 60 * 1000);
+                this.dateObj.setTime(this.timestamp + this.tzData * 60 * 60 * 1000);
                 this.dateObj.setMilliseconds(0);
                 this.vhour = this.dateObj.getUTCHours().toString().padStart(2, '0');
                 this.vminute = this.dateObj.getUTCMinutes().toString().padStart(2, '0');
@@ -2969,13 +2992,13 @@ list['pe-lnav'] = {
 
 list['pe-menu'] = {
     'template': `<div class="pe-menu"><slot></slot></div>`,
-    mounted: function(this: purease.IVue) {
+    mounted: function(this: IControlVue) {
         if (this.$parent?.menuCount === undefined) {
             return;
         }
         ++this.$parent.menuCount;
     },
-    unmounted: async function(this: purease.IVue) {
+    unmounted: async function(this: IControlVue) {
         await this.$nextTick();
         if (this.$parent?.menuCount === undefined) {
             return;
@@ -3595,7 +3618,7 @@ list['pe-setting-item'] = {
 };
 
 list['pe-slider'] = {
-    'template': `<div class="pe-slider"><div v-if="propBoolean('range')" class="pe-slider-bar" :style="{'width': barWidth + '%', 'left': 'calc(' + barLeft + '% - 11px)'}"></div><div class="pe-slider-block" :style="{'left': 'calc(' + pos[0] + '% - 11px)'}" tabindex="0" @mousedown="down($event, 0)" @touchstart="down($event, 0)"></div><div v-if="propBoolean('range')" class="pe-slider-block" :style="{'left': 'calc(' + pos[1] + '% - 11px)'}" tabindex="0" @mousedown="down($event, 1)" @touchstart="down($event, 1)"></div></div>`,
+    'template': `<div class="pe-slider"><div v-if="propBoolean('range')" class="pe-slider-bar" :style="{'width': barWidth + '%', [isRtl?'right':'left']: 'calc(' + barPos + '% - 11px)'}"></div><div class="pe-slider-block" :style="{[isRtl?'right':'left']: 'calc(' + pos[0] + '% - 11px)'}" tabindex="0" @mousedown="down($event, 0)" @touchstart="down($event, 0)"></div><div v-if="propBoolean('range')" class="pe-slider-block" :style="{[isRtl?'right':'left']: 'calc(' + pos[1] + '% - 11px)'}" tabindex="0" @mousedown="down($event, 1)" @touchstart="down($event, 1)"></div></div>`,
     'props': {
         'modelValue': {
             'default': [0, 0]
@@ -3629,7 +3652,7 @@ list['pe-slider'] = {
             */
             return this.pos[1] - this.pos[0];
         },
-        barLeft: function(this: ISliderVue) {
+        barPos: function(this: ISliderVue) {
             return this.pos[0];
         }
     },
@@ -3641,13 +3664,21 @@ list['pe-slider'] = {
             const bcr = this.$el.getBoundingClientRect();
             /** --- slider 的宽度 --- */
             const width = bcr.width;
-            const left = bcr.left;
+            /** --- RTL 模式下使用 right，否则使用 left --- */
+            const startPos = this.isRtl ? bcr.right : bcr.left;
             lDom.bindDown(e, {
                 move: (ne) => {
                     // --- 当前的位置 ---
                     const nx = ne instanceof MouseEvent ? ne.clientX : ne.touches[0].clientX;
                     /** --- 当前滑块位置 --- */
-                    let pos = (nx - left) / width * 100;
+                    let pos: number;
+                    if (this.isRtl) {
+                        // --- RTL 模式下，从右向左计算 ---
+                        pos = (startPos - nx) / width * 100;
+                    }
+                    else {
+                        pos = (nx - startPos) / width * 100;
+                    }
                     // --- 先判断滑块不能大于 100% 小于 0% ---
                     if (pos < 0) {
                         pos = 0;
@@ -4464,13 +4495,13 @@ list['pe-table-cell'] = {
 
 list['pe-table-head'] = {
     'template': `<div class="pe-table-head"><slot></slot></div>`,
-    mounted: function(this: purease.IVue) {
+    mounted: function(this: IControlVue) {
         const row = this.parentByName('table-row');
         if (row) {
             row.updateHeadCount('+');
         }
     },
-    unmounted: function(this: purease.IVue) {
+    unmounted: function(this: IControlVue) {
         const row = this.parentByName('table-row');
         if (row) {
             row.updateHeadCount('-');

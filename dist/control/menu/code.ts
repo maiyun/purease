@@ -1,14 +1,14 @@
-import * as purease from '../../purease.js';
+import * as lControl from '../../control.js';
 
 export const code = {
     'template': '',
-    mounted: function(this: purease.IVue) {
+    mounted: function(this: lControl.IControlVue) {
         if (this.$parent?.menuCount === undefined) {
             return;
         }
         ++this.$parent.menuCount;
     },
-    unmounted: async function(this: purease.IVue) {
+    unmounted: async function(this: lControl.IControlVue) {
         await this.$nextTick();
         if (this.$parent?.menuCount === undefined) {
             return;

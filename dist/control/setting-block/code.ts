@@ -1,7 +1,7 @@
-import * as purease from '../../purease.js';
+import * as lControl from '../../control.js';
 import * as lDom from '../../dom.js';
 
-export interface ISettingBlockVue extends purease.IVue {
+export interface ISettingBlockVue extends lControl.IControlVue {
     /** --- 是否启用悬停效果，默认 false --- */
     'hover': boolean;
     /** --- 鼠标进入事件处理 --- */

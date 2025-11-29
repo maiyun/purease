@@ -1,7 +1,7 @@
 import * as lDom from '../../dom';
-import * as purease from '../../purease.js';
+import * as lControl from '../../control.js';
 
-export interface ISliderVue extends purease.IVue {
+export interface ISliderVue extends lControl.IControlVue {
     /** --- 当前值，默认 [0, 0] --- */
     'modelValue': [number, number];
     /** --- 最小值，默认 0 --- */
@@ -14,8 +14,8 @@ export interface ISliderVue extends purease.IVue {
     'pos': [number, number];
     /** --- 进度条宽度 --- */
     'barWidth': number;
-    /** --- 进度条左侧位置 --- */
-    'barLeft': number;
+    /** --- 进度条定位 --- */
+    'barPos': number;
     /** --- 鼠标按下事件 --- */
     down: (e: TouchEvent | MouseEvent, i: number) => void;
 }
@@ -55,7 +55,7 @@ export const code = {
             */
             return this.pos[1] - this.pos[0];
         },
-        barLeft: function(this: ISliderVue) {
+        barPos: function(this: ISliderVue) {
             return this.pos[0];
         }
     },
@@ -67,13 +67,21 @@ export const code = {
             const bcr = this.$el.getBoundingClientRect();
             /** --- slider 的宽度 --- */
             const width = bcr.width;
-            const left = bcr.left;
+            /** --- RTL 模式下使用 right，否则使用 left --- */
+            const startPos = this.isRtl ? bcr.right : bcr.left;
             lDom.bindDown(e, {
                 move: (ne) => {
                     // --- 当前的位置 ---
                     const nx = ne instanceof MouseEvent ? ne.clientX : ne.touches[0].clientX;
                     /** --- 当前滑块位置 --- */
-                    let pos = (nx - left) / width * 100;
+                    let pos: number;
+                    if (this.isRtl) {
+                        // --- RTL 模式下，从右向左计算 ---
+                        pos = (startPos - nx) / width * 100;
+                    }
+                    else {
+                        pos = (nx - startPos) / width * 100;
+                    }
                     // --- 先判断滑块不能大于 100% 小于 0% ---
                     if (pos < 0) {
                         pos = 0;

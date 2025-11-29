@@ -1,6 +1,6 @@
-import * as purease from '../../purease.js';
+import * as lControl from '../../control.js';
 
-export interface ISpaFooterVue extends purease.IVue {
+export interface ISpaFooterVue extends lControl.IControlVue {
     /** --- 当前选中值 --- */
     'modelValue': string;
 }

@@ -1,6 +1,6 @@
-import * as purease from '../../purease';
+import * as lControl from '../../control.js';
 
-export interface ISpaVue extends purease.IVue {
+export interface ISpaVue extends lControl.IControlVue {
     /** --- 是否为朴素风格，默认 false --- */
     'plain': boolean;
     /** --- 是否全屏显示，默认 false --- */

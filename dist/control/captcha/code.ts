@@ -1,8 +1,7 @@
-import * as purease from '../../purease.js';
-import * as lTool from '../../tool';
-import * as lControl from '../../control';
+import * as lControl from '../../control.js';
+import * as lTool from '../../tool.js';
 
-export interface ICaptchaVue extends purease.IVue {
+export interface ICaptchaVue extends lControl.IControlVue {
     /** --- 验证码服务商，默认 tc --- */
     'factory': 'tc' | 'cf';
     /** --- 验证码 key --- */

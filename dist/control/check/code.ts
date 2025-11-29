@@ -1,7 +1,7 @@
 import * as lDom from '../../dom';
-import * as purease from '../../purease.js';
+import * as lControl from '../../control.js';
 
-export interface ICheckVue extends purease.IVue {
+export interface ICheckVue extends lControl.IControlVue {
     /** --- 选中状态，默认 false --- */
     'modelValue': boolean;
     /** --- 布局流向，默认 h --- */

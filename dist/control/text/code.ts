@@ -1,7 +1,6 @@
-import * as purease from '../../purease.js';
-import * as lControl from '../../control';
+import * as lControl from '../../control.js';
 
-export interface ITextVue extends purease.IVue {
+export interface ITextVue extends lControl.IControlVue {
     /** --- 当前输入的值 --- */
     'modelValue': string;
     /** --- 是否只读，默认 false --- */

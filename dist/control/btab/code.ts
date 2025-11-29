@@ -1,7 +1,7 @@
 import * as lDom from '../../dom';
-import * as purease from '../../purease.js';
+import * as lControl from '../../control.js';
 
-export interface IBtabVue extends purease.IVue {
+export interface IBtabVue extends lControl.IControlVue {
     /** --- 选中的索引，默认 0 --- */
     'modelValue': number;
     /** --- tab 数据列表，默认空数组 --- */
@@ -90,7 +90,7 @@ export const code = {
                     const cx = nx - x;
                     x = nx;
                     this.translate += cx;
-                    if (lDom.isRtl()) {
+                    if (this.isRtl) {
                         if (this.translate > this.max) {
                             this.translate = this.max;
                         }
@@ -118,7 +118,7 @@ export const code = {
                 return;
             }
             this.max = this.cwidth - this.width;
-            if (lDom.isRtl()) {
+            if (this.isRtl) {
                 if (this.translate > this.max) {
                     this.translate = this.max;
                 }

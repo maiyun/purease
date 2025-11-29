@@ -1,13 +1,13 @@
 import * as lDom from '../../dom';
-import * as purease from '../../purease.js';
+import * as lControl from '../../control.js';
 
-export interface ITableRowVue extends purease.IVue {
+export interface ITableRowVue extends lControl.IControlVue {
     /** --- 控件名称 --- */
     'controlName': string;
     /** --- 表头数量 --- */
     'headCount': number;
     /** --- 父级 table 引用 --- */
-    'table': purease.IVue | null;
+    'table': lControl.IControlVue | null;
     /** --- 当前行索引 --- */
     'index': number;
     /** --- 是否为标题行，默认 false --- */

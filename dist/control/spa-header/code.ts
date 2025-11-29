@@ -1,6 +1,6 @@
-import * as purease from '../../purease.js';
+import * as lControl from '../../control.js';
 
-export interface ISpaHeaderVue extends purease.IVue {
+export interface ISpaHeaderVue extends lControl.IControlVue {
     /** --- 是否显示返回按钮，默认 false --- */
     'back': boolean;
     /** --- 备注文本 --- */

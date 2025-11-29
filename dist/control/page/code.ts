@@ -1,7 +1,6 @@
-import * as purease from '../../purease.js';
-import * as lControl from '../../control';
+import * as lControl from '../../control.js';
 
-export interface IPageVue extends purease.IVue {
+export interface IPageVue extends lControl.IControlVue {
     /** --- 当前页码，默认 1 --- */
     'modelValue': number;
     /** --- 最大页数，默认 0 --- */

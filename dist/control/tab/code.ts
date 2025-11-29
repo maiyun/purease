@@ -1,6 +1,6 @@
-import * as purease from '../../purease.js';
+import * as lControl from '../../control.js';
 
-export interface ITabVue extends purease.IVue {
+export interface ITabVue extends lControl.IControlVue {
     /** --- 当前选中索引 --- */
     'modelValue': number;
     /** --- 类型样式，默认 default --- */

@@ -1,6 +1,7 @@
+import * as lControl from '../../control.js';
 import * as purease from '../../purease.js';
 
-export interface IHeaderVue extends purease.IVue {
+export interface IHeaderVue extends lControl.IControlVue {
     /** --- logo 图地址 --- */
     'logoHref': string;
     /** --- 是否固定定位，默认 false --- */

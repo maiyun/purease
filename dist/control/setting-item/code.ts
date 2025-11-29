@@ -1,7 +1,7 @@
-import * as purease from '../../purease.js';
+import * as lControl from '../../control.js';
 import * as lDom from '../../dom.js';
 
-export interface ISettingItemVue extends purease.IVue {
+export interface ISettingItemVue extends lControl.IControlVue {
     /** --- 类型 --- */
     'type': string;
     /** --- 布局方向，默认 h --- */

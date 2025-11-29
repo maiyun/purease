@@ -1,8 +1,7 @@
-import * as lDom from '../../dom';
-import * as lControl from '../../control';
-import * as purease from '../../purease.js';
+import * as lDom from '../../dom.js';
+import * as lControl from '../../control.js';
 
-export interface IDateVue extends purease.IVue {
+export interface IDateVue extends lControl.IControlVue {
     /** --- 是否禁用，默认 false --- */
     'disabled': boolean;
     /** --- 当前日期时间戳，毫秒 --- */
@@ -421,7 +420,7 @@ export const code = {
                 return;
             }
             this.timestamp = this.propInt('modelValue');
-            this.dateObj.setTime(this.timestamp! + this.tzData * 60 * 60 * 1_000);
+            this.dateObj.setTime(this.timestamp + this.tzData * 60 * 60 * 1_000);
             this.dateStr = this.dateObj.getUTCFullYear().toString() + '-' + (this.dateObj.getUTCMonth() + 1).toString().padStart(2, '0') + '-' + this.dateObj.getUTCDate().toString().padStart(2, '0');
             this.timeStr = this.dateObj.getUTCHours().toString().padStart(2, '0') + ':' + this.dateObj.getUTCMinutes().toString().padStart(2, '0') + ':' + this.dateObj.getUTCSeconds().toString().padStart(2, '0');
             this.vhour = this.dateObj.getUTCHours().toString().padStart(2, '0');

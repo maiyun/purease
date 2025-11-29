@@ -1,7 +1,6 @@
-import * as purease from '../../purease.js';
-import * as lControl from '../../control';
+import * as lControl from '../../control.js';
 
-export interface ISwitchVue extends purease.IVue {
+export interface ISwitchVue extends lControl.IControlVue {
     /** --- 是否禁用，默认 false --- */
     'disabled': boolean;
     /** --- 值映射，默认 {} --- */

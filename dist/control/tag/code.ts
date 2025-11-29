@@ -1,6 +1,6 @@
-import * as purease from '../../purease.js';
+import * as lControl from '../../control.js';
 
-export interface ITagVue extends purease.IVue {
+export interface ITagVue extends lControl.IControlVue {
     /** --- 类型样式，默认 default --- */
     'type': 'default' | 'primary' | 'info' | 'warning' | 'danger' | 'pe';
     /** --- 是否为朴素风格，默认 false --- */

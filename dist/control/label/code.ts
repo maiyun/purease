@@ -1,6 +1,6 @@
-import * as purease from '../../purease.js';
+import * as lControl from '../../control.js';
 
-export interface ILabelVue extends purease.IVue {
+export interface ILabelVue extends lControl.IControlVue {
     /** --- 显示模式，默认 default --- */
     'mode': 'default' | 'tip' | 'mtip' | 'date';
     /** --- 内容文本或秒级时间戳 --- */

@@ -1,6 +1,6 @@
-import * as purease from '../../purease.js';
+import * as lControl from '../../control.js';
 
-export interface ITableVue extends purease.IVue {
+export interface ITableVue extends lControl.IControlVue {
     /** --- 控件名称 --- */
     'controlName': string;
     /** --- 表头数量 --- */

@@ -1,7 +1,8 @@
-import * as lDom from '../../dom';
+import * as lDom from '../../dom.js';
+import * as lControl from '../../control.js';
 import * as purease from '../../purease.js';
 
-export interface ITabItemVue extends purease.IVue {
+export interface ITabItemVue extends lControl.IControlVue {
     /** --- 当前 item 索引 --- */
     'index': number;
     /** --- 是否被选中 --- */

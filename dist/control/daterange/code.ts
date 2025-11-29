@@ -1,9 +1,8 @@
-import * as lDom from '../../dom';
-import * as lTool from '../../tool';
-import * as lControl from '../../control';
-import * as purease from '../../purease.js';
+import * as lDom from '../../dom.js';
+import * as lTool from '../../tool.js';
+import * as lControl from '../../control.js';
 
-export interface IDaterangeVue extends purease.IVue {
+export interface IDaterangeVue extends lControl.IControlVue {
     /** --- 是否禁用，默认为 false --- */
     'disabled': boolean;
     /** --- 当前时间范围，数组[开始时间戳, 结束时间戳] --- */

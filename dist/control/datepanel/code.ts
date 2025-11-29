@@ -1,8 +1,7 @@
-import * as lDom from '../../dom';
-import * as lControl from '../../control';
-import * as purease from '../../purease.js';
+import * as lDom from '../../dom.js';
+import * as lControl from '../../control.js';
 
-export interface IDatepanelVue extends purease.IVue {
+export interface IDatepanelVue extends lControl.IControlVue {
     /** --- 是否禁用，默认 false --- */
     'disabled': boolean;
     /** --- 是否只读，默认 false --- */
@@ -1184,7 +1183,7 @@ export const code = {
         this.$watch('modelValue', () => {
             if (this.$props.modelValue !== undefined) {
                 this.timestamp = this.propNumber('modelValue');
-                this.dateObj.setTime(this.timestamp! + this.tzData * 60 * 60 * 1000);
+                this.dateObj.setTime(this.timestamp + this.tzData * 60 * 60 * 1000);
                 this.dateObj.setMilliseconds(0);
                 this.vhour = this.dateObj.getUTCHours().toString().padStart(2, '0');
                 this.vminute = this.dateObj.getUTCMinutes().toString().padStart(2, '0');

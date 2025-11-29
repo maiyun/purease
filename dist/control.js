@@ -265,7 +265,7 @@ list['pe-btab'] = {
                     const cx = nx - x;
                     x = nx;
                     this.translate += cx;
-                    if (lDom.isRtl()) {
+                    if (this.isRtl) {
                         if (this.translate > this.max) {
                             this.translate = this.max;
                         }
@@ -293,7 +293,7 @@ list['pe-btab'] = {
                 return;
             }
             this.max = this.cwidth - this.width;
-            if (lDom.isRtl()) {
+            if (this.isRtl) {
                 if (this.translate > this.max) {
                     this.translate = this.max;
                 }
@@ -3360,7 +3360,7 @@ list['pe-setting-item'] = {
     },
 };
 list['pe-slider'] = {
-    'template': `<div class="pe-slider"><div v-if="propBoolean('range')" class="pe-slider-bar" :style="{'width': barWidth + '%', 'left': 'calc(' + barLeft + '% - 11px)'}"></div><div class="pe-slider-block" :style="{'left': 'calc(' + pos[0] + '% - 11px)'}" tabindex="0" @mousedown="down($event, 0)" @touchstart="down($event, 0)"></div><div v-if="propBoolean('range')" class="pe-slider-block" :style="{'left': 'calc(' + pos[1] + '% - 11px)'}" tabindex="0" @mousedown="down($event, 1)" @touchstart="down($event, 1)"></div></div>`,
+    'template': `<div class="pe-slider"><div v-if="propBoolean('range')" class="pe-slider-bar" :style="{'width': barWidth + '%', [isRtl?'right':'left']: 'calc(' + barPos + '% - 11px)'}"></div><div class="pe-slider-block" :style="{[isRtl?'right':'left']: 'calc(' + pos[0] + '% - 11px)'}" tabindex="0" @mousedown="down($event, 0)" @touchstart="down($event, 0)"></div><div v-if="propBoolean('range')" class="pe-slider-block" :style="{[isRtl?'right':'left']: 'calc(' + pos[1] + '% - 11px)'}" tabindex="0" @mousedown="down($event, 1)" @touchstart="down($event, 1)"></div></div>`,
     'props': {
         'modelValue': {
             'default': [0, 0]
@@ -3394,7 +3394,7 @@ list['pe-slider'] = {
             */
             return this.pos[1] - this.pos[0];
         },
-        barLeft: function () {
+        barPos: function () {
             return this.pos[0];
         }
     },
@@ -3406,13 +3406,21 @@ list['pe-slider'] = {
             const bcr = this.$el.getBoundingClientRect();
             /** --- slider 的宽度 --- */
             const width = bcr.width;
-            const left = bcr.left;
+            /** --- RTL 模式下使用 right，否则使用 left --- */
+            const startPos = this.isRtl ? bcr.right : bcr.left;
             lDom.bindDown(e, {
                 move: (ne) => {
                     // --- 当前的位置 ---
                     const nx = ne instanceof MouseEvent ? ne.clientX : ne.touches[0].clientX;
                     /** --- 当前滑块位置 --- */
-                    let pos = (nx - left) / width * 100;
+                    let pos;
+                    if (this.isRtl) {
+                        // --- RTL 模式下，从右向左计算 ---
+                        pos = (startPos - nx) / width * 100;
+                    }
+                    else {
+                        pos = (nx - startPos) / width * 100;
+                    }
                     // --- 先判断滑块不能大于 100% 小于 0% ---
                     if (pos < 0) {
                         pos = 0;

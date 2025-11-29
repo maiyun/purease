@@ -1,6 +1,6 @@
-import * as purease from '../../purease.js';
+import * as lControl from '../../control.js';
 
-export interface IDrawerVue extends purease.IVue {
+export interface IDrawerVue extends lControl.IControlVue {
     /** --- 是否显示，默认 false --- */
     'modelValue': boolean;
     /** --- 标题，默认空 --- */

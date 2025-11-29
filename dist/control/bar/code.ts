@@ -1,6 +1,6 @@
-import * as purease from '../../purease.js';
+import * as lControl from '../../control.js';
 
-export interface IBarVue extends purease.IVue {
+export interface IBarVue extends lControl.IControlVue {
     /** --- logo 图地址 --- */
     'logoHref': string;
     /** --- 主题风格，默认 default --- */

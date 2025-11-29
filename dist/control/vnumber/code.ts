@@ -1,6 +1,6 @@
-import * as purease from '../../purease.js';
+import * as lControl from '../../control.js';
 
-export interface IVnumberVue extends purease.IVue {
+export interface IVnumberVue extends lControl.IControlVue {
     /** --- 是否禁用，默认 false --- */
     'disabled': boolean;
     /** --- 当前输入的验证码值 --- */

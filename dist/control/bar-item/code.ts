@@ -1,7 +1,7 @@
 import * as lDom from '../../dom';
-import * as purease from '../../purease.js';
+import * as lControl from '../../control.js';
 
-export interface IBarItemVue extends purease.IVue {
+export interface IBarItemVue extends lControl.IControlVue {
     /** --- 链接地址 --- */
     'href': string | undefined;
     /** --- 菜单数量 --- */

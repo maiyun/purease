@@ -13,3 +13,9 @@
         transform: scale(1.3); background: var(--pe-input-bg); box-shadow: var(--pe-outline-shadow);
     }
 }
+
+html.pe-rtl {
+    .pe-slider-bar {
+        left: auto; right: 0;
+    }
+}

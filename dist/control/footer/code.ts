@@ -1,6 +1,6 @@
-import * as purease from '../../purease.js';
+import * as lControl from '../../control.js';
 
-export interface IFooterVue extends purease.IVue {
+export interface IFooterVue extends lControl.IControlVue {
     /** --- 暗色主题，默认 false --- */
     'dark': boolean;
 }

@@ -1,5 +1,4 @@
-import * as purease from '../../purease.js';
-import * as lControl from '../../control';
+import * as lControl from '../../control.js';
 
 /** --- dlist 数据项类型 --- */
 type TDlistItem = Record<string, any> | string;
@@ -19,7 +18,7 @@ interface IMapComp {
     'title': string;
 }
 
-export interface IDlistVue extends purease.IVue {
+export interface IDlistVue extends lControl.IControlVue {
     /** --- 当前选中的值 --- */
     'modelValue': string;
     /** --- 数据列表，默认空数组 --- */

@@ -1,6 +1,6 @@
-import * as purease from '../../purease.js';
+import * as lControl from '../../control.js';
 
-export interface IDialogVue extends purease.IVue {
+export interface IDialogVue extends lControl.IControlVue {
     /** --- 标题 --- */
     'title': string;
     /** --- 内容 --- */

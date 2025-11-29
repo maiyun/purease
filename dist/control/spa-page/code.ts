@@ -1,6 +1,7 @@
-import * as purease from '../../purease';
+import * as lControl from '../../control.js';
+import * as purease from '../../purease.js';
 
-export interface ISpaPageVue extends purease.IVue {
+export interface ISpaPageVue extends lControl.IControlVue {
     /** --- 页面路径 --- */
     'path': string;
     /** --- 是否灰色背景，默认 false --- */

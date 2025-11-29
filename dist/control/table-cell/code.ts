@@ -1,6 +1,6 @@
-import * as purease from '../../purease.js';
+import * as lControl from '../../control.js';
 
-export interface ITableCellVue extends purease.IVue {
+export interface ITableCellVue extends lControl.IControlVue {
 }
 
 export const code = {

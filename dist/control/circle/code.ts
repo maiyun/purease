@@ -1,6 +1,6 @@
-import * as purease from '../../purease.js';
+import * as lControl from '../../control.js';
 
-export interface ICircleVue extends purease.IVue {
+export interface ICircleVue extends lControl.IControlVue {
     /** --- 类型，默认 default --- */
     'type': 'default' | 'primary' | 'info' | 'warning' | 'danger' | 'pe';
     /** --- 是否朴素模式，默认 false --- */

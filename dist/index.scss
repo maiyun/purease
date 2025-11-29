@@ -2355,6 +2355,12 @@ html.pe-rtl {
     }
 }
 
+html.pe-rtl {
+    .pe-slider-bar {
+        left: auto; right: 0;
+    }
+}
+
 .pe-spa {
     overflow: hidden; position: relative; text-align: initial;
 

@@ -1,8 +1,8 @@
 import * as lTool from '../../tool';
 import * as lDom from '../../dom';
-import * as purease from '../../purease.js';
+import * as lControl from '../../control.js';
 
-export interface ISwipeVue extends purease.IVue {
+export interface ISwipeVue extends lControl.IControlVue {
     /** --- 当前页码，默认 0 --- */
     'modelValue': number;
     /** --- 是否自动滚动，默认 false --- */

@@ -1,6 +1,6 @@
-import * as purease from '../../purease.js';
+import * as lControl from '../../control.js';
 
-export interface ISpaFooterIconVue extends purease.IVue {
+export interface ISpaFooterIconVue extends lControl.IControlVue {
     /** --- 标题 --- */
     'title': string;
     /** --- 当前选中值 --- */

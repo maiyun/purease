@@ -1,6 +1,6 @@
-import * as purease from '../../purease.js';
+import * as lControl from '../../control.js';
 
-export interface INboardVue extends purease.IVue {
+export interface INboardVue extends lControl.IControlVue {
     /** --- 是否禁用，默认 false --- */
     'disabled': boolean;
     /** --- 是否为朴素风格，默认 false --- */

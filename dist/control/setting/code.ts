@@ -1,6 +1,6 @@
-import * as purease from '../../purease.js';
+import * as lControl from '../../control.js';
 
-export interface ISettingVue extends purease.IVue {
+export interface ISettingVue extends lControl.IControlVue {
     /** --- 类型 --- */
     'type': string;
     /** --- 是否启用悬停效果，默认 false --- */

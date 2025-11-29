@@ -1,8 +1,8 @@
 import * as lTool from '../../tool';
 import * as lDom from '../../dom';
-import * as purease from '../../purease.js';
+import * as lControl from '../../control.js';
 
-export interface ISwipeItemVue extends purease.IVue {
+export interface ISwipeItemVue extends lControl.IControlVue {
     /** --- 布局方向，默认 h --- */
     'direction': 'h' | 'v';
     /** --- 当前 item 索引 --- */

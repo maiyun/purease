@@ -1,6 +1,6 @@
-import * as purease from '../../purease.js';
+import * as lControl from '../../control.js';
 
-export interface IAnchorVue extends purease.IVue {
+export interface IAnchorVue extends lControl.IControlVue {
     /** --- 目录列表 --- */
     'list': Array<{
         /** --- 目录项的唯一标识 --- */

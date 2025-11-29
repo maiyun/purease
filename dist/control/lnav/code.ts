@@ -1,6 +1,6 @@
-import * as purease from '../../purease.js';
+import * as lControl from '../../control.js';
 
-export interface ILnavVue extends purease.IVue {
+export interface ILnavVue extends lControl.IControlVue {
     /** --- 左侧点击事件 --- */
     leftClick: (e: MouseEvent) => void;
 }

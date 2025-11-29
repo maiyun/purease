@@ -1,8 +1,7 @@
-import * as lDom from '../../dom';
-import * as lControl from '../../control';
-import * as purease from '../../purease.js';
+import * as lDom from '../../dom.js';
+import * as lControl from '../../control.js';
 
-export interface ISelectVue extends purease.IVue {
+export interface ISelectVue extends lControl.IControlVue {
     /** --- 当前选中值 --- */
     'modelValue': string;
     /** --- 数据列表 --- */
