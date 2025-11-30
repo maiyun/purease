@@ -100,7 +100,7 @@ export const common = {
 export const list = {};
 // --- AUTO CODE ---
 list['pe-anchor'] = {
-    'template': `<div class="pe-anchor" :class="{'pe-anchor-hr': propBoolean('hr')}"><div class="pe-anchor-left" ref="left"><slot></slot></div><div class="pe-anchor-right"><div class="pe-anchor-right-content"><div v-for="item of list" class="pe-anchor-item" :class="['pe-anchor-item-h' + item.level, {'pe-selected': item.id === selected}]" @click="scrollTo(item.id)">{{item.text}}</div></div></div></div>`,
+    'template': `<div class="pe-anchor" :class="{'pe-anchor-hr': propBoolean('hr')}"><div class="pe-anchor-left" ref="left"><slot></slot></div><div class="pe-anchor-right"><div class="pe-anchor-right-content"><div v-for="item of list" class="pe-anchor-item" :class="['pe-anchor-item-h' + item.level, {'pe-selected': item.id === selected}]" @click="itemClick(item.id)">{{item.text}}</div></div></div></div>`,
     'props': {
         'hr': {
             'default': false,
@@ -182,6 +182,10 @@ list['pe-anchor'] = {
                 'behavior': 'smooth',
             });
         },
+        itemClick: function (id) {
+            // window.location.hash = '#' + id;
+            this.scrollTo(id);
+        },
         /**
          * --- 清理事件监听器 ---
          */
@@ -191,6 +195,9 @@ list['pe-anchor'] = {
             }
             if (this.access.scrollHandler) {
                 window.removeEventListener('scroll', this.access.scrollHandler);
+            }
+            if (this.access.hashChangeHandler) {
+                window.removeEventListener('hashchange', this.access.hashChangeHandler);
             }
             if (this.access.scrollTimer) {
                 window.clearTimeout(this.access.scrollTimer);
@@ -215,6 +222,7 @@ list['pe-anchor'] = {
         this.access = {
             'scrollTimer': 0,
             'scrollHandler': null,
+            'hashChangeHandler': null,
         };
         /** --- 滚动事件处理函数，节流器 --- */
         const scrollHandler = () => {
@@ -253,6 +261,20 @@ list['pe-anchor'] = {
         window.addEventListener('scroll', scrollHandler);
         // --- 初始化时触发一次滚动检测 ---
         scrollHandler();
+        // --- 监听 hash 变动 ---
+        const hashChangeHandler = () => {
+            const hash = window.location.hash.slice(1);
+            if (!hash) {
+                return;
+            }
+            // --- 无法禁用滚动，只能强制拉回 ----
+            // e?.preventDefault();
+            this.scrollTo(hash);
+        };
+        this.access.hashChangeHandler = hashChangeHandler;
+        window.addEventListener('hashchange', hashChangeHandler);
+        // --- 初次判断 hash ---
+        hashChangeHandler();
     },
     unmounted: function () {
         // --- 移除事件监听器，避免内存泄漏 ---

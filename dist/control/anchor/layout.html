@@ -4,7 +4,7 @@
     </div>
     <div class="pe-anchor-right">
         <div class="pe-anchor-right-content">
-            <div v-for="item of list" class="pe-anchor-item" :class="['pe-anchor-item-h' + item.level, {'pe-selected': item.id === selected}]" @click="scrollTo(item.id)">{{item.text}}</div>
+            <div v-for="item of list" class="pe-anchor-item" :class="['pe-anchor-item-h' + item.level, {'pe-selected': item.id === selected}]" @click="itemClick(item.id)">{{item.text}}</div>
         </div>
     </div>
 </div>

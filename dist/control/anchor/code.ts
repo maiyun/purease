@@ -125,6 +125,10 @@ export const code = {
                 'behavior': 'smooth',
             });
         },
+        itemClick: function(this: IAnchorVue, id: string): void {
+            // window.location.hash = '#' + id;
+            this.scrollTo(id);
+        },
         /**
          * --- 清理事件监听器 ---
          */
@@ -134,6 +138,9 @@ export const code = {
             }
             if (this.access.scrollHandler) {
                 window.removeEventListener('scroll', this.access.scrollHandler);
+            }
+            if (this.access.hashChangeHandler) {
+                window.removeEventListener('hashchange', this.access.hashChangeHandler);
             }
             if (this.access.scrollTimer) {
                 window.clearTimeout(this.access.scrollTimer);
@@ -158,6 +165,7 @@ export const code = {
         this.access = {
             'scrollTimer': 0,
             'scrollHandler': null,
+            'hashChangeHandler': null,
         };
         /** --- 滚动事件处理函数，节流器 --- */
         const scrollHandler = (): void => {
@@ -196,6 +204,20 @@ export const code = {
         window.addEventListener('scroll', scrollHandler);
         // --- 初始化时触发一次滚动检测 ---
         scrollHandler();
+        // --- 监听 hash 变动 ---
+        const hashChangeHandler = (): void => {
+            const hash = window.location.hash.slice(1);
+            if (!hash) {
+                return;
+            }
+            // --- 无法禁用滚动，只能强制拉回 ----
+            // e?.preventDefault();
+            this.scrollTo(hash);
+        };
+        this.access.hashChangeHandler = hashChangeHandler;
+        window.addEventListener('hashchange', hashChangeHandler);
+        // --- 初次判断 hash ---
+        hashChangeHandler();
     },
     unmounted: function(this: IAnchorVue): void {
         // --- 移除事件监听器，避免内存泄漏 ---
