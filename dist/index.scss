@@ -788,7 +788,7 @@ html.pe-rtl {
         min-width: 200px;
 
         .pe-anchor-right-content {
-            position: sticky; top: calc(var(--pe-headerheight) + var(--pe-padding)); line-height: 2;
+            position: sticky; top: calc(var(--pe-headerheight) + var(--pe-padding)); line-height: 2; max-height: calc(100vh - var(--pe-headerheight) - var(--pe-padding) * 2); overflow-y: auto;
 
             .pe-anchor-item {
                 border-left: solid 1px var(--pe-border); padding-left: var(--pe-padding-s); transition: var(--pe-transition); cursor: pointer;
@@ -1747,7 +1747,7 @@ html.pe-sheader {
     }
 }
 .pe-nav {
-    flex: 1; display: flex; align-items: flex-start;
+    flex: 1; display: flex;
 }
 .pe-nav-left {
     flex: 1; width: 0; display: flex; flex-direction: column;

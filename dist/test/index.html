@@ -111,7 +111,7 @@
                 </pe-text>
                 <pe-text style="width: 300px;" v-model="text" :disabled="textDisabled" :plain="textPlain" :readonly="textReadonly">
                     <template v-slot:before>
-                        <pe-select :data="textSelect" plain style="width: 100px;"></pe-select>
+                        <pe-select :data="textSelect" plain style="width: 110px;"></pe-select>
                     </template>
                 </pe-text>
                 <div>Multi Value: {{textMulti}}</div>
@@ -204,7 +204,7 @@
                     <div class="pe-button pe-pgrey" @click="nboardPlain = !nboardPlain">{{nboardPlain ? '' : '!'}}plain</div>
                     <div class="pe-button pe-pgrey" @click="nboardSplit = !nboardSplit">{{nboardSplit ? '' : '!'}}split</div>
                     <div class="pe-button pe-pgrey" @click="nboardTitle = !nboardTitle">{{nboardTitle ? '' : '!'}}title</div>
-                    <pe-select :data="['default', 's', 'xs']" v-model="nboardSize" style="width: 100px;"></pe-select>
+                    <pe-select :data="['default', 's', 'xs']" v-model="nboardSize"></pe-select>
                 </div>
             </div>
 
@@ -215,7 +215,7 @@
             <h3 id="tag">Tag</h3>
             <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start;">
                 <div>Types:</div>
-                <div class="pe-layout pe-gap-xs" style="flex-wrap: wrap;">
+                <div class="pe-layout pe-gap-xs" style="flex-wrap: wrap; align-items: center;">
                     <pe-tag :close="tagClose" :plain="tagPlain" :size="tagSize">Default</pe-tag>
                     <pe-tag :close="tagClose" :plain="tagPlain" :size="tagSize" type="primary">Primary</pe-tag>
                     <pe-tag :close="tagClose" :plain="tagPlain" :size="tagSize" type="info">Info</pe-tag>
