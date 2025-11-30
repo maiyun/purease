@@ -804,6 +804,7 @@ html.pe-rtl {
         }
     }
 }
+
 html.pe-rtl {
     .pe-anchor-right {
         .pe-anchor-right-content {
@@ -2901,7 +2902,7 @@ html.pe-rtl {
 
 .pe-vnumber-wrap {
     border: solid 1px var(--pe-border); display: flex; transition: var(--pe-transition); border-radius: var(--pe-radius); position: relative; overflow: hidden;
-    > :last-child {
+    > div:last-of-type {
         border-right: none;
     }
 
@@ -2922,6 +2923,17 @@ html.pe-rtl {
 }
 .pe-vnumber-insert {
     animation: pe-vnumber-insert 1s linear infinite;
+}
+
+html.pe-rtl {
+    .pe-vnumber-wrap {
+        > div:first-of-type {
+            border-right: none;
+        }
+        > div:last-of-type {
+            border-right: solid 1px var(--pe-border-plain);
+        }
+    }
 }
 
 // --- AUTO CODE END ---
