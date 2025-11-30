@@ -100,7 +100,12 @@ export const common = {
 export const list = {};
 // --- AUTO CODE ---
 list['pe-anchor'] = {
-    'template': `<div class="pe-anchor"><div class="pe-anchor-left" ref="left"><slot></slot></div><div class="pe-anchor-right"><div class="pe-anchor-right-content"><div v-for="item of list" class="pe-anchor-item" :class="['pe-anchor-item-h' + item.level, {'pe-selected': item.id === selected}]" @click="scrollTo(item.id)">{{item.text}}</div></div></div></div>`,
+    'template': `<div class="pe-anchor" :class="{'pe-anchor-hr': propBoolean('hr')}"><div class="pe-anchor-left" ref="left"><slot></slot></div><div class="pe-anchor-right"><div class="pe-anchor-right-content"><div v-for="item of list" class="pe-anchor-item" :class="['pe-anchor-item-h' + item.level, {'pe-selected': item.id === selected}]" @click="scrollTo(item.id)">{{item.text}}</div></div></div></div>`,
+    'props': {
+        'hr': {
+            'default': false,
+        }
+    },
     'data': function () {
         return {
             'list': [],

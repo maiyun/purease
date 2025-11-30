@@ -6,7 +6,7 @@
 
 #### pe-padtitle
 
-让上方增加一块和 header 等高的 margin，通常用于没有 title 的与有 title 的 group 对齐
+让上方增加一块和 header 等高的 margin，通常用于没有使用 title 插槽的与有 title 的 group 对齐。使用 pe-padtitle 类的 group 禁止使用 title 插槽
 
 #### pe-point
 

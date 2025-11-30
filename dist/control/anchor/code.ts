@@ -1,6 +1,8 @@
 import * as lControl from '../../control.js';
 
 export interface IAnchorVue extends lControl.IControlVue {
+    /** --- 是否给除第一个 h2 增加上边框、给 h3 增加上边框，默认 false --- */
+    'hr': boolean | string;
     /** --- 目录列表 --- */
     'list': Array<{
         /** --- 目录项的唯一标识（基于标题文本生成的 slug） --- */
@@ -35,6 +37,11 @@ export interface IAnchorVue extends lControl.IControlVue {
 
 export const code = {
     'template': '',
+    'props': {
+        'hr': {
+            'default': false,
+        }
+    },
     'data': function(): {
         'list': Array<{
             'id': string;

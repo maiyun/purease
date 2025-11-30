@@ -87,7 +87,7 @@
         </div>
     </template>
     <!-- 右侧 -->
-    <pe-banner class="pe-grad" direction="v" style="height: 200px; padding-top: 0;">
+    <pe-banner class="pe-grad" direction="v" style="height: 250px; padding-top: 0;">
         <div class="pe-crumb">
             <a class="pe-crumb-item" href="./">Home</a>
             <div class="pe-crumb-item">Test</div>
@@ -96,7 +96,7 @@
         <div class="pe-bnote">Test all controls in one page</div>
     </pe-banner>
     <div class="pe-content">
-        <pe-anchor>
+        <pe-anchor hr>
             <!-- ==================== 表单控件 ==================== -->
             <h2 id="form">{{l('form')}}</h2>
 
@@ -181,7 +181,7 @@
 
             <!-- Vnumber -->
             <h3 id="vnumber">Vnumber</h3>
-            <div class="pe-layout pe-gap" style="flex-direction: column;">
+            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start;">
                 <div>Value: {{vnumber}}</div>
                 <pe-vnumber v-model="vnumber" :disabled="vnumberDisabled"></pe-vnumber>
                 <div class="pe-layout pe-gap-s">
@@ -225,7 +225,7 @@
                     <pe-tag :close="tagClose" :plain="tagPlain" :size="tagSize" type="current">Current</pe-tag>
                 </div>
                 <div>Dynamic tags:</div>
-                <div class="pe-layout pe-gap-xs" style="flex-wrap: wrap;">
+                <div class="pe-layout pe-gap-xs" style="flex-wrap: wrap; align-items: center;">
                     <pe-tag v-for="(item, index) of tagList" type="pe" :plain="tagPlain" :close="tagClose" @close="removeTag(index)">{{item}}</pe-tag>
                     <div class="pe-button pe-pgrey" @click="addTag">Add</div>
                 </div>
@@ -658,20 +658,20 @@
             <!-- Group -->
             <h3 id="group">Group</h3>
             <div class="pe-alayout pe-gap">
-                <pe-group style="flex: 1;">
+                <pe-group class="pe-padtitle" style="flex: 1;">
                     Basic plan<br>Feature 1<br>Feature 2
                     <template v-slot:bottom>
                         <div class="pe-button pe-pgrey" style="flex: 1;">Select</div>
                     </template>
                 </pe-group>
-                <pe-group style="flex: 1;" class="pe-padtitle">
+                <pe-group style="flex: 1;">
                     <template v-slot:title>Recommend</template>
                     Pro plan<br>Feature 1<br>Feature 2<br>Feature 3
                     <template v-slot:bottom>
                         <div class="pe-button pe-dark" style="flex: 1;">Select</div>
                     </template>
                 </pe-group>
-                <pe-group style="flex: 1;">
+                <pe-group class="pe-padtitle" style="flex: 1;">
                     Enterprise<br>Feature 1<br>Feature 2<br>Feature 3<br>Feature 4
                     <template v-slot:bottom>
                         <div class="pe-button pe-plain" style="flex: 1;">Contact</div>

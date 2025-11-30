@@ -759,7 +759,17 @@ html.pe-rtl {
     display: flex; padding: var(--pe-padding);
 
     .pe-anchor-left {
-        flex: 1; width: 0;
+        flex: 1; width: 0; padding-right: var(--pe-padding);
+    }
+    &.pe-anchor-hr {
+        .pe-anchor-left {
+            > h2:not(:first-child) {
+                border-top: 1px solid var(--pe-border-plain); padding-top: var(--pe-padding); margin-top: var(--pe-padding);
+            }
+            > h3 {
+                border-top: 1px solid var(--pe-border-plain); padding-top: var(--pe-padding); margin-top: var(--pe-padding);
+            }
+        }
     }
 
     .pe-anchor-right {
