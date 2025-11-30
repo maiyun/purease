@@ -49,6 +49,9 @@
 }
 
 html.pe-rtl {
+    .pe-anchor-left {
+        padding-right: 0; padding-left: var(--pe-padding);
+    }
     .pe-anchor-right {
         .pe-anchor-right-content {
             .pe-anchor-item {
