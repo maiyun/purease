@@ -102,7 +102,7 @@
 
             <!-- Text -->
             <h3 id="text">Text</h3>
-            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start;">
+            <div class="pe-layout pe-gap" style="flex-direction: column;">
                 <div>Value: {{text}}</div>
                 <pe-text style="width: 300px;" v-model="text" :disabled="textDisabled" :plain="textPlain" :readonly="textReadonly" placeholder="Enter text..."></pe-text>
                 <pe-text style="width: 300px;" v-model="text" :disabled="textDisabled" :plain="textPlain" :readonly="textReadonly">
@@ -129,7 +129,7 @@
 
             <!-- Select -->
             <h3 id="select">Select</h3>
-            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start;">
+            <div class="pe-layout pe-gap" style="flex-direction: column;">
                 <div>Value: {{select}}</div>
                 <pe-select style="width: 300px;" v-model="select" :data="selectData" :search="selectSearch" :disabled="selectDisabled" :plain="selectPlain"></pe-select>
                 <div class="pe-layout pe-gap-s">
@@ -141,7 +141,7 @@
 
             <!-- Check -->
             <h3 id="check">Check</h3>
-            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start;">
+            <div class="pe-layout pe-gap" style="flex-direction: column;">
                 <div>Value: {{check}}</div>
                 <pe-check v-model="check">Horizontal check</pe-check>
                 <pe-check v-model="check" direction="v">Vertical check<br>Line 2<br>Line 3</pe-check>
@@ -150,7 +150,7 @@
 
             <!-- Switch -->
             <h3 id="switch">Switch</h3>
-            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start;">
+            <div class="pe-layout pe-gap" style="flex-direction: column;">
                 <div>Boolean Value: {{switch1}}</div>
                 <pe-switch v-model="switch1" :disabled="switchDisabled"></pe-switch>
                 <div>Mapped Value: {{switch2}}</div>
@@ -162,7 +162,7 @@
 
             <!-- Dlist -->
             <h3 id="dlist">Dlist</h3>
-            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start;">
+            <div class="pe-layout pe-gap" style="flex-direction: column;">
                 <div>Value: {{dlist}}</div>
                 <pe-dlist style="width: 300px;" v-model="dlist" :data="dlistData" :tree="dlistTree"></pe-dlist>
                 <div class="pe-layout pe-gap-s">
@@ -172,16 +172,16 @@
 
             <!-- Slider -->
             <h3 id="slider">Slider</h3>
-            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start; max-width: 400px;">
+            <div class="pe-layout pe-gap" style="flex-direction: column; max-width: 400px;">
                 <div>Value: {{slider}}</div>
-                <pe-slider v-model="slider" style="width: 100%;"></pe-slider>
+                <pe-slider v-model="slider"></pe-slider>
                 <div>Range Value: {{sliderRange}} (min: 50, max: 300)</div>
-                <pe-slider v-model="sliderRange" range :min="50" :max="300" style="width: 100%;"></pe-slider>
+                <pe-slider v-model="sliderRange" range :min="50" :max="300"></pe-slider>
             </div>
 
             <!-- Vnumber -->
             <h3 id="vnumber">Vnumber</h3>
-            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start;">
+            <div class="pe-layout pe-gap" style="flex-direction: column;">
                 <div>Value: {{vnumber}}</div>
                 <pe-vnumber v-model="vnumber" :disabled="vnumberDisabled"></pe-vnumber>
                 <div class="pe-layout pe-gap-s">
@@ -192,7 +192,7 @@
 
             <!-- Nboard -->
             <h3 id="nboard">Nboard</h3>
-            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start;">
+            <div class="pe-layout pe-gap" style="flex-direction: column;">
                 <div>Value: {{nboard}}</div>
                 <pe-nboard v-model="nboard" :disabled="nboardDisabled" :plain="nboardPlain" :split="nboardSplit" :size="nboardSize !== 'default' ? nboardSize : undefined">
                     <template v-if="nboardTitle" v-slot:title>
@@ -213,7 +213,7 @@
 
             <!-- Tag -->
             <h3 id="tag">Tag</h3>
-            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start;">
+            <div class="pe-layout pe-gap" style="flex-direction: column;">
                 <div>Types:</div>
                 <div class="pe-layout pe-gap-xs" style="flex-wrap: wrap; align-items: center;">
                     <pe-tag :close="tagClose" :plain="tagPlain" :size="tagSize">Default</pe-tag>
@@ -238,7 +238,7 @@
 
             <!-- Circle -->
             <h3 id="circle">Circle</h3>
-            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start;">
+            <div class="pe-layout pe-gap" style="flex-direction: column;">
                 <div>Types:</div>
                 <div class="pe-layout pe-gap-xs" style="flex-wrap: wrap;">
                     <pe-circle type="pe"></pe-circle>
@@ -273,7 +273,7 @@
 
             <!-- Label -->
             <h3 id="label">Label</h3>
-            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start;">
+            <div class="pe-layout pe-gap" style="flex-direction: column;">
                 <div>Default:</div>
                 <pe-label>This is a label</pe-label>
                 <div>Tip mode:</div>
@@ -288,7 +288,7 @@
 
             <!-- Icon -->
             <h3 id="icon">Icon</h3>
-            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start;">
+            <div class="pe-layout pe-gap" style="flex-direction: column;">
                 <div>Available icons:</div>
                 <div class="pe-layout pe-gap-s" style="flex-wrap: wrap;">
                     <pe-icon></pe-icon>
@@ -299,7 +299,7 @@
 
             <!-- Table -->
             <h3 id="table">Table</h3>
-            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start; width: 100%;">
+            <div class="pe-layout pe-gap" style="flex-direction: column;">
                 <pe-table :adaption="tableAdaption" :plain="tablePlain">
                     <pe-table-row>
                         <pe-table-head>Name</pe-table-head>
@@ -338,7 +338,7 @@
 
             <!-- Datepanel -->
             <h3 id="datepanel">Datepanel</h3>
-            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start;">
+            <div class="pe-layout pe-gap" style="flex-direction: column;">
                 <div>Timestamp: {{dpTimestamp}}, Timezone: {{dpTimezone}}</div>
                 <div>YearMonth: {{dpYearMonth}}, HourMinute: {{dpHourMinute}}</div>
                 <pe-datepanel
@@ -369,7 +369,7 @@
 
             <!-- Date -->
             <h3 id="date">Date</h3>
-            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start;">
+            <div class="pe-layout pe-gap" style="flex-direction: column;">
                 <div>Timestamp: {{dateTimestamp}}</div>
                 <pe-date
                     v-model="dateTimestamp"
@@ -385,7 +385,7 @@
 
             <!-- Daterange -->
             <h3 id="daterange">Daterange</h3>
-            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start;">
+            <div class="pe-layout pe-gap" style="flex-direction: column;">
                 <div>Timestamp: {{daterangeTimestamp}}</div>
                 <pe-daterange
                     v-model="daterangeTimestamp"
@@ -400,7 +400,7 @@
 
             <!-- Dialog -->
             <h3 id="dialog">Dialog</h3>
-            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start;">
+            <div class="pe-layout pe-gap" style="flex-direction: column;">
                 <div class="pe-layout pe-gap-s" style="flex-wrap: wrap;">
                     <div class="pe-button pe-pgrey" @click="showDialog">Dialog</div>
                     <div class="pe-button pe-pgrey" @click="showDialog2">Dialog with title</div>
@@ -416,7 +416,7 @@
 
             <!-- Drawer -->
             <h3 id="drawer">Drawer</h3>
-            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start;">
+            <div class="pe-layout pe-gap" style="flex-direction: column;">
                 <div>drawer: {{drawer}}</div>
                 <div class="pe-button pe-pgrey" @click="drawer = true">Open Drawer</div>
             </div>
@@ -440,7 +440,7 @@
 
             <!-- Page -->
             <h3 id="page">Page</h3>
-            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start;">
+            <div class="pe-layout pe-gap" style="flex-direction: column;">
                 <div>Page 1: {{page1}}</div>
                 <pe-page v-model="page1" max="10"></pe-page>
                 <div>Page 2: {{page2}}</div>
@@ -454,7 +454,7 @@
 
             <!-- Button -->
             <h3 id="button">Button</h3>
-            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start;">
+            <div class="pe-layout pe-gap" style="flex-direction: column;">
                 <div>Styles:</div>
                 <div class="pe-layout pe-gap-s" style="flex-wrap: wrap;">
                     <div class="pe-button">Default</div>
@@ -482,21 +482,21 @@
 
             <!-- Layout -->
             <h3 id="layout">Layout</h3>
-            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start; width: 100%;">
+            <div class="pe-layout pe-gap" style="flex-direction: column;">
                 <div>pe-layout (horizontal):</div>
-                <div class="pe-layout pe-gap-s" style="width: 100%;">
+                <div class="pe-layout pe-gap-s">
                     <div class="pe-box pe-padding" style="flex: 1;">Item 1</div>
                     <div class="pe-box pe-padding" style="flex: 1;">Item 2</div>
                     <div class="pe-box pe-padding" style="flex: 1;">Item 3</div>
                 </div>
                 <div>pe-alayout (vertical):</div>
-                <div class="pe-alayout pe-gap-s" style="width: 100%;">
+                <div class="pe-alayout pe-gap-s">
                     <div class="pe-box pe-padding" style="flex: 1;">Item 1</div>
                     <div class="pe-box pe-padding" style="flex: 1;">Item 2</div>
                     <div class="pe-box pe-padding" style="flex: 1;">Item 3</div>
                 </div>
                 <div>pe-lralayout (left-right):</div>
-                <div class="pe-lralayout pe-gap-s" style="width: 100%;">
+                <div class="pe-lralayout pe-gap-s">
                     <div class="pe-box pe-padding">Left</div>
                     <div class="pe-box pe-padding">Center (flex)</div>
                     <div class="pe-box pe-padding">Right</div>
@@ -505,20 +505,20 @@
 
             <!-- Block -->
             <h3 id="block">Block</h3>
-            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start; width: 100%;">
-                <div class="pe-block" style="width: 100%;">Default block content</div>
-                <div class="pe-block pe-grey" style="width: 100%;">Grey block content</div>
+            <div class="pe-layout pe-gap" style="flex-direction: column;">
+                <div class="pe-block">Default block content</div>
+                <div class="pe-block pe-grey">Grey block content</div>
             </div>
 
             <!-- Content -->
             <h3 id="content">Content</h3>
-            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start; width: 100%;">
+            <div class="pe-layout pe-gap" style="flex-direction: column;">
                 <div>pe-content is used to wrap main content area with proper padding. This section is inside pe-content.</div>
             </div>
 
             <!-- Link -->
             <h3 id="link">Link</h3>
-            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start;">
+            <div class="pe-layout pe-gap" style="flex-direction: column;">
                 <div>Link styles:</div>
                 <div class="pe-layout pe-gap-s" style="flex-wrap: wrap;">
                     <a class="pe-link" href="javascript:void(0);">Default link<pe-icon></pe-icon></a>
@@ -528,12 +528,12 @@
 
             <!-- Stripe -->
             <h3 id="stripe">Stripe</h3>
-            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start; width: 100%;">
-                <div class="pe-stripe" style="width: 100%;">
+            <div class="pe-layout pe-gap" style="flex-direction: column;">
+                <div class="pe-stripe">
                     <span>Section Title</span>
                     <span class="pe-sep"></span>
                 </div>
-                <div class="pe-stripe" style="width: 100%;">
+                <div class="pe-stripe">
                     <span class="pe-sep"></span>
                     <span>Center Title</span>
                     <span class="pe-sep"></span>
@@ -542,7 +542,7 @@
 
             <!-- Crumb -->
             <h3 id="crumb">Crumb</h3>
-            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start;">
+            <div class="pe-layout pe-gap" style="flex-direction: column;">
                 <div class="pe-crumb">
                     <a class="pe-crumb-item" href="javascript:void(0);">Home</a>
                     <a class="pe-crumb-item" href="javascript:void(0);">Products</a>
@@ -552,8 +552,8 @@
 
             <!-- Tree -->
             <h3 id="tree">Tree</h3>
-            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start; width: 100%;">
-                <div class="pe-alayout pe-gap" style="width: 100%;">
+            <div class="pe-layout pe-gap" style="flex-direction: column;">
+                <div class="pe-alayout pe-gap">
                     <div class="pe-tree" style="min-width: 220px;">
                         <div class="pe-tree-title">Getting Started</div>
                         <a class="pe-tree-item pe-selected" href="javascript:void(0);">Introduction</a>
@@ -589,7 +589,7 @@
 
             <!-- Img -->
             <h3 id="img">Img</h3>
-            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start;">
+            <div class="pe-layout pe-gap" style="flex-direction: column;">
                 <div>pe-img with hover effect (used in pe-box):</div>
                 <div class="pe-alayout pe-gap">
                     <a class="pe-box pe-thover" href="javascript:void(0);" style="width: 200px;">
@@ -611,7 +611,7 @@
 
             <!-- Menudown -->
             <h3 id="menudown">Menudown</h3>
-            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start;">
+            <div class="pe-layout pe-gap" style="flex-direction: column;">
                 <div>Menudown is used in header. See the <a href="./header.html">Header page</a> for demo.</div>
             </div>
 
@@ -620,7 +620,7 @@
 
             <!-- Tab -->
             <h3 id="tab">Tab</h3>
-            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start;">
+            <div class="pe-layout pe-gap" style="flex-direction: column;">
                 <div>Value: {{tab}}</div>
                 <pe-tab v-model="tab" :hover="tabHover">
                     <pe-tab-item>Tab 1</pe-tab-item>
@@ -649,7 +649,7 @@
 
             <!-- Btab -->
             <h3 id="btab">Btab</h3>
-            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start; width: 100%;">
+            <div class="pe-layout pe-gap" style="flex-direction: column;">
                 <pe-btab :data="['Tab 1', 'Tab 2', 'Tab 3', 'Tab 4', 'Tab 5', 'Tab 6']" v-model="btab"></pe-btab>
                 <pe-btab :data="['Tab 1', 'Tab 2', 'Tab 3', 'Tab 4', 'Tab 5', 'Tab 6']" v-model="btab" type="plain"></pe-btab>
                 <pe-btab :data="['Tab 1', 'Tab 2', 'Tab 3', 'Tab 4', 'Tab 5', 'Tab 6']" v-model="btab" type="light"></pe-btab>
@@ -657,7 +657,7 @@
 
             <!-- Group -->
             <h3 id="group">Group</h3>
-            <div class="pe-alayout pe-gap" style="width: 100%;">
+            <div class="pe-alayout pe-gap">
                 <pe-group style="flex: 1;">
                     Basic plan<br>Feature 1<br>Feature 2
                     <template v-slot:bottom>
@@ -681,7 +681,7 @@
 
             <!-- Setting -->
             <h3 id="setting">Setting</h3>
-            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start; width: 100%;">
+            <div class="pe-layout pe-gap" style="flex-direction: column;">
                 <pe-setting :hover="settingHover" :plain="settingPlain" :light="settingLight">
                     <pe-setting-item title="Name" note="Your display name">Nick</pe-setting-item>
                     <pe-setting-item title="Theme" note="Choose theme">
@@ -699,7 +699,7 @@
 
             <!-- Box -->
             <h3 id="box">Box</h3>
-            <div class="pe-alayout pe-gap" style="width: 100%;">
+            <div class="pe-alayout pe-gap">
                 <a class="pe-box pe-padding pe-gap-xs" href="javascript:void(0);" style="justify-content: center; flex: 1;">
                     <div class="pe-title">Basic Box</div>
                     <div class="pe-note">Simple box style</div>
@@ -719,9 +719,9 @@
 
             <!-- Grid -->
             <h3 id="grid">Grid</h3>
-            <div class="pe-layout pe-gap" style="flex-direction: column; align-items: flex-start; width: 100%;">
+            <div class="pe-layout pe-gap" style="flex-direction: column;">
                 <div>Grid:</div>
-                <div class="pe-grid pe-gap" style="grid-template-columns: repeat(3, 1fr); width: 100%;">
+                <div class="pe-grid pe-gap" style="grid-template-columns: repeat(3, 1fr);">
                     <div class="pe-box pe-padding" style="text-align: center;">1</div>
                     <div class="pe-box pe-padding" style="text-align: center;">2</div>
                     <div class="pe-box pe-padding" style="text-align: center;">3</div>
@@ -730,7 +730,7 @@
                     <div class="pe-box pe-padding" style="text-align: center;">6</div>
                 </div>
                 <div>Igrid (infinite auto grid):</div>
-                <div class="pe-igrid" style="width: 100%;">
+                <div class="pe-igrid">
                     <div class="pe-padding-s">1</div>
                     <div class="pe-padding-s">2</div>
                     <div class="pe-padding-s">3</div>

@@ -107,6 +107,32 @@ html {
         direction: rtl;
     }
 }
+@media screen and (max-width: 800px) {
+    html {
+        --pe-radius-xl:20px;
+        // --- 间距 ---
+        --pe-padding-l:40px;
+        --pe-padding:30px;
+        --pe-padding-s:14px;
+        --pe-padding-xs:12px;
+        --pe-padding-xxs:4px;
+        // --- 字号 ---
+        --pe-size-xxxl:32px;
+        --pe-size-xxl:22px;
+        --pe-size-xl:20px;
+        --pe-size-l:18px;
+        --pe-size:14px;
+        --pe-size-s:13px;
+
+        &.pe-dheader {
+            --pe-headerheight:70px;
+            &.pe-sheader {
+                --pe-headerheight:50px;
+            }
+        }
+    }
+}
+
 html, body {
     padding: 0; margin: 0;
 }
@@ -246,6 +272,16 @@ html.pe-rtl {
         display: none;
     }
 }
+@media screen and (max-width: 800px) {
+    .pe-popbtn {
+        // --- lnav ---
+        &.pe-popbtn-lnav {
+            &.pe-show {
+                display: flex;
+            }
+        }
+    }
+}
 
 // --- pe-pop ---
 
@@ -309,6 +345,11 @@ html.pe-rtl {
 
 .pe-align-center-desktop {
     align-items: center;
+}
+@media screen and (max-width: 800px) {
+    .pe-align-center-desktop {
+        align-items: initial;
+    }
 }
 
 // --- pe-button ---
@@ -420,16 +461,31 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     &.pe-grey {
         background: var(--pe-grey);
     }
-
+}
+@media screen and (max-width: 800px) {
+    .pe-block {
+        padding: 80px 0;
+    }
 }
 
 // --- pe-alayout ---
 
 .pe-alayout {
     display: flex;
-
     &.pe-reverse {
         flex-direction: row-reverse;
+    }
+}
+@media screen and (max-width: 800px) {
+    .pe-alayout {
+        flex-direction: column;
+        > * {
+            flex-basis: initial;
+        }
+
+        &.pe-reverse {
+            flex-direction: column;
+        }
     }
 }
 
@@ -439,6 +495,14 @@ html:not(.pe-scroll) .pe-header, html.pe-scroll .pe-header:not(.pe-fixed) {
     display: flex;
     .pe-img {
         width: 300px; height: 150px;
+    }
+}
+@media screen and (max-width: 800px) {
+    .pe-lralyout {
+        flex-direction: column;
+        .pe-img {
+            width: initial;
+        }
     }
 }
 
@@ -533,6 +597,14 @@ html.pe-rtl {
 }
 .pe-hske-bottom {
     padding: 0 var(--pe-padding-s) var(--pe-padding-s) var(--pe-padding-s); text-align: center; font-size: var(--pe-size-xs); display: flex; flex-direction: column; gap: var(--pe-gap-xs);
+}
+@media screen and (max-width: 800px) {
+    .pe-hske-first {
+        flex: 0; width: 0;
+    }
+    .pe-hske-bottom {
+        position: fixed; bottom: 0; left: 0; width: 100%; color: oklch(0 0 0 / .6);
+    }
 }
 
 // --- pe-alert ---
@@ -679,100 +751,6 @@ html.pe-rtl {
             margin-left: initial; margin-right: var(--pe-padding-s);
         }
     }
-}
-
-// --- 小屏设备 ---
-
-@media screen and (max-width: 800px) {
-
-    html {
-        --pe-radius-xl:20px;
-        // --- 间距 ---
-        --pe-padding-l:40px;
-        --pe-padding:30px;
-        --pe-padding-s:14px;
-        --pe-padding-xs:12px;
-        --pe-padding-xxs:4px;
-        // --- 字号 ---
-        --pe-size-xxxl:32px;
-        --pe-size-xxl:22px;
-        --pe-size-xl:20px;
-        --pe-size-l:18px;
-        --pe-size:14px;
-        --pe-size-s:13px;
-
-        &.pe-dheader {
-            --pe-headerheight:70px;
-            &.pe-sheader {
-                --pe-headerheight:50px;
-            }
-        }
-    }
-
-    // --- pe-block ---
-
-    .pe-block {
-        padding: 80px 0;
-    }
-
-    // --- pe-gap ---
-
-    .pe-gap {
-        gap: 25px;
-    }
-
-    .pe-gap-s {
-        gap: 15px;
-    }
-
-    // --- pe-align-center-desktop ---
-
-    .pe-align-center-desktop {
-        align-items: initial;
-    }
-
-    // --- pe-alayout ---
-
-    .pe-alayout {
-        flex-direction: column;
-        > * {
-            flex-basis: initial;
-        }
-
-        &.pe-reverse {
-            flex-direction: column;
-        }
-    }
-
-    // --- pe-lralyout ---
-
-    .pe-lralyout {
-        flex-direction: column;
-        .pe-img {
-            width: initial;
-        }
-    }
-
-    // --- pe-hske ---
-
-    .pe-hske-first {
-        flex: 0; width: 0;
-    }
-    .pe-hske-bottom {
-        position: fixed; bottom: 0; left: 0; width: 100%; color: oklch(0 0 0 / .6);
-    }
-    
-    // --- pe-popbtns ---
-
-    .pe-popbtn {
-        // --- lnav ---
-        &.pe-popbtn-lnav {
-            &.pe-show {
-                display: flex;
-            }
-        }
-    }
-
 }
 
 // --- AUTO CODE START ---
@@ -2969,13 +2947,19 @@ html.pe-rtl {
 .pe-gap {
     gap: var(--pe-gap-m);
 }
-
 .pe-gap-s {
     gap: var(--pe-gap-s);
 }
-
 .pe-gap-xs {
     gap: var(--pe-gap-xs);
+}
+@media screen and (max-width: 800px) {
+    .pe-gap {
+        gap: 25px;
+    }
+    .pe-gap-s {
+        gap: 15px;
+    }
 }
 
 // --- pe-bold ---
