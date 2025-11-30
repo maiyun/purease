@@ -90,3 +90,18 @@
         }
     }
 }
+
+html.pe-rtl {
+    .pe-nboard {
+        .pe-nboard-line {
+            > div {
+                &:first-child {
+                    border-right: none;
+                }
+                &:last-child {
+                    border-right: solid 1px var(--pe-border-plain);
+                }
+            }
+        }
+    }
+}

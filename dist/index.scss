@@ -2139,6 +2139,20 @@ html.pe-rtl {
     }
 }
 
+html.pe-rtl {
+    .pe-nboard {
+        .pe-nboard-line {
+            > div {
+                &:first-child {
+                    border-right: none;
+                }
+                &:last-child {
+                    border-right: solid 1px var(--pe-border-plain);
+                }
+            }
+        }
+    }
+}
 
 .pe-page {
     cursor: default; -webkit-user-select: none; user-select: none;
