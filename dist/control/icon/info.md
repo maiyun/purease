@@ -1,4 +1,4 @@
-图标控件，用于显示各种图标
+图标控件，用于显示各种图标。以 `fa-` 开头可使用 Font Awesome 图标
 
 ### 参数
 
@@ -6,7 +6,7 @@
 
 `string`
 
-图标名称，默认 link
+图标名称，默认 link。如 `fa-solid fa-camera`。
 
 - `link`: 右上角指向的箭头，表示外链打开
 - `language`: 地球与文字符号结合，表示语言切换
@@ -34,4 +34,5 @@
 <pe-icon name="language"></pe-icon>
 <pe-icon name="eye"></pe-icon>
 <pe-icon name="home"></pe-icon>
+<pe-icon name="fa-solid fa-camera"></pe-icon>
 ```

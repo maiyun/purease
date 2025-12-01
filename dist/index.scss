@@ -1942,18 +1942,7 @@ html.pe-rtl {
 }
 
 .pe-icon {
-    display: flex; align-items: center; width: 18px; height: 18px; margin: 0 5px;
-    svg, img {
-        margin-right: 5px;
-    }
-}
-
-html.pe-rtl {
-    .pe-icon {
-        svg, img {
-            margin-right: initial; margin-left: 5px;
-        }
-    }
+    display: flex; align-items: center; width: 18px; height: 18px; font-size: 18px; margin: 0 5px; line-height: 1;
 }
 
 .pe-label {
