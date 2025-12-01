@@ -186,9 +186,12 @@ export const code = {
                     const el = headingList.item(i);
                     const top = el.offsetTop;
                     if (wtop < (top - headerheight - 20)) {
-                        continue;
+                        break;
                     }
                     this.selected = item.id;
+                }
+                if (!this.selected && this.list.length) {
+                    this.selected = this.list[0].id;
                 }
                 // --- 如果选中项变化，将其滚动到可视区域 ---
                 if (this.selected !== oldSelected) {

@@ -345,6 +345,9 @@ export function launcher(page, options = {}) {
         // --- 加载 vue 以及必要库 ---
         await lTool.loadScripts(paths);
         await lTool.loadLink(dirname + '/index.css', 'before');
+        await lTool.loadLinks([
+            `${cdn}/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css`
+        ]);
         const htmls = document.getElementsByTagName('html');
         if (!htmls[0]) {
             return;
