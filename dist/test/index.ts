@@ -119,8 +119,18 @@ class Page extends purease.AbstractPage {
     /** --- 数字键盘按钮参数 --- */
     public nboardButtons?: string[] = undefined;
 
-    /** --- 数字键盘自定义参数 --- */
-    public nboardCustom?: string = undefined;
+    // --- captcha ---
+
+    public tcResult: string = 'waiting...';
+
+    public cfResult: string = 'waiting...';
+
+    public tcKey = '';
+
+    public cfKey = '';
+
+    /** --- 验证码 key --- */
+    public captchaKey = 'test_key_123456';
 
     // --- 数据展示控件 ---
 
@@ -360,6 +370,26 @@ class Page extends purease.AbstractPage {
      */
     public nboardButton(btn: string): void {
         this.alert(`Button clicked: ${btn}`, 'pe');
+    }
+
+    // --- captcha ---
+
+    public tcOnResult(res: any): void {
+        this.tcResult = res;
+    }
+
+    public tcOnReset(): void {
+        this.tcResult = 'waiting...';
+        this.refs.tc.reset();
+    }
+
+    public cfOnResult(res: any): void {
+        this.cfResult = res;
+    }
+
+    public cfOnReset(): void {
+        this.cfResult = 'waiting...';
+        this.refs.cf.reset();
     }
 
     /**

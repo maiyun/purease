@@ -51,6 +51,7 @@
             <a class="pe-tree-item" href="#slider">Slider</a>
             <a class="pe-tree-item" href="#vnumber">Vnumber</a>
             <a class="pe-tree-item" href="#nboard">Nboard</a>
+            <a class="pe-tree-item" href="#captcha">Captcha</a>
 
             <div class="pe-tree-title">{{l('display')}}</div>
             <a class="pe-tree-item" href="#tag">Tag</a>
@@ -80,6 +81,7 @@
             <a class="pe-tree-item" href="#img">Img</a>
             <a class="pe-tree-item" href="#menudown">Menudown</a>
             <div class="pe-tree-title">{{l('container')}}</div>
+            <a class="pe-tree-item" href="#anchor">Anchor</a>
             <a class="pe-tree-item" href="#tab">Tab</a>
             <a class="pe-tree-item" href="#btab">Btab</a>
             <a class="pe-tree-item" href="#group">Group</a>
@@ -210,6 +212,17 @@
                     <div class="pe-button pe-pgrey" @click="nboardCustom = nboardCustom ? null : '#'">{{nboardCustom ? '' : '!'}}custom</div>
                     <pe-select :data="['default', 's', 'xs']" v-model="nboardSize"></pe-select>
                 </div>
+            </div>
+
+            <!-- Captcha -->
+            <h3 id="captcha">Captcha</h3>
+            <div class="pe-layout pe-gap" style="flex-direction: column;">
+                <div>tc: {{tcResult}}</div>
+                <pe-captcha ref="tc" factory="tc" :akey="tcKey" @result="tcOnResult"></pe-captcha>
+                <div class="pe-button pe-pgrey" @click="tcOnReset">Reset TC</div>
+                <div>cf: {{cfResult}}</div>
+                <pe-captcha ref="cf" factory="cf" :akey="cfKey" @result="cfOnResult"></pe-captcha>
+                <div class="pe-button pe-pgrey" @click="cfOnReset">Reset CF</div>
             </div>
 
             <!-- ==================== 数据展示控件 ==================== -->
@@ -644,6 +657,12 @@
             <!-- ==================== 容器控件 ==================== -->
             <h2 id="container-section">{{l('container')}}</h2>
 
+            <!-- Anchor -->
+            <h3 id="anchor">Anchor</h3>
+            <div class="pe-layout pe-gap" style="flex-direction: column;">
+                <div class="pe-note">The right navigation is automatically generated from headings, as demonstrated on this page with the anchor control.</div>
+            </div>
+
             <!-- Tab -->
             <h3 id="tab">Tab</h3>
             <div class="pe-layout pe-gap" style="flex-direction: column;">
@@ -717,6 +736,11 @@
                     </pe-setting-item>
                     <pe-setting-item title="Language" arrow>English</pe-setting-item>
                     <pe-setting-item title="With mark" mark="New" note="With mark info">Value</pe-setting-item>
+                    <pe-setting-item nopadding nogap v-slot:left>
+                        <pe-setting-block style="flex: 1;" hover>A</pe-setting-block>
+                        <pe-setting-block style="flex: 1;" hover>B</pe-setting-block>
+                        <pe-setting-block style="flex: 1;" hover>C</pe-setting-block>
+                    </pe-setting-item>
                 </pe-setting>
                 <div class="pe-layout pe-gap-s">
                     <div class="pe-button pe-pgrey" @click="settingHover = !settingHover">{{settingHover ? '' : '!'}}hover</div>

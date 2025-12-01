@@ -85,8 +85,13 @@ class Page extends purease.AbstractPage {
         this.nboardSize = 'default';
         /** --- 数字键盘按钮参数 --- */
         this.nboardButtons = undefined;
-        /** --- 数字键盘自定义参数 --- */
-        this.nboardCustom = undefined;
+        // --- captcha ---
+        this.tcResult = 'waiting...';
+        this.cfResult = 'waiting...';
+        this.tcKey = '';
+        this.cfKey = '';
+        /** --- 验证码 key --- */
+        this.captchaKey = 'test_key_123456';
         // --- 数据展示控件 ---
         /** --- 标签列表 --- */
         this.tagList = ['Tag 1', 'Tag 2'];
@@ -266,6 +271,21 @@ class Page extends purease.AbstractPage {
      */
     nboardButton(btn) {
         this.alert(`Button clicked: ${btn}`, 'pe');
+    }
+    // --- captcha ---
+    tcOnResult(res) {
+        this.tcResult = res;
+    }
+    tcOnReset() {
+        this.tcResult = 'waiting...';
+        this.refs.tc.reset();
+    }
+    cfOnResult(res) {
+        this.cfResult = res;
+    }
+    cfOnReset() {
+        this.cfResult = 'waiting...';
+        this.refs.cf.reset();
     }
     /**
      * --- 日期面板改变事件 ---
