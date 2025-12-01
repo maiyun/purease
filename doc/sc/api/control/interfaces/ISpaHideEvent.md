@@ -6,7 +6,7 @@
 
 # Interface: ISpaHideEvent
 
-Defined in: control.ts:154
+Defined in: control.ts:177
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: control.ts:154
 
 > **detail**: `object`
 
-Defined in: control.ts:155
+Defined in: control.ts:178
 
 #### next
 

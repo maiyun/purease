@@ -6,7 +6,7 @@
 
 # Interface: ITextBeforechangeEvent
 
-Defined in: control.ts:126
+Defined in: control.ts:149
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: control.ts:126
 
 > **detail**: `object`
 
-Defined in: control.ts:127
+Defined in: control.ts:150
 
 #### change?
 
@@ -34,7 +34,7 @@ Defined in: control.ts:127
 
 > **go**: `boolean`
 
-Defined in: control.ts:119
+Defined in: control.ts:142
 
 #### Inherited from
 
@@ -46,7 +46,7 @@ Defined in: control.ts:119
 
 > **preventDefault**: () => `void`
 
-Defined in: control.ts:121
+Defined in: control.ts:144
 
 阻止默认行为
 

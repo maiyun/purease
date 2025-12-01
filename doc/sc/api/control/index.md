@@ -9,6 +9,7 @@
 ## Interfaces
 
 - [ICaptchaResultEvent](interfaces/ICaptchaResultEvent.md)
+- [IControlVue](interfaces/IControlVue.md)
 - [IDateChangedEvent](interfaces/IDateChangedEvent.md)
 - [IDatepanelChangedEvent](interfaces/IDatepanelChangedEvent.md)
 - [IDatepanelRangeEvent](interfaces/IDatepanelRangeEvent.md)

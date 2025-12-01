@@ -6,7 +6,7 @@
 
 # Interface: IVApp
 
-Defined in: purease.ts:835
+Defined in: purease.ts:843
 
 Vue 应用
 
@@ -16,7 +16,7 @@ Vue 应用
 
 > **\_container**: `HTMLElement`
 
-Defined in: purease.ts:847
+Defined in: purease.ts:855
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: purease.ts:847
 
 > **config**: [`IVueConfig`](IVueConfig.md)
 
-Defined in: purease.ts:838
+Defined in: purease.ts:846
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: purease.ts:838
 
 > **version**: `string`
 
-Defined in: purease.ts:845
+Defined in: purease.ts:853
 
 ## Methods
 
@@ -42,7 +42,7 @@ Defined in: purease.ts:845
 
 > **component**(`name`): `any`
 
-Defined in: purease.ts:836
+Defined in: purease.ts:844
 
 ##### Parameters
 
@@ -58,7 +58,7 @@ Defined in: purease.ts:836
 
 > **component**(`name`, `config`): `this`
 
-Defined in: purease.ts:837
+Defined in: purease.ts:845
 
 ##### Parameters
 
@@ -82,7 +82,7 @@ Defined in: purease.ts:837
 
 > **directive**(`name`): `any`
 
-Defined in: purease.ts:839
+Defined in: purease.ts:847
 
 ##### Parameters
 
@@ -98,7 +98,7 @@ Defined in: purease.ts:839
 
 > **directive**(`name`, `config`): `this`
 
-Defined in: purease.ts:840
+Defined in: purease.ts:848
 
 ##### Parameters
 
@@ -120,7 +120,7 @@ Defined in: purease.ts:840
 
 > **mixin**(`mixin`): `this`
 
-Defined in: purease.ts:841
+Defined in: purease.ts:849
 
 #### Parameters
 
@@ -138,7 +138,7 @@ Defined in: purease.ts:841
 
 > **mount**(`rootContainer`): [`IVue`](IVue.md)
 
-Defined in: purease.ts:842
+Defined in: purease.ts:850
 
 #### Parameters
 
@@ -156,7 +156,7 @@ Defined in: purease.ts:842
 
 > **provide**\<`T`\>(`key`, `value`): `this`
 
-Defined in: purease.ts:843
+Defined in: purease.ts:851
 
 #### Type Parameters
 
@@ -184,7 +184,7 @@ Defined in: purease.ts:843
 
 > **unmount**(): `void`
 
-Defined in: purease.ts:844
+Defined in: purease.ts:852
 
 #### Returns
 

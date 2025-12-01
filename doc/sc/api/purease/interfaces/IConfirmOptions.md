@@ -6,7 +6,7 @@
 
 # Interface: IConfirmOptions
 
-Defined in: purease.ts:861
+Defined in: purease.ts:869
 
 Confirm 选项
 
@@ -16,7 +16,7 @@ Confirm 选项
 
 > `optional` **cancel**: `boolean`
 
-Defined in: purease.ts:866
+Defined in: purease.ts:874
 
 是否显示取消按钮，默认不显示
 
@@ -26,7 +26,7 @@ Defined in: purease.ts:866
 
 > **content**: `string`
 
-Defined in: purease.ts:864
+Defined in: purease.ts:872
 
 支持 html
 
@@ -36,4 +36,4 @@ Defined in: purease.ts:864
 
 > `optional` **title**: `string`
 
-Defined in: purease.ts:862
+Defined in: purease.ts:870

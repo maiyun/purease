@@ -6,7 +6,7 @@
 
 # Interface: IVNode
 
-Defined in: purease.ts:798
+Defined in: purease.ts:806
 
 Vue 节点
 
@@ -20,7 +20,7 @@ Vue 节点
 
 > **children**: `object` & `IVNode`[]
 
-Defined in: purease.ts:799
+Defined in: purease.ts:807
 
 #### Type Declaration
 
@@ -34,7 +34,7 @@ Defined in: purease.ts:799
 
 > **props**: `Record`\<`string`, `any`\>
 
-Defined in: purease.ts:803
+Defined in: purease.ts:811
 
 ***
 
@@ -42,4 +42,4 @@ Defined in: purease.ts:803
 
 > **type**: `symbol` \| `Record`\<`string`, `any`\>
 
-Defined in: purease.ts:804
+Defined in: purease.ts:812

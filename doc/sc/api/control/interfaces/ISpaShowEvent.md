@@ -6,7 +6,7 @@
 
 # Interface: ISpaShowEvent
 
-Defined in: control.ts:147
+Defined in: control.ts:170
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: control.ts:147
 
 > **detail**: `object`
 
-Defined in: control.ts:148
+Defined in: control.ts:171
 
 #### path
 

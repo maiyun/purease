@@ -6,9 +6,13 @@
 
 # Interface: IVue
 
-Defined in: purease.ts:773
+Defined in: purease.ts:781
 
 Vue 实例
+
+## Extended by
+
+- [`IControlVue`](../../control/interfaces/IControlVue.md)
 
 ## Indexable
 
@@ -20,7 +24,7 @@ Vue 实例
 
 > **$attrs**: `Record`\<`string`, `string`\>
 
-Defined in: purease.ts:774
+Defined in: purease.ts:782
 
 ***
 
@@ -28,7 +32,7 @@ Defined in: purease.ts:774
 
 > **$data**: `Record`\<`string`, `any`\>
 
-Defined in: purease.ts:775
+Defined in: purease.ts:783
 
 ***
 
@@ -36,7 +40,7 @@ Defined in: purease.ts:775
 
 > **$el**: `HTMLElement`
 
-Defined in: purease.ts:776
+Defined in: purease.ts:784
 
 ***
 
@@ -44,7 +48,7 @@ Defined in: purease.ts:776
 
 > **$options**: `Record`\<`string`, `any`\>
 
-Defined in: purease.ts:780
+Defined in: purease.ts:788
 
 ***
 
@@ -52,7 +56,7 @@ Defined in: purease.ts:780
 
 > **$parent**: `IVue` \| `null`
 
-Defined in: purease.ts:781
+Defined in: purease.ts:789
 
 ***
 
@@ -60,7 +64,7 @@ Defined in: purease.ts:781
 
 > **$props**: `Record`\<`string`, `any`\>
 
-Defined in: purease.ts:782
+Defined in: purease.ts:790
 
 ***
 
@@ -68,7 +72,7 @@ Defined in: purease.ts:782
 
 > **$refs**: `Record`\<`string`, `HTMLElement` & `IVue`\>
 
-Defined in: purease.ts:783
+Defined in: purease.ts:791
 
 ***
 
@@ -76,7 +80,7 @@ Defined in: purease.ts:783
 
 > **$root**: `IVue`
 
-Defined in: purease.ts:784
+Defined in: purease.ts:792
 
 ***
 
@@ -84,7 +88,7 @@ Defined in: purease.ts:784
 
 > **$slots**: `object`
 
-Defined in: purease.ts:785
+Defined in: purease.ts:793
 
 #### Index Signature
 
@@ -100,7 +104,7 @@ Defined in: purease.ts:785
 
 > **$watch**: (`o`, `cb`, `opt?`) => `void`
 
-Defined in: purease.ts:789
+Defined in: purease.ts:797
 
 #### Parameters
 
@@ -132,7 +136,7 @@ Defined in: purease.ts:789
 
 > **$emit**(`name`, ...`arg`): `void`
 
-Defined in: purease.ts:777
+Defined in: purease.ts:785
 
 #### Parameters
 
@@ -154,7 +158,7 @@ Defined in: purease.ts:777
 
 > **$forceUpdate**(): `void`
 
-Defined in: purease.ts:778
+Defined in: purease.ts:786
 
 #### Returns
 
@@ -166,7 +170,7 @@ Defined in: purease.ts:778
 
 > **$nextTick**(): `Promise`\<`void`\>
 
-Defined in: purease.ts:779
+Defined in: purease.ts:787
 
 #### Returns
 

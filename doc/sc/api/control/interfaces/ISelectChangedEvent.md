@@ -6,7 +6,7 @@
 
 # Interface: ISelectChangedEvent
 
-Defined in: control.ts:163
+Defined in: control.ts:186
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: control.ts:163
 
 > **detail**: `object`
 
-Defined in: control.ts:164
+Defined in: control.ts:187
 
 #### index
 

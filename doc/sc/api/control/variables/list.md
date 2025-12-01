@@ -8,4 +8,4 @@
 
 > `const` **list**: `Record`\<`string`, \{\[`key`: `string`\]: `any`; `computed?`: `Record`\<`string`, `any`\>; `data?`: () => `Record`\<`string`, `any`\>; `props?`: `Record`\<`string`, \{ `default`: `any`; \}\>; `template`: `string`; \}\> = `{}`
 
-Defined in: control.ts:103
+Defined in: control.ts:126

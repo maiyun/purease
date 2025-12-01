@@ -6,7 +6,7 @@
 
 # Interface: IVueObject
 
-Defined in: purease.ts:809
+Defined in: purease.ts:817
 
 ## Methods
 
@@ -14,7 +14,7 @@ Defined in: purease.ts:809
 
 > **createApp**(`opt`): [`IVApp`](IVApp.md)
 
-Defined in: purease.ts:810
+Defined in: purease.ts:818
 
 #### Parameters
 
@@ -32,7 +32,7 @@ Defined in: purease.ts:810
 
 > **h**(`tag`, `props?`, `list?`): `any`
 
-Defined in: purease.ts:818
+Defined in: purease.ts:826
 
 #### Parameters
 
@@ -58,7 +58,7 @@ Defined in: purease.ts:818
 
 > **reactive**\<`T`\>(`obj`): `T`
 
-Defined in: purease.ts:812
+Defined in: purease.ts:820
 
 #### Type Parameters
 
@@ -82,7 +82,7 @@ Defined in: purease.ts:812
 
 > **ref**\<`T`\>(`obj`): `object`
 
-Defined in: purease.ts:811
+Defined in: purease.ts:819
 
 #### Type Parameters
 
@@ -110,7 +110,7 @@ Defined in: purease.ts:811
 
 > **watch**(`v`, `cb`, `opt`): `void`
 
-Defined in: purease.ts:813
+Defined in: purease.ts:821
 
 #### Parameters
 

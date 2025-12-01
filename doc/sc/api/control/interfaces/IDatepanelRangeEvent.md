@@ -6,7 +6,7 @@
 
 # Interface: IDatepanelRangeEvent
 
-Defined in: control.ts:189
+Defined in: control.ts:212
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: control.ts:189
 
 > **detail**: `object`
 
-Defined in: control.ts:190
+Defined in: control.ts:213
 
 #### end
 
@@ -34,7 +34,7 @@ Defined in: control.ts:190
 
 > **go**: `boolean`
 
-Defined in: control.ts:119
+Defined in: control.ts:142
 
 #### Inherited from
 
@@ -46,7 +46,7 @@ Defined in: control.ts:119
 
 > **preventDefault**: () => `void`
 
-Defined in: control.ts:121
+Defined in: control.ts:144
 
 阻止默认行为
 

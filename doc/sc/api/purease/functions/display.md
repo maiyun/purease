@@ -8,7 +8,7 @@
 
 > **display**(`message?`, ...`optionalParams?`): `void`
 
-Defined in: purease.ts:765
+Defined in: purease.ts:773
 
 向控制台直接显示内容，一般情况下禁止使用
 
