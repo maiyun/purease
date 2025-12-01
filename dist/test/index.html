@@ -278,7 +278,6 @@
                 <pe-label>This is a label</pe-label>
                 <div>Tip mode:</div>
                 <pe-label mode="tip">Username</pe-label>
-                <pe-text style="width: 200px;"></pe-text>
                 <div>With icon:</div>
                 <pe-label>
                     <pe-icon name="language"></pe-icon>
@@ -552,38 +551,36 @@
 
             <!-- Tree -->
             <h3 id="tree">Tree</h3>
-            <div class="pe-layout pe-gap" style="flex-direction: column;">
-                <div class="pe-alayout pe-gap">
-                    <div class="pe-tree" style="min-width: 220px;">
-                        <div class="pe-tree-title">Getting Started</div>
-                        <a class="pe-tree-item pe-selected" href="javascript:void(0);">Introduction</a>
-                        <a class="pe-tree-item" href="javascript:void(0);">Installation</a>
-                        <div class="pe-tree-title">Components</div>
-                        <a class="pe-tree-item" href="javascript:void(0);">Button</a>
-                        <div class="pe-tree-item pe-open" @click="toggleTreeMenu($event)">Form</div>
-                        <div class="pe-tree-menu">
-                            <a class="pe-tree-item" href="javascript:void(0);">Text</a>
-                            <a class="pe-tree-item" href="javascript:void(0);">Select</a>
-                            <a class="pe-tree-item" href="javascript:void(0);">Check</a>
-                        </div>
-                        <div class="pe-tree-item" @click="toggleTreeMenu($event)">Display</div>
+            <div class="pe-alayout pe-gap">
+                <div class="pe-tree" style="min-width: 220px;">
+                    <div class="pe-tree-title">Getting Started</div>
+                    <a class="pe-tree-item" href="javascript:void(0);">Introduction</a>
+                    <a class="pe-tree-item" href="javascript:void(0);">Installation</a>
+                    <div class="pe-tree-title">Components</div>
+                    <a class="pe-tree-item" href="javascript:void(0);">Button</a>
+                    <div class="pe-tree-item">Form</div>
+                    <div class="pe-tree-menu">
+                        <a class="pe-tree-item" href="javascript:void(0);">Text</a>
+                        <a class="pe-tree-item" href="javascript:void(0);">Select</a>
+                        <a class="pe-tree-item" href="javascript:void(0);">Check</a>
+                    </div>
+                    <div class="pe-tree-item">Display</div>
+                    <div class="pe-tree-menu" style="height: 0;">
+                        <a class="pe-tree-item" href="javascript:void(0);">Tag</a>
+                        <a class="pe-tree-item" href="javascript:void(0);">Circle</a>
+                        <div class="pe-tree-item">Nested</div>
                         <div class="pe-tree-menu" style="height: 0;">
-                            <a class="pe-tree-item" href="javascript:void(0);">Tag</a>
-                            <a class="pe-tree-item" href="javascript:void(0);">Circle</a>
-                            <div class="pe-tree-item" @click="toggleTreeMenu($event)">Nested</div>
-                            <div class="pe-tree-menu" style="height: 0;">
-                                <a class="pe-tree-item" href="javascript:void(0);">Level 3-1</a>
-                                <a class="pe-tree-item" href="javascript:void(0);">Level 3-2</a>
-                            </div>
+                            <a class="pe-tree-item" href="javascript:void(0);">Level 3-1</a>
+                            <a class="pe-tree-item pe-selected" href="javascript:void(0);">Level 3-2</a>
                         </div>
-                        <div class="pe-tree-title">API Reference</div>
-                        <a class="pe-tree-item" href="javascript:void(0);">Purease</a>
-                        <a class="pe-tree-item" href="javascript:void(0);">Dom</a>
-                        <a class="pe-tree-item" href="javascript:void(0);">Tool</a>
                     </div>
-                    <div class="pe-box pe-padding" style="flex: 1;">
-                        <div class="pe-note">pe-tree is typically used for sidebar navigation. Use div.pe-tree-item to create expandable items with arrow. Click "Form" or "Display" to toggle submenu.</div>
-                    </div>
+                    <div class="pe-tree-title">API Reference</div>
+                    <a class="pe-tree-item" href="javascript:void(0);">Purease</a>
+                    <a class="pe-tree-item" href="javascript:void(0);">Dom</a>
+                    <a class="pe-tree-item" href="javascript:void(0);">Tool</a>
+                </div>
+                <div class="pe-box pe-padding" style="flex: 1;">
+                    <div class="pe-note">pe-tree is typically used for sidebar navigation. Use div.pe-tree-item to create expandable items with arrow. Click "Form" or "Display" to toggle submenu.</div>
                 </div>
             </div>
 

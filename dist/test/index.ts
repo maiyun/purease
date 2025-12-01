@@ -399,26 +399,6 @@ class Page extends purease.AbstractPage {
     }
 
     /**
-     * --- 切换 Tree 菜单 ---
-     * @param e 点击事件
-     */
-    public toggleTreeMenu(e: MouseEvent): void {
-        const el = e.currentTarget as HTMLElement;
-        const menu = el.nextElementSibling as HTMLElement;
-        if (!menu || !menu.classList.contains('pe-tree-menu')) {
-            return;
-        }
-        if (el.classList.contains('pe-open')) {
-            el.classList.remove('pe-open');
-            menu.style.height = '0';
-        }
-        else {
-            el.classList.add('pe-open');
-            menu.style.height = 'auto';
-        }
-    }
-
-    /**
      * --- 页面入口 ---
      */
     public main(): void {

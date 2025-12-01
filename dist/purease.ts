@@ -587,7 +587,9 @@ export function launcher<T extends AbstractPage>(page: new (opt: {
                         // --- 隐藏 ---
                         this.$refs.toTop.classList.remove('pe-show');
                     }
+                    // ---------------
                     // --- pe-tree ---
+                    // ---------------
                     const ptms: NodeListOf<HTMLElement> = document.querySelectorAll('.pe-tree-menu');
                     for (const ptm of ptms) {
                         ptm.style.height = '0';
@@ -603,43 +605,46 @@ export function launcher<T extends AbstractPage>(page: new (opt: {
                             pitem = parent;
                         }
                     }
-                    document.querySelector('.pe-tree')?.addEventListener('click', (e) => {
-                        let target = e.target as HTMLElement;
-                        if (target.tagName.toLowerCase() !== 'div') {
-                            return;
-                        }
-                        if (target.classList.contains('pe-tree-item')) {
-                            // --- 正常 ---
-                        }
-                        else {
-                            const parent = lDom.findParentByClass(target, 'pe-tree-item');
-                            if (!parent) {
+                    const trees = document.querySelectorAll('.pe-tree');
+                    for (const tree of trees) {
+                        tree.addEventListener('click', (e) => {
+                            let target = e.target as HTMLElement;
+                            if (target.tagName.toLowerCase() !== 'div') {
                                 return;
                             }
-                            target = parent;
-                        }
-                        const next = target.nextElementSibling as HTMLElement;
-                        if (!next) {
-                            return;
-                        }
-                        if (!next.classList.contains('pe-tree-menu')) {
-                            return;
-                        }
-                        if (target.classList.contains('pe-open')) {
-                            target.classList.remove('pe-open');
-                            next.style.height = next.scrollHeight + 'px';
-                            setTimeout(() => {
-                                next.style.height = '0';
-                            }, 50);
-                        }
-                        else {
-                            target.classList.add('pe-open');
-                            next.style.height = next.scrollHeight + 'px';
-                            setTimeout(() => {
-                                next.style.height = '';
-                            }, 300);
-                        }
-                    });
+                            if (target.classList.contains('pe-tree-item')) {
+                                // --- 正常 ---
+                            }
+                            else {
+                                const parent = lDom.findParentByClass(target, 'pe-tree-item');
+                                if (!parent) {
+                                    return;
+                                }
+                                target = parent;
+                            }
+                            const next = target.nextElementSibling as HTMLElement;
+                            if (!next) {
+                                return;
+                            }
+                            if (!next.classList.contains('pe-tree-menu')) {
+                                return;
+                            }
+                            if (target.classList.contains('pe-open')) {
+                                target.classList.remove('pe-open');
+                                next.style.height = next.scrollHeight + 'px';
+                                setTimeout(() => {
+                                    next.style.height = '0';
+                                }, 50);
+                            }
+                            else {
+                                target.classList.add('pe-open');
+                                next.style.height = next.scrollHeight + 'px';
+                                setTimeout(() => {
+                                    next.style.height = '';
+                                }, 300);
+                            }
+                        });
+                    }
                     // --- 判断是否显示 popbtn lnav ---
                     if (document.querySelector('.pe-lnav')) {
                         this.$refs.lnavBtn.classList.add('pe-show');

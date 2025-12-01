@@ -300,25 +300,6 @@ class Page extends purease.AbstractPage {
         purease.display('spaHide', e);
     }
     /**
-     * --- 切换 Tree 菜单 ---
-     * @param e 点击事件
-     */
-    toggleTreeMenu(e) {
-        const el = e.currentTarget;
-        const menu = el.nextElementSibling;
-        if (!menu || !menu.classList.contains('pe-tree-menu')) {
-            return;
-        }
-        if (el.classList.contains('pe-open')) {
-            el.classList.remove('pe-open');
-            menu.style.height = '0';
-        }
-        else {
-            el.classList.add('pe-open');
-            menu.style.height = 'auto';
-        }
-    }
-    /**
      * --- 页面入口 ---
      */
     main() {
