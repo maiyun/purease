@@ -385,13 +385,21 @@
                     :range="dpRange"
                     @changed="dpOnChanged"
                     @range="dpOnRange"
-                ></pe-datepanel>
+                >
+                    <template v-if="dpSlotEnabled" v-slot="col">
+                        <div style="text-align: center; flex: 1; color: var(--pe-note-color); font-size: var(--pe-size-xs);">
+                            {{col.date}}
+                        </div>
+                    </template>
+                </pe-datepanel>
                 <div class="pe-layout pe-gap-s" style="flex-wrap: wrap;">
                     <div class="pe-button pe-pgrey" @click="dpTime = !dpTime">{{dpTime ? '' : '!'}}time</div>
                     <div class="pe-button pe-pgrey" @click="dpZone = !dpZone">{{dpZone ? '' : '!'}}zone</div>
                     <div class="pe-button pe-pgrey" @click="dpDisabled = !dpDisabled">{{dpDisabled ? '' : '!'}}disabled</div>
                     <div class="pe-button pe-pgrey" @click="dpPlain = !dpPlain">{{dpPlain ? '' : '!'}}plain</div>
                     <div class="pe-button pe-pgrey" @click="dpRange = !dpRange">{{dpRange ? '' : '!'}}range</div>
+                    
+                    <div class="pe-button pe-pgrey" @click="dpSlotEnabled = !dpSlotEnabled">{{dpSlotEnabled ? '!' : ''}}Slot</div>
                 </div>
                 <div class="pe-layout pe-gap-s" style="flex-wrap: wrap;">
                     <div class="pe-button pe-pgrey" @click="setRandomTimestamp">Random time</div>

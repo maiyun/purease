@@ -178,6 +178,9 @@ class Page extends purease.AbstractPage {
     /** --- 日期面板是否范围选择 --- */
     public dpRange = false;
 
+    /** --- 日期面板 slot 是否启用 --- */
+    public dpSlotEnabled = false;
+
     /** --- 日期控件时间戳 --- */
     public dateTimestamp?: number = undefined;
 

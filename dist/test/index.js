@@ -122,6 +122,8 @@ class Page extends purease.AbstractPage {
         this.dpPlain = false;
         /** --- 日期面板是否范围选择 --- */
         this.dpRange = false;
+        /** --- 日期面板 slot 是否启用 --- */
+        this.dpSlotEnabled = false;
         /** --- 日期控件时间戳 --- */
         this.dateTimestamp = undefined;
         /** --- 日期控件是否显示日期 --- */
