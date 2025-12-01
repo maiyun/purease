@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 // --- 合并文件，无需做类型检查 ---
@@ -910,6 +911,173 @@ list['pe-circle'] = {
             'default': 'xxs',
         },
     },
+};
+
+list['pe-collapse'] = {
+    'template': `<div class="pe-collapse"><slot></slot></div>`,
+    'props': {
+        'modelValue': {
+            'default': () => ([])
+        },
+        'accordion': {
+            'default': false
+        }
+    },
+    'emits': {
+        'update:modelValue': null,
+        'change': null
+    },
+    'data': function() {
+        return {
+            'activeNames': [] as string[]
+        };
+    },
+    'computed': {
+        controlName: function(): string {
+            return 'pe-collapse';
+        }
+    },
+    'methods': {
+        /** --- 更新展开状态 --- */
+        updateActiveNames: function(this: ICollapseVue, name: string, expanded: boolean): void {
+            if (this.propBoolean('accordion')) {
+                // --- 手风琴模式：只能展开一个 ---
+                if (expanded) {
+                    this.activeNames = [name];
+                }
+                else {
+                    this.activeNames = [];
+                }
+            }
+            else {
+                // --- 非手风琴模式：可展开多个 ---
+                if (expanded) {
+                    if (!this.activeNames.includes(name)) {
+                        this.activeNames.push(name);
+                    }
+                }
+                else {
+                    const index = this.activeNames.indexOf(name);
+                    if (index > -1) {
+                        this.activeNames.splice(index, 1);
+                    }
+                }
+            }
+            // --- 触发更新 ---
+            const value = this.propBoolean('accordion') ? (this.activeNames[0] ?? '') : [...this.activeNames];
+            this.$emit('update:modelValue', value);
+            this.$emit('change', { 'detail': { 'value': value } });
+        },
+        /** --- 判断面板是否展开 --- */
+        isActive: function(this: ICollapseVue, name: string): boolean {
+            return this.activeNames.includes(name);
+        }
+    },
+    'watch': {
+        'modelValue': {
+            handler: function(this: ICollapseVue): void {
+                const val = this.$props.modelValue;
+                if (Array.isArray(val)) {
+                    this.activeNames = [...val];
+                }
+                else if (typeof val === 'string' && val) {
+                    this.activeNames = [val];
+                }
+                else {
+                    this.activeNames = [];
+                }
+            },
+            'immediate': true
+        }
+    }
+};
+
+list['pe-collapse-item'] = {
+    'template': `<div class="pe-collapse-item" :class="[isExpanded&&'pe-expanded',propBoolean('disabled')&&'pe-disabled']"><div class="pe-collapse-item-header" @click="toggle"><div class="pe-collapse-item-title"><slot name="title">{{title}}</slot></div><div class="pe-collapse-item-arrow"><svg viewBox="0 0 24 24" width="16" height="16"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" fill="currentColor"/></svg></div></div><div class="pe-collapse-item-content" ref="content" :style="{'height':isExpanded?(contentHeight+'px'):'0'}"><div class="pe-collapse-item-inner"><slot></slot></div></div></div>`,
+    'props': {
+        'name': {
+            'default': ''
+        },
+        'title': {
+            'default': ''
+        },
+        'disabled': {
+            'default': false
+        }
+    },
+    'data': function() {
+        return {
+            'contentHeight': 0,
+            'isTransitioning': false
+        };
+    },
+    'computed': {
+        /** --- 父级 collapse 控件 --- */
+        collapse: function(this: ICollapseItemVue): ICollapseVue | null {
+            return this.parentByName('pe-collapse') as ICollapseVue | null;
+        },
+        /** --- 是否展开 --- */
+        isExpanded: function(this: ICollapseItemVue): boolean {
+            if (!this.collapse) {
+                return false;
+            }
+            return this.collapse.isActive(this.$props.name);
+        }
+    },
+    'methods': {
+        /** --- 切换展开状态 --- */
+        toggle: function(this: ICollapseItemVue): void {
+            if (this.propBoolean('disabled')) {
+                return;
+            }
+            if (!this.collapse) {
+                return;
+            }
+            this.collapse.updateActiveNames(this.$props.name, !this.isExpanded);
+        },
+        /** --- 更新内容高度 --- */
+        updateHeight: function(this: ICollapseItemVue): void {
+            const content = this.$refs.content as HTMLElement | undefined;
+            if (!content) {
+                return;
+            }
+            const inner = content.querySelector<HTMLElement>('.pe-collapse-item-inner');
+            if (!inner) {
+                return;
+            }
+            this.contentHeight = inner.offsetHeight;
+        }
+    },
+    'watch': {
+        'isExpanded': {
+            handler: function(this: ICollapseItemVue): void {
+                this.isTransitioning = true;
+                this.updateHeight();
+                setTimeout(() => {
+                    this.isTransitioning = false;
+                }, 300);
+            }
+        }
+    },
+    'mounted': function(this: ICollapseItemVue): void {
+        this.updateHeight();
+        // --- 监听内容变化 ---
+        const content = this.$refs.content as HTMLElement | undefined;
+        if (content) {
+            const observer = new MutationObserver(() => {
+                this.updateHeight();
+            });
+            observer.observe(content, {
+                'childList': true,
+                'subtree': true,
+                'characterData': true
+            });
+        }
+        // --- 监听窗口大小变化 ---
+        window.addEventListener('resize', () => {
+            this.updateHeight();
+        });
+    }
 };
 
 list['pe-date'] = {

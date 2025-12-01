@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 // --- 合并文件，无需做类型检查 ---
@@ -752,6 +753,171 @@ list['pe-circle'] = {
             'default': 'xxs',
         },
     },
+};
+list['pe-collapse'] = {
+    'template': `<div class="pe-collapse"><slot></slot></div>`,
+    'props': {
+        'modelValue': {
+            'default': () => ([])
+        },
+        'accordion': {
+            'default': false
+        }
+    },
+    'emits': {
+        'update:modelValue': null,
+        'change': null
+    },
+    'data': function () {
+        return {
+            'activeNames': []
+        };
+    },
+    'computed': {
+        controlName: function () {
+            return 'pe-collapse';
+        }
+    },
+    'methods': {
+        /** --- 更新展开状态 --- */
+        updateActiveNames: function (name, expanded) {
+            if (this.propBoolean('accordion')) {
+                // --- 手风琴模式：只能展开一个 ---
+                if (expanded) {
+                    this.activeNames = [name];
+                }
+                else {
+                    this.activeNames = [];
+                }
+            }
+            else {
+                // --- 非手风琴模式：可展开多个 ---
+                if (expanded) {
+                    if (!this.activeNames.includes(name)) {
+                        this.activeNames.push(name);
+                    }
+                }
+                else {
+                    const index = this.activeNames.indexOf(name);
+                    if (index > -1) {
+                        this.activeNames.splice(index, 1);
+                    }
+                }
+            }
+            // --- 触发更新 ---
+            const value = this.propBoolean('accordion') ? (this.activeNames[0] ?? '') : [...this.activeNames];
+            this.$emit('update:modelValue', value);
+            this.$emit('change', { 'detail': { 'value': value } });
+        },
+        /** --- 判断面板是否展开 --- */
+        isActive: function (name) {
+            return this.activeNames.includes(name);
+        }
+    },
+    'watch': {
+        'modelValue': {
+            handler: function () {
+                const val = this.$props.modelValue;
+                if (Array.isArray(val)) {
+                    this.activeNames = [...val];
+                }
+                else if (typeof val === 'string' && val) {
+                    this.activeNames = [val];
+                }
+                else {
+                    this.activeNames = [];
+                }
+            },
+            'immediate': true
+        }
+    }
+};
+list['pe-collapse-item'] = {
+    'template': `<div class="pe-collapse-item" :class="[isExpanded&&'pe-expanded',propBoolean('disabled')&&'pe-disabled']"><div class="pe-collapse-item-header" @click="toggle"><div class="pe-collapse-item-title"><slot name="title">{{title}}</slot></div><div class="pe-collapse-item-arrow"><svg viewBox="0 0 24 24" width="16" height="16"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" fill="currentColor"/></svg></div></div><div class="pe-collapse-item-content" ref="content" :style="{'height':isExpanded?(contentHeight+'px'):'0'}"><div class="pe-collapse-item-inner"><slot></slot></div></div></div>`,
+    'props': {
+        'name': {
+            'default': ''
+        },
+        'title': {
+            'default': ''
+        },
+        'disabled': {
+            'default': false
+        }
+    },
+    'data': function () {
+        return {
+            'contentHeight': 0,
+            'isTransitioning': false
+        };
+    },
+    'computed': {
+        /** --- 父级 collapse 控件 --- */
+        collapse: function () {
+            return this.parentByName('pe-collapse');
+        },
+        /** --- 是否展开 --- */
+        isExpanded: function () {
+            if (!this.collapse) {
+                return false;
+            }
+            return this.collapse.isActive(this.$props.name);
+        }
+    },
+    'methods': {
+        /** --- 切换展开状态 --- */
+        toggle: function () {
+            if (this.propBoolean('disabled')) {
+                return;
+            }
+            if (!this.collapse) {
+                return;
+            }
+            this.collapse.updateActiveNames(this.$props.name, !this.isExpanded);
+        },
+        /** --- 更新内容高度 --- */
+        updateHeight: function () {
+            const content = this.$refs.content;
+            if (!content) {
+                return;
+            }
+            const inner = content.querySelector('.pe-collapse-item-inner');
+            if (!inner) {
+                return;
+            }
+            this.contentHeight = inner.offsetHeight;
+        }
+    },
+    'watch': {
+        'isExpanded': {
+            handler: function () {
+                this.isTransitioning = true;
+                this.updateHeight();
+                setTimeout(() => {
+                    this.isTransitioning = false;
+                }, 300);
+            }
+        }
+    },
+    'mounted': function () {
+        this.updateHeight();
+        // --- 监听内容变化 ---
+        const content = this.$refs.content;
+        if (content) {
+            const observer = new MutationObserver(() => {
+                this.updateHeight();
+            });
+            observer.observe(content, {
+                'childList': true,
+                'subtree': true,
+                'characterData': true
+            });
+        }
+        // --- 监听窗口大小变化 ---
+        window.addEventListener('resize', () => {
+            this.updateHeight();
+        });
+    }
 };
 list['pe-date'] = {
     'template': `<div class="pe-date-wrap" :class="[propBoolean('disabled')&&'pe-disabled']"><div class="pe-date-first"><div @click="click($event, 'first')" ref="first" v-if="propBoolean('date') || propBoolean('time')"><template v-if="timestamp === undefined"><div>{{l('please click select')}}</div></template><template v-else><div v-if="propBoolean('date')">{{dateStr}}</div><div v-if="propBoolean('time')">{{timeStr}}</div></template></div><div v-if="propBoolean('zone')" @click="click($event, 'zone')" ref="zone">UTC{{tzData >= 0 ? '+' : ''}}{{tzData}}</div></div><div class="pe-date-clear" @click="clear" v-if="timestamp !== undefined"><svg viewBox="0 0 24 24" stroke="none"><path d="m7.53033 6.46967c-.29289-.29289-.76777-.29289-1.06066 0s-.29289.76777 0 1.06066l4.46963 4.46967-4.46963 4.4697c-.29289.2929-.29289.7677 0 1.0606s.76777.2929 1.06066 0l4.46967-4.4696 4.4697 4.4696c.2929.2929.7677.2929 1.0606 0s.2929-.7677 0-1.0606l-4.4696-4.4697 4.4696-4.46967c.2929-.29289.2929-.76777 0-1.06066s-.7677-.29289-1.0606 0l-4.4697 4.46963z" /></svg></div><div v-if="propBoolean('date')" ref="firstpop" class="pe-pop"><pe-datepanel plain :tz="tzData" :yearmonth="yearmonth" :hourminute="hourminute" @update:yearmonth="$emit('update:yearmonth')" :clearbtn="false" :time="propBoolean('time')" :start="start" :end="end" v-model="timestamp" @changed="changed" @selected="selected"><template v-if="$slots['default']" v-slot="col"><slot :year="col.year" :month="col.month" :date="col.date" :day="col.day" :str="col.str" :time="col.time"></slot></template></pe-datepanel></div><div v-if="!propBoolean('date') && propBoolean('time')" ref="timepop" class="pe-pop pe-date-list"><div><div class="pe-date-item"><div class="pe-date-title">{{l('hour')}}</div><pe-dlist :data="hours" v-model="vhour"></pe-dlist></div><div class="pe-date-item"><div class="pe-date-title">{{l('minute')}}</div><pe-dlist :data="minutes" v-model="vminute"></pe-dlist></div><div class="pe-date-item"><div class="pe-date-title">{{l('second')}}</div><pe-dlist :data="seconds" v-model="vseconds"></pe-dlist></div></div><div><div class="pe-button pe-pgrey" @click="cancel">{{l('cancel')}}</div><div class="pe-button pe-pgrey" @click="timeOk">{{l('ok')}}</div></div></div><div v-if="propBoolean('zone')" ref="zonepop" class="pe-pop pe-date-list"><div><div class="pe-date-item"><div class="pe-date-title">{{l('zone')}}</div><pe-dlist :data="zones" v-model="vzone"></pe-dlist></div><div class="pe-date-item"><div class="pe-date-title">{{l('minute')}}</div><pe-dlist :data="zdecs" v-model="vzdec"></pe-dlist></div></div><div><div class="pe-button pe-pgrey" @click="cancel">{{l('cancel')}}</div><div class="pe-button pe-pgrey" @click="zoneOk">{{l('ok')}}</div></div></div></div>`,

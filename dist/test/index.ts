@@ -272,6 +272,14 @@ class Page extends purease.AbstractPage {
     /** --- 表格是否朴素 --- */
     public tablePlain = false;
 
+    // --- 折叠面板控件 ---
+
+    /** --- 折叠面板展开项 --- */
+    public collapse: string[] = ['1'];
+
+    /** --- 手风琴模式折叠面板展开项 --- */
+    public collapseAccordion = '1';
+
     // --- 方法 ---
 
     /**

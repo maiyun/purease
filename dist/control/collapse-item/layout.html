@@ -1,0 +1,17 @@
+<div class="pe-collapse-item" :class="[isExpanded&&'pe-expanded',propBoolean('disabled')&&'pe-disabled']">
+    <div class="pe-collapse-item-header" @click="toggle">
+        <div class="pe-collapse-item-title">
+            <slot name="title">{{title}}</slot>
+        </div>
+        <div class="pe-collapse-item-arrow">
+            <svg viewBox="0 0 24 24" width="16" height="16">
+                <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" />
+            </svg>
+        </div>
+    </div>
+    <div class="pe-collapse-item-content" ref="content" :style="{'height':isExpanded?(contentHeight+'px'):'0'}">
+        <div class="pe-collapse-item-inner">
+            <slot></slot>
+        </div>
+    </div>
+</div>

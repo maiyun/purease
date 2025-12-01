@@ -82,6 +82,7 @@
             <a class="pe-tree-item" href="#menudown">Menudown</a>
             <div class="pe-tree-title">{{l('container')}}</div>
             <a class="pe-tree-item" href="#anchor">Anchor</a>
+            <a class="pe-tree-item" href="#collapse">Collapse</a>
             <a class="pe-tree-item" href="#tab">Tab</a>
             <a class="pe-tree-item" href="#btab">Btab</a>
             <a class="pe-tree-item" href="#group">Group</a>
@@ -669,6 +670,46 @@
             <h3 id="anchor">Anchor</h3>
             <div class="pe-layout pe-gap" style="flex-direction: column;">
                 <div class="pe-note">The right navigation is automatically generated from headings, as demonstrated on this page with the anchor control.</div>
+            </div>
+
+            <!-- Collapse -->
+            <h3 id="collapse">Collapse</h3>
+            <div class="pe-layout pe-gap" style="flex-direction: column;">
+                <div>Value: {{collapse}}</div>
+                <pe-collapse v-model="collapse" style="max-width: 500px;">
+                    <pe-collapse-item title="Panel 1" name="1">
+                        <div>Content of panel 1. This is a simple text content.</div>
+                    </pe-collapse-item>
+                    <pe-collapse-item title="Panel 2" name="2">
+                        <div>Content of panel 2. You can put any content here.</div>
+                        <div class="pe-layout pe-gap-s" style="margin-top: 10px;">
+                            <div class="pe-button pe-pgrey">Button 1</div>
+                            <div class="pe-button pe-pgrey">Button 2</div>
+                        </div>
+                    </pe-collapse-item>
+                    <pe-collapse-item title="Panel 3 (Disabled)" name="3" disabled>
+                        <div>Content of panel 3. This panel is disabled.</div>
+                    </pe-collapse-item>
+                    <pe-collapse-item name="4">
+                        <template v-slot:title>
+                            <pe-icon name="fa-solid fa-star"></pe-icon>
+                            <span style="margin-left: 8px;">Custom Title</span>
+                        </template>
+                        <div>This panel has a custom title with icon.</div>
+                    </pe-collapse-item>
+                </pe-collapse>
+                <div>Accordion mode: {{collapseAccordion}}</div>
+                <pe-collapse v-model="collapseAccordion" accordion style="max-width: 500px;">
+                    <pe-collapse-item title="Accordion 1" name="1">
+                        <div>Only one panel can be expanded at a time in accordion mode.</div>
+                    </pe-collapse-item>
+                    <pe-collapse-item title="Accordion 2" name="2">
+                        <div>Click another panel to switch.</div>
+                    </pe-collapse-item>
+                    <pe-collapse-item title="Accordion 3" name="3">
+                        <div>The previously expanded panel will be collapsed automatically.</div>
+                    </pe-collapse-item>
+                </pe-collapse>
             </div>
 
             <!-- Tab -->
