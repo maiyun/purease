@@ -194,7 +194,7 @@
             <h3 id="nboard">Nboard</h3>
             <div class="pe-layout pe-gap" style="flex-direction: column;">
                 <div>Value: {{nboard}}</div>
-                <pe-nboard v-model="nboard" :disabled="nboardDisabled" :plain="nboardPlain" :split="nboardSplit" :size="nboardSize !== 'default' ? nboardSize : undefined">
+                <pe-nboard v-model="nboard" :disabled="nboardDisabled" :plain="nboardPlain" :split="nboardSplit" :size="nboardSize !== 'default' ? nboardSize : undefined" :buttons="nboardButtons" :custom="nboardCustom">
                     <template v-if="nboardTitle" v-slot:title>
                         <span>Enter Code</span>
                     </template>
@@ -204,6 +204,8 @@
                     <div class="pe-button pe-pgrey" @click="nboardPlain = !nboardPlain">{{nboardPlain ? '' : '!'}}plain</div>
                     <div class="pe-button pe-pgrey" @click="nboardSplit = !nboardSplit">{{nboardSplit ? '' : '!'}}split</div>
                     <div class="pe-button pe-pgrey" @click="nboardTitle = !nboardTitle">{{nboardTitle ? '' : '!'}}title</div>
+                    <div class="pe-button pe-pgrey" @click="nboardButtons = nboardButtons ? null : ['Cancel', 'OK']">{{nboardButtons ? '' : '!'}}buttons</div>
+                    <div class="pe-button pe-pgrey" @click="nboardCustom = nboardCustom ? null : '#'">{{nboardCustom ? '' : '!'}}custom</div>
                     <pe-select :data="['default', 's', 'xs']" v-model="nboardSize"></pe-select>
                 </div>
             </div>

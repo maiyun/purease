@@ -83,6 +83,10 @@ class Page extends purease.AbstractPage {
         this.nboardTitle = false;
         /** --- 数字键盘尺寸 --- */
         this.nboardSize = 'default';
+        /** --- 数字键盘按钮参数 --- */
+        this.nboardButtons = undefined;
+        /** --- 数字键盘自定义参数 --- */
+        this.nboardCustom = undefined;
         // --- 数据展示控件 ---
         /** --- 标签列表 --- */
         this.tagList = ['Tag 1', 'Tag 2'];

@@ -116,6 +116,12 @@ class Page extends purease.AbstractPage {
     /** --- 数字键盘尺寸 --- */
     public nboardSize = 'default';
 
+    /** --- 数字键盘按钮参数 --- */
+    public nboardButtons?: string[] = undefined;
+
+    /** --- 数字键盘自定义参数 --- */
+    public nboardCustom?: string = undefined;
+
     // --- 数据展示控件 ---
 
     /** --- 标签列表 --- */
