@@ -8,7 +8,7 @@
 
 > `const` **common**: `object`
 
-Defined in: control.ts:33
+Defined in: control.ts:35
 
 通用的一些方法和 computed
 

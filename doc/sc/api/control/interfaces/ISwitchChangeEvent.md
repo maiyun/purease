@@ -6,7 +6,7 @@
 
 # Interface: ISwitchChangeEvent
 
-Defined in: control.ts:196
+Defined in: control.ts:198
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: control.ts:196
 
 > **detail**: `object`
 
-Defined in: control.ts:197
+Defined in: control.ts:199
 
 #### value
 
@@ -30,7 +30,7 @@ Defined in: control.ts:197
 
 > **go**: `boolean`
 
-Defined in: control.ts:142
+Defined in: control.ts:144
 
 #### Inherited from
 
@@ -42,7 +42,7 @@ Defined in: control.ts:142
 
 > **preventDefault**: () => `void`
 
-Defined in: control.ts:144
+Defined in: control.ts:146
 
 阻止默认行为
 

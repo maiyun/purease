@@ -6,7 +6,7 @@
 
 # Interface: ICaptchaResultEvent
 
-Defined in: control.ts:237
+Defined in: control.ts:239
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: control.ts:237
 
 > **detail**: `object`
 
-Defined in: control.ts:238
+Defined in: control.ts:240
 
 #### result
 

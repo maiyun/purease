@@ -1360,6 +1360,116 @@ class Page extends purease.AbstractPage {
 ```
 
 
+## collapse
+---
+
+折叠面板容器控件，通过展开/折叠来显示或隐藏内容区域，支持手风琴模式。
+
+### 参数
+
+#### modelValue
+
+`string` | `string[]`
+
+当前展开的面板名称，手风琴模式下为字符串，普通模式下为字符串数组，默认空数组
+
+#### accordion
+
+`boolean`
+
+是否为手风琴模式（同时只能展开一个面板），默认 false
+
+### 类属性
+
+### 方法
+
+### 插槽
+
+### 样式
+
+类似 Element Plus 的 Collapse 折叠面板组件，采用垂直堆叠布局。容器带 1px 边框、圆角和白色背景，内部面板项通过边框线分隔。
+
+每个面板项（pe-collapse-item）包含标题区和内容区。标题区可点击切换展开状态，右侧带箭头图标指示当前状态。内容区展开时平滑过渡显示，收起时高度过渡为 0。
+
+支持手风琴模式（同时只展开一个面板）、禁用状态、RTL 布局。响应式友好，在各种屏幕尺寸下保持良好的可用性。
+
+### 示例
+
+```html
+<pe-collapse v-model="activeNames">
+    <pe-collapse-item title="Panel 1" name="1">
+        Content of panel 1
+    </pe-collapse-item>
+    <pe-collapse-item title="Panel 2" name="2">
+        Content of panel 2
+    </pe-collapse-item>
+    <pe-collapse-item title="Panel 3" name="3" disabled>
+        Content of panel 3 (disabled)
+    </pe-collapse-item>
+</pe-collapse>
+```
+
+
+## collapse-item
+---
+
+折叠面板子项控件，用于 pe-collapse 控件内部，表示单个可折叠的面板。
+
+### 参数
+
+#### name
+
+`string`
+
+面板唯一标识，用于控制展开状态，必填
+
+#### title
+
+`string`
+
+面板标题文本，默认空
+
+#### disabled
+
+`boolean`
+
+是否禁用该面板，禁用后无法点击展开/收起，默认 false
+
+### 类属性
+
+### 方法
+
+### 插槽
+
+#### title
+
+标题区域自定义插槽，可替换默认标题文本
+
+### 样式
+
+折叠面板项包含标题区和内容区两部分。标题区水平布局，左侧为标题文本（可通过插槽自定义），右侧为箭头图标。
+
+内容区高度通过 CSS transition 实现平滑过渡效果。展开时高度自适应内容，收起时高度为 0。箭头图标在展开时旋转 90 度。
+
+禁用状态下标题颜色变浅，鼠标样式变为禁止，hover 效果取消。支持 RTL 布局镜像。
+
+### 示例
+
+```html
+<pe-collapse-item title="Basic Panel" name="basic">
+    This is the content of basic panel.
+</pe-collapse-item>
+
+<pe-collapse-item name="custom">
+    <template v-slot:title>
+        <pe-icon name="fa-solid fa-star"></pe-icon>
+        Custom Title
+    </template>
+    This panel has a custom title with icon.
+</pe-collapse-item>
+```
+
+
 ## date
 ---
 
@@ -3997,7 +4107,7 @@ control/interfaces/ICaptchaResultEvent.md
 
 # Interface: ICaptchaResultEvent
 
-Defined in: control.ts:237
+Defined in: control.ts:239
 
 ## Properties
 
@@ -4005,7 +4115,7 @@ Defined in: control.ts:237
 
 > **detail**: `object`
 
-Defined in: control.ts:238
+Defined in: control.ts:240
 
 #### result
 
@@ -4026,7 +4136,7 @@ control/interfaces/IControlVue.md
 
 # Interface: IControlVue
 
-Defined in: control.ts:9
+Defined in: control.ts:11
 
 Vue 实例
 
@@ -4196,7 +4306,7 @@ Defined in: purease.ts:797
 
 > **alignHComp**: `string` \| `undefined`
 
-Defined in: control.ts:24
+Defined in: control.ts:26
 
 获取 alignH 的 css 属性模式，请确保 $props.alignH 存在
 
@@ -4206,7 +4316,7 @@ Defined in: control.ts:24
 
 > **alignVComp**: `string` \| `undefined`
 
-Defined in: control.ts:26
+Defined in: control.ts:28
 
 获取 alignH 的 css 属性模式，请确保 props.alignH 存在
 
@@ -4216,7 +4326,7 @@ Defined in: control.ts:26
 
 > **isRtl**: `boolean`
 
-Defined in: control.ts:28
+Defined in: control.ts:30
 
 是否是 rtl 模式
 
@@ -4226,7 +4336,7 @@ Defined in: control.ts:28
 
 > **l**: (`key`, `data?`) => `string`
 
-Defined in: control.ts:22
+Defined in: control.ts:24
 
 获取语言包内容
 
@@ -4250,7 +4360,7 @@ Defined in: control.ts:22
 
 > **parentByName**: (`controlName`) => `IControlVue` \| `null`
 
-Defined in: control.ts:20
+Defined in: control.ts:22
 
 根据 control name 查询上层控件
 
@@ -4270,7 +4380,7 @@ Defined in: control.ts:20
 
 > **propArray**: (`name`) => `any`[]
 
-Defined in: control.ts:18
+Defined in: control.ts:20
 
 获取 props 中的 array 类型的值
 
@@ -4290,7 +4400,7 @@ Defined in: control.ts:18
 
 > **propBoolean**: (`name`) => `boolean`
 
-Defined in: control.ts:12
+Defined in: control.ts:14
 
 获取 props 中的 boolean 类型的值
 
@@ -4310,7 +4420,7 @@ Defined in: control.ts:12
 
 > **propInt**: (`name`) => `number`
 
-Defined in: control.ts:16
+Defined in: control.ts:18
 
 获取 props 中的 int 类型的值
 
@@ -4330,7 +4440,7 @@ Defined in: control.ts:16
 
 > **propNumber**: (`name`) => `number`
 
-Defined in: control.ts:14
+Defined in: control.ts:16
 
 获取 props 中的 number 类型的值
 
@@ -4413,7 +4523,7 @@ control/interfaces/IDateChangedEvent.md
 
 # Interface: IDateChangedEvent
 
-Defined in: control.ts:204
+Defined in: control.ts:206
 
 ## Properties
 
@@ -4421,7 +4531,7 @@ Defined in: control.ts:204
 
 > **detail**: `object`
 
-Defined in: control.ts:205
+Defined in: control.ts:207
 
 #### value?
 
@@ -4438,7 +4548,7 @@ control/interfaces/IDatepanelChangedEvent.md
 
 # Interface: IDatepanelChangedEvent
 
-Defined in: control.ts:219
+Defined in: control.ts:221
 
 ## Properties
 
@@ -4446,7 +4556,7 @@ Defined in: control.ts:219
 
 > **detail**: `object`
 
-Defined in: control.ts:220
+Defined in: control.ts:222
 
 #### value?
 
@@ -4463,7 +4573,7 @@ control/interfaces/IDatepanelRangeEvent.md
 
 # Interface: IDatepanelRangeEvent
 
-Defined in: control.ts:212
+Defined in: control.ts:214
 
 ## Extends
 
@@ -4475,7 +4585,7 @@ Defined in: control.ts:212
 
 > **detail**: `object`
 
-Defined in: control.ts:213
+Defined in: control.ts:215
 
 #### end
 
@@ -4491,7 +4601,7 @@ Defined in: control.ts:213
 
 > **go**: `boolean`
 
-Defined in: control.ts:142
+Defined in: control.ts:144
 
 #### Inherited from
 
@@ -4503,7 +4613,7 @@ Defined in: control.ts:142
 
 > **preventDefault**: () => `void`
 
-Defined in: control.ts:144
+Defined in: control.ts:146
 
 阻止默认行为
 
@@ -4526,7 +4636,7 @@ control/interfaces/IDatepanelSelectedEvent.md
 
 # Interface: IDatepanelSelectedEvent
 
-Defined in: control.ts:225
+Defined in: control.ts:227
 
 ## Properties
 
@@ -4534,7 +4644,7 @@ Defined in: control.ts:225
 
 > **detail**: `object`
 
-Defined in: control.ts:226
+Defined in: control.ts:228
 
 #### date
 
@@ -4571,7 +4681,7 @@ control/interfaces/IDlistChangedEvent.md
 
 # Interface: IDlistChangedEvent
 
-Defined in: control.ts:158
+Defined in: control.ts:160
 
 ## Properties
 
@@ -4579,7 +4689,7 @@ Defined in: control.ts:158
 
 > **detail**: `object`
 
-Defined in: control.ts:159
+Defined in: control.ts:161
 
 #### index
 
@@ -4604,7 +4714,7 @@ control/interfaces/ISelectChangedEvent.md
 
 # Interface: ISelectChangedEvent
 
-Defined in: control.ts:186
+Defined in: control.ts:188
 
 ## Properties
 
@@ -4612,7 +4722,7 @@ Defined in: control.ts:186
 
 > **detail**: `object`
 
-Defined in: control.ts:187
+Defined in: control.ts:189
 
 #### index
 
@@ -4637,7 +4747,7 @@ control/interfaces/ISpaHideEvent.md
 
 # Interface: ISpaHideEvent
 
-Defined in: control.ts:177
+Defined in: control.ts:179
 
 ## Properties
 
@@ -4645,7 +4755,7 @@ Defined in: control.ts:177
 
 > **detail**: `object`
 
-Defined in: control.ts:178
+Defined in: control.ts:180
 
 #### next
 
@@ -4666,7 +4776,7 @@ control/interfaces/ISpaShowEvent.md
 
 # Interface: ISpaShowEvent
 
-Defined in: control.ts:170
+Defined in: control.ts:172
 
 ## Properties
 
@@ -4674,7 +4784,7 @@ Defined in: control.ts:170
 
 > **detail**: `object`
 
-Defined in: control.ts:171
+Defined in: control.ts:173
 
 #### path
 
@@ -4695,7 +4805,7 @@ control/interfaces/ISwitchChangeEvent.md
 
 # Interface: ISwitchChangeEvent
 
-Defined in: control.ts:196
+Defined in: control.ts:198
 
 ## Extends
 
@@ -4707,7 +4817,7 @@ Defined in: control.ts:196
 
 > **detail**: `object`
 
-Defined in: control.ts:197
+Defined in: control.ts:199
 
 #### value
 
@@ -4719,7 +4829,7 @@ Defined in: control.ts:197
 
 > **go**: `boolean`
 
-Defined in: control.ts:142
+Defined in: control.ts:144
 
 #### Inherited from
 
@@ -4731,7 +4841,7 @@ Defined in: control.ts:142
 
 > **preventDefault**: () => `void`
 
-Defined in: control.ts:144
+Defined in: control.ts:146
 
 阻止默认行为
 
@@ -4754,7 +4864,7 @@ control/interfaces/ITextBeforechangeEvent.md
 
 # Interface: ITextBeforechangeEvent
 
-Defined in: control.ts:149
+Defined in: control.ts:151
 
 ## Extends
 
@@ -4766,7 +4876,7 @@ Defined in: control.ts:149
 
 > **detail**: `object`
 
-Defined in: control.ts:150
+Defined in: control.ts:152
 
 #### change?
 
@@ -4782,7 +4892,7 @@ Defined in: control.ts:150
 
 > **go**: `boolean`
 
-Defined in: control.ts:142
+Defined in: control.ts:144
 
 #### Inherited from
 
@@ -4794,7 +4904,7 @@ Defined in: control.ts:142
 
 > **preventDefault**: () => `void`
 
-Defined in: control.ts:144
+Defined in: control.ts:146
 
 阻止默认行为
 
@@ -4819,7 +4929,7 @@ control/type-aliases/IDlistClickEvent.md
 
 > **IDlistClickEvent** = [`IDlistChangedEvent`](../interfaces/IDlistChangedEvent.md)
 
-Defined in: control.ts:166
+Defined in: control.ts:168
 
 control/variables/common.md
 ---
@@ -4834,7 +4944,7 @@ control/variables/common.md
 
 > `const` **common**: `object`
 
-Defined in: control.ts:33
+Defined in: control.ts:35
 
 通用的一些方法和 computed
 
@@ -5057,7 +5167,7 @@ control/variables/list.md
 
 > `const` **list**: `Record`\<`string`, \{\[`key`: `string`\]: `any`; `computed?`: `Record`\<`string`, `any`\>; `data?`: () => `Record`\<`string`, `any`\>; `props?`: `Record`\<`string`, \{ `default`: `any`; \}\>; `template`: `string`; \}\> = `{}`
 
-Defined in: control.ts:126
+Defined in: control.ts:128
 
 dom/functions/bindDown.md
 ---

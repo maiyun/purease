@@ -6,7 +6,7 @@
 
 # Interface: IControlVue
 
-Defined in: control.ts:9
+Defined in: control.ts:11
 
 Vue 实例
 
@@ -176,7 +176,7 @@ Defined in: purease.ts:797
 
 > **alignHComp**: `string` \| `undefined`
 
-Defined in: control.ts:24
+Defined in: control.ts:26
 
 获取 alignH 的 css 属性模式，请确保 $props.alignH 存在
 
@@ -186,7 +186,7 @@ Defined in: control.ts:24
 
 > **alignVComp**: `string` \| `undefined`
 
-Defined in: control.ts:26
+Defined in: control.ts:28
 
 获取 alignH 的 css 属性模式，请确保 props.alignH 存在
 
@@ -196,7 +196,7 @@ Defined in: control.ts:26
 
 > **isRtl**: `boolean`
 
-Defined in: control.ts:28
+Defined in: control.ts:30
 
 是否是 rtl 模式
 
@@ -206,7 +206,7 @@ Defined in: control.ts:28
 
 > **l**: (`key`, `data?`) => `string`
 
-Defined in: control.ts:22
+Defined in: control.ts:24
 
 获取语言包内容
 
@@ -230,7 +230,7 @@ Defined in: control.ts:22
 
 > **parentByName**: (`controlName`) => `IControlVue` \| `null`
 
-Defined in: control.ts:20
+Defined in: control.ts:22
 
 根据 control name 查询上层控件
 
@@ -250,7 +250,7 @@ Defined in: control.ts:20
 
 > **propArray**: (`name`) => `any`[]
 
-Defined in: control.ts:18
+Defined in: control.ts:20
 
 获取 props 中的 array 类型的值
 
@@ -270,7 +270,7 @@ Defined in: control.ts:18
 
 > **propBoolean**: (`name`) => `boolean`
 
-Defined in: control.ts:12
+Defined in: control.ts:14
 
 获取 props 中的 boolean 类型的值
 
@@ -290,7 +290,7 @@ Defined in: control.ts:12
 
 > **propInt**: (`name`) => `number`
 
-Defined in: control.ts:16
+Defined in: control.ts:18
 
 获取 props 中的 int 类型的值
 
@@ -310,7 +310,7 @@ Defined in: control.ts:16
 
 > **propNumber**: (`name`) => `number`
 
-Defined in: control.ts:14
+Defined in: control.ts:16
 
 获取 props 中的 number 类型的值
 
