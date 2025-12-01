@@ -21,7 +21,9 @@
         <a class="pe-header-item" href="./">Home</a>
         <a class="pe-header-item" href="./spa.html">SPA</a>
         <template v-slot:right>
-            <div class="pe-button pe-pgrey" @click="changeRTL">{{rtl ? '' : '!'}}RTL</div>
+            <pe-header-layout>
+                <div class="pe-button pe-pgrey" @click="changeRTL">{{rtl ? '' : '!'}}RTL</div>
+            </pe-header-layout>
         </template>
     </pe-header>
 </div>

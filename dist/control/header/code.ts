@@ -7,7 +7,7 @@ export interface IHeaderVue extends lControl.IControlVue {
     /** --- 是否固定定位，默认 false --- */
     'fixed': boolean;
     /** --- 主题风格，默认 default --- */
-    'theme': 'default' | 'dark';
+    'theme': 'default' | 'rev';
     /** --- 是否显示底部线条，默认 false --- */
     'line': boolean;
     /** --- 头部弹出状态 --- */

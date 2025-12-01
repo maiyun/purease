@@ -1,0 +1,9 @@
+.pe-header-layout {
+    display: flex; height: 70px; align-items: center;
+}
+
+@media screen and (max-width: 800px) {
+    .pe-header-layout {
+        flex-direction: column; align-items: initial; height: initial; padding: 0 30px;
+    }
+}

@@ -21,7 +21,9 @@
         <a class="pe-header-item" href="./">Home</a>
         <a class="pe-header-item" href="./banner.html">Banner</a>
         <template v-slot:right>
-            <div class="pe-button pe-pgrey" @click="changeRTL">{{rtl ? '' : '!'}}RTL</div>
+            <pe-header-layout>
+                <div class="pe-button pe-pgrey" @click="changeRTL">{{rtl ? '' : '!'}}RTL</div>
+            </pe-header-layout>
         </template>
     </pe-header>
 </div>
@@ -44,7 +46,7 @@
     </div>
 </pe-banner>
 <!-- Banner 3 - 渐变 Banner -->
-<pe-banner class="pe-grad" direction="v" style="height: 300px;">
+<pe-banner class="pe-grad" direction="v" style="height: 500px;">
     <div class="pe-crumb">
         <a class="pe-crumb-item" href="./">Home</a>
         <div class="pe-crumb-item">Products</div>
@@ -54,7 +56,7 @@
     <div class="pe-bnote">Banner with gradient background and breadcrumb</div>
 </pe-banner>
 <!-- Banner 4 - 灰色 Banner -->
-<pe-banner class="pe-grey" direction="v" style="height: 300px;">
+<pe-banner class="pe-grey" direction="v" style="height: 500px;">
     <div class="pe-btitle">Grey Banner</div>
     <div class="pe-bnote">Simple grey background banner</div>
 </pe-banner>
@@ -98,6 +100,10 @@
             <a href="./">Home</a>
             <a href="./swipe.html">Swipe</a>
             <a href="./login.html">Login</a>
+        </div>
+        <div class="pe-footer-list">
+            <div class="pe-footer-title">Resources</div>
+            <a href="https://github.com/maiyun/purease" target="_blank">GitHub<pe-icon></pe-icon></a>
         </div>
         <template v-slot:bottom>
             <div class="pe-footer-bottom-row">

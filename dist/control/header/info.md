@@ -22,9 +22,9 @@
 
 #### theme
 
-`'default'` | `'dark'`
+`'default'` | `'rev'`
 
-主题风格，默认 default
+主题风格，默认 default，`rev`: 反差
 
 #### line
 
@@ -86,7 +86,9 @@
     <a class="pe-header-item" href="./">About</a>
     <template v-slot:right>
         <a class="pe-header-item" href="./">OK</a>
-        <a class="pe-button pe-plain pe-bold" href="./">Hello</a>
+        <pe-header-layout class="pe-gap-xs">
+            <a class="pe-button pe-plain pe-bold" href="./">Hello</a>
+        </pe-header-layout>
     </template>
 </pe-header>
 ```

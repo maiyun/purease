@@ -30,7 +30,9 @@
             </pe-menu>
         </pe-header-item>
         <template v-slot:right>
-            <div class="pe-button pe-pgrey" @click="changeRTL">{{rtl ? '' : '!'}}RTL</div>
+            <pe-header-layout>
+                <div class="pe-button pe-pgrey" @click="changeRTL">{{rtl ? '' : '!'}}RTL</div>
+            </pe-header-layout>
         </template>
     </pe-header>
 </div>

@@ -29,23 +29,36 @@ export const code = {
     },
     'methods': {
         enter: function(this: IHeaderItemVue, e: MouseEvent | TouchEvent) {
-            if (lDom.hasTouchButMouse(e)) {
+            if ('ontouchstart' in window) {
                 return;
+            }
+            // --- 只有可能非触摸屏 ---
+            const target = e.target as HTMLElement;
+            if (target.classList.contains('pe-menu') || lDom.findParentByClass(target, 'pe-menu')) {
+                return;
+            }
+            this.hover = !this.hover;
+        },
+        leave: function(this: IHeaderItemVue) {
+            if ('ontouchstart' in window) {
+                return;
+            }
+            this.hover = false;
+        },
+        click: function(this: IHeaderItemVue, e: MouseEvent | TouchEvent) {
+            // --- 仅手机端有效 ---
+            if (!('ontouchstart' in window)) {
+                return;
+            }
+            // --- 只有可能触摸屏 ---
+            if (!this.href) {
+                e.preventDefault();
             }
             const target = e.target as HTMLElement;
             if (target.classList.contains('pe-menu') || lDom.findParentByClass(target, 'pe-menu')) {
                 return;
             }
-            if (!this.href) {
-                e.preventDefault();
-            }
             this.hover = !this.hover;
-        },
-        leave: function(this: IHeaderItemVue, e: MouseEvent | TouchEvent) {
-            if (lDom.hasTouchButMouse(e)) {
-                return;
-            }
-            this.hover = false;
         },
     },
 };

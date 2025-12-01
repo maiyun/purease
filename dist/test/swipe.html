@@ -46,7 +46,9 @@
                     </div>
                 </pe-menu>
             </pe-header-item>
-            <div class="pe-button pe-pgrey" @click="changeRTL">{{rtl ? '' : '!'}}RTL</div>
+            <pe-header-layout>
+                <div class="pe-button pe-plain pe-bold" @click="changeRTL">{{rtl ? '' : '!'}}RTL</div>
+            </pe-header-layout>
         </template>
     </pe-header>
 </div>
@@ -133,6 +135,10 @@
             <a href="./">Home</a>
             <a href="./banner.html">Banner</a>
             <a href="./login.html">Login</a>
+        </div>
+        <div class="pe-footer-list">
+            <div class="pe-footer-title">Resources</div>
+            <a href="https://github.com/maiyun/purease" target="_blank">GitHub<pe-icon></pe-icon></a>
         </div>
         <template v-slot:bottom>
             <div class="pe-footer-bottom-row">
