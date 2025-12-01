@@ -81,6 +81,7 @@ class Page extends purease.AbstractPage {
         this.nboardSplit = false;
         /** --- 数字键盘是否显示标题 --- */
         this.nboardTitle = false;
+        this.nboardCustom = false;
         /** --- 数字键盘尺寸 --- */
         this.nboardSize = 'default';
         /** --- 数字键盘按钮参数 --- */

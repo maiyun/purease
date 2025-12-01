@@ -51,7 +51,7 @@ export const code = {
     'computed': {
         /** --- 父级 collapse 控件 --- */
         collapse: function(this: ICollapseItemVue): ICollapseVue | null {
-            return this.parentByName('pe-collapse') as ICollapseVue | null;
+            return this.parentByName('collapse') as ICollapseVue | null;
         },
         /** --- 是否展开 --- */
         isExpanded: function(this: ICollapseItemVue): boolean {

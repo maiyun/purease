@@ -18,7 +18,7 @@ export const code = {
     'template': '',
     'props': {
         'modelValue': {
-            'default': () => ([])
+            'default': []
         },
         'accordion': {
             'default': false
@@ -30,7 +30,8 @@ export const code = {
     },
     'data': function() {
         return {
-            'activeNames': [] as string[]
+            'activeNames': [] as string[],
+            'controlName': 'collapse',
         };
     },
     'methods': {

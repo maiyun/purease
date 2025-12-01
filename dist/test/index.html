@@ -315,6 +315,7 @@
                     <pe-icon name="backspace"></pe-icon>
                     <pe-icon name="switch"></pe-icon>
                     <pe-icon name="back"></pe-icon>
+                    <pe-icon name="arrow"></pe-icon>
                 </div>
                 <div>Font Awesome icons:</div>
                 <div class="pe-layout pe-gap-s" style="flex-wrap: wrap;">
@@ -692,8 +693,10 @@
                     </pe-collapse-item>
                     <pe-collapse-item name="4">
                         <template v-slot:title>
-                            <pe-icon name="fa-solid fa-star"></pe-icon>
-                            <span style="margin-left: 8px;">Custom Title</span>
+                            <div class="pe-layout pe-gap-xxs">
+                                <pe-icon name="fa-solid fa-star"></pe-icon>
+                                <span>Custom Title</span>
+                            </div>
                         </template>
                         <div>This panel has a custom title with icon.</div>
                     </pe-collapse-item>

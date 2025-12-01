@@ -113,6 +113,8 @@ class Page extends purease.AbstractPage {
     /** --- 数字键盘是否显示标题 --- */
     public nboardTitle = false;
 
+    public nboardCustom: boolean = false;
+
     /** --- 数字键盘尺寸 --- */
     public nboardSize = 'default';
 

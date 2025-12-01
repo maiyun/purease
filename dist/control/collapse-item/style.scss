@@ -14,7 +14,7 @@
 }
 .pe-collapse-item-arrow {
     display: flex; align-items: center; justify-content: center; transition: var(--pe-transition); color: var(--pe-note-color);
-    svg {
+    .pe-icon {
         transition: var(--pe-transition);
     }
 }
@@ -23,11 +23,14 @@
 }
 .pe-collapse-item-inner {
     padding: var(--pe-padding-xs) var(--pe-padding-s); padding-top: 0;
+    div {
+        display: flex;
+    }
 }
 .pe-collapse-item {
     &.pe-expanded {
         .pe-collapse-item-arrow {
-            svg {
+            .pe-icon {
                 transform: rotate(90deg);
             }
         }
@@ -47,14 +50,14 @@
 
 html.pe-rtl {
     .pe-collapse-item-arrow {
-        svg {
+        .pe-icon {
             transform: rotate(180deg);
         }
     }
     .pe-collapse-item {
         &.pe-expanded {
             .pe-collapse-item-arrow {
-                svg {
+                .pe-icon {
                     transform: rotate(90deg);
                 }
             }
