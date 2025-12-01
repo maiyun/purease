@@ -276,9 +276,9 @@
 </div>
 ```
 
-## lralyout
+## lralayout
 
-左图右文布局。左侧图片固定宽度，右侧文本占剩余空间。
+左图右文布局。左侧图片固定宽度，右侧文本占剩余空间，小屏模式变为上下结构。可用于配合 box 控件展示小新闻卡片。
 
 ### 子类属性
 
@@ -293,13 +293,11 @@
 ### 示例
 
 ```html
-<a class="pe-box" href="./" style="flex: 1;">
-    <div class="pe-lralyout">
-        <div class="pe-img boximg2"></div>
-        <div class="pe-padding-s">
-            <div class="pe-title">Article1</div>
-            <div class="pe-note">Article note</div>
-        </div>
+<a class="pe-box pe-lralayout" href="./" style="flex: 1;">
+    <div class="pe-img boximg2"></div>
+    <div class="pe-padding-s">
+        <div class="pe-title">Article1</div>
+        <div class="pe-note">Article note</div>
     </div>
 </a>
 ```
@@ -384,7 +382,7 @@
 
 ## stripe
 
-条纹背景。对角线条纹背景图案。
+条纹背景。为一个元素增加对角线条纹背景图案的装饰性作用。
 
 ### 样式
 

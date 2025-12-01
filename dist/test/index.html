@@ -482,23 +482,34 @@
             <!-- Layout -->
             <h3 id="layout">Layout</h3>
             <div class="pe-layout pe-gap" style="flex-direction: column;">
-                <div>pe-layout (horizontal):</div>
+                <div>pe-layout:</div>
                 <div class="pe-layout pe-gap-s">
                     <div class="pe-box pe-padding" style="flex: 1;">Item 1</div>
                     <div class="pe-box pe-padding" style="flex: 1;">Item 2</div>
                     <div class="pe-box pe-padding" style="flex: 1;">Item 3</div>
                 </div>
-                <div>pe-alayout (vertical):</div>
+                <div>pe-alayout:</div>
                 <div class="pe-alayout pe-gap-s">
                     <div class="pe-box pe-padding" style="flex: 1;">Item 1</div>
                     <div class="pe-box pe-padding" style="flex: 1;">Item 2</div>
                     <div class="pe-box pe-padding" style="flex: 1;">Item 3</div>
                 </div>
-                <div>pe-lralayout (left-right):</div>
+                <div>pe-lralayout (left img - right):</div>
                 <div class="pe-lralayout pe-gap-s">
-                    <div class="pe-box pe-padding">Left</div>
-                    <div class="pe-box pe-padding">Center (flex)</div>
-                    <div class="pe-box pe-padding">Right</div>
+                    <a class="pe-box pe-lralayout" href="./" style="flex: 1;">
+                        <div class="pe-img bg-img"></div>
+                        <div class="pe-padding-s">
+                            <div class="pe-title">Article1</div>
+                            <div class="pe-note">Article note</div>
+                        </div>
+                    </a>
+                    <a class="pe-box pe-lralayout" href="./" style="flex: 1;">
+                        <div class="pe-img bg-img pe-hover"></div>
+                        <div class="pe-padding-s">
+                            <div class="pe-title">Article2</div>
+                            <div class="pe-note">Article note</div>
+                        </div>
+                    </a>
                 </div>
             </div>
 
@@ -529,14 +540,12 @@
             <h3 id="stripe">Stripe</h3>
             <div class="pe-layout pe-gap" style="flex-direction: column;">
                 <div class="pe-stripe">
-                    <span>Section Title</span>
-                    <span class="pe-sep"></span>
+                    <span>Stripe background</span>
                 </div>
-                <div class="pe-stripe">
-                    <span class="pe-sep"></span>
-                    <span>Center Title</span>
-                    <span class="pe-sep"></span>
-                </div>
+                <pe-setting>
+                    <pe-setting-item title="How are you" note="stripe" class="pe-stripe"></pe-setting-item>
+                    <pe-setting-item title="How are you" note="no stripe"></pe-setting-item>
+                </pe-setting>
             </div>
 
             <!-- Crumb -->
@@ -589,14 +598,14 @@
             <div class="pe-layout pe-gap" style="flex-direction: column;">
                 <div>pe-img with hover effect (used in pe-box):</div>
                 <div class="pe-alayout pe-gap">
-                    <a class="pe-box pe-thover" href="javascript:void(0);" style="width: 200px;">
+                    <a class="pe-box pe-thover" href="javascript:void(0);" style="flex: 1;">
                         <div class="pe-img bg-img" style="height: 120px;"></div>
                         <div class="pe-padding-s">
                             <div class="pe-title">Card Title</div>
                             <div class="pe-note">Card description</div>
                         </div>
                     </a>
-                    <a class="pe-box pe-thover" href="javascript:void(0);" style="width: 200px;">
+                    <a class="pe-box pe-thover" href="javascript:void(0);" style="flex: 1;">
                         <div class="pe-img pe-hover bg-img" style="height: 120px;"></div>
                         <div class="pe-padding-s">
                             <div class="pe-title">With pe-hover</div>
@@ -685,7 +694,7 @@
                         <pe-switch v-model="switch1"></pe-switch>
                     </pe-setting-item>
                     <pe-setting-item title="Language" arrow>English</pe-setting-item>
-                    <pe-setting-item title="With mark" mark="New">Value</pe-setting-item>
+                    <pe-setting-item title="With mark" mark="New" note="With mark info">Value</pe-setting-item>
                 </pe-setting>
                 <div class="pe-layout pe-gap-s">
                     <div class="pe-button pe-pgrey" @click="settingHover = !settingHover">{{settingHover ? '' : '!'}}hover</div>

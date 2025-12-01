@@ -1,5 +1,5 @@
 .pe-btab {
-    -webkit-user-select: none; user-select: none; position: relative; overflow: hidden;
+    -webkit-user-select: none; user-select: none; position: relative; overflow: hidden; white-space: nowrap;
 
     // --- 左右渐变 ---
     &::before, &::after {
