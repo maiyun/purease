@@ -11,7 +11,7 @@ export interface ITabItemVue extends lControl.IControlVue {
     hover: (e: MouseEvent | TouchEvent) => void;
     /** --- 点击事件 --- */
     click: () => void;
-    /** --- 窗口大小改变事件 --- */
+    /** --- 修改上层的 tabItemLeft、tabItemWidth 为本 item --- */
     resize: () => void;
 }
 
@@ -19,15 +19,12 @@ export const code = {
     'template': '',
     'data': function() {
         return {
-            'index': 0
+            'index': 0,
         };
     },
     'computed': {
         isSelected: function(this: ITabItemVue) {
-            if (!this.$parent) {
-                return 0;
-            }
-            return this.$parent.selected === this.index;
+            return this.$parent?.selected === this.index;
         }
     },
     'watch': {
@@ -54,7 +51,6 @@ export const code = {
                 return;
             }
             this.$parent.selected = this.index;
-            this.resize();
         },
         click: function(this: ITabItemVue) {
             if (!this.$parent) {
@@ -64,7 +60,6 @@ export const code = {
                 return;
             }
             this.$parent.selected = this.index;
-            this.resize();
         },
         resize: function(this: ITabItemVue) {
             if (!this.$parent) {
@@ -75,18 +70,23 @@ export const code = {
             }
             this.$parent.tabItemWidth = this.$el.offsetWidth;
             this.$parent.tabItemLeft = this.$el.offsetLeft;
-        }
+        },
     },
     mounted: function(this: ITabItemVue) {
         if (!this.$parent) {
             return;
         }
-        if (this.$parent.selected === undefined) {
-            return;
-        }
         this.index = lDom.index(this.$el);
-        if (this.index === this.$parent.selected) {
+        this.$watch(() => this.$parent?.selected, () => {
+            if (this.$parent?.type !== 'rect') {
+                return;
+            }
+            if (this.index !== this.$parent.selected) {
+                return;
+            }
             this.resize();
-        }
+        }, {
+            'immediate': true,
+        });
     },
 };

@@ -522,7 +522,7 @@
 
             <!-- Content -->
             <h3 id="content">Content</h3>
-            <div class="pe-layout pe-gap" style="flex-direction: column;">
+            <div class="pe-layout">
                 <div>pe-content is used to wrap main content area with proper padding. This section is inside pe-content.</div>
             </div>
 
@@ -550,7 +550,7 @@
 
             <!-- Crumb -->
             <h3 id="crumb">Crumb</h3>
-            <div class="pe-layout pe-gap" style="flex-direction: column;">
+            <div class="pe-layout">
                 <div class="pe-crumb">
                     <a class="pe-crumb-item" href="javascript:void(0);">Home</a>
                     <a class="pe-crumb-item" href="javascript:void(0);">Products</a>
@@ -643,11 +643,13 @@
                     <pe-tab-item>Tab 2</pe-tab-item>
                     <pe-tab-item>Tab 3</pe-tab-item>
                 </pe-tab>
-                <pe-tab v-model="tab" type="rect" :hover="tabHover">
-                    <pe-tab-item>Tab 1</pe-tab-item>
-                    <pe-tab-item>Tab 2</pe-tab-item>
-                    <pe-tab-item>Tab 3</pe-tab-item>
-                </pe-tab>
+                <div class="pe-layout" style="justify-content: center;">
+                    <pe-tab v-model="tab" type="rect" :hover="tabHover">
+                        <pe-tab-item>Tab 1</pe-tab-item>
+                        <pe-tab-item>Tab 2</pe-tab-item>
+                        <pe-tab-item>Tab 3</pe-tab-item>
+                    </pe-tab>
+                </div>
                 <div class="pe-layout pe-gap-s">
                     <div class="pe-button pe-pgrey" @click="tabHover = !tabHover">{{tabHover ? '' : '!'}}hover</div>
                 </div>

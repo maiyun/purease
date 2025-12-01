@@ -26,7 +26,7 @@ export const code = {
     },
     'props': {
         'modelValue': {
-            'default': 0
+            'default': 0,
         },
         'type': {
             // --- default, plain, light, rect ---

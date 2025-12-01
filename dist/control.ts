@@ -4496,7 +4496,7 @@ list['pe-tab'] = {
     },
     'props': {
         'modelValue': {
-            'default': 0
+            'default': 0,
         },
         'type': {
             // --- default, plain, light, rect ---
@@ -4531,15 +4531,12 @@ list['pe-tab-item'] = {
     'template': `<div class="pe-tab-item" :class="[isSelected&&'pe-selected']" @mouseenter="hover" @touchstart="hover" @click="click"><slot></slot></div>`,
     'data': function() {
         return {
-            'index': 0
+            'index': 0,
         };
     },
     'computed': {
         isSelected: function(this: ITabItemVue) {
-            if (!this.$parent) {
-                return 0;
-            }
-            return this.$parent.selected === this.index;
+            return this.$parent?.selected === this.index;
         }
     },
     'watch': {
@@ -4566,7 +4563,6 @@ list['pe-tab-item'] = {
                 return;
             }
             this.$parent.selected = this.index;
-            this.resize();
         },
         click: function(this: ITabItemVue) {
             if (!this.$parent) {
@@ -4576,7 +4572,6 @@ list['pe-tab-item'] = {
                 return;
             }
             this.$parent.selected = this.index;
-            this.resize();
         },
         resize: function(this: ITabItemVue) {
             if (!this.$parent) {
@@ -4587,19 +4582,24 @@ list['pe-tab-item'] = {
             }
             this.$parent.tabItemWidth = this.$el.offsetWidth;
             this.$parent.tabItemLeft = this.$el.offsetLeft;
-        }
+        },
     },
     mounted: function(this: ITabItemVue) {
         if (!this.$parent) {
             return;
         }
-        if (this.$parent.selected === undefined) {
-            return;
-        }
         this.index = lDom.index(this.$el);
-        if (this.index === this.$parent.selected) {
+        this.$watch(() => this.$parent?.selected, () => {
+            if (this.$parent?.type !== 'rect') {
+                return;
+            }
+            if (this.index !== this.$parent.selected) {
+                return;
+            }
             this.resize();
-        }
+        }, {
+            'immediate': true,
+        });
     },
 };
 
