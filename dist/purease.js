@@ -604,6 +604,7 @@ export function launcher(page, options = {}) {
             }
             // --- 挂载 loading、系统 dialog ---
             bodys[0].insertAdjacentHTML('beforeend', `<pe-dialog :title="dialogInfo.title" :content="dialogInfo.content" :buttons="dialogInfo.buttons" :show="dialogInfo.show" @select="dialogInfo.select"></pe-dialog>` +
+                // --- 右下角按钮 ---
                 '<div class="pe-popbtns">' +
                 // --- 滚动到顶部 ---
                 '<div class="pe-popbtn pe-popbtn-top" ref="toTop" @click="toTop">' +
@@ -614,12 +615,14 @@ export function launcher(page, options = {}) {
                 '<svg width="24px" height="24px" viewBox="0 0 24 24" fill="none"><path d="M4 7L7 7M20 7L11 7" stroke-width="1.5" stroke-linecap="round"></path><path d="M20 17H17M4 17L13 17" stroke-width="1.5" stroke-linecap="round"></path><path d="M4 12H7L20 12" stroke-width="1.5" stroke-linecap="round"></path></svg>' +
                 '</div>' +
                 '</div>' +
+                // --- loading ---
                 `<div class="pe-loading" :class="[loading&&'pe-show']">` +
                 '<div class="pe-loading-item">' +
                 '<div class="pe-loading-item-1"></div>' +
                 '<div class="pe-loading-item-2"></div>' +
                 '</div>' +
                 '</div>' +
+                // --- 下方提示框 ---
                 `<div class="pe-alert" :class="[alertInfo.show&&'pe-show','pe-'+alertInfo.type]">` +
                 '<div class="pe-alert-content">' +
                 `<div class="pe-alert-icon"></div>` +
