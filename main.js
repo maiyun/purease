@@ -46,7 +46,7 @@ const program = new cmd.Command();
 program
     .name('purease')
     .description('Lightweight and user-friendly front-end library.')
-    .version('1.1.2', '-v, --version');
+    .version('2.0.0', '-v, --version');
 program
     // --- locale ---
     .option('-l, --locale <path>', 'locale path')

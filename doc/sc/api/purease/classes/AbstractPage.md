@@ -44,7 +44,7 @@ Defined in: purease.ts:107
 
 > **alertInfo**: `object`
 
-Defined in: purease.ts:262
+Defined in: purease.ts:377
 
 底部弹出提示框
 
@@ -63,6 +63,28 @@ Defined in: purease.ts:262
 #### type
 
 > **type**: `string` = `'default'`
+
+***
+
+### captchaInfo
+
+> **captchaInfo**: `object`
+
+Defined in: purease.ts:239
+
+验证码窗口
+
+#### now
+
+> **now**: `string`
+
+#### objects
+
+> **objects**: `Record`\<`string`, \{ `cb`: (`opt`) => `void`; `instance`: `any`; \}\>
+
+#### show
+
+> **show**: `boolean`
 
 ***
 
@@ -110,7 +132,7 @@ dialog 信息
 
 > **loading**: `boolean` = `false`
 
-Defined in: purease.ts:290
+Defined in: purease.ts:405
 
 是否显示加载框
 
@@ -120,7 +142,7 @@ Defined in: purease.ts:290
 
 > **windowHeight**: `number` = `0`
 
-Defined in: purease.ts:287
+Defined in: purease.ts:402
 
 整个窗口的高度
 
@@ -130,7 +152,7 @@ Defined in: purease.ts:287
 
 > **windowWidth**: `number` = `0`
 
-Defined in: purease.ts:284
+Defined in: purease.ts:399
 
 整个窗口的宽度
 
@@ -238,7 +260,7 @@ Defined in: purease.ts:148
 
 > **alert**(`content`, `type`): `void`
 
-Defined in: purease.ts:270
+Defined in: purease.ts:385
 
 显示一个 alert，支持 html，请注意传入内容的安全
 
@@ -262,7 +284,7 @@ Defined in: purease.ts:270
 
 > **confirm**(`opt`): `Promise`\<`number` \| `boolean`\>
 
-Defined in: purease.ts:239
+Defined in: purease.ts:354
 
 弹出一个询问框
 
@@ -295,6 +317,20 @@ Defined in: purease.ts:212
 #### Returns
 
 `Promise`\<`string`\>
+
+***
+
+### hideCaptcha()
+
+> **hideCaptcha**(): `void`
+
+Defined in: purease.ts:337
+
+仅 CF 模式会调用
+
+#### Returns
+
+`void`
 
 ***
 
@@ -374,11 +410,36 @@ Defined in: purease.ts:133
 
 ***
 
+### showCaptcha()
+
+> **showCaptcha**(`opt`): `Promise`\<`false` \| [`ICaptchaResultEvent`](../../control/interfaces/ICaptchaResultEvent.md)\>
+
+Defined in: purease.ts:258
+
+弹出验证码确认框，确认后可立即提交，可用于登录、发验证码按钮等地方
+请勿开启 loading
+
+#### Parameters
+
+##### opt
+
+[`IShowCaptchaOptions`](../interfaces/IShowCaptchaOptions.md)
+
+参数
+
+#### Returns
+
+`Promise`\<`false` \| [`ICaptchaResultEvent`](../../control/interfaces/ICaptchaResultEvent.md)\>
+
+验证是否通过
+
+***
+
 ### showLnav()
 
 > **showLnav**(): `void`
 
-Defined in: purease.ts:306
+Defined in: purease.ts:421
 
 显示 lnav
 
@@ -392,7 +453,7 @@ Defined in: purease.ts:306
 
 > **toTop**(): `void`
 
-Defined in: purease.ts:293
+Defined in: purease.ts:408
 
 滚动到顶部
 

@@ -6,7 +6,7 @@
 
 # Interface: IVueConfig
 
-Defined in: purease.ts:833
+Defined in: purease.ts:957
 
 Vue 配置
 
@@ -16,7 +16,7 @@ Vue 配置
 
 > **globalProperties**: `Record`\<`string`, `any`\>
 
-Defined in: purease.ts:835
+Defined in: purease.ts:959
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: purease.ts:835
 
 > **optionMergeStrategies**: `Record`\<`string`, [`IVueOptionMergeFunction`](../type-aliases/IVueOptionMergeFunction.md)\>
 
-Defined in: purease.ts:837
+Defined in: purease.ts:961
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: purease.ts:837
 
 > **performance**: `boolean`
 
-Defined in: purease.ts:838
+Defined in: purease.ts:962
 
 ## Methods
 
@@ -40,7 +40,7 @@ Defined in: purease.ts:838
 
 > `optional` **errorHandler**(`err`, `instance`, `info`): `void`
 
-Defined in: purease.ts:834
+Defined in: purease.ts:958
 
 #### Parameters
 
@@ -66,7 +66,7 @@ Defined in: purease.ts:834
 
 > **isCustomElement**(`tag`): `boolean`
 
-Defined in: purease.ts:836
+Defined in: purease.ts:960
 
 #### Parameters
 
@@ -84,7 +84,7 @@ Defined in: purease.ts:836
 
 > `optional` **warnHandler**(`msg`, `instance`, `trace`): `void`
 
-Defined in: purease.ts:839
+Defined in: purease.ts:963
 
 #### Parameters
 

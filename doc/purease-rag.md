@@ -236,161 +236,165 @@ global-style.md
 
 ### 基础颜色
 
-- `--main` - 基础颜色
-- `--pe` - 主题色，默认值为 `var(--main)`
-- `--pe-color` - 基础文字颜色
-- `--pe-disabled-color` - 禁用状态文字颜色
-- `--pe-note-color` - 备注/说明文字颜色
-- `--pe-inote-color` - 强调备注文字颜色
-- `--pe-fcolor` - 前景色（浅色/白色）
+- `--main`: 基础颜色
+- `--pe`: 主题色，默认值为 `var(--main)`
+- `--pe-color`: 基础文字颜色
+- `--pe-disabled-color`: 禁用状态文字颜色
+- `--pe-note-color`: 备注/说明文字颜色
+- `--pe-inote-color`: 强调备注文字颜色
+- `--pe-fcolor`: 前景色（浅色/白色）
 
 ### 主题色衍生
 
-- `--pe-hover` - 主题色 hover 状态（增加白色 10%）
-- `--pe-active` - 主题色 active 状态（增加黑色 10%）
-- `--pe-focus` - 主题色 focus 状态（增加黑色 5%）
-- `--pe-bg` - 主题色浅色背景（增加白色 85%）
+- `--pe-hover`: 主题色 hover 状态（增加白色 10%）
+- `--pe-active`: 主题色 active 状态（增加黑色 10%）
+- `--pe-focus`: 主题色 focus 状态（增加黑色 5%）
+- `--pe-bg`: 主题色浅色背景（增加白色 85%）
 
 ### 背景颜色
 
-- `--pe-grey` - 通常用于浅色背景或 hover 效果
-- `--pe-grey-hover` - 灰色 hover 效果
-- `--pe-dark` - 超深背景色
-- `--pe-input-bg` - 输入型控件的默认底色
-- `--pe-input-hover-bg` - 输入型控件的 hover 底色
+- `--pe-grey`: 通常用于浅色背景或 hover 效果
+- `--pe-grey-hover`: 灰色 hover 效果
+- `--pe-dark`: 超深背景色
+- `--pe-input-bg`: 输入型控件的默认底色
+- `--pe-input-hover-bg`: 输入型控件的 hover 底色
 
 ### 边框与阴影
 
-- `--pe-border` - 常规边框颜色
-- `--pe-border-plain` - 浅边框颜色（用于组件内部的轻边框）
-- `--pe-shadow` - 小阴影
-- `--pe-shadow-d` - 小阴影 dark 版
-- `--pe-pop-shadow` - 弹出层阴影
-- `--pe-outline-shadow` - active 状态的类似 outline 边框阴影
+- `--pe-border`: 常规边框颜色
+- `--pe-border-plain`: 浅边框颜色（用于组件内部的轻边框）
+- `--pe-shadow`: 小阴影
+- `--pe-shadow-d`: 小阴影 dark 版
+- `--pe-pop-shadow`: 弹出层阴影
+- `--pe-outline-shadow`: active 状态的类似 outline 边框阴影
 
 ### 动画与过渡
 
-- `--pe-cubic` - 三次贝塞尔缓动函数
-- `--pe-transition` - 全局过渡动画（应用于 all，时长 0.3s）
+- `--pe-cubic`: 三次贝塞尔缓动函数
+- `--pe-transition`: 全局过渡动画（应用于 all，时长 0.3s）
 
 ### 圆角
 
-- `--pe-radius` - 标准圆角（5px）
-- `--pe-radius-l` - 较大圆角（10px）
-- `--pe-radius-xl` - 超大圆角（30px，小屏 20px）
+- `--pe-radius`: 标准圆角（5px）
+- `--pe-radius-l`: 较大圆角（10px）
+- `--pe-radius-xl`: 超大圆角（30px，小屏 20px）
 
 ### 字体
 
-- `--pe-font-life` - 生活/衬线字体族
-- `--pe-font-comm` - 常用/无衬线字体族
+- `--pe-font-life`: 生活/衬线字体族
+- `--pe-font-comm`: 常用/无衬线字体族
 
 ### 内边距
 
-- `--pe-padding-l` - 大内边距（60px，小屏 40px）
-- `--pe-padding` - 标准内边距（40px，小屏 30px）
-- `--pe-padding-s` - 小内边距（20px，小屏 14px）
-- `--pe-padding-xs` - 超小内边距（15px，小屏 12px）
-- `--pe-padding-xxs` - 极小内边距（8px，小屏 4px）
+- `--pe-padding-l`: 大内边距（60px，小屏 40px）
+- `--pe-padding`: 标准内边距（40px，小屏 30px）
+- `--pe-padding-s`: 小内边距（20px，小屏 14px）
+- `--pe-padding-xs`: 超小内边距（15px，小屏 12px）
+- `--pe-padding-xxs`: 极小内边距（8px，小屏 4px）
 
 ### 间距
 
-- `--pe-gap-m` - 中间距（40px）
-- `--pe-gap-s` - 小间距（20px）
-- `--pe-gap-xs` - 超小间距（10px）
-- `--pe-gap-xxs` - 极小间距（5px）
+- `--pe-gap-m`: 中间距（40px）
+- `--pe-gap-s`: 小间距（20px）
+- `--pe-gap-xs`: 超小间距（10px）
+- `--pe-gap-xxs`: 极小间距（5px）
 
 ### 字号
 
-- `--pe-size-xxxl` - 超大字号（42px，小屏 32px）
-- `--pe-size-xxl` - 较大字号（32px，小屏 22px）
-- `--pe-size-xl` - 大字号（26px，小屏 20px）
-- `--pe-size-l` - 中大字号（22px，小屏 18px）
-- `--pe-size` - 标准字号（16px，小屏 14px）
-- `--pe-size-s` - 小字号（14px，小屏 13px）
-- `--pe-size-xs` - 超小字号（12px）
+- `--pe-size-xxxl`: 超大字号（42px，小屏 32px）
+- `--pe-size-xxl`: 较大字号（32px，小屏 22px）
+- `--pe-size-xl`: 大字号（26px，小屏 20px）
+- `--pe-size-l`: 中大字号（22px，小屏 18px）
+- `--pe-size`: 标准字号（16px，小屏 14px）
+- `--pe-size-s`: 小字号（14px，小屏 13px）
+- `--pe-size-xs`: 超小字号（12px）
 
-### 状态颜色 - 成功
+### 状态颜色: 成功
 
-- `--success` - 成功颜色
-- `--success-hover` - 成功 hover 状态
-- `--success-active` - 成功 active 状态
-- `--success-bg` - 成功浅色背景
+- `--success`: 成功颜色
+- `--success-hover`: 成功 hover 状态
+- `--success-active`: 成功 active 状态
+- `--success-bg`: 成功浅色背景
 
-### 状态颜色 - 信息
+### 状态颜色: 信息
 
-- `--info` - 信息颜色
-- `--info-hover` - 信息 hover 状态
-- `--info-active` - 信息 active 状态
-- `--info-bg` - 信息浅色背景
+- `--info`: 信息颜色
+- `--info-hover`: 信息 hover 状态
+- `--info-active`: 信息 active 状态
+- `--info-bg`: 信息浅色背景
 
-### 状态颜色 - 警告
+### 状态颜色: 警告
 
-- `--warning` - 警告颜色
-- `--warning-hover` - 警告 hover 状态
-- `--warning-active` - 警告 active 状态
-- `--warning-bg` - 警告浅色背景
+- `--warning`: 警告颜色
+- `--warning-hover`: 警告 hover 状态
+- `--warning-active`: 警告 active 状态
+- `--warning-bg`: 警告浅色背景
 
-### 状态颜色 - 危险
+### 状态颜色: 危险
 
-- `--danger` - 危险颜色
-- `--danger-hover` - 危险 hover 状态
-- `--danger-active` - 危险 active 状态
-- `--danger-bg` - 危险浅色背景
+- `--danger`: 危险颜色
+- `--danger-hover`: 危险 hover 状态
+- `--danger-active`: 危险 active 状态
+- `--danger-bg`: 危险浅色背景
 
 ### Header 相关
 
-- `--pe-headerheight` - Header 高度（70px，小 header 50px，双行 120px）
-- `--pe-windowwidth` - 窗口宽度
-- `--pe-windowheight` - 窗口高度
+- `--pe-headerheight`: Header 高度（70px，小 header 50px，双行 120px）
+- `--pe-windowwidth`: 窗口宽度
+- `--pe-windowheight`: 窗口高度
 
 ## 样式
 
 ### 通用样式
 
-- `.pe-disabled` - 禁用状态，添加 pointer-events: none、灰色文字、禁止用户选择
+- `.pe-disabled`: 禁用状态，添加 pointer-events: none、灰色文字、禁止用户选择
 
 ### html 标签样式
 
-- `.pe-full` - 全屏模式，html 和 body 最小高度为 100%
-- `.pe-speed-fast` - 快速动画模式，过渡时间 0.15s
-- `.pe-speed-imme` - 即时模式，禁用所有过渡动画
+- `.pe-full`: 全屏模式，html 和 body 最小高度为 100%
+- `.pe-speed-fast`: 快速动画模式，过渡时间 0.15s
+- `.pe-speed-imme`: 即时模式，禁用所有过渡动画
 
 ### 文字样式
 
-- `.pe-btitle` - 超大标题，字号 var(--pe-size-xxxl)
-- `.pe-title` - 大标题，字号 var(--pe-size-xxl)
-- `.pe-bnote` - 大备注，字号 var(--pe-size-xl)
-- `.pe-note` - 备注，字号 var(--pe-size-l)，颜色为备注色
-- `.pe-gnote` - 灰色备注，字号 var(--pe-size-l)
+- `.pe-btitle`: 超大标题，字号 var(--pe-size-xxxl)
+- `.pe-title`: 大标题，字号 var(--pe-size-xxl)
+- `.pe-bnote`: 大备注，字号 var(--pe-size-xl)
+- `.pe-note`: 备注，字号 var(--pe-size-l)，颜色为备注色
+- `.pe-gnote`: 灰色备注，字号 var(--pe-size-l)
 
 ### 内边距
 
-- `.pe-padding-lr` - 左右内边距，padding-left/right: var(--pe-padding)
-- `.pe-lpadding-lr` - 左右大内边距，padding-left/right: var(--pe-padding-l)
-- `.pe-padding` - 全方向内边距，padding: var(--pe-padding)
-- `.pe-padding-s` - 小内边距，padding: var(--pe-padding-s)
-- `.pe-padding-xs` - 超小内边距，padding: var(--pe-padding-xs)
-- `.pe-padding-xxs` - 极小内边距，padding: var(--pe-padding-xxs)
+- `.pe-padding-lr`: 左右内边距，padding-left/right: var(--pe-padding)
+- `.pe-lpadding-lr`: 左右大内边距，padding-left/right: var(--pe-padding-l)
+- `.pe-padding`: 全方向内边距，padding: var(--pe-padding)
+- `.pe-padding-s`: 小内边距，padding: var(--pe-padding-s)
+- `.pe-padding-xs`: 超小内边距，padding: var(--pe-padding-xs)
+- `.pe-padding-xxs`: 极小内边距，padding: var(--pe-padding-xxs)
 
 ### 间距
 
-- `.pe-gap` - 中间距，gap: var(--pe-gap-m)
-- `.pe-gap-s` - 小间距，gap: var(--pe-gap-s)
-- `.pe-gap-xs` - 超小间距，gap: var(--pe-gap-xs)
+- `.pe-gap`: 中间距，gap: var(--pe-gap-m)
+- `.pe-gap-s`: 小间距，gap: var(--pe-gap-s)
+- `.pe-gap-xs`: 超小间距，gap: var(--pe-gap-xs)
 
 ### 字号
 
-- `.pe-size-xxxl` - 超大字号，font-size: var(--pe-size-xxxl)
-- `.pe-size-xxl` - 较大字号，font-size: var(--pe-size-xxl)
-- `.pe-size-xl` - 大字号，font-size: var(--pe-size-xl)
-- `.pe-size-l` - 中大字号，font-size: var(--pe-size-l)
-- `.pe-size` - 标准字号，font-size: var(--pe-size)
-- `.pe-size-s` - 小字号，font-size: var(--pe-size-s)
-- `.pe-size-xs` - 超小字号，font-size: var(--pe-size-xs)
+- `.pe-size-xxxl`: 超大字号，font-size: var(--pe-size-xxxl)
+- `.pe-size-xxl`: 较大字号，font-size: var(--pe-size-xxl)
+- `.pe-size-xl`: 大字号，font-size: var(--pe-size-xl)
+- `.pe-size-l`: 中大字号，font-size: var(--pe-size-l)
+- `.pe-size`: 标准字号，font-size: var(--pe-size)
+- `.pe-size-s`: 小字号，font-size: var(--pe-size-s)
+- `.pe-size-xs`: 超小字号，font-size: var(--pe-size-xs)
 
 ### 字体样式
 
-- `.pe-bold` - 加粗文字，font-weight: 700
+- `.pe-bold`: 加粗文字，font-weight: 700
+
+## 全局
+
+- `a` 标签已经被全局设置为 `display: inline-flex;`，所以居中只能用 `justify-content: center;`，不能用 `text-align: center;`。
 simple-control.md
 ---
 
@@ -4075,6 +4079,7 @@ control/index.md
 ## Interfaces
 
 - [ICaptchaResultEvent](interfaces/ICaptchaResultEvent.md)
+- [ICollapseChangeEvent](interfaces/ICollapseChangeEvent.md)
 - [IControlVue](interfaces/IControlVue.md)
 - [IDateChangedEvent](interfaces/IDateChangedEvent.md)
 - [IDatepanelChangedEvent](interfaces/IDatepanelChangedEvent.md)
@@ -4107,7 +4112,7 @@ control/interfaces/ICaptchaResultEvent.md
 
 # Interface: ICaptchaResultEvent
 
-Defined in: control.ts:239
+Defined in: control.ts:247
 
 ## Properties
 
@@ -4115,7 +4120,7 @@ Defined in: control.ts:239
 
 > **detail**: `object`
 
-Defined in: control.ts:240
+Defined in: control.ts:248
 
 #### result
 
@@ -4124,6 +4129,31 @@ Defined in: control.ts:240
 #### token
 
 > **token**: `string`
+
+control/interfaces/ICollapseChangeEvent.md
+---
+
+[**Documents for purease**](../../index.md)
+
+***
+
+[Documents for purease](../../index.md) / [control](../index.md) / ICollapseChangeEvent
+
+# Interface: ICollapseChangeEvent
+
+Defined in: control.ts:151
+
+## Properties
+
+### detail
+
+> **detail**: `object`
+
+Defined in: control.ts:152
+
+#### value
+
+> **value**: `string` \| `string`[]
 
 control/interfaces/IControlVue.md
 ---
@@ -4154,7 +4184,7 @@ Vue 实例
 
 > **$attrs**: `Record`\<`string`, `string`\>
 
-Defined in: purease.ts:782
+Defined in: purease.ts:906
 
 #### Inherited from
 
@@ -4166,7 +4196,7 @@ Defined in: purease.ts:782
 
 > **$data**: `Record`\<`string`, `any`\>
 
-Defined in: purease.ts:783
+Defined in: purease.ts:907
 
 #### Inherited from
 
@@ -4178,7 +4208,7 @@ Defined in: purease.ts:783
 
 > **$el**: `HTMLElement`
 
-Defined in: purease.ts:784
+Defined in: purease.ts:908
 
 #### Inherited from
 
@@ -4190,7 +4220,7 @@ Defined in: purease.ts:784
 
 > **$options**: `Record`\<`string`, `any`\>
 
-Defined in: purease.ts:788
+Defined in: purease.ts:912
 
 #### Inherited from
 
@@ -4202,7 +4232,7 @@ Defined in: purease.ts:788
 
 > **$parent**: [`IVue`](../../purease/interfaces/IVue.md) \| `null`
 
-Defined in: purease.ts:789
+Defined in: purease.ts:913
 
 #### Inherited from
 
@@ -4214,7 +4244,7 @@ Defined in: purease.ts:789
 
 > **$props**: `Record`\<`string`, `any`\>
 
-Defined in: purease.ts:790
+Defined in: purease.ts:914
 
 #### Inherited from
 
@@ -4226,7 +4256,7 @@ Defined in: purease.ts:790
 
 > **$refs**: `Record`\<`string`, `HTMLElement` & [`IVue`](../../purease/interfaces/IVue.md)\>
 
-Defined in: purease.ts:791
+Defined in: purease.ts:915
 
 #### Inherited from
 
@@ -4238,7 +4268,7 @@ Defined in: purease.ts:791
 
 > **$root**: [`IVue`](../../purease/interfaces/IVue.md)
 
-Defined in: purease.ts:792
+Defined in: purease.ts:916
 
 #### Inherited from
 
@@ -4250,7 +4280,7 @@ Defined in: purease.ts:792
 
 > **$slots**: `object`
 
-Defined in: purease.ts:793
+Defined in: purease.ts:917
 
 #### Index Signature
 
@@ -4270,7 +4300,7 @@ Defined in: purease.ts:793
 
 > **$watch**: (`o`, `cb`, `opt?`) => `void`
 
-Defined in: purease.ts:797
+Defined in: purease.ts:921
 
 #### Parameters
 
@@ -4460,7 +4490,7 @@ Defined in: control.ts:16
 
 > **$emit**(`name`, ...`arg`): `void`
 
-Defined in: purease.ts:785
+Defined in: purease.ts:909
 
 #### Parameters
 
@@ -4486,7 +4516,7 @@ Defined in: purease.ts:785
 
 > **$forceUpdate**(): `void`
 
-Defined in: purease.ts:786
+Defined in: purease.ts:910
 
 #### Returns
 
@@ -4502,7 +4532,7 @@ Defined in: purease.ts:786
 
 > **$nextTick**(): `Promise`\<`void`\>
 
-Defined in: purease.ts:787
+Defined in: purease.ts:911
 
 #### Returns
 
@@ -4523,7 +4553,7 @@ control/interfaces/IDateChangedEvent.md
 
 # Interface: IDateChangedEvent
 
-Defined in: control.ts:206
+Defined in: control.ts:214
 
 ## Properties
 
@@ -4531,7 +4561,7 @@ Defined in: control.ts:206
 
 > **detail**: `object`
 
-Defined in: control.ts:207
+Defined in: control.ts:215
 
 #### value?
 
@@ -4548,7 +4578,7 @@ control/interfaces/IDatepanelChangedEvent.md
 
 # Interface: IDatepanelChangedEvent
 
-Defined in: control.ts:221
+Defined in: control.ts:229
 
 ## Properties
 
@@ -4556,7 +4586,7 @@ Defined in: control.ts:221
 
 > **detail**: `object`
 
-Defined in: control.ts:222
+Defined in: control.ts:230
 
 #### value?
 
@@ -4573,7 +4603,7 @@ control/interfaces/IDatepanelRangeEvent.md
 
 # Interface: IDatepanelRangeEvent
 
-Defined in: control.ts:214
+Defined in: control.ts:222
 
 ## Extends
 
@@ -4585,7 +4615,7 @@ Defined in: control.ts:214
 
 > **detail**: `object`
 
-Defined in: control.ts:215
+Defined in: control.ts:223
 
 #### end
 
@@ -4636,7 +4666,7 @@ control/interfaces/IDatepanelSelectedEvent.md
 
 # Interface: IDatepanelSelectedEvent
 
-Defined in: control.ts:227
+Defined in: control.ts:235
 
 ## Properties
 
@@ -4644,7 +4674,7 @@ Defined in: control.ts:227
 
 > **detail**: `object`
 
-Defined in: control.ts:228
+Defined in: control.ts:236
 
 #### date
 
@@ -4681,7 +4711,7 @@ control/interfaces/IDlistChangedEvent.md
 
 # Interface: IDlistChangedEvent
 
-Defined in: control.ts:160
+Defined in: control.ts:168
 
 ## Properties
 
@@ -4689,7 +4719,7 @@ Defined in: control.ts:160
 
 > **detail**: `object`
 
-Defined in: control.ts:161
+Defined in: control.ts:169
 
 #### index
 
@@ -4714,7 +4744,7 @@ control/interfaces/ISelectChangedEvent.md
 
 # Interface: ISelectChangedEvent
 
-Defined in: control.ts:188
+Defined in: control.ts:196
 
 ## Properties
 
@@ -4722,7 +4752,7 @@ Defined in: control.ts:188
 
 > **detail**: `object`
 
-Defined in: control.ts:189
+Defined in: control.ts:197
 
 #### index
 
@@ -4747,7 +4777,7 @@ control/interfaces/ISpaHideEvent.md
 
 # Interface: ISpaHideEvent
 
-Defined in: control.ts:179
+Defined in: control.ts:187
 
 ## Properties
 
@@ -4755,7 +4785,7 @@ Defined in: control.ts:179
 
 > **detail**: `object`
 
-Defined in: control.ts:180
+Defined in: control.ts:188
 
 #### next
 
@@ -4776,7 +4806,7 @@ control/interfaces/ISpaShowEvent.md
 
 # Interface: ISpaShowEvent
 
-Defined in: control.ts:172
+Defined in: control.ts:180
 
 ## Properties
 
@@ -4784,7 +4814,7 @@ Defined in: control.ts:172
 
 > **detail**: `object`
 
-Defined in: control.ts:173
+Defined in: control.ts:181
 
 #### path
 
@@ -4805,7 +4835,7 @@ control/interfaces/ISwitchChangeEvent.md
 
 # Interface: ISwitchChangeEvent
 
-Defined in: control.ts:198
+Defined in: control.ts:206
 
 ## Extends
 
@@ -4817,7 +4847,7 @@ Defined in: control.ts:198
 
 > **detail**: `object`
 
-Defined in: control.ts:199
+Defined in: control.ts:207
 
 #### value
 
@@ -4864,7 +4894,7 @@ control/interfaces/ITextBeforechangeEvent.md
 
 # Interface: ITextBeforechangeEvent
 
-Defined in: control.ts:151
+Defined in: control.ts:159
 
 ## Extends
 
@@ -4876,7 +4906,7 @@ Defined in: control.ts:151
 
 > **detail**: `object`
 
-Defined in: control.ts:152
+Defined in: control.ts:160
 
 #### change?
 
@@ -4929,7 +4959,7 @@ control/type-aliases/IDlistClickEvent.md
 
 > **IDlistClickEvent** = [`IDlistChangedEvent`](../interfaces/IDlistChangedEvent.md)
 
-Defined in: control.ts:168
+Defined in: control.ts:176
 
 control/variables/common.md
 ---
@@ -5642,7 +5672,7 @@ Defined in: purease.ts:107
 
 > **alertInfo**: `object`
 
-Defined in: purease.ts:262
+Defined in: purease.ts:377
 
 底部弹出提示框
 
@@ -5661,6 +5691,28 @@ Defined in: purease.ts:262
 #### type
 
 > **type**: `string` = `'default'`
+
+***
+
+### captchaInfo
+
+> **captchaInfo**: `object`
+
+Defined in: purease.ts:239
+
+验证码窗口
+
+#### now
+
+> **now**: `string`
+
+#### objects
+
+> **objects**: `Record`\<`string`, \{ `cb`: (`opt`) => `void`; `instance`: `any`; \}\>
+
+#### show
+
+> **show**: `boolean`
 
 ***
 
@@ -5708,7 +5760,7 @@ dialog 信息
 
 > **loading**: `boolean` = `false`
 
-Defined in: purease.ts:290
+Defined in: purease.ts:405
 
 是否显示加载框
 
@@ -5718,7 +5770,7 @@ Defined in: purease.ts:290
 
 > **windowHeight**: `number` = `0`
 
-Defined in: purease.ts:287
+Defined in: purease.ts:402
 
 整个窗口的高度
 
@@ -5728,7 +5780,7 @@ Defined in: purease.ts:287
 
 > **windowWidth**: `number` = `0`
 
-Defined in: purease.ts:284
+Defined in: purease.ts:399
 
 整个窗口的宽度
 
@@ -5836,7 +5888,7 @@ Defined in: purease.ts:148
 
 > **alert**(`content`, `type`): `void`
 
-Defined in: purease.ts:270
+Defined in: purease.ts:385
 
 显示一个 alert，支持 html，请注意传入内容的安全
 
@@ -5860,7 +5912,7 @@ Defined in: purease.ts:270
 
 > **confirm**(`opt`): `Promise`\<`number` \| `boolean`\>
 
-Defined in: purease.ts:239
+Defined in: purease.ts:354
 
 弹出一个询问框
 
@@ -5893,6 +5945,20 @@ Defined in: purease.ts:212
 #### Returns
 
 `Promise`\<`string`\>
+
+***
+
+### hideCaptcha()
+
+> **hideCaptcha**(): `void`
+
+Defined in: purease.ts:337
+
+仅 CF 模式会调用
+
+#### Returns
+
+`void`
 
 ***
 
@@ -5972,11 +6038,36 @@ Defined in: purease.ts:133
 
 ***
 
+### showCaptcha()
+
+> **showCaptcha**(`opt`): `Promise`\<`false` \| [`ICaptchaResultEvent`](../../control/interfaces/ICaptchaResultEvent.md)\>
+
+Defined in: purease.ts:258
+
+弹出验证码确认框，确认后可立即提交，可用于登录、发验证码按钮等地方
+请勿开启 loading
+
+#### Parameters
+
+##### opt
+
+[`IShowCaptchaOptions`](../interfaces/IShowCaptchaOptions.md)
+
+参数
+
+#### Returns
+
+`Promise`\<`false` \| [`ICaptchaResultEvent`](../../control/interfaces/ICaptchaResultEvent.md)\>
+
+验证是否通过
+
+***
+
 ### showLnav()
 
 > **showLnav**(): `void`
 
-Defined in: purease.ts:306
+Defined in: purease.ts:421
 
 显示 lnav
 
@@ -5990,7 +6081,7 @@ Defined in: purease.ts:306
 
 > **toTop**(): `void`
 
-Defined in: purease.ts:293
+Defined in: purease.ts:408
 
 滚动到顶部
 
@@ -6067,7 +6158,7 @@ purease/classes/AbstractPanel.md
 
 # Abstract Class: AbstractPanel
 
-Defined in: purease.ts:313
+Defined in: purease.ts:428
 
 大页面的内嵌页面
 
@@ -6087,7 +6178,7 @@ Defined in: purease.ts:313
 
 > **rootPage**: [`AbstractPage`](AbstractPage.md) & `Record`\<`string`, `any`\>
 
-Defined in: purease.ts:327
+Defined in: purease.ts:442
 
 获取总大页面对象
 
@@ -6099,7 +6190,7 @@ Defined in: purease.ts:327
 
 > **get** **l**(): (`key`, `data?`) => `string`
 
-Defined in: purease.ts:332
+Defined in: purease.ts:447
 
 获取语言内容
 
@@ -6129,7 +6220,7 @@ Defined in: purease.ts:332
 
 > **get** **nextTick**(): () => `Promise`\<`void`\>
 
-Defined in: purease.ts:348
+Defined in: purease.ts:463
 
 等待渲染
 
@@ -6149,7 +6240,7 @@ Defined in: purease.ts:348
 
 > **get** **refs**(): `Record`\<`string`, `HTMLElement` & [`IVue`](../interfaces/IVue.md) & `Record`\<`string`, `any`\>\>
 
-Defined in: purease.ts:341
+Defined in: purease.ts:456
 
 获取 refs 情况
 
@@ -6163,7 +6254,7 @@ Defined in: purease.ts:341
 
 > `abstract` **main**(): `void` \| `Promise`\<`void`\>
 
-Defined in: purease.ts:316
+Defined in: purease.ts:431
 
 入口方法
 
@@ -6177,7 +6268,7 @@ Defined in: purease.ts:316
 
 > **onBeforeUnmount**(): `void` \| `Promise`\<`void`\>
 
-Defined in: purease.ts:318
+Defined in: purease.ts:433
 
 #### Returns
 
@@ -6189,7 +6280,7 @@ Defined in: purease.ts:318
 
 > **onUnmounted**(): `void` \| `Promise`\<`void`\>
 
-Defined in: purease.ts:322
+Defined in: purease.ts:437
 
 #### Returns
 
@@ -6201,7 +6292,7 @@ Defined in: purease.ts:322
 
 > **watch**\<`T`, `TK`, `TR`\>(`name`, `cb`, `opt`): () => `void`
 
-Defined in: purease.ts:358
+Defined in: purease.ts:473
 
 监视变动
 
@@ -6266,7 +6357,7 @@ purease/functions/debug.md
 
 > **debug**(`message?`, ...`optionalParams?`): `void`
 
-Defined in: purease.ts:760
+Defined in: purease.ts:884
 
 打印调试信息，线上环境不会打印
 
@@ -6301,7 +6392,7 @@ purease/functions/display.md
 
 > **display**(`message?`, ...`optionalParams?`): `void`
 
-Defined in: purease.ts:773
+Defined in: purease.ts:897
 
 向控制台直接显示内容，一般情况下禁止使用
 
@@ -6336,7 +6427,7 @@ purease/functions/getCdn.md
 
 > **getCdn**(): `string`
 
-Defined in: purease.ts:399
+Defined in: purease.ts:514
 
 获取当前 cdn 前缀
 
@@ -6357,7 +6448,7 @@ purease/functions/getDirname.md
 
 > **getDirname**(`importUrl?`): `string`
 
-Defined in: purease.ts:376
+Defined in: purease.ts:491
 
 获取当前所在目录（参数留空获取 Purease 所在的目录，不以 / 结尾
 
@@ -6384,7 +6475,7 @@ purease/functions/launcher.md
 
 > **launcher**\<`T`\>(`page`, `options`): `void`
 
-Defined in: purease.ts:404
+Defined in: purease.ts:519
 
 运行当前页面
 
@@ -6450,6 +6541,7 @@ purease/index.md
 
 - [IConfirmOptions](interfaces/IConfirmOptions.md)
 - [IDialogOptions](interfaces/IDialogOptions.md)
+- [IShowCaptchaOptions](interfaces/IShowCaptchaOptions.md)
 - [IVApp](interfaces/IVApp.md)
 - [IVNode](interfaces/IVNode.md)
 - [IVue](interfaces/IVue.md)
@@ -6502,7 +6594,7 @@ purease/interfaces/IConfirmOptions.md
 
 # Interface: IConfirmOptions
 
-Defined in: purease.ts:869
+Defined in: purease.ts:993
 
 Confirm 选项
 
@@ -6512,7 +6604,7 @@ Confirm 选项
 
 > `optional` **cancel**: `boolean`
 
-Defined in: purease.ts:874
+Defined in: purease.ts:998
 
 是否显示取消按钮，默认不显示
 
@@ -6522,7 +6614,7 @@ Defined in: purease.ts:874
 
 > **content**: `string`
 
-Defined in: purease.ts:872
+Defined in: purease.ts:996
 
 支持 html
 
@@ -6532,7 +6624,7 @@ Defined in: purease.ts:872
 
 > `optional` **title**: `string`
 
-Defined in: purease.ts:870
+Defined in: purease.ts:994
 
 purease/interfaces/IDialogOptions.md
 ---
@@ -6545,7 +6637,7 @@ purease/interfaces/IDialogOptions.md
 
 # Interface: IDialogOptions
 
-Defined in: purease.ts:859
+Defined in: purease.ts:983
 
 Dialog 选项
 
@@ -6555,7 +6647,7 @@ Dialog 选项
 
 > `optional` **buttons**: `string`[]
 
-Defined in: purease.ts:863
+Defined in: purease.ts:987
 
 ***
 
@@ -6563,7 +6655,7 @@ Defined in: purease.ts:863
 
 > **content**: `string`
 
-Defined in: purease.ts:862
+Defined in: purease.ts:986
 
 支持 html
 
@@ -6573,7 +6665,7 @@ Defined in: purease.ts:862
 
 > `optional` **select**: (`button`) => `boolean` \| `Promise`\<`boolean` \| `undefined`\> \| `undefined`
 
-Defined in: purease.ts:865
+Defined in: purease.ts:989
 
 #### Parameters
 
@@ -6591,7 +6683,42 @@ Defined in: purease.ts:865
 
 > `optional` **title**: `string`
 
-Defined in: purease.ts:860
+Defined in: purease.ts:984
+
+purease/interfaces/IShowCaptchaOptions.md
+---
+
+[**Documents for purease**](../../index.md)
+
+***
+
+[Documents for purease](../../index.md) / [purease](../index.md) / IShowCaptchaOptions
+
+# Interface: IShowCaptchaOptions
+
+Defined in: purease.ts:1002
+
+显示验证码选项
+
+## Properties
+
+### akey
+
+> **akey**: `string`
+
+Defined in: purease.ts:1006
+
+验证码 key
+
+***
+
+### factory
+
+> **factory**: `"tc"` \| `"cf"`
+
+Defined in: purease.ts:1004
+
+验证码服务商
 
 purease/interfaces/IVApp.md
 ---
@@ -6604,7 +6731,7 @@ purease/interfaces/IVApp.md
 
 # Interface: IVApp
 
-Defined in: purease.ts:843
+Defined in: purease.ts:967
 
 Vue 应用
 
@@ -6614,7 +6741,7 @@ Vue 应用
 
 > **\_container**: `HTMLElement`
 
-Defined in: purease.ts:855
+Defined in: purease.ts:979
 
 ***
 
@@ -6622,7 +6749,7 @@ Defined in: purease.ts:855
 
 > **config**: [`IVueConfig`](IVueConfig.md)
 
-Defined in: purease.ts:846
+Defined in: purease.ts:970
 
 ***
 
@@ -6630,7 +6757,7 @@ Defined in: purease.ts:846
 
 > **version**: `string`
 
-Defined in: purease.ts:853
+Defined in: purease.ts:977
 
 ## Methods
 
@@ -6640,7 +6767,7 @@ Defined in: purease.ts:853
 
 > **component**(`name`): `any`
 
-Defined in: purease.ts:844
+Defined in: purease.ts:968
 
 ##### Parameters
 
@@ -6656,7 +6783,7 @@ Defined in: purease.ts:844
 
 > **component**(`name`, `config`): `this`
 
-Defined in: purease.ts:845
+Defined in: purease.ts:969
 
 ##### Parameters
 
@@ -6680,7 +6807,7 @@ Defined in: purease.ts:845
 
 > **directive**(`name`): `any`
 
-Defined in: purease.ts:847
+Defined in: purease.ts:971
 
 ##### Parameters
 
@@ -6696,7 +6823,7 @@ Defined in: purease.ts:847
 
 > **directive**(`name`, `config`): `this`
 
-Defined in: purease.ts:848
+Defined in: purease.ts:972
 
 ##### Parameters
 
@@ -6718,7 +6845,7 @@ Defined in: purease.ts:848
 
 > **mixin**(`mixin`): `this`
 
-Defined in: purease.ts:849
+Defined in: purease.ts:973
 
 #### Parameters
 
@@ -6736,7 +6863,7 @@ Defined in: purease.ts:849
 
 > **mount**(`rootContainer`): [`IVue`](IVue.md)
 
-Defined in: purease.ts:850
+Defined in: purease.ts:974
 
 #### Parameters
 
@@ -6754,7 +6881,7 @@ Defined in: purease.ts:850
 
 > **provide**\<`T`\>(`key`, `value`): `this`
 
-Defined in: purease.ts:851
+Defined in: purease.ts:975
 
 #### Type Parameters
 
@@ -6782,7 +6909,7 @@ Defined in: purease.ts:851
 
 > **unmount**(): `void`
 
-Defined in: purease.ts:852
+Defined in: purease.ts:976
 
 #### Returns
 
@@ -6799,7 +6926,7 @@ purease/interfaces/IVNode.md
 
 # Interface: IVNode
 
-Defined in: purease.ts:806
+Defined in: purease.ts:930
 
 Vue 节点
 
@@ -6813,7 +6940,7 @@ Vue 节点
 
 > **children**: `object` & `IVNode`[]
 
-Defined in: purease.ts:807
+Defined in: purease.ts:931
 
 #### Type Declaration
 
@@ -6827,7 +6954,7 @@ Defined in: purease.ts:807
 
 > **props**: `Record`\<`string`, `any`\>
 
-Defined in: purease.ts:811
+Defined in: purease.ts:935
 
 ***
 
@@ -6835,7 +6962,7 @@ Defined in: purease.ts:811
 
 > **type**: `symbol` \| `Record`\<`string`, `any`\>
 
-Defined in: purease.ts:812
+Defined in: purease.ts:936
 
 purease/interfaces/IVue.md
 ---
@@ -6848,7 +6975,7 @@ purease/interfaces/IVue.md
 
 # Interface: IVue
 
-Defined in: purease.ts:781
+Defined in: purease.ts:905
 
 Vue 实例
 
@@ -6866,7 +6993,7 @@ Vue 实例
 
 > **$attrs**: `Record`\<`string`, `string`\>
 
-Defined in: purease.ts:782
+Defined in: purease.ts:906
 
 ***
 
@@ -6874,7 +7001,7 @@ Defined in: purease.ts:782
 
 > **$data**: `Record`\<`string`, `any`\>
 
-Defined in: purease.ts:783
+Defined in: purease.ts:907
 
 ***
 
@@ -6882,7 +7009,7 @@ Defined in: purease.ts:783
 
 > **$el**: `HTMLElement`
 
-Defined in: purease.ts:784
+Defined in: purease.ts:908
 
 ***
 
@@ -6890,7 +7017,7 @@ Defined in: purease.ts:784
 
 > **$options**: `Record`\<`string`, `any`\>
 
-Defined in: purease.ts:788
+Defined in: purease.ts:912
 
 ***
 
@@ -6898,7 +7025,7 @@ Defined in: purease.ts:788
 
 > **$parent**: `IVue` \| `null`
 
-Defined in: purease.ts:789
+Defined in: purease.ts:913
 
 ***
 
@@ -6906,7 +7033,7 @@ Defined in: purease.ts:789
 
 > **$props**: `Record`\<`string`, `any`\>
 
-Defined in: purease.ts:790
+Defined in: purease.ts:914
 
 ***
 
@@ -6914,7 +7041,7 @@ Defined in: purease.ts:790
 
 > **$refs**: `Record`\<`string`, `HTMLElement` & `IVue`\>
 
-Defined in: purease.ts:791
+Defined in: purease.ts:915
 
 ***
 
@@ -6922,7 +7049,7 @@ Defined in: purease.ts:791
 
 > **$root**: `IVue`
 
-Defined in: purease.ts:792
+Defined in: purease.ts:916
 
 ***
 
@@ -6930,7 +7057,7 @@ Defined in: purease.ts:792
 
 > **$slots**: `object`
 
-Defined in: purease.ts:793
+Defined in: purease.ts:917
 
 #### Index Signature
 
@@ -6946,7 +7073,7 @@ Defined in: purease.ts:793
 
 > **$watch**: (`o`, `cb`, `opt?`) => `void`
 
-Defined in: purease.ts:797
+Defined in: purease.ts:921
 
 #### Parameters
 
@@ -6978,7 +7105,7 @@ Defined in: purease.ts:797
 
 > **$emit**(`name`, ...`arg`): `void`
 
-Defined in: purease.ts:785
+Defined in: purease.ts:909
 
 #### Parameters
 
@@ -7000,7 +7127,7 @@ Defined in: purease.ts:785
 
 > **$forceUpdate**(): `void`
 
-Defined in: purease.ts:786
+Defined in: purease.ts:910
 
 #### Returns
 
@@ -7012,7 +7139,7 @@ Defined in: purease.ts:786
 
 > **$nextTick**(): `Promise`\<`void`\>
 
-Defined in: purease.ts:787
+Defined in: purease.ts:911
 
 #### Returns
 
@@ -7029,7 +7156,7 @@ purease/interfaces/IVueConfig.md
 
 # Interface: IVueConfig
 
-Defined in: purease.ts:833
+Defined in: purease.ts:957
 
 Vue 配置
 
@@ -7039,7 +7166,7 @@ Vue 配置
 
 > **globalProperties**: `Record`\<`string`, `any`\>
 
-Defined in: purease.ts:835
+Defined in: purease.ts:959
 
 ***
 
@@ -7047,7 +7174,7 @@ Defined in: purease.ts:835
 
 > **optionMergeStrategies**: `Record`\<`string`, [`IVueOptionMergeFunction`](../type-aliases/IVueOptionMergeFunction.md)\>
 
-Defined in: purease.ts:837
+Defined in: purease.ts:961
 
 ***
 
@@ -7055,7 +7182,7 @@ Defined in: purease.ts:837
 
 > **performance**: `boolean`
 
-Defined in: purease.ts:838
+Defined in: purease.ts:962
 
 ## Methods
 
@@ -7063,7 +7190,7 @@ Defined in: purease.ts:838
 
 > `optional` **errorHandler**(`err`, `instance`, `info`): `void`
 
-Defined in: purease.ts:834
+Defined in: purease.ts:958
 
 #### Parameters
 
@@ -7089,7 +7216,7 @@ Defined in: purease.ts:834
 
 > **isCustomElement**(`tag`): `boolean`
 
-Defined in: purease.ts:836
+Defined in: purease.ts:960
 
 #### Parameters
 
@@ -7107,7 +7234,7 @@ Defined in: purease.ts:836
 
 > `optional` **warnHandler**(`msg`, `instance`, `trace`): `void`
 
-Defined in: purease.ts:839
+Defined in: purease.ts:963
 
 #### Parameters
 
@@ -7138,7 +7265,7 @@ purease/interfaces/IVueObject.md
 
 # Interface: IVueObject
 
-Defined in: purease.ts:817
+Defined in: purease.ts:941
 
 ## Methods
 
@@ -7146,7 +7273,7 @@ Defined in: purease.ts:817
 
 > **createApp**(`opt`): [`IVApp`](IVApp.md)
 
-Defined in: purease.ts:818
+Defined in: purease.ts:942
 
 #### Parameters
 
@@ -7164,7 +7291,7 @@ Defined in: purease.ts:818
 
 > **h**(`tag`, `props?`, `list?`): `any`
 
-Defined in: purease.ts:826
+Defined in: purease.ts:950
 
 #### Parameters
 
@@ -7190,7 +7317,7 @@ Defined in: purease.ts:826
 
 > **reactive**\<`T`\>(`obj`): `T`
 
-Defined in: purease.ts:820
+Defined in: purease.ts:944
 
 #### Type Parameters
 
@@ -7214,7 +7341,7 @@ Defined in: purease.ts:820
 
 > **ref**\<`T`\>(`obj`): `object`
 
-Defined in: purease.ts:819
+Defined in: purease.ts:943
 
 #### Type Parameters
 
@@ -7242,7 +7369,7 @@ Defined in: purease.ts:819
 
 > **watch**(`v`, `cb`, `opt`): `void`
 
-Defined in: purease.ts:821
+Defined in: purease.ts:945
 
 #### Parameters
 
@@ -7275,7 +7402,7 @@ purease/type-aliases/IVueOptionMergeFunction.md
 
 > **IVueOptionMergeFunction** = (`to`, `from`, `instance`) => `any`
 
-Defined in: purease.ts:830
+Defined in: purease.ts:954
 
 Vue 选项合并函数
 
@@ -7310,7 +7437,7 @@ purease/variables/global.md
 
 > **global**: `any`
 
-Defined in: purease.ts:390
+Defined in: purease.ts:505
 
 用户定义的全局对象
 
@@ -7327,7 +7454,7 @@ purease/variables/vue.md
 
 > **vue**: [`IVueObject`](../interfaces/IVueObject.md)
 
-Defined in: purease.ts:372
+Defined in: purease.ts:487
 
 vue 对象
 

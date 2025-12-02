@@ -8,6 +8,6 @@
 
 > **global**: `any`
 
-Defined in: purease.ts:390
+Defined in: purease.ts:505
 
 用户定义的全局对象

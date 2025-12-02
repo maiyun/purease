@@ -6,7 +6,7 @@
 
 # Interface: IDlistChangedEvent
 
-Defined in: control.ts:160
+Defined in: control.ts:168
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: control.ts:160
 
 > **detail**: `object`
 
-Defined in: control.ts:161
+Defined in: control.ts:169
 
 #### index
 

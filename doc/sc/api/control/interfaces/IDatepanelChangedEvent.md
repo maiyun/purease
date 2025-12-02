@@ -6,7 +6,7 @@
 
 # Interface: IDatepanelChangedEvent
 
-Defined in: control.ts:221
+Defined in: control.ts:229
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: control.ts:221
 
 > **detail**: `object`
 
-Defined in: control.ts:222
+Defined in: control.ts:230
 
 #### value?
 

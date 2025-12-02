@@ -1,6 +1,6 @@
 {
     "name": "purease",
-    "version": "1.1.2",
+    "version": "2.0.0",
     "description": "Lightweight and user-friendly front-end library.",
     "type": "module",
     "keywords": [
@@ -19,7 +19,7 @@
     },
     "types": "./dist/purease.d.ts",
     "scripts": {
-        "build-md-doc": "bash ./utils/generate-api-doc-md.sh"
+        "build-doc": "bash ./utils/build-doc.sh"
     },
     "devDependencies": {
         "@litert/eslint-plugin-rules": "^0.3.1",

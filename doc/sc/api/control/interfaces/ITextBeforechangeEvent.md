@@ -6,7 +6,7 @@
 
 # Interface: ITextBeforechangeEvent
 
-Defined in: control.ts:151
+Defined in: control.ts:159
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: control.ts:151
 
 > **detail**: `object`
 
-Defined in: control.ts:152
+Defined in: control.ts:160
 
 #### change?
 

@@ -6,7 +6,7 @@
 
 # Interface: IDatepanelRangeEvent
 
-Defined in: control.ts:214
+Defined in: control.ts:222
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: control.ts:214
 
 > **detail**: `object`
 
-Defined in: control.ts:215
+Defined in: control.ts:223
 
 #### end
 

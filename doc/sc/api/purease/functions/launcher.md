@@ -8,7 +8,7 @@
 
 > **launcher**\<`T`\>(`page`, `options`): `void`
 
-Defined in: purease.ts:404
+Defined in: purease.ts:519
 
 运行当前页面
 

@@ -6,7 +6,7 @@
 
 # Interface: ISwitchChangeEvent
 
-Defined in: control.ts:198
+Defined in: control.ts:206
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: control.ts:198
 
 > **detail**: `object`
 
-Defined in: control.ts:199
+Defined in: control.ts:207
 
 #### value
 

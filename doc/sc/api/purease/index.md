@@ -15,6 +15,7 @@
 
 - [IConfirmOptions](interfaces/IConfirmOptions.md)
 - [IDialogOptions](interfaces/IDialogOptions.md)
+- [IShowCaptchaOptions](interfaces/IShowCaptchaOptions.md)
 - [IVApp](interfaces/IVApp.md)
 - [IVNode](interfaces/IVNode.md)
 - [IVue](interfaces/IVue.md)

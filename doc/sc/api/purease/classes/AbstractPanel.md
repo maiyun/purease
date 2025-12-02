@@ -6,7 +6,7 @@
 
 # Abstract Class: AbstractPanel
 
-Defined in: purease.ts:313
+Defined in: purease.ts:428
 
 大页面的内嵌页面
 
@@ -26,7 +26,7 @@ Defined in: purease.ts:313
 
 > **rootPage**: [`AbstractPage`](AbstractPage.md) & `Record`\<`string`, `any`\>
 
-Defined in: purease.ts:327
+Defined in: purease.ts:442
 
 获取总大页面对象
 
@@ -38,7 +38,7 @@ Defined in: purease.ts:327
 
 > **get** **l**(): (`key`, `data?`) => `string`
 
-Defined in: purease.ts:332
+Defined in: purease.ts:447
 
 获取语言内容
 
@@ -68,7 +68,7 @@ Defined in: purease.ts:332
 
 > **get** **nextTick**(): () => `Promise`\<`void`\>
 
-Defined in: purease.ts:348
+Defined in: purease.ts:463
 
 等待渲染
 
@@ -88,7 +88,7 @@ Defined in: purease.ts:348
 
 > **get** **refs**(): `Record`\<`string`, `HTMLElement` & [`IVue`](../interfaces/IVue.md) & `Record`\<`string`, `any`\>\>
 
-Defined in: purease.ts:341
+Defined in: purease.ts:456
 
 获取 refs 情况
 
@@ -102,7 +102,7 @@ Defined in: purease.ts:341
 
 > `abstract` **main**(): `void` \| `Promise`\<`void`\>
 
-Defined in: purease.ts:316
+Defined in: purease.ts:431
 
 入口方法
 
@@ -116,7 +116,7 @@ Defined in: purease.ts:316
 
 > **onBeforeUnmount**(): `void` \| `Promise`\<`void`\>
 
-Defined in: purease.ts:318
+Defined in: purease.ts:433
 
 #### Returns
 
@@ -128,7 +128,7 @@ Defined in: purease.ts:318
 
 > **onUnmounted**(): `void` \| `Promise`\<`void`\>
 
-Defined in: purease.ts:322
+Defined in: purease.ts:437
 
 #### Returns
 
@@ -140,7 +140,7 @@ Defined in: purease.ts:322
 
 > **watch**\<`T`, `TK`, `TR`\>(`name`, `cb`, `opt`): () => `void`
 
-Defined in: purease.ts:358
+Defined in: purease.ts:473
 
 监视变动
 

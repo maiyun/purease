@@ -8,7 +8,7 @@
 
 > **getCdn**(): `string`
 
-Defined in: purease.ts:399
+Defined in: purease.ts:514
 
 获取当前 cdn 前缀
 

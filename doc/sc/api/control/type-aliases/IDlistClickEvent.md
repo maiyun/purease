@@ -8,4 +8,4 @@
 
 > **IDlistClickEvent** = [`IDlistChangedEvent`](../interfaces/IDlistChangedEvent.md)
 
-Defined in: control.ts:168
+Defined in: control.ts:176

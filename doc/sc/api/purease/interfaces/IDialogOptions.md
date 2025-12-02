@@ -6,7 +6,7 @@
 
 # Interface: IDialogOptions
 
-Defined in: purease.ts:859
+Defined in: purease.ts:983
 
 Dialog 选项
 
@@ -16,7 +16,7 @@ Dialog 选项
 
 > `optional` **buttons**: `string`[]
 
-Defined in: purease.ts:863
+Defined in: purease.ts:987
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: purease.ts:863
 
 > **content**: `string`
 
-Defined in: purease.ts:862
+Defined in: purease.ts:986
 
 支持 html
 
@@ -34,7 +34,7 @@ Defined in: purease.ts:862
 
 > `optional` **select**: (`button`) => `boolean` \| `Promise`\<`boolean` \| `undefined`\> \| `undefined`
 
-Defined in: purease.ts:865
+Defined in: purease.ts:989
 
 #### Parameters
 
@@ -52,4 +52,4 @@ Defined in: purease.ts:865
 
 > `optional` **title**: `string`
 
-Defined in: purease.ts:860
+Defined in: purease.ts:984
