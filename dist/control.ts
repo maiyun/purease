@@ -146,6 +146,14 @@ interface ICustomEvent {
     preventDefault: () => void;
 }
 
+// --- Collapse Control ---
+
+export interface ICollapseChangeEvent {
+    'detail': {
+        'value': string | string[];
+    };
+}
+
 // --- Text Control ---
 
 export interface ITextBeforechangeEvent extends ICustomEvent {
@@ -918,7 +926,7 @@ list['pe-collapse'] = {
     'template': `<div class="pe-collapse"><slot></slot></div>`,
     'props': {
         'modelValue': {
-            'default': () => ([])
+            'default': []
         },
         'accordion': {
             'default': false

@@ -759,7 +759,7 @@ list['pe-collapse'] = {
     'template': `<div class="pe-collapse"><slot></slot></div>`,
     'props': {
         'modelValue': {
-            'default': () => ([])
+            'default': []
         },
         'accordion': {
             'default': false

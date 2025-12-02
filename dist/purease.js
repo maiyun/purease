@@ -100,6 +100,12 @@ export class AbstractPage {
             'buttons': ['OK'],
             'select': undefined
         };
+        /** --- 验证码窗口 --- */
+        this.captchaInfo = {
+            'show': false,
+            'now': '',
+            'objects': {},
+        };
         /** --- 底部弹出提示框 --- */
         this.alertInfo = {
             'show': false,
@@ -201,6 +207,105 @@ export class AbstractPage {
                 resolve(button);
             };
         });
+    }
+    /**
+     * --- 弹出验证码确认框，确认后可立即提交，可用于登录、发验证码按钮等地方 ---
+     * --- 请勿开启 loading ---
+     * @param opt 参数
+     * @returns 验证是否通过
+     */
+    async showCaptcha(opt) {
+        if (opt.factory === 'tc') {
+            // --- TC ---
+            if (!window.TencentCaptcha) {
+                this.loading = true;
+                await lTool.loadScripts([
+                    'https://turing.captcha.qcloud.com/TJCaptcha.js'
+                ]);
+                this.loading = false;
+            }
+            const tcc = window.TencentCaptcha;
+            if (!tcc) {
+                return false;
+            }
+            this.captchaInfo.now = opt.akey;
+            this.captchaInfo.objects[opt.akey] ??= {
+                cb: () => { },
+                'instance': new tcc(opt.akey, (res) => {
+                    const event = {
+                        'detail': {
+                            'result': (res.ret === 0 && !res.errorCode) ? 1 : 0,
+                            'token': res.ticket + '|' + res.randstr,
+                        },
+                    };
+                    this.captchaInfo.objects[opt.akey].cb(event);
+                }, {
+                    'needFeedBack': false,
+                })
+            };
+            return new Promise(resolve => {
+                this.captchaInfo.objects[opt.akey].cb = (event) => {
+                    this.captchaInfo.now = '';
+                    resolve(event.detail.result === 1 ? event : false);
+                };
+                this.captchaInfo.objects[opt.akey].instance.show();
+            });
+        }
+        // --- CF ---
+        if (!window.turnstile) {
+            this.loading = true;
+            await lTool.loadScripts([
+                'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
+            ]);
+            this.loading = false;
+        }
+        const cft = window.turnstile;
+        if (!cft) {
+            return false;
+        }
+        this.captchaInfo.show = true;
+        this.captchaInfo.now = opt.akey;
+        this.captchaInfo.objects[opt.akey] ??= {
+            cb: () => { },
+            'instance': cft.render(document.getElementsByClassName('pe-captchadialog')[0].children[0], {
+                'sitekey': opt.akey,
+                'size': 'flexible',
+                callback: (token) => {
+                    const event = {
+                        'detail': {
+                            'result': 1,
+                            'token': token,
+                        },
+                    };
+                    this.captchaInfo.objects[opt.akey].cb(event);
+                    window.turnstile.remove(this.captchaInfo.objects[opt.akey].instance);
+                    delete this.captchaInfo.objects[opt.akey];
+                    this.captchaInfo.show = false;
+                },
+            })
+        };
+        return new Promise(resolve => {
+            this.captchaInfo.objects[opt.akey].cb = (event) => {
+                this.captchaInfo.now = '';
+                resolve(event.detail.result === 1 ? event : false);
+            };
+        });
+    }
+    /** --- 仅 CF 模式会调用 --- */
+    hideCaptcha() {
+        const now = this.captchaInfo.now;
+        if (!now || !this.captchaInfo.objects[now]) {
+            return;
+        }
+        this.captchaInfo.objects[now].cb({
+            'detail': {
+                'result': 0,
+                'token': '',
+            }
+        });
+        window.turnstile.remove(this.captchaInfo.objects[now].instance);
+        delete this.captchaInfo.objects[now];
+        this.captchaInfo.show = false;
     }
     /** --- 弹出一个询问框 --- */
     async confirm(opt) {
@@ -628,7 +733,13 @@ export function launcher(page, options = {}) {
                 `<div class="pe-alert-icon"></div>` +
                 `<div v-html="alertInfo.content"></div>` +
                 '</div>' +
-                '</div>');
+                '</div>' +
+                `<div class="pe-captchadialog" :class="[captchaInfo.show&&'pe-show']">` +
+                `<div></div>` +
+                `<div class="pe-button" @click="hideCaptcha">` +
+                `<pe-icon name="fa-solid fa-xmark"></pe-icon>` +
+                `</div>` +
+                `</div>`);
             bodys[0].style.setProperty('--pe-windowwidth', window.innerWidth + 'px');
             bodys[0].style.setProperty('--pe-windowheight', window.innerHeight + 'px');
             // --- 处理 body ---

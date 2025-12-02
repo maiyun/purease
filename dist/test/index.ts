@@ -131,9 +131,6 @@ class Page extends purease.AbstractPage {
 
     public cfKey = '';
 
-    /** --- 验证码 key --- */
-    public captchaKey = 'test_key_123456';
-
     // --- 数据展示控件 ---
 
     /** --- 标签列表 --- */
@@ -396,6 +393,14 @@ class Page extends purease.AbstractPage {
         this.refs.tc.reset();
     }
 
+    public async tcOnFunc(): Promise<void> {
+        const res = await this.showCaptcha({
+            'factory': 'tc',
+            'akey': this.tcKey,
+        });
+        this.tcResult = JSON.stringify(res);
+    }
+
     public cfOnResult(res: any): void {
         this.cfResult = res;
     }
@@ -403,6 +408,14 @@ class Page extends purease.AbstractPage {
     public cfOnReset(): void {
         this.cfResult = 'waiting...';
         this.refs.cf.reset();
+    }
+
+    public async cfOnFunc(): Promise<void> {
+        const res = await this.showCaptcha({
+            'factory': 'cf',
+            'akey': this.cfKey,
+        });
+        this.tcResult = JSON.stringify(res);
     }
 
     /**

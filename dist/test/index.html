@@ -221,9 +221,11 @@
                 <div>tc: {{tcResult}}</div>
                 <pe-captcha ref="tc" factory="tc" :akey="tcKey" @result="tcOnResult"></pe-captcha>
                 <div class="pe-button pe-pgrey" @click="tcOnReset">Reset TC</div>
+                <div class="pe-button pe-pgrey" @click="tcOnFunc">showCaptcha()</div>
                 <div>cf: {{cfResult}}</div>
                 <pe-captcha ref="cf" factory="cf" :akey="cfKey" @result="cfOnResult"></pe-captcha>
                 <div class="pe-button pe-pgrey" @click="cfOnReset">Reset CF</div>
+                <div class="pe-button pe-pgrey" @click="cfOnFunc">showCaptcha()</div>
             </div>
 
             <!-- ==================== 数据展示控件 ==================== -->

@@ -91,8 +91,6 @@ class Page extends purease.AbstractPage {
         this.cfResult = 'waiting...';
         this.tcKey = '';
         this.cfKey = '';
-        /** --- 验证码 key --- */
-        this.captchaKey = 'test_key_123456';
         // --- 数据展示控件 ---
         /** --- 标签列表 --- */
         this.tagList = ['Tag 1', 'Tag 2'];
@@ -288,12 +286,26 @@ class Page extends purease.AbstractPage {
         this.tcResult = 'waiting...';
         this.refs.tc.reset();
     }
+    async tcOnFunc() {
+        const res = await this.showCaptcha({
+            'factory': 'tc',
+            'akey': this.tcKey,
+        });
+        this.tcResult = JSON.stringify(res);
+    }
     cfOnResult(res) {
         this.cfResult = res;
     }
     cfOnReset() {
         this.cfResult = 'waiting...';
         this.refs.cf.reset();
+    }
+    async cfOnFunc() {
+        const res = await this.showCaptcha({
+            'factory': 'cf',
+            'akey': this.cfKey,
+        });
+        this.tcResult = JSON.stringify(res);
     }
     /**
      * --- 日期面板改变事件 ---
