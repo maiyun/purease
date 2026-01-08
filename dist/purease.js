@@ -450,7 +450,7 @@ export function launcher(page, options = {}) {
         // --- 通过标签加载库 ---
         const paths = [
             `${cdn}/npm/vue@3.5.26/dist/vue.global${options.debug ? '' : '.prod.min'}.js`,
-            `${cdn}/npm/@litert/pointer@1.6.1/dist/index.umd.min.js`,
+            `${cdn}/npm/@litert/pointer@1.6.2/dist/index.umd.min.js`,
         ];
         // --- 加载 vue 以及必要库 ---
         await lTool.loadScripts(paths);
