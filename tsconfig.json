@@ -6,7 +6,6 @@
         // "outDir": "dist/",
         "sourceMap": false,
         "target": "ES2022",
-        "useDefineForClassFields": false,
         "strict": true,             // 严格模式
         "declaration": true,        // d.ts
         "declarationMap": false,

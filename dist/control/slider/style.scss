@@ -5,7 +5,7 @@
     height: 100%; position: absolute; left: 0; top: 0; background: var(--pe);
 }
 .pe-slider-block {
-    width: 22px; height: 22px; background: var(--pe-input-bg); border: solid 1px var(--pe-border); box-shadow: var(--pe-shadow); border-radius: 11px; position: absolute; top: -9px; transition: var(--pe-transition); transition-property: background-color, box-shadow, transform; outline: none; -webkit-user-select: none; user-select: none;
+    width: 22px; height: 22px; background: var(--pe-input-bg); border: solid 1px var(--pe-border); box-shadow: var(--pe-shadow); border-radius: 11px; position: absolute; top: -9px; transition: var(--pe-transition); transition-property: background-color, box-shadow, transform; outline: none; -webkit-user-select: none; user-select: none; touch-action: none;
     &:hover {
         transform: scale(1.3); background: var(--pe-grey);
     }

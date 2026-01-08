@@ -486,6 +486,9 @@ export abstract class AbstractPanel {
 /** --- vue 对象 --- */
 export let vue: IVueObject;
 
+/** --- pointer 对象 --- */
+export let pointer: typeof import('@litert/pointer');
+
 const dirname = import.meta.url.slice(0, import.meta.url.lastIndexOf('/'));
 /** --- 获取当前所在目录（参数留空获取 Purease 所在的目录，不以 / 结尾 --- */
 export function getDirname(importUrl?: string): string {
@@ -551,7 +554,8 @@ export function launcher<T extends AbstractPage>(page: new (opt: {
         }
         // --- 通过标签加载库 ---
         const paths: string[] = [
-            `${cdn}/npm/vue@3.5.21/dist/vue.global${options.debug ? '' : '.prod.min'}.js`
+            `${cdn}/npm/vue@3.5.26/dist/vue.global${options.debug ? '' : '.prod.min'}.js`,
+            `${cdn}/npm/@litert/pointer@1.6.1/dist/index.umd.min.js`,
         ];
         // --- 加载 vue 以及必要库 ---
         await lTool.loadScripts(paths);
@@ -584,6 +588,7 @@ export function launcher<T extends AbstractPage>(page: new (opt: {
         });
         // --- 将整个网页 vue 化 ---
         vue = (window as any).Vue;
+        pointer = (window as any).pointer;
         userPurease.global = vue.reactive(global);
         global = userPurease.global;
         const styles: string[] = [];

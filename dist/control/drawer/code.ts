@@ -1,4 +1,5 @@
 import * as lControl from '../../control.js';
+import * as purease from '../../purease.js';
 
 export interface IDrawerVue extends lControl.IControlVue {
     /** --- 是否显示，默认 false --- */
@@ -20,7 +21,7 @@ export interface IDrawerVue extends lControl.IControlVue {
     /** --- 关闭按钮点击 --- */
     closeClick: () => void;
     /** --- 点击事件 --- */
-    click: (e: MouseEvent) => void;
+    down: (e: PointerEvent) => void;
 }
 
 export const code = {
@@ -62,11 +63,13 @@ export const code = {
         closeClick: function(this: IDrawerVue) {
             this.$emit('update:modelValue', false);
         },
-        click: function(this: IDrawerVue, e: MouseEvent): void {
-            if (e.target !== this.$el) {
-                return;
-            }
-            this.$emit('update:modelValue', false);
+        down: function(this: IDrawerVue, oe: PointerEvent): void {
+            purease.pointer.click(oe, e => {
+                if (e.target !== this.$el) {
+                    return;
+                }
+                this.$emit('update:modelValue', false);
+            });
         }
     }
 };

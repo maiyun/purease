@@ -19,18 +19,20 @@
     },
     "types": "./dist/purease.d.ts",
     "scripts": {
+        "sass": "sass --watch dist/:dist/ --style compressed --no-source-map",
         "build-doc": "bash ./utils/build-doc.sh"
     },
     "devDependencies": {
         "@litert/eslint-plugin-rules": "^0.3.1",
-        "@types/node": "^24.10.1",
+        "@litert/pointer": "^1.6.1",
+        "@types/node": "^25.0.3",
         "typedoc": "^0.28.15",
         "typedoc-plugin-markdown": "^4.9.0",
         "typescript": "^5.9.3"
     },
     "dependencies": {
         "commander": "^14.0.2",
-        "rollup": "^4.53.3",
+        "rollup": "^4.55.1",
         "terser": "^5.44.1"
     }
 }

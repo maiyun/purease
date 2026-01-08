@@ -1,19 +1,16 @@
 import * as purease from 'purease';
 class Page extends purease.AbstractPage {
-    constructor() {
-        // --- RTL ---
-        super(...arguments);
-        this.rtl = false;
-        // --- 登录表单 ---
-        /** --- 选项卡 --- */
-        this.tab = 0;
-        /** --- 用户名 --- */
-        this.user = '';
-        /** --- 密码 --- */
-        this.pwd = '';
-        /** --- 同意协议 --- */
-        this.agree = false;
-    }
+    // --- RTL ---
+    rtl = false;
+    // --- 登录表单 ---
+    /** --- 选项卡 --- */
+    tab = 0;
+    /** --- 用户名 --- */
+    user = '';
+    /** --- 密码 --- */
+    pwd = '';
+    /** --- 同意协议 --- */
+    agree = false;
     /**
      * --- 切换 RTL ---
      */

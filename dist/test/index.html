@@ -52,6 +52,7 @@
             <a class="pe-tree-item" href="#vnumber">Vnumber</a>
             <a class="pe-tree-item" href="#nboard">Nboard</a>
             <a class="pe-tree-item" href="#captcha">Captcha</a>
+            <a class="pe-tree-item" href="#uploader">Uploader</a>
 
             <div class="pe-tree-title">{{l('display')}}</div>
             <a class="pe-tree-item" href="#tag">Tag</a>
@@ -226,6 +227,20 @@
                 <pe-captcha ref="cf" factory="cf" :akey="cfKey" @result="cfOnResult"></pe-captcha>
                 <div class="pe-button pe-pgrey" @click="cfOnReset">Reset CF</div>
                 <div class="pe-button pe-pgrey" @click="cfOnFunc">showCaptcha()</div>
+            </div>
+
+            <!-- Uploader -->
+            <h3 id="uploader">Uploader</h3>
+            <div class="pe-layout pe-gap" style="flex-direction: column;">
+                <div>Value: {{uploaderImages}}</div>
+                <pe-uploader v-model="uploaderImages" :disabled="uploaderDisabled" :multi="uploaderMulti" :drag="uploaderDrag" :progress="uploaderProgress" @select="uploaderOnSelect"></pe-uploader>
+                <div class="pe-layout pe-gap-s" style="flex-wrap: wrap;">
+                    <div class="pe-button pe-pgrey" @click="uploaderDisabled = !uploaderDisabled">{{uploaderDisabled ? '' : '!'}}disabled</div>
+                    <div class="pe-button pe-pgrey" @click="uploaderMulti = !uploaderMulti">{{uploaderMulti ? '' : '!'}}multi</div>
+                    <div class="pe-button pe-pgrey" @click="uploaderDrag = !uploaderDrag">{{uploaderDrag ? '' : '!'}}drag</div>
+                    <div class="pe-button pe-pgrey" @click="uploaderSimulateProgress">Simulate Upload</div>
+                    <div class="pe-button pe-pgrey" @click="uploaderAddImage">Add Image</div>
+                </div>
             </div>
 
             <!-- ==================== 数据展示控件 ==================== -->

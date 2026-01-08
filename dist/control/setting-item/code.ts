@@ -1,5 +1,5 @@
 import * as lControl from '../../control.js';
-import * as lDom from '../../dom.js';
+import * as purease from '../../purease.js';
 
 export interface ISettingItemVue extends lControl.IControlVue {
     /** --- 类型 --- */
@@ -24,10 +24,8 @@ export interface ISettingItemVue extends lControl.IControlVue {
     'title': string;
     /** --- 备注 --- */
     'note': string;
-    /** --- 鼠标进入事件处理 --- */
-    enter: (e: MouseEvent | TouchEvent) => void;
-    /** --- 鼠标离开事件处理 --- */
-    leave: (e: MouseEvent | TouchEvent) => void;
+    /** --- 进入事件处理 --- */
+    enter: (oe: PointerEvent) => void;
 }
 
 export const code = {
@@ -71,17 +69,15 @@ export const code = {
         },
     },
     'methods': {
-        enter: function(this: ISettingItemVue, e: MouseEvent | TouchEvent) {
-            if (lDom.hasTouchButMouse(e)) {
-                return;
-            }
-            this.$el.classList.add('pe-hover');
-        },
-        leave: function(this: ISettingItemVue, e: MouseEvent | TouchEvent) {
-            if (lDom.hasTouchButMouse(e)) {
-                return;
-            }
-            this.$el.classList.remove('pe-hover');
+        enter: function(this: ISettingItemVue, oe: PointerEvent) {
+            purease.pointer.hover(oe, {
+                enter: () => {
+                    this.$el.classList.add('pe-hover');
+                },
+                leave: () => {
+                    this.$el.classList.remove('pe-hover');
+                },
+            });
         },
     },
 };

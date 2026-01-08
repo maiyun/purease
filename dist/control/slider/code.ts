@@ -1,5 +1,5 @@
-import * as lDom from '../../dom';
 import * as lControl from '../../control.js';
+import * as purease from '../../purease.js';
 
 export interface ISliderVue extends lControl.IControlVue {
     /** --- 当前值，默认 [0, 0] --- */
@@ -17,7 +17,7 @@ export interface ISliderVue extends lControl.IControlVue {
     /** --- 进度条定位 --- */
     'barPos': number;
     /** --- 鼠标按下事件 --- */
-    down: (e: TouchEvent | MouseEvent, i: number) => void;
+    down: (e: PointerEvent, i: number) => void;
 }
 
 export const code = {
@@ -60,19 +60,16 @@ export const code = {
         }
     },
     methods: {
-        down: function(this: ISliderVue, e: TouchEvent | MouseEvent, i: number) {
-            if (lDom.hasTouchButMouse(e)) {
-                return;
-            }
+        down: function(this: ISliderVue, oe: PointerEvent, i: number) {
             const bcr = this.$el.getBoundingClientRect();
             /** --- slider 的宽度 --- */
             const width = bcr.width;
             /** --- RTL 模式下使用 right，否则使用 left --- */
             const startPos = this.isRtl ? bcr.right : bcr.left;
-            lDom.bindDown(e, {
-                move: (ne) => {
+            purease.pointer.down(oe, {
+                move: e => {
                     // --- 当前的位置 ---
-                    const nx = ne instanceof MouseEvent ? ne.clientX : ne.touches[0].clientX;
+                    const nx = e.clientX;
                     /** --- 当前滑块位置 --- */
                     let pos: number;
                     if (this.isRtl) {
@@ -109,7 +106,7 @@ export const code = {
                         this.propInt('min') + Math.round(this.pos[0] / 100 * (this.propInt('max') - this.propInt('min'))),
                         this.propBoolean('range') ? this.propInt('min') + Math.round(this.pos[1] / 100 * (this.propInt('max') - this.propInt('min'))) : 0,
                     ]);
-                }
+                },
             });
         }
     },

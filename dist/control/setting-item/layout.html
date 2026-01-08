@@ -1,4 +1,4 @@
-<div class="pe-setting-item" :class="[propBoolean('nopadding')&&'pe-setting-item-nopadding',propBoolean('nogap')&&'pe-setting-item-nogap']" @mouseenter="enter" @mouseleave="leave" @touchstart="enter" @touchend="leave">
+<div class="pe-setting-item" :class="[propBoolean('nopadding')&&'pe-setting-item-nopadding',propBoolean('nogap')&&'pe-setting-item-nogap']" @pointerenter="enter" @pointerdown="enter">
     <template v-if="$slots['left']">
         <slot name="left"></slot>
     </template>

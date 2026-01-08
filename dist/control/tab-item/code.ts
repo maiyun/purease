@@ -8,7 +8,7 @@ export interface ITabItemVue extends lControl.IControlVue {
     /** --- 是否被选中 --- */
     'isSelected': boolean;
     /** --- 鼠标悬停事件 --- */
-    hover: (e: MouseEvent | TouchEvent) => void;
+    hover: (oe: PointerEvent) => void;
     /** --- 点击事件 --- */
     click: () => void;
     /** --- 修改上层的 tabItemLeft、tabItemWidth 为本 item --- */
@@ -40,17 +40,18 @@ export const code = {
         }
     },
     'methods': {
-        hover: function(this: ITabItemVue, e: MouseEvent | TouchEvent) {
-            if (!this.$parent) {
-                return;
-            }
-            if (lDom.hasTouchButMouse(e)) {
-                return;
-            }
-            if (!this.$parent.propBoolean('hover')) {
-                return;
-            }
-            this.$parent.selected = this.index;
+        hover: function(this: ITabItemVue, oe: PointerEvent) {
+            purease.pointer.hover(oe, {
+                enter: () => {
+                    if (!this.$parent) {
+                        return;
+                    }
+                    if (!this.$parent.propBoolean('hover')) {
+                        return;
+                    }
+                    this.$parent.selected = this.index;
+                },
+            });
         },
         click: function(this: ITabItemVue) {
             if (!this.$parent) {

@@ -1,5 +1,5 @@
 <div class="pe-slider">
     <div v-if="propBoolean('range')" class="pe-slider-bar" :style="{'width': barWidth + '%', [isRtl?'right':'left']: 'calc(' + barPos + '% - 11px)'}"></div>
-    <div class="pe-slider-block" :style="{[isRtl?'right':'left']: 'calc(' + pos[0] + '% - 11px)'}" tabindex="0" @mousedown="down($event, 0)" @touchstart="down($event, 0)"></div>
-    <div v-if="propBoolean('range')" class="pe-slider-block" :style="{[isRtl?'right':'left']: 'calc(' + pos[1] + '% - 11px)'}" tabindex="0" @mousedown="down($event, 1)" @touchstart="down($event, 1)"></div>
+    <div class="pe-slider-block" :style="{[isRtl?'right':'left']: 'calc(' + pos[0] + '% - 11px)'}" tabindex="0" @pointerdown="down($event, 0)"></div>
+    <div v-if="propBoolean('range')" class="pe-slider-block" :style="{[isRtl?'right':'left']: 'calc(' + pos[1] + '% - 11px)'}" tabindex="0" @pointerdown="down($event, 1)"></div>
 </div>

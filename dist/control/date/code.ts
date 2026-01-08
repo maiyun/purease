@@ -1,5 +1,6 @@
 import * as lDom from '../../dom.js';
 import * as lControl from '../../control.js';
+import * as purease from '../../purease.js';
 
 export interface IDateVue extends lControl.IControlVue {
     /** --- 是否禁用，默认 false --- */
@@ -48,8 +49,8 @@ export interface IDateVue extends lControl.IControlVue {
     'zdecs': string[];
     /** --- 多语言数据 --- */
     'localeData': Record<string, Record<string, string>>;
-    /** --- 点击事件 --- */
-    click: (e: MouseEvent, type: 'first' | 'zone') => void;
+    /** --- 按下事件 --- */
+    down: (e: PointerEvent, type: 'first' | 'zone') => void;
     /** --- 时区确定 --- */
     zoneOk: () => void;
     /** --- 时间确定 --- */
@@ -285,17 +286,19 @@ export const code = {
     },
     'methods': {
         // --- 单击事件 ---
-        click: function(this: IDateVue, e: MouseEvent, type: 'first' | 'zone'): void {
-            const el = this.$refs[type + 'pop'];
-            if (el.classList.contains('pe-show')) {
-                lDom.hidePop(el);
-                return;
-            }
-            if (type === 'first' && !this.propBoolean('date')) {
-                lDom.showPop(e, this.$refs['timepop']);
-                return;
-            }
-            lDom.showPop(e, el);
+        down: function(this: IDateVue, oe: PointerEvent, type: 'first' | 'zone'): void {
+            purease.pointer.click(oe, (e) => {
+                const el = this.$refs[type + 'pop'];
+                if (el.classList.contains('pe-show')) {
+                    lDom.hidePop(el);
+                    return;
+                }
+                if (type === 'first' && !this.propBoolean('date')) {
+                    lDom.showPop(e, this.$refs['timepop']);
+                    return;
+                }
+                lDom.showPop(e, el);
+            });
         },
         zoneOk: function(this: IDateVue): void {
             const vz = parseInt(this.vzone);

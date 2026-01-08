@@ -1,124 +1,52 @@
 import * as purease from 'purease';
 import footer from './footer.js';
 class Page extends purease.AbstractPage {
-    constructor() {
-        super(...arguments);
-        this.text = '123';
-        this.textmulti = '456';
-        this.select = 'h';
-        this.textSelect = ['a', { 'value': 'ok', 'label': 'v is ok' }, 'c', this.l('ok')];
-        this.dlist = 'a';
-        this.dlistChildren = 'item1';
-        this.dlistChildrenTree = 'item1';
-        this.dlistChildrenData = [
-            { 'label': 'Item 1', 'value': 'item1' },
-            {
-                'label': 'Item 2',
-                'value': 'item2',
-                'children': [
-                    {
-                        'label': 'Sub Item 2-1',
-                        'value': 'item2-1'
-                    },
-                    {
-                        'label': 'Sub Item 2-2',
-                        'value': 'item2-2',
-                        'children': [
-                            { 'label': 'Deep Item 2-2-1', 'value': 'item2-2-1' },
-                            { 'label': 'Deep Item 2-2-2', 'value': 'item2-2-2' }
-                        ]
-                    }
-                ]
-            },
-            { 'label': 'Item 3', 'value': 'item3' }
-        ];
-        this.search = false;
-        // --- swipe ---
-        this.tab = 0;
-        this.swipePage = 'center';
-        this.swipeControl = 'inner';
-        // --- login ---
-        this.user = '';
-        this.pwd = '';
-        // --- double 页 ---
-        this.nbottom = true;
-        this.dbottom = 'dark';
-        // --- slider ---
-        this.slider1 = [15, 0];
-        this.slider2 = [200, 300];
-        // --- drawer ---
-        this.drawer = false;
-        this.drawer2 = false;
-        this.sheader = false;
-        this.slogo = false;
-        this.rtl = false;
-        this.settingHover = false;
-        this.settingPlain = false;
-        this.settingLight = false;
-        this.rectTabItemValue = 0;
-        this.tabHover = false;
-        this.customDialog = false;
-        this.customDialogText = '';
-        // --- page 控件演示 ---
-        this.p1 = 3;
-        this.p2 = 25;
-        this.p3 = 30;
-        this.p4 = 50;
-        this.p5 = 1;
-        this.p6 = 2;
-        this.total5 = 0;
-        this.count6 = 20;
-        this.control = 2;
-        this.switch1 = false;
-        this.switch2 = 'a';
-        // --- Tag 控件 ---
-        this.taglist = [];
-        this.tagclose = false;
-        // --- Datepanel 控件 ---
-        this.dpbottom = false;
-        this.dptime = true;
-        this.dpzone = true;
-        /** --- 当前选中的时间戳 --- */
-        this.dpts = undefined;
-        /** --- 当前设置的日历组件的时区 --- */
-        this.dptz = undefined;
-        this.dpdisabled = false;
-        this.dpplain = false;
-        this.dprange = false;
-        this.dpstart = false;
-        this.dpym = '';
-        this.dphm = '';
-        this.dplockhm = false;
-        // --- date 控件 ---
-        this.ddate = true;
-        /** --- 当前选中的时间戳 --- */
-        this.dts = undefined;
-        /** --- daterange 的时间戳 --- */
-        this.drts = [];
-        // --- vnumber ---
-        this.vnumber = '';
-        this.vnumberDisabled = false;
-        // --- nboard ---
-        this.nboard = '';
-        this.nboardDisabled = false;
-        this.nboardTitle = false;
-        this.nboardPlain = false;
-        this.nboardSplit = false;
-        this.nboardCustom = false;
-        this.nboardButtons = false;
-        this.nboardSize = 'default';
-        // --- captcha ---
-        this.tcResult = 'waiting...';
-        this.cfResult = 'waiting...';
-        this.tcKey = '';
-        this.cfKey = '';
-        // --- spa ---
-        this.spaPlain = false;
-        /** --- 全屏 --- */
-        this.spaFull = false;
-        this.spaFooter = '1';
-        this.spaTag = '1';
-    }
+    text = '123';
+    textmulti = '456';
+    select = 'h';
+    textSelect = ['a', { 'value': 'ok', 'label': 'v is ok' }, 'c', this.l('ok')];
+    dlist = 'a';
+    dlistChildren = 'item1';
+    dlistChildrenTree = 'item1';
+    dlistChildrenData = [
+        { 'label': 'Item 1', 'value': 'item1' },
+        {
+            'label': 'Item 2',
+            'value': 'item2',
+            'children': [
+                {
+                    'label': 'Sub Item 2-1',
+                    'value': 'item2-1'
+                },
+                {
+                    'label': 'Sub Item 2-2',
+                    'value': 'item2-2',
+                    'children': [
+                        { 'label': 'Deep Item 2-2-1', 'value': 'item2-2-1' },
+                        { 'label': 'Deep Item 2-2-2', 'value': 'item2-2-2' }
+                    ]
+                }
+            ]
+        },
+        { 'label': 'Item 3', 'value': 'item3' }
+    ];
+    search = false;
+    // --- swipe ---
+    tab = 0;
+    swipePage = 'center';
+    swipeControl = 'inner';
+    // --- login ---
+    user = '';
+    pwd = '';
+    // --- double 页 ---
+    nbottom = true;
+    dbottom = 'dark';
+    // --- slider ---
+    slider1 = [15, 0];
+    slider2 = [200, 300];
+    // --- drawer ---
+    drawer = false;
+    drawer2 = false;
     changeNBottom() {
         this.nbottom = !this.nbottom;
         if (this.nbottom) {
@@ -130,6 +58,7 @@ class Page extends purease.AbstractPage {
             document.getElementsByTagName('html')[0].classList.remove('pe-dheader');
         }
     }
+    sheader = false;
     changeSheader() {
         this.sheader = !this.sheader;
         if (this.sheader) {
@@ -141,6 +70,13 @@ class Page extends purease.AbstractPage {
             document.getElementsByTagName('html')[0].classList.remove('pe-sheader');
         }
     }
+    slogo = false;
+    rtl = false;
+    settingHover = false;
+    settingPlain = false;
+    settingLight = false;
+    rectTabItemValue = 0;
+    tabHover = false;
     changeRTL() {
         this.rtl = !this.rtl;
         if (this.rtl) {
@@ -182,6 +118,8 @@ class Page extends purease.AbstractPage {
         this.customDialogText = '';
         this.customDialog = true;
     }
+    customDialog = false;
+    customDialogText = '';
     customDialogSelect() {
         if (!this.customDialogText) {
             // --- 弹出不可为空的提示 ---
@@ -199,6 +137,36 @@ class Page extends purease.AbstractPage {
     get testhead() {
         return purease.global.head ?? 'none';
     }
+    // --- page 控件演示 ---
+    p1 = 3;
+    p2 = 25;
+    p3 = 30;
+    p4 = 50;
+    p5 = 1;
+    p6 = 2;
+    total5 = 0;
+    count6 = 20;
+    control = 2;
+    switch1 = false;
+    switch2 = 'a';
+    // --- Tag 控件 ---
+    taglist = [];
+    tagclose = false;
+    // --- Datepanel 控件 ---
+    dpbottom = false;
+    dptime = true;
+    dpzone = true;
+    /** --- 当前选中的时间戳 --- */
+    dpts = undefined;
+    /** --- 当前设置的日历组件的时区 --- */
+    dptz = undefined;
+    dpdisabled = false;
+    dpplain = false;
+    dprange = false;
+    dpstart = false;
+    dpym = '';
+    dphm = '';
+    dplockhm = false;
     // --- 指定时间戳 ---
     dpsettime() {
         this.dpts = purease.tool.rand(1504304812000, 1704304812000);
@@ -209,9 +177,32 @@ class Page extends purease.AbstractPage {
     dpOnRange(e) {
         purease.display('onRange', e);
     }
+    // --- date 控件 ---
+    ddate = true;
+    /** --- 当前选中的时间戳 --- */
+    dts = undefined;
+    /** --- daterange 的时间戳 --- */
+    drts = [];
+    // --- vnumber ---
+    vnumber = '';
+    vnumberDisabled = false;
+    // --- nboard ---
+    nboard = '';
+    nboardDisabled = false;
+    nboardTitle = false;
+    nboardPlain = false;
+    nboardSplit = false;
+    nboardCustom = false;
+    nboardButtons = false;
     nboardButton(btn) {
         this.alert(btn, 'pe');
     }
+    nboardSize = 'default';
+    // --- captcha ---
+    tcResult = 'waiting...';
+    cfResult = 'waiting...';
+    tcKey = '';
+    cfKey = '';
     tcOnResult(res) {
         this.tcResult = res;
     }
@@ -226,6 +217,12 @@ class Page extends purease.AbstractPage {
         this.cfResult = 'waiting...';
         this.refs.cf.reset();
     }
+    // --- spa ---
+    spaPlain = false;
+    /** --- 全屏 --- */
+    spaFull = false;
+    spaFooter = '1';
+    spaTag = '1';
     spaGo(path) {
         window.location.hash = '#' + path;
     }

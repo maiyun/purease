@@ -131,6 +131,23 @@ class Page extends purease.AbstractPage {
 
     public cfKey = '';
 
+    // --- uploader ---
+
+    /** --- 上传图片列表 --- */
+    public uploaderImages: Array<string | { 'title'?: string; 'src': string; }> = [];
+
+    /** --- 是否禁用 --- */
+    public uploaderDisabled = false;
+
+    /** --- 是否多选 --- */
+    public uploaderMulti = false;
+
+    /** --- 是否可拖拽 --- */
+    public uploaderDrag = false;
+
+    /** --- 上传进度 --- */
+    public uploaderProgress?: number = undefined;
+
     // --- 数据展示控件 ---
 
     /** --- 标签列表 --- */
@@ -416,6 +433,47 @@ class Page extends purease.AbstractPage {
             'akey': this.cfKey,
         });
         this.tcResult = JSON.stringify(res);
+    }
+
+    // --- uploader ---
+
+    /**
+     * --- 选择图片事件 ---
+     */
+    public uploaderOnSelect(): void {
+        purease.display('uploaderOnSelect');
+        // --- 模拟选择图片后添加 ---
+        this.uploaderAddImage();
+    }
+
+    /**
+     * --- 模拟上传进度 ---
+     */
+    public uploaderSimulateProgress(): void {
+        this.uploaderProgress = 0;
+        const timer = setInterval(() => {
+            if (this.uploaderProgress === undefined) {
+                clearInterval(timer);
+                return;
+            }
+            this.uploaderProgress += 10;
+            if (this.uploaderProgress >= 100) {
+                clearInterval(timer);
+                this.uploaderProgress = undefined;
+                this.uploaderAddImage();
+            }
+        }, 200);
+    }
+
+    /**
+     * --- 添加图片 ---
+     */
+    public uploaderAddImage(): void {
+        const index = this.uploaderImages.length + 1;
+        this.uploaderImages.push({
+            'title': `Image ${index}`,
+            'src': `./images/bg.jpg`
+        });
     }
 
     /**

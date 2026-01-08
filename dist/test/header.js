@@ -1,23 +1,20 @@
 import * as purease from 'purease';
 class Page extends purease.AbstractPage {
-    constructor() {
-        // --- RTL ---
-        super(...arguments);
-        this.rtl = false;
-        // --- Header 控件 ---
-        /** --- Header 主题 --- */
-        this.headerTheme = 'default';
-        /** --- Header 底部 --- */
-        this.headerBottom = true;
-        /** --- Header 线条 --- */
-        this.headerLine = false;
-        /** --- 小 Header --- */
-        this.sheader = false;
-        /** --- Bar 主题 --- */
-        this.barTheme = 'default';
-        /** --- Bar Logo --- */
-        this.barLogo = false;
-    }
+    // --- RTL ---
+    rtl = false;
+    // --- Header 控件 ---
+    /** --- Header 主题 --- */
+    headerTheme = 'default';
+    /** --- Header 底部 --- */
+    headerBottom = true;
+    /** --- Header 线条 --- */
+    headerLine = false;
+    /** --- 小 Header --- */
+    sheader = false;
+    /** --- Bar 主题 --- */
+    barTheme = 'default';
+    /** --- Bar Logo --- */
+    barLogo = false;
     /**
      * --- 切换 RTL ---
      */

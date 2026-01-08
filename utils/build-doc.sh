@@ -63,8 +63,6 @@ if [ -d "dist/control" ]; then
   done
 fi
 
-
-
 # --- 合并所有 md 成一个文件，保留模块标题 ---
 find "$API_DOC_OUTPUT_DIR" -name "*.md" | sort | while read file; do
   # --- 计算相对路径（相对于 API_DOC_OUTPUT_DIR） ---

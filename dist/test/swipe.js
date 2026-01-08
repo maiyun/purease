@@ -1,17 +1,14 @@
 import * as purease from 'purease';
 class Page extends purease.AbstractPage {
-    constructor() {
-        // --- RTL ---
-        super(...arguments);
-        this.rtl = false;
-        // --- Swipe 控件 ---
-        /** --- Swipe 页面位置 --- */
-        this.swipePage = 'center';
-        /** --- Swipe 控制器位置 --- */
-        this.swipeControl = 'inner';
-        /** --- Tab 值 --- */
-        this.tab = 0;
-    }
+    // --- RTL ---
+    rtl = false;
+    // --- Swipe 控件 ---
+    /** --- Swipe 页面位置 --- */
+    swipePage = 'center';
+    /** --- Swipe 控制器位置 --- */
+    swipeControl = 'inner';
+    /** --- Tab 值 --- */
+    tab = 0;
     /**
      * --- 切换 RTL ---
      */

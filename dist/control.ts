@@ -146,6 +146,17 @@ interface ICustomEvent {
     preventDefault: () => void;
 }
 
+// --- Uploader Control ---
+
+/** --- 移除事件 --- */
+export interface IUploaderRemoveEvent {
+    'go': boolean;
+    preventDefault: () => void;
+    'detail': {
+        'index': number;
+    };
+}
+
 // --- Collapse Control ---
 
 export interface ICollapseChangeEvent {
@@ -173,7 +184,7 @@ export interface IDlistChangedEvent {
     };
 }
 
-export type IDlistClickEvent = IDlistChangedEvent;
+export type IDlistTapEvent = IDlistChangedEvent;
 
 // --- Spa control ---
 
@@ -468,7 +479,7 @@ list['pe-bar'] = {
 };
 
 list['pe-bar-item'] = {
-    'template': `<a class="pe-bar-item" :href="href" :class="[menuCount&&'pe-list',hover&&'pe-hover']" @touchstart="enter" @mouseenter="enter" @mouseleave="leave" @click="click"><slot></slot></a>`,
+    'template': `<a class="pe-bar-item" :href="href" :class="[menuCount&&'pe-list',hover&&'pe-hover']" @pointerdown="down" @pointerenter="enter"><slot></slot></a>`,
     'props': {
         'href': {
             'default': undefined
@@ -481,43 +492,45 @@ list['pe-bar-item'] = {
         };
     },
     'methods': {
-        enter: function(this: IBarItemVue, e: MouseEvent | TouchEvent) {
-            if ('ontouchstart' in window) {
+        enter: function(this: IBarItemVue, oe: PointerEvent) {
+            if (oe.pointerType !== 'mouse') {
                 return;
             }
-            // --- 只有可能非触摸屏 ---
-            const target = e.target as HTMLElement;
-            if (target.classList.contains('pe-menu') || lDom.findParentByClass(target, 'pe-menu')) {
-                return;
-            }
-            this.hover = !this.hover;
+            // --- 仅鼠标有效 ---
+            purease.pointer.hover(oe, {
+                enter: (e: PointerEvent) => {
+                    const target = e.target as HTMLElement;
+                    if (target.classList.contains('pe-menu') || lDom.findParentByClass(target, 'pe-menu')) {
+                        return;
+                    }
+                    this.hover = true;
+                },
+                leave: () => {
+                    this.hover = false;
+                }
+            });
         },
-        leave: function(this: IBarItemVue, e: MouseEvent | TouchEvent) {
-            if (lDom.hasTouchButMouse(e)) {
+        down: function(this: IBarItemVue, oe: PointerEvent) {
+            if (oe.pointerType === 'mouse') {
                 return;
             }
-            this.hover = false;
-        },
-        click: function(this: IBarItemVue, e: MouseEvent | TouchEvent) {
-            // --- 仅手机端有效 ---
-            if (!('ontouchstart' in window)) {
-                return;
-            }
-            // --- 只有可能触摸屏 ---
-            if (!this.href) {
-                e.preventDefault();
-            }
-            const target = e.target as HTMLElement;
-            if (target.classList.contains('pe-menu') || lDom.findParentByClass(target, 'pe-menu')) {
-                return;
-            }
-            this.hover = !this.hover;
+            // --- 非鼠标有效 ---
+            purease.pointer.click(oe, (e) => {
+                if (!this.href) {
+                    e.preventDefault();
+                }
+                const target = e.target as HTMLElement;
+                if (target.classList.contains('pe-menu') || lDom.findParentByClass(target, 'pe-menu')) {
+                    return;
+                }
+                this.hover = !this.hover;
+            });
         },
     },
 };
 
 list['pe-btab'] = {
-    'template': `<div class="pe-btab" :class="[isScroll&&(translate<0)&&'pe-btab-left',isScroll&&(translate>-max)&&'pe-btab-right','pe-type-'+type]" @mousedown="down" @touchstart="down"><div class="pe-btab-content" ref="content" :style="{'transform':'translateX(' + this.translate + 'px)'}"><div v-for="item, i of data" class="pe-btab-item" :class="[(i===index)&&'pe-selected']" @click="select(i)">{{item}}</div></div></div>`,
+    'template': `<div class="pe-btab" :class="[isScroll&&(translate<0)&&'pe-btab-left',isScroll&&(translate>-max)&&'pe-btab-right','pe-type-'+type]" @pointerdown="down"><div class="pe-btab-content" ref="content" :style="{'transform':'translateX(' + this.translate + 'px)'}"><div v-for="item, i of data" class="pe-btab-item" :class="[(i===index)&&'pe-selected']" @click="select(i)">{{item}}</div></div></div>`,
     'props': {
         'modelValue': {
             'default': 0
@@ -554,26 +567,23 @@ list['pe-btab'] = {
             this.index = index;
             this.$emit('modelValue', index);
         },
-        down: function(this: IBtabVue, e: TouchEvent | MouseEvent) {
-            if (lDom.hasTouchButMouse(e)) {
-                return;
-            }
+        down: function(this: IBtabVue, oe: PointerEvent) {
             if (this.cwidth <= this.width) {
                 return;
             }
             /** --- 最大能滚动 --- */
-            const target = e.target as HTMLElement | null;
+            const target = oe.target as HTMLElement | null;
             if (!target) {
                 return;
             }
             /** --- 原始 x 位置 --- */
-            const ox = e instanceof MouseEvent ? e.clientX : e.touches[0].clientX;
+            const ox = oe.clientX;
             /** --- 上次的 x 位置 --- */
             let x = ox;
-            lDom.bindDown(e, {
+            purease.pointer.down(oe, {
                 move: (ne) => {
                     // --- 当前的位置---
-                    const nx = ne instanceof MouseEvent ? ne.clientX : ne.touches[0].clientX;
+                    const nx = ne.clientX;
                     /** --- 移动的差值 --- */
                     const cx = nx - x;
                     x = nx;
@@ -865,7 +875,7 @@ list['pe-captcha'] = {
 };
 
 list['pe-check'] = {
-    'template': `<div class="pe-check" :class="[value&&'pe-checked']" @click="click" tabindex="0" :style="{'flex-direction': direction === 'h' ? undefined : 'column'}"><div class="pe-check-box"><svg viewBox="0 0 24 24" stroke="none"><path d="M9.00001 18.25C8.8993 18.2466 8.80034 18.2227 8.70921 18.1797C8.61807 18.1367 8.53667 18.0756 8.47001 18L3.47001 13C3.37467 12.9382 3.29463 12.8556 3.23592 12.7583C3.17721 12.661 3.14136 12.5517 3.13109 12.4385C3.12082 12.3254 3.13639 12.2114 3.17663 12.1051C3.21686 11.9989 3.28071 11.9031 3.36336 11.8252C3.446 11.7472 3.54528 11.689 3.65369 11.6551C3.76211 11.6211 3.87682 11.6122 3.98918 11.629C4.10155 11.6458 4.20861 11.688 4.3023 11.7523C4.39599 11.8165 4.47385 11.9013 4.53001 12L9.00001 16.44L19.47 6.00003C19.611 5.90864 19.7785 5.86722 19.9458 5.88241C20.1131 5.89759 20.2705 5.96851 20.3927 6.08379C20.5149 6.19907 20.5948 6.35203 20.6197 6.51817C20.6446 6.68431 20.613 6.85399 20.53 7.00003L9.53001 18C9.46334 18.0756 9.38194 18.1367 9.29081 18.1797C9.19967 18.2227 9.10072 18.2466 9.00001 18.25Z"/></svg></div><div class="pe-check-label"><slot></slot></div></div>`,
+    'template': `<div class="pe-check" :class="[value&&'pe-checked']" @pointerdown="down" tabindex="0" :style="{'flex-direction': direction === 'h' ? undefined : 'column'}"><div class="pe-check-box"><svg viewBox="0 0 24 24" stroke="none"><path d="M9.00001 18.25C8.8993 18.2466 8.80034 18.2227 8.70921 18.1797C8.61807 18.1367 8.53667 18.0756 8.47001 18L3.47001 13C3.37467 12.9382 3.29463 12.8556 3.23592 12.7583C3.17721 12.661 3.14136 12.5517 3.13109 12.4385C3.12082 12.3254 3.13639 12.2114 3.17663 12.1051C3.21686 11.9989 3.28071 11.9031 3.36336 11.8252C3.446 11.7472 3.54528 11.689 3.65369 11.6551C3.76211 11.6211 3.87682 11.6122 3.98918 11.629C4.10155 11.6458 4.20861 11.688 4.3023 11.7523C4.39599 11.8165 4.47385 11.9013 4.53001 12L9.00001 16.44L19.47 6.00003C19.611 5.90864 19.7785 5.86722 19.9458 5.88241C20.1131 5.89759 20.2705 5.96851 20.3927 6.08379C20.5149 6.19907 20.5948 6.35203 20.6197 6.51817C20.6446 6.68431 20.613 6.85399 20.53 7.00003L9.53001 18C9.46334 18.0756 9.38194 18.1367 9.29081 18.1797C9.19967 18.2227 9.10072 18.2466 9.00001 18.25Z"/></svg></div><div class="pe-check-label"><slot></slot></div></div>`,
     'props': {
         'modelValue': {
             'default': false
@@ -880,19 +890,21 @@ list['pe-check'] = {
         };
     },
     'methods': {
-        click: function(this: ICheckVue, e: MouseEvent) {
-            const target = e.target as HTMLElement | null;
-            if (!target) {
-                return;
-            }
-            if (target.tagName.toLowerCase() === 'a') {
-                return;
-            }
-            if (lDom.findParentByTag(target, 'a')) {
-                return;
-            }
-            this.value = !this.value;
-            this.$emit('update:modelValue', this.value);
+        down: function(this: ICheckVue, oe: PointerEvent) {
+            purease.pointer.click(oe, e => {
+                const target = e.target as HTMLElement | null;
+                if (!target) {
+                    return;
+                }
+                if (target.tagName.toLowerCase() === 'a') {
+                    return;
+                }
+                if (lDom.findParentByTag(target, 'a')) {
+                    return;
+                }
+                this.value = !this.value;
+                this.$emit('update:modelValue', this.value);
+            });
         },
     },
     'watch': {
@@ -1101,7 +1113,7 @@ list['pe-collapse-item'] = {
 };
 
 list['pe-date'] = {
-    'template': `<div class="pe-date-wrap" :class="[propBoolean('disabled')&&'pe-disabled']"><div class="pe-date-first"><div @click="click($event, 'first')" ref="first" v-if="propBoolean('date') || propBoolean('time')"><template v-if="timestamp === undefined"><div>{{l('please click select')}}</div></template><template v-else><div v-if="propBoolean('date')">{{dateStr}}</div><div v-if="propBoolean('time')">{{timeStr}}</div></template></div><div v-if="propBoolean('zone')" @click="click($event, 'zone')" ref="zone">UTC{{tzData >= 0 ? '+' : ''}}{{tzData}}</div></div><div class="pe-date-clear" @click="clear" v-if="timestamp !== undefined"><svg viewBox="0 0 24 24" stroke="none"><path d="m7.53033 6.46967c-.29289-.29289-.76777-.29289-1.06066 0s-.29289.76777 0 1.06066l4.46963 4.46967-4.46963 4.4697c-.29289.2929-.29289.7677 0 1.0606s.76777.2929 1.06066 0l4.46967-4.4696 4.4697 4.4696c.2929.2929.7677.2929 1.0606 0s.2929-.7677 0-1.0606l-4.4696-4.4697 4.4696-4.46967c.2929-.29289.2929-.76777 0-1.06066s-.7677-.29289-1.0606 0l-4.4697 4.46963z" /></svg></div><div v-if="propBoolean('date')" ref="firstpop" class="pe-pop"><pe-datepanel plain :tz="tzData" :yearmonth="yearmonth" :hourminute="hourminute" @update:yearmonth="$emit('update:yearmonth')" :clearbtn="false" :time="propBoolean('time')" :start="start" :end="end" v-model="timestamp" @changed="changed" @selected="selected"><template v-if="$slots['default']" v-slot="col"><slot :year="col.year" :month="col.month" :date="col.date" :day="col.day" :str="col.str" :time="col.time"></slot></template></pe-datepanel></div><div v-if="!propBoolean('date') && propBoolean('time')" ref="timepop" class="pe-pop pe-date-list"><div><div class="pe-date-item"><div class="pe-date-title">{{l('hour')}}</div><pe-dlist :data="hours" v-model="vhour"></pe-dlist></div><div class="pe-date-item"><div class="pe-date-title">{{l('minute')}}</div><pe-dlist :data="minutes" v-model="vminute"></pe-dlist></div><div class="pe-date-item"><div class="pe-date-title">{{l('second')}}</div><pe-dlist :data="seconds" v-model="vseconds"></pe-dlist></div></div><div><div class="pe-button pe-pgrey" @click="cancel">{{l('cancel')}}</div><div class="pe-button pe-pgrey" @click="timeOk">{{l('ok')}}</div></div></div><div v-if="propBoolean('zone')" ref="zonepop" class="pe-pop pe-date-list"><div><div class="pe-date-item"><div class="pe-date-title">{{l('zone')}}</div><pe-dlist :data="zones" v-model="vzone"></pe-dlist></div><div class="pe-date-item"><div class="pe-date-title">{{l('minute')}}</div><pe-dlist :data="zdecs" v-model="vzdec"></pe-dlist></div></div><div><div class="pe-button pe-pgrey" @click="cancel">{{l('cancel')}}</div><div class="pe-button pe-pgrey" @click="zoneOk">{{l('ok')}}</div></div></div></div>`,
+    'template': `<div class="pe-date-wrap" :class="[propBoolean('disabled')&&'pe-disabled']"><div class="pe-date-first"><div @pointerdown="down($event, 'first')" ref="first" v-if="propBoolean('date') || propBoolean('time')"><template v-if="timestamp === undefined"><div>{{l('please click select')}}</div></template><template v-else><div v-if="propBoolean('date')">{{dateStr}}</div><div v-if="propBoolean('time')">{{timeStr}}</div></template></div><div v-if="propBoolean('zone')" @pointerdown="down($event, 'zone')" ref="zone">UTC{{tzData >= 0 ? '+' : ''}}{{tzData}}</div></div><div class="pe-date-clear" @click="clear" v-if="timestamp !== undefined"><svg viewBox="0 0 24 24" stroke="none"><path d="m7.53033 6.46967c-.29289-.29289-.76777-.29289-1.06066 0s-.29289.76777 0 1.06066l4.46963 4.46967-4.46963 4.4697c-.29289.2929-.29289.7677 0 1.0606s.76777.2929 1.06066 0l4.46967-4.4696 4.4697 4.4696c.2929.2929.7677.2929 1.0606 0s.2929-.7677 0-1.0606l-4.4696-4.4697 4.4696-4.46967c.2929-.29289.2929-.76777 0-1.06066s-.7677-.29289-1.0606 0l-4.4697 4.46963z" /></svg></div><div v-if="propBoolean('date')" ref="firstpop" class="pe-pop"><pe-datepanel plain :tz="tzData" :yearmonth="yearmonth" :hourminute="hourminute" @update:yearmonth="$emit('update:yearmonth')" :clearbtn="false" :time="propBoolean('time')" :start="start" :end="end" v-model="timestamp" @changed="changed" @selected="selected"><template v-if="$slots['default']" v-slot="col"><slot :year="col.year" :month="col.month" :date="col.date" :day="col.day" :str="col.str" :time="col.time"></slot></template></pe-datepanel></div><div v-if="!propBoolean('date') && propBoolean('time')" ref="timepop" class="pe-pop pe-date-list"><div><div class="pe-date-item"><div class="pe-date-title">{{l('hour')}}</div><pe-dlist :data="hours" v-model="vhour"></pe-dlist></div><div class="pe-date-item"><div class="pe-date-title">{{l('minute')}}</div><pe-dlist :data="minutes" v-model="vminute"></pe-dlist></div><div class="pe-date-item"><div class="pe-date-title">{{l('second')}}</div><pe-dlist :data="seconds" v-model="vseconds"></pe-dlist></div></div><div><div class="pe-button pe-pgrey" @click="cancel">{{l('cancel')}}</div><div class="pe-button pe-pgrey" @click="timeOk">{{l('ok')}}</div></div></div><div v-if="propBoolean('zone')" ref="zonepop" class="pe-pop pe-date-list"><div><div class="pe-date-item"><div class="pe-date-title">{{l('zone')}}</div><pe-dlist :data="zones" v-model="vzone"></pe-dlist></div><div class="pe-date-item"><div class="pe-date-title">{{l('minute')}}</div><pe-dlist :data="zdecs" v-model="vzdec"></pe-dlist></div></div><div><div class="pe-button pe-pgrey" @click="cancel">{{l('cancel')}}</div><div class="pe-button pe-pgrey" @click="zoneOk">{{l('ok')}}</div></div></div></div>`,
     'emits': {
         'changed': null,
         'update:modelValue': null,
@@ -1321,17 +1333,19 @@ list['pe-date'] = {
     },
     'methods': {
         // --- 单击事件 ---
-        click: function(this: IDateVue, e: MouseEvent, type: 'first' | 'zone'): void {
-            const el = this.$refs[type + 'pop'];
-            if (el.classList.contains('pe-show')) {
-                lDom.hidePop(el);
-                return;
-            }
-            if (type === 'first' && !this.propBoolean('date')) {
-                lDom.showPop(e, this.$refs['timepop']);
-                return;
-            }
-            lDom.showPop(e, el);
+        down: function(this: IDateVue, oe: PointerEvent, type: 'first' | 'zone'): void {
+            purease.pointer.click(oe, (e) => {
+                const el = this.$refs[type + 'pop'];
+                if (el.classList.contains('pe-show')) {
+                    lDom.hidePop(el);
+                    return;
+                }
+                if (type === 'first' && !this.propBoolean('date')) {
+                    lDom.showPop(e, this.$refs['timepop']);
+                    return;
+                }
+                lDom.showPop(e, el);
+            });
         },
         zoneOk: function(this: IDateVue): void {
             const vz = parseInt(this.vzone);
@@ -1484,7 +1498,7 @@ list['pe-date'] = {
 };
 
 list['pe-datepanel'] = {
-    'template': `<div class="pe-datepanel-wrap" :class="[propBoolean('plain')&&'pe-plain',propBoolean('disabled')&&'pe-disabled']"><div class="pe-datepanel-header"><div class="pe-datepanel-left"><pe-select :data="years" v-model="vyear"></pe-select><div class="pe-button pe-pgrey pe-datepanel-monthleft" :class="[(prevYm<startYm)&&'pe-disabled']" @click="prev"><div class="pe-datepanel-arrow"></div></div><pe-select :data="months" v-model="vmonth"></pe-select><div class="pe-button pe-pgrey pe-datepanel-monthright" :class="(nextYm>endYm)&&'pe-disabled'" @click="next"><div class="pe-datepanel-arrow"></div></div></div><div class="pe-datepanel-right"><div class="pe-button pe-pgrey" v-if="propBoolean('clearbtn') && (timestamp !== undefined)" @click="clear">{{l('clear')}}</div><div class="pe-button pe-pgrey" v-if="propBoolean('backbtn') && (timestamp !== undefined) && ((dateValue.year !== parseInt(vyear)) || (dateValue.month !== parseInt(vmonth) - 1))" @click="back">{{l('back')}}</div><div class="pe-button pe-pgrey" @click="today">{{l('today')}}</div></div></div><div class="pe-datepanel-week"><div v-for="col of 7">{{l('w' + (col - 1))}}</div></div><div class="pe-datepanel-row" v-for="row of maps"><div class="pe-datepanel-col" v-for="col of row" :style="{'color': col.month !== (vmonth - 1) ? 'var(--pe-disabled-color)' : undefined}" :class="[{'pe-selected': timestamp !== undefined && (dateValue.year === col.year) && (dateValue.month === col.month) && (dateValue.date === col.date)}, toclass(col), isDisabled(col) && 'pe-disabled']" @click="colClick(col)" @mouseenter="colenter($event, col)" @touchstart="colenter($event, col)"><div class="pe-datepanel-colh">{{col.date}}</div><div class="pe-datepanel-colb" v-if="$slots['default']"><slot :year="col.year" :month="col.month" :date="col.date" :day="col.day" :str="col.str" :time="col.time"></slot></div></div></div><div class="pe-datepanel-footer" v-if="propBoolean('time') || propBoolean('zone')"><template v-if="propBoolean('time')"><pe-select :data="hours" v-model="vhour"></pe-select><label>:</label><pe-select :data="minutes" v-model="vminute"></pe-select><label>:</label><pe-select :data="seconds" v-model="vseconds"></pe-select></template><template v-if="propBoolean('zone')"><label>UTC</label><pe-select :data="zones" v-model="vzone"></pe-select><pe-select :data="zdecs" v-model="vzdec"></pe-select></template></div></div>`,
+    'template': `<div class="pe-datepanel-wrap" :class="[propBoolean('plain')&&'pe-plain',propBoolean('disabled')&&'pe-disabled']"><div class="pe-datepanel-header"><div class="pe-datepanel-left"><pe-select :data="years" v-model="vyear"></pe-select><div class="pe-button pe-pgrey pe-datepanel-monthleft" :class="[(prevYm<startYm)&&'pe-disabled']" @click="prev"><div class="pe-datepanel-arrow"></div></div><pe-select :data="months" v-model="vmonth"></pe-select><div class="pe-button pe-pgrey pe-datepanel-monthright" :class="(nextYm>endYm)&&'pe-disabled'" @click="next"><div class="pe-datepanel-arrow"></div></div></div><div class="pe-datepanel-right"><div class="pe-button pe-pgrey" v-if="propBoolean('clearbtn') && (timestamp !== undefined)" @click="clear">{{l('clear')}}</div><div class="pe-button pe-pgrey" v-if="propBoolean('backbtn') && (timestamp !== undefined) && ((dateValue.year !== parseInt(vyear)) || (dateValue.month !== parseInt(vmonth) - 1))" @click="back">{{l('back')}}</div><div class="pe-button pe-pgrey" @click="today">{{l('today')}}</div></div></div><div class="pe-datepanel-week"><div v-for="col of 7">{{l('w' + (col - 1))}}</div></div><div class="pe-datepanel-row" v-for="row of maps"><div class="pe-datepanel-col" v-for="col of row" :style="{'color': col.month !== (vmonth - 1) ? 'var(--pe-disabled-color)' : undefined}" :class="[{'pe-selected': timestamp !== undefined && (dateValue.year === col.year) && (dateValue.month === col.month) && (dateValue.date === col.date)}, toclass(col), isDisabled(col) && 'pe-disabled']" @click="colClick(col)" @pointerenter="colenter(col)"><div class="pe-datepanel-colh">{{col.date}}</div><div class="pe-datepanel-colb" v-if="$slots['default']"><slot :year="col.year" :month="col.month" :date="col.date" :day="col.day" :str="col.str" :time="col.time"></slot></div></div></div><div class="pe-datepanel-footer" v-if="propBoolean('time') || propBoolean('zone')"><template v-if="propBoolean('time')"><pe-select :data="hours" v-model="vhour"></pe-select><label>:</label><pe-select :data="minutes" v-model="vminute"></pe-select><label>:</label><pe-select :data="seconds" v-model="vseconds"></pe-select></template><template v-if="propBoolean('zone')"><label>UTC</label><pe-select :data="zones" v-model="vzone"></pe-select><pe-select :data="zdecs" v-model="vzdec"></pe-select></template></div></div>`,
     'emits': {
         'changed': null,
         'selected': null,
@@ -2305,14 +2319,11 @@ list['pe-datepanel'] = {
             this.vmonth = (month + 1).toString();
         },
         /** --- 鼠标移动到 col 上的事件 --- */
-        colenter: function(this: IDatepanelVue, e: MouseEvent | TouchEvent, col: {
+        colenter: function(this: IDatepanelVue, col: {
             'date': number;
             'month': number;
             'year': number;
         }): void {
-            if (lDom.hasTouchButMouse(e)) {
-                return;
-            }
             if (!this.propBoolean('range')) {
                 return;
             }
@@ -2572,7 +2583,7 @@ list['pe-datepanel'] = {
 };
 
 list['pe-daterange'] = {
-    'template': `<div class="pe-daterange-wrap" :class="[propBoolean('disabled')&&'pe-disabled']"><div class="pe-daterange-first"><div @click="click($event, 'first')" ref="first"><template v-if="dateStr.length"><div>{{dateStr[0]}}</div><div v-if="propBoolean('time')">{{timeStr[0]}}</div><div>-</div><div>{{dateStr[1]}}</div><div v-if="propBoolean('time')">{{timeStr[1]}}</div></template><template v-else><div>{{l('please click select')}}</div></template></div><div v-if="propBoolean('zone')" @click="click($event, 'zone')" ref="zone">UTC{{tzData >= 0 ? '+' : ''}}{{tzData}}</div></div><div class="pe-daterange-clear" @click="clear" v-if="dateStr.length"><svg viewBox="0 0 24 24" stroke="none"><path d="m7.53033 6.46967c-.29289-.29289-.76777-.29289-1.06066 0s-.29289.76777 0 1.06066l4.46963 4.46967-4.46963 4.4697c-.29289.2929-.29289.7677 0 1.0606s.76777.2929 1.06066 0l4.46967-4.4696 4.4697 4.4696c.2929.2929.7677.2929 1.0606 0s.2929-.7677 0-1.0606l-4.4696-4.4697 4.4696-4.46967c.2929-.29289.2929-.76777 0-1.06066s-.7677-.29289-1.0606 0l-4.4697 4.46963z" /></svg></div><div ref="firstpop" class="pe-pop pe-daterange-first"><pe-datepanel plain :tz="tzData" :time="propBoolean('time')" v-model="ts" v-model:cursor="cursor" range :clearbtn="false" ref="firstpanel" @range="onRange" @changed="firstChanged" :yearmonth="firstym" @update:yearmonth="firstym=$event;onYmChange()" :start="start" :end="end"><template v-if="$slots['default']" v-slot="col"><slot :year="col.year" :month="col.month" :date="col.date" :day="col.day" :str="col.str" :time="col.time"></slot></template></pe-datepanel><pe-datepanel v-show="showTwoDatePanel" plain :tz="tzData" hourminute="235959" :time="propBoolean('time')" :modelValue="ts2" v-model:cursor="cursor" range :start="ts" :end="end" :clearbtn="false" :backbtn="false" ref="endpanel" @range="onRange" :yearmonth="endym" @update:yearmonth="endym=$event;onYmChange()" :jump="false"><template v-if="$slots['default']" v-slot="col"><slot :year="col.year" :month="col.month" :date="col.date" :day="col.day" :str="col.str" :time="col.time"></slot></template></pe-datepanel></div><div v-if="propBoolean('zone')" ref="zonepop" class="pe-pop pe-daterange-list"><div><div class="pe-daterange-item"><div class="pe-daterange-title">{{l('zone')}}</div><pe-dlist :data="zones" v-model="vzone"></pe-dlist></div><div class="pe-daterange-item"><div class="pe-daterange-title">{{l('minute')}}</div><pe-dlist :data="zdecs" v-model="vzdec"></pe-dlist></div></div><div><div class="pe-button pe-pgrey" @click="cancel">{{l('cancel')}}</div><div class="pe-button pe-pgrey" @click="zoneOk">{{l('ok')}}</div></div></div></div>`,
+    'template': `<div class="pe-daterange-wrap" :class="[propBoolean('disabled')&&'pe-disabled']"><div class="pe-daterange-first"><div @pointerdown="down($event, 'first')" ref="first"><template v-if="dateStr.length"><div>{{dateStr[0]}}</div><div v-if="propBoolean('time')">{{timeStr[0]}}</div><div>-</div><div>{{dateStr[1]}}</div><div v-if="propBoolean('time')">{{timeStr[1]}}</div></template><template v-else><div>{{l('please click select')}}</div></template></div><div v-if="propBoolean('zone')" @pointerdown="down($event, 'zone')" ref="zone">UTC{{tzData >= 0 ? '+' : ''}}{{tzData}}</div></div><div class="pe-daterange-clear" @click="clear" v-if="dateStr.length"><svg viewBox="0 0 24 24" stroke="none"><path d="m7.53033 6.46967c-.29289-.29289-.76777-.29289-1.06066 0s-.29289.76777 0 1.06066l4.46963 4.46967-4.46963 4.4697c-.29289.2929-.29289.7677 0 1.0606s.76777.2929 1.06066 0l4.46967-4.4696 4.4697 4.4696c.2929.2929.7677.2929 1.0606 0s.2929-.7677 0-1.0606l-4.4696-4.4697 4.4696-4.46967c.2929-.29289.2929-.76777 0-1.06066s-.7677-.29289-1.0606 0l-4.4697 4.46963z" /></svg></div><div ref="firstpop" class="pe-pop pe-daterange-first"><pe-datepanel plain :tz="tzData" :time="propBoolean('time')" v-model="ts" v-model:cursor="cursor" range :clearbtn="false" ref="firstpanel" @range="onRange" @changed="firstChanged" :yearmonth="firstym" @update:yearmonth="firstym=$event;onYmChange()" :start="start" :end="end"><template v-if="$slots['default']" v-slot="col"><slot :year="col.year" :month="col.month" :date="col.date" :day="col.day" :str="col.str" :time="col.time"></slot></template></pe-datepanel><pe-datepanel v-show="showTwoDatePanel" plain :tz="tzData" hourminute="235959" :time="propBoolean('time')" :modelValue="ts2" v-model:cursor="cursor" range :start="ts" :end="end" :clearbtn="false" :backbtn="false" ref="endpanel" @range="onRange" :yearmonth="endym" @update:yearmonth="endym=$event;onYmChange()" :jump="false"><template v-if="$slots['default']" v-slot="col"><slot :year="col.year" :month="col.month" :date="col.date" :day="col.day" :str="col.str" :time="col.time"></slot></template></pe-datepanel></div><div v-if="propBoolean('zone')" ref="zonepop" class="pe-pop pe-daterange-list"><div><div class="pe-daterange-item"><div class="pe-daterange-title">{{l('zone')}}</div><pe-dlist :data="zones" v-model="vzone"></pe-dlist></div><div class="pe-daterange-item"><div class="pe-daterange-title">{{l('minute')}}</div><pe-dlist :data="zdecs" v-model="vzdec"></pe-dlist></div></div><div><div class="pe-button pe-pgrey" @click="cancel">{{l('cancel')}}</div><div class="pe-button pe-pgrey" @click="zoneOk">{{l('ok')}}</div></div></div></div>`,
     'emits': {
         'update:modelValue': null,
         'update:tz': null,
@@ -2757,17 +2768,19 @@ list['pe-daterange'] = {
         };
     },
     'methods': {
-        // --- 单击事件 ---
-        click: function(this: IDaterangeVue, e: MouseEvent, type: 'first' | 'zone'): void {
-            const el = this.$refs[type + 'pop'];
-            if (el.classList.contains('pe-show')) {
-                lDom.hidePop(el);
-                return;
-            }
-            if (type === 'first') {
-                this.showTwoDatePanel = window.innerWidth >= 600 ? true : false;
-            }
-            lDom.showPop(e, el);
+        // --- 按下事件 ---
+        down: function(this: IDaterangeVue, oe: PointerEvent, type: 'first' | 'zone'): void {
+            purease.pointer.click(oe, (e) => {
+                const el = this.$refs[type + 'pop'];
+                if (el.classList.contains('pe-show')) {
+                    lDom.hidePop(el);
+                    return;
+                }
+                if (type === 'first') {
+                    this.showTwoDatePanel = window.innerWidth >= 600 ? true : false;
+                }
+                lDom.showPop(e, el);
+            });
         },
         zoneOk: function(this: IDaterangeVue): void {
             const vz = parseInt(this.vzone);
@@ -2904,7 +2917,7 @@ list['pe-dialog'] = {
 };
 
 list['pe-dlist'] = {
-    'template': `<div class="pe-dlist" :class="[!data.length&&'pe-empty',propBoolean('plain')&&'pe-plain',propBoolean('tree')&&'pe-tree']"><div v-if="data.length" v-for="flatItem, i of flatData" class="pe-dlist-item" :class="[getItemValue(flatItem.item)===value&&'pe-selected',typeof flatItem.item==='object'&&flatItem.item.disabled&&'pe-disabled']" :style="{[isRtl?'padding-right':'padding-left']: 'calc(var(--pe-padding-xs) + ' + (flatItem.level * 20) + 'px)'}"><div v-if="propBoolean('tree')" class="pe-dlist-arrow" :class="[isExpanded(flatItem.path)&&'pe-expanded',!hasChildren(flatItem.item)&&'pe-empty']" @click.stop="hasChildren(flatItem.item)&&toggleExpand(flatItem.path)"></div><div class="pe-dlist-label" @click="click(i)">{{getItemLabel(flatItem.item)}}</div></div><div v-else>{{l('empty')}}</div></div>`,
+    'template': `<div class="pe-dlist" :class="[!data.length&&'pe-empty',propBoolean('plain')&&'pe-plain',propBoolean('tree')&&'pe-tree']"><div v-if="data.length" v-for="flatItem, i of flatData" class="pe-dlist-item" :class="[getItemValue(flatItem.item)===value&&'pe-selected',typeof flatItem.item==='object'&&flatItem.item.disabled&&'pe-disabled']" :style="{[isRtl?'padding-right':'padding-left']: 'calc(var(--pe-padding-xs) + ' + (flatItem.level * 20) + 'px)'}"><div v-if="propBoolean('tree')" class="pe-dlist-arrow" :class="[isExpanded(flatItem.path)&&'pe-expanded',!hasChildren(flatItem.item)&&'pe-empty']" @click.stop="hasChildren(flatItem.item)&&toggleExpand(flatItem.path)"></div><div class="pe-dlist-label" @pointerdown="down($event, i)">{{getItemLabel(flatItem.item)}}</div></div><div v-else>{{l('empty')}}</div></div>`,
     'props': {
         'modelValue': {
             'default': ''
@@ -2926,7 +2939,7 @@ list['pe-dlist'] = {
     'emits': {
         'changed': null,
         'update:modelValue': null,
-        'click': null,
+        'tap': null,
     },
     'computed': {
         /** --- 初始化后的 map 对象 --- */
@@ -2952,22 +2965,24 @@ list['pe-dlist'] = {
         getItemLabel: function(this: IDlistVue, item: TDlistItem): string {
             return typeof item === 'string' ? item : (item[this.mapComp.label] ?? item[this.mapComp.value]);
         },
-        click: function(this: IDlistVue, i: number) {
-            const flatItem = this.flatData[i];
-            if (!flatItem) {
-                return;
-            }
-            this.value = this.getItemValue(flatItem.item);
-            this.$emit('update:modelValue', this.value);
-            const event: IDlistChangedEvent = {
-                'detail': {
-                    'value': this.value,
-                    'index': i,
-                    'label': this.getItemLabel(flatItem.item)
+        down: function(this: IDlistVue, oe: PointerEvent, i: number) {
+            purease.pointer.click(oe, () => {
+                const flatItem = this.flatData[i];
+                if (!flatItem) {
+                    return;
                 }
-            };
-            this.$emit('changed', event);
-            this.$emit('click', event);
+                this.value = this.getItemValue(flatItem.item);
+                this.$emit('update:modelValue', this.value);
+                const event: IDlistChangedEvent = {
+                    'detail': {
+                        'value': this.value,
+                        'index': i,
+                        'label': this.getItemLabel(flatItem.item)
+                    }
+                };
+                this.$emit('changed', event);
+                this.$emit('tap', event);
+            });
         },
         /** --- 递归扁平化数据 --- */
         flattenData: function(this: IDlistVue, data: TDlistItem[], level: number, path: number[]): IFlatItem[] {
@@ -3122,7 +3137,7 @@ list['pe-dlist'] = {
 };
 
 list['pe-drawer'] = {
-    'template': `<div class="pe-drawer" :class="[propBoolean('modelValue')&&'pe-show']" @click="click"><div class="pe-drawer-body" :style="{'width':widthComp}"><div class="pe-drawer-header" v-if="title"><div class="pe-drawer-title">{{title}}</div><div class="pe-drawer-close" @click="closeClick" v-show="propBoolean('modelValue')"><svg width="24" height="24" viewBox="0 0 24 24" stroke="none"><path d="m7.53033 6.46967c-.29289-.29289-.76777-.29289-1.06066 0s-.29289.76777 0 1.06066l4.46963 4.46967-4.46963 4.4697c-.29289.2929-.29289.7677 0 1.0606s.76777.2929 1.06066 0l4.46967-4.4696 4.4697 4.4696c.2929.2929.7677.2929 1.0606 0s.2929-.7677 0-1.0606l-4.4696-4.4697 4.4696-4.46967c.2929-.29289.2929-.76777 0-1.06066s-.7677-.29289-1.0606 0l-4.4697 4.46963z" /></svg></div></div><div class="pe-drawer-content" :class="['pe-'+direction]" :style="{'align-items': direction === 'v' ? alignHComp : alignVComp, 'justify-content': direction === 'v' ? alignVComp : alignHComp, 'gap': propNumber('gutter') ? (gutter + 'px') : '0'}" v-show="propBoolean('modelValue')"><slot></slot></div><div v-if="$slots['footer']" class="pe-drawer-footer" v-show="propBoolean('modelValue')"><slot name="footer"></slot></div></div></div>`,
+    'template': `<div class="pe-drawer" :class="[propBoolean('modelValue')&&'pe-show']" @pointerdown="down"><div class="pe-drawer-body" :style="{'width':widthComp}"><div class="pe-drawer-header" v-if="title"><div class="pe-drawer-title">{{title}}</div><div class="pe-drawer-close" @click="closeClick" v-show="propBoolean('modelValue')"><svg width="24" height="24" viewBox="0 0 24 24" stroke="none"><path d="m7.53033 6.46967c-.29289-.29289-.76777-.29289-1.06066 0s-.29289.76777 0 1.06066l4.46963 4.46967-4.46963 4.4697c-.29289.2929-.29289.7677 0 1.0606s.76777.2929 1.06066 0l4.46967-4.4696 4.4697 4.4696c.2929.2929.7677.2929 1.0606 0s.2929-.7677 0-1.0606l-4.4696-4.4697 4.4696-4.46967c.2929-.29289.2929-.76777 0-1.06066s-.7677-.29289-1.0606 0l-4.4697 4.46963z" /></svg></div></div><div class="pe-drawer-content" :class="['pe-'+direction]" :style="{'align-items': direction === 'v' ? alignHComp : alignVComp, 'justify-content': direction === 'v' ? alignVComp : alignHComp, 'gap': propNumber('gutter') ? (gutter + 'px') : '0'}" v-show="propBoolean('modelValue')"><slot></slot></div><div v-if="$slots['footer']" class="pe-drawer-footer" v-show="propBoolean('modelValue')"><slot name="footer"></slot></div></div></div>`,
     'props': {
         'modelValue': {
             'default': false
@@ -3160,11 +3175,13 @@ list['pe-drawer'] = {
         closeClick: function(this: IDrawerVue) {
             this.$emit('update:modelValue', false);
         },
-        click: function(this: IDrawerVue, e: MouseEvent): void {
-            if (e.target !== this.$el) {
-                return;
-            }
-            this.$emit('update:modelValue', false);
+        down: function(this: IDrawerVue, oe: PointerEvent): void {
+            purease.pointer.click(oe, e => {
+                if (e.target !== this.$el) {
+                    return;
+                }
+                this.$emit('update:modelValue', false);
+            });
         }
     }
 };
@@ -3218,7 +3235,7 @@ list['pe-header'] = {
 };
 
 list['pe-header-item'] = {
-    'template': `<a class="pe-header-item" :href="href" :class="[menuCount&&'pe-list',hover&&'pe-hover']" @touchstart="enter" @mouseenter="enter" @mouseleave="leave" @click="click"><slot></slot></a>`,
+    'template': `<a class="pe-header-item" :href="href" :class="[menuCount&&'pe-list',hover&&'pe-hover']" @pointerdown="down" @pointerenter="enter"><slot></slot></a>`,
     'props': {
         'href': {
             'default': undefined
@@ -3231,37 +3248,46 @@ list['pe-header-item'] = {
         };
     },
     'methods': {
-        enter: function(this: IHeaderItemVue, e: MouseEvent | TouchEvent) {
-            if ('ontouchstart' in window) {
+        enter: function(this: IHeaderItemVue, oe: PointerEvent) {
+            if (oe.pointerType !== 'mouse') {
                 return;
             }
+            // --- 仅鼠标有效 ---
+            purease.pointer.hover(oe, {
+                enter: () => {
+                    const target = oe.target as HTMLElement;
+                    if (target.classList.contains('pe-menu') || lDom.findParentByClass(target, 'pe-menu')) {
+                        return;
+                    }
+                    this.hover = !this.hover;
+                },
+                leave: () => {
+                    this.hover = false;
+                }
+            });
+
             // --- 只有可能非触摸屏 ---
-            const target = e.target as HTMLElement;
+            const target = oe.target as HTMLElement;
             if (target.classList.contains('pe-menu') || lDom.findParentByClass(target, 'pe-menu')) {
                 return;
             }
             this.hover = !this.hover;
         },
-        leave: function(this: IHeaderItemVue) {
-            if ('ontouchstart' in window) {
+        down: function(this: IHeaderItemVue, oe: PointerEvent) {
+            if (oe.pointerType === 'mouse') {
                 return;
             }
-            this.hover = false;
-        },
-        click: function(this: IHeaderItemVue, e: MouseEvent | TouchEvent) {
-            // --- 仅手机端有效 ---
-            if (!('ontouchstart' in window)) {
-                return;
-            }
-            // --- 只有可能触摸屏 ---
-            if (!this.href) {
-                e.preventDefault();
-            }
-            const target = e.target as HTMLElement;
-            if (target.classList.contains('pe-menu') || lDom.findParentByClass(target, 'pe-menu')) {
-                return;
-            }
-            this.hover = !this.hover;
+            // --- 非鼠标有效 ---
+            purease.pointer.click(oe, (e) => {
+                if (!this.href) {
+                    e.preventDefault();
+                }
+                const target = e.target as HTMLElement;
+                if (target.classList.contains('pe-menu') || lDom.findParentByClass(target, 'pe-menu')) {
+                    return;
+                }
+                this.hover = !this.hover;
+            });
         },
     },
 };
@@ -3271,7 +3297,7 @@ list['pe-header-layout'] = {
 };
 
 list['pe-icon'] = {
-    'template': `<i v-if="name.startsWith('fa-')" :class="[name]" class="pe-icon"></i><svg v-else-if="name==='link'" class="pe-icon" viewBox="0 0 24 24" fill="none"><path d="M13 11L22 2M22 2H16.6562M22 2V7.34375" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2M22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2.49073 19.5618 2.16444 18.1934 2.0551 16" stroke-width="1.5" stroke-linecap="round"/></svg><svg v-else-if="name==='language'" class="pe-icon" viewBox="0 0 24 24"><path d="M8 15H3.5A2.502 2.502 0 0 1 1 12.5v-9A2.502 2.502 0 0 1 3.5 1h9A2.502 2.502 0 0 1 15 3.5V8h-1V3.5A1.502 1.502 0 0 0 12.5 2h-9A1.502 1.502 0 0 0 2 3.5v9A1.502 1.502 0 0 0 3.5 14H8zm-.038-4.811a9.77 9.77 0 0 1-3.766 1.796l-.242-.97a8.816 8.816 0 0 0 3.282-1.532A9.264 9.264 0 0 1 4.888 5H4V4h3.279l-.544-.544.707-.707L8.692 4H12v1h-.914A9.836 9.836 0 0 1 9.78 8.152a3.853 3.853 0 0 0-1.82 2.037zm.032-1.383A8.167 8.167 0 0 0 10.058 5H5.922a8.18 8.18 0 0 0 2.072 3.806zM23 20.447v-8.894A2.525 2.525 0 0 0 20.484 9h-8.931A2.556 2.556 0 0 0 9 11.553v8.894A2.556 2.556 0 0 0 11.553 23h8.894A2.556 2.556 0 0 0 23 20.447zM20.484 10A1.517 1.517 0 0 1 22 11.516v8.968A1.517 1.517 0 0 1 20.484 22h-8.968A1.517 1.517 0 0 1 10 20.484v-8.968A1.517 1.517 0 0 1 11.516 10zm-2.086 8h-4.796l-1.159 2.23-.886-.46L16 11.215l4.443 8.555-.886.46zm-.52-1L16 13.385 14.122 17z" stroke-width=".5"/></svg><svg v-else-if="name==='backspace'" class="pe-icon" viewBox="0 0 24 24" fill="none"><path d="M22 12C22 15.7712 22 17.6569 20.7961 18.8284C19.5921 20 17.6544 20 13.779 20H11.142C8.91458 20 7.80085 20 6.87114 19.4986C5.94144 18.9971 5.35117 18.0781 4.17061 16.24L3.48981 15.18C2.4966 13.6336 2 12.8604 2 12C2 11.1396 2.4966 10.3664 3.48981 8.82001L4.17061 7.76001C5.35117 5.92191 5.94144 5.00286 6.87114 4.50143C7.80085 4 8.91458 4 11.142 4L13.779 4C17.6544 4 19.5921 4 20.7961 5.17157C21.4673 5.82475 21.7643 6.69989 21.8957 8" stroke-width="1.5" stroke-linecap="round"/><path d="M15.5 9.50002L10.5 14.5M10.5 9.5L15.5 14.5" stroke-width="1.5" stroke-linecap="round"/></svg><svg v-else-if="name==='switch'" class="pe-icon" viewBox="0 0 1024 1024" stroke="none"><path d="M118.656 438.656a32 32 0 010-45.248L416 96l4.48-3.776A32 32 0 01461.248 96l3.712 4.48a32.064 32.064 0 01-3.712 40.832L218.56 384H928a32 32 0 110 64H141.248a32 32 0 01-22.592-9.344zM64 608a32 32 0 0132-32h786.752a32 32 0 0122.656 54.592L608 928l-4.48 3.776a32.064 32.064 0 01-40.832-49.024L805.632 640H96a32 32 0 01-32-32z"/></svg><svg v-else-if="name === 'eye'" class="pe-icon" viewBox="0 0 24 24" fill="none"><path d="M3 14C3 9.02944 7.02944 5 12 5C16.9706 5 21 9.02944 21 14M17 14C17 16.7614 14.7614 19 12 19C9.23858 19 7 16.7614 7 14C7 11.2386 9.23858 9 12 9C14.7614 9 17 11.2386 17 14Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><svg v-else-if="name === 'eye-slash'" class="pe-icon" viewBox="0 0 24 24" fill="none"><path d="M9.60997 9.60714C8.05503 10.4549 7 12.1043 7 14C7 16.7614 9.23858 19 12 19C13.8966 19 15.5466 17.944 16.3941 16.3878M21 14C21 9.02944 16.9706 5 12 5C11.5582 5 11.1238 5.03184 10.699 5.09334M3 14C3 11.0069 4.46104 8.35513 6.70883 6.71886M3 3L21 21" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><svg v-else-if="name === 'back'" class="pe-icon" stroke="none" viewBox="0 0 42 42"><polygon fill-rule="evenodd" points="31,38.32 13.391,21 31,3.68 28.279,1 8,21.01 28.279,41 "/></svg><svg v-else-if="name === 'arrow'" class="pe-icon" stroke="none" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" /></svg>`,
+    'template': `<i v-if="name.startsWith('fa-')" :class="[name]" class="pe-icon"></i><svg v-else-if="name==='link'" class="pe-icon" viewBox="0 0 24 24" fill="none"><path d="M13 11L22 2M22 2H16.6562M22 2V7.34375" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2M22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2.49073 19.5618 2.16444 18.1934 2.0551 16" stroke-width="1.5" stroke-linecap="round"/></svg><svg v-else-if="name==='language'" class="pe-icon" viewBox="0 0 24 24"><path d="M8 15H3.5A2.502 2.502 0 0 1 1 12.5v-9A2.502 2.502 0 0 1 3.5 1h9A2.502 2.502 0 0 1 15 3.5V8h-1V3.5A1.502 1.502 0 0 0 12.5 2h-9A1.502 1.502 0 0 0 2 3.5v9A1.502 1.502 0 0 0 3.5 14H8zm-.038-4.811a9.77 9.77 0 0 1-3.766 1.796l-.242-.97a8.816 8.816 0 0 0 3.282-1.532A9.264 9.264 0 0 1 4.888 5H4V4h3.279l-.544-.544.707-.707L8.692 4H12v1h-.914A9.836 9.836 0 0 1 9.78 8.152a3.853 3.853 0 0 0-1.82 2.037zm.032-1.383A8.167 8.167 0 0 0 10.058 5H5.922a8.18 8.18 0 0 0 2.072 3.806zM23 20.447v-8.894A2.525 2.525 0 0 0 20.484 9h-8.931A2.556 2.556 0 0 0 9 11.553v8.894A2.556 2.556 0 0 0 11.553 23h8.894A2.556 2.556 0 0 0 23 20.447zM20.484 10A1.517 1.517 0 0 1 22 11.516v8.968A1.517 1.517 0 0 1 20.484 22h-8.968A1.517 1.517 0 0 1 10 20.484v-8.968A1.517 1.517 0 0 1 11.516 10zm-2.086 8h-4.796l-1.159 2.23-.886-.46L16 11.215l4.443 8.555-.886.46zm-.52-1L16 13.385 14.122 17z" stroke-width=".5"/></svg><svg v-else-if="name==='backspace'" class="pe-icon" viewBox="0 0 24 24" fill="none"><path d="M22 12C22 15.7712 22 17.6569 20.7961 18.8284C19.5921 20 17.6544 20 13.779 20H11.142C8.91458 20 7.80085 20 6.87114 19.4986C5.94144 18.9971 5.35117 18.0781 4.17061 16.24L3.48981 15.18C2.4966 13.6336 2 12.8604 2 12C2 11.1396 2.4966 10.3664 3.48981 8.82001L4.17061 7.76001C5.35117 5.92191 5.94144 5.00286 6.87114 4.50143C7.80085 4 8.91458 4 11.142 4L13.779 4C17.6544 4 19.5921 4 20.7961 5.17157C21.4673 5.82475 21.7643 6.69989 21.8957 8" stroke-width="1.5" stroke-linecap="round"/><path d="M15.5 9.50002L10.5 14.5M10.5 9.5L15.5 14.5" stroke-width="1.5" stroke-linecap="round"/></svg><svg v-else-if="name==='switch'" class="pe-icon" viewBox="0 0 1024 1024" stroke="none"><path d="M118.656 438.656a32 32 0 010-45.248L416 96l4.48-3.776A32 32 0 01461.248 96l3.712 4.48a32.064 32.064 0 01-3.712 40.832L218.56 384H928a32 32 0 110 64H141.248a32 32 0 01-22.592-9.344zM64 608a32 32 0 0132-32h786.752a32 32 0 0122.656 54.592L608 928l-4.48 3.776a32.064 32.064 0 01-40.832-49.024L805.632 640H96a32 32 0 01-32-32z"/></svg><svg v-else-if="name === 'eye'" class="pe-icon" viewBox="0 0 24 24" fill="none"><path d="M3 14C3 9.02944 7.02944 5 12 5C16.9706 5 21 9.02944 21 14M17 14C17 16.7614 14.7614 19 12 19C9.23858 19 7 16.7614 7 14C7 11.2386 9.23858 9 12 9C14.7614 9 17 11.2386 17 14Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><svg v-else-if="name === 'eye-slash'" class="pe-icon" viewBox="0 0 24 24" fill="none"><path d="M9.60997 9.60714C8.05503 10.4549 7 12.1043 7 14C7 16.7614 9.23858 19 12 19C13.8966 19 15.5466 17.944 16.3941 16.3878M21 14C21 9.02944 16.9706 5 12 5C11.5582 5 11.1238 5.03184 10.699 5.09334M3 14C3 11.0069 4.46104 8.35513 6.70883 6.71886M3 3L21 21" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><svg v-else-if="name === 'back'" class="pe-icon" stroke="none" viewBox="0 0 42 42"><polygon fill-rule="evenodd" points="31,38.32 13.391,21 31,3.68 28.279,1 8,21.01 28.279,41 "/></svg><svg v-else-if="name === 'arrow'" class="pe-icon" stroke="none" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" /></svg><svg v-else-if="name === 'plus'" class="pe-icon" viewBox="0 0 24 24" fill="none"><path d="M12 4V20M4 12H20" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><svg v-else-if="name === 'trash'" class="pe-icon" viewBox="0 0 24 24" fill="none"><path d="M4 6H20M16 6L15.7294 5.18807C15.4671 4.40125 15.3359 4.00784 15.0927 3.71698C14.8779 3.46013 14.6021 3.26132 14.2905 3.13878C13.9376 3 13.523 3 12.6936 3H11.3064C10.477 3 10.0624 3 9.70951 3.13878C9.39792 3.26132 9.12208 3.46013 8.90729 3.71698C8.66405 4.00784 8.53292 4.40125 8.27064 5.18807L8 6M18 6V16.2C18 17.8802 18 18.7202 17.673 19.362C17.3854 19.9265 16.9265 20.3854 16.362 20.673C15.7202 21 14.8802 21 13.2 21H10.8C9.11984 21 8.27976 21 7.63803 20.673C7.07354 20.3854 6.6146 19.9265 6.32698 19.362C6 18.7202 6 17.8802 6 16.2V6M14 10V17M10 10V17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><svg v-else-if="name === 'drag'" class="pe-icon" viewBox="0 0 24 24" fill="none"><path d="M8 6H8.01M8 12H8.01M8 18H8.01M16 6H16.01M16 12H16.01M16 18H16.01" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
     'props': {
         'name': {
             'default': 'link'
@@ -3332,13 +3358,15 @@ list['pe-label'] = {
 };
 
 list['pe-lnav'] = {
-    'template': `<div class="pe-lnav"><div class="pe-lnav-left" ref="left" @click="leftClick"><div class="pe-lnav-left-content"><slot name="left"></slot></div></div><div class="pe-lnav-right"><slot></slot></div></div>`,
+    'template': `<div class="pe-lnav"><div class="pe-lnav-left" ref="left" @pointerdown="leftDown"><div class="pe-lnav-left-content"><slot name="left"></slot></div></div><div class="pe-lnav-right"><slot></slot></div></div>`,
     'methods': {
-        'leftClick': function(this: ILnavVue, e: MouseEvent) {
-            if (!(e.target as HTMLElement).classList.contains('pe-lnav-left')) {
-                return;
-            }
-            this.$refs.left.classList.remove('pe-show');
+        'leftDown': function(this: ILnavVue, oe: PointerEvent) {
+            purease.pointer.click(oe, e => {
+                if (!(e.target as HTMLElement).classList.contains('pe-lnav-left')) {
+                    return;
+                }
+                this.$refs.left.classList.remove('pe-show');
+            });
         }
     },
 };
@@ -3675,7 +3703,7 @@ list['pe-page'] = {
 };
 
 list['pe-select'] = {
-    'template': `<div class="pe-select" :class="[propBoolean('plain')&&'pe-plain',propBoolean('disabled')&&'pe-disabled',propBoolean('search')&&'pe-search']" :tabindex="!propBoolean('disabled') ? '0' : undefined" @click="open"><div class="pe-select-label">{{label || '\u3000'}}</div><div class="pe-select-arrow"></div><div class="pe-pop" ref="pop"><pe-text v-if="propBoolean('search')" v-model="searchValue" :placeholder="l('search')" plain></pe-text><pe-dlist :data="searchComp" :modelValue="value" @update:modelValue="onModelValue" @click="click" plain></pe-dlist></div></div>`,
+    'template': `<div class="pe-select" :class="[propBoolean('plain')&&'pe-plain',propBoolean('disabled')&&'pe-disabled',propBoolean('search')&&'pe-search']" :tabindex="!propBoolean('disabled') ? '0' : undefined" @pointerdown="open"><div class="pe-select-label">{{label || '\u3000'}}</div><div class="pe-select-arrow"></div><div class="pe-pop" ref="pop"><pe-text v-if="propBoolean('search')" v-model="searchValue" :placeholder="l('search')" plain></pe-text><pe-dlist :data="searchComp" :modelValue="value" @update:modelValue="onModelValue" @tap="tap" plain></pe-dlist></div></div>`,
     'props': {
         'modelValue': {
             'default': ''
@@ -3757,12 +3785,14 @@ list['pe-select'] = {
         };
     },
     'methods': {
-        open: function(this: ISelectVue, e: MouseEvent) {
-            const el = e.target as HTMLElement;
-            if (!el.classList.contains('pe-select-label') && !el.classList.contains('pe-select-arrow')) {
-                return;
-            }
-            lDom.showPop(e, this.$refs.pop);
+        open: function(this: ISelectVue, oe: PointerEvent) {
+            purease.pointer.click(oe, e => {
+                const el = e.target as HTMLElement;
+                if (!el.classList.contains('pe-select-label') && !el.classList.contains('pe-select-arrow')) {
+                    return;
+                }
+                lDom.showPop(e, this.$refs.pop);
+            });
         },
         onModelValue: function(this: ISelectVue, v: string) {
             if (this.value === v) {
@@ -3779,7 +3809,7 @@ list['pe-select'] = {
             }
             this.$emit('update:modelValue', this.value);
         },
-        click: function(this: ISelectVue, e: IDlistClickEvent) {
+        tap: function(this: ISelectVue, e: IDlistTapEvent) {
             this.searchValue = '';
             const event: ISelectChangedEvent = {
                 'detail': {
@@ -3886,36 +3916,34 @@ list['pe-setting'] = {
 };
 
 list['pe-setting-block'] = {
-    'template': `<div class="pe-setting-block" @mouseenter="enter" @mouseleave="leave" @touchstart="enter" @touchend="leave"><slot></slot></div>`,
+    'template': `<div class="pe-setting-block" @pointerenter="enter" @pointerdown="enter"><slot></slot></div>`,
     'props': {
         'hover': {
             'default': false,
         },
     },
     'methods': {
-        enter: function(this: ISettingBlockVue, e: MouseEvent | TouchEvent) {
-            if (lDom.hasTouchButMouse(e)) {
-                return;
-            }
-            if (!this.propBoolean('hover')) {
-                return;
-            }
-            this.$el.classList.add('pe-hover');
-        },
-        leave: function(this: ISettingBlockVue, e: MouseEvent | TouchEvent) {
-            if (lDom.hasTouchButMouse(e)) {
-                return;
-            }
-            if (!this.propBoolean('hover')) {
-                return;
-            }
-            this.$el.classList.remove('pe-hover');
+        enter: function(this: ISettingBlockVue, oe: PointerEvent) {
+            purease.pointer.hover(oe, {
+                enter: () => {
+                    if (!this.propBoolean('hover')) {
+                        return;
+                    }
+                    this.$el.classList.add('pe-hover');
+                },
+                leave: () => {
+                    if (!this.propBoolean('hover')) {
+                        return;
+                    }
+                    this.$el.classList.remove('pe-hover');
+                },
+            });
         },
     },
 };
 
 list['pe-setting-item'] = {
-    'template': `<div class="pe-setting-item" :class="[propBoolean('nopadding')&&'pe-setting-item-nopadding',propBoolean('nogap')&&'pe-setting-item-nogap']" @mouseenter="enter" @mouseleave="leave" @touchstart="enter" @touchend="leave"><template v-if="$slots['left']"><slot name="left"></slot></template><div v-else class="pe-setting-item-left"><div v-if="title" class="pe-setting-item-title">{{title}}</div><div v-if="note" class="pe-setting-item-note">{{note}}</div></div><div v-if="$slots['default']" class="pe-setting-item-right" :style="{'align-items': direction === 'v' ? alignHComp : alignVComp, 'justify-content': direction === 'v' ? alignVComp : alignHComp, 'gap': gap ? \`var(--pe-gap-\${gap})\` : undefined}"><slot></slot></div><div v-if="propBoolean('arrow')" class="pe-setting-item-arrow"><pe-icon name="back"></pe-icon></div><div v-if="mark" class="pe-setting-item-mark">{{mark}}</div></div>`,
+    'template': `<div class="pe-setting-item" :class="[propBoolean('nopadding')&&'pe-setting-item-nopadding',propBoolean('nogap')&&'pe-setting-item-nogap']" @pointerenter="enter" @pointerdown="enter"><template v-if="$slots['left']"><slot name="left"></slot></template><div v-else class="pe-setting-item-left"><div v-if="title" class="pe-setting-item-title">{{title}}</div><div v-if="note" class="pe-setting-item-note">{{note}}</div></div><div v-if="$slots['default']" class="pe-setting-item-right" :style="{'align-items': direction === 'v' ? alignHComp : alignVComp, 'justify-content': direction === 'v' ? alignVComp : alignHComp, 'gap': gap ? \`var(--pe-gap-\${gap})\` : undefined}"><slot></slot></div><div v-if="propBoolean('arrow')" class="pe-setting-item-arrow"><pe-icon name="back"></pe-icon></div><div v-if="mark" class="pe-setting-item-mark">{{mark}}</div></div>`,
     'props': {
         'type': {
             'default': ''
@@ -3955,23 +3983,21 @@ list['pe-setting-item'] = {
         },
     },
     'methods': {
-        enter: function(this: ISettingItemVue, e: MouseEvent | TouchEvent) {
-            if (lDom.hasTouchButMouse(e)) {
-                return;
-            }
-            this.$el.classList.add('pe-hover');
-        },
-        leave: function(this: ISettingItemVue, e: MouseEvent | TouchEvent) {
-            if (lDom.hasTouchButMouse(e)) {
-                return;
-            }
-            this.$el.classList.remove('pe-hover');
+        enter: function(this: ISettingItemVue, oe: PointerEvent) {
+            purease.pointer.hover(oe, {
+                enter: () => {
+                    this.$el.classList.add('pe-hover');
+                },
+                leave: () => {
+                    this.$el.classList.remove('pe-hover');
+                },
+            });
         },
     },
 };
 
 list['pe-slider'] = {
-    'template': `<div class="pe-slider"><div v-if="propBoolean('range')" class="pe-slider-bar" :style="{'width': barWidth + '%', [isRtl?'right':'left']: 'calc(' + barPos + '% - 11px)'}"></div><div class="pe-slider-block" :style="{[isRtl?'right':'left']: 'calc(' + pos[0] + '% - 11px)'}" tabindex="0" @mousedown="down($event, 0)" @touchstart="down($event, 0)"></div><div v-if="propBoolean('range')" class="pe-slider-block" :style="{[isRtl?'right':'left']: 'calc(' + pos[1] + '% - 11px)'}" tabindex="0" @mousedown="down($event, 1)" @touchstart="down($event, 1)"></div></div>`,
+    'template': `<div class="pe-slider"><div v-if="propBoolean('range')" class="pe-slider-bar" :style="{'width': barWidth + '%', [isRtl?'right':'left']: 'calc(' + barPos + '% - 11px)'}"></div><div class="pe-slider-block" :style="{[isRtl?'right':'left']: 'calc(' + pos[0] + '% - 11px)'}" tabindex="0" @pointerdown="down($event, 0)"></div><div v-if="propBoolean('range')" class="pe-slider-block" :style="{[isRtl?'right':'left']: 'calc(' + pos[1] + '% - 11px)'}" tabindex="0" @pointerdown="down($event, 1)"></div></div>`,
     'props': {
         'modelValue': {
             'default': [0, 0]
@@ -4010,19 +4036,16 @@ list['pe-slider'] = {
         }
     },
     methods: {
-        down: function(this: ISliderVue, e: TouchEvent | MouseEvent, i: number) {
-            if (lDom.hasTouchButMouse(e)) {
-                return;
-            }
+        down: function(this: ISliderVue, oe: PointerEvent, i: number) {
             const bcr = this.$el.getBoundingClientRect();
             /** --- slider 的宽度 --- */
             const width = bcr.width;
             /** --- RTL 模式下使用 right，否则使用 left --- */
             const startPos = this.isRtl ? bcr.right : bcr.left;
-            lDom.bindDown(e, {
-                move: (ne) => {
+            purease.pointer.down(oe, {
+                move: e => {
                     // --- 当前的位置 ---
-                    const nx = ne instanceof MouseEvent ? ne.clientX : ne.touches[0].clientX;
+                    const nx = e.clientX;
                     /** --- 当前滑块位置 --- */
                     let pos: number;
                     if (this.isRtl) {
@@ -4059,7 +4082,7 @@ list['pe-slider'] = {
                         this.propInt('min') + Math.round(this.pos[0] / 100 * (this.propInt('max') - this.propInt('min'))),
                         this.propBoolean('range') ? this.propInt('min') + Math.round(this.pos[1] / 100 * (this.propInt('max') - this.propInt('min'))) : 0,
                     ]);
-                }
+                },
             });
         }
     },
@@ -4241,7 +4264,7 @@ list['pe-spa-page'] = {
 };
 
 list['pe-swipe'] = {
-    'template': `<div class="pe-swipe" :class="['pe-control-'+control]"><div class="pe-swipe-wrap" @mousedown="down" @touchstart="down" :style="{'border-radius':radius?radius+'px':undefined}"><div class="pe-swipe-items" ref="items"><slot></slot></div></div><div class="pe-swipe-page" :class="['pe-'+page]"><div v-for="i of pageCount" class="pe-swipe-page-item" :class="[(selected===i-1)&&'pe-selected']" @click="pdown(i)"></div></div><div v-if="pageCount > 1" class="pe-swipe-prev" @click="prev"></div><div v-if="pageCount > 1" class="pe-swipe-next" @click="next"></div></div>`,
+    'template': `<div class="pe-swipe" :class="['pe-control-'+control]"><div class="pe-swipe-wrap" @pointerdown="down" :style="{'border-radius':radius?radius+'px':undefined}"><div class="pe-swipe-items" ref="items"><slot></slot></div></div><div class="pe-swipe-page" :class="['pe-'+page]"><div v-for="i of pageCount" class="pe-swipe-page-item" :class="[(selected===i-1)&&'pe-selected']" @click="pdown(i)"></div></div><div v-if="pageCount > 1" class="pe-swipe-prev" @click="prev"></div><div v-if="pageCount > 1" class="pe-swipe-next" @click="next"></div></div>`,
     'props': {
         'modelValue': {
             'default': 0
@@ -4350,17 +4373,14 @@ list['pe-swipe'] = {
         },
     },
     methods: {
-        down: function(this: ISwipeVue, e: TouchEvent | MouseEvent) {
-            if (lDom.hasTouchButMouse(e)) {
-                return;
-            }
+        down: function(this: ISwipeVue, oe: PointerEvent) {
             if (this.going) {
                 return;
             }
             if (this.pageCount < 2) {
                 return;
             }
-            const target = e.target as HTMLElement | null;
+            const target = oe.target as HTMLElement | null;
             if (!target) {
                 return;
             }
@@ -4376,14 +4396,14 @@ list['pe-swipe'] = {
                 this.timer = undefined;
             }
             /** --- 原始 x 位置 --- */
-            const ox = e instanceof MouseEvent ? e.clientX : e.touches[0].clientX;
+            const ox = oe.clientX;
             /** --- 上次的 x 位置 --- */
             let x = ox;
             const time = Date.now();
-            lDom.bindDown(e, {
-                move: (ne) => {
+            purease.pointer.down(oe, {
+                move: (e) => {
                     // --- 当前的位置 ---
-                    const nx = ne instanceof MouseEvent ? ne.clientX : ne.touches[0].clientX;
+                    const nx = e.clientX;
                     /** --- 移动的差值 --- */
                     const cx = nx - x;
                     x = nx;
@@ -4749,7 +4769,7 @@ list['pe-tab'] = {
 };
 
 list['pe-tab-item'] = {
-    'template': `<div class="pe-tab-item" :class="[isSelected&&'pe-selected']" @mouseenter="hover" @touchstart="hover" @click="click"><slot></slot></div>`,
+    'template': `<div class="pe-tab-item" :class="[isSelected&&'pe-selected']" @pointerenter="hover" @pointerdown="hover" @click="click"><slot></slot></div>`,
     'data': function() {
         return {
             'index': 0,
@@ -4773,17 +4793,18 @@ list['pe-tab-item'] = {
         }
     },
     'methods': {
-        hover: function(this: ITabItemVue, e: MouseEvent | TouchEvent) {
-            if (!this.$parent) {
-                return;
-            }
-            if (lDom.hasTouchButMouse(e)) {
-                return;
-            }
-            if (!this.$parent.propBoolean('hover')) {
-                return;
-            }
-            this.$parent.selected = this.index;
+        hover: function(this: ITabItemVue, oe: PointerEvent) {
+            purease.pointer.hover(oe, {
+                enter: () => {
+                    if (!this.$parent) {
+                        return;
+                    }
+                    if (!this.$parent.propBoolean('hover')) {
+                        return;
+                    }
+                    this.$parent.selected = this.index;
+                },
+            });
         },
         click: function(this: ITabItemVue) {
             if (!this.$parent) {
@@ -5200,6 +5221,120 @@ list['pe-text'] = {
             }
         }
     },
+};
+
+list['pe-uploader'] = {
+    'template': `<div class="pe-uploader" :class="[propBoolean('disabled') && 'pe-disabled']"><div class="pe-uploader-item" v-for="(item, index) of modelValue" :key="index" @drop="drop($event, index)"><div class="pe-uploader-title" v-if="item.title">{{ item.title }}</div><img class="pe-uploader-img" :src="pre + (item.src ?? item)" /><div class="pe-uploader-bottom"><div class="pe-uploader-btn" @click="remove(index)"><pe-icon name="trash"></pe-icon></div><div class="pe-uploader-btn pe-uploader-drag" v-if="propBoolean('drag')" @pointerdown="down($event, index)"><pe-icon name="drag"></pe-icon></div></div></div><div v-if="(propBoolean('multi') && (modelValue.length < propInt('length'))) || !modelValue.length" class="pe-uploader-select" @click="select"><div v-if="progress !== undefined" class="pe-uploader-progress"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="none" stroke-width="8" /><circle cx="50" cy="50" r="45" fill="none" stroke-width="8" :stroke-dasharray="283" :stroke-dashoffset="283 - (283 * progress / 100)" /></svg><span>{{ progress }}%</span></div><pe-icon v-else name="plus"></pe-icon></div></div>`,
+    'emits': {
+        'select': null,
+        'remove': null,
+        'changed': null,
+        'update:modelValue': null
+    },
+    'props': {
+        'disabled': {
+            'default': false
+        },
+        'length': {
+            'default': 6
+        },
+        'drag': {
+            'default': false
+        },
+        'pre': {
+            'default': ''
+        },
+        'multi': {
+            'default': false
+        },
+        'progress': {
+            'default': undefined
+        },
+        'modelValue': {
+            'default': []
+        }
+    },
+    'data': function() {
+        return {
+            'rand': ''
+        };
+    },
+    'methods': {
+        /**
+         * --- 发出 select 事件 ---
+         */
+        select: function(this: IUploaderVue): void {
+            if (this.propBoolean('disabled')) {
+                return;
+            }
+            if (this.progress !== undefined) {
+                return;
+            }
+            this.$emit('select');
+        },
+        /**
+         * --- 拖拽按下事件 ---
+         * @param e 事件对象
+         * @param index 当前项索引
+         */
+        down: function(this: IUploaderVue, e: PointerEvent, index: number): void {
+            purease.pointer.drag(e, (e.currentTarget as HTMLElement).parentNode?.parentNode as HTMLElement, {
+                'data': {
+                    'index': index,
+                    'rand': this.rand
+                }
+            });
+        },
+        /**
+         * --- 拖拽放下事件 ---
+         * @param e 事件对象
+         * @param index 目标索引
+         */
+        drop: function(this: IUploaderVue, e: CustomEvent, index: number): void {
+            if (typeof e.detail.value !== 'object') {
+                return;
+            }
+            if (e.detail.value.rand !== this.rand) {
+                return;
+            }
+            const fromIndex = e.detail.value.index;
+            if (fromIndex === index) {
+                return;
+            }
+            // --- 移动项 ---
+            const list = [...this.modelValue];
+            const [moved] = list.splice(fromIndex, 1);
+            list.splice(index, 0, moved);
+            this.$emit('update:modelValue', list);
+            this.$emit('changed');
+        },
+        /**
+         * --- 移除项 ---
+         * @param index 索引
+         */
+        remove: function(this: IUploaderVue, index: number): void {
+            const event: IUploaderRemoveEvent = {
+                'go': true,
+                preventDefault: function() {
+                    this.go = false;
+                },
+                'detail': {
+                    'index': index,
+                }
+            };
+            this.$emit('remove', event);
+            if (!event.go) {
+                return;
+            }
+            const list = [...this.modelValue];
+            list.splice(index, 1);
+            this.$emit('update:modelValue', list);
+            this.$emit('changed');
+        }
+    },
+    'mounted': function(this: IUploaderVue): void {
+        this.rand = lTool.random(16);
+    }
 };
 
 list['pe-vnumber'] = {

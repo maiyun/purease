@@ -1,4 +1,3 @@
-import * as lDom from '../../dom.js';
 import * as lControl from '../../control.js';
 
 export interface IDatepanelVue extends lControl.IControlVue {
@@ -159,7 +158,7 @@ export interface IDatepanelVue extends lControl.IControlVue {
     /** --- 下个月 --- */
     next: () => void;
     /** --- 列鼠标进入 --- */
-    colenter: (e: MouseEvent | TouchEvent, col: {
+    colenter: (col: {
         'date': number;
         'month': number;
         'year': number;
@@ -990,14 +989,11 @@ export const code = {
             this.vmonth = (month + 1).toString();
         },
         /** --- 鼠标移动到 col 上的事件 --- */
-        colenter: function(this: IDatepanelVue, e: MouseEvent | TouchEvent, col: {
+        colenter: function(this: IDatepanelVue, col: {
             'date': number;
             'month': number;
             'year': number;
         }): void {
-            if (lDom.hasTouchButMouse(e)) {
-                return;
-            }
             if (!this.propBoolean('range')) {
                 return;
             }

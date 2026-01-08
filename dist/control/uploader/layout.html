@@ -1,0 +1,26 @@
+<div class="pe-uploader" :class="[propBoolean('disabled') && 'pe-disabled']">
+    <!-- 已上传项列表 -->
+    <div class="pe-uploader-item" v-for="(item, index) of modelValue" :key="index" @drop="drop($event, index)">
+        <div class="pe-uploader-title" v-if="item.title">{{ item.title }}</div>
+        <img class="pe-uploader-img" :src="pre + (item.src ?? item)" />
+        <div class="pe-uploader-bottom">
+            <div class="pe-uploader-btn" @click="remove(index)">
+                <pe-icon name="trash"></pe-icon>
+            </div>
+            <div class="pe-uploader-btn pe-uploader-drag" v-if="propBoolean('drag')" @pointerdown="down($event, index)">
+                <pe-icon name="drag"></pe-icon>
+            </div>
+        </div>
+    </div>
+    <!-- 选择按钮 -->
+    <div v-if="(propBoolean('multi') && (modelValue.length < propInt('length'))) || !modelValue.length" class="pe-uploader-select" @click="select">
+        <div v-if="progress !== undefined" class="pe-uploader-progress">
+            <svg viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="45" fill="none" stroke-width="8" />
+                <circle cx="50" cy="50" r="45" fill="none" stroke-width="8" :stroke-dasharray="283" :stroke-dashoffset="283 - (283 * progress / 100)" />
+            </svg>
+            <span>{{ progress }}%</span>
+        </div>
+        <pe-icon v-else name="plus"></pe-icon>
+    </div>
+</div>

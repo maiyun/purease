@@ -1,23 +1,20 @@
 import * as purease from 'purease';
 class Page extends purease.AbstractPage {
-    constructor() {
-        // --- RTL ---
-        super(...arguments);
-        this.rtl = false;
-        // --- SPA 控件 ---
-        /** --- SPA 是否 plain --- */
-        this.spaPlain = false;
-        /** --- SPA 是否全屏 --- */
-        this.spaFull = false;
-        /** --- SPA 底部选项卡 --- */
-        this.spaFooter = 'home';
-        /** --- SPA 标签选择 --- */
-        this.spaTag = '1';
-        /** --- 通知开关 --- */
-        this.notifications = true;
-        /** --- 深色模式 --- */
-        this.darkMode = false;
-    }
+    // --- RTL ---
+    rtl = false;
+    // --- SPA 控件 ---
+    /** --- SPA 是否 plain --- */
+    spaPlain = false;
+    /** --- SPA 是否全屏 --- */
+    spaFull = false;
+    /** --- SPA 底部选项卡 --- */
+    spaFooter = 'home';
+    /** --- SPA 标签选择 --- */
+    spaTag = '1';
+    /** --- 通知开关 --- */
+    notifications = true;
+    /** --- 深色模式 --- */
+    darkMode = false;
     /**
      * --- 切换 RTL ---
      */

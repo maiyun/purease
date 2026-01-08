@@ -1,6 +1,7 @@
 import * as lTool from '../../tool';
-import * as lDom from '../../dom';
+import * as lDom from '../../dom.js';
 import * as lControl from '../../control.js';
+import * as purease from '../../purease.js';
 
 export interface ISwipeVue extends lControl.IControlVue {
     /** --- 当前页码，默认 0 --- */
@@ -42,7 +43,7 @@ export interface ISwipeVue extends lControl.IControlVue {
     /** --- 每页 item 数量 --- */
     'pitem': number;
     /** --- 鼠标/触摸按下事件 --- */
-    down: (e: TouchEvent | MouseEvent) => void;
+    down: (e: PointerEvent) => void;
     /** --- 上一页 --- */
     prev: () => void;
     /** --- 下一页 --- */
@@ -165,17 +166,14 @@ export const code = {
         },
     },
     methods: {
-        down: function(this: ISwipeVue, e: TouchEvent | MouseEvent) {
-            if (lDom.hasTouchButMouse(e)) {
-                return;
-            }
+        down: function(this: ISwipeVue, oe: PointerEvent) {
             if (this.going) {
                 return;
             }
             if (this.pageCount < 2) {
                 return;
             }
-            const target = e.target as HTMLElement | null;
+            const target = oe.target as HTMLElement | null;
             if (!target) {
                 return;
             }
@@ -191,14 +189,14 @@ export const code = {
                 this.timer = undefined;
             }
             /** --- 原始 x 位置 --- */
-            const ox = e instanceof MouseEvent ? e.clientX : e.touches[0].clientX;
+            const ox = oe.clientX;
             /** --- 上次的 x 位置 --- */
             let x = ox;
             const time = Date.now();
-            lDom.bindDown(e, {
-                move: (ne) => {
+            purease.pointer.down(oe, {
+                move: (e) => {
                     // --- 当前的位置 ---
-                    const nx = ne instanceof MouseEvent ? ne.clientX : ne.touches[0].clientX;
+                    const nx = e.clientX;
                     /** --- 移动的差值 --- */
                     const cx = nx - x;
                     x = nx;

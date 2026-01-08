@@ -1,0 +1,93 @@
+.pe-uploader {
+    display: flex; gap: var(--pe-gap-xs); flex-wrap: wrap;
+}
+.pe-uploader-item, .pe-uploader-select {
+    width: 90px; height: 90px; border: solid 1px transparent; display: flex; transition: var(--pe-transition); border-radius: var(--pe-radius); border-color: var(--pe-border);
+}
+.pe-uploader-item {
+    position: relative; overflow: hidden; flex-direction: column;
+
+    // --- drop ---
+    &[data-hover] {
+        &::after {
+            content: ''; pointer-events: none; position: absolute; left: 0; top: 0; width: 100%; height: 100%; opacity: .7; background: var(--pe);
+        }
+        .pe-uploader-bottom {
+            display: none;
+        }
+    }
+}
+.pe-uploader-title {
+    pointer-events: none; background: oklch(0 0 0 / .4); color: oklch(1 0 0); position: absolute; left: 0; top: 0; width: 100%; display: flex; justify-content: center; padding: var(--pe-padding-xxs); font-size: var(--pe-size-xs); z-index: 1;
+}
+.pe-uploader-img {
+    flex: 1; width: 100%; height: 100%; object-fit: cover;
+}
+.pe-uploader-bottom {
+    pointer-events: none; background: oklch(0 0 0 / .4); fill: oklch(1 0 0); stroke: oklch(1 0 0); position: absolute; bottom: 0; left: 0; width: 100%; display: flex; transition: var(--pe-transition); opacity: 0;
+}
+.pe-uploader-btn {
+    padding: var(--pe-padding-xxs); display: flex; justify-content: center; transition: var(--pe-transition);
+    &:not(.pe-uploader-drag) {
+        flex: 1;
+    }
+}
+.pe-uploader-drag {
+    cursor: move;
+}
+.pe-uploader-select {
+    border-style: dashed; align-items: center; justify-content: center; fill: var(--pe-border); stroke: var(--pe-border); cursor: pointer;
+    .pe-icon {
+        width: 24px; height: 24px; margin: 0;
+    }
+}
+.pe-uploader-progress {
+    position: relative; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;
+    svg {
+        position: absolute; left: 0; top: 0; width: 100%; height: 100%; transform: rotate(-90deg);
+        circle {
+            &:first-child {
+                stroke: var(--pe-border);
+            }
+            &:last-child {
+                stroke: var(--pe);
+                transition: stroke-dashoffset .3s var(--pe-cubic);
+            }
+        }
+    }
+    span {
+        font-size: var(--pe-size-xs); color: var(--pe-note-color);
+    }
+}
+
+// --- 非禁用状态 ---
+.pe-uploader {
+    .pe-uploader-item, .pe-uploader-select {
+        &:hover {
+            border-color: var(--pe); color: var(--pe);
+        }
+        &:active {
+            border-color: var(--pe-active); color: var(--pe-active);
+        }
+    }
+    .pe-uploader-item {
+        &:hover {
+            .pe-uploader-bottom {
+                pointer-events: initial; opacity: 1;
+            }
+        }
+    }
+    .pe-uploader-btn {
+        &:hover {
+            background: oklch(0 0 0 / .7);
+        }
+        &:active {
+            background: oklch(0 0 0 / .9);
+        }
+    }
+
+    // --- 禁用状态 ---
+    &.pe-disabled {
+        opacity: .6;
+    }
+}

@@ -1,8 +1,8 @@
-<div class="pe-select" :class="[propBoolean('plain')&&'pe-plain',propBoolean('disabled')&&'pe-disabled',propBoolean('search')&&'pe-search']" :tabindex="!propBoolean('disabled') ? '0' : undefined" @click="open">
+<div class="pe-select" :class="[propBoolean('plain')&&'pe-plain',propBoolean('disabled')&&'pe-disabled',propBoolean('search')&&'pe-search']" :tabindex="!propBoolean('disabled') ? '0' : undefined" @pointerdown="open">
     <div class="pe-select-label">{{label || '\u3000'}}</div>
     <div class="pe-select-arrow"></div>
     <div class="pe-pop" ref="pop">
         <pe-text v-if="propBoolean('search')" v-model="searchValue" :placeholder="l('search')" plain></pe-text>
-        <pe-dlist :data="searchComp" :modelValue="value" @update:modelValue="onModelValue" @click="click" plain></pe-dlist>
+        <pe-dlist :data="searchComp" :modelValue="value" @update:modelValue="onModelValue" @tap="tap" plain></pe-dlist>
     </div>
 </div>

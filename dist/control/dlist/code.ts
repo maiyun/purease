@@ -1,4 +1,5 @@
 import * as lControl from '../../control.js';
+import * as purease from '../../purease.js';
 
 /** --- dlist 数据项类型 --- */
 type TDlistItem = Record<string, any> | string;
@@ -42,8 +43,8 @@ export interface IDlistVue extends lControl.IControlVue {
     getItemValue: (item: TDlistItem) => string;
     /** --- 获取项的 label --- */
     getItemLabel: (item: TDlistItem) => string;
-    /** --- 点击事件 --- */
-    click: (i: number) => void;
+    /** --- 按下事件 --- */
+    down: (i: number) => void;
     /** --- 递归扁平化数据 --- */
     flattenData: (data: TDlistItem[], level: number, path: number[]) => IFlatItem[];
     /** --- 切换展开状态 --- */
@@ -77,7 +78,7 @@ export const code = {
     'emits': {
         'changed': null,
         'update:modelValue': null,
-        'click': null,
+        'tap': null,
     },
     'computed': {
         /** --- 初始化后的 map 对象 --- */
@@ -103,22 +104,24 @@ export const code = {
         getItemLabel: function(this: IDlistVue, item: TDlistItem): string {
             return typeof item === 'string' ? item : (item[this.mapComp.label] ?? item[this.mapComp.value]);
         },
-        click: function(this: IDlistVue, i: number) {
-            const flatItem = this.flatData[i];
-            if (!flatItem) {
-                return;
-            }
-            this.value = this.getItemValue(flatItem.item);
-            this.$emit('update:modelValue', this.value);
-            const event: lControl.IDlistChangedEvent = {
-                'detail': {
-                    'value': this.value,
-                    'index': i,
-                    'label': this.getItemLabel(flatItem.item)
+        down: function(this: IDlistVue, oe: PointerEvent, i: number) {
+            purease.pointer.click(oe, () => {
+                const flatItem = this.flatData[i];
+                if (!flatItem) {
+                    return;
                 }
-            };
-            this.$emit('changed', event);
-            this.$emit('click', event);
+                this.value = this.getItemValue(flatItem.item);
+                this.$emit('update:modelValue', this.value);
+                const event: lControl.IDlistChangedEvent = {
+                    'detail': {
+                        'value': this.value,
+                        'index': i,
+                        'label': this.getItemLabel(flatItem.item)
+                    }
+                };
+                this.$emit('changed', event);
+                this.$emit('tap', event);
+            });
         },
         /** --- 递归扁平化数据 --- */
         flattenData: function(this: IDlistVue, data: TDlistItem[], level: number, path: number[]): IFlatItem[] {

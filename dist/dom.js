@@ -1,13 +1,8 @@
-/** --- 最后一次 touchstart 的时间戳 --- */
-let lastTouchTime = 0;
-// --- 添加 touchstart 事件，既优化了点击行为，也记录了 touch 的时间戳信息 ---
-document.addEventListener('touchstart', function (e) {
-    lastTouchTime = Date.now();
-    doDown(e);
-}, {
-    'passive': true
+// --- 添加 touchstart 事件，优化点击行为 ---
+document.addEventListener('touchstart', function () {
+    // --- 空操作，仅为了激活某些浏览器的点击行为 ---
 });
-document.addEventListener('mousedown', (e) => {
+window.addEventListener('pointerdown', (e) => {
     doDown(e);
 });
 /** --- 正在显示中的 pop element --- */
@@ -73,24 +68,6 @@ function refreshPopPosition() {
 }
 refreshPopPosition();
 /**
- * --- 判断当前的事件是否是含有 touch 的设备触发的，如果当前就是 touch 则直接返回 false（false 代表 OK，true 代表 touch 设备却触发了 mouse 事件） ---
- */
-export function hasTouchButMouse(e) {
-    if (e instanceof TouchEvent || e.type === 'touchstart') {
-        return false;
-    }
-    if ((e.pointerType === 'touch') && (e.type === 'contextmenu')) {
-        // --- 当前是 mouse 但是却是 touch 触发的 ---
-        return true;
-    }
-    const now = Date.now();
-    if (now - lastTouchTime < 60_000) {
-        // --- 当前是 mouse 但是 60_000ms 内有 touch start ---
-        return true;
-    }
-    return false;
-}
-/**
  * --- 通过 class 名查找上层所有标签是否存在 ---
  * @param el 当前标签
  * @param name 要查找的 class 名
@@ -114,9 +91,6 @@ export function findParentByClass(el, name) {
 }
 /** --- 响应按下事件 --- */
 function doDown(e) {
-    if (hasTouchButMouse(e)) {
-        return;
-    }
     if (!showedPop) {
         return;
     }
@@ -188,128 +162,6 @@ export function index(el) {
         p = p.previousElementSibling;
     }
     return index;
-}
-/**
- * --- 绑定按下以及弹起事件，touch 和 mouse 只会绑定一个 ---
- * @param oe MouseEvent | TouchEvent
- * @param opt 回调选项
- */
-export function bindDown(oe, opt) {
-    if (hasTouchButMouse(oe)) {
-        return;
-    }
-    /** --- 上一次的坐标 --- */
-    let ox, oy;
-    if (oe instanceof MouseEvent) {
-        ox = oe.clientX;
-        oy = oe.clientY;
-    }
-    else {
-        ox = oe.touches[0].clientX;
-        oy = oe.touches[0].clientY;
-    }
-    /** --- 是否是第一次执行 move --- */
-    let isStart = false;
-    let end = undefined;
-    const move = function (e) {
-        // --- 虽然上层已经有 preventDefault 了，但是有可能 e.target 会被注销，这样就响应不到上层的 preventDefault 事件，所以要在这里再加一个 ---
-        if (!e.target || !document.body.contains(e.target) && e.cancelable) {
-            e.preventDefault();
-        }
-        /** --- 本次的移动方向 --- */
-        let dir = 'top';
-        const x = e instanceof MouseEvent ? e.clientX : e.touches[0].clientX;
-        const y = e instanceof MouseEvent ? e.clientY : e.touches[0].clientY;
-        if (x === ox && y === oy) {
-            return;
-        }
-        const xx = x - ox;
-        const xy = y - oy;
-        if (Math.abs(xy) > Math.abs(xx)) {
-            // --- 竖向滚动 ---
-            if (xy < 0) {
-                // -- 向上移 ---
-                dir = 'top';
-            }
-            else {
-                // -- 向下移 ---
-                dir = 'bottom';
-            }
-        }
-        else {
-            // --- 横向滚动 ---
-            if (xx < 0) {
-                // -- 向左移 ---
-                dir = 'left';
-            }
-            else {
-                // -- 向右移 ---
-                dir = 'right';
-            }
-        }
-        ox = x;
-        oy = y;
-        if (!isStart) {
-            isStart = true;
-            if (opt.start && (opt.start(e) === false)) {
-                if (e instanceof MouseEvent) {
-                    window.removeEventListener('mousemove', move);
-                    window.removeEventListener('mouseup', end);
-                }
-                else {
-                    oe.target.removeEventListener('touchmove', move);
-                    oe.target.removeEventListener('touchend', end);
-                    oe.target.removeEventListener('touchcancel', end);
-                }
-                return;
-            }
-        }
-        if (opt.move && (opt.move(e, dir) === false)) {
-            if (e instanceof MouseEvent) {
-                window.removeEventListener('mousemove', move);
-                window.removeEventListener('mouseup', end);
-            }
-            else {
-                if (oe.target) {
-                    oe.target.removeEventListener('touchmove', move);
-                    oe.target.removeEventListener('touchend', end);
-                    oe.target.removeEventListener('touchcancel', end);
-                }
-            }
-            return;
-        }
-    };
-    end = function (e) {
-        if (e instanceof MouseEvent) {
-            window.removeEventListener('mousemove', move);
-            window.removeEventListener('mouseup', end);
-        }
-        else {
-            if (oe.target) {
-                oe.target.removeEventListener('touchmove', move);
-                oe.target.removeEventListener('touchend', end);
-                oe.target.removeEventListener('touchcancel', end);
-            }
-        }
-        opt.up?.(e);
-        if (isStart) {
-            opt.end?.(e);
-        }
-    };
-    if (oe instanceof MouseEvent) {
-        window.addEventListener('mousemove', move, {
-            'passive': false
-        });
-        window.addEventListener('mouseup', end);
-    }
-    else {
-        oe.target.addEventListener('touchmove', move, {
-            'passive': false
-        });
-        oe.target.addEventListener('touchend', end);
-        oe.target.addEventListener('touchcancel', end);
-    }
-    opt.down?.(oe);
 }
 /**
  * --- 判断是否是 rtl 布局 ---

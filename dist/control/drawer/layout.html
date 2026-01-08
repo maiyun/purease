@@ -1,4 +1,4 @@
-<div class="pe-drawer" :class="[propBoolean('modelValue')&&'pe-show']" @click="click">
+<div class="pe-drawer" :class="[propBoolean('modelValue')&&'pe-show']" @pointerdown="down">
     <div class="pe-drawer-body" :style="{'width':widthComp}">
         <div class="pe-drawer-header" v-if="title">
             <div class="pe-drawer-title">{{title}}</div>

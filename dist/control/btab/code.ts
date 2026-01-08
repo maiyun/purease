@@ -1,5 +1,5 @@
-import * as lDom from '../../dom';
 import * as lControl from '../../control.js';
+import * as purease from '../../purease.js';
 
 export interface IBtabVue extends lControl.IControlVue {
     /** --- 选中的索引，默认 0 --- */
@@ -23,7 +23,7 @@ export interface IBtabVue extends lControl.IControlVue {
     /** --- 选择事件 --- */
     select: (index: number) => void;
     /** --- 鼠标按下事件 --- */
-    down: (e: TouchEvent | MouseEvent) => void;
+    down: (e: PointerEvent) => void;
     /** --- 调整大小事件 --- */
     resize: () => void;
 }
@@ -66,26 +66,23 @@ export const code = {
             this.index = index;
             this.$emit('modelValue', index);
         },
-        down: function(this: IBtabVue, e: TouchEvent | MouseEvent) {
-            if (lDom.hasTouchButMouse(e)) {
-                return;
-            }
+        down: function(this: IBtabVue, oe: PointerEvent) {
             if (this.cwidth <= this.width) {
                 return;
             }
             /** --- 最大能滚动 --- */
-            const target = e.target as HTMLElement | null;
+            const target = oe.target as HTMLElement | null;
             if (!target) {
                 return;
             }
             /** --- 原始 x 位置 --- */
-            const ox = e instanceof MouseEvent ? e.clientX : e.touches[0].clientX;
+            const ox = oe.clientX;
             /** --- 上次的 x 位置 --- */
             let x = ox;
-            lDom.bindDown(e, {
+            purease.pointer.down(oe, {
                 move: (ne) => {
                     // --- 当前的位置---
-                    const nx = ne instanceof MouseEvent ? ne.clientX : ne.touches[0].clientX;
+                    const nx = ne.clientX;
                     /** --- 移动的差值 --- */
                     const cx = nx - x;
                     x = nx;

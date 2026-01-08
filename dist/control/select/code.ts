@@ -1,5 +1,6 @@
 import * as lDom from '../../dom.js';
 import * as lControl from '../../control.js';
+import * as purease from '../../purease.js';
 
 export interface ISelectVue extends lControl.IControlVue {
     /** --- 当前选中值 --- */
@@ -21,11 +22,11 @@ export interface ISelectVue extends lControl.IControlVue {
     /** --- 多语言数据 --- */
     'localeData': Record<string, Record<string, string>>;
     /** --- 打开下拉 --- */
-    open: (e: MouseEvent) => void;
+    open: (e: PointerEvent) => void;
     /** --- 处理值改变 --- */
     onModelValue: (v: string) => void;
     /** --- 点击选项 --- */
-    click: (e: lControl.IDlistClickEvent) => void;
+    tap: (e: lControl.IDlistTapEvent) => void;
     /** --- 格式化后的数组 --- */
     'dataComp': Array<{ 'label': string; 'value': string; 'disabled': boolean; }>;
     /** --- 搜索过滤后的数据 --- */
@@ -115,12 +116,14 @@ export const code = {
         };
     },
     'methods': {
-        open: function(this: ISelectVue, e: MouseEvent) {
-            const el = e.target as HTMLElement;
-            if (!el.classList.contains('pe-select-label') && !el.classList.contains('pe-select-arrow')) {
-                return;
-            }
-            lDom.showPop(e, this.$refs.pop);
+        open: function(this: ISelectVue, oe: PointerEvent) {
+            purease.pointer.click(oe, e => {
+                const el = e.target as HTMLElement;
+                if (!el.classList.contains('pe-select-label') && !el.classList.contains('pe-select-arrow')) {
+                    return;
+                }
+                lDom.showPop(e, this.$refs.pop);
+            });
         },
         onModelValue: function(this: ISelectVue, v: string) {
             if (this.value === v) {
@@ -137,7 +140,7 @@ export const code = {
             }
             this.$emit('update:modelValue', this.value);
         },
-        click: function(this: ISelectVue, e: lControl.IDlistClickEvent) {
+        tap: function(this: ISelectVue, e: lControl.IDlistTapEvent) {
             this.searchValue = '';
             const event: lControl.ISelectChangedEvent = {
                 'detail': {

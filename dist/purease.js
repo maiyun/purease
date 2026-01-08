@@ -79,46 +79,19 @@ const locale = {
 };
 /** --- 总大页面 --- */
 export class AbstractPage {
+    /** --- 系统当前语言 --- */
+    _locale = 'en';
     /** --- 获取系统当前语言 --- */
     get locale() {
         return this._locale;
     }
+    /** --- 语言包路径，为空则没有加载前端语言包 --- */
+    _localePath = '';
     /** --- 获取语言包路径，可能为空 --- */
     get localePath() {
         return this._localePath;
     }
     constructor(opt) {
-        /** --- 系统当前语言 --- */
-        this._locale = 'en';
-        /** --- 语言包路径，为空则没有加载前端语言包 --- */
-        this._localePath = '';
-        /** --- dialog 信息 --- */
-        this.dialogInfo = {
-            'show': false,
-            'title': '',
-            'content': '',
-            'buttons': ['OK'],
-            'select': undefined
-        };
-        /** --- 验证码窗口 --- */
-        this.captchaInfo = {
-            'show': false,
-            'now': '',
-            'objects': {},
-        };
-        /** --- 底部弹出提示框 --- */
-        this.alertInfo = {
-            'show': false,
-            'content': '',
-            'timer': 0,
-            'type': 'default'
-        };
-        /** --- 整个窗口的宽度 --- */
-        this.windowWidth = 0;
-        /** --- 整个窗口的高度 --- */
-        this.windowHeight = 0;
-        /** --- 是否显示加载框 --- */
-        this.loading = false;
         if (opt.locale) {
             this._locale = opt.locale;
         }
@@ -182,6 +155,14 @@ export class AbstractPage {
     watch(name, cb, opt = {}) {
         return this.$watch(name, cb, opt);
     }
+    /** --- dialog 信息 --- */
+    dialogInfo = {
+        'show': false,
+        'title': '',
+        'content': '',
+        'buttons': ['OK'],
+        'select': undefined
+    };
     /** --- 弹出一个框框 --- */
     dialog(opt) {
         const o = typeof opt === 'string' ? {
@@ -208,6 +189,12 @@ export class AbstractPage {
             };
         });
     }
+    /** --- 验证码窗口 --- */
+    captchaInfo = {
+        'show': false,
+        'now': '',
+        'objects': {},
+    };
     /**
      * --- 弹出验证码确认框，确认后可立即提交，可用于登录、发验证码按钮等地方 ---
      * --- 请勿开启 loading ---
@@ -329,6 +316,13 @@ export class AbstractPage {
         }
         return false;
     }
+    /** --- 底部弹出提示框 --- */
+    alertInfo = {
+        'show': false,
+        'content': '',
+        'timer': 0,
+        'type': 'default'
+    };
     /** --- 显示一个 alert，支持 html，请注意传入内容的安全 --- */
     alert(content, type = 'default') {
         if (this.alertInfo.timer) {
@@ -342,6 +336,12 @@ export class AbstractPage {
         }, 3000);
         this.alertInfo.type = type;
     }
+    /** --- 整个窗口的宽度 --- */
+    windowWidth = 0;
+    /** --- 整个窗口的高度 --- */
+    windowHeight = 0;
+    /** --- 是否显示加载框 --- */
+    loading = false;
     /** --- 滚动到顶部 --- */
     toTop() {
         /*
@@ -367,6 +367,8 @@ export class AbstractPanel {
     onUnmounted() {
         return;
     }
+    /** --- 获取总大页面对象 --- */
+    rootPage;
     /**
      * --- 获取语言内容 ---
      */
@@ -399,6 +401,8 @@ export class AbstractPanel {
 }
 /** --- vue 对象 --- */
 export let vue;
+/** --- pointer 对象 --- */
+export let pointer;
 const dirname = import.meta.url.slice(0, import.meta.url.lastIndexOf('/'));
 /** --- 获取当前所在目录（参数留空获取 Purease 所在的目录，不以 / 结尾 --- */
 export function getDirname(importUrl) {
@@ -445,7 +449,8 @@ export function launcher(page, options = {}) {
         }
         // --- 通过标签加载库 ---
         const paths = [
-            `${cdn}/npm/vue@3.5.21/dist/vue.global${options.debug ? '' : '.prod.min'}.js`
+            `${cdn}/npm/vue@3.5.26/dist/vue.global${options.debug ? '' : '.prod.min'}.js`,
+            `${cdn}/npm/@litert/pointer@1.6.1/dist/index.umd.min.js`,
         ];
         // --- 加载 vue 以及必要库 ---
         await lTool.loadScripts(paths);
@@ -478,6 +483,7 @@ export function launcher(page, options = {}) {
         });
         // --- 将整个网页 vue 化 ---
         vue = window.Vue;
+        pointer = window.pointer;
         userPurease.global = vue.reactive(global);
         global = userPurease.global;
         const styles = [];

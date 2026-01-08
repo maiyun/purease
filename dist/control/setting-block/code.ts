@@ -1,13 +1,11 @@
 import * as lControl from '../../control.js';
-import * as lDom from '../../dom.js';
+import * as purease from '../../purease.js';
 
 export interface ISettingBlockVue extends lControl.IControlVue {
     /** --- 是否启用悬停效果，默认 false --- */
     'hover': boolean;
-    /** --- 鼠标进入事件处理 --- */
-    enter: (e: MouseEvent | TouchEvent) => void;
-    /** --- 鼠标离开事件处理 --- */
-    leave: (e: MouseEvent | TouchEvent) => void;
+    /** --- 进入事件处理 --- */
+    enter: (oe: PointerEvent) => void;
 }
 
 export const code = {
@@ -18,23 +16,21 @@ export const code = {
         },
     },
     'methods': {
-        enter: function(this: ISettingBlockVue, e: MouseEvent | TouchEvent) {
-            if (lDom.hasTouchButMouse(e)) {
-                return;
-            }
-            if (!this.propBoolean('hover')) {
-                return;
-            }
-            this.$el.classList.add('pe-hover');
-        },
-        leave: function(this: ISettingBlockVue, e: MouseEvent | TouchEvent) {
-            if (lDom.hasTouchButMouse(e)) {
-                return;
-            }
-            if (!this.propBoolean('hover')) {
-                return;
-            }
-            this.$el.classList.remove('pe-hover');
+        enter: function(this: ISettingBlockVue, oe: PointerEvent) {
+            purease.pointer.hover(oe, {
+                enter: () => {
+                    if (!this.propBoolean('hover')) {
+                        return;
+                    }
+                    this.$el.classList.add('pe-hover');
+                },
+                leave: () => {
+                    if (!this.propBoolean('hover')) {
+                        return;
+                    }
+                    this.$el.classList.remove('pe-hover');
+                },
+            });
         },
     },
 };

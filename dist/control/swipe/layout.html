@@ -1,5 +1,5 @@
 <div class="pe-swipe" :class="['pe-control-'+control]">
-    <div class="pe-swipe-wrap" @mousedown="down" @touchstart="down" :style="{'border-radius':radius?radius+'px':undefined}">
+    <div class="pe-swipe-wrap" @pointerdown="down" :style="{'border-radius':radius?radius+'px':undefined}">
         <div class="pe-swipe-items" ref="items">
             <slot></slot>
         </div>

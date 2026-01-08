@@ -1,5 +1,6 @@
 import * as lDom from '../../dom';
 import * as lControl from '../../control.js';
+import * as purease from '../../purease.js';
 
 export interface IHeaderItemVue extends lControl.IControlVue {
     /** --- 链接地址 --- */
@@ -8,10 +9,10 @@ export interface IHeaderItemVue extends lControl.IControlVue {
     'menuCount': number;
     /** --- 悬停状态 --- */
     'hover': boolean;
-    /** --- 鼠标进入事件 --- */
-    enter: (e: MouseEvent | TouchEvent) => void;
-    /** --- 鼠标离开事件 --- */
-    leave: (e: MouseEvent | TouchEvent) => void;
+    /** --- 进入事件 --- */
+    enter: (e: PointerEvent) => void;
+    /** --- 按下事件 --- */
+    down: (e: PointerEvent) => void;
 }
 
 export const code = {
@@ -28,37 +29,46 @@ export const code = {
         };
     },
     'methods': {
-        enter: function(this: IHeaderItemVue, e: MouseEvent | TouchEvent) {
-            if ('ontouchstart' in window) {
+        enter: function(this: IHeaderItemVue, oe: PointerEvent) {
+            if (oe.pointerType !== 'mouse') {
                 return;
             }
+            // --- 仅鼠标有效 ---
+            purease.pointer.hover(oe, {
+                enter: () => {
+                    const target = oe.target as HTMLElement;
+                    if (target.classList.contains('pe-menu') || lDom.findParentByClass(target, 'pe-menu')) {
+                        return;
+                    }
+                    this.hover = !this.hover;
+                },
+                leave: () => {
+                    this.hover = false;
+                }
+            });
+
             // --- 只有可能非触摸屏 ---
-            const target = e.target as HTMLElement;
+            const target = oe.target as HTMLElement;
             if (target.classList.contains('pe-menu') || lDom.findParentByClass(target, 'pe-menu')) {
                 return;
             }
             this.hover = !this.hover;
         },
-        leave: function(this: IHeaderItemVue) {
-            if ('ontouchstart' in window) {
+        down: function(this: IHeaderItemVue, oe: PointerEvent) {
+            if (oe.pointerType === 'mouse') {
                 return;
             }
-            this.hover = false;
-        },
-        click: function(this: IHeaderItemVue, e: MouseEvent | TouchEvent) {
-            // --- 仅手机端有效 ---
-            if (!('ontouchstart' in window)) {
-                return;
-            }
-            // --- 只有可能触摸屏 ---
-            if (!this.href) {
-                e.preventDefault();
-            }
-            const target = e.target as HTMLElement;
-            if (target.classList.contains('pe-menu') || lDom.findParentByClass(target, 'pe-menu')) {
-                return;
-            }
-            this.hover = !this.hover;
+            // --- 非鼠标有效 ---
+            purease.pointer.click(oe, (e) => {
+                if (!this.href) {
+                    e.preventDefault();
+                }
+                const target = e.target as HTMLElement;
+                if (target.classList.contains('pe-menu') || lDom.findParentByClass(target, 'pe-menu')) {
+                    return;
+                }
+                this.hover = !this.hover;
+            });
         },
     },
 };
