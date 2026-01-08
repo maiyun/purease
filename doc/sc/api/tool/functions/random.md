@@ -8,7 +8,7 @@
 
 > **random**(`length`, `source`, `block`): `string`
 
-Defined in: tool.ts:169
+Defined in: [tool.ts:169](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L169)
 
 ## Parameters
 

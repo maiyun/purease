@@ -6,7 +6,7 @@
 
 # Interface: IControlVue
 
-Defined in: control.ts:11
+Defined in: [control.ts:11](https://github.com/maiyun/purease/blob/master/dist/control.ts#L11)
 
 Vue 实例
 
@@ -24,7 +24,7 @@ Vue 实例
 
 > **$attrs**: `Record`\<`string`, `string`\>
 
-Defined in: purease.ts:906
+Defined in: [purease.ts:911](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L911)
 
 #### Inherited from
 
@@ -36,7 +36,7 @@ Defined in: purease.ts:906
 
 > **$data**: `Record`\<`string`, `any`\>
 
-Defined in: purease.ts:907
+Defined in: [purease.ts:912](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L912)
 
 #### Inherited from
 
@@ -48,7 +48,7 @@ Defined in: purease.ts:907
 
 > **$el**: `HTMLElement`
 
-Defined in: purease.ts:908
+Defined in: [purease.ts:913](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L913)
 
 #### Inherited from
 
@@ -60,7 +60,7 @@ Defined in: purease.ts:908
 
 > **$options**: `Record`\<`string`, `any`\>
 
-Defined in: purease.ts:912
+Defined in: [purease.ts:917](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L917)
 
 #### Inherited from
 
@@ -72,7 +72,7 @@ Defined in: purease.ts:912
 
 > **$parent**: [`IVue`](../../purease/interfaces/IVue.md) \| `null`
 
-Defined in: purease.ts:913
+Defined in: [purease.ts:918](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L918)
 
 #### Inherited from
 
@@ -84,7 +84,7 @@ Defined in: purease.ts:913
 
 > **$props**: `Record`\<`string`, `any`\>
 
-Defined in: purease.ts:914
+Defined in: [purease.ts:919](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L919)
 
 #### Inherited from
 
@@ -96,7 +96,7 @@ Defined in: purease.ts:914
 
 > **$refs**: `Record`\<`string`, `HTMLElement` & [`IVue`](../../purease/interfaces/IVue.md)\>
 
-Defined in: purease.ts:915
+Defined in: [purease.ts:920](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L920)
 
 #### Inherited from
 
@@ -108,7 +108,7 @@ Defined in: purease.ts:915
 
 > **$root**: [`IVue`](../../purease/interfaces/IVue.md)
 
-Defined in: purease.ts:916
+Defined in: [purease.ts:921](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L921)
 
 #### Inherited from
 
@@ -120,7 +120,7 @@ Defined in: purease.ts:916
 
 > **$slots**: `object`
 
-Defined in: purease.ts:917
+Defined in: [purease.ts:922](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L922)
 
 #### Index Signature
 
@@ -140,7 +140,7 @@ Defined in: purease.ts:917
 
 > **$watch**: (`o`, `cb`, `opt?`) => `void`
 
-Defined in: purease.ts:921
+Defined in: [purease.ts:926](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L926)
 
 #### Parameters
 
@@ -176,7 +176,7 @@ Defined in: purease.ts:921
 
 > **alignHComp**: `string` \| `undefined`
 
-Defined in: control.ts:26
+Defined in: [control.ts:26](https://github.com/maiyun/purease/blob/master/dist/control.ts#L26)
 
 获取 alignH 的 css 属性模式，请确保 $props.alignH 存在
 
@@ -186,7 +186,7 @@ Defined in: control.ts:26
 
 > **alignVComp**: `string` \| `undefined`
 
-Defined in: control.ts:28
+Defined in: [control.ts:28](https://github.com/maiyun/purease/blob/master/dist/control.ts#L28)
 
 获取 alignH 的 css 属性模式，请确保 props.alignH 存在
 
@@ -196,7 +196,7 @@ Defined in: control.ts:28
 
 > **isRtl**: `boolean`
 
-Defined in: control.ts:30
+Defined in: [control.ts:30](https://github.com/maiyun/purease/blob/master/dist/control.ts#L30)
 
 是否是 rtl 模式
 
@@ -206,7 +206,7 @@ Defined in: control.ts:30
 
 > **l**: (`key`, `data?`) => `string`
 
-Defined in: control.ts:24
+Defined in: [control.ts:24](https://github.com/maiyun/purease/blob/master/dist/control.ts#L24)
 
 获取语言包内容
 
@@ -230,7 +230,7 @@ Defined in: control.ts:24
 
 > **parentByName**: (`controlName`) => `IControlVue` \| `null`
 
-Defined in: control.ts:22
+Defined in: [control.ts:22](https://github.com/maiyun/purease/blob/master/dist/control.ts#L22)
 
 根据 control name 查询上层控件
 
@@ -250,7 +250,7 @@ Defined in: control.ts:22
 
 > **propArray**: (`name`) => `any`[]
 
-Defined in: control.ts:20
+Defined in: [control.ts:20](https://github.com/maiyun/purease/blob/master/dist/control.ts#L20)
 
 获取 props 中的 array 类型的值
 
@@ -270,7 +270,7 @@ Defined in: control.ts:20
 
 > **propBoolean**: (`name`) => `boolean`
 
-Defined in: control.ts:14
+Defined in: [control.ts:14](https://github.com/maiyun/purease/blob/master/dist/control.ts#L14)
 
 获取 props 中的 boolean 类型的值
 
@@ -290,7 +290,7 @@ Defined in: control.ts:14
 
 > **propInt**: (`name`) => `number`
 
-Defined in: control.ts:18
+Defined in: [control.ts:18](https://github.com/maiyun/purease/blob/master/dist/control.ts#L18)
 
 获取 props 中的 int 类型的值
 
@@ -310,7 +310,7 @@ Defined in: control.ts:18
 
 > **propNumber**: (`name`) => `number`
 
-Defined in: control.ts:16
+Defined in: [control.ts:16](https://github.com/maiyun/purease/blob/master/dist/control.ts#L16)
 
 获取 props 中的 number 类型的值
 
@@ -330,7 +330,7 @@ Defined in: control.ts:16
 
 > **$emit**(`name`, ...`arg`): `void`
 
-Defined in: purease.ts:909
+Defined in: [purease.ts:914](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L914)
 
 #### Parameters
 
@@ -356,7 +356,7 @@ Defined in: purease.ts:909
 
 > **$forceUpdate**(): `void`
 
-Defined in: purease.ts:910
+Defined in: [purease.ts:915](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L915)
 
 #### Returns
 
@@ -372,7 +372,7 @@ Defined in: purease.ts:910
 
 > **$nextTick**(): `Promise`\<`void`\>
 
-Defined in: purease.ts:911
+Defined in: [purease.ts:916](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L916)
 
 #### Returns
 

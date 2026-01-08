@@ -6,7 +6,7 @@
 
 # Interface: IDatepanelSelectedEvent
 
-Defined in: control.ts:235
+Defined in: [control.ts:246](https://github.com/maiyun/purease/blob/master/dist/control.ts#L246)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: control.ts:235
 
 > **detail**: `object`
 
-Defined in: control.ts:236
+Defined in: [control.ts:247](https://github.com/maiyun/purease/blob/master/dist/control.ts#L247)
 
 #### date
 

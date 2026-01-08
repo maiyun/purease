@@ -6,7 +6,7 @@
 
 # Interface: IClassPrototype
 
-Defined in: tool.ts:17
+Defined in: [tool.ts:17](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L17)
 
 Copyright 2007 - 2025 MAIYUN.NET
 
@@ -28,7 +28,7 @@ limitations under the License.
 
 > **access**: `Record`\<`string`, \{ `get?`: `any`; `set?`: `any`; \}\>
 
-Defined in: tool.ts:19
+Defined in: [tool.ts:19](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L19)
 
 ***
 
@@ -36,4 +36,4 @@ Defined in: tool.ts:19
 
 > **method**: `Record`\<`string`, `any`\>
 
-Defined in: tool.ts:18
+Defined in: [tool.ts:18](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L18)

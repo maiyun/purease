@@ -8,7 +8,7 @@
 
 > **getBoolean**(`param`): `boolean`
 
-Defined in: tool.ts:192
+Defined in: [tool.ts:192](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L192)
 
 根据参数获取最终的布尔值
 

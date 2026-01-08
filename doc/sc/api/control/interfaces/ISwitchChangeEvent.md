@@ -6,7 +6,7 @@
 
 # Interface: ISwitchChangeEvent
 
-Defined in: control.ts:206
+Defined in: [control.ts:217](https://github.com/maiyun/purease/blob/master/dist/control.ts#L217)
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: control.ts:206
 
 > **detail**: `object`
 
-Defined in: control.ts:207
+Defined in: [control.ts:218](https://github.com/maiyun/purease/blob/master/dist/control.ts#L218)
 
 #### value
 
@@ -30,7 +30,7 @@ Defined in: control.ts:207
 
 > **go**: `boolean`
 
-Defined in: control.ts:144
+Defined in: [control.ts:144](https://github.com/maiyun/purease/blob/master/dist/control.ts#L144)
 
 #### Inherited from
 
@@ -42,7 +42,7 @@ Defined in: control.ts:144
 
 > **preventDefault**: () => `void`
 
-Defined in: control.ts:146
+Defined in: [control.ts:146](https://github.com/maiyun/purease/blob/master/dist/control.ts#L146)
 
 阻止默认行为
 

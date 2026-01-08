@@ -6,7 +6,7 @@
 
 # Interface: IDateChangedEvent
 
-Defined in: control.ts:214
+Defined in: [control.ts:225](https://github.com/maiyun/purease/blob/master/dist/control.ts#L225)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: control.ts:214
 
 > **detail**: `object`
 
-Defined in: control.ts:215
+Defined in: [control.ts:226](https://github.com/maiyun/purease/blob/master/dist/control.ts#L226)
 
 #### value?
 

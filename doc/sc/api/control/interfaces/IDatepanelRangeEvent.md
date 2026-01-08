@@ -6,7 +6,7 @@
 
 # Interface: IDatepanelRangeEvent
 
-Defined in: control.ts:222
+Defined in: [control.ts:233](https://github.com/maiyun/purease/blob/master/dist/control.ts#L233)
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: control.ts:222
 
 > **detail**: `object`
 
-Defined in: control.ts:223
+Defined in: [control.ts:234](https://github.com/maiyun/purease/blob/master/dist/control.ts#L234)
 
 #### end
 
@@ -34,7 +34,7 @@ Defined in: control.ts:223
 
 > **go**: `boolean`
 
-Defined in: control.ts:144
+Defined in: [control.ts:144](https://github.com/maiyun/purease/blob/master/dist/control.ts#L144)
 
 #### Inherited from
 
@@ -46,7 +46,7 @@ Defined in: control.ts:144
 
 > **preventDefault**: () => `void`
 
-Defined in: control.ts:146
+Defined in: [control.ts:146](https://github.com/maiyun/purease/blob/master/dist/control.ts#L146)
 
 阻止默认行为
 

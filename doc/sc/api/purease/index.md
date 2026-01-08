@@ -29,6 +29,7 @@
 ## Variables
 
 - [global](variables/global.md)
+- [pointer](variables/pointer.md)
 - [vue](variables/vue.md)
 
 ## Functions

@@ -8,7 +8,7 @@
 
 > **rand**(`min`, `max`): `number`
 
-Defined in: tool.ts:152
+Defined in: [tool.ts:152](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L152)
 
 生成范围内的随机数
 

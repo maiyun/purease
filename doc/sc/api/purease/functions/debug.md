@@ -8,7 +8,7 @@
 
 > **debug**(`message?`, ...`optionalParams?`): `void`
 
-Defined in: purease.ts:884
+Defined in: [purease.ts:889](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L889)
 
 打印调试信息，线上环境不会打印
 

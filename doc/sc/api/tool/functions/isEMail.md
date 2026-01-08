@@ -8,7 +8,7 @@
 
 > **isEMail**(`email`): `boolean`
 
-Defined in: tool.ts:746
+Defined in: [tool.ts:746](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L746)
 
 是否是邮件地址
 

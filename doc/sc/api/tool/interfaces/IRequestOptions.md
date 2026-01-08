@@ -6,7 +6,7 @@
 
 # Interface: IRequestOptions
 
-Defined in: tool.ts:941
+Defined in: [tool.ts:941](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L941)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: tool.ts:941
 
 > `optional` **body**: `FormData`
 
-Defined in: tool.ts:944
+Defined in: [tool.ts:944](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L944)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: tool.ts:944
 
 > `optional` **credentials**: `boolean`
 
-Defined in: tool.ts:942
+Defined in: [tool.ts:942](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L942)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: tool.ts:942
 
 > `optional` **end**: () => `void` \| `Promise`\<`void`\>
 
-Defined in: tool.ts:953
+Defined in: [tool.ts:953](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L953)
 
 #### Returns
 
@@ -42,7 +42,7 @@ Defined in: tool.ts:953
 
 > `optional` **error**: () => `void` \| `Promise`\<`void`\>
 
-Defined in: tool.ts:956
+Defined in: [tool.ts:956](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L956)
 
 #### Returns
 
@@ -54,7 +54,7 @@ Defined in: tool.ts:956
 
 > `optional` **headers**: `HeadersInit`
 
-Defined in: tool.ts:947
+Defined in: [tool.ts:947](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L947)
 
 ***
 
@@ -62,7 +62,7 @@ Defined in: tool.ts:947
 
 > `optional` **load**: (`res`) => `void` \| `Promise`\<`void`\>
 
-Defined in: tool.ts:955
+Defined in: [tool.ts:955](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L955)
 
 #### Parameters
 
@@ -80,7 +80,7 @@ Defined in: tool.ts:955
 
 > `optional` **method**: `"GET"` \| `"POST"`
 
-Defined in: tool.ts:943
+Defined in: [tool.ts:943](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L943)
 
 ***
 
@@ -88,7 +88,7 @@ Defined in: tool.ts:943
 
 > `optional` **progress**: (`loaded`, `total`) => `void` \| `Promise`\<`void`\>
 
-Defined in: tool.ts:954
+Defined in: [tool.ts:954](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L954)
 
 #### Parameters
 
@@ -110,7 +110,7 @@ Defined in: tool.ts:954
 
 > `optional` **responseType**: `XMLHttpRequestResponseType`
 
-Defined in: tool.ts:946
+Defined in: [tool.ts:946](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L946)
 
 ***
 
@@ -118,7 +118,7 @@ Defined in: tool.ts:946
 
 > `optional` **start**: (`total`) => `void` \| `Promise`\<`void`\>
 
-Defined in: tool.ts:952
+Defined in: [tool.ts:952](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L952)
 
 #### Parameters
 
@@ -136,7 +136,7 @@ Defined in: tool.ts:952
 
 > `optional` **timeout**: `number`
 
-Defined in: tool.ts:945
+Defined in: [tool.ts:945](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L945)
 
 ***
 
@@ -144,7 +144,7 @@ Defined in: tool.ts:945
 
 > `optional` **uploadEnd**: () => `void` \| `Promise`\<`void`\>
 
-Defined in: tool.ts:951
+Defined in: [tool.ts:951](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L951)
 
 #### Returns
 
@@ -156,7 +156,7 @@ Defined in: tool.ts:951
 
 > `optional` **uploadProgress**: (`loaded`, `total`) => `void` \| `Promise`\<`void`\>
 
-Defined in: tool.ts:950
+Defined in: [tool.ts:950](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L950)
 
 #### Parameters
 
@@ -178,7 +178,7 @@ Defined in: tool.ts:950
 
 > `optional` **uploadStart**: (`total`) => `void` \| `Promise`\<`void`\>
 
-Defined in: tool.ts:949
+Defined in: [tool.ts:949](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L949)
 
 #### Parameters
 

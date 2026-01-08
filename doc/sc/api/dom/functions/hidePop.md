@@ -8,7 +8,7 @@
 
 > **hidePop**(`pop?`): `void`
 
-Defined in: dom.ts:36
+Defined in: [dom.ts:31](https://github.com/maiyun/purease/blob/master/dist/dom.ts#L31)
 
 隐藏正在显示的中的 pop
 

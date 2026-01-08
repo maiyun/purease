@@ -8,7 +8,7 @@
 
 > **findParentByClass**(`el`, `name`): `HTMLElement` \| `null`
 
-Defined in: dom.ts:105
+Defined in: [dom.ts:81](https://github.com/maiyun/purease/blob/master/dist/dom.ts#L81)
 
 通过 class 名查找上层所有标签是否存在
 

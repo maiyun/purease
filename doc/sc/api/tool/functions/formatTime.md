@@ -8,7 +8,7 @@
 
 > **formatTime**(`ts`, `tz?`): `object`
 
-Defined in: tool.ts:675
+Defined in: [tool.ts:675](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L675)
 
 将日期对象或毫秒级时间戳转换为字符串
 

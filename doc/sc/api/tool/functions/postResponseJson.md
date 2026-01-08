@@ -8,7 +8,7 @@
 
 > **postResponseJson**(`url`, `data`, `init?`): `Promise`\<`any`\>
 
-Defined in: tool.ts:446
+Defined in: [tool.ts:446](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L446)
 
 发起 POST 请求并解析 JSON 响应
 

@@ -6,7 +6,7 @@
 
 # Interface: ITextBeforechangeEvent
 
-Defined in: control.ts:159
+Defined in: [control.ts:170](https://github.com/maiyun/purease/blob/master/dist/control.ts#L170)
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: control.ts:159
 
 > **detail**: `object`
 
-Defined in: control.ts:160
+Defined in: [control.ts:171](https://github.com/maiyun/purease/blob/master/dist/control.ts#L171)
 
 #### change?
 
@@ -34,7 +34,7 @@ Defined in: control.ts:160
 
 > **go**: `boolean`
 
-Defined in: control.ts:144
+Defined in: [control.ts:144](https://github.com/maiyun/purease/blob/master/dist/control.ts#L144)
 
 #### Inherited from
 
@@ -46,7 +46,7 @@ Defined in: control.ts:144
 
 > **preventDefault**: () => `void`
 
-Defined in: control.ts:146
+Defined in: [control.ts:146](https://github.com/maiyun/purease/blob/master/dist/control.ts#L146)
 
 阻止默认行为
 

@@ -21,10 +21,11 @@
 - [ISpaShowEvent](interfaces/ISpaShowEvent.md)
 - [ISwitchChangeEvent](interfaces/ISwitchChangeEvent.md)
 - [ITextBeforechangeEvent](interfaces/ITextBeforechangeEvent.md)
+- [IUploaderRemoveEvent](interfaces/IUploaderRemoveEvent.md)
 
 ## Type Aliases
 
-- [IDlistClickEvent](type-aliases/IDlistClickEvent.md)
+- [IDlistTapEvent](type-aliases/IDlistTapEvent.md)
 
 ## Variables
 

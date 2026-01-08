@@ -6,7 +6,7 @@
 
 # Abstract Class: AbstractPanel
 
-Defined in: purease.ts:428
+Defined in: [purease.ts:428](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L428)
 
 大页面的内嵌页面
 
@@ -26,7 +26,7 @@ Defined in: purease.ts:428
 
 > **rootPage**: [`AbstractPage`](AbstractPage.md) & `Record`\<`string`, `any`\>
 
-Defined in: purease.ts:442
+Defined in: [purease.ts:442](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L442)
 
 获取总大页面对象
 
@@ -38,7 +38,7 @@ Defined in: purease.ts:442
 
 > **get** **l**(): (`key`, `data?`) => `string`
 
-Defined in: purease.ts:447
+Defined in: [purease.ts:447](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L447)
 
 获取语言内容
 
@@ -68,7 +68,7 @@ Defined in: purease.ts:447
 
 > **get** **nextTick**(): () => `Promise`\<`void`\>
 
-Defined in: purease.ts:463
+Defined in: [purease.ts:463](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L463)
 
 等待渲染
 
@@ -88,7 +88,7 @@ Defined in: purease.ts:463
 
 > **get** **refs**(): `Record`\<`string`, `HTMLElement` & [`IVue`](../interfaces/IVue.md) & `Record`\<`string`, `any`\>\>
 
-Defined in: purease.ts:456
+Defined in: [purease.ts:456](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L456)
 
 获取 refs 情况
 
@@ -102,7 +102,7 @@ Defined in: purease.ts:456
 
 > `abstract` **main**(): `void` \| `Promise`\<`void`\>
 
-Defined in: purease.ts:431
+Defined in: [purease.ts:431](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L431)
 
 入口方法
 
@@ -116,7 +116,7 @@ Defined in: purease.ts:431
 
 > **onBeforeUnmount**(): `void` \| `Promise`\<`void`\>
 
-Defined in: purease.ts:433
+Defined in: [purease.ts:433](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L433)
 
 #### Returns
 
@@ -128,7 +128,7 @@ Defined in: purease.ts:433
 
 > **onUnmounted**(): `void` \| `Promise`\<`void`\>
 
-Defined in: purease.ts:437
+Defined in: [purease.ts:437](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L437)
 
 #### Returns
 
@@ -140,7 +140,7 @@ Defined in: purease.ts:437
 
 > **watch**\<`T`, `TK`, `TR`\>(`name`, `cb`, `opt`): () => `void`
 
-Defined in: purease.ts:473
+Defined in: [purease.ts:473](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L473)
 
 监视变动
 

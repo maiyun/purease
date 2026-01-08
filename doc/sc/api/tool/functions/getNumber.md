@@ -8,7 +8,7 @@
 
 > **getNumber**(`param`): `number`
 
-Defined in: tool.ts:207
+Defined in: [tool.ts:207](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L207)
 
 根据参数获取最终的数字型
 

@@ -8,4 +8,4 @@
 
 > `const` **RANDOM\_LN**: `string`
 
-Defined in: tool.ts:164
+Defined in: [tool.ts:164](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L164)

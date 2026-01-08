@@ -8,7 +8,7 @@
 
 > **urlResolve**(`from`, `to`): `string`
 
-Defined in: tool.ts:551
+Defined in: [tool.ts:551](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L551)
 
 将相对路径根据基准路径进行转换
 

@@ -8,7 +8,7 @@
 
 > **loadLinks**(`urls`, `opt`): `Promise`\<`void`\>
 
-Defined in: tool.ts:896
+Defined in: [tool.ts:896](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L896)
 
 批量加载 css 文件
 

@@ -6,7 +6,7 @@
 
 # Interface: IShowCaptchaOptions
 
-Defined in: purease.ts:1002
+Defined in: [purease.ts:1007](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1007)
 
 显示验证码选项
 
@@ -16,7 +16,7 @@ Defined in: purease.ts:1002
 
 > **akey**: `string`
 
-Defined in: purease.ts:1006
+Defined in: [purease.ts:1011](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1011)
 
 验证码 key
 
@@ -26,6 +26,6 @@ Defined in: purease.ts:1006
 
 > **factory**: `"tc"` \| `"cf"`
 
-Defined in: purease.ts:1004
+Defined in: [purease.ts:1009](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1009)
 
 验证码服务商

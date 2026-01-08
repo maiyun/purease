@@ -6,7 +6,7 @@
 
 # Interface: ISpaHideEvent
 
-Defined in: control.ts:187
+Defined in: [control.ts:198](https://github.com/maiyun/purease/blob/master/dist/control.ts#L198)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: control.ts:187
 
 > **detail**: `object`
 
-Defined in: control.ts:188
+Defined in: [control.ts:199](https://github.com/maiyun/purease/blob/master/dist/control.ts#L199)
 
 #### next
 

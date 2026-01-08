@@ -6,7 +6,7 @@
 
 # Interface: IVue
 
-Defined in: purease.ts:905
+Defined in: [purease.ts:910](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L910)
 
 Vue 实例
 
@@ -24,7 +24,7 @@ Vue 实例
 
 > **$attrs**: `Record`\<`string`, `string`\>
 
-Defined in: purease.ts:906
+Defined in: [purease.ts:911](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L911)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: purease.ts:906
 
 > **$data**: `Record`\<`string`, `any`\>
 
-Defined in: purease.ts:907
+Defined in: [purease.ts:912](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L912)
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: purease.ts:907
 
 > **$el**: `HTMLElement`
 
-Defined in: purease.ts:908
+Defined in: [purease.ts:913](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L913)
 
 ***
 
@@ -48,7 +48,7 @@ Defined in: purease.ts:908
 
 > **$options**: `Record`\<`string`, `any`\>
 
-Defined in: purease.ts:912
+Defined in: [purease.ts:917](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L917)
 
 ***
 
@@ -56,7 +56,7 @@ Defined in: purease.ts:912
 
 > **$parent**: `IVue` \| `null`
 
-Defined in: purease.ts:913
+Defined in: [purease.ts:918](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L918)
 
 ***
 
@@ -64,7 +64,7 @@ Defined in: purease.ts:913
 
 > **$props**: `Record`\<`string`, `any`\>
 
-Defined in: purease.ts:914
+Defined in: [purease.ts:919](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L919)
 
 ***
 
@@ -72,7 +72,7 @@ Defined in: purease.ts:914
 
 > **$refs**: `Record`\<`string`, `HTMLElement` & `IVue`\>
 
-Defined in: purease.ts:915
+Defined in: [purease.ts:920](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L920)
 
 ***
 
@@ -80,7 +80,7 @@ Defined in: purease.ts:915
 
 > **$root**: `IVue`
 
-Defined in: purease.ts:916
+Defined in: [purease.ts:921](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L921)
 
 ***
 
@@ -88,7 +88,7 @@ Defined in: purease.ts:916
 
 > **$slots**: `object`
 
-Defined in: purease.ts:917
+Defined in: [purease.ts:922](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L922)
 
 #### Index Signature
 
@@ -104,7 +104,7 @@ Defined in: purease.ts:917
 
 > **$watch**: (`o`, `cb`, `opt?`) => `void`
 
-Defined in: purease.ts:921
+Defined in: [purease.ts:926](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L926)
 
 #### Parameters
 
@@ -136,7 +136,7 @@ Defined in: purease.ts:921
 
 > **$emit**(`name`, ...`arg`): `void`
 
-Defined in: purease.ts:909
+Defined in: [purease.ts:914](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L914)
 
 #### Parameters
 
@@ -158,7 +158,7 @@ Defined in: purease.ts:909
 
 > **$forceUpdate**(): `void`
 
-Defined in: purease.ts:910
+Defined in: [purease.ts:915](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L915)
 
 #### Returns
 
@@ -170,7 +170,7 @@ Defined in: purease.ts:910
 
 > **$nextTick**(): `Promise`\<`void`\>
 
-Defined in: purease.ts:911
+Defined in: [purease.ts:916](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L916)
 
 #### Returns
 

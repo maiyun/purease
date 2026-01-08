@@ -8,7 +8,7 @@
 
 > **findParentByTag**(`el`, `name`): `HTMLElement` \| `null`
 
-Defined in: dom.ts:168
+Defined in: [dom.ts:141](https://github.com/maiyun/purease/blob/master/dist/dom.ts#L141)
 
 通过 tagname 查找上层所有标签是否存在
 

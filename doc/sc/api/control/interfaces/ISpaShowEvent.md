@@ -6,7 +6,7 @@
 
 # Interface: ISpaShowEvent
 
-Defined in: control.ts:180
+Defined in: [control.ts:191](https://github.com/maiyun/purease/blob/master/dist/control.ts#L191)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: control.ts:180
 
 > **detail**: `object`
 
-Defined in: control.ts:181
+Defined in: [control.ts:192](https://github.com/maiyun/purease/blob/master/dist/control.ts#L192)
 
 #### path
 

@@ -6,7 +6,7 @@
 
 # Interface: IDlistChangedEvent
 
-Defined in: control.ts:168
+Defined in: [control.ts:179](https://github.com/maiyun/purease/blob/master/dist/control.ts#L179)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: control.ts:168
 
 > **detail**: `object`
 
-Defined in: control.ts:169
+Defined in: [control.ts:180](https://github.com/maiyun/purease/blob/master/dist/control.ts#L180)
 
 #### index
 

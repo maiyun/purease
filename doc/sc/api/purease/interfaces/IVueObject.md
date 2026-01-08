@@ -6,7 +6,7 @@
 
 # Interface: IVueObject
 
-Defined in: purease.ts:941
+Defined in: [purease.ts:946](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L946)
 
 ## Methods
 
@@ -14,7 +14,7 @@ Defined in: purease.ts:941
 
 > **createApp**(`opt`): [`IVApp`](IVApp.md)
 
-Defined in: purease.ts:942
+Defined in: [purease.ts:947](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L947)
 
 #### Parameters
 
@@ -32,7 +32,7 @@ Defined in: purease.ts:942
 
 > **h**(`tag`, `props?`, `list?`): `any`
 
-Defined in: purease.ts:950
+Defined in: [purease.ts:955](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L955)
 
 #### Parameters
 
@@ -58,7 +58,7 @@ Defined in: purease.ts:950
 
 > **reactive**\<`T`\>(`obj`): `T`
 
-Defined in: purease.ts:944
+Defined in: [purease.ts:949](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L949)
 
 #### Type Parameters
 
@@ -82,7 +82,7 @@ Defined in: purease.ts:944
 
 > **ref**\<`T`\>(`obj`): `object`
 
-Defined in: purease.ts:943
+Defined in: [purease.ts:948](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L948)
 
 #### Type Parameters
 
@@ -110,7 +110,7 @@ Defined in: purease.ts:943
 
 > **watch**(`v`, `cb`, `opt`): `void`
 
-Defined in: purease.ts:945
+Defined in: [purease.ts:950](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L950)
 
 #### Parameters
 

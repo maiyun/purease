@@ -8,7 +8,7 @@
 
 > **sleep**(`ms`): `Promise`\<`boolean`\>
 
-Defined in: tool.ts:139
+Defined in: [tool.ts:139](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L139)
 
 等待毫秒
 

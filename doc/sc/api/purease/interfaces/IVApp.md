@@ -6,7 +6,7 @@
 
 # Interface: IVApp
 
-Defined in: purease.ts:967
+Defined in: [purease.ts:972](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L972)
 
 Vue 应用
 
@@ -16,7 +16,7 @@ Vue 应用
 
 > **\_container**: `HTMLElement`
 
-Defined in: purease.ts:979
+Defined in: [purease.ts:984](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L984)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: purease.ts:979
 
 > **config**: [`IVueConfig`](IVueConfig.md)
 
-Defined in: purease.ts:970
+Defined in: [purease.ts:975](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L975)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: purease.ts:970
 
 > **version**: `string`
 
-Defined in: purease.ts:977
+Defined in: [purease.ts:982](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L982)
 
 ## Methods
 
@@ -42,7 +42,7 @@ Defined in: purease.ts:977
 
 > **component**(`name`): `any`
 
-Defined in: purease.ts:968
+Defined in: [purease.ts:973](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L973)
 
 ##### Parameters
 
@@ -58,7 +58,7 @@ Defined in: purease.ts:968
 
 > **component**(`name`, `config`): `this`
 
-Defined in: purease.ts:969
+Defined in: [purease.ts:974](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L974)
 
 ##### Parameters
 
@@ -82,7 +82,7 @@ Defined in: purease.ts:969
 
 > **directive**(`name`): `any`
 
-Defined in: purease.ts:971
+Defined in: [purease.ts:976](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L976)
 
 ##### Parameters
 
@@ -98,7 +98,7 @@ Defined in: purease.ts:971
 
 > **directive**(`name`, `config`): `this`
 
-Defined in: purease.ts:972
+Defined in: [purease.ts:977](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L977)
 
 ##### Parameters
 
@@ -120,7 +120,7 @@ Defined in: purease.ts:972
 
 > **mixin**(`mixin`): `this`
 
-Defined in: purease.ts:973
+Defined in: [purease.ts:978](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L978)
 
 #### Parameters
 
@@ -138,7 +138,7 @@ Defined in: purease.ts:973
 
 > **mount**(`rootContainer`): [`IVue`](IVue.md)
 
-Defined in: purease.ts:974
+Defined in: [purease.ts:979](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L979)
 
 #### Parameters
 
@@ -156,7 +156,7 @@ Defined in: purease.ts:974
 
 > **provide**\<`T`\>(`key`, `value`): `this`
 
-Defined in: purease.ts:975
+Defined in: [purease.ts:980](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L980)
 
 #### Type Parameters
 
@@ -184,7 +184,7 @@ Defined in: purease.ts:975
 
 > **unmount**(): `void`
 
-Defined in: purease.ts:976
+Defined in: [purease.ts:981](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L981)
 
 #### Returns
 

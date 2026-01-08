@@ -8,7 +8,7 @@
 
 > **loadScript**(`url`): `Promise`\<`boolean`\>
 
-Defined in: tool.ts:818
+Defined in: [tool.ts:818](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L818)
 
 加载脚本
 

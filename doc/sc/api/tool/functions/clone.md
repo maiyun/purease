@@ -8,7 +8,7 @@
 
 > **clone**\<`T`\>(`obj`): `T`
 
-Defined in: tool.ts:29
+Defined in: [tool.ts:29](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L29)
 
 完整的克隆一份数组/对象
 

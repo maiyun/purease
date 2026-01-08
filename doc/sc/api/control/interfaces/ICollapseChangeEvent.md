@@ -6,7 +6,7 @@
 
 # Interface: ICollapseChangeEvent
 
-Defined in: control.ts:151
+Defined in: [control.ts:162](https://github.com/maiyun/purease/blob/master/dist/control.ts#L162)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: control.ts:151
 
 > **detail**: `object`
 
-Defined in: control.ts:152
+Defined in: [control.ts:163](https://github.com/maiyun/purease/blob/master/dist/control.ts#L163)
 
 #### value
 

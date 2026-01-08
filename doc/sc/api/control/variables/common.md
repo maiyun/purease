@@ -8,7 +8,7 @@
 
 > `const` **common**: `object`
 
-Defined in: control.ts:35
+Defined in: [control.ts:35](https://github.com/maiyun/purease/blob/master/dist/control.ts#L35)
 
 通用的一些方法和 computed
 

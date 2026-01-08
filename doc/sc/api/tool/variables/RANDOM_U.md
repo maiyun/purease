@@ -8,4 +8,4 @@
 
 > `const` **RANDOM\_U**: `"ABCDEFGHIJKLMNOPQRSTUVWXYZ"` = `'ABCDEFGHIJKLMNOPQRSTUVWXYZ'`
 
-Defined in: tool.ts:160
+Defined in: [tool.ts:160](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L160)

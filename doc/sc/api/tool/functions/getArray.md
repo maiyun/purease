@@ -8,7 +8,7 @@
 
 > **getArray**(`param`): `any`[]
 
-Defined in: tool.ts:218
+Defined in: [tool.ts:218](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L218)
 
 根据参数获取最终的数组型，可传入类似 [1,2,3] 或 1,2,3
 

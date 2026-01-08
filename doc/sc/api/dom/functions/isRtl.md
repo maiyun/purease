@@ -8,7 +8,7 @@
 
 > **isRtl**(): `boolean`
 
-Defined in: dom.ts:332
+Defined in: [dom.ts:179](https://github.com/maiyun/purease/blob/master/dist/dom.ts#L179)
 
 判断是否是 rtl 布局
 

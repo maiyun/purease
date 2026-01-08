@@ -8,7 +8,7 @@
 
 > **getClassPrototype**(`obj`, `over`, `level`): [`IClassPrototype`](../interfaces/IClassPrototype.md)
 
-Defined in: tool.ts:88
+Defined in: [tool.ts:88](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L88)
 
 获取 class 的所有 method 和 get/set
 

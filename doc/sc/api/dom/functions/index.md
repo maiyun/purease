@@ -8,7 +8,7 @@
 
 > **index**(`el`): `number`
 
-Defined in: dom.ts:190
+Defined in: [dom.ts:163](https://github.com/maiyun/purease/blob/master/dist/dom.ts#L163)
 
 判断一个元素是当前同级的第几位
 

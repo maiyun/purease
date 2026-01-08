@@ -8,7 +8,7 @@
 
 > **isDomain**(`domain`): `boolean`
 
-Defined in: tool.ts:771
+Defined in: [tool.ts:771](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L771)
 
 判断是否是域名
 

@@ -8,7 +8,7 @@
 
 > **launcher**\<`T`\>(`page`, `options`): `void`
 
-Defined in: purease.ts:519
+Defined in: [purease.ts:522](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L522)
 
 运行当前页面
 

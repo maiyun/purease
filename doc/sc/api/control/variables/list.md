@@ -8,4 +8,4 @@
 
 > `const` **list**: `Record`\<`string`, \{\[`key`: `string`\]: `any`; `computed?`: `Record`\<`string`, `any`\>; `data?`: () => `Record`\<`string`, `any`\>; `props?`: `Record`\<`string`, \{ `default`: `any`; \}\>; `template`: `string`; \}\> = `{}`
 
-Defined in: control.ts:128
+Defined in: [control.ts:128](https://github.com/maiyun/purease/blob/master/dist/control.ts#L128)

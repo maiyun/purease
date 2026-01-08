@@ -8,7 +8,7 @@
 
 > **showPop**(`e`, `pop`): `void`
 
-Defined in: dom.ts:20
+Defined in: [dom.ts:15](https://github.com/maiyun/purease/blob/master/dist/dom.ts#L15)
 
 将 pop 显示出来
 
@@ -16,7 +16,7 @@ Defined in: dom.ts:20
 
 ### e
 
-`MouseEvent`
+`PointerEvent`
 
 ### pop
 
