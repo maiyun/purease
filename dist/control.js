@@ -3017,12 +3017,6 @@ list['pe-header-item'] = {
                     this.hover = false;
                 }
             });
-            // --- 只有可能非触摸屏 ---
-            const target = oe.target;
-            if (target.classList.contains('pe-menu') || lDom.findParentByClass(target, 'pe-menu')) {
-                return;
-            }
-            this.hover = !this.hover;
         },
         down: function (oe) {
             if (oe.pointerType === 'mouse') {
