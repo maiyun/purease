@@ -17,7 +17,7 @@ rm -f doc/purease-rag.md
 mkdir -p $(dirname $API_DOC_OUTPUT_DIR)
 
 npx typedoc \
-  --entryPoints "dist/{control,dom,purease,tool}.ts" \
+  --entryPoints dist/control.ts dist/dom.ts dist/purease.ts dist/tool.ts \
   --exclude "**/*.d.ts" \
   --out $API_DOC_OUTPUT_DIR \
   --readme none \

@@ -1,6 +1,6 @@
 <div class="pe-uploader" :class="[propBoolean('disabled') && 'pe-disabled']">
     <!-- 已上传项列表 -->
-    <div class="pe-uploader-item" v-for="(item, index) of modelValue" :key="index" @drop="drop($event, index)">
+    <div class="pe-uploader-item" v-for="(item, index) of modelValue" data-drop @drop="drop($event, index)">
         <div class="pe-uploader-title" v-if="item.title">{{ item.title }}</div>
         <img class="pe-uploader-img" :src="pre + (item.src ?? item)" />
         <div class="pe-uploader-bottom">
