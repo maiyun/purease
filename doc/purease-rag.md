@@ -6889,6 +6889,115 @@ Defined in: [purease.ts:940](https://github.com/maiyun/purease/blob/master/dist/
 
 Defined in: [purease.ts:941](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L941)
 
+purease/interfaces/IVueConfig.md
+---
+
+[**Documents for purease**](../../index.md)
+
+***
+
+[Documents for purease](../../index.md) / [purease](../index.md) / IVueConfig
+
+# Interface: IVueConfig
+
+Defined in: [purease.ts:962](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L962)
+
+Vue 配置
+
+## Properties
+
+### globalProperties
+
+> **globalProperties**: `Record`\<`string`, `any`\>
+
+Defined in: [purease.ts:964](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L964)
+
+***
+
+### optionMergeStrategies
+
+> **optionMergeStrategies**: `Record`\<`string`, [`IVueOptionMergeFunction`](../type-aliases/IVueOptionMergeFunction.md)\>
+
+Defined in: [purease.ts:966](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L966)
+
+***
+
+### performance
+
+> **performance**: `boolean`
+
+Defined in: [purease.ts:967](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L967)
+
+## Methods
+
+### errorHandler()?
+
+> `optional` **errorHandler**(`err`, `instance`, `info`): `void`
+
+Defined in: [purease.ts:963](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L963)
+
+#### Parameters
+
+##### err
+
+`unknown`
+
+##### instance
+
+[`IVue`](IVue.md) | `null`
+
+##### info
+
+`string`
+
+#### Returns
+
+`void`
+
+***
+
+### isCustomElement()
+
+> **isCustomElement**(`tag`): `boolean`
+
+Defined in: [purease.ts:965](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L965)
+
+#### Parameters
+
+##### tag
+
+`string`
+
+#### Returns
+
+`boolean`
+
+***
+
+### warnHandler()?
+
+> `optional` **warnHandler**(`msg`, `instance`, `trace`): `void`
+
+Defined in: [purease.ts:968](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L968)
+
+#### Parameters
+
+##### msg
+
+`string`
+
+##### instance
+
+[`IVue`](IVue.md) | `null`
+
+##### trace
+
+`string`
+
+#### Returns
+
+`void`
+
 purease/interfaces/IVue.md
 ---
 
@@ -7069,115 +7178,6 @@ Defined in: [purease.ts:916](https://github.com/maiyun/purease/blob/master/dist/
 #### Returns
 
 `Promise`\<`void`\>
-
-purease/interfaces/IVueConfig.md
----
-
-[**Documents for purease**](../../index.md)
-
-***
-
-[Documents for purease](../../index.md) / [purease](../index.md) / IVueConfig
-
-# Interface: IVueConfig
-
-Defined in: [purease.ts:962](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L962)
-
-Vue 配置
-
-## Properties
-
-### globalProperties
-
-> **globalProperties**: `Record`\<`string`, `any`\>
-
-Defined in: [purease.ts:964](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L964)
-
-***
-
-### optionMergeStrategies
-
-> **optionMergeStrategies**: `Record`\<`string`, [`IVueOptionMergeFunction`](../type-aliases/IVueOptionMergeFunction.md)\>
-
-Defined in: [purease.ts:966](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L966)
-
-***
-
-### performance
-
-> **performance**: `boolean`
-
-Defined in: [purease.ts:967](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L967)
-
-## Methods
-
-### errorHandler()?
-
-> `optional` **errorHandler**(`err`, `instance`, `info`): `void`
-
-Defined in: [purease.ts:963](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L963)
-
-#### Parameters
-
-##### err
-
-`unknown`
-
-##### instance
-
-[`IVue`](IVue.md) | `null`
-
-##### info
-
-`string`
-
-#### Returns
-
-`void`
-
-***
-
-### isCustomElement()
-
-> **isCustomElement**(`tag`): `boolean`
-
-Defined in: [purease.ts:965](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L965)
-
-#### Parameters
-
-##### tag
-
-`string`
-
-#### Returns
-
-`boolean`
-
-***
-
-### warnHandler()?
-
-> `optional` **warnHandler**(`msg`, `instance`, `trace`): `void`
-
-Defined in: [purease.ts:968](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L968)
-
-#### Parameters
-
-##### msg
-
-`string`
-
-##### instance
-
-[`IVue`](IVue.md) | `null`
-
-##### trace
-
-`string`
-
-#### Returns
-
-`void`
 
 purease/interfaces/IVueObject.md
 ---
@@ -7633,53 +7633,6 @@ Defined in: [tool.ts:675](https://github.com/maiyun/purease/blob/master/dist/too
 
 > **zone**: `string`
 
-tool/functions/get.md
----
-
-[**Documents for purease**](../../index.md)
-
-***
-
-[Documents for purease](../../index.md) / [tool](../index.md) / get
-
-# Function: get()
-
-> **get**(`url`, `init?`, `opt?`): `Promise`\<`string` \| `Blob` \| `null`\>
-
-Defined in: [tool.ts:371](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L371)
-
-发起 GET 请求
-
-## Parameters
-
-### url
-
-`string`
-
-网址
-
-### init?
-
-`RequestInit`
-
-选项
-
-### opt?
-
-选项
-
-#### retry?
-
-`number`
-
-重试次数，默认 3 次
-
-## Returns
-
-`Promise`\<`string` \| `Blob` \| `null`\>
-
-文本或二进制数据，失败时返回 null
-
 tool/functions/getArray.md
 ---
 
@@ -7805,6 +7758,53 @@ Defined in: [tool.ts:240](https://github.com/maiyun/purease/blob/master/dist/too
 ## Returns
 
 `number`
+
+tool/functions/get.md
+---
+
+[**Documents for purease**](../../index.md)
+
+***
+
+[Documents for purease](../../index.md) / [tool](../index.md) / get
+
+# Function: get()
+
+> **get**(`url`, `init?`, `opt?`): `Promise`\<`string` \| `Blob` \| `null`\>
+
+Defined in: [tool.ts:371](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L371)
+
+发起 GET 请求
+
+## Parameters
+
+### url
+
+`string`
+
+网址
+
+### init?
+
+`RequestInit`
+
+选项
+
+### opt?
+
+选项
+
+#### retry?
+
+`number`
+
+重试次数，默认 3 次
+
+## Returns
+
+`Promise`\<`string` \| `Blob` \| `null`\>
+
+文本或二进制数据，失败时返回 null
 
 tool/functions/getNumber.md
 ---
