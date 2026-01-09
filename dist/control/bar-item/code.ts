@@ -35,7 +35,7 @@ export const code = {
             }
             // --- 仅鼠标有效 ---
             purease.pointer.hover(oe, {
-                enter: (e: PointerEvent) => {
+                enter: e => {
                     const target = e.target as HTMLElement;
                     if (target.classList.contains('pe-menu') || lDom.findParentByClass(target, 'pe-menu')) {
                         return;

@@ -498,7 +498,7 @@ list['pe-bar-item'] = {
             }
             // --- 仅鼠标有效 ---
             purease.pointer.hover(oe, {
-                enter: (e: PointerEvent) => {
+                enter: e => {
                     const target = e.target as HTMLElement;
                     if (target.classList.contains('pe-menu') || lDom.findParentByClass(target, 'pe-menu')) {
                         return;
@@ -3254,8 +3254,8 @@ list['pe-header-item'] = {
             }
             // --- 仅鼠标有效 ---
             purease.pointer.hover(oe, {
-                enter: () => {
-                    const target = oe.target as HTMLElement;
+                enter: e => {
+                    const target = e.target as HTMLElement;
                     if (target.classList.contains('pe-menu') || lDom.findParentByClass(target, 'pe-menu')) {
                         return;
                     }
@@ -3265,13 +3265,6 @@ list['pe-header-item'] = {
                     this.hover = false;
                 }
             });
-
-            // --- 只有可能非触摸屏 ---
-            const target = oe.target as HTMLElement;
-            if (target.classList.contains('pe-menu') || lDom.findParentByClass(target, 'pe-menu')) {
-                return;
-            }
-            this.hover = !this.hover;
         },
         down: function(this: IHeaderItemVue, oe: PointerEvent) {
             if (oe.pointerType === 'mouse') {
