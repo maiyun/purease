@@ -10,7 +10,7 @@ eslint.config.cjs
 .npmignore
 .DS_Store
 doc/**
-!/doc/purease-rag.md
+!doc/purease-rag.md
 *.ts
 !*.d.ts
 tsconfig.json
