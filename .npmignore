@@ -9,7 +9,7 @@ eslint.config.cjs
 .gitignore
 .npmignore
 .DS_Store
-/doc/
+doc/**
 !/doc/purease-rag.md
 *.ts
 !*.d.ts
