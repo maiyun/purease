@@ -10,7 +10,7 @@ const showedPop = [];
 const showedPopEl = [];
 /** --- 将 pop 显示出来 --- */
 export function showPop(e, pop) {
-    const el = e.currentTarget;
+    const el = e instanceof HTMLElement ? e : e.currentTarget;
     const rect = el.getBoundingClientRect();
     pop.classList.add('pe-pshow');
     pop.style.left = rect.left + 'px';

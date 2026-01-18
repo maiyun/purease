@@ -12,8 +12,8 @@ const showedPop: HTMLElement[] = [];
 const showedPopEl: HTMLElement[] = [];
 
 /** --- 将 pop 显示出来 --- */
-export function showPop(e: PointerEvent, pop: HTMLElement): void {
-    const el = e.currentTarget as HTMLElement;
+export function showPop(e: PointerEvent | HTMLElement, pop: HTMLElement): void {
+    const el = e instanceof HTMLElement ? e : e.currentTarget as HTMLElement;
     const rect = el.getBoundingClientRect();
     pop.classList.add('pe-pshow');
     pop.style.left = rect.left + 'px';

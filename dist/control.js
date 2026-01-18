@@ -1150,17 +1150,18 @@ list['pe-date'] = {
     'methods': {
         // --- 单击事件 ---
         down: function (oe, type) {
-            purease.pointer.click(oe, (e) => {
+            const cel = oe.currentTarget;
+            purease.pointer.click(oe, () => {
                 const el = this.$refs[type + 'pop'];
                 if (el.classList.contains('pe-show')) {
                     lDom.hidePop(el);
                     return;
                 }
                 if (type === 'first' && !this.propBoolean('date')) {
-                    lDom.showPop(e, this.$refs['timepop']);
+                    lDom.showPop(cel, this.$refs['timepop']);
                     return;
                 }
-                lDom.showPop(e, el);
+                lDom.showPop(cel, el);
             });
         },
         zoneOk: function () {
@@ -2530,7 +2531,8 @@ list['pe-daterange'] = {
     'methods': {
         // --- 按下事件 ---
         down: function (oe, type) {
-            purease.pointer.click(oe, (e) => {
+            const cel = oe.currentTarget;
+            purease.pointer.click(oe, () => {
                 const el = this.$refs[type + 'pop'];
                 if (el.classList.contains('pe-show')) {
                     lDom.hidePop(el);
@@ -2539,7 +2541,7 @@ list['pe-daterange'] = {
                 if (type === 'first') {
                     this.showTwoDatePanel = window.innerWidth >= 600 ? true : false;
                 }
-                lDom.showPop(e, el);
+                lDom.showPop(cel, el);
             });
         },
         zoneOk: function () {
@@ -3512,12 +3514,13 @@ list['pe-select'] = {
     },
     'methods': {
         open: function (oe) {
-            purease.pointer.click(oe, e => {
-                const el = e.target;
+            const cel = oe.currentTarget;
+            purease.pointer.click(oe, () => {
+                const el = oe.target;
                 if (!el.classList.contains('pe-select-label') && !el.classList.contains('pe-select-arrow')) {
                     return;
                 }
-                lDom.showPop(e, this.$refs.pop);
+                lDom.showPop(cel, this.$refs.pop);
             });
         },
         onModelValue: function (v) {

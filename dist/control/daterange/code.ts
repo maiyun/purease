@@ -249,7 +249,8 @@ export const code = {
     'methods': {
         // --- 按下事件 ---
         down: function(this: IDaterangeVue, oe: PointerEvent, type: 'first' | 'zone'): void {
-            purease.pointer.click(oe, (e) => {
+            const cel = oe.currentTarget as HTMLElement;
+            purease.pointer.click(oe, () => {
                 const el = this.$refs[type + 'pop'];
                 if (el.classList.contains('pe-show')) {
                     lDom.hidePop(el);
@@ -258,7 +259,7 @@ export const code = {
                 if (type === 'first') {
                     this.showTwoDatePanel = window.innerWidth >= 600 ? true : false;
                 }
-                lDom.showPop(e, el);
+                lDom.showPop(cel, el);
             });
         },
         zoneOk: function(this: IDaterangeVue): void {

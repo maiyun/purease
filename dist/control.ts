@@ -1334,17 +1334,18 @@ list['pe-date'] = {
     'methods': {
         // --- 单击事件 ---
         down: function(this: IDateVue, oe: PointerEvent, type: 'first' | 'zone'): void {
-            purease.pointer.click(oe, (e) => {
+            const cel = oe.currentTarget as HTMLElement;
+            purease.pointer.click(oe, () => {
                 const el = this.$refs[type + 'pop'];
                 if (el.classList.contains('pe-show')) {
                     lDom.hidePop(el);
                     return;
                 }
                 if (type === 'first' && !this.propBoolean('date')) {
-                    lDom.showPop(e, this.$refs['timepop']);
+                    lDom.showPop(cel, this.$refs['timepop']);
                     return;
                 }
-                lDom.showPop(e, el);
+                lDom.showPop(cel, el);
             });
         },
         zoneOk: function(this: IDateVue): void {
@@ -2770,7 +2771,8 @@ list['pe-daterange'] = {
     'methods': {
         // --- 按下事件 ---
         down: function(this: IDaterangeVue, oe: PointerEvent, type: 'first' | 'zone'): void {
-            purease.pointer.click(oe, (e) => {
+            const cel = oe.currentTarget as HTMLElement;
+            purease.pointer.click(oe, () => {
                 const el = this.$refs[type + 'pop'];
                 if (el.classList.contains('pe-show')) {
                     lDom.hidePop(el);
@@ -2779,7 +2781,7 @@ list['pe-daterange'] = {
                 if (type === 'first') {
                     this.showTwoDatePanel = window.innerWidth >= 600 ? true : false;
                 }
-                lDom.showPop(e, el);
+                lDom.showPop(cel, el);
             });
         },
         zoneOk: function(this: IDaterangeVue): void {
@@ -3779,12 +3781,13 @@ list['pe-select'] = {
     },
     'methods': {
         open: function(this: ISelectVue, oe: PointerEvent) {
-            purease.pointer.click(oe, e => {
-                const el = e.target as HTMLElement;
+            const cel = oe.currentTarget as HTMLElement;
+            purease.pointer.click(oe, () => {
+                const el = oe.target as HTMLElement;
                 if (!el.classList.contains('pe-select-label') && !el.classList.contains('pe-select-arrow')) {
                     return;
                 }
-                lDom.showPop(e, this.$refs.pop);
+                lDom.showPop(cel, this.$refs.pop);
             });
         },
         onModelValue: function(this: ISelectVue, v: string) {

@@ -287,17 +287,18 @@ export const code = {
     'methods': {
         // --- 单击事件 ---
         down: function(this: IDateVue, oe: PointerEvent, type: 'first' | 'zone'): void {
-            purease.pointer.click(oe, (e) => {
+            const cel = oe.currentTarget as HTMLElement;
+            purease.pointer.click(oe, () => {
                 const el = this.$refs[type + 'pop'];
                 if (el.classList.contains('pe-show')) {
                     lDom.hidePop(el);
                     return;
                 }
                 if (type === 'first' && !this.propBoolean('date')) {
-                    lDom.showPop(e, this.$refs['timepop']);
+                    lDom.showPop(cel, this.$refs['timepop']);
                     return;
                 }
-                lDom.showPop(e, el);
+                lDom.showPop(cel, el);
             });
         },
         zoneOk: function(this: IDateVue): void {

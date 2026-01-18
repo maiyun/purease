@@ -117,12 +117,13 @@ export const code = {
     },
     'methods': {
         open: function(this: ISelectVue, oe: PointerEvent) {
-            purease.pointer.click(oe, e => {
-                const el = e.target as HTMLElement;
+            const cel = oe.currentTarget as HTMLElement;
+            purease.pointer.click(oe, () => {
+                const el = oe.target as HTMLElement;
                 if (!el.classList.contains('pe-select-label') && !el.classList.contains('pe-select-arrow')) {
                     return;
                 }
-                lDom.showPop(e, this.$refs.pop);
+                lDom.showPop(cel, this.$refs.pop);
             });
         },
         onModelValue: function(this: ISelectVue, v: string) {
