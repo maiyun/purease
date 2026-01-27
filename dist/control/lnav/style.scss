@@ -20,7 +20,7 @@ html.pe-rtl {
 @media screen and (max-width: 800px) {
 
     .pe-lnav-left {
-        position: fixed; left: 0; top: 0; width: 100%; height: 100%; display: flex; background: rgba(0, 0, 0, 0); transition: var(--pe-transition); z-index: 1; display: block;  border-right: initial;
+        position: fixed; left: 0; top: 0; width: 100%; height: 100%; display: flex; background: rgba(0, 0, 0, 0); transition: var(--pe-transition); z-index: 2; display: block;  border-right: initial;
 
         .pe-lnav-left-content {
             display: flex; flex-direction: column; background: #FFF; width: 80%; height: 100%; overflow: auto; box-shadow: var(--pe-pop-shadow); transition: var(--pe-transition); transition-property: transform; transform: translateX(-1500px);

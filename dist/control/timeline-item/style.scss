@@ -5,7 +5,7 @@
     }
 }
 .pe-timeline-item-node {
-    width: 20px; height: 20px; border-radius: 50%; border: solid 3px var(--pe-border); background: #FFF; flex-shrink: 0; position: relative; z-index: 1;
+    width: 20px; height: 20px; border-radius: 50%; border: solid 3px var(--pe-border); background: #FFF; flex-shrink: 0;
 }
 .pe-timeline-item-content {
     display: flex; flex: 1; min-width: 0; padding-bottom: var(--pe-padding-xs);
