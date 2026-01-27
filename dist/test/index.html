@@ -84,6 +84,7 @@
             <div class="pe-tree-title">{{l('container')}}</div>
             <a class="pe-tree-item" href="#anchor">Anchor</a>
             <a class="pe-tree-item" href="#collapse">Collapse</a>
+            <a class="pe-tree-item" href="#timeline">Timeline</a>
             <a class="pe-tree-item" href="#tab">Tab</a>
             <a class="pe-tree-item" href="#btab">Btab</a>
             <a class="pe-tree-item" href="#group">Group</a>
@@ -728,6 +729,26 @@
                         <div>The previously expanded panel will be collapsed automatically.</div>
                     </pe-collapse-item>
                 </pe-collapse>
+            </div>
+
+            <!-- Timeline -->
+            <h3 id="timeline">Timeline</h3>
+            <div class="pe-layout pe-gap" style="flex-direction: column; max-width: 400px;">
+                <pe-timeline>
+                    <pe-timeline-item selected direction="v" gutter="5">
+                        <span class="pe-note" style="font-size: 12px;">2026-01-27 14:30:58</span>
+                        <span>The latest event</span>
+                        <a class="pe-link" href="javascript:void(0);">View details<pe-icon></pe-icon></a>
+                    </pe-timeline-item>
+                    <pe-timeline-item direction="v" gutter="5">
+                        <span class="pe-note" style="font-size: 12px;">2026-01-26 10:15:30</span>
+                        <span>Processing completed</span>
+                    </pe-timeline-item>
+                    <pe-timeline-item direction="v" gutter="5">
+                        <span class="pe-note" style="font-size: 12px;">2026-01-25 09:00:00</span>
+                        <span>Task started</span>
+                    </pe-timeline-item>
+                </pe-timeline>
             </div>
 
             <!-- Tab -->
