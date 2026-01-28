@@ -54,7 +54,7 @@ class Page extends purease.AbstractPage {
     public selectPlain = false;
 
     /** --- 级联选择值 --- */
-    public cascader: string[] = [];
+    public cascader: string | null = null;
 
     /** --- 级联选择数据 --- */
     public cascaderOptions = [
@@ -161,42 +161,49 @@ class Page extends purease.AbstractPage {
     ];
 
     /** --- 级联选择长列表值 --- */
-    public cascaderLong: string[] = [];
+    public cascaderLong: string | null = null;
 
     /** --- 级联选择异步加载选项 --- */
-    public cascaderLazyOptions: purease.control.ICascaderOption[] = [];
+    public cascaderLazyOptions: Array<{
+        'label': string;
+        'value': string;
+        'isLeaf'?: boolean;
+        'children'?: Array<{
+            'label': string;
+            'value': string;
+            'isLeaf'?: boolean;
+            'children'?: unknown[];
+        }>;
+    }> = [
+            { 'label': 'Province 1', 'value': 'province1', 'isLeaf': false },
+            { 'label': 'Province 2', 'value': 'province2', 'isLeaf': false },
+            { 'label': 'Province 3', 'value': 'province3', 'isLeaf': false }
+        ];
 
     /** --- 级联选择异步加载值 --- */
-    public cascaderLazy: string[] = [];
+    public cascaderLazy: string | null = null;
 
-    /** --- 级联选择异步加载方法 --- */
-    public cascaderLazyLoad = (
-        option: purease.control.ICascaderOption | null, resolve: (children: purease.control.ICascaderOption[]) => void
-    ): void => {
-        setTimeout(() => {
-            if (!option) {
-                // --- 加载根节点 ---
-                resolve([
-                    { 'label': 'Province 1', 'value': 'province1', 'leaf': false },
-                    { 'label': 'Province 2', 'value': 'province2', 'leaf': false },
-                    { 'label': 'Province 3', 'value': 'province3', 'leaf': false }
-                ]);
-            }
-            else if (option.value?.startsWith('province')) {
-                // --- 加载城市 ---
-                resolve([
-                    { 'label': `${option.label ?? ''} - City 1`, 'value': `${option.value ?? ''}-city1`, 'leaf': false },
-                    { 'label': `${option.label ?? ''} - City 2`, 'value': `${option.value ?? ''}-city2`, 'leaf': false }
-                ]);
-            }
-            else {
-                // --- 加载区县 ---
-                resolve([
-                    { 'label': `${option.label ?? ''} - District 1`, 'value': `${option.value ?? ''}-district1`, 'leaf': true },
-                    { 'label': `${option.label ?? ''} - District 2`, 'value': `${option.value ?? ''}-district2`, 'leaf': true }
-                ]);
-            }
-        }, 800);
+    /** --- 级联选择异步加载方法（Naive UI on-load 格式） --- */
+    public cascaderOnLoad = (option: { 'label': string; 'value': string; 'isLeaf'?: boolean; }): Promise<void> => {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                if (option.value.startsWith('province')) {
+                    // --- 加载城市 ---
+                    option['children' as never] = [
+                        { 'label': `${option.label} - City 1`, 'value': `${option.value}-city1`, 'isLeaf': false },
+                        { 'label': `${option.label} - City 2`, 'value': `${option.value}-city2`, 'isLeaf': false }
+                    ] as never;
+                }
+                else {
+                    // --- 加载区县 ---
+                    option['children' as never] = [
+                        { 'label': `${option.label} - District 1`, 'value': `${option.value}-district1`, 'isLeaf': true },
+                        { 'label': `${option.label} - District 2`, 'value': `${option.value}-district2`, 'isLeaf': true }
+                    ] as never;
+                }
+                resolve();
+            }, 800);
+        });
     };
 
     /** --- 级联选择是否搜索 --- */
@@ -207,9 +214,6 @@ class Page extends purease.AbstractPage {
 
     /** --- 级联选择是否禁用 --- */
     public cascaderDisabled = false;
-
-    /** --- 级联选择是否朴素 --- */
-    public cascaderPlain = false;
 
     /** --- 级联选择是否仅显示最后一级 --- */
     public cascaderShowLastLevel = false;

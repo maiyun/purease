@@ -764,6 +764,52 @@ html.pe-rtl {
 
 // --- naive-ui overrides ---
 
+// --- base-selection ---
+
+.n-base-selection {
+    font-size: inherit; -webkit-user-select: none; user-select: none; cursor: default; border-radius: var(--pe-radius); transition: var(--pe-transition);
+    --n-box-shadow-active: var(--pe-outline-shadow) !important;
+    --n-box-shadow-focus: var(--pe-outline-shadow) !important;
+    --n-border-active: 1px solid var(--pe-active) !important;
+    --n-border-focus: 1px solid var(--pe-focus) !important;
+    --n-border-hover: 1px solid var(--pe-hover) !important;
+    .n-base-selection-label {
+        min-height: calc(var(--pe-size) * 1.5 + var(--pe-padding-xs) * 2);
+    }
+}
+
+// --- n-checkbox ---
+
+.n-checkbox {
+    --n-border-checked: 1px solid var(--pe-active) !important;
+    --n-border-focus: 1px solid var(--pe-active) !important;
+    --n-color-checked: var(--pe) !important;
+}
+
+// --- n-cascader ---
+
+.n-cascader {
+    &:not(.pe-plain) {
+        .n-base-selection {
+            box-shadow: var(--pe-shadow);
+        }
+    }
+}
+
+.n-cascader-menu {
+    border: solid 1px var(--pe-border); box-shadow: 0px 15px 30px rgba(0,0,0,.07); border-radius: var(--pe-radius);
+    .n-cascader-submenu {
+        padding: var(--pe-padding-xxs);
+        &.n-cascader-submenu--virtual {
+            width: initial;
+        }
+
+        .n-cascader-option {
+            height: initial; line-height: inherit; padding: var(--pe-padding-xs); border-radius: var(--pe-radius);
+        }
+    }
+}
+
 // --- n-carousel ---
 
 .n-carousel {

@@ -36,7 +36,7 @@ class Page extends purease.AbstractPage {
     /** --- 下拉选择是否朴素 --- */
     selectPlain = false;
     /** --- 级联选择值 --- */
-    cascader = [];
+    cascader = null;
     /** --- 级联选择数据 --- */
     cascaderOptions = [
         {
@@ -140,37 +140,36 @@ class Page extends purease.AbstractPage {
         }
     ];
     /** --- 级联选择长列表值 --- */
-    cascaderLong = [];
+    cascaderLong = null;
     /** --- 级联选择异步加载选项 --- */
-    cascaderLazyOptions = [];
+    cascaderLazyOptions = [
+        { 'label': 'Province 1', 'value': 'province1', 'isLeaf': false },
+        { 'label': 'Province 2', 'value': 'province2', 'isLeaf': false },
+        { 'label': 'Province 3', 'value': 'province3', 'isLeaf': false }
+    ];
     /** --- 级联选择异步加载值 --- */
-    cascaderLazy = [];
-    /** --- 级联选择异步加载方法 --- */
-    cascaderLazyLoad = (option, resolve) => {
-        setTimeout(() => {
-            if (!option) {
-                // --- 加载根节点 ---
-                resolve([
-                    { 'label': 'Province 1', 'value': 'province1', 'leaf': false },
-                    { 'label': 'Province 2', 'value': 'province2', 'leaf': false },
-                    { 'label': 'Province 3', 'value': 'province3', 'leaf': false }
-                ]);
-            }
-            else if (option.value?.startsWith('province')) {
-                // --- 加载城市 ---
-                resolve([
-                    { 'label': `${option.label ?? ''} - City 1`, 'value': `${option.value ?? ''}-city1`, 'leaf': false },
-                    { 'label': `${option.label ?? ''} - City 2`, 'value': `${option.value ?? ''}-city2`, 'leaf': false }
-                ]);
-            }
-            else {
-                // --- 加载区县 ---
-                resolve([
-                    { 'label': `${option.label ?? ''} - District 1`, 'value': `${option.value ?? ''}-district1`, 'leaf': true },
-                    { 'label': `${option.label ?? ''} - District 2`, 'value': `${option.value ?? ''}-district2`, 'leaf': true }
-                ]);
-            }
-        }, 800);
+    cascaderLazy = null;
+    /** --- 级联选择异步加载方法（Naive UI on-load 格式） --- */
+    cascaderOnLoad = (option) => {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                if (option.value.startsWith('province')) {
+                    // --- 加载城市 ---
+                    option['children'] = [
+                        { 'label': `${option.label} - City 1`, 'value': `${option.value}-city1`, 'isLeaf': false },
+                        { 'label': `${option.label} - City 2`, 'value': `${option.value}-city2`, 'isLeaf': false }
+                    ];
+                }
+                else {
+                    // --- 加载区县 ---
+                    option['children'] = [
+                        { 'label': `${option.label} - District 1`, 'value': `${option.value}-district1`, 'isLeaf': true },
+                        { 'label': `${option.label} - District 2`, 'value': `${option.value}-district2`, 'isLeaf': true }
+                    ];
+                }
+                resolve();
+            }, 800);
+        });
     };
     /** --- 级联选择是否搜索 --- */
     cascaderSearch = false;
@@ -178,8 +177,6 @@ class Page extends purease.AbstractPage {
     cascaderClearable = false;
     /** --- 级联选择是否禁用 --- */
     cascaderDisabled = false;
-    /** --- 级联选择是否朴素 --- */
-    cascaderPlain = false;
     /** --- 级联选择是否仅显示最后一级 --- */
     cascaderShowLastLevel = false;
     /** --- 级联选择触发方式 --- */
