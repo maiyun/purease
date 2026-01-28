@@ -6,7 +6,7 @@
 
 # Interface: IVueObject
 
-Defined in: [purease.ts:946](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L946)
+Defined in: [purease.ts:948](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L948)
 
 ## Methods
 
@@ -14,7 +14,7 @@ Defined in: [purease.ts:946](https://github.com/maiyun/purease/blob/master/dist/
 
 > **createApp**(`opt`): [`IVApp`](IVApp.md)
 
-Defined in: [purease.ts:947](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L947)
+Defined in: [purease.ts:949](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L949)
 
 #### Parameters
 
@@ -32,7 +32,7 @@ Defined in: [purease.ts:947](https://github.com/maiyun/purease/blob/master/dist/
 
 > **h**(`tag`, `props?`, `list?`): `any`
 
-Defined in: [purease.ts:955](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L955)
+Defined in: [purease.ts:957](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L957)
 
 #### Parameters
 
@@ -58,7 +58,7 @@ Defined in: [purease.ts:955](https://github.com/maiyun/purease/blob/master/dist/
 
 > **reactive**\<`T`\>(`obj`): `T`
 
-Defined in: [purease.ts:949](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L949)
+Defined in: [purease.ts:951](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L951)
 
 #### Type Parameters
 
@@ -82,7 +82,7 @@ Defined in: [purease.ts:949](https://github.com/maiyun/purease/blob/master/dist/
 
 > **ref**\<`T`\>(`obj`): `object`
 
-Defined in: [purease.ts:948](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L948)
+Defined in: [purease.ts:950](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L950)
 
 #### Type Parameters
 
@@ -110,7 +110,7 @@ Defined in: [purease.ts:948](https://github.com/maiyun/purease/blob/master/dist/
 
 > **watch**(`v`, `cb`, `opt`): `void`
 
-Defined in: [purease.ts:950](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L950)
+Defined in: [purease.ts:952](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L952)
 
 #### Parameters
 

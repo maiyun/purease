@@ -6,7 +6,7 @@
 
 # Interface: IVNode
 
-Defined in: [purease.ts:935](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L935)
+Defined in: [purease.ts:937](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L937)
 
 Vue 节点
 
@@ -20,7 +20,7 @@ Vue 节点
 
 > **children**: `object` & `IVNode`[]
 
-Defined in: [purease.ts:936](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L936)
+Defined in: [purease.ts:938](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L938)
 
 #### Type Declaration
 
@@ -34,7 +34,7 @@ Defined in: [purease.ts:936](https://github.com/maiyun/purease/blob/master/dist/
 
 > **props**: `Record`\<`string`, `any`\>
 
-Defined in: [purease.ts:940](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L940)
+Defined in: [purease.ts:942](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L942)
 
 ***
 
@@ -42,4 +42,4 @@ Defined in: [purease.ts:940](https://github.com/maiyun/purease/blob/master/dist/
 
 > **type**: `symbol` \| `Record`\<`string`, `any`\>
 
-Defined in: [purease.ts:941](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L941)
+Defined in: [purease.ts:943](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L943)

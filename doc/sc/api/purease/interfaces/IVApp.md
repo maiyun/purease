@@ -6,7 +6,7 @@
 
 # Interface: IVApp
 
-Defined in: [purease.ts:972](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L972)
+Defined in: [purease.ts:974](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L974)
 
 Vue 应用
 
@@ -16,7 +16,7 @@ Vue 应用
 
 > **\_container**: `HTMLElement`
 
-Defined in: [purease.ts:984](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L984)
+Defined in: [purease.ts:987](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L987)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [purease.ts:984](https://github.com/maiyun/purease/blob/master/dist/
 
 > **config**: [`IVueConfig`](IVueConfig.md)
 
-Defined in: [purease.ts:975](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L975)
+Defined in: [purease.ts:977](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L977)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [purease.ts:975](https://github.com/maiyun/purease/blob/master/dist/
 
 > **version**: `string`
 
-Defined in: [purease.ts:982](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L982)
+Defined in: [purease.ts:985](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L985)
 
 ## Methods
 
@@ -42,7 +42,7 @@ Defined in: [purease.ts:982](https://github.com/maiyun/purease/blob/master/dist/
 
 > **component**(`name`): `any`
 
-Defined in: [purease.ts:973](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L973)
+Defined in: [purease.ts:975](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L975)
 
 ##### Parameters
 
@@ -58,7 +58,7 @@ Defined in: [purease.ts:973](https://github.com/maiyun/purease/blob/master/dist/
 
 > **component**(`name`, `config`): `this`
 
-Defined in: [purease.ts:974](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L974)
+Defined in: [purease.ts:976](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L976)
 
 ##### Parameters
 
@@ -82,7 +82,7 @@ Defined in: [purease.ts:974](https://github.com/maiyun/purease/blob/master/dist/
 
 > **directive**(`name`): `any`
 
-Defined in: [purease.ts:976](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L976)
+Defined in: [purease.ts:978](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L978)
 
 ##### Parameters
 
@@ -98,7 +98,7 @@ Defined in: [purease.ts:976](https://github.com/maiyun/purease/blob/master/dist/
 
 > **directive**(`name`, `config`): `this`
 
-Defined in: [purease.ts:977](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L977)
+Defined in: [purease.ts:979](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L979)
 
 ##### Parameters
 
@@ -120,7 +120,7 @@ Defined in: [purease.ts:977](https://github.com/maiyun/purease/blob/master/dist/
 
 > **mixin**(`mixin`): `this`
 
-Defined in: [purease.ts:978](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L978)
+Defined in: [purease.ts:980](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L980)
 
 #### Parameters
 
@@ -138,7 +138,7 @@ Defined in: [purease.ts:978](https://github.com/maiyun/purease/blob/master/dist/
 
 > **mount**(`rootContainer`): [`IVue`](IVue.md)
 
-Defined in: [purease.ts:979](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L979)
+Defined in: [purease.ts:982](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L982)
 
 #### Parameters
 
@@ -156,7 +156,7 @@ Defined in: [purease.ts:979](https://github.com/maiyun/purease/blob/master/dist/
 
 > **provide**\<`T`\>(`key`, `value`): `this`
 
-Defined in: [purease.ts:980](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L980)
+Defined in: [purease.ts:983](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L983)
 
 #### Type Parameters
 
@@ -184,8 +184,30 @@ Defined in: [purease.ts:980](https://github.com/maiyun/purease/blob/master/dist/
 
 > **unmount**(): `void`
 
-Defined in: [purease.ts:981](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L981)
+Defined in: [purease.ts:984](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L984)
 
 #### Returns
 
 `void`
+
+***
+
+### use()
+
+> **use**(`plugin`, ...`options`): `this`
+
+Defined in: [purease.ts:981](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L981)
+
+#### Parameters
+
+##### plugin
+
+`any`
+
+##### options
+
+...`any`[]
+
+#### Returns
+
+`this`

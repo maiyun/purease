@@ -16,7 +16,7 @@ Defined in: [dom.ts:15](https://github.com/maiyun/purease/blob/master/dist/dom.t
 
 ### e
 
-`PointerEvent`
+`HTMLElement` | `PointerEvent`
 
 ### pop
 

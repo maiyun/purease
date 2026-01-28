@@ -9,6 +9,8 @@
 ## Interfaces
 
 - [ICaptchaResultEvent](interfaces/ICaptchaResultEvent.md)
+- [ICascaderChangedEvent](interfaces/ICascaderChangedEvent.md)
+- [ICascaderOption](interfaces/ICascaderOption.md)
 - [ICollapseChangeEvent](interfaces/ICollapseChangeEvent.md)
 - [IControlVue](interfaces/IControlVue.md)
 - [IDateChangedEvent](interfaces/IDateChangedEvent.md)
