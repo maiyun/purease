@@ -45,6 +45,7 @@
             <div class="pe-tree-title">{{l('form')}}</div>
             <a class="pe-tree-item" href="#text">Text</a>
             <a class="pe-tree-item" href="#select">Select</a>
+            <a class="pe-tree-item" href="#cascader">Cascader</a>
             <a class="pe-tree-item" href="#check">Check</a>
             <a class="pe-tree-item" href="#switch">Switch</a>
             <a class="pe-tree-item" href="#dlist">Dlist</a>
@@ -143,6 +144,25 @@
                     <div class="pe-button pe-pgrey" @click="selectSearch = !selectSearch">{{selectSearch ? '' : '!'}}search</div>
                     <div class="pe-button pe-pgrey" @click="selectDisabled = !selectDisabled">{{selectDisabled ? '' : '!'}}disabled</div>
                     <div class="pe-button pe-pgrey" @click="selectPlain = !selectPlain">{{selectPlain ? '' : '!'}}plain</div>
+                </div>
+            </div>
+
+            <!-- Cascader -->
+            <h3 id="cascader">Cascader</h3>
+            <div class="pe-layout pe-gap" style="flex-direction: column;">
+                <div>Value: {{cascader}}</div>
+                <pe-cascader style="width: 300px;" v-model="cascader" :options="cascaderOptions" :search="cascaderSearch" :clearable="cascaderClearable" :disabled="cascaderDisabled" :plain="cascaderPlain" :show-last-level="cascaderShowLastLevel" :expand-trigger="cascaderExpandTrigger" placeholder="Select location"></pe-cascader>
+                <div>Long list (scroll): {{cascaderLong}}</div>
+                <pe-cascader style="width: 300px;" v-model="cascaderLong" :options="cascaderLongOptions" clearable placeholder="Long list example"></pe-cascader>
+                <div>Lazy load: {{cascaderLazy}}</div>
+                <pe-cascader style="width: 300px;" v-model="cascaderLazy" :options="cascaderLazyOptions" :lazy="true" :lazy-load="cascaderLazyLoad" clearable placeholder="Lazy load example"></pe-cascader>
+                <div class="pe-layout pe-gap-s" style="flex-wrap: wrap;">
+                    <div class="pe-button pe-pgrey" @click="cascaderSearch = !cascaderSearch">{{cascaderSearch ? '' : '!'}}search</div>
+                    <div class="pe-button pe-pgrey" @click="cascaderClearable = !cascaderClearable">{{cascaderClearable ? '' : '!'}}clearable</div>
+                    <div class="pe-button pe-pgrey" @click="cascaderDisabled = !cascaderDisabled">{{cascaderDisabled ? '' : '!'}}disabled</div>
+                    <div class="pe-button pe-pgrey" @click="cascaderPlain = !cascaderPlain">{{cascaderPlain ? '' : '!'}}plain</div>
+                    <div class="pe-button pe-pgrey" @click="cascaderShowLastLevel = !cascaderShowLastLevel">{{cascaderShowLastLevel ? '' : '!'}}showLastLevel</div>
+                    <div class="pe-button pe-pgrey" @click="cascaderExpandTrigger = cascaderExpandTrigger === 'click' ? 'hover' : 'click'">trigger: {{cascaderExpandTrigger}}</div>
                 </div>
             </div>
 

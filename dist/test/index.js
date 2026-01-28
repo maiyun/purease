@@ -35,6 +35,155 @@ class Page extends purease.AbstractPage {
     selectDisabled = false;
     /** --- 下拉选择是否朴素 --- */
     selectPlain = false;
+    /** --- 级联选择值 --- */
+    cascader = [];
+    /** --- 级联选择数据 --- */
+    cascaderOptions = [
+        {
+            'label': 'Asia 亚洲',
+            'value': 'asia',
+            'children': [
+                {
+                    'label': 'China 中国',
+                    'value': 'china',
+                    'children': [
+                        { 'label': '北京 Beijing', 'value': 'beijing' },
+                        { 'label': '上海 Shanghai', 'value': 'shanghai' },
+                        { 'label': '广州 Guangzhou', 'value': 'guangzhou' },
+                        { 'label': '深圳 Shenzhen', 'value': 'shenzhen' }
+                    ]
+                },
+                {
+                    'label': '日本 Japan',
+                    'value': 'japan',
+                    'children': [
+                        { 'label': '東京 Tokyo', 'value': 'tokyo' },
+                        { 'label': '大阪 Osaka', 'value': 'osaka' },
+                        { 'label': '京都 Kyoto', 'value': 'kyoto' }
+                    ]
+                },
+                {
+                    'label': '한국 Korea',
+                    'value': 'korea',
+                    'children': [
+                        { 'label': '서울 Seoul', 'value': 'seoul' },
+                        { 'label': '부산 Busan', 'value': 'busan' }
+                    ]
+                }
+            ]
+        },
+        {
+            'label': 'Europe 欧洲',
+            'value': 'europe',
+            'children': [
+                {
+                    'label': 'United Kingdom',
+                    'value': 'uk',
+                    'children': [
+                        { 'label': 'London', 'value': 'london' },
+                        { 'label': 'Manchester', 'value': 'manchester' }
+                    ]
+                },
+                {
+                    'label': 'France 法国',
+                    'value': 'france',
+                    'children': [
+                        { 'label': 'Paris 巴黎', 'value': 'paris' },
+                        { 'label': 'Lyon 里昂', 'value': 'lyon' }
+                    ]
+                },
+                {
+                    'label': 'Deutschland',
+                    'value': 'germany',
+                    'children': [
+                        { 'label': 'Berlin 柏林', 'value': 'berlin' },
+                        { 'label': 'München', 'value': 'munich' }
+                    ]
+                }
+            ]
+        },
+        {
+            'label': 'Americas 美洲',
+            'value': 'americas',
+            'children': [
+                { 'label': 'New York', 'value': 'newyork' },
+                { 'label': 'Los Angeles', 'value': 'la' },
+                { 'label': 'São Paulo', 'value': 'saopaulo', 'disabled': true }
+            ]
+        }
+    ];
+    /** --- 级联选择长列表数据 --- */
+    cascaderLongOptions = [
+        {
+            'label': 'Category A',
+            'value': 'a',
+            'children': Array.from({ 'length': 20 }, (_, i) => ({
+                'label': `Item A-${i + 1}`,
+                'value': `a-${i + 1}`
+            }))
+        },
+        {
+            'label': 'Category B',
+            'value': 'b',
+            'children': Array.from({ 'length': 20 }, (_, i) => ({
+                'label': `Item B-${i + 1}`,
+                'value': `b-${i + 1}`
+            }))
+        },
+        {
+            'label': 'Category C',
+            'value': 'c',
+            'children': Array.from({ 'length': 20 }, (_, i) => ({
+                'label': `Item C-${i + 1}`,
+                'value': `c-${i + 1}`
+            }))
+        }
+    ];
+    /** --- 级联选择长列表值 --- */
+    cascaderLong = [];
+    /** --- 级联选择异步加载选项 --- */
+    cascaderLazyOptions = [];
+    /** --- 级联选择异步加载值 --- */
+    cascaderLazy = [];
+    /** --- 级联选择异步加载方法 --- */
+    cascaderLazyLoad = (option, resolve) => {
+        setTimeout(() => {
+            if (!option) {
+                // --- 加载根节点 ---
+                resolve([
+                    { 'label': 'Province 1', 'value': 'province1', 'leaf': false },
+                    { 'label': 'Province 2', 'value': 'province2', 'leaf': false },
+                    { 'label': 'Province 3', 'value': 'province3', 'leaf': false }
+                ]);
+            }
+            else if (option.value?.startsWith('province')) {
+                // --- 加载城市 ---
+                resolve([
+                    { 'label': `${option.label ?? ''} - City 1`, 'value': `${option.value ?? ''}-city1`, 'leaf': false },
+                    { 'label': `${option.label ?? ''} - City 2`, 'value': `${option.value ?? ''}-city2`, 'leaf': false }
+                ]);
+            }
+            else {
+                // --- 加载区县 ---
+                resolve([
+                    { 'label': `${option.label ?? ''} - District 1`, 'value': `${option.value ?? ''}-district1`, 'leaf': true },
+                    { 'label': `${option.label ?? ''} - District 2`, 'value': `${option.value ?? ''}-district2`, 'leaf': true }
+                ]);
+            }
+        }, 800);
+    };
+    /** --- 级联选择是否搜索 --- */
+    cascaderSearch = false;
+    /** --- 级联选择是否可清空 --- */
+    cascaderClearable = false;
+    /** --- 级联选择是否禁用 --- */
+    cascaderDisabled = false;
+    /** --- 级联选择是否朴素 --- */
+    cascaderPlain = false;
+    /** --- 级联选择是否仅显示最后一级 --- */
+    cascaderShowLastLevel = false;
+    /** --- 级联选择触发方式 --- */
+    cascaderExpandTrigger = 'click';
     /** --- 复选框值 --- */
     check = false;
     /** --- 开关值 --- */

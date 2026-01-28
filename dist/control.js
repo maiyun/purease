@@ -698,6 +698,397 @@ list['pe-captcha'] = {
         window.turnstile.remove(this.access.instance);
     }
 };
+list['pe-cascader'] = {
+    'template': `<div class="pe-cascader" :class="[propBoolean('plain')&&'pe-plain',propBoolean('disabled')&&'pe-disabled',propBoolean('search')&&'pe-search',propBoolean('clearable')&&value.length>0&&'pe-clearable']" :tabindex="!propBoolean('disabled') ? '0' : undefined" @pointerdown="open"><div v-if="displayText" class="pe-cascader-label">{{displayText}}</div><div v-else class="pe-cascader-placeholder">{{placeholder || '\u3000'}}</div><div v-if="propBoolean('clearable') && value.length > 0" class="pe-cascader-clear" @pointerdown="clear"></div><div class="pe-cascader-arrow"></div><div class="pe-pop" ref="pop"><pe-text v-if="propBoolean('search')" v-model="searchValue" :placeholder="l('search')" plain class="pe-cascader-search"></pe-text><div v-if="searchValue" class="pe-cascader-search-results"><div v-if="searchResults.length === 0" class="pe-cascader-empty">{{l('noMatch')}}</div><div v-else v-for="result of searchResults" class="pe-cascader-search-item" @click="selectSearchResult(result)">{{result.pathLabels.join(separator)}}</div></div><div v-else class="pe-cascader-panel"><div v-for="(levelOptions, level) of expandedLevels" :key="level" class="pe-cascader-menu"><div v-if="levelOptions.length === 0" class="pe-cascader-empty">{{l('empty')}}</div><div v-else v-for="(option, index) of levelOptions"
+                    :key="option.value ?? option.label ?? index"
+                    class="pe-cascader-item"
+                    :class="[selectedIndices[level] === index && 'pe-selected', option.disabled && 'pe-disabled', (option.children && option.children.length > 0) || (lazy && option.leaf === false) ? 'pe-has-children' : '', loadingOptions[option.value ?? option.label ?? ''] && 'pe-loading']"@click="selectOption(level, index, option)"@mouseenter="hoverOption(level, index, option)"@mouseleave="leaveOption"><span class="pe-cascader-item-label">{{option.label || option.value}}</span><span v-if="loadingOptions[option.value ?? option.label ?? '']" class="pe-cascader-item-loading"></span><span v-else-if="(option.children && option.children.length > 0) || (lazy && option.leaf === false)" class="pe-cascader-item-arrow"></span></div></div></div></div></div>`,
+    'props': {
+        'modelValue': {
+            'default': []
+        },
+        'options': {
+            'default': []
+        },
+        'disabled': {
+            'default': false
+        },
+        'plain': {
+            'default': false
+        },
+        'search': {
+            'default': false
+        },
+        'clearable': {
+            'default': false
+        },
+        'showLastLevel': {
+            'default': false
+        },
+        'separator': {
+            'default': ' / '
+        },
+        'expandTrigger': {
+            'default': 'click'
+        },
+        'placeholder': {
+            'default': ''
+        },
+        'lazy': {
+            'default': false
+        },
+        'lazyLoad': {
+            'default': null
+        },
+    },
+    'emits': {
+        'changed': null,
+        'update:modelValue': null
+    },
+    'data': function () {
+        return {
+            'value': [],
+            'searchValue': '',
+            'expandedLevels': [],
+            'selectedIndices': [],
+            'hoverTimer': null,
+            'loadingOptions': {},
+            /** --- 语言包 --- */
+            'localeData': {
+                'en': {
+                    'search': 'Search',
+                    'empty': 'No data',
+                    'noMatch': 'No matching data'
+                },
+                'sc': {
+                    'search': '搜索',
+                    'empty': '暂无数据',
+                    'noMatch': '无匹配数据'
+                },
+                'tc': {
+                    'search': '搜尋',
+                    'empty': '暫無數據',
+                    'noMatch': '無匹配數據'
+                },
+                'ja': {
+                    'search': '検索',
+                    'empty': 'データなし',
+                    'noMatch': '一致するデータがありません'
+                },
+                'ko': {
+                    'search': '검색',
+                    'empty': '데이터 없음',
+                    'noMatch': '일치하는 데이터 없음'
+                },
+                'th': {
+                    'search': 'ค้นหา',
+                    'empty': 'ไม่มีข้อมูล',
+                    'noMatch': 'ไม่มีข้อมูลที่ตรงกัน'
+                },
+                'es': {
+                    'search': 'Buscar',
+                    'empty': 'Sin datos',
+                    'noMatch': 'Sin coincidencias'
+                },
+                'de': {
+                    'search': 'Suchen',
+                    'empty': 'Keine Daten',
+                    'noMatch': 'Keine Übereinstimmungen'
+                },
+                'fr': {
+                    'search': 'Rechercher',
+                    'empty': 'Aucune donnée',
+                    'noMatch': 'Aucune correspondance'
+                },
+                'pt': {
+                    'search': 'Pesquisar',
+                    'empty': 'Sem dados',
+                    'noMatch': 'Sem correspondência'
+                },
+                'ru': {
+                    'search': 'Поиск',
+                    'empty': 'Нет данных',
+                    'noMatch': 'Нет совпадений'
+                },
+                'vi': {
+                    'search': 'Tìm kiếm',
+                    'empty': 'Không có dữ liệu',
+                    'noMatch': 'Không tìm thấy kết quả'
+                },
+                'ar': {
+                    'search': 'بحث',
+                    'empty': 'لا توجد بيانات',
+                    'noMatch': 'لا توجد نتائج'
+                },
+                'id': {
+                    'search': 'Cari',
+                    'empty': 'Tidak ada data',
+                    'noMatch': 'Tidak ada yang cocok'
+                },
+                'it': {
+                    'search': 'Cerca',
+                    'empty': 'Nessun dato',
+                    'noMatch': 'Nessuna corrispondenza'
+                },
+                'tr': {
+                    'search': 'Ara',
+                    'empty': 'Veri yok',
+                    'noMatch': 'Eşleşme yok'
+                }
+            }
+        };
+    },
+    'methods': {
+        open: function (oe) {
+            const cel = oe.currentTarget;
+            purease.pointer.click(oe, () => {
+                const el = oe.target;
+                if (!el.classList.contains('pe-cascader-label') &&
+                    !el.classList.contains('pe-cascader-arrow') &&
+                    !el.classList.contains('pe-cascader-placeholder')) {
+                    return;
+                }
+                this.initExpandedLevels();
+                lDom.showPop(cel, this.$refs.pop);
+            });
+        },
+        initExpandedLevels: function () {
+            // --- lazy 模式且没有 options 时，触发加载根级数据 ---
+            if (this.lazy && this.options.length === 0 && this.lazyLoad) {
+                this.lazyLoad(null, (children) => {
+                    // --- options 是 prop，需要通过 $emit 更新 ---
+                    this.expandedLevels = [children];
+                });
+                this.selectedIndices = [];
+                return;
+            }
+            this.expandedLevels = [this.options];
+            this.selectedIndices = [];
+            // --- 根据当前值展开对应层级 ---
+            if (this.value.length > 0) {
+                let currentOptions = this.options;
+                for (const val of this.value) {
+                    const index = currentOptions.findIndex(opt => (opt.value ?? opt.label) === val);
+                    if (index === -1) {
+                        break;
+                    }
+                    this.selectedIndices.push(index);
+                    const option = currentOptions[index];
+                    if (option.children && option.children.length > 0) {
+                        this.expandedLevels.push(option.children);
+                        currentOptions = option.children;
+                    }
+                }
+            }
+        },
+        selectOption: async function (level, index, option) {
+            if (option.disabled) {
+                return;
+            }
+            const optionKey = option.value ?? option.label ?? '';
+            // --- 如果正在加载中，忽略点击 ---
+            if (this.loadingOptions[optionKey]) {
+                return;
+            }
+            // --- 更新选中索引 ---
+            this.selectedIndices = this.selectedIndices.slice(0, level);
+            this.selectedIndices.push(index);
+            // --- 如果有子节点，展开下一级 ---
+            if (option.children && option.children.length > 0) {
+                // --- 更新展开层级 ---
+                this.expandedLevels = this.expandedLevels.slice(0, level + 1);
+                this.expandedLevels.push(option.children);
+            }
+            // --- lazy 模式且 leaf 为 false 时，加载子节点 ---
+            else if (this.lazy && option.leaf === false && this.lazyLoad) {
+                // --- 先加载，加载完成后再更新展开层级 ---
+                await this.loadLazyChildren(level, index, option);
+            }
+            else {
+                // --- 更新展开层级 ---
+                this.expandedLevels = this.expandedLevels.slice(0, level + 1);
+                // --- 没有子节点，选中完成 ---
+                const pathValues = [];
+                const pathLabels = [];
+                let currentOptions = this.expandedLevels[0];
+                for (const idx of this.selectedIndices) {
+                    const opt = currentOptions[idx];
+                    pathValues.push(opt.value ?? opt.label ?? '');
+                    pathLabels.push(opt.label ?? opt.value ?? '');
+                    if (opt.children) {
+                        currentOptions = opt.children;
+                    }
+                }
+                this.value = pathValues;
+                this.searchValue = '';
+                this.$emit('update:modelValue', this.value);
+                const event = {
+                    'detail': {
+                        'value': pathValues,
+                        'labels': pathLabels
+                    }
+                };
+                this.$emit('changed', event);
+                lDom.hidePop(this.$refs.pop);
+            }
+        },
+        hoverOption: function (level, index, option) {
+            if (this.expandTrigger !== 'hover' || option.disabled) {
+                return;
+            }
+            const optionKey = option.value ?? option.label ?? '';
+            // --- 如果正在加载中，忽略 ---
+            if (this.loadingOptions[optionKey]) {
+                return;
+            }
+            if (this.hoverTimer) {
+                clearTimeout(this.hoverTimer);
+            }
+            this.hoverTimer = setTimeout(async () => {
+                // --- 更新选中索引 ---
+                this.selectedIndices = this.selectedIndices.slice(0, level);
+                this.selectedIndices.push(index);
+                if (option.children && option.children.length > 0) {
+                    // --- 更新展开层级 ---
+                    this.expandedLevels = this.expandedLevels.slice(0, level + 1);
+                    this.expandedLevels.push(option.children);
+                }
+                // --- lazy 模式且 leaf 为 false 时，加载子节点 ---
+                else if (this.lazy && option.leaf === false && this.lazyLoad) {
+                    // --- 先加载，加载完成后再更新展开层级 ---
+                    await this.loadLazyChildren(level, index, option);
+                }
+            }, 150);
+        },
+        leaveOption: function () {
+            if (this.hoverTimer) {
+                clearTimeout(this.hoverTimer);
+                this.hoverTimer = null;
+            }
+        },
+        loadLazyChildren: function (level, index, option) {
+            return new Promise((resolve) => {
+                if (!this.lazyLoad) {
+                    resolve();
+                    return;
+                }
+                const optionKey = option.value ?? option.label ?? '';
+                this.loadingOptions[optionKey] = true;
+                this.lazyLoad(option, (children) => {
+                    delete this.loadingOptions[optionKey];
+                    // --- 更新 option 的 children ---
+                    option.children = children;
+                    // --- 如果没有子节点，标记为叶子节点 ---
+                    if (children.length === 0) {
+                        option.leaf = true;
+                    }
+                    // --- 如果当前选中状态不变，展开子节点 ---
+                    if (this.selectedIndices[level] === index && children.length > 0) {
+                        this.expandedLevels = this.expandedLevels.slice(0, level + 1);
+                        this.expandedLevels.push(children);
+                    }
+                    resolve();
+                });
+            });
+        },
+        clear: function (e) {
+            e.stopPropagation();
+            this.value = [];
+            this.searchValue = '';
+            this.$emit('update:modelValue', []);
+            const event = {
+                'detail': {
+                    'value': [],
+                    'labels': []
+                }
+            };
+            this.$emit('changed', event);
+        },
+        selectSearchResult: function (result) {
+            this.value = result.pathValues;
+            this.searchValue = '';
+            this.$emit('update:modelValue', this.value);
+            const event = {
+                'detail': {
+                    'value': result.pathValues,
+                    'labels': result.pathLabels
+                }
+            };
+            this.$emit('changed', event);
+            lDom.hidePop(this.$refs.pop);
+        }
+    },
+    'computed': {
+        displayText: function () {
+            if (this.value.length === 0) {
+                return '';
+            }
+            const labels = [];
+            let currentOptions = this.options;
+            for (const val of this.value) {
+                const option = currentOptions.find(opt => (opt.value ?? opt.label) === val);
+                if (!option) {
+                    break;
+                }
+                labels.push(option.label ?? option.value ?? '');
+                if (option.children) {
+                    currentOptions = option.children;
+                }
+            }
+            if (this.showLastLevel) {
+                return labels[labels.length - 1] || '';
+            }
+            return labels.join(this.separator);
+        },
+        searchResults: function () {
+            if (!this.searchValue) {
+                return [];
+            }
+            const results = [];
+            const searchLower = this.searchValue.toLowerCase();
+            // --- 递归搜索所有叶子节点 ---
+            const searchInOptions = (options, path, pathValues, pathLabels) => {
+                for (const option of options) {
+                    const newPath = [...path, option];
+                    const newValues = [...pathValues, option.value ?? option.label ?? ''];
+                    const newLabels = [...pathLabels, option.label ?? option.value ?? ''];
+                    if (option.children && option.children.length > 0) {
+                        searchInOptions(option.children, newPath, newValues, newLabels);
+                    }
+                    else {
+                        // --- 叶子节点，检查路径是否匹配搜索词 ---
+                        const fullPath = newLabels.join(' ').toLowerCase();
+                        if (fullPath.includes(searchLower)) {
+                            results.push({
+                                'path': newPath,
+                                'pathValues': newValues,
+                                'pathLabels': newLabels
+                            });
+                        }
+                    }
+                }
+            };
+            searchInOptions(this.options, [], [], []);
+            return results;
+        }
+    },
+    'watch': {
+        'modelValue': {
+            handler: function () {
+                this.value = [...this.modelValue];
+            },
+            'immediate': true
+        },
+        'options': {
+            handler: function () {
+                if (this.expandedLevels.length > 0) {
+                    this.initExpandedLevels();
+                }
+            },
+            'deep': true
+        }
+    },
+};
 list['pe-check'] = {
     'template': `<div class="pe-check" :class="[value&&'pe-checked']" @pointerdown="down" tabindex="0" :style="{'flex-direction': direction === 'h' ? undefined : 'column'}"><div class="pe-check-box"><svg viewBox="0 0 24 24" stroke="none"><path d="M9.00001 18.25C8.8993 18.2466 8.80034 18.2227 8.70921 18.1797C8.61807 18.1367 8.53667 18.0756 8.47001 18L3.47001 13C3.37467 12.9382 3.29463 12.8556 3.23592 12.7583C3.17721 12.661 3.14136 12.5517 3.13109 12.4385C3.12082 12.3254 3.13639 12.2114 3.17663 12.1051C3.21686 11.9989 3.28071 11.9031 3.36336 11.8252C3.446 11.7472 3.54528 11.689 3.65369 11.6551C3.76211 11.6211 3.87682 11.6122 3.98918 11.629C4.10155 11.6458 4.20861 11.688 4.3023 11.7523C4.39599 11.8165 4.47385 11.9013 4.53001 12L9.00001 16.44L19.47 6.00003C19.611 5.90864 19.7785 5.86722 19.9458 5.88241C20.1131 5.89759 20.2705 5.96851 20.3927 6.08379C20.5149 6.19907 20.5948 6.35203 20.6197 6.51817C20.6446 6.68431 20.613 6.85399 20.53 7.00003L9.53001 18C9.46334 18.0756 9.38194 18.1367 9.29081 18.1797C9.19967 18.2227 9.10072 18.2466 9.00001 18.25Z"/></svg></div><div class="pe-check-label"><slot></slot></div></div>`,
     'props': {
