@@ -450,6 +450,7 @@ export function launcher(page, options = {}) {
         // --- 通过标签加载库 ---
         const paths = [
             `${cdn}/npm/vue@3.5.26/dist/vue.global${options.debug ? '' : '.prod.min'}.js`,
+            `${cdn}/npm/naive-ui@2.43.2/dist/index.min.js`,
             `${cdn}/npm/@litert/pointer@1.6.2/dist/index.umd.min.js`,
         ];
         // --- 加载 vue 以及必要库 ---
@@ -751,6 +752,7 @@ export function launcher(page, options = {}) {
             // --- 处理 body ---
             bodys[0].innerHTML = lTool.purify(bodys[0].innerHTML);
             // --- 真正挂载 ---
+            vapp.use(window.naive);
             vapp.mount(bodys[0]);
         });
         // --- 将 panel 的 style 加到 head 里 ---

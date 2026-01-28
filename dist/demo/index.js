@@ -33,8 +33,8 @@ class Page extends purease.AbstractPage {
     search = false;
     // --- swipe ---
     tab = 0;
-    swipePage = 'center';
-    swipeControl = 'inner';
+    swipePage = 'bottom';
+    swipeControl = 'hide';
     // --- login ---
     user = '';
     pwd = '';

@@ -4,7 +4,7 @@ class Page extends purease.AbstractPage {
     rtl = false;
     // --- Swipe 控件 ---
     /** --- Swipe 页面位置 --- */
-    swipePage = 'center';
+    swipePage = 'bottom';
     /** --- Swipe 控制器位置 --- */
     swipeControl = 'inner';
     /** --- Tab 值 --- */

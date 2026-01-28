@@ -69,8 +69,8 @@
         </template>
     </pe-header>
 </div>
-<pe-swipe auto :page="swipePage">
-    <pe-swipe-item direction="v" style="background: rgba(0,0,0,.9); color: #FFF;">
+<n-carousel autoplay :dot-placement="swipePage" draggable>
+    <div class="pe-layout" style="background: rgba(0,0,0,.9); color: #FFF; height: 100%;">
         <pe-banner class="swipe" direction="v" style="flex: 1;">
             <div class="pe-btitle">I'm glad to see you</div>
             <div class="pe-bnote">With Purease, you can quickly build a versatile, minimalist webpage.</div>
@@ -79,14 +79,14 @@
                 <a class="pe-button pe-dark" href="javascript:void(0);">Download</a>
             </div>
         </pe-banner>
-    </pe-swipe-item>
-    <pe-swipe-item direction="v" style="background: #000; color: #FFF; font-size: 48px;">
+    </div>
+    <div class="pe-layout" style="background: #000; color: #FFF; font-size: 48px; height: 100%;">
         <div class="pe-layout" style="align-items: center; justify-content: center; flex: 1;">222</div>
-    </pe-swipe-item>
-    <pe-swipe-item direction="v" style="background: hsl(240, 50%, 30%); color: #FFF; font-size: 48px;">
+    </div>
+    <div class="pe-layout" style="background: hsl(240, 50%, 30%); color: #FFF; font-size: 48px; height: 100%;">
         <div class="pe-layout" style="align-items: center; justify-content: center; flex: 1;">333</div>
-    </pe-swipe-item>
-</pe-swipe>
+    </div>
+</n-carousel>
 <!-- 和首页重复的演示 -->
 <div class="pe-block">
     <div class="pe-btitle">Rapid prototyping</div>
@@ -106,29 +106,29 @@
         <pe-tab-item>Tab3</pe-tab-item>
     </pe-tab>
     <div class="pe-content pe-lpadding-lr">
-        <pe-swipe v-model="tab" :page="swipePage" :control="swipeControl" radius="10" style="height: 500px;">
-            <pe-swipe-item direction="v" style="background: hsl(160, 50%, 30%); color: #FFF; font-size: 48px;">
+        <n-carousel v-model:current-index="tab" :dot-placement="swipePage" :show-arrow="swipeControl === 'show'" style="height: 500px; border-radius: 10px;" draggable>
+            <div class="pe-layout" style="background: hsl(160, 50%, 30%); color: #FFF; font-size: 48px; height: 100%;">
                 <div class="pe-layout" style="align-items: center; justify-content: center; flex: 1;">Info1</div>
-            </pe-swipe-item>
-            <pe-swipe-item direction="v" style="background: hsl(200, 50%, 30%); color: #FFF; font-size: 48px;">
+            </div>
+            <div class="pe-layout" style="background: hsl(200, 50%, 30%); color: #FFF; font-size: 48px; height: 100%;">
                 <div class="pe-layout" style="align-items: center; justify-content: center; flex: 1;">Info2</div>
-            </pe-swipe-item>
-            <pe-swipe-item direction="v" style="background: hsl(240, 50%, 30%); color: #FFF; font-size: 48px;">
+            </div>
+            <div class="pe-layout" style="background: hsl(240, 50%, 30%); color: #FFF; font-size: 48px; height: 100%;">
                 <div class="pe-layout" style="align-items: center; justify-content: center; flex: 1;">Info3</div>
-            </pe-swipe-item>
-        </pe-swipe>
+            </div>
+        </n-carousel>
     </div>
     <div class="pe-alayout pe-gap" style="justify-content: center;">
         <div class="pe-layout pe-gap-s" style="align-items: center; justify-content: center;">
-            <div>Page:</div>
+            <div>Dot:</div>
             <div class="pe-button pe-grey" @click="swipePage = 'left'">Left</div>
-            <div class="pe-button pe-grey" @click="swipePage = 'center'">Center</div>
+            <div class="pe-button pe-grey" @click="swipePage = 'bottom'">Bottom</div>
             <div class="pe-button pe-grey" @click="swipePage = 'right'">Right</div>
         </div>
         <div class="pe-layout pe-gap-s" style="align-items: center; justify-content: center;">
-            <div>Control:</div>
-            <div class="pe-button pe-grey" @click="swipeControl = 'inner'">Inner</div>
-            <div class="pe-button pe-grey" @click="swipeControl = 'outer'">Outer</div>
+            <div>Arrow:</div>
+            <div class="pe-button pe-grey" @click="swipeControl = 'hide'">Hide</div>
+            <div class="pe-button pe-grey" @click="swipeControl = 'show'">Show</div>
         </div>
     </div>
 </div>
@@ -169,16 +169,16 @@
 <div class="pe-block pe-grey">
     <div class="pe-btitle">Multi swipe</div>
     <div class="pe-content pe-lpadding-lr">
-        <pe-swipe style="height: 500px;" control="outer" item="3" gutter="20">
-            <pe-swipe-item style="color: #FFF; font-size: 48px; background: hsl(160, 50%, 30%); border-radius: 10px; align-items: center; justify-content: center;">Info1</pe-swipe-item>
-            <pe-swipe-item style="color: #FFF; font-size: 48px; background: hsl(160, 50%, 30%); border-radius: 10px; align-items: center; justify-content: center;">Info2</pe-swipe-item>
-            <pe-swipe-item style="color: #FFF; font-size: 48px; background: hsl(160, 50%, 30%); border-radius: 10px; align-items: center; justify-content: center;">Info3</pe-swipe-item>
-            <pe-swipe-item style="color: #FFF; font-size: 48px; background: hsl(200, 50%, 30%); border-radius: 10px; align-items: center; justify-content: center;">Info4</pe-swipe-item>
-            <pe-swipe-item style="color: #FFF; font-size: 48px; background: hsl(200, 50%, 30%); border-radius: 10px; align-items: center; justify-content: center;">Info5</pe-swipe-item>
-            <pe-swipe-item style="color: #FFF; font-size: 48px; background: hsl(200, 50%, 30%); border-radius: 10px; align-items: center; justify-content: center;">Info6</pe-swipe-item>
-            <pe-swipe-item style="color: #FFF; font-size: 48px; background: hsl(240, 50%, 30%); border-radius: 10px; align-items: center; justify-content: center;">Info7</pe-swipe-item>
-            <pe-swipe-item style="color: #FFF; font-size: 48px; background: hsl(240, 50%, 30%); border-radius: 10px; align-items: center; justify-content: center;">Info8</pe-swipe-item>
-        </pe-swipe>
+        <n-carousel style="height: 500px;" show-arrow :slides-per-view="3" :space-between="20" draggable>
+            <div class="pe-layout" style="color: #FFF; font-size: 48px; background: hsl(160, 50%, 30%); border-radius: 10px; align-items: center; justify-content: center; height: 100%;">Info1</div>
+            <div class="pe-layout" style="color: #FFF; font-size: 48px; background: hsl(160, 50%, 30%); border-radius: 10px; align-items: center; justify-content: center; height: 100%;">Info2</div>
+            <div class="pe-layout" style="color: #FFF; font-size: 48px; background: hsl(160, 50%, 30%); border-radius: 10px; align-items: center; justify-content: center; height: 100%;">Info3</div>
+            <div class="pe-layout" style="color: #FFF; font-size: 48px; background: hsl(200, 50%, 30%); border-radius: 10px; align-items: center; justify-content: center; height: 100%;">Info4</div>
+            <div class="pe-layout" style="color: #FFF; font-size: 48px; background: hsl(200, 50%, 30%); border-radius: 10px; align-items: center; justify-content: center; height: 100%;">Info5</div>
+            <div class="pe-layout" style="color: #FFF; font-size: 48px; background: hsl(200, 50%, 30%); border-radius: 10px; align-items: center; justify-content: center; height: 100%;">Info6</div>
+            <div class="pe-layout" style="color: #FFF; font-size: 48px; background: hsl(240, 50%, 30%); border-radius: 10px; align-items: center; justify-content: center; height: 100%;">Info7</div>
+            <div class="pe-layout" style="color: #FFF; font-size: 48px; background: hsl(240, 50%, 30%); border-radius: 10px; align-items: center; justify-content: center; height: 100%;">Info8</div>
+        </n-carousel>
     </div>
 </div>
 <pe-dialog :show="customDialog" @select="customDialogSelect" title="Please input name">
