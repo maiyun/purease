@@ -1,6 +1,0 @@
-<div class="pe-timeline-item" :class="[propBoolean('selected')&&'pe-selected']">
-    <div class="pe-timeline-item-node"></div>
-    <div class="pe-timeline-item-content" :class="[direction==='v'&&'pe-v']" :style="{'align-items':direction==='v'?alignHComp:alignVComp,'justify-content':direction==='v'?alignVComp:alignHComp,'gap':propNumber('gutter')?(gutter+'px'):'0'}">
-        <slot></slot>
-    </div>
-</div>

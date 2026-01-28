@@ -5255,31 +5255,6 @@ list['pe-text'] = {
     },
 };
 
-list['pe-timeline'] = {
-    'template': `<div class="pe-timeline"><slot></slot></div>`,
-};
-
-list['pe-timeline-item'] = {
-    'template': `<div class="pe-timeline-item" :class="[propBoolean('selected')&&'pe-selected']"><div class="pe-timeline-item-node"></div><div class="pe-timeline-item-content" :class="[direction==='v'&&'pe-v']" :style="{'align-items':direction==='v'?alignHComp:alignVComp,'justify-content':direction==='v'?alignVComp:alignHComp,'gap':propNumber('gutter')?(gutter+'px'):'0'}"><slot></slot></div></div>`,
-    'props': {
-        'direction': {
-            'default': 'h'
-        },
-        'gutter': {
-            'default': ''
-        },
-        'alignH': {
-            'default': undefined
-        },
-        'alignV': {
-            'default': undefined
-        },
-        'selected': {
-            'default': false
-        }
-    },
-};
-
 list['pe-uploader'] = {
     'template': `<div class="pe-uploader" :class="[propBoolean('disabled') && 'pe-disabled']"><div class="pe-uploader-item" v-for="(item, index) of modelValue" data-drop @drop="drop($event, index)"><div class="pe-uploader-title" v-if="item.title">{{ item.title }}</div><img class="pe-uploader-img" :src="pre + (item.src ?? item)" /><div class="pe-uploader-bottom"><div class="pe-uploader-btn" @click="remove(index)"><pe-icon name="trash"></pe-icon></div><div class="pe-uploader-btn pe-uploader-drag" v-if="propBoolean('drag')" @pointerdown="down($event, index)"><pe-icon name="drag"></pe-icon></div></div></div><div v-if="(propBoolean('multi') && (modelValue.length < propInt('length'))) || !modelValue.length" class="pe-uploader-select" @click="select"><div v-if="progress !== undefined" class="pe-uploader-progress"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="none" stroke-width="8" /><circle cx="50" cy="50" r="45" fill="none" stroke-width="8" :stroke-dasharray="283" :stroke-dashoffset="283 - (283 * progress / 100)" /></svg><span>{{ progress }}%</span></div><pe-icon v-else name="plus"></pe-icon></div></div>`,
     'emits': {

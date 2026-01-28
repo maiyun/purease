@@ -751,24 +751,18 @@
                 </pe-collapse>
             </div>
 
-            <!-- Timeline -->
+            <!-- Timeline (Naive UI) -->
             <h3 id="timeline">Timeline</h3>
             <div class="pe-layout pe-gap" style="flex-direction: column; max-width: 400px;">
-                <pe-timeline>
-                    <pe-timeline-item selected direction="v" gutter="5">
-                        <span class="pe-note" style="font-size: 12px;">2026-01-27 14:30:58</span>
-                        <span>The latest event</span>
+                <n-timeline>
+                    <n-timeline-item type="success" title="The latest event" time="2026-01-27 14:30:58">
                         <a class="pe-link" href="javascript:void(0);">View details<pe-icon></pe-icon></a>
-                    </pe-timeline-item>
-                    <pe-timeline-item direction="v" gutter="5">
-                        <span class="pe-note" style="font-size: 12px;">2026-01-26 10:15:30</span>
-                        <span>Processing completed</span>
-                    </pe-timeline-item>
-                    <pe-timeline-item direction="v" gutter="5">
-                        <span class="pe-note" style="font-size: 12px;">2026-01-25 09:00:00</span>
-                        <span>Task started</span>
-                    </pe-timeline-item>
-                </pe-timeline>
+                    </n-timeline-item>
+                    <n-timeline-item type="default" title="Processing completed" time="2026-01-26 10:15:30">
+                    </n-timeline-item>
+                    <n-timeline-item type="default" title="Task started" time="2026-01-25 09:00:00">
+                    </n-timeline-item>
+                </n-timeline>
             </div>
 
             <!-- Tab -->
