@@ -169,3 +169,34 @@ export function index(el) {
 export function isRtl() {
     return document.getElementsByTagName('html')[0].classList.contains('pe-rtl');
 }
+/**
+ * --- 获取 CSS 变量的计算值 ---
+ * @param name 变量名，如 --pe
+ * @param el 获取变量的元素，默认为 html
+ */
+export function getCssVar(name, el) {
+    const element = el ?? document.documentElement;
+    return getComputedStyle(element).getPropertyValue(name).trim();
+}
+/** --- 用于颜色转换的 canvas 上下文 --- */
+let colorCtx = null;
+/**
+ * --- 将 CSS 颜色值转换为十六进制格式 ---
+ * @param color CSS 颜色值
+ */
+export function colorToHex(color) {
+    if (!colorCtx) {
+        const canvas = document.createElement('canvas');
+        canvas.width = 1;
+        canvas.height = 1;
+        colorCtx = canvas.getContext('2d', { 'willReadFrequently': true });
+    }
+    if (!colorCtx) {
+        return '#000000';
+    }
+    colorCtx.fillStyle = color;
+    colorCtx.fillRect(0, 0, 1, 1);
+    const data = colorCtx.getImageData(0, 0, 1, 1).data;
+    const hex = '#' + ((1 << 24) + (data[0] << 16) + (data[1] << 8) + data[2]).toString(16).slice(1);
+    return hex.toUpperCase();
+}

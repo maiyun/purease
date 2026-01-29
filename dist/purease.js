@@ -558,6 +558,8 @@ export function launcher(page, options = {}) {
             idata[item[0]] = item[1];
         }
         idata['isRtl'] = false;
+        // --- 主题覆盖 ---
+        idata['themeOverrides'] = {};
         /** --- class 对象的方法和 getter/setter 列表 --- */
         const prot = lTool.getClassPrototype(cpage);
         const methods = prot.method;
@@ -578,10 +580,148 @@ export function launcher(page, options = {}) {
                     await this.$nextTick();
                     this.windowWidth = window.innerWidth;
                     this.windowHeight = window.innerHeight;
+                    // --- 更新 themeOverrides ---
+                    const updateThemeOverrides = () => {
+                        const pe = lDom.colorToHex(lDom.getCssVar('--pe'));
+                        const peHover = lDom.colorToHex(lDom.getCssVar('--pe-hover'));
+                        const peActive = lDom.colorToHex(lDom.getCssVar('--pe-active'));
+                        const peBg = lDom.colorToHex(lDom.getCssVar('--pe-bg'));
+                        const success = lDom.colorToHex(lDom.getCssVar('--success'));
+                        const successHover = lDom.colorToHex(lDom.getCssVar('--success-hover'));
+                        const successActive = lDom.colorToHex(lDom.getCssVar('--success-active'));
+                        const info = lDom.colorToHex(lDom.getCssVar('--info'));
+                        const infoHover = lDom.colorToHex(lDom.getCssVar('--info-hover'));
+                        const infoActive = lDom.colorToHex(lDom.getCssVar('--info-active'));
+                        const warning = lDom.colorToHex(lDom.getCssVar('--warning'));
+                        const warningHover = lDom.colorToHex(lDom.getCssVar('--warning-hover'));
+                        const warningActive = lDom.colorToHex(lDom.getCssVar('--warning-active'));
+                        const danger = lDom.colorToHex(lDom.getCssVar('--danger'));
+                        const dangerHover = lDom.colorToHex(lDom.getCssVar('--danger-hover'));
+                        const dangerActive = lDom.colorToHex(lDom.getCssVar('--danger-active'));
+                        const fontFamily = lDom.getCssVar('--pe-font-life');
+                        const borderRadius = lDom.getCssVar('--pe-radius');
+                        const borderColor = lDom.colorToHex(lDom.getCssVar('--pe-border'));
+                        const popShadow = lDom.getCssVar('--pe-pop-shadow');
+                        const outlineShadow = lDom.getCssVar('--pe-outline-shadow');
+                        const fontSize = lDom.getCssVar('--pe-size');
+                        const fontSizeS = lDom.getCssVar('--pe-size-s');
+                        const fontSizeXs = lDom.getCssVar('--pe-size-xs');
+                        const fontSizeL = lDom.getCssVar('--pe-size-l');
+                        const fontSizeXl = lDom.getCssVar('--pe-size-xl');
+                        // --- 计算高度：padding * 2 + fontSize * lineHeight ---
+                        const lineHeight = parseFloat(getComputedStyle(bodys[0]).lineHeight) / parseFloat(fontSize);
+                        const paddingXxs = parseFloat(lDom.getCssVar('--pe-padding-xxs'));
+                        const paddingXs = parseFloat(lDom.getCssVar('--pe-padding-xs'));
+                        const paddingS = parseFloat(lDom.getCssVar('--pe-padding-s'));
+                        const fontSizeNum = parseFloat(fontSize);
+                        const fontSizeSNum = parseFloat(fontSizeS);
+                        const fontSizeLNum = parseFloat(fontSizeL);
+                        const fontSizeXlNum = parseFloat(fontSizeXl);
+                        this.themeOverrides = {
+                            'common': {
+                                'fontFamily': fontFamily,
+                                'fontFamilyMono': 'Consolas, Menlo, Monaco, "Courier New", monospace',
+                                'borderRadius': borderRadius,
+                                'borderColor': borderColor,
+                                // --- 弹出层阴影 ---
+                                'boxShadow1': popShadow,
+                                'boxShadow2': popShadow,
+                                'boxShadow3': popShadow,
+                                // --- 字号 ---
+                                'fontSize': fontSize,
+                                'fontSizeMini': fontSizeXs,
+                                'fontSizeTiny': fontSizeXs,
+                                'fontSizeSmall': fontSizeS,
+                                'fontSizeMedium': fontSize,
+                                'fontSizeLarge': fontSizeL,
+                                'fontSizeHuge': fontSizeXl,
+                                'lineHeight': lineHeight.toString(),
+                                // --- 高度 ---
+                                'heightMini': `${paddingXxs * 2 + fontSizeNum * lineHeight}px`,
+                                'heightTiny': `${paddingXxs * 2 + fontSizeSNum * lineHeight}px`,
+                                'heightSmall': `${paddingXs * 2 + fontSizeSNum * lineHeight}px`,
+                                'heightMedium': `${paddingXs * 2 + fontSizeNum * lineHeight}px`,
+                                'heightLarge': `${paddingS * 2 + fontSizeLNum * lineHeight}px`,
+                                'heightHuge': `${paddingS * 2 + fontSizeXlNum * lineHeight}px`,
+                                // --- 主题色 ---
+                                'primaryColor': pe,
+                                'primaryColorHover': peHover,
+                                'primaryColorPressed': peActive,
+                                'primaryColorSuppl': pe,
+                                'infoColor': info,
+                                'infoColorHover': infoHover,
+                                'infoColorPressed': infoActive,
+                                'infoColorSuppl': info,
+                                'successColor': success,
+                                'successColorHover': successHover,
+                                'successColorPressed': successActive,
+                                'successColorSuppl': success,
+                                'warningColor': warning,
+                                'warningColorHover': warningHover,
+                                'warningColorPressed': warningActive,
+                                'warningColorSuppl': warning,
+                                'errorColor': danger,
+                                'errorColorHover': dangerHover,
+                                'errorColorPressed': dangerActive,
+                                'errorColorSuppl': danger,
+                            },
+                            // --- 输入框 focus 发光 ---
+                            'Input': {
+                                'boxShadowFocus': outlineShadow,
+                            },
+                            // --- 级联选择器 ---
+                            'Cascader': {
+                                'menuBorderRadius': borderRadius,
+                                'menuBoxShadow': popShadow,
+                            },
+                            // --- 选择器 ---
+                            'Select': {
+                                'peers': {
+                                    'InternalSelection': {
+                                        'boxShadowFocus': outlineShadow,
+                                        'boxShadowActive': outlineShadow,
+                                    },
+                                },
+                            },
+                            // --- 内部选择菜单 ---
+                            'InternalSelection': {
+                                'boxShadowFocus': outlineShadow,
+                                'boxShadowActive': outlineShadow,
+                            },
+                            // --- 内部选择菜单列表 ---
+                            'InternalSelectMenu': {
+                                'borderRadius': borderRadius,
+                            },
+                            // --- 下拉菜单 ---
+                            'Dropdown': {
+                                'borderRadius': borderRadius,
+                                'optionBorderRadius': borderRadius,
+                            },
+                            // --- 弹出层 ---
+                            'Popover': {
+                                'boxShadow': popShadow,
+                                'borderRadius': borderRadius,
+                            },
+                            // --- 按钮 ---
+                            'Button': {
+                                'colorPrimary': pe,
+                                'colorHoverPrimary': peHover,
+                                'colorPressedPrimary': peActive,
+                                'colorFocusPrimary': peHover,
+                                'borderPrimary': `1px solid ${pe}`,
+                                'borderHoverPrimary': `1px solid ${peHover}`,
+                                'borderPressedPrimary': `1px solid ${peActive}`,
+                                'borderFocusPrimary': `1px solid ${peHover}`,
+                                'rippleColorPrimary': peBg,
+                            },
+                        };
+                    };
+                    updateThemeOverrides();
                     window.addEventListener('resize', () => {
                         this.windowWidth = window.innerWidth;
                         bodys[0].style.setProperty('--pe-windowwidth', window.innerWidth + 'px');
                         bodys[0].style.setProperty('--pe-windowheight', window.innerHeight + 'px');
+                        updateThemeOverrides();
                     });
                     // --- 判断是否显示右下角 toTop 按钮 ---
                     document.addEventListener('scroll', () => {
@@ -664,13 +804,20 @@ export function launcher(page, options = {}) {
                     if (document.querySelector('.pe-lnav')) {
                         this.$refs.lnavBtn.classList.add('pe-show');
                     }
-                    // --- 判断是不是 rtl 模式 ---
-                    const observer = new MutationObserver(() => {
-                        this.isRtl = lDom.isRtl();
+                    // --- 判断是不是 rtl 模式，以及监听 style 变化以更新 themeOverrides ---
+                    const observer = new MutationObserver(mutations => {
+                        for (const mutation of mutations) {
+                            if (mutation.attributeName === 'class') {
+                                this.isRtl = lDom.isRtl();
+                            }
+                            else if (mutation.attributeName === 'style') {
+                                updateThemeOverrides();
+                            }
+                        }
                     });
                     observer.observe(htmls[0], {
                         'attributes': true,
-                        'attributeFilter': ['class'],
+                        'attributeFilter': ['class', 'style'],
                     });
                     // --- 完成 ---
                     resolve({
@@ -750,7 +897,7 @@ export function launcher(page, options = {}) {
             bodys[0].style.setProperty('--pe-windowwidth', window.innerWidth + 'px');
             bodys[0].style.setProperty('--pe-windowheight', window.innerHeight + 'px');
             // --- 处理 body ---
-            bodys[0].innerHTML = lTool.purify(bodys[0].innerHTML);
+            bodys[0].innerHTML = `<n-config-provider :theme-overrides="themeOverrides">${lTool.purify(bodys[0].innerHTML)}</n-config-provider>`;
             // --- 真正挂载 ---
             vapp.use(window.naive);
             vapp.mount(bodys[0]);
