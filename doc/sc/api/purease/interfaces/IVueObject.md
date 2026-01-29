@@ -6,7 +6,7 @@
 
 # Interface: IVueObject
 
-Defined in: [purease.ts:948](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L948)
+Defined in: [purease.ts:1095](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1095)
 
 ## Methods
 
@@ -14,7 +14,7 @@ Defined in: [purease.ts:948](https://github.com/maiyun/purease/blob/master/dist/
 
 > **createApp**(`opt`): [`IVApp`](IVApp.md)
 
-Defined in: [purease.ts:949](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L949)
+Defined in: [purease.ts:1096](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1096)
 
 #### Parameters
 
@@ -32,7 +32,7 @@ Defined in: [purease.ts:949](https://github.com/maiyun/purease/blob/master/dist/
 
 > **h**(`tag`, `props?`, `list?`): `any`
 
-Defined in: [purease.ts:957](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L957)
+Defined in: [purease.ts:1104](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1104)
 
 #### Parameters
 
@@ -58,7 +58,7 @@ Defined in: [purease.ts:957](https://github.com/maiyun/purease/blob/master/dist/
 
 > **reactive**\<`T`\>(`obj`): `T`
 
-Defined in: [purease.ts:951](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L951)
+Defined in: [purease.ts:1098](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1098)
 
 #### Type Parameters
 
@@ -82,7 +82,7 @@ Defined in: [purease.ts:951](https://github.com/maiyun/purease/blob/master/dist/
 
 > **ref**\<`T`\>(`obj`): `object`
 
-Defined in: [purease.ts:950](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L950)
+Defined in: [purease.ts:1097](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1097)
 
 #### Type Parameters
 
@@ -110,7 +110,7 @@ Defined in: [purease.ts:950](https://github.com/maiyun/purease/blob/master/dist/
 
 > **watch**(`v`, `cb`, `opt`): `void`
 
-Defined in: [purease.ts:952](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L952)
+Defined in: [purease.ts:1099](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1099)
 
 #### Parameters
 

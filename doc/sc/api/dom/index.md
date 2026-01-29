@@ -8,8 +8,10 @@
 
 ## Functions
 
+- [colorToHex](functions/colorToHex.md)
 - [findParentByClass](functions/findParentByClass.md)
 - [findParentByTag](functions/findParentByTag.md)
+- [getCssVar](functions/getCssVar.md)
 - [hidePop](functions/hidePop.md)
 - [index](functions/index.md)
 - [isRtl](functions/isRtl.md)
