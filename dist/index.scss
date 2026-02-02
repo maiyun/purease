@@ -1724,6 +1724,15 @@ html.pe-rtl {
     }
 }
 
+@media screen and (max-width: 800px) {
+
+    .pe-drawer-body {
+        width: 85% !important;
+    }
+
+}
+
+
 .pe-footer {
     background: var(--pe-grey); padding: 120px 40px; white-space: nowrap;
     &.pe-dark {
