@@ -8,7 +8,7 @@
 
 > **get**(`url`, `init?`, `opt?`): `Promise`\<`string` \| `Blob` \| `null`\>
 
-Defined in: [tool.ts:371](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L371)
+Defined in: [tool.ts:389](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L389)
 
 发起 GET 请求
 

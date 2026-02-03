@@ -7481,7 +7481,7 @@ tool/functions/blob2DataUrl.md
 
 > **blob2DataUrl**(`blob`): `Promise`\<`string`\>
 
-Defined in: [tool.ts:646](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L646)
+Defined in: [tool.ts:664](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L664)
 
 将 blob 对象转换为 base64 url
 
@@ -7510,7 +7510,7 @@ tool/functions/blob2Text.md
 
 > **blob2Text**(`blob`): `Promise`\<`string`\>
 
-Defined in: [tool.ts:627](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L627)
+Defined in: [tool.ts:645](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L645)
 
 将 blob 对象转换为 text
 
@@ -7603,7 +7603,7 @@ tool/functions/fetch.md
 
 > **fetch**(`url`, `init?`): `Promise`\<`string` \| `Blob` \| `null`\>
 
-Defined in: [tool.ts:345](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L345)
+Defined in: [tool.ts:363](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L363)
 
 发起 fetch 请求
 
@@ -7640,7 +7640,7 @@ tool/functions/formatSecond.md
 
 > **formatSecond**(`second`): `string`
 
-Defined in: [tool.ts:662](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L662)
+Defined in: [tool.ts:680](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L680)
 
 将秒数格式化为 0:0:0 的字符串
 
@@ -7667,7 +7667,7 @@ tool/functions/formatTime.md
 
 > **formatTime**(`ts`, `tz?`): `object`
 
-Defined in: [tool.ts:675](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L675)
+Defined in: [tool.ts:693](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L693)
 
 将日期对象或毫秒级时间戳转换为字符串
 
@@ -7714,7 +7714,7 @@ tool/functions/get.md
 
 > **get**(`url`, `init?`, `opt?`): `Promise`\<`string` \| `Blob` \| `null`\>
 
-Defined in: [tool.ts:371](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L371)
+Defined in: [tool.ts:389](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L389)
 
 发起 GET 请求
 
@@ -7916,7 +7916,7 @@ tool/functions/getResponseJson.md
 
 > **getResponseJson**(`url`, `init?`): `Promise`\<`any`\>
 
-Defined in: [tool.ts:423](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L423)
+Defined in: [tool.ts:441](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L441)
 
 发起 GET 请求并解析 JSON 响应
 
@@ -7953,7 +7953,7 @@ tool/functions/isDomain.md
 
 > **isDomain**(`domain`): `boolean`
 
-Defined in: [tool.ts:771](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L771)
+Defined in: [tool.ts:789](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L789)
 
 判断是否是域名
 
@@ -7984,7 +7984,7 @@ tool/functions/isEMail.md
 
 > **isEMail**(`email`): `boolean`
 
-Defined in: [tool.ts:746](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L746)
+Defined in: [tool.ts:764](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L764)
 
 是否是邮件地址
 
@@ -8011,7 +8011,7 @@ tool/functions/isIPv4.md
 
 > **isIPv4**(`ip`): `boolean`
 
-Defined in: [tool.ts:754](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L754)
+Defined in: [tool.ts:772](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L772)
 
 是否是 IPv4
 
@@ -8038,7 +8038,7 @@ tool/functions/isIPv6.md
 
 > **isIPv6**(`ip`): `boolean`
 
-Defined in: [tool.ts:762](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L762)
+Defined in: [tool.ts:780](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L780)
 
 是否是 IPv6
 
@@ -8065,7 +8065,7 @@ tool/functions/isPhoneCN.md
 
 > **isPhoneCN**(`p`): `boolean`
 
-Defined in: [tool.ts:781](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L781)
+Defined in: [tool.ts:799](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L799)
 
 判断手机号是否是 11 位，不做真实性校验
 
@@ -8094,7 +8094,7 @@ tool/functions/loadLink.md
 
 > **loadLink**(`url`, `pos`): `Promise`\<`boolean`\>
 
-Defined in: [tool.ts:870](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L870)
+Defined in: [tool.ts:888](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L888)
 
 加载 css 文件
 
@@ -8129,7 +8129,7 @@ tool/functions/loadLinks.md
 
 > **loadLinks**(`urls`, `opt`): `Promise`\<`void`\>
 
-Defined in: [tool.ts:896](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L896)
+Defined in: [tool.ts:914](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L914)
 
 批量加载 css 文件
 
@@ -8166,7 +8166,7 @@ tool/functions/loadScript.md
 
 > **loadScript**(`url`): `Promise`\<`boolean`\>
 
-Defined in: [tool.ts:818](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L818)
+Defined in: [tool.ts:836](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L836)
 
 加载脚本
 
@@ -8195,7 +8195,7 @@ tool/functions/loadScripts.md
 
 > **loadScripts**(`urls`, `opt`): `Promise`\<`void`\>
 
-Defined in: [tool.ts:837](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L837)
+Defined in: [tool.ts:855](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L855)
 
 批量加载 js 文件
 
@@ -8232,7 +8232,7 @@ tool/functions/parseUrl.md
 
 > **parseUrl**(`url`): [`IUrl`](../interfaces/IUrl.md)
 
-Defined in: [tool.ts:468](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L468)
+Defined in: [tool.ts:486](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L486)
 
 传输 url 并解析为 IUrl 对象
 
@@ -8261,7 +8261,7 @@ tool/functions/post.md
 
 > **post**(`url`, `data`, `init?`): `Promise`\<`string` \| `Blob` \| `null`\>
 
-Defined in: [tool.ts:398](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L398)
+Defined in: [tool.ts:416](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L416)
 
 发起 POST 请求
 
@@ -8304,7 +8304,7 @@ tool/functions/postResponseJson.md
 
 > **postResponseJson**(`url`, `data`, `init?`): `Promise`\<`any`\>
 
-Defined in: [tool.ts:446](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L446)
+Defined in: [tool.ts:464](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L464)
 
 发起 POST 请求并解析 JSON 响应
 
@@ -8347,7 +8347,7 @@ tool/functions/purify.md
 
 > **purify**(`text`): `string`
 
-Defined in: [tool.ts:789](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L789)
+Defined in: [tool.ts:807](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L807)
 
 去除 html 的空白符、换行以及注释
 
@@ -8376,7 +8376,7 @@ tool/functions/queryParse.md
 
 > **queryParse**(`query`): `Record`\<`string`, `string` \| `string`[]\>
 
-Defined in: [tool.ts:715](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L715)
+Defined in: [tool.ts:733](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L733)
 
 将 query string 转换为对象
 
@@ -8405,7 +8405,7 @@ tool/functions/queryStringify.md
 
 > **queryStringify**(`query`): `string`
 
-Defined in: [tool.ts:702](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L702)
+Defined in: [tool.ts:720](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L720)
 
 将对象转换为 query string
 
@@ -8502,7 +8502,7 @@ tool/functions/request.md
 
 > **request**(`url`, `opt`): `Promise`\<`any`\>
 
-Defined in: [tool.ts:258](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L258)
+Defined in: [tool.ts:276](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L276)
 
 发起一个网络请求，若是返回值是 JSON 则自动解析，否则直接返回字符串
 
@@ -8553,6 +8553,35 @@ Defined in: [tool.ts:139](https://github.com/maiyun/purease/blob/master/dist/too
 
 `Promise`\<`boolean`\>
 
+tool/functions/unescapeHTML.md
+---
+
+[**Documents for purease**](../../index.md)
+
+***
+
+[Documents for purease](../../index.md) / [tool](../index.md) / unescapeHTML
+
+# Function: unescapeHTML()
+
+> **unescapeHTML**(`html`): `string`
+
+Defined in: [tool.ts:261](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L261)
+
+还原转义后的 HTML
+
+## Parameters
+
+### html
+
+`string`
+
+已转义的 HTML 字符
+
+## Returns
+
+`string`
+
 tool/functions/urlAtom.md
 ---
 
@@ -8566,7 +8595,7 @@ tool/functions/urlAtom.md
 
 > **urlAtom**(`url`): `string`
 
-Defined in: [tool.ts:610](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L610)
+Defined in: [tool.ts:628](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L628)
 
 处理 URL 中的 .. / . 等
 
@@ -8593,7 +8622,7 @@ tool/functions/urlResolve.md
 
 > **urlResolve**(`from`, `to`): `string`
 
-Defined in: [tool.ts:551](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L551)
+Defined in: [tool.ts:569](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L569)
 
 将相对路径根据基准路径进行转换
 
@@ -8679,6 +8708,7 @@ tool/index.md
 - [random](functions/random.md)
 - [request](functions/request.md)
 - [sleep](functions/sleep.md)
+- [unescapeHTML](functions/unescapeHTML.md)
 - [urlAtom](functions/urlAtom.md)
 - [urlResolve](functions/urlResolve.md)
 
@@ -8736,7 +8766,7 @@ tool/interfaces/IRequestOptions.md
 
 # Interface: IRequestOptions
 
-Defined in: [tool.ts:941](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L941)
+Defined in: [tool.ts:959](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L959)
 
 ## Properties
 
@@ -8744,7 +8774,7 @@ Defined in: [tool.ts:941](https://github.com/maiyun/purease/blob/master/dist/too
 
 > `optional` **body**: `FormData`
 
-Defined in: [tool.ts:944](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L944)
+Defined in: [tool.ts:962](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L962)
 
 ***
 
@@ -8752,7 +8782,7 @@ Defined in: [tool.ts:944](https://github.com/maiyun/purease/blob/master/dist/too
 
 > `optional` **credentials**: `boolean`
 
-Defined in: [tool.ts:942](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L942)
+Defined in: [tool.ts:960](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L960)
 
 ***
 
@@ -8760,7 +8790,7 @@ Defined in: [tool.ts:942](https://github.com/maiyun/purease/blob/master/dist/too
 
 > `optional` **end**: () => `void` \| `Promise`\<`void`\>
 
-Defined in: [tool.ts:953](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L953)
+Defined in: [tool.ts:971](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L971)
 
 #### Returns
 
@@ -8772,7 +8802,7 @@ Defined in: [tool.ts:953](https://github.com/maiyun/purease/blob/master/dist/too
 
 > `optional` **error**: () => `void` \| `Promise`\<`void`\>
 
-Defined in: [tool.ts:956](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L956)
+Defined in: [tool.ts:974](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L974)
 
 #### Returns
 
@@ -8784,7 +8814,7 @@ Defined in: [tool.ts:956](https://github.com/maiyun/purease/blob/master/dist/too
 
 > `optional` **headers**: `HeadersInit`
 
-Defined in: [tool.ts:947](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L947)
+Defined in: [tool.ts:965](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L965)
 
 ***
 
@@ -8792,7 +8822,7 @@ Defined in: [tool.ts:947](https://github.com/maiyun/purease/blob/master/dist/too
 
 > `optional` **load**: (`res`) => `void` \| `Promise`\<`void`\>
 
-Defined in: [tool.ts:955](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L955)
+Defined in: [tool.ts:973](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L973)
 
 #### Parameters
 
@@ -8810,7 +8840,7 @@ Defined in: [tool.ts:955](https://github.com/maiyun/purease/blob/master/dist/too
 
 > `optional` **method**: `"GET"` \| `"POST"`
 
-Defined in: [tool.ts:943](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L943)
+Defined in: [tool.ts:961](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L961)
 
 ***
 
@@ -8818,7 +8848,7 @@ Defined in: [tool.ts:943](https://github.com/maiyun/purease/blob/master/dist/too
 
 > `optional` **progress**: (`loaded`, `total`) => `void` \| `Promise`\<`void`\>
 
-Defined in: [tool.ts:954](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L954)
+Defined in: [tool.ts:972](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L972)
 
 #### Parameters
 
@@ -8840,7 +8870,7 @@ Defined in: [tool.ts:954](https://github.com/maiyun/purease/blob/master/dist/too
 
 > `optional` **responseType**: `XMLHttpRequestResponseType`
 
-Defined in: [tool.ts:946](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L946)
+Defined in: [tool.ts:964](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L964)
 
 ***
 
@@ -8848,7 +8878,7 @@ Defined in: [tool.ts:946](https://github.com/maiyun/purease/blob/master/dist/too
 
 > `optional` **start**: (`total`) => `void` \| `Promise`\<`void`\>
 
-Defined in: [tool.ts:952](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L952)
+Defined in: [tool.ts:970](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L970)
 
 #### Parameters
 
@@ -8866,7 +8896,7 @@ Defined in: [tool.ts:952](https://github.com/maiyun/purease/blob/master/dist/too
 
 > `optional` **timeout**: `number`
 
-Defined in: [tool.ts:945](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L945)
+Defined in: [tool.ts:963](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L963)
 
 ***
 
@@ -8874,7 +8904,7 @@ Defined in: [tool.ts:945](https://github.com/maiyun/purease/blob/master/dist/too
 
 > `optional` **uploadEnd**: () => `void` \| `Promise`\<`void`\>
 
-Defined in: [tool.ts:951](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L951)
+Defined in: [tool.ts:969](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L969)
 
 #### Returns
 
@@ -8886,7 +8916,7 @@ Defined in: [tool.ts:951](https://github.com/maiyun/purease/blob/master/dist/too
 
 > `optional` **uploadProgress**: (`loaded`, `total`) => `void` \| `Promise`\<`void`\>
 
-Defined in: [tool.ts:950](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L950)
+Defined in: [tool.ts:968](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L968)
 
 #### Parameters
 
@@ -8908,7 +8938,7 @@ Defined in: [tool.ts:950](https://github.com/maiyun/purease/blob/master/dist/too
 
 > `optional` **uploadStart**: (`total`) => `void` \| `Promise`\<`void`\>
 
-Defined in: [tool.ts:949](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L949)
+Defined in: [tool.ts:967](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L967)
 
 #### Parameters
 
@@ -8931,7 +8961,7 @@ tool/interfaces/IUrl.md
 
 # Interface: IUrl
 
-Defined in: [tool.ts:927](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L927)
+Defined in: [tool.ts:945](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L945)
 
 网址对象
 
@@ -8941,7 +8971,7 @@ Defined in: [tool.ts:927](https://github.com/maiyun/purease/blob/master/dist/too
 
 > **auth**: `string` \| `null`
 
-Defined in: [tool.ts:928](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L928)
+Defined in: [tool.ts:946](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L946)
 
 ***
 
@@ -8949,7 +8979,7 @@ Defined in: [tool.ts:928](https://github.com/maiyun/purease/blob/master/dist/too
 
 > **hash**: `string` \| `null`
 
-Defined in: [tool.ts:929](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L929)
+Defined in: [tool.ts:947](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L947)
 
 ***
 
@@ -8957,7 +8987,7 @@ Defined in: [tool.ts:929](https://github.com/maiyun/purease/blob/master/dist/too
 
 > **host**: `string` \| `null`
 
-Defined in: [tool.ts:930](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L930)
+Defined in: [tool.ts:948](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L948)
 
 ***
 
@@ -8965,7 +8995,7 @@ Defined in: [tool.ts:930](https://github.com/maiyun/purease/blob/master/dist/too
 
 > **hostname**: `string` \| `null`
 
-Defined in: [tool.ts:931](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L931)
+Defined in: [tool.ts:949](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L949)
 
 ***
 
@@ -8973,7 +9003,7 @@ Defined in: [tool.ts:931](https://github.com/maiyun/purease/blob/master/dist/too
 
 > **pass**: `string` \| `null`
 
-Defined in: [tool.ts:932](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L932)
+Defined in: [tool.ts:950](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L950)
 
 ***
 
@@ -8981,7 +9011,7 @@ Defined in: [tool.ts:932](https://github.com/maiyun/purease/blob/master/dist/too
 
 > **path**: `string` \| `null`
 
-Defined in: [tool.ts:933](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L933)
+Defined in: [tool.ts:951](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L951)
 
 ***
 
@@ -8989,7 +9019,7 @@ Defined in: [tool.ts:933](https://github.com/maiyun/purease/blob/master/dist/too
 
 > **pathname**: `string`
 
-Defined in: [tool.ts:934](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L934)
+Defined in: [tool.ts:952](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L952)
 
 ***
 
@@ -8997,7 +9027,7 @@ Defined in: [tool.ts:934](https://github.com/maiyun/purease/blob/master/dist/too
 
 > **port**: `string` \| `null`
 
-Defined in: [tool.ts:936](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L936)
+Defined in: [tool.ts:954](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L954)
 
 ***
 
@@ -9005,7 +9035,7 @@ Defined in: [tool.ts:936](https://github.com/maiyun/purease/blob/master/dist/too
 
 > **protocol**: `string` \| `null`
 
-Defined in: [tool.ts:935](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L935)
+Defined in: [tool.ts:953](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L953)
 
 ***
 
@@ -9013,7 +9043,7 @@ Defined in: [tool.ts:935](https://github.com/maiyun/purease/blob/master/dist/too
 
 > **query**: `string` \| `null`
 
-Defined in: [tool.ts:937](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L937)
+Defined in: [tool.ts:955](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L955)
 
 ***
 
@@ -9021,7 +9051,7 @@ Defined in: [tool.ts:937](https://github.com/maiyun/purease/blob/master/dist/too
 
 > **user**: `string` \| `null`
 
-Defined in: [tool.ts:938](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L938)
+Defined in: [tool.ts:956](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L956)
 
 tool/variables/RANDOM_L.md
 ---

@@ -8,7 +8,7 @@
 
 > **isIPv4**(`ip`): `boolean`
 
-Defined in: [tool.ts:754](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L754)
+Defined in: [tool.ts:772](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L772)
 
 是否是 IPv4
 

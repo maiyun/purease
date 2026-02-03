@@ -8,7 +8,7 @@
 
 > **post**(`url`, `data`, `init?`): `Promise`\<`string` \| `Blob` \| `null`\>
 
-Defined in: [tool.ts:398](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L398)
+Defined in: [tool.ts:416](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L416)
 
 发起 POST 请求
 

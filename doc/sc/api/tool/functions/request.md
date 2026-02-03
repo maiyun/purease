@@ -8,7 +8,7 @@
 
 > **request**(`url`, `opt`): `Promise`\<`any`\>
 
-Defined in: [tool.ts:258](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L258)
+Defined in: [tool.ts:276](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L276)
 
 发起一个网络请求，若是返回值是 JSON 则自动解析，否则直接返回字符串
 

@@ -8,7 +8,7 @@
 
 > **queryStringify**(`query`): `string`
 
-Defined in: [tool.ts:702](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L702)
+Defined in: [tool.ts:720](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L720)
 
 将对象转换为 query string
 

@@ -8,7 +8,7 @@
 
 > **isPhoneCN**(`p`): `boolean`
 
-Defined in: [tool.ts:781](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L781)
+Defined in: [tool.ts:799](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L799)
 
 判断手机号是否是 11 位，不做真实性校验
 

@@ -8,7 +8,7 @@
 
 > **loadLink**(`url`, `pos`): `Promise`\<`boolean`\>
 
-Defined in: [tool.ts:870](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L870)
+Defined in: [tool.ts:888](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L888)
 
 加载 css 文件
 

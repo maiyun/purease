@@ -8,7 +8,7 @@
 
 > **loadScripts**(`urls`, `opt`): `Promise`\<`void`\>
 
-Defined in: [tool.ts:837](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L837)
+Defined in: [tool.ts:855](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L855)
 
 批量加载 js 文件
 
