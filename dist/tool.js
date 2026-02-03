@@ -228,7 +228,24 @@ export function getDecimal(number) {
  * @param html HTML 字符
  */
 export function escapeHTML(html) {
-    return html.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    return html.replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&#34;')
+        .replace(/'/g, '&#39;');
+}
+/**
+ * --- 还原转义后的 HTML ---
+ * @param html 已转义的 HTML 字符
+ */
+export function unescapeHTML(html) {
+    return html.replace(/&amp;/g, '&')
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
+        .replace(/&#34;/g, '"')
+        .replace(/&quot;/g, '"')
+        .replace(/&#39;/g, '\'')
+        .replace(/&apos;/g, '\'');
 }
 /**
  * --- 发起一个网络请求，若是返回值是 JSON 则自动解析，否则直接返回字符串 ---

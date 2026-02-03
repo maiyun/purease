@@ -59,5 +59,6 @@
 - [random](functions/random.md)
 - [request](functions/request.md)
 - [sleep](functions/sleep.md)
+- [unescapeHTML](functions/unescapeHTML.md)
 - [urlAtom](functions/urlAtom.md)
 - [urlResolve](functions/urlResolve.md)
