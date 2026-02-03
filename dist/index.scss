@@ -764,6 +764,10 @@ html.pe-rtl {
 
 // --- naive-ui overrides ---
 
+.n-config-provider {
+    display: contents;
+}
+
 // --- n-carousel ---
 
 .n-carousel {
