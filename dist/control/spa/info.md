@@ -30,20 +30,26 @@ plain 模式下无边框和圆角。full 模式下切换为全屏固定定位（
 <pe-spa :plain="spaPlain" :full="spaFull" style="min-width: 400px; min-height: 700px;">
     <!-- 第一页 -->
     <pe-spa-page path="/">
-        <pe-spa-header>Hello world</pe-spa-header>
+        <template v-slot:header>
+            <pe-spa-header>Hello world</pe-spa-header>
+        </template>
         <pe-spa-content> ... </pe-spa-content>
     </pe-spa-page>
     <!-- 第二页 -->
     <pe-spa-page path="/2" @show="spaShow2" @hide="spaHide2">
-        <pe-spa-header back>
-            <pe-circle type="pe" size="s"></pe-circle>
-            <div>The 2 Page</div>
-        </pe-spa-header>
+        <template v-slot:header>
+            <pe-spa-header back>
+                <pe-circle type="pe" size="s"></pe-circle>
+                <div>The 2 Page</div>
+            </pe-spa-header>
+        </template>
         <pe-spa-content> ... </pe-spa-content>
     </pe-spa-page>
     <!-- 第三页 -->
     <pe-spa-page path="/3" grey>
-        <pe-spa-header style="flex-direction: column;" note="the note text" back>The 3 Page</pe-spa-header>
+        <template v-slot:header>
+            <pe-spa-header style="flex-direction: column;" note="the note text" back>The 3 Page</pe-spa-header>
+        </template>
         <pe-spa-content> ... </pe-spa-content>
     </pe-spa-page>
 </pe-spa>

@@ -21,7 +21,9 @@ SPA 底部导航栏控件，用于 pe-spa-page 的底部
 ```html
 <pe-spa :plain="spaPlain" :full="spaFull" style="min-width: 400px; min-height: 700px;">
     <pe-spa-page path="/">
-        <pe-spa-header>Hello world</pe-spa-header>
+        <template v-slot:header>
+            <pe-spa-header>Hello world</pe-spa-header>
+        </template>
         <pe-spa-content> ... </pe-spa-content>
         <pe-spa-footer>
             <pe-spa-footer-icon title="Full" v-model="spaFooter" value="1">

@@ -2514,7 +2514,7 @@ html.pe-rtl {
 }
 
 .pe-spa-content {
-    display: flex; flex-direction: column; flex: 1; height: 0; overflow: auto;
+    display: flex; flex-direction: column; flex: 1; min-height: 0; overflow: auto;
 }
 
 .pe-spa-footer {
@@ -2569,7 +2569,7 @@ html.pe-rtl {
 
 
 .pe-spa-page {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: oklch(1 0 0); flex-direction: column; transition: var(--pe-transition);
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: oklch(1 0 0); flex-direction: column; transition: var(--pe-transition); container-type: inline-size;
     &.pe-spa-page-grey {
         background: var(--pe-grey);
     }
@@ -2589,7 +2589,49 @@ html.pe-rtl {
     &:not(.pe-show) {
         transform: translateX(10px); opacity: 0;
     }
+
+    .pe-spa-page-inner {
+        flex: 1; min-height: 0; display: flex; flex-direction: column;
+    }
+
+    // --- 大屏模式 ---
+    @container (min-width: 801px) {
+        .pe-spa-page-inner {
+            flex: 1; display: flex; flex-direction: row-reverse;
+
+            .pe-spa-content {
+                min-height: initial; min-width: 0;
+            }
+
+            .pe-spa-footer {
+                flex-direction: column; padding: var(--pe-padding-s); gap: var(--pe-gap-s); border-right: solid .5px var(--pe-grey);
+
+                .pe-spa-footer-icon {
+                    flex: initial; flex-direction: row; transition: var(--pe-transition); border-radius: var(--pe-radius); padding: var(--pe-padding-s) var(--pe-padding);
+
+                    &:hover {
+                        background: var(--pe-bg); color: var(--pe);
+                    }
+                }
+            }
+        }
+    }
 }
+
+
+html.pe-rtl {
+    .pe-spa-page {
+        // --- 大屏模式 ---
+        @container (min-width: 801px) {
+            .pe-spa-page-inner {
+                .pe-spa-footer {
+                    border-right: none; border-left: solid .5px var(--pe-grey);
+                }
+            }
+        }
+    }
+}
+
 
 .pe-switch-block {
     left: 3px; top: 3px; width: calc(var(--pe-switch-size) - 6px); height: calc(100% - 6px); background: var(--pe-input-bg); position: absolute; transition: all .3s var(--pe-cubic); box-shadow: var(--pe-shadow-d); border-radius: 100%;

@@ -42,7 +42,9 @@
         <pe-spa :plain="spaPlain" :full="spaFull" style="min-width: 400px; min-height: 600px;">
             <!-- 第一页 -->
             <pe-spa-page path="/">
-                <pe-spa-header>Home</pe-spa-header>
+                <template v-slot:header>
+                    <pe-spa-header>Home</pe-spa-header>
+                </template>
                 <pe-spa-content>
                     <div class="pe-layout pe-padding-s pe-gap-s" style="flex-direction: column;">
                         <div>Welcome to SPA demo</div>
@@ -64,10 +66,12 @@
             </pe-spa-page>
             <!-- 个人资料页 -->
             <pe-spa-page path="/profile" @show="spaShow" @hide="spaHide">
-                <pe-spa-header back>
-                    <pe-circle type="pe" size="s"></pe-circle>
-                    <div>Profile</div>
-                </pe-spa-header>
+                <template v-slot:header>
+                    <pe-spa-header back>
+                        <pe-circle type="pe" size="s"></pe-circle>
+                        <div>Profile</div>
+                    </pe-spa-header>
+                </template>
                 <pe-spa-content>
                     <div class="pe-layout pe-padding-s pe-gap-s" style="flex-direction: column;">
                         <pe-setting hover light>
@@ -81,7 +85,9 @@
             </pe-spa-page>
             <!-- 设置页 -->
             <pe-spa-page path="/settings" grey>
-                <pe-spa-header style="flex-direction: column;" note="Manage your preferences" back>Settings</pe-spa-header>
+                <template v-slot:header>
+                    <pe-spa-header style="flex-direction: column;" note="Manage your preferences" back>Settings</pe-spa-header>
+                </template>
                 <pe-spa-content>
                     <div class="pe-layout pe-padding-s pe-gap-s" style="flex-direction: column;">
                         <pe-setting hover light>

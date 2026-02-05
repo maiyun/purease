@@ -221,7 +221,9 @@
         <pe-spa :plain="spaPlain" :full="spaFull" style="min-width: 400px; min-height: 700px;">
             <!-- 第一页 -->
             <pe-spa-page path="/">
-                <pe-spa-header>Hello world</pe-spa-header>
+                <template v-slot:header>
+                    <pe-spa-header>Hello world</pe-spa-header>
+                </template>
                 <pe-spa-content>
                     <div v-if="spaFooter === '1'" class="pe-layout pe-padding-s pe-gap-s" style="flex-direction: column;">
                         <div>has padding</div>
@@ -259,10 +261,12 @@
             </pe-spa-page>
             <!-- 第二页 -->
             <pe-spa-page path="/2" @show="spaShow2" @hide="spaHide2">
-                <pe-spa-header back>
-                    <pe-circle type="pe" size="s"></pe-circle>
-                    <div>The 2 Page</div>
-                </pe-spa-header>
+                <template v-slot:header>
+                    <pe-spa-header back>
+                        <pe-circle type="pe" size="s"></pe-circle>
+                        <div>The 2 Page</div>
+                    </pe-spa-header>
+                </template>
                 <pe-spa-content>
                     test test<br><br>
                     <div class="pe-button pe-pgrey">Button</div>
@@ -270,7 +274,9 @@
             </pe-spa-page>
             <!-- 第三页 -->
             <pe-spa-page path="/3" grey>
-                <pe-spa-header style="flex-direction: column;" note="the note text" back>The 3 Page</pe-spa-header>
+                <template v-slot:header>
+                    <pe-spa-header style="flex-direction: column;" note="the note text" back>The 3 Page</pe-spa-header>
+                </template>
                 <pe-spa-content>
                     <div class="pe-layout pe-padding-s pe-gap-s" style="flex-direction: column;">
                         <pe-setting hover light>

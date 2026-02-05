@@ -47,7 +47,9 @@ grey 模式下背景变为灰色。显示状态（display）通过类控制：pe
 ```html
 <pe-spa plain full>
     <pe-spa-page path="/" @show="spaShow" @hide="spaHide">
-        <pe-spa-header back>The Page</pe-spa-header>
+        <template v-slot:header>
+            <pe-spa-header back>The Page</pe-spa-header>
+        </template>
         <pe-spa-content> ... </pe-spa-content>
     </pe-spa-page>
 </pe-spa>

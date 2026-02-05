@@ -4219,7 +4219,7 @@ list['pe-spa-header'] = {
 };
 
 list['pe-spa-page'] = {
-    'template': `<div class="pe-spa-page" :class="propBoolean('grey')&&'pe-spa-page-grey'"><slot></slot></div>`,
+    'template': `<div class="pe-spa-page" :class="propBoolean('grey')&&'pe-spa-page-grey'"><slot name="header"></slot><div class="pe-spa-page-inner"><slot></slot></div></div>`,
     'emits': ['show', 'hide'],
     'props': {
         'path': {

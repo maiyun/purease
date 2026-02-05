@@ -35,7 +35,9 @@ SPA 底部导航图标项
 ```html
 <pe-spa plain full>
     <pe-spa-page path="/">
-        <pe-spa-header>Hello world</pe-spa-header>
+        <template v-slot:header>
+            <pe-spa-header>Hello world</pe-spa-header>
+        </template>
         <pe-spa-content> ... </pe-spa-content>
         <pe-spa-footer>
             <pe-spa-footer-icon title="Full" v-model="spaFooter" value="1">

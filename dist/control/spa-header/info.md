@@ -35,11 +35,15 @@ SPA 页面头部控件
 ```html
 <pe-spa>
     <pe-spa-page path="/2" @show="spaShow2" @hide="spaHide2">
-        <pe-spa-header back>The 2 Page</pe-spa-header>
+        <template v-slot:header>
+            <pe-spa-header back>The 2 Page</pe-spa-header>
+        </template>
         <pe-spa-content> ... </pe-spa-content>
     </pe-spa-page>
     <pe-spa-page path="/3" grey>
-        <pe-spa-header direction="v" note="the note text" back>The 3 Page</pe-spa-header>
+        <template v-slot:header>
+            <pe-spa-header direction="v" note="the note text" back>The 3 Page</pe-spa-header>
+        </template>
         <pe-spa-content> ... </pe-spa-content>
     </pe-spa-page>
 </pe-spa>

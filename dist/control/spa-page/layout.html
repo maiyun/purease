@@ -1,3 +1,6 @@
 <div class="pe-spa-page" :class="propBoolean('grey')&&'pe-spa-page-grey'">
-    <slot></slot>
+    <slot name="header"></slot>
+    <div class="pe-spa-page-inner">
+        <slot></slot>
+    </div>
 </div>

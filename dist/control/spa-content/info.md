@@ -15,10 +15,12 @@ SPA 内容区域控件，用于 pe-spa-page 内
 ```html
 <pe-spa>
     <pe-spa-page path="/2" @show="spaShow2" @hide="spaHide2">
-        <pe-spa-header back>
-            <pe-circle type="pe" size="s"></pe-circle>
-            <div>The 2 Page</div>
-        </pe-spa-header>
+        <template v-slot:header>
+            <pe-spa-header back>
+                <pe-circle type="pe" size="s"></pe-circle>
+                <div>The 2 Page</div>
+            </pe-spa-header>
+        </template>
         <pe-spa-content>
             test test<br><br>
             <div class="pe-button pe-pgrey">Button</div>
