@@ -793,29 +793,10 @@ export async function loadScript(url) {
  * @param opt 选项
  */
 export async function loadScripts(urls, opt = {}) {
-    return new Promise((resolve) => {
-        let count = 0;
-        for (const url of urls) {
-            loadScript(url).then(res => {
-                ++count;
-                if (res) {
-                    opt.loaded?.(url, 1);
-                }
-                else {
-                    opt.loaded?.(url, 0);
-                }
-                if (count === urls.length) {
-                    resolve();
-                }
-            }).catch(() => {
-                ++count;
-                opt.loaded?.(url, -1);
-                if (count === urls.length) {
-                    resolve();
-                }
-            });
-        }
-    });
+    await Promise.all(urls.map(async (url) => {
+        const res = await loadScript(url);
+        opt.loaded?.(url, res ? 1 : 0);
+    }));
 }
 /**
  * --- 加载 css 文件 ---
@@ -848,27 +829,8 @@ export async function loadLink(url, pos = 'after') {
  * @param opt 选项
  */
 export async function loadLinks(urls, opt = {}) {
-    return new Promise((resolve) => {
-        let count = 0;
-        for (const url of urls) {
-            loadLink(url).then(res => {
-                ++count;
-                if (res) {
-                    opt.loaded?.(url, 1);
-                }
-                else {
-                    opt.loaded?.(url, 0);
-                }
-                if (count === urls.length) {
-                    resolve();
-                }
-            }).catch(() => {
-                ++count;
-                opt.loaded?.(url, -1);
-                if (count === urls.length) {
-                    resolve();
-                }
-            });
-        }
-    });
+    await Promise.all(urls.map(async (url) => {
+        const res = await loadLink(url);
+        opt.loaded?.(url, res ? 1 : 0);
+    }));
 }

@@ -853,31 +853,12 @@ export async function loadScript(url: string): Promise<boolean> {
  * @param opt 选项
  */
 export async function loadScripts(urls: string[], opt: {
-    'loaded'?: (url: string, state: number) => void;
+    loaded?: (url: string, state: number) => void;
 } = {}): Promise<void> {
-    return new Promise((resolve) => {
-        let count = 0;
-        for (const url of urls) {
-            loadScript(url).then(res => {
-                ++count;
-                if (res) {
-                    opt.loaded?.(url, 1);
-                }
-                else {
-                    opt.loaded?.(url, 0);
-                }
-                if (count === urls.length) {
-                    resolve();
-                }
-            }).catch(() => {
-                ++count;
-                opt.loaded?.(url, -1);
-                if (count === urls.length) {
-                    resolve();
-                }
-            });
-        }
-    });
+    await Promise.all(urls.map(async url => {
+        const res = await loadScript(url);
+        opt.loaded?.(url, res ? 1 : 0);
+    }));
 }
 
 /**
@@ -912,31 +893,12 @@ export async function loadLink(url: string, pos: 'before' | 'after' = 'after'): 
  * @param opt 选项
  */
 export async function loadLinks(urls: string[], opt: {
-    'loaded'?: (url: string, state: number) => void;
+    loaded?: (url: string, state: number) => void;
 } = {}): Promise<void> {
-    return new Promise((resolve) => {
-        let count = 0;
-        for (const url of urls) {
-            loadLink(url).then(res => {
-                ++count;
-                if (res) {
-                    opt.loaded?.(url, 1);
-                }
-                else {
-                    opt.loaded?.(url, 0);
-                }
-                if (count === urls.length) {
-                    resolve();
-                }
-            }).catch(() => {
-                ++count;
-                opt.loaded?.(url, -1);
-                if (count === urls.length) {
-                    resolve();
-                }
-            });
-        }
-    });
+    await Promise.all(urls.map(async (url) => {
+        const res = await loadLink(url);
+        opt.loaded?.(url, res ? 1 : 0);
+    }));
 }
 
 // --- 类型 ---
@@ -964,12 +926,12 @@ export interface IRequestOptions {
     'responseType'?: XMLHttpRequestResponseType;
     'headers'?: HeadersInit;
 
-    'uploadStart'?: (total: number) => void | Promise<void>;
-    'uploadProgress'?: (loaded: number, total: number) => void | Promise<void>;
-    'uploadEnd'?: () => void | Promise<void>;
-    'start'?: (total: number) => void | Promise<void>;
-    'end'?: () => void | Promise<void>;
-    'progress'?: (loaded: number, total: number) => void | Promise<void>;
-    'load'?: (res: any) => void | Promise<void>;
-    'error'?: () => void | Promise<void>;
+    uploadStart?: (total: number) => void | Promise<void>;
+    uploadProgress?: (loaded: number, total: number) => void | Promise<void>;
+    uploadEnd?: () => void | Promise<void>;
+    start?: (total: number) => void | Promise<void>;
+    end?: () => void | Promise<void>;
+    progress?: (loaded: number, total: number) => void | Promise<void>;
+    load?: (res: any) => void | Promise<void>;
+    error?: () => void | Promise<void>;
 }

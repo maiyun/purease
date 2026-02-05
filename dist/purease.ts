@@ -552,9 +552,10 @@ export function launcher<T extends AbstractPage>(page: new (opt: {
         if (st > 0) {
             html.classList.add('pe-scroll');
         }
-        // --- 通过标签加载库 ---
+        // --- 先加载核心库 ---
+        await lTool.loadScript(`${cdn}/npm/vue@3.5.26/dist/vue.global${options.debug ? '' : '.prod.min'}.js`);
+        // --- 再加载三方库，防止 Vue 没加载好，三方库加载会有异常 ---
         const paths: string[] = [
-            `${cdn}/npm/vue@3.5.26/dist/vue.global${options.debug ? '' : '.prod.min'}.js`,
             `${cdn}/npm/naive-ui@2.43.2/dist/index.min.js`,
             `${cdn}/npm/@litert/pointer@1.6.2/dist/index.umd.min.js`,
         ];
