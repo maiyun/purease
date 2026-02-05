@@ -6,7 +6,7 @@
 
 # Interface: IUrl
 
-Defined in: [tool.ts:945](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L945)
+Defined in: [tool.ts:907](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L907)
 
 网址对象
 
@@ -16,7 +16,7 @@ Defined in: [tool.ts:945](https://github.com/maiyun/purease/blob/master/dist/too
 
 > **auth**: `string` \| `null`
 
-Defined in: [tool.ts:946](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L946)
+Defined in: [tool.ts:908](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L908)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [tool.ts:946](https://github.com/maiyun/purease/blob/master/dist/too
 
 > **hash**: `string` \| `null`
 
-Defined in: [tool.ts:947](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L947)
+Defined in: [tool.ts:909](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L909)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [tool.ts:947](https://github.com/maiyun/purease/blob/master/dist/too
 
 > **host**: `string` \| `null`
 
-Defined in: [tool.ts:948](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L948)
+Defined in: [tool.ts:910](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L910)
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: [tool.ts:948](https://github.com/maiyun/purease/blob/master/dist/too
 
 > **hostname**: `string` \| `null`
 
-Defined in: [tool.ts:949](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L949)
+Defined in: [tool.ts:911](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L911)
 
 ***
 
@@ -48,7 +48,7 @@ Defined in: [tool.ts:949](https://github.com/maiyun/purease/blob/master/dist/too
 
 > **pass**: `string` \| `null`
 
-Defined in: [tool.ts:950](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L950)
+Defined in: [tool.ts:912](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L912)
 
 ***
 
@@ -56,7 +56,7 @@ Defined in: [tool.ts:950](https://github.com/maiyun/purease/blob/master/dist/too
 
 > **path**: `string` \| `null`
 
-Defined in: [tool.ts:951](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L951)
+Defined in: [tool.ts:913](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L913)
 
 ***
 
@@ -64,7 +64,7 @@ Defined in: [tool.ts:951](https://github.com/maiyun/purease/blob/master/dist/too
 
 > **pathname**: `string`
 
-Defined in: [tool.ts:952](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L952)
+Defined in: [tool.ts:914](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L914)
 
 ***
 
@@ -72,7 +72,7 @@ Defined in: [tool.ts:952](https://github.com/maiyun/purease/blob/master/dist/too
 
 > **port**: `string` \| `null`
 
-Defined in: [tool.ts:954](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L954)
+Defined in: [tool.ts:916](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L916)
 
 ***
 
@@ -80,7 +80,7 @@ Defined in: [tool.ts:954](https://github.com/maiyun/purease/blob/master/dist/too
 
 > **protocol**: `string` \| `null`
 
-Defined in: [tool.ts:953](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L953)
+Defined in: [tool.ts:915](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L915)
 
 ***
 
@@ -88,7 +88,7 @@ Defined in: [tool.ts:953](https://github.com/maiyun/purease/blob/master/dist/too
 
 > **query**: `string` \| `null`
 
-Defined in: [tool.ts:955](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L955)
+Defined in: [tool.ts:917](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L917)
 
 ***
 
@@ -96,4 +96,4 @@ Defined in: [tool.ts:955](https://github.com/maiyun/purease/blob/master/dist/too
 
 > **user**: `string` \| `null`
 
-Defined in: [tool.ts:956](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L956)
+Defined in: [tool.ts:918](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L918)

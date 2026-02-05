@@ -6,7 +6,7 @@
 
 # Interface: IVue
 
-Defined in: [purease.ts:1059](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1059)
+Defined in: [purease.ts:1060](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1060)
 
 Vue 实例
 
@@ -24,7 +24,7 @@ Vue 实例
 
 > **$attrs**: `Record`\<`string`, `string`\>
 
-Defined in: [purease.ts:1060](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1060)
+Defined in: [purease.ts:1061](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1061)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [purease.ts:1060](https://github.com/maiyun/purease/blob/master/dist
 
 > **$data**: `Record`\<`string`, `any`\>
 
-Defined in: [purease.ts:1061](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1061)
+Defined in: [purease.ts:1062](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1062)
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: [purease.ts:1061](https://github.com/maiyun/purease/blob/master/dist
 
 > **$el**: `HTMLElement`
 
-Defined in: [purease.ts:1062](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1062)
+Defined in: [purease.ts:1063](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1063)
 
 ***
 
@@ -48,7 +48,7 @@ Defined in: [purease.ts:1062](https://github.com/maiyun/purease/blob/master/dist
 
 > **$options**: `Record`\<`string`, `any`\>
 
-Defined in: [purease.ts:1066](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1066)
+Defined in: [purease.ts:1067](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1067)
 
 ***
 
@@ -56,7 +56,7 @@ Defined in: [purease.ts:1066](https://github.com/maiyun/purease/blob/master/dist
 
 > **$parent**: `IVue` \| `null`
 
-Defined in: [purease.ts:1067](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1067)
+Defined in: [purease.ts:1068](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1068)
 
 ***
 
@@ -64,7 +64,7 @@ Defined in: [purease.ts:1067](https://github.com/maiyun/purease/blob/master/dist
 
 > **$props**: `Record`\<`string`, `any`\>
 
-Defined in: [purease.ts:1068](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1068)
+Defined in: [purease.ts:1069](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1069)
 
 ***
 
@@ -72,7 +72,7 @@ Defined in: [purease.ts:1068](https://github.com/maiyun/purease/blob/master/dist
 
 > **$refs**: `Record`\<`string`, `HTMLElement` & `IVue`\>
 
-Defined in: [purease.ts:1069](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1069)
+Defined in: [purease.ts:1070](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1070)
 
 ***
 
@@ -80,7 +80,7 @@ Defined in: [purease.ts:1069](https://github.com/maiyun/purease/blob/master/dist
 
 > **$root**: `IVue`
 
-Defined in: [purease.ts:1070](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1070)
+Defined in: [purease.ts:1071](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1071)
 
 ***
 
@@ -88,7 +88,7 @@ Defined in: [purease.ts:1070](https://github.com/maiyun/purease/blob/master/dist
 
 > **$slots**: `object`
 
-Defined in: [purease.ts:1071](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1071)
+Defined in: [purease.ts:1072](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1072)
 
 #### Index Signature
 
@@ -104,7 +104,7 @@ Defined in: [purease.ts:1071](https://github.com/maiyun/purease/blob/master/dist
 
 > **$watch**: (`o`, `cb`, `opt?`) => `void`
 
-Defined in: [purease.ts:1075](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1075)
+Defined in: [purease.ts:1076](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1076)
 
 #### Parameters
 
@@ -136,7 +136,7 @@ Defined in: [purease.ts:1075](https://github.com/maiyun/purease/blob/master/dist
 
 > **$emit**(`name`, ...`arg`): `void`
 
-Defined in: [purease.ts:1063](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1063)
+Defined in: [purease.ts:1064](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1064)
 
 #### Parameters
 
@@ -158,7 +158,7 @@ Defined in: [purease.ts:1063](https://github.com/maiyun/purease/blob/master/dist
 
 > **$forceUpdate**(): `void`
 
-Defined in: [purease.ts:1064](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1064)
+Defined in: [purease.ts:1065](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1065)
 
 #### Returns
 
@@ -170,7 +170,7 @@ Defined in: [purease.ts:1064](https://github.com/maiyun/purease/blob/master/dist
 
 > **$nextTick**(): `Promise`\<`void`\>
 
-Defined in: [purease.ts:1065](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1065)
+Defined in: [purease.ts:1066](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1066)
 
 #### Returns
 
