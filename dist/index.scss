@@ -2781,7 +2781,7 @@ html.pe-rtl {
 }
 
 .pe-tag {
-    border-radius: var(--pe-radius-l); display: inline-flex; align-items: center; justify-content: center; transition: var(--pe-transition); border: solid 1px transparent; line-height: 1;
+    border-radius: var(--pe-radius-l); display: inline-flex; align-items: center; justify-content: center; transition: var(--pe-transition); border: solid 1px transparent; line-height: 1; cursor: default;
 
     &.pe-size-xs {
         padding: 1px 5px;
