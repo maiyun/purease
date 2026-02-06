@@ -111,6 +111,7 @@
             }
         }
         &.pe-type-pe {
+            border-color: var(--pe); color: var(--pe); background: var(--pe-bg);
             svg {
                 &:hover {
                     background: var(--pe);
