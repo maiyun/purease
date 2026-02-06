@@ -6,7 +6,7 @@
 
 # Interface: IVueObject
 
-Defined in: [purease.ts:1130](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1130)
+Defined in: [purease.ts:1156](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1156)
 
 ## Methods
 
@@ -14,7 +14,7 @@ Defined in: [purease.ts:1130](https://github.com/maiyun/purease/blob/master/dist
 
 > **createApp**(`opt`): [`IVApp`](IVApp.md)
 
-Defined in: [purease.ts:1131](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1131)
+Defined in: [purease.ts:1157](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1157)
 
 #### Parameters
 
@@ -32,7 +32,7 @@ Defined in: [purease.ts:1131](https://github.com/maiyun/purease/blob/master/dist
 
 > **h**(`tag`, `props?`, `list?`): `any`
 
-Defined in: [purease.ts:1139](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1139)
+Defined in: [purease.ts:1165](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1165)
 
 #### Parameters
 
@@ -58,7 +58,7 @@ Defined in: [purease.ts:1139](https://github.com/maiyun/purease/blob/master/dist
 
 > **reactive**\<`T`\>(`obj`): `T`
 
-Defined in: [purease.ts:1133](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1133)
+Defined in: [purease.ts:1159](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1159)
 
 #### Type Parameters
 
@@ -82,7 +82,7 @@ Defined in: [purease.ts:1133](https://github.com/maiyun/purease/blob/master/dist
 
 > **ref**\<`T`\>(`obj`): `object`
 
-Defined in: [purease.ts:1132](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1132)
+Defined in: [purease.ts:1158](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1158)
 
 #### Type Parameters
 
@@ -110,7 +110,7 @@ Defined in: [purease.ts:1132](https://github.com/maiyun/purease/blob/master/dist
 
 > **watch**(`v`, `cb`, `opt`): `void`
 
-Defined in: [purease.ts:1134](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1134)
+Defined in: [purease.ts:1160](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1160)
 
 #### Parameters
 

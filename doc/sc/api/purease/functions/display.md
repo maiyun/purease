@@ -8,7 +8,7 @@
 
 > **display**(`message?`, ...`optionalParams?`): `void`
 
-Defined in: [purease.ts:1086](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1086)
+Defined in: [purease.ts:1112](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1112)
 
 向控制台直接显示内容，一般情况下禁止使用
 

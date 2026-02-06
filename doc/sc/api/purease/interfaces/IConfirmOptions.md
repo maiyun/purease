@@ -6,7 +6,7 @@
 
 # Interface: IConfirmOptions
 
-Defined in: [purease.ts:1183](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1183)
+Defined in: [purease.ts:1209](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1209)
 
 Confirm 选项
 
@@ -16,7 +16,7 @@ Confirm 选项
 
 > `optional` **cancel**: `boolean`
 
-Defined in: [purease.ts:1188](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1188)
+Defined in: [purease.ts:1214](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1214)
 
 是否显示取消按钮，默认不显示
 
@@ -26,7 +26,7 @@ Defined in: [purease.ts:1188](https://github.com/maiyun/purease/blob/master/dist
 
 > **content**: `string`
 
-Defined in: [purease.ts:1186](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1186)
+Defined in: [purease.ts:1212](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1212)
 
 支持 html
 
@@ -36,4 +36,4 @@ Defined in: [purease.ts:1186](https://github.com/maiyun/purease/blob/master/dist
 
 > `optional` **title**: `string`
 
-Defined in: [purease.ts:1184](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1184)
+Defined in: [purease.ts:1210](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1210)
