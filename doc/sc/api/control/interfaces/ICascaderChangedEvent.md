@@ -6,7 +6,7 @@
 
 # Interface: ICascaderChangedEvent
 
-Defined in: [control.ts:278](https://github.com/maiyun/purease/blob/master/dist/control.ts#L278)
+Defined in: [control.ts:279](https://github.com/maiyun/purease/blob/master/dist/control.ts#L279)
 
 Cascader 选中项变更事件
 
@@ -16,7 +16,7 @@ Cascader 选中项变更事件
 
 > **detail**: `object`
 
-Defined in: [control.ts:279](https://github.com/maiyun/purease/blob/master/dist/control.ts#L279)
+Defined in: [control.ts:280](https://github.com/maiyun/purease/blob/master/dist/control.ts#L280)
 
 #### labels
 

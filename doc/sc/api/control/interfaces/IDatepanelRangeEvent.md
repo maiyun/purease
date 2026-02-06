@@ -6,7 +6,7 @@
 
 # Interface: IDatepanelRangeEvent
 
-Defined in: [control.ts:233](https://github.com/maiyun/purease/blob/master/dist/control.ts#L233)
+Defined in: [control.ts:234](https://github.com/maiyun/purease/blob/master/dist/control.ts#L234)
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: [control.ts:233](https://github.com/maiyun/purease/blob/master/dist/
 
 > **detail**: `object`
 
-Defined in: [control.ts:234](https://github.com/maiyun/purease/blob/master/dist/control.ts#L234)
+Defined in: [control.ts:235](https://github.com/maiyun/purease/blob/master/dist/control.ts#L235)
 
 #### end
 

@@ -6,7 +6,7 @@
 
 # Interface: ISwitchChangeEvent
 
-Defined in: [control.ts:217](https://github.com/maiyun/purease/blob/master/dist/control.ts#L217)
+Defined in: [control.ts:218](https://github.com/maiyun/purease/blob/master/dist/control.ts#L218)
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: [control.ts:217](https://github.com/maiyun/purease/blob/master/dist/
 
 > **detail**: `object`
 
-Defined in: [control.ts:218](https://github.com/maiyun/purease/blob/master/dist/control.ts#L218)
+Defined in: [control.ts:219](https://github.com/maiyun/purease/blob/master/dist/control.ts#L219)
 
 #### value
 

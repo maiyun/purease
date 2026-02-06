@@ -3419,6 +3419,28 @@ grey 模式下背景变为灰色。显示状态（display）通过类控制：pe
 
 `ISpaHideEvent`
 
+### 插槽
+
+#### default
+
+页面内容插槽
+
+##### query
+
+`Record<string, string>`
+
+当前页面的路由参数
+
+#### header
+
+页面头部插槽
+
+##### query
+
+`Record<string, string>`
+
+当前页面的路由参数
+
 ### 示例
 
 ```html
@@ -4105,7 +4127,7 @@ control/interfaces/ICaptchaResultEvent.md
 
 # Interface: ICaptchaResultEvent
 
-Defined in: [control.ts:258](https://github.com/maiyun/purease/blob/master/dist/control.ts#L258)
+Defined in: [control.ts:259](https://github.com/maiyun/purease/blob/master/dist/control.ts#L259)
 
 ## Properties
 
@@ -4113,7 +4135,7 @@ Defined in: [control.ts:258](https://github.com/maiyun/purease/blob/master/dist/
 
 > **detail**: `object`
 
-Defined in: [control.ts:259](https://github.com/maiyun/purease/blob/master/dist/control.ts#L259)
+Defined in: [control.ts:260](https://github.com/maiyun/purease/blob/master/dist/control.ts#L260)
 
 #### result
 
@@ -4134,7 +4156,7 @@ control/interfaces/ICascaderChangedEvent.md
 
 # Interface: ICascaderChangedEvent
 
-Defined in: [control.ts:278](https://github.com/maiyun/purease/blob/master/dist/control.ts#L278)
+Defined in: [control.ts:279](https://github.com/maiyun/purease/blob/master/dist/control.ts#L279)
 
 Cascader 选中项变更事件
 
@@ -4144,7 +4166,7 @@ Cascader 选中项变更事件
 
 > **detail**: `object`
 
-Defined in: [control.ts:279](https://github.com/maiyun/purease/blob/master/dist/control.ts#L279)
+Defined in: [control.ts:280](https://github.com/maiyun/purease/blob/master/dist/control.ts#L280)
 
 #### labels
 
@@ -4169,7 +4191,7 @@ control/interfaces/ICascaderOption.md
 
 # Interface: ICascaderOption
 
-Defined in: [control.ts:268](https://github.com/maiyun/purease/blob/master/dist/control.ts#L268)
+Defined in: [control.ts:269](https://github.com/maiyun/purease/blob/master/dist/control.ts#L269)
 
 Cascader 数据项类型
 
@@ -4179,7 +4201,7 @@ Cascader 数据项类型
 
 > `optional` **children**: `ICascaderOption`[]
 
-Defined in: [control.ts:274](https://github.com/maiyun/purease/blob/master/dist/control.ts#L274)
+Defined in: [control.ts:275](https://github.com/maiyun/purease/blob/master/dist/control.ts#L275)
 
 ***
 
@@ -4187,7 +4209,7 @@ Defined in: [control.ts:274](https://github.com/maiyun/purease/blob/master/dist/
 
 > `optional` **disabled**: `boolean`
 
-Defined in: [control.ts:271](https://github.com/maiyun/purease/blob/master/dist/control.ts#L271)
+Defined in: [control.ts:272](https://github.com/maiyun/purease/blob/master/dist/control.ts#L272)
 
 ***
 
@@ -4195,7 +4217,7 @@ Defined in: [control.ts:271](https://github.com/maiyun/purease/blob/master/dist/
 
 > `optional` **label**: `string`
 
-Defined in: [control.ts:269](https://github.com/maiyun/purease/blob/master/dist/control.ts#L269)
+Defined in: [control.ts:270](https://github.com/maiyun/purease/blob/master/dist/control.ts#L270)
 
 ***
 
@@ -4203,7 +4225,7 @@ Defined in: [control.ts:269](https://github.com/maiyun/purease/blob/master/dist/
 
 > `optional` **leaf**: `boolean`
 
-Defined in: [control.ts:273](https://github.com/maiyun/purease/blob/master/dist/control.ts#L273)
+Defined in: [control.ts:274](https://github.com/maiyun/purease/blob/master/dist/control.ts#L274)
 
 是否为叶子节点，lazy 模式下用于判断是否需要加载子节点
 
@@ -4213,7 +4235,7 @@ Defined in: [control.ts:273](https://github.com/maiyun/purease/blob/master/dist/
 
 > `optional` **value**: `string`
 
-Defined in: [control.ts:270](https://github.com/maiyun/purease/blob/master/dist/control.ts#L270)
+Defined in: [control.ts:271](https://github.com/maiyun/purease/blob/master/dist/control.ts#L271)
 
 control/interfaces/ICollapseChangeEvent.md
 ---
@@ -4638,7 +4660,7 @@ control/interfaces/IDateChangedEvent.md
 
 # Interface: IDateChangedEvent
 
-Defined in: [control.ts:225](https://github.com/maiyun/purease/blob/master/dist/control.ts#L225)
+Defined in: [control.ts:226](https://github.com/maiyun/purease/blob/master/dist/control.ts#L226)
 
 ## Properties
 
@@ -4646,7 +4668,7 @@ Defined in: [control.ts:225](https://github.com/maiyun/purease/blob/master/dist/
 
 > **detail**: `object`
 
-Defined in: [control.ts:226](https://github.com/maiyun/purease/blob/master/dist/control.ts#L226)
+Defined in: [control.ts:227](https://github.com/maiyun/purease/blob/master/dist/control.ts#L227)
 
 #### value?
 
@@ -4663,7 +4685,7 @@ control/interfaces/IDatepanelChangedEvent.md
 
 # Interface: IDatepanelChangedEvent
 
-Defined in: [control.ts:240](https://github.com/maiyun/purease/blob/master/dist/control.ts#L240)
+Defined in: [control.ts:241](https://github.com/maiyun/purease/blob/master/dist/control.ts#L241)
 
 ## Properties
 
@@ -4671,7 +4693,7 @@ Defined in: [control.ts:240](https://github.com/maiyun/purease/blob/master/dist/
 
 > **detail**: `object`
 
-Defined in: [control.ts:241](https://github.com/maiyun/purease/blob/master/dist/control.ts#L241)
+Defined in: [control.ts:242](https://github.com/maiyun/purease/blob/master/dist/control.ts#L242)
 
 #### value?
 
@@ -4688,7 +4710,7 @@ control/interfaces/IDatepanelRangeEvent.md
 
 # Interface: IDatepanelRangeEvent
 
-Defined in: [control.ts:233](https://github.com/maiyun/purease/blob/master/dist/control.ts#L233)
+Defined in: [control.ts:234](https://github.com/maiyun/purease/blob/master/dist/control.ts#L234)
 
 ## Extends
 
@@ -4700,7 +4722,7 @@ Defined in: [control.ts:233](https://github.com/maiyun/purease/blob/master/dist/
 
 > **detail**: `object`
 
-Defined in: [control.ts:234](https://github.com/maiyun/purease/blob/master/dist/control.ts#L234)
+Defined in: [control.ts:235](https://github.com/maiyun/purease/blob/master/dist/control.ts#L235)
 
 #### end
 
@@ -4751,7 +4773,7 @@ control/interfaces/IDatepanelSelectedEvent.md
 
 # Interface: IDatepanelSelectedEvent
 
-Defined in: [control.ts:246](https://github.com/maiyun/purease/blob/master/dist/control.ts#L246)
+Defined in: [control.ts:247](https://github.com/maiyun/purease/blob/master/dist/control.ts#L247)
 
 ## Properties
 
@@ -4759,7 +4781,7 @@ Defined in: [control.ts:246](https://github.com/maiyun/purease/blob/master/dist/
 
 > **detail**: `object`
 
-Defined in: [control.ts:247](https://github.com/maiyun/purease/blob/master/dist/control.ts#L247)
+Defined in: [control.ts:248](https://github.com/maiyun/purease/blob/master/dist/control.ts#L248)
 
 #### date
 
@@ -4829,7 +4851,7 @@ control/interfaces/ISelectChangedEvent.md
 
 # Interface: ISelectChangedEvent
 
-Defined in: [control.ts:207](https://github.com/maiyun/purease/blob/master/dist/control.ts#L207)
+Defined in: [control.ts:208](https://github.com/maiyun/purease/blob/master/dist/control.ts#L208)
 
 ## Properties
 
@@ -4837,7 +4859,7 @@ Defined in: [control.ts:207](https://github.com/maiyun/purease/blob/master/dist/
 
 > **detail**: `object`
 
-Defined in: [control.ts:208](https://github.com/maiyun/purease/blob/master/dist/control.ts#L208)
+Defined in: [control.ts:209](https://github.com/maiyun/purease/blob/master/dist/control.ts#L209)
 
 #### index
 
@@ -4862,7 +4884,7 @@ control/interfaces/ISpaHideEvent.md
 
 # Interface: ISpaHideEvent
 
-Defined in: [control.ts:198](https://github.com/maiyun/purease/blob/master/dist/control.ts#L198)
+Defined in: [control.ts:199](https://github.com/maiyun/purease/blob/master/dist/control.ts#L199)
 
 ## Properties
 
@@ -4870,7 +4892,7 @@ Defined in: [control.ts:198](https://github.com/maiyun/purease/blob/master/dist/
 
 > **detail**: `object`
 
-Defined in: [control.ts:199](https://github.com/maiyun/purease/blob/master/dist/control.ts#L199)
+Defined in: [control.ts:200](https://github.com/maiyun/purease/blob/master/dist/control.ts#L200)
 
 #### next
 
@@ -4909,6 +4931,10 @@ Defined in: [control.ts:192](https://github.com/maiyun/purease/blob/master/dist/
 
 > **prev**: `string`
 
+#### query
+
+> **query**: `Record`\<`string`, `string`\>
+
 control/interfaces/ISwitchChangeEvent.md
 ---
 
@@ -4920,7 +4946,7 @@ control/interfaces/ISwitchChangeEvent.md
 
 # Interface: ISwitchChangeEvent
 
-Defined in: [control.ts:217](https://github.com/maiyun/purease/blob/master/dist/control.ts#L217)
+Defined in: [control.ts:218](https://github.com/maiyun/purease/blob/master/dist/control.ts#L218)
 
 ## Extends
 
@@ -4932,7 +4958,7 @@ Defined in: [control.ts:217](https://github.com/maiyun/purease/blob/master/dist/
 
 > **detail**: `object`
 
-Defined in: [control.ts:218](https://github.com/maiyun/purease/blob/master/dist/control.ts#L218)
+Defined in: [control.ts:219](https://github.com/maiyun/purease/blob/master/dist/control.ts#L219)
 
 #### value
 

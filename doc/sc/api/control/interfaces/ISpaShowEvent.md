@@ -23,3 +23,7 @@ Defined in: [control.ts:192](https://github.com/maiyun/purease/blob/master/dist/
 #### prev
 
 > **prev**: `string`
+
+#### query
+
+> **query**: `Record`\<`string`, `string`\>

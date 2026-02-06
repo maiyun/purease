@@ -6,7 +6,7 @@
 
 # Interface: ISelectChangedEvent
 
-Defined in: [control.ts:207](https://github.com/maiyun/purease/blob/master/dist/control.ts#L207)
+Defined in: [control.ts:208](https://github.com/maiyun/purease/blob/master/dist/control.ts#L208)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [control.ts:207](https://github.com/maiyun/purease/blob/master/dist/
 
 > **detail**: `object`
 
-Defined in: [control.ts:208](https://github.com/maiyun/purease/blob/master/dist/control.ts#L208)
+Defined in: [control.ts:209](https://github.com/maiyun/purease/blob/master/dist/control.ts#L209)
 
 #### index
 

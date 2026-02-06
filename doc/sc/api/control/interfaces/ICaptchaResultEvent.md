@@ -6,7 +6,7 @@
 
 # Interface: ICaptchaResultEvent
 
-Defined in: [control.ts:258](https://github.com/maiyun/purease/blob/master/dist/control.ts#L258)
+Defined in: [control.ts:259](https://github.com/maiyun/purease/blob/master/dist/control.ts#L259)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [control.ts:258](https://github.com/maiyun/purease/blob/master/dist/
 
 > **detail**: `object`
 
-Defined in: [control.ts:259](https://github.com/maiyun/purease/blob/master/dist/control.ts#L259)
+Defined in: [control.ts:260](https://github.com/maiyun/purease/blob/master/dist/control.ts#L260)
 
 #### result
 
