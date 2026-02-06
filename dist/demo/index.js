@@ -242,5 +242,5 @@ purease.launcher(Page, {
             'selector': '#footer',
             'panel': footer,
         }
-    ]
+    ],
 });

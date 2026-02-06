@@ -401,6 +401,11 @@ export abstract class AbstractPage {
     /** --- 整个窗口的高度 --- */
     public windowHeight: number = 0;
 
+    /** --- 窗口宽度是否小于等于 800 像素 --- */
+    public get narrow(): boolean {
+        return this.windowWidth <= 800;
+    }
+
     /** --- 是否显示加载框 --- */
     public loading: boolean = false;
 
@@ -518,7 +523,7 @@ export function getCdn(): string {
     return cdn;
 }
 
-/** ---运行当前页面 --- */
+/** --- 运行当前页面 --- */
 export function launcher<T extends AbstractPage>(page: new (opt: {
     'locale'?: string;
     'localePath'?: string;
@@ -534,6 +539,8 @@ export function launcher<T extends AbstractPage>(page: new (opt: {
         'selector': string;
         'panel': new () => AbstractPanel;
     }>;
+    /** --- 要加载的模块 --- */
+    'modules'?: string[];
 } = {}): void {
     (async function() {
         global.debug = options.debug ?? false;
@@ -556,15 +563,30 @@ export function launcher<T extends AbstractPage>(page: new (opt: {
         await lTool.loadScript(`${cdn}/npm/vue@3.5.26/dist/vue.global${options.debug ? '' : '.prod.min'}.js`);
         // --- 再加载三方库，防止 Vue 没加载好，三方库加载会有异常 ---
         const paths: string[] = [
-            `${cdn}/npm/naive-ui@2.43.2/dist/index.min.js`,
             `${cdn}/npm/@litert/pointer@1.6.2/dist/index.umd.min.js`,
         ];
+        const links: string[] = [
+            `${cdn}/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css`
+        ];
+        if (options.modules) {
+            for (const mod of options.modules) {
+                switch (mod) {
+                    case 'naive-ui': {
+                        paths.push(`${cdn}/npm/naive-ui@2.43.2/dist/index.min.js`);
+                        break;
+                    }
+                    case 'vant': {
+                        paths.push(`${cdn}/npm/vant@4.9.22/lib/vant.min.js`);
+                        links.push(`${cdn}/npm/vant@4.9.22/lib/index.css`);
+                        break;
+                    }
+                }
+            }
+        }
         // --- 加载 vue 以及必要库 ---
         await lTool.loadScripts(paths);
         await lTool.loadLink(dirname + '/index.css', 'before');
-        await lTool.loadLinks([
-            `${cdn}/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css`
-        ]);
+        await lTool.loadLinks(links);
         const htmls = document.getElementsByTagName('html');
         if (!htmls[0]) {
             return;
@@ -1007,9 +1029,18 @@ export function launcher<T extends AbstractPage>(page: new (opt: {
             bodys[0].style.setProperty('--pe-windowwidth', window.innerWidth + 'px');
             bodys[0].style.setProperty('--pe-windowheight', window.innerHeight + 'px');
             // --- 处理 body ---
-            bodys[0].innerHTML = `<n-config-provider :theme-overrides="themeOverrides">${lTool.purify(bodys[0].innerHTML)}</n-config-provider>`;
+            let bodyHtml = lTool.purify(bodys[0].innerHTML);
+            if (options.modules?.includes('naive-ui')) {
+                bodyHtml = `<n-config-provider :theme-overrides="themeOverrides">${bodyHtml}</n-config-provider>`;
+            }
+            bodys[0].innerHTML = bodyHtml;
             // --- 真正挂载 ---
-            vapp.use((window as any).naive);
+            if (options.modules?.includes('naive-ui')) {
+                vapp.use((window as any).naive);
+            }
+            if (options.modules?.includes('vant')) {
+                vapp.use((window as any).vant);
+            }
             vapp.mount(bodys[0]);
         });
         // --- 将 panel 的 style 加到 head 里 ---

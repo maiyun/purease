@@ -221,6 +221,35 @@ class Page extends purease.AbstractPage {
     /** --- 级联选择触发方式 --- */
     public cascaderExpandTrigger: 'click' | 'hover' = 'click';
 
+    /** --- Vant 级联选择显示状态 --- */
+    public vanCascaderShow = false;
+
+    /** --- Vant 级联选择值 --- */
+    public vanCascaderValue = '';
+
+    /** --- Vant 级联选择文本值 --- */
+    public vanCascaderField = '';
+
+    /** --- Vant 级联数据 --- */
+    public vanCascaderOptions = [
+        {
+            'text': 'Zhejiang 浙江',
+            'value': '330000',
+            'children': [
+                { 'text': 'Hangzhou 杭州', 'value': '330100' },
+                { 'text': 'Ningbo 宁波', 'value': '330200' },
+            ],
+        },
+        {
+            'text': 'Jiangsu 江苏',
+            'value': '320000',
+            'children': [
+                { 'text': 'Nanjing 南京', 'value': '320100' },
+                { 'text': 'Wuxi 无锡', 'value': '320200' },
+            ],
+        },
+    ];
+
     /** --- 复选框值 --- */
     public check = false;
 
@@ -687,6 +716,16 @@ class Page extends purease.AbstractPage {
     }
 
     /**
+     * --- Vant 级联选择完成事件 ---
+     * @param result 结果对象
+     */
+    public vanCascaderOnFinish(result: { 'selectedOptions': Array<{ 'text': string; 'value': string; }>; }): void {
+        this.vanCascaderShow = false;
+        this.vanCascaderField = result.selectedOptions.map((option) => option.text).join(' / ');
+        purease.display('vanCascaderOnFinish', result);
+    }
+
+    /**
      * --- 页面入口 ---
      */
     public main(): void {
@@ -698,5 +737,6 @@ class Page extends purease.AbstractPage {
 purease.launcher(Page, {
     'debug': true,
     'locale': 'en',
-    'localePath': purease.getDirname(import.meta.url) + '/locale'
+    'localePath': purease.getDirname(import.meta.url) + '/locale',
+    'modules': ['naive-ui', 'vant'],
 });

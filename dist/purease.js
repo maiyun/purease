@@ -340,6 +340,10 @@ export class AbstractPage {
     windowWidth = 0;
     /** --- 整个窗口的高度 --- */
     windowHeight = 0;
+    /** --- 窗口宽度是否小于等于 800 像素 --- */
+    get narrow() {
+        return this.windowWidth <= 800;
+    }
     /** --- 是否显示加载框 --- */
     loading = false;
     /** --- 滚动到顶部 --- */
@@ -428,7 +432,7 @@ const cdn = userPurease.config?.cdn ?? 'https://cdn.jsdelivr.net';
 export function getCdn() {
     return cdn;
 }
-/** ---运行当前页面 --- */
+/** --- 运行当前页面 --- */
 export function launcher(page, options = {}) {
     (async function () {
         global.debug = options.debug ?? false;
@@ -451,15 +455,30 @@ export function launcher(page, options = {}) {
         await lTool.loadScript(`${cdn}/npm/vue@3.5.26/dist/vue.global${options.debug ? '' : '.prod.min'}.js`);
         // --- 再加载三方库，防止 Vue 没加载好，三方库加载会有异常 ---
         const paths = [
-            `${cdn}/npm/naive-ui@2.43.2/dist/index.min.js`,
             `${cdn}/npm/@litert/pointer@1.6.2/dist/index.umd.min.js`,
         ];
+        const links = [
+            `${cdn}/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css`
+        ];
+        if (options.modules) {
+            for (const mod of options.modules) {
+                switch (mod) {
+                    case 'naive-ui': {
+                        paths.push(`${cdn}/npm/naive-ui@2.43.2/dist/index.min.js`);
+                        break;
+                    }
+                    case 'vant': {
+                        paths.push(`${cdn}/npm/vant@4.9.22/lib/vant.min.js`);
+                        links.push(`${cdn}/npm/vant@4.9.22/lib/index.css`);
+                        break;
+                    }
+                }
+            }
+        }
         // --- 加载 vue 以及必要库 ---
         await lTool.loadScripts(paths);
         await lTool.loadLink(dirname + '/index.css', 'before');
-        await lTool.loadLinks([
-            `${cdn}/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css`
-        ]);
+        await lTool.loadLinks(links);
         const htmls = document.getElementsByTagName('html');
         if (!htmls[0]) {
             return;
@@ -898,9 +917,18 @@ export function launcher(page, options = {}) {
             bodys[0].style.setProperty('--pe-windowwidth', window.innerWidth + 'px');
             bodys[0].style.setProperty('--pe-windowheight', window.innerHeight + 'px');
             // --- 处理 body ---
-            bodys[0].innerHTML = `<n-config-provider :theme-overrides="themeOverrides">${lTool.purify(bodys[0].innerHTML)}</n-config-provider>`;
+            let bodyHtml = lTool.purify(bodys[0].innerHTML);
+            if (options.modules?.includes('naive-ui')) {
+                bodyHtml = `<n-config-provider :theme-overrides="themeOverrides">${bodyHtml}</n-config-provider>`;
+            }
+            bodys[0].innerHTML = bodyHtml;
             // --- 真正挂载 ---
-            vapp.use(window.naive);
+            if (options.modules?.includes('naive-ui')) {
+                vapp.use(window.naive);
+            }
+            if (options.modules?.includes('vant')) {
+                vapp.use(window.vant);
+            }
             vapp.mount(bodys[0]);
         });
         // --- 将 panel 的 style 加到 head 里 ---

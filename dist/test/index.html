@@ -147,9 +147,10 @@
                 </div>
             </div>
 
-            <!-- Cascader (Naive UI) -->
+            <!-- Cascader -->
             <h3 id="cascader">Cascader</h3>
             <div class="pe-layout pe-gap" style="flex-direction: column;">
+                <!-- Naive UI -->
                 <div>Value: {{cascader}}</div>
                 <n-cascader style="width: 300px;" v-model:value="cascader" :options="cascaderOptions" :filterable="cascaderSearch" :clearable="cascaderClearable" :disabled="cascaderDisabled" :show-path="!cascaderShowLastLevel" :expand-trigger="cascaderExpandTrigger" placeholder="Select location"></n-cascader>
                 <div>Long list (scroll): {{cascaderLong}}</div>
@@ -163,6 +164,25 @@
                     <div class="pe-button pe-pgrey" @click="cascaderShowLastLevel = !cascaderShowLastLevel">{{cascaderShowLastLevel ? '' : '!'}}showPath</div>
                     <div class="pe-button pe-pgrey" @click="cascaderExpandTrigger = cascaderExpandTrigger === 'click' ? 'hover' : 'click'">trigger: {{cascaderExpandTrigger}}</div>
                 </div>
+                <!-- Vant -->
+                <div>Value: {{vanCascaderValue}}</div>
+                <van-field
+                    v-model="vanCascaderField"
+                    is-link
+                    readonly
+                    placeholder="Select location (Vant)"
+                    @click="vanCascaderShow = true"
+                    style="width: 300px; padding: 10px; border: 1px solid var(--pe-border-color); border-radius: 4px;"
+                ></van-field>
+                <van-popup v-model:show="vanCascaderShow" round position="bottom">
+                    <van-cascader
+                        v-model="vanCascaderValue"
+                        title="Select Location"
+                        :options="vanCascaderOptions"
+                        @close="vanCascaderShow = false"
+                        @finish="vanCascaderOnFinish"
+                    ></van-cascader>
+                </van-popup>
             </div>
 
             <!-- Check -->
