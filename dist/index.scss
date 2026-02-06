@@ -810,6 +810,311 @@ html.pe-rtl {
 
 // --- vant-ui overrides ---
 
+.van-config-provider {
+    display: contents;
+}
+
+:root:root {
+    // --- 基础颜色 ---
+    --van-primary-color:var(--pe);
+    --van-success-color:var(--success);
+    --van-danger-color:var(--danger);
+    --van-warning-color:var(--warning);
+    --van-text-color:var(--pe-color);
+    --van-text-color-2:var(--pe-note-color);
+    --van-text-color-3:var(--pe-disabled-color);
+    --van-active-color:var(--pe-grey-hover);
+    --van-background:var(--pe-grey);
+    --van-background-2:#FFF;
+    // --- 边框 ---
+    --van-border-color:var(--pe-border);
+    --van-radius-sm:var(--pe-radius);
+    --van-radius-md:var(--pe-radius);
+    --van-radius-lg:var(--pe-radius-l);
+    --van-radius-max:var(--pe-radius-xl);
+    // --- 字号 ---
+    --van-font-size-xs:var(--pe-size-xs);
+    --van-font-size-sm:var(--pe-size-xs);
+    --van-font-size-md:var(--pe-size-s);
+    --van-font-size-lg:var(--pe-size);
+    // --- 字体 ---
+    --van-base-font:var(--pe-font-life);
+    // --- 动画 ---
+    --van-duration-base:0.3s;
+    --van-duration-fast:0.2s;
+}
+
+// --- van-button ---
+
+.van-button {
+    transition: var(--pe-transition);
+
+    &--primary {
+        &:active {
+            background: var(--pe-active);
+            border-color: var(--pe-active);
+        }
+    }
+    &--success {
+        &:active {
+            background: var(--success-active);
+            border-color: var(--success-active);
+        }
+    }
+    &--danger {
+        &:active {
+            background: var(--danger-active);
+            border-color: var(--danger-active);
+        }
+    }
+    &--warning {
+        &:active {
+            background: var(--warning-active);
+            border-color: var(--warning-active);
+        }
+    }
+}
+
+// --- van-cell ---
+
+.van-cell {
+    &::after {
+        border-color: var(--pe-border-plain);
+    }
+}
+
+// --- van-field ---
+
+.van-field {
+    .van-field__control {
+        &:focus {
+            box-shadow: var(--pe-outline-shadow);
+            border-radius: var(--pe-radius);
+        }
+    }
+}
+
+// --- van-nav-bar ---
+
+.van-nav-bar {
+    .van-nav-bar__title {
+        font-size: var(--pe-size);
+    }
+}
+
+// --- van-tabbar ---
+
+.van-tabbar {
+    box-shadow: 0 -1px 3px oklch(.2 0 0 / .05);
+
+    .van-tabbar-item--active {
+        color: var(--pe);
+    }
+}
+
+// --- van-tab ---
+
+.van-tabs {
+    .van-tab--active {
+        color: var(--pe);
+    }
+    .van-tabs__line {
+        background: var(--pe);
+    }
+}
+
+// --- van-dialog ---
+
+.van-dialog {
+    border-radius: var(--pe-radius-l);
+    box-shadow: var(--pe-pop-shadow);
+
+    .van-dialog__confirm {
+        color: var(--pe);
+    }
+}
+
+// --- van-popup ---
+
+.van-popup {
+    &--round {
+        border-radius: var(--pe-radius-l);
+    }
+
+    &.van-popup--center {
+        width: initial; max-width: 60%;
+    }
+}
+
+// --- van-switch ---
+
+.van-switch--on {
+    background: var(--pe);
+}
+
+// --- van-checkbox ---
+
+.van-checkbox {
+    .van-checkbox__icon--checked .van-icon {
+        background-color: var(--pe);
+        border-color: var(--pe);
+    }
+}
+
+// --- van-radio ---
+
+.van-radio {
+    .van-radio__icon--checked .van-icon {
+        background-color: var(--pe);
+        border-color: var(--pe);
+    }
+}
+
+// --- van-slider ---
+
+.van-slider {
+    .van-slider__bar {
+        background: var(--pe);
+    }
+}
+
+// --- van-stepper ---
+
+.van-stepper {
+    .van-stepper__input {
+        font-size: var(--pe-size-s);
+    }
+}
+
+// --- van-tag ---
+
+.van-tag--primary {
+    background: var(--pe);
+}
+.van-tag--success {
+    background: var(--success);
+}
+.van-tag--danger {
+    background: var(--danger);
+}
+.van-tag--warning {
+    background: var(--warning);
+}
+
+// --- van-rate ---
+
+.van-rate {
+    .van-rate__icon--full {
+        color: var(--warning);
+    }
+}
+
+// --- van-progress ---
+
+.van-progress {
+    .van-progress__portion {
+        background: var(--pe);
+    }
+}
+
+// --- van-notice-bar ---
+
+.van-notice-bar {
+    border-radius: var(--pe-radius);
+}
+
+// --- van-action-sheet ---
+
+.van-action-sheet {
+    border-radius: var(--pe-radius-l) var(--pe-radius-l) 0 0;
+}
+
+// --- van-dropdown-menu ---
+
+.van-dropdown-menu {
+    .van-dropdown-item {
+        .van-cell--clickable {
+            &:active {
+                background: var(--pe-grey);
+            }
+        }
+    }
+    .van-dropdown-menu__title--active {
+        color: var(--pe);
+    }
+}
+
+// --- van-loading ---
+
+.van-loading__spinner--circular {
+    .van-loading__circular {
+        color: var(--pe);
+    }
+}
+
+// --- van-pull-refresh ---
+
+.van-pull-refresh {
+    .van-pull-refresh__head {
+        color: var(--pe-note-color);
+    }
+}
+
+// --- van-badge ---
+
+.van-badge--fixed {
+    font-family: var(--pe-font-life);
+}
+
+// --- van-toast ---
+
+.van-toast {
+    border-radius: var(--pe-radius-l);
+}
+
+// --- van-picker ---
+
+.van-picker {
+    .van-picker__confirm {
+        color: var(--pe);
+    }
+}
+
+// --- van-calendar ---
+
+.van-calendar {
+    .van-calendar__selected-day {
+        background: var(--pe);
+    }
+    .van-calendar__confirm {
+        background: var(--pe);
+        border-color: var(--pe);
+    }
+}
+
+// --- RTL ---
+
+html.pe-rtl {
+    .van-cell {
+        direction: rtl; text-align: right;
+    }
+    .van-field__label {
+        text-align: right;
+    }
+    .van-nav-bar__left {
+        left: initial; right: 0;
+    }
+    .van-nav-bar__right {
+        right: initial; left: 0;
+    }
+    .van-tab {
+        direction: rtl;
+    }
+    .van-tabbar-item {
+        direction: rtl;
+    }
+}
+
 // --- AUTO CODE START ---
 
 .pe-anchor {

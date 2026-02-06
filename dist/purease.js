@@ -580,6 +580,7 @@ export function launcher(page, options = {}) {
         idata['isRtl'] = false;
         // --- 主题覆盖 ---
         idata['themeOverrides'] = {};
+        idata['vantThemeVars'] = {};
         /** --- class 对象的方法和 getter/setter 列表 --- */
         const prot = lTool.getClassPrototype(cpage);
         const methods = prot.method;
@@ -734,6 +735,28 @@ export function launcher(page, options = {}) {
                                 'borderFocusPrimary': `1px solid ${peHover}`,
                                 'rippleColorPrimary': peBg,
                             },
+                        };
+                        // --- Vant 主题覆盖 ---
+                        this.vantThemeVars = {
+                            'primaryColor': pe,
+                            'successColor': success,
+                            'dangerColor': danger,
+                            'warningColor': warning,
+                            'textColor': lDom.colorToHex(lDom.getCssVar('--pe-color')),
+                            'textColor2': lDom.colorToHex(lDom.getCssVar('--pe-note-color')),
+                            'textColor3': lDom.colorToHex(lDom.getCssVar('--pe-disabled-color')),
+                            'borderColor': borderColor,
+                            'activeColor': lDom.colorToHex(lDom.getCssVar('--pe-grey-hover')),
+                            'background': lDom.colorToHex(lDom.getCssVar('--pe-grey')),
+                            'background2': '#ffffff',
+                            'radiusSm': borderRadius,
+                            'radiusMd': borderRadius,
+                            'radiusLg': lDom.getCssVar('--pe-radius-l'),
+                            'radiusMax': lDom.getCssVar('--pe-radius-xl'),
+                            'fontSizeXs': fontSizeXs,
+                            'fontSizeSm': fontSizeXs,
+                            'fontSizeMd': fontSizeS,
+                            'fontSizeLg': fontSize,
                         };
                     };
                     updateThemeOverrides();
@@ -920,6 +943,9 @@ export function launcher(page, options = {}) {
             let bodyHtml = lTool.purify(bodys[0].innerHTML);
             if (options.modules?.includes('naive-ui')) {
                 bodyHtml = `<n-config-provider :theme-overrides="themeOverrides">${bodyHtml}</n-config-provider>`;
+            }
+            if (options.modules?.includes('vant')) {
+                bodyHtml = `<van-config-provider :theme-vars="vantThemeVars" theme-vars-scope="global">${bodyHtml}</van-config-provider>`;
             }
             bodys[0].innerHTML = bodyHtml;
             // --- 真正挂载 ---
