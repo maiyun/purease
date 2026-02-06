@@ -37,7 +37,7 @@ class Page extends purease.AbstractPage {
      * --- SPA 显示事件 ---
      */
     spaShow(e) {
-        purease.display('spaShow', e);
+        purease.display('spaShow', e.detail.path, e.detail.query);
     }
     /**
      * --- SPA 隐藏事件 ---

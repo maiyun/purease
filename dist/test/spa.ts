@@ -50,7 +50,7 @@ class Page extends purease.AbstractPage {
      * --- SPA 显示事件 ---
      */
     public spaShow(e: purease.control.ISpaShowEvent): void {
-        purease.display('spaShow', e);
+        purease.display('spaShow', e.detail.path, e.detail.query);
     }
 
     /**

@@ -8,6 +8,10 @@ export interface ISpaPageVue extends lControl.IControlVue {
     'grey': boolean;
     /** --- 当前路径 --- */
     'currentPath': string;
+    /** --- 当前参数 --- */
+    'currentQuery': Record<string, string>;
+    /** --- 当前页面参数 --- */
+    'query': Record<string, string>;
 }
 
 export const code = {
@@ -21,12 +25,29 @@ export const code = {
             'default': false,
         },
     },
+    'data': function() {
+        return {
+            'query': {},
+        };
+    },
     'computed': {
         currentPath: function(this: ISpaPageVue) {
             return this.$parent?.path ?? '';
         },
+        currentQuery: function(this: ISpaPageVue) {
+            return this.$parent?.query ?? {};
+        },
     },
     'watch': {
+        'currentQuery': {
+            handler: function(this: ISpaPageVue, newQuery: Record<string, string>) {
+                if (this.currentPath !== this.path) {
+                    return;
+                }
+                this.query = newQuery;
+            },
+            deep: true
+        },
         'currentPath': {
             handler: async function(this: ISpaPageVue, newPath: string, oldPath: string) {
                 if (newPath === oldPath) {
@@ -34,6 +55,7 @@ export const code = {
                 }
                 if (newPath === this.path) {
                     // --- 进入 ---
+                    this.query = this.currentQuery;
                     this.$el.classList.add('pe-display');
                     await purease.tool.sleep(150);
                     this.$el.classList.add('pe-show');
@@ -41,6 +63,7 @@ export const code = {
                         'detail': {
                             'prev': oldPath,
                             'path': newPath,
+                            'query': this.query
                         }
                     });
                     return;
@@ -67,6 +90,7 @@ export const code = {
         if (this.path !== this.currentPath) {
             return;
         }
+        this.query = this.currentQuery;
         this.$el.classList.add('pe-display');
         await purease.tool.sleep(150);
         this.$el.classList.add('pe-show');

@@ -3851,12 +3851,32 @@ list['pe-spa'] = {
     'data': function () {
         return {
             'path': '',
+            'query': {},
         };
     },
+    'methods': {
+        hashChange: function () {
+            const hash = window.location.hash.slice(1);
+            const index = hash.indexOf('?');
+            if (index === -1) {
+                this.path = hash;
+                this.query = {};
+            }
+            else {
+                this.path = hash.substring(0, index);
+                const query = {};
+                const search = new URLSearchParams(hash.substring(index + 1));
+                for (const [k, v] of search) {
+                    query[k] = v;
+                }
+                this.query = query;
+            }
+        }
+    },
     mounted: function () {
-        this.path = window.location.hash.slice(1);
+        this.hashChange();
         window.addEventListener('hashchange', () => {
-            this.path = window.location.hash.slice(1);
+            this.hashChange();
         });
     },
 };
@@ -3911,7 +3931,7 @@ list['pe-spa-header'] = {
     },
 };
 list['pe-spa-page'] = {
-    'template': `<div class="pe-spa-page" :class="propBoolean('grey')&&'pe-spa-page-grey'"><slot name="header"></slot><div class="pe-spa-page-inner"><slot></slot></div></div>`,
+    'template': `<div class="pe-spa-page" :class="propBoolean('grey')&&'pe-spa-page-grey'"><slot name="header" :query="query"></slot><div class="pe-spa-page-inner"><slot :query="query"></slot></div></div>`,
     'emits': ['show', 'hide'],
     'props': {
         'path': {
@@ -3921,12 +3941,29 @@ list['pe-spa-page'] = {
             'default': false,
         },
     },
+    'data': function () {
+        return {
+            'query': {},
+        };
+    },
     'computed': {
         currentPath: function () {
             return this.$parent?.path ?? '';
         },
+        currentQuery: function () {
+            return this.$parent?.query ?? {};
+        },
     },
     'watch': {
+        'currentQuery': {
+            handler: function (newQuery) {
+                if (this.currentPath !== this.path) {
+                    return;
+                }
+                this.query = newQuery;
+            },
+            deep: true
+        },
         'currentPath': {
             handler: async function (newPath, oldPath) {
                 if (newPath === oldPath) {
@@ -3934,6 +3971,7 @@ list['pe-spa-page'] = {
                 }
                 if (newPath === this.path) {
                     // --- 进入 ---
+                    this.query = this.currentQuery;
                     this.$el.classList.add('pe-display');
                     await purease.tool.sleep(150);
                     this.$el.classList.add('pe-show');
@@ -3941,6 +3979,7 @@ list['pe-spa-page'] = {
                         'detail': {
                             'prev': oldPath,
                             'path': newPath,
+                            'query': this.query
                         }
                     });
                     return;
@@ -3967,6 +4006,7 @@ list['pe-spa-page'] = {
         if (this.path !== this.currentPath) {
             return;
         }
+        this.query = this.currentQuery;
         this.$el.classList.add('pe-display');
         await purease.tool.sleep(150);
         this.$el.classList.add('pe-show');

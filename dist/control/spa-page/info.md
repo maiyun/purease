@@ -42,6 +42,28 @@ grey 模式下背景变为灰色。显示状态（display）通过类控制：pe
 
 `ISpaHideEvent`
 
+### 插槽
+
+#### default
+
+页面内容插槽
+
+##### query
+
+`Record<string, string>`
+
+当前页面的路由参数
+
+#### header
+
+页面头部插槽
+
+##### query
+
+`Record<string, string>`
+
+当前页面的路由参数
+
 ### 示例
 
 ```html

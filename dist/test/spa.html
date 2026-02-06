@@ -51,6 +51,7 @@
                         <pe-setting plain hover light>
                             <pe-setting-item title="Profile" @click="spaGo('/profile')">View</pe-setting-item>
                             <pe-setting-item title="Settings" @click="spaGo('/settings')">Open</pe-setting-item>
+                            <pe-setting-item title="Query Param" @click="spaGo('/query?id=purease&name=test')">Open</pe-setting-item>
                         </pe-setting>
                     </div>
                 </pe-spa-content>
@@ -115,6 +116,27 @@
                     </div>
                 </pe-spa-content>
             </pe-spa-page>
+            <!-- 参数页 -->
+            <pe-spa-page path="/query">
+                <template v-slot:header>
+                    <pe-spa-header back>Query Params</pe-spa-header>
+                </template>
+                <template v-slot="data">
+                    <pe-spa-content>
+                        <div class="pe-layout pe-padding-s pe-gap-s" style="flex-direction: column;">
+                            <div>Current Query:</div>
+                            <pe-setting hover light>
+                                <pe-setting-item title="ID">{{ data.query.id || 'N/A' }}</pe-setting-item>
+                                <pe-setting-item title="Name">{{ data.query.name || 'N/A' }}</pe-setting-item>
+                            </pe-setting>
+                            <div class="pe-layout pe-gap-s">
+                                <div class="pe-button pe-pgrey" @click="spaGo('/query?id=purease&name='+Math.random())">Random Name</div>
+                                <div class="pe-button pe-dark" @click="spaGo('/')">Back Home</div>
+                            </div>
+                        </div>
+                    </pe-spa-content>
+                </template>
+            </pe-spa-page>
         </pe-spa>
         <div class="pe-layout pe-gap-s">
             <div class="pe-button pe-pgrey" @click="spaPlain = !spaPlain">{{spaPlain ? '' : '!'}}plain</div>
@@ -124,6 +146,7 @@
             <div class="pe-button pe-pgrey" @click="spaGo('/')">Home</div>
             <div class="pe-button pe-pgrey" @click="spaGo('/profile')">Profile</div>
             <div class="pe-button pe-pgrey" @click="spaGo('/settings')">Settings</div>
+            <div class="pe-button pe-pgrey" @click="spaGo('/query?id=purease&name=test')">Query</div>
         </div>
     </div>
 </div>

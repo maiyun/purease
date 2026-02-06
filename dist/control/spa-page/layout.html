@@ -1,6 +1,6 @@
 <div class="pe-spa-page" :class="propBoolean('grey')&&'pe-spa-page-grey'">
-    <slot name="header"></slot>
+    <slot name="header" :query="query"></slot>
     <div class="pe-spa-page-inner">
-        <slot></slot>
+        <slot :query="query"></slot>
     </div>
 </div>
