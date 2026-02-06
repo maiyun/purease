@@ -1022,6 +1022,9 @@ export function launcher<T extends AbstractPage>(page: new (opt: {
         // --- 执行回调 ---
         await lTool.sleep(34);
         await cpage.main.call(rtn.vroot);
+        if ((htmls[0].style.overflow !== 'hidden') || (htmls[0].style.visibility !== 'hidden')) {
+            await cpage.dialog.call(rtn.vroot, 'Warning: The html element visibility style has been changed externally, this may cause some animation or layout issues.');
+        }
         htmls[0].style.overflow = '';
         htmls[0].style.visibility = '';
         // --- 执行 onReady ---
