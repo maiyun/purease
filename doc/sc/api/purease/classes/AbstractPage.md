@@ -132,7 +132,7 @@ dialog 信息
 
 > **loading**: `boolean` = `false`
 
-Defined in: [purease.ts:405](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L405)
+Defined in: [purease.ts:410](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L410)
 
 是否显示加载框
 
@@ -217,6 +217,22 @@ Defined in: [purease.ts:103](https://github.com/maiyun/purease/blob/master/dist/
 ##### Returns
 
 `string`
+
+***
+
+### narrow
+
+#### Get Signature
+
+> **get** **narrow**(): `boolean`
+
+Defined in: [purease.ts:405](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L405)
+
+窗口宽度是否小于等于 800 像素
+
+##### Returns
+
+`boolean`
 
 ***
 
@@ -439,7 +455,7 @@ Defined in: [purease.ts:258](https://github.com/maiyun/purease/blob/master/dist/
 
 > **showLnav**(): `void`
 
-Defined in: [purease.ts:421](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L421)
+Defined in: [purease.ts:426](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L426)
 
 显示 lnav
 
@@ -453,7 +469,7 @@ Defined in: [purease.ts:421](https://github.com/maiyun/purease/blob/master/dist/
 
 > **toTop**(): `void`
 
-Defined in: [purease.ts:408](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L408)
+Defined in: [purease.ts:413](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L413)
 
 滚动到顶部
 

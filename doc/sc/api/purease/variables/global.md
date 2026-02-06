@@ -8,6 +8,6 @@
 
 > **global**: `any`
 
-Defined in: [purease.ts:508](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L508)
+Defined in: [purease.ts:513](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L513)
 
 用户定义的全局对象

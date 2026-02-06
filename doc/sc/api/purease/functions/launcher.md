@@ -8,7 +8,7 @@
 
 > **launcher**\<`T`\>(`page`, `options`): `void`
 
-Defined in: [purease.ts:522](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L522)
+Defined in: [purease.ts:527](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L527)
 
 运行当前页面
 
@@ -43,6 +43,12 @@ Defined in: [purease.ts:522](https://github.com/maiyun/purease/blob/master/dist/
 `string`
 
 设定语言包所在路径，无所谓是否 / 结尾
+
+#### modules?
+
+`string`[]
+
+要加载的模块
 
 #### panels?
 

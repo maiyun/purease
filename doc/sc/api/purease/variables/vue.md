@@ -8,6 +8,6 @@
 
 > **vue**: [`IVueObject`](../interfaces/IVueObject.md)
 
-Defined in: [purease.ts:487](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L487)
+Defined in: [purease.ts:492](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L492)
 
 vue 对象

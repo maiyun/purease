@@ -6,7 +6,7 @@
 
 # Abstract Class: AbstractPanel
 
-Defined in: [purease.ts:428](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L428)
+Defined in: [purease.ts:433](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L433)
 
 大页面的内嵌页面
 
@@ -26,7 +26,7 @@ Defined in: [purease.ts:428](https://github.com/maiyun/purease/blob/master/dist/
 
 > **rootPage**: [`AbstractPage`](AbstractPage.md) & `Record`\<`string`, `any`\>
 
-Defined in: [purease.ts:442](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L442)
+Defined in: [purease.ts:447](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L447)
 
 获取总大页面对象
 
@@ -38,7 +38,7 @@ Defined in: [purease.ts:442](https://github.com/maiyun/purease/blob/master/dist/
 
 > **get** **l**(): (`key`, `data?`) => `string`
 
-Defined in: [purease.ts:447](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L447)
+Defined in: [purease.ts:452](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L452)
 
 获取语言内容
 
@@ -68,7 +68,7 @@ Defined in: [purease.ts:447](https://github.com/maiyun/purease/blob/master/dist/
 
 > **get** **nextTick**(): () => `Promise`\<`void`\>
 
-Defined in: [purease.ts:463](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L463)
+Defined in: [purease.ts:468](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L468)
 
 等待渲染
 
@@ -88,7 +88,7 @@ Defined in: [purease.ts:463](https://github.com/maiyun/purease/blob/master/dist/
 
 > **get** **refs**(): `Record`\<`string`, `HTMLElement` & [`IVue`](../interfaces/IVue.md) & `Record`\<`string`, `any`\>\>
 
-Defined in: [purease.ts:456](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L456)
+Defined in: [purease.ts:461](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L461)
 
 获取 refs 情况
 
@@ -102,7 +102,7 @@ Defined in: [purease.ts:456](https://github.com/maiyun/purease/blob/master/dist/
 
 > `abstract` **main**(): `void` \| `Promise`\<`void`\>
 
-Defined in: [purease.ts:431](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L431)
+Defined in: [purease.ts:436](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L436)
 
 入口方法
 
@@ -116,7 +116,7 @@ Defined in: [purease.ts:431](https://github.com/maiyun/purease/blob/master/dist/
 
 > **onBeforeUnmount**(): `void` \| `Promise`\<`void`\>
 
-Defined in: [purease.ts:433](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L433)
+Defined in: [purease.ts:438](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L438)
 
 #### Returns
 
@@ -128,7 +128,7 @@ Defined in: [purease.ts:433](https://github.com/maiyun/purease/blob/master/dist/
 
 > **onUnmounted**(): `void` \| `Promise`\<`void`\>
 
-Defined in: [purease.ts:437](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L437)
+Defined in: [purease.ts:442](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L442)
 
 #### Returns
 
@@ -140,7 +140,7 @@ Defined in: [purease.ts:437](https://github.com/maiyun/purease/blob/master/dist/
 
 > **watch**\<`T`, `TK`, `TR`\>(`name`, `cb`, `opt`): () => `void`
 
-Defined in: [purease.ts:473](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L473)
+Defined in: [purease.ts:478](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L478)
 
 监视变动
 
