@@ -146,14 +146,19 @@ export function sleep(ms: number = 0): Promise<boolean> {
 
 /**
  * --- 生成范围内的随机数 ---
- * @param min 最新范围
- * @param max 最大范围
+ * @param min >= 最小值
+ * @param max <= 最大值
+ * @param prec 保留几位小数
  */
-export function rand(min: number, max: number): number {
-    if (min > max) {
-        [min, max] = [max, min];
+export function rand(min: number, max: number, prec: number = 0): number {
+    if (prec < 0) {
+        prec = 0;
     }
-    return min + Math.round(Math.random() * (max - min));
+    if (prec === 0) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    const p = Math.pow(10, prec);
+    return Math.round((Math.random() * (max - min) + min) * p) / p;
 }
 
 export const RANDOM_N = '0123456789';
