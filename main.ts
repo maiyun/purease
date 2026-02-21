@@ -30,17 +30,25 @@ export async function readDir(path: string): Promise<void> {
                 continue;
             }
             let content = await fs.promises.readFile(path + '/' + item.name, 'utf8');
-            content = content.replace(/<%.+?%>/g, '');
-            const reg = /l\(["']((?:\.|[^"'])+?)['"]/g;
-            if (!reg) {
-                continue;
-            }
+
+            // --- 预处理：移除注释以提高准确性 ---
+            // 1. 移除 EJS 部分（EJS 是后端，应该在 Kebab 框架中检查） ---
+            content = content.replace(/<%[\s\S]*?%>/g, '');
+            // 2. 移除 HTML 注释
+            content = content.replace(/<!--[\s\S]*?-->/g, '');
+            // 3. 移除 TS 多行注释
+            content = content.replace(/\/\*[\s\S]*?\*\//g, '');
+            // 4. 移除 TS 单行注释
+            content = content.replace(/(^|[^\:])\/\/.*/g, '$1');
+
+            const reg = /(?:\b|_)l\s*\(\s*(['"])(.+?)\1/g;
             let match: RegExpExecArray | null;
             while (match = reg.exec(content)) {
-                if (appLocaleList.includes(match[1])) {
+                const key = match[2];
+                if (appLocaleList.includes(key)) {
                     continue;
                 }
-                appLocaleList.push(match[1]);
+                appLocaleList.push(key);
             }
         }
     }
