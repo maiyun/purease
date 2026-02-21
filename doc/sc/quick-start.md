@@ -68,3 +68,7 @@ purease.launcher(Page);
 ```sh
 $ npm i purease --save-dev
 ```
+
+## 集成第三方框架
+
+Purease 已完全集成 Naive UI、Vant 框架，并已对 Purease 进行适配。通过 launcher 的 modules 参数开启后，可通过 `<n-xxx>` / `<van-xxx>` 使用，Purease 控件通过 `<pe-xxx>` 使用。
