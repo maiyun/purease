@@ -8,7 +8,7 @@
 
 > **getResponseJson**(`url`, `init?`): `Promise`\<`any`\>
 
-Defined in: [tool.ts:441](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L441)
+Defined in: [tool.ts:446](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L446)
 
 发起 GET 请求并解析 JSON 响应
 

@@ -8,7 +8,7 @@
 
 > **queryParse**(`query`): `Record`\<`string`, `string` \| `string`[]\>
 
-Defined in: [tool.ts:733](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L733)
+Defined in: [tool.ts:738](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L738)
 
 将 query string 转换为对象
 

@@ -8,7 +8,7 @@
 
 > **isIPv6**(`ip`): `boolean`
 
-Defined in: [tool.ts:780](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L780)
+Defined in: [tool.ts:785](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L785)
 
 是否是 IPv6
 

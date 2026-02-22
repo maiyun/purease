@@ -8,7 +8,7 @@
 
 > **formatSecond**(`second`): `string`
 
-Defined in: [tool.ts:680](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L680)
+Defined in: [tool.ts:685](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L685)
 
 将秒数格式化为 0:0:0 的字符串
 

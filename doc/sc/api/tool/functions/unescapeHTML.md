@@ -8,7 +8,7 @@
 
 > **unescapeHTML**(`html`): `string`
 
-Defined in: [tool.ts:261](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L261)
+Defined in: [tool.ts:266](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L266)
 
 还原转义后的 HTML
 

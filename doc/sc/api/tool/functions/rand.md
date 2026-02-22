@@ -6,9 +6,9 @@
 
 # Function: rand()
 
-> **rand**(`min`, `max`): `number`
+> **rand**(`min`, `max`, `prec`): `number`
 
-Defined in: [tool.ts:152](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L152)
+Defined in: [tool.ts:153](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L153)
 
 生成范围内的随机数
 
@@ -18,13 +18,19 @@ Defined in: [tool.ts:152](https://github.com/maiyun/purease/blob/master/dist/too
 
 `number`
 
-最新范围
+>= 最小值
 
 ### max
 
 `number`
 
-最大范围
+<= 最大值
+
+### prec
+
+`number` = `0`
+
+保留几位小数
 
 ## Returns
 

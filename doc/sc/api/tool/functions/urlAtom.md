@@ -8,7 +8,7 @@
 
 > **urlAtom**(`url`): `string`
 
-Defined in: [tool.ts:628](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L628)
+Defined in: [tool.ts:633](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L633)
 
 处理 URL 中的 .. / . 等
 

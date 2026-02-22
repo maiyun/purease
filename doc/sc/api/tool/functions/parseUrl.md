@@ -8,7 +8,7 @@
 
 > **parseUrl**(`url`): [`IUrl`](../interfaces/IUrl.md)
 
-Defined in: [tool.ts:486](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L486)
+Defined in: [tool.ts:491](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L491)
 
 传输 url 并解析为 IUrl 对象
 

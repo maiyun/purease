@@ -8,7 +8,7 @@
 
 > **fetch**(`url`, `init?`): `Promise`\<`string` \| `Blob` \| `null`\>
 
-Defined in: [tool.ts:363](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L363)
+Defined in: [tool.ts:368](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L368)
 
 发起 fetch 请求
 

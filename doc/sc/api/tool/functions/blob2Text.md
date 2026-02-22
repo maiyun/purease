@@ -8,7 +8,7 @@
 
 > **blob2Text**(`blob`): `Promise`\<`string`\>
 
-Defined in: [tool.ts:645](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L645)
+Defined in: [tool.ts:650](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L650)
 
 将 blob 对象转换为 text
 

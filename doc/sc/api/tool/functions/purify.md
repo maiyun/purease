@@ -8,7 +8,7 @@
 
 > **purify**(`text`): `string`
 
-Defined in: [tool.ts:807](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L807)
+Defined in: [tool.ts:812](https://github.com/maiyun/purease/blob/master/dist/tool.ts#L812)
 
 去除 html 的空白符、换行以及注释
 
