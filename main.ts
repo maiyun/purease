@@ -29,7 +29,11 @@ export async function readDir(path: string): Promise<void> {
             ) {
                 continue;
             }
+            // --- ts 文件可能是后端的代码，所以要排除掉后端的 ts 文件 ---
             let content = await fs.promises.readFile(path + '/' + item.name, 'utf8');
+            if (item.name.endsWith('.ts') && !content.includes('AbstractPage')) {
+                continue;
+            }
 
             // --- 预处理：移除注释以提高准确性 ---
             // 1. 移除 EJS 部分（EJS 是后端，应该在 Kebab 框架中检查） ---
