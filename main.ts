@@ -29,6 +29,7 @@ export async function readDir(path: string): Promise<void> {
             ) {
                 continue;
             }
+
             // --- ts 文件可能是后端的代码，所以要排除掉后端的 ts 文件 ---
             let content = await fs.promises.readFile(path + '/' + item.name, 'utf8');
             if (item.name.endsWith('.ts') && !content.includes('AbstractPage')) {
