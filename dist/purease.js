@@ -76,6 +76,30 @@ const locale = {
         'no': 'Không',
         'cancel': 'Hủy bỏ',
     },
+    'ar': {
+        'ok': 'موافق',
+        'yes': 'نعم',
+        'no': 'لا',
+        'cancel': 'إلغاء',
+    },
+    'id': {
+        'ok': 'OK',
+        'yes': 'Ya',
+        'no': 'Tidak',
+        'cancel': 'Batal',
+    },
+    'it': {
+        'ok': 'OK',
+        'yes': 'Sì',
+        'no': 'No',
+        'cancel': 'Annulla',
+    },
+    'tr': {
+        'ok': 'Tamam',
+        'yes': 'Evet',
+        'no': 'Hayır',
+        'cancel': 'İptal',
+    },
 };
 /** --- 总大页面 --- */
 export class AbstractPage {
