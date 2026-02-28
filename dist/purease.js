@@ -1,8 +1,9 @@
 import * as lControl from './control.js';
 import * as lTool from './tool.js';
 import * as lDom from './dom.js';
+import { router } from './router.js';
 export { lControl as control, lTool as tool, lDom as dom };
-/** --- 语言包 --- */
+export * from './router.js';
 const locale = {
     'en': {
         'ok': 'OK',
@@ -427,6 +428,17 @@ export class AbstractPanel {
         return this.$watch(name, cb, opt);
     }
 }
+/** --- 路由页面基类 --- */
+export class AbstractRouterPage extends AbstractPanel {
+    /** --- 路由参数 --- */
+    get query() {
+        return router.current.query;
+    }
+    /** --- 路由元数据 --- */
+    get meta() {
+        return router.current.meta;
+    }
+}
 /** --- vue 对象 --- */
 export let vue;
 /** --- pointer 对象 --- */
@@ -460,6 +472,12 @@ export function getCdn() {
 export function launcher(page, options = {}) {
     (async function () {
         global.debug = options.debug ?? false;
+        if (options.router?.prefix) {
+            router.prefix = options.router.prefix;
+        }
+        if (options.router?.urlPrefix) {
+            router.urlPrefix = options.router.urlPrefix;
+        }
         const html = document.getElementsByTagName('html')[0];
         // --- 添加全局 scroll class 如果不在顶部的话 ---
         window.addEventListener('scroll', function () {
@@ -528,6 +546,7 @@ export function launcher(page, options = {}) {
         });
         // --- 将整个网页 vue 化 ---
         vue = window.Vue;
+        router.start();
         pointer = window.pointer;
         userPurease.global = vue.reactive(global);
         global = userPurease.global;
@@ -570,24 +589,24 @@ export function launcher(page, options = {}) {
                 },
                 'methods': methods,
                 'computed': computed,
-                'created': function () {
+                created: function () {
                     if (page.access) {
                         this.access = lTool.clone(page.access);
                     }
                 },
-                'mounted': async function () {
+                mounted: async function () {
                     await this.$nextTick();
                     this.rootPage = this.$root;
                     // --- 完成 ---
                     this.main();
                 },
-                'beforeUnmount': function () {
+                beforeUnmount: function () {
                     this.onBeforeUnmount();
                 },
-                'unmounted': async function () {
+                unmounted: async function () {
                     await this.$nextTick();
                     this.onUnmounted();
-                }
+                },
             };
             el.replaceWith(document.createElement(panelname));
         }
@@ -992,6 +1011,7 @@ export function launcher(page, options = {}) {
         await lTool.sleep(34);
         await cpage.main.call(rtn.vroot);
         if ((htmls[0].style.overflow !== 'hidden') || (htmls[0].style.visibility !== 'hidden')) {
+            display('htmls[0].style.overflow [', htmls[0].style.overflow, '] htmls[0].style.visibility [', htmls[0].style.visibility, ']');
             await cpage.dialog.call(rtn.vroot, 'Warning: The html element visibility style has been changed externally, this may cause some animation or layout issues.');
         }
         htmls[0].style.overflow = '';

@@ -2667,6 +2667,11 @@ html.pe-rtl {
 
 }
 
+.pe-router-view {
+    display: flex; flex-direction: column;
+}
+
+
 .pe-select {
     border-radius: var(--pe-radius); transition: var(--pe-transition); display: flex; background: var(--pe-input-bg); -webkit-user-select: none; user-select: none; cursor: default; position: relative; outline: none;
     &:not(.pe-plain) {

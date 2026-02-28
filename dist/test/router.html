@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html style="visibility: hidden; overflow: hidden;">
+<head>
+<title>Router - Purease Test</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+<script type="importmap">
+{
+    "imports": {
+        "purease": "../index.js"
+    }
+}
+</script>
+<script type="module" src="../router.js"></script>
+<link rel="stylesheet" href="../index.css" />
+<style>
+html,body {
+    height: 100%;
+}
+</style>
+</head>
+<body>
+<div class="pe-layout" style="flex-direction: column; height: 100%;">
+    <div class="pe-layout" style="padding: var(--pe-padding); gap: var(--pe-padding); border-bottom: solid 1px var(--pe-border-plain);">
+        <div class="pe-button pe-pgrey" @click="router.push('')">Home</div>
+        <div class="pe-button pe-pgrey" @click="router.push('about')">About</div>
+        <div class="pe-button pe-pgrey" @click="router.back()">Back</div>
+    </div>
+    <pe-router-view style="flex: 1; padding: var(--pe-padding);"></pe-router-view>
+</div>
+</body>
+</html>

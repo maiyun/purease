@@ -1,10 +1,11 @@
 import * as lControl from './control.js';
 import * as lTool from './tool.js';
 import * as lDom from './dom.js';
+import { router } from './router.js';
 
 export { lControl as control, lTool as tool, lDom as dom };
+export * from './router.js';
 
-/** --- 语言包 --- */
 const locale: Record<string, {
     'ok': string;
     'yes': string;
@@ -512,6 +513,21 @@ export abstract class AbstractPanel {
 
 }
 
+/** --- 路由页面基类 --- */
+export abstract class AbstractRouterPage extends AbstractPanel {
+
+    /** --- 路由参数 --- */
+    public get query(): Record<string, string> {
+        return router.current.query;
+    }
+
+    /** --- 路由元数据 --- */
+    public get meta(): Record<string, any> {
+        return router.current.meta;
+    }
+
+}
+
 /** --- vue 对象 --- */
 export let vue: IVueObject;
 
@@ -565,9 +581,22 @@ export function launcher<T extends AbstractPage>(page: new (opt: {
     }>;
     /** --- 要加载的模块 --- */
     'modules'?: string[];
+    /** --- 路由配置 --- */
+    'router'?: {
+        /** --- 加载路由的前缀，以 / 开头 / 结尾 --- */
+        'prefix'?: string;
+        /** --- URL 前缀，以 / 开头 / 结尾 --- */
+        'urlPrefix'?: string;
+    };
 } = {}): void {
     (async function() {
         global.debug = options.debug ?? false;
+        if (options.router?.prefix) {
+            router.prefix = options.router.prefix;
+        }
+        if (options.router?.urlPrefix) {
+            router.urlPrefix = options.router.urlPrefix;
+        }
         const html = document.getElementsByTagName('html')[0];
         // --- 添加全局 scroll class 如果不在顶部的话 ---
         window.addEventListener('scroll', function() {
@@ -636,6 +665,7 @@ export function launcher<T extends AbstractPage>(page: new (opt: {
         });
         // --- 将整个网页 vue 化 ---
         vue = (window as any).Vue;
+        router.start();
         pointer = (window as any).pointer;
         userPurease.global = vue.reactive(global);
         global = userPurease.global;
@@ -679,24 +709,24 @@ export function launcher<T extends AbstractPage>(page: new (opt: {
                 },
                 'methods': methods,
                 'computed': computed,
-                'created': function(this: IVue) {
+                created: function(this: IVue) {
                     if ((page as any).access) {
                         this.access = lTool.clone((page as any).access);
                     }
                 },
-                'mounted': async function(this: IVue) {
+                mounted: async function(this: IVue) {
                     await this.$nextTick();
                     this.rootPage = this.$root;
                     // --- 完成 ---
                     this.main();
                 },
-                'beforeUnmount': function(this: IVue) {
+                beforeUnmount: function(this: IVue) {
                     this.onBeforeUnmount();
                 },
-                'unmounted': async function(this: IVue) {
+                unmounted: async function(this: IVue) {
                     await this.$nextTick();
                     this.onUnmounted();
-                }
+                },
             };
             el.replaceWith(document.createElement(panelname));
         }
@@ -1104,6 +1134,7 @@ export function launcher<T extends AbstractPage>(page: new (opt: {
         await lTool.sleep(34);
         await cpage.main.call(rtn.vroot);
         if ((htmls[0].style.overflow !== 'hidden') || (htmls[0].style.visibility !== 'hidden')) {
+            display('htmls[0].style.overflow [', htmls[0].style.overflow, '] htmls[0].style.visibility [', htmls[0].style.visibility, ']');
             await cpage.dialog.call(rtn.vroot, 'Warning: The html element visibility style has been changed externally, this may cause some animation or layout issues.');
         }
         htmls[0].style.overflow = '';
@@ -1157,7 +1188,7 @@ export interface IVue {
         'default': undefined | ((o?: any) => IVNode[]);
         [key: string]: undefined | ((o?: any) => IVNode[]);
     };
-    '$watch': (o: any, cb: (n: any, o: any) => void, opt?: {
+    $watch: (o: any, cb: (n: any, o: any) => void, opt?: {
         'immediate'?: boolean;
         'deep'?: boolean;
     }) => void;
@@ -1181,6 +1212,7 @@ export interface IVueObject {
     createApp(opt: any): IVApp;
     ref<T extends number | string>(obj: T): { 'value': T; };
     reactive<T>(obj: T): T;
+    markRaw<T>(obj: T): T;
     watch(
         v: any,
         cb: (n: any, o: any) => void | Promise<void>,
