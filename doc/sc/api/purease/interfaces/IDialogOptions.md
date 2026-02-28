@@ -6,7 +6,7 @@
 
 # Interface: IDialogOptions
 
-Defined in: [purease.ts:1199](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1199)
+Defined in: [purease.ts:1255](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1255)
 
 Dialog 选项
 
@@ -16,7 +16,7 @@ Dialog 选项
 
 > `optional` **buttons**: `string`[]
 
-Defined in: [purease.ts:1203](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1203)
+Defined in: [purease.ts:1259](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1259)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [purease.ts:1203](https://github.com/maiyun/purease/blob/master/dist
 
 > **content**: `string`
 
-Defined in: [purease.ts:1202](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1202)
+Defined in: [purease.ts:1258](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1258)
 
 支持 html
 
@@ -34,7 +34,7 @@ Defined in: [purease.ts:1202](https://github.com/maiyun/purease/blob/master/dist
 
 > `optional` **select**: (`button`) => `boolean` \| `Promise`\<`boolean` \| `undefined`\> \| `undefined`
 
-Defined in: [purease.ts:1205](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1205)
+Defined in: [purease.ts:1261](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1261)
 
 #### Parameters
 
@@ -52,4 +52,4 @@ Defined in: [purease.ts:1205](https://github.com/maiyun/purease/blob/master/dist
 
 > `optional` **title**: `string`
 
-Defined in: [purease.ts:1200](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1200)
+Defined in: [purease.ts:1256](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1256)

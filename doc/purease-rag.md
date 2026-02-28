@@ -4295,7 +4295,7 @@ Vue 实例
 
 > **$attrs**: `Record`\<`string`, `string`\>
 
-Defined in: [purease.ts:1121](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1121)
+Defined in: [purease.ts:1176](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1176)
 
 #### Inherited from
 
@@ -4307,7 +4307,7 @@ Defined in: [purease.ts:1121](https://github.com/maiyun/purease/blob/master/dist
 
 > **$data**: `Record`\<`string`, `any`\>
 
-Defined in: [purease.ts:1122](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1122)
+Defined in: [purease.ts:1177](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1177)
 
 #### Inherited from
 
@@ -4319,7 +4319,7 @@ Defined in: [purease.ts:1122](https://github.com/maiyun/purease/blob/master/dist
 
 > **$el**: `HTMLElement`
 
-Defined in: [purease.ts:1123](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1123)
+Defined in: [purease.ts:1178](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1178)
 
 #### Inherited from
 
@@ -4331,7 +4331,7 @@ Defined in: [purease.ts:1123](https://github.com/maiyun/purease/blob/master/dist
 
 > **$options**: `Record`\<`string`, `any`\>
 
-Defined in: [purease.ts:1127](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1127)
+Defined in: [purease.ts:1182](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1182)
 
 #### Inherited from
 
@@ -4343,7 +4343,7 @@ Defined in: [purease.ts:1127](https://github.com/maiyun/purease/blob/master/dist
 
 > **$parent**: [`IVue`](../../purease/interfaces/IVue.md) \| `null`
 
-Defined in: [purease.ts:1128](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1128)
+Defined in: [purease.ts:1183](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1183)
 
 #### Inherited from
 
@@ -4355,7 +4355,7 @@ Defined in: [purease.ts:1128](https://github.com/maiyun/purease/blob/master/dist
 
 > **$props**: `Record`\<`string`, `any`\>
 
-Defined in: [purease.ts:1129](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1129)
+Defined in: [purease.ts:1184](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1184)
 
 #### Inherited from
 
@@ -4367,7 +4367,7 @@ Defined in: [purease.ts:1129](https://github.com/maiyun/purease/blob/master/dist
 
 > **$refs**: `Record`\<`string`, `HTMLElement` & [`IVue`](../../purease/interfaces/IVue.md)\>
 
-Defined in: [purease.ts:1130](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1130)
+Defined in: [purease.ts:1185](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1185)
 
 #### Inherited from
 
@@ -4379,7 +4379,7 @@ Defined in: [purease.ts:1130](https://github.com/maiyun/purease/blob/master/dist
 
 > **$root**: [`IVue`](../../purease/interfaces/IVue.md)
 
-Defined in: [purease.ts:1131](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1131)
+Defined in: [purease.ts:1186](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1186)
 
 #### Inherited from
 
@@ -4391,7 +4391,7 @@ Defined in: [purease.ts:1131](https://github.com/maiyun/purease/blob/master/dist
 
 > **$slots**: `object`
 
-Defined in: [purease.ts:1132](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1132)
+Defined in: [purease.ts:1187](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1187)
 
 #### Index Signature
 
@@ -4411,7 +4411,7 @@ Defined in: [purease.ts:1132](https://github.com/maiyun/purease/blob/master/dist
 
 > **$watch**: (`o`, `cb`, `opt?`) => `void`
 
-Defined in: [purease.ts:1136](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1136)
+Defined in: [purease.ts:1191](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1191)
 
 #### Parameters
 
@@ -4601,7 +4601,7 @@ Defined in: [control.ts:16](https://github.com/maiyun/purease/blob/master/dist/c
 
 > **$emit**(`name`, ...`arg`): `void`
 
-Defined in: [purease.ts:1124](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1124)
+Defined in: [purease.ts:1179](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1179)
 
 #### Parameters
 
@@ -4627,7 +4627,7 @@ Defined in: [purease.ts:1124](https://github.com/maiyun/purease/blob/master/dist
 
 > **$forceUpdate**(): `void`
 
-Defined in: [purease.ts:1125](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1125)
+Defined in: [purease.ts:1180](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1180)
 
 #### Returns
 
@@ -4643,7 +4643,7 @@ Defined in: [purease.ts:1125](https://github.com/maiyun/purease/blob/master/dist
 
 > **$nextTick**(): `Promise`\<`void`\>
 
-Defined in: [purease.ts:1126](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1126)
+Defined in: [purease.ts:1181](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1181)
 
 #### Returns
 
@@ -5652,7 +5652,7 @@ purease/classes/AbstractPage.md
 
 # Abstract Class: AbstractPage
 
-Defined in: [purease.ts:89](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L89)
+Defined in: [purease.ts:114](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L114)
 
 总大页面
 
@@ -5662,7 +5662,7 @@ Defined in: [purease.ts:89](https://github.com/maiyun/purease/blob/master/dist/p
 
 > **new AbstractPage**(`opt`): `AbstractPage`
 
-Defined in: [purease.ts:107](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L107)
+Defined in: [purease.ts:132](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L132)
 
 #### Parameters
 
@@ -5690,7 +5690,7 @@ Defined in: [purease.ts:107](https://github.com/maiyun/purease/blob/master/dist/
 
 > **alertInfo**: `object`
 
-Defined in: [purease.ts:377](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L377)
+Defined in: [purease.ts:402](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L402)
 
 底部弹出提示框
 
@@ -5716,7 +5716,7 @@ Defined in: [purease.ts:377](https://github.com/maiyun/purease/blob/master/dist/
 
 > **captchaInfo**: `object`
 
-Defined in: [purease.ts:239](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L239)
+Defined in: [purease.ts:264](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L264)
 
 验证码窗口
 
@@ -5738,7 +5738,7 @@ Defined in: [purease.ts:239](https://github.com/maiyun/purease/blob/master/dist/
 
 > **dialogInfo**: `object`
 
-Defined in: [purease.ts:197](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L197)
+Defined in: [purease.ts:222](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L222)
 
 dialog 信息
 
@@ -5778,7 +5778,7 @@ dialog 信息
 
 > **loading**: `boolean` = `false`
 
-Defined in: [purease.ts:410](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L410)
+Defined in: [purease.ts:435](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L435)
 
 是否显示加载框
 
@@ -5788,7 +5788,7 @@ Defined in: [purease.ts:410](https://github.com/maiyun/purease/blob/master/dist/
 
 > **windowHeight**: `number` = `0`
 
-Defined in: [purease.ts:402](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L402)
+Defined in: [purease.ts:427](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L427)
 
 整个窗口的高度
 
@@ -5798,7 +5798,7 @@ Defined in: [purease.ts:402](https://github.com/maiyun/purease/blob/master/dist/
 
 > **windowWidth**: `number` = `0`
 
-Defined in: [purease.ts:399](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L399)
+Defined in: [purease.ts:424](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L424)
 
 整个窗口的宽度
 
@@ -5810,7 +5810,7 @@ Defined in: [purease.ts:399](https://github.com/maiyun/purease/blob/master/dist/
 
 > **get** **l**(): (`key`, `data?`) => `string`
 
-Defined in: [purease.ts:162](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L162)
+Defined in: [purease.ts:187](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L187)
 
 获取语言内容
 
@@ -5840,7 +5840,7 @@ Defined in: [purease.ts:162](https://github.com/maiyun/purease/blob/master/dist/
 
 > **get** **locale**(): `string`
 
-Defined in: [purease.ts:95](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L95)
+Defined in: [purease.ts:120](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L120)
 
 获取系统当前语言
 
@@ -5856,7 +5856,7 @@ Defined in: [purease.ts:95](https://github.com/maiyun/purease/blob/master/dist/p
 
 > **get** **localePath**(): `string`
 
-Defined in: [purease.ts:103](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L103)
+Defined in: [purease.ts:128](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L128)
 
 获取语言包路径，可能为空
 
@@ -5872,7 +5872,7 @@ Defined in: [purease.ts:103](https://github.com/maiyun/purease/blob/master/dist/
 
 > **get** **narrow**(): `boolean`
 
-Defined in: [purease.ts:405](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L405)
+Defined in: [purease.ts:430](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L430)
 
 窗口宽度是否小于等于 800 像素
 
@@ -5888,7 +5888,7 @@ Defined in: [purease.ts:405](https://github.com/maiyun/purease/blob/master/dist/
 
 > **get** **nextTick**(): () => `Promise`\<`void`\>
 
-Defined in: [purease.ts:155](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L155)
+Defined in: [purease.ts:180](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L180)
 
 等待渲染
 
@@ -5908,7 +5908,7 @@ Defined in: [purease.ts:155](https://github.com/maiyun/purease/blob/master/dist/
 
 > **get** **refs**(): `Record`\<`string`, `HTMLElement` & [`IVue`](../interfaces/IVue.md) & `Record`\<`string`, `any`\>\>
 
-Defined in: [purease.ts:148](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L148)
+Defined in: [purease.ts:173](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L173)
 
 获取 refs 情况
 
@@ -5922,7 +5922,7 @@ Defined in: [purease.ts:148](https://github.com/maiyun/purease/blob/master/dist/
 
 > **alert**(`content`, `type`): `void`
 
-Defined in: [purease.ts:385](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L385)
+Defined in: [purease.ts:410](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L410)
 
 显示一个 alert，支持 html，请注意传入内容的安全
 
@@ -5946,7 +5946,7 @@ Defined in: [purease.ts:385](https://github.com/maiyun/purease/blob/master/dist/
 
 > **confirm**(`opt`): `Promise`\<`number` \| `boolean`\>
 
-Defined in: [purease.ts:354](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L354)
+Defined in: [purease.ts:379](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L379)
 
 弹出一个询问框
 
@@ -5966,7 +5966,7 @@ Defined in: [purease.ts:354](https://github.com/maiyun/purease/blob/master/dist/
 
 > **dialog**(`opt`): `Promise`\<`string`\>
 
-Defined in: [purease.ts:212](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L212)
+Defined in: [purease.ts:237](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L237)
 
 弹出一个框框
 
@@ -5986,7 +5986,7 @@ Defined in: [purease.ts:212](https://github.com/maiyun/purease/blob/master/dist/
 
 > **hideCaptcha**(): `void`
 
-Defined in: [purease.ts:337](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L337)
+Defined in: [purease.ts:362](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L362)
 
 仅 CF 模式会调用
 
@@ -6000,7 +6000,7 @@ Defined in: [purease.ts:337](https://github.com/maiyun/purease/blob/master/dist/
 
 > `abstract` **main**(): `void` \| `Promise`\<`void`\>
 
-Defined in: [purease.ts:122](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L122)
+Defined in: [purease.ts:147](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L147)
 
 入口方法，会阻塞加载进程
 
@@ -6014,7 +6014,7 @@ Defined in: [purease.ts:122](https://github.com/maiyun/purease/blob/master/dist/
 
 > **onBeforeUnmount**(): `void` \| `Promise`\<`void`\>
 
-Defined in: [purease.ts:137](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L137)
+Defined in: [purease.ts:162](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L162)
 
 #### Returns
 
@@ -6026,7 +6026,7 @@ Defined in: [purease.ts:137](https://github.com/maiyun/purease/blob/master/dist/
 
 > **onBeforeUpdate**(): `void` \| `Promise`\<`void`\>
 
-Defined in: [purease.ts:129](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L129)
+Defined in: [purease.ts:154](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L154)
 
 #### Returns
 
@@ -6038,7 +6038,7 @@ Defined in: [purease.ts:129](https://github.com/maiyun/purease/blob/master/dist/
 
 > **onReady**(): `void` \| `Promise`\<`void`\>
 
-Defined in: [purease.ts:125](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L125)
+Defined in: [purease.ts:150](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L150)
 
 完全加载完成后执行，不会阻塞加载进程
 
@@ -6052,7 +6052,7 @@ Defined in: [purease.ts:125](https://github.com/maiyun/purease/blob/master/dist/
 
 > **onUnmounted**(): `void` \| `Promise`\<`void`\>
 
-Defined in: [purease.ts:141](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L141)
+Defined in: [purease.ts:166](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L166)
 
 #### Returns
 
@@ -6064,7 +6064,7 @@ Defined in: [purease.ts:141](https://github.com/maiyun/purease/blob/master/dist/
 
 > **onUpdated**(): `void` \| `Promise`\<`void`\>
 
-Defined in: [purease.ts:133](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L133)
+Defined in: [purease.ts:158](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L158)
 
 #### Returns
 
@@ -6076,7 +6076,7 @@ Defined in: [purease.ts:133](https://github.com/maiyun/purease/blob/master/dist/
 
 > **showCaptcha**(`opt`): `Promise`\<`false` \| [`ICaptchaResultEvent`](../../control/interfaces/ICaptchaResultEvent.md)\>
 
-Defined in: [purease.ts:258](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L258)
+Defined in: [purease.ts:283](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L283)
 
 弹出验证码确认框，确认后可立即提交，可用于登录、发验证码按钮等地方
 请勿开启 loading
@@ -6101,7 +6101,7 @@ Defined in: [purease.ts:258](https://github.com/maiyun/purease/blob/master/dist/
 
 > **showLnav**(): `void`
 
-Defined in: [purease.ts:426](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L426)
+Defined in: [purease.ts:451](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L451)
 
 显示 lnav
 
@@ -6115,7 +6115,7 @@ Defined in: [purease.ts:426](https://github.com/maiyun/purease/blob/master/dist/
 
 > **toTop**(): `void`
 
-Defined in: [purease.ts:413](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L413)
+Defined in: [purease.ts:438](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L438)
 
 滚动到顶部
 
@@ -6129,7 +6129,7 @@ Defined in: [purease.ts:413](https://github.com/maiyun/purease/blob/master/dist/
 
 > **watch**\<`T`, `TK`, `TR`\>(`name`, `cb`, `opt`): () => `void`
 
-Defined in: [purease.ts:185](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L185)
+Defined in: [purease.ts:210](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L210)
 
 监视变动
 
@@ -6192,9 +6192,13 @@ purease/classes/AbstractPanel.md
 
 # Abstract Class: AbstractPanel
 
-Defined in: [purease.ts:433](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L433)
+Defined in: [purease.ts:458](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L458)
 
 大页面的内嵌页面
+
+## Extended by
+
+- [`AbstractRouterPage`](AbstractRouterPage.md)
 
 ## Constructors
 
@@ -6212,7 +6216,7 @@ Defined in: [purease.ts:433](https://github.com/maiyun/purease/blob/master/dist/
 
 > **rootPage**: [`AbstractPage`](AbstractPage.md) & `Record`\<`string`, `any`\>
 
-Defined in: [purease.ts:447](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L447)
+Defined in: [purease.ts:472](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L472)
 
 获取总大页面对象
 
@@ -6224,7 +6228,7 @@ Defined in: [purease.ts:447](https://github.com/maiyun/purease/blob/master/dist/
 
 > **get** **l**(): (`key`, `data?`) => `string`
 
-Defined in: [purease.ts:452](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L452)
+Defined in: [purease.ts:477](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L477)
 
 获取语言内容
 
@@ -6254,7 +6258,7 @@ Defined in: [purease.ts:452](https://github.com/maiyun/purease/blob/master/dist/
 
 > **get** **nextTick**(): () => `Promise`\<`void`\>
 
-Defined in: [purease.ts:468](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L468)
+Defined in: [purease.ts:493](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L493)
 
 等待渲染
 
@@ -6274,7 +6278,7 @@ Defined in: [purease.ts:468](https://github.com/maiyun/purease/blob/master/dist/
 
 > **get** **refs**(): `Record`\<`string`, `HTMLElement` & [`IVue`](../interfaces/IVue.md) & `Record`\<`string`, `any`\>\>
 
-Defined in: [purease.ts:461](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L461)
+Defined in: [purease.ts:486](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L486)
 
 获取 refs 情况
 
@@ -6288,7 +6292,7 @@ Defined in: [purease.ts:461](https://github.com/maiyun/purease/blob/master/dist/
 
 > `abstract` **main**(): `void` \| `Promise`\<`void`\>
 
-Defined in: [purease.ts:436](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L436)
+Defined in: [purease.ts:461](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L461)
 
 入口方法
 
@@ -6302,7 +6306,7 @@ Defined in: [purease.ts:436](https://github.com/maiyun/purease/blob/master/dist/
 
 > **onBeforeUnmount**(): `void` \| `Promise`\<`void`\>
 
-Defined in: [purease.ts:438](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L438)
+Defined in: [purease.ts:463](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L463)
 
 #### Returns
 
@@ -6314,7 +6318,7 @@ Defined in: [purease.ts:438](https://github.com/maiyun/purease/blob/master/dist/
 
 > **onUnmounted**(): `void` \| `Promise`\<`void`\>
 
-Defined in: [purease.ts:442](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L442)
+Defined in: [purease.ts:467](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L467)
 
 #### Returns
 
@@ -6326,7 +6330,7 @@ Defined in: [purease.ts:442](https://github.com/maiyun/purease/blob/master/dist/
 
 > **watch**\<`T`, `TK`, `TR`\>(`name`, `cb`, `opt`): () => `void`
 
-Defined in: [purease.ts:478](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L478)
+Defined in: [purease.ts:503](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L503)
 
 监视变动
 
@@ -6378,6 +6382,275 @@ Defined in: [purease.ts:478](https://github.com/maiyun/purease/blob/master/dist/
 
 `void`
 
+purease/classes/AbstractRouterPage.md
+---
+
+[**Documents for purease**](../../index.md)
+
+***
+
+[Documents for purease](../../index.md) / [purease](../index.md) / AbstractRouterPage
+
+# Abstract Class: AbstractRouterPage
+
+Defined in: [purease.ts:517](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L517)
+
+路由页面基类
+
+## Extends
+
+- [`AbstractPanel`](AbstractPanel.md)
+
+## Constructors
+
+### Constructor
+
+> **new AbstractRouterPage**(): `AbstractRouterPage`
+
+#### Returns
+
+`AbstractRouterPage`
+
+#### Inherited from
+
+[`AbstractPanel`](AbstractPanel.md).[`constructor`](AbstractPanel.md#constructor)
+
+## Properties
+
+### rootPage
+
+> **rootPage**: [`AbstractPage`](AbstractPage.md) & `Record`\<`string`, `any`\>
+
+Defined in: [purease.ts:472](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L472)
+
+获取总大页面对象
+
+#### Inherited from
+
+[`AbstractPanel`](AbstractPanel.md).[`rootPage`](AbstractPanel.md#rootpage)
+
+## Accessors
+
+### l
+
+#### Get Signature
+
+> **get** **l**(): (`key`, `data?`) => `string`
+
+Defined in: [purease.ts:477](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L477)
+
+获取语言内容
+
+##### Returns
+
+> (`key`, `data?`): `string`
+
+###### Parameters
+
+###### key
+
+`string`
+
+###### data?
+
+`string`[]
+
+###### Returns
+
+`string`
+
+#### Inherited from
+
+[`AbstractPanel`](AbstractPanel.md).[`l`](AbstractPanel.md#l)
+
+***
+
+### meta
+
+#### Get Signature
+
+> **get** **meta**(): `Record`\<`string`, `any`\>
+
+Defined in: [purease.ts:525](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L525)
+
+路由元数据
+
+##### Returns
+
+`Record`\<`string`, `any`\>
+
+***
+
+### nextTick
+
+#### Get Signature
+
+> **get** **nextTick**(): () => `Promise`\<`void`\>
+
+Defined in: [purease.ts:493](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L493)
+
+等待渲染
+
+##### Returns
+
+> (): `Promise`\<`void`\>
+
+###### Returns
+
+`Promise`\<`void`\>
+
+#### Inherited from
+
+[`AbstractPanel`](AbstractPanel.md).[`nextTick`](AbstractPanel.md#nexttick)
+
+***
+
+### query
+
+#### Get Signature
+
+> **get** **query**(): `Record`\<`string`, `string`\>
+
+Defined in: [purease.ts:520](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L520)
+
+路由参数
+
+##### Returns
+
+`Record`\<`string`, `string`\>
+
+***
+
+### refs
+
+#### Get Signature
+
+> **get** **refs**(): `Record`\<`string`, `HTMLElement` & [`IVue`](../interfaces/IVue.md) & `Record`\<`string`, `any`\>\>
+
+Defined in: [purease.ts:486](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L486)
+
+获取 refs 情况
+
+##### Returns
+
+`Record`\<`string`, `HTMLElement` & [`IVue`](../interfaces/IVue.md) & `Record`\<`string`, `any`\>\>
+
+#### Inherited from
+
+[`AbstractPanel`](AbstractPanel.md).[`refs`](AbstractPanel.md#refs)
+
+## Methods
+
+### main()
+
+> `abstract` **main**(): `void` \| `Promise`\<`void`\>
+
+Defined in: [purease.ts:461](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L461)
+
+入口方法
+
+#### Returns
+
+`void` \| `Promise`\<`void`\>
+
+#### Inherited from
+
+[`AbstractPanel`](AbstractPanel.md).[`main`](AbstractPanel.md#main)
+
+***
+
+### onBeforeUnmount()
+
+> **onBeforeUnmount**(): `void` \| `Promise`\<`void`\>
+
+Defined in: [purease.ts:463](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L463)
+
+#### Returns
+
+`void` \| `Promise`\<`void`\>
+
+#### Inherited from
+
+[`AbstractPanel`](AbstractPanel.md).[`onBeforeUnmount`](AbstractPanel.md#onbeforeunmount)
+
+***
+
+### onUnmounted()
+
+> **onUnmounted**(): `void` \| `Promise`\<`void`\>
+
+Defined in: [purease.ts:467](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L467)
+
+#### Returns
+
+`void` \| `Promise`\<`void`\>
+
+#### Inherited from
+
+[`AbstractPanel`](AbstractPanel.md).[`onUnmounted`](AbstractPanel.md#onunmounted)
+
+***
+
+### watch()
+
+> **watch**\<`T`, `TK`, `TR`\>(`name`, `cb`, `opt`): () => `void`
+
+Defined in: [purease.ts:503](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L503)
+
+监视变动
+
+#### Type Parameters
+
+##### T
+
+`T` *extends* `AbstractRouterPage`
+
+##### TK
+
+`TK` *extends* `string` \| `number` \| `symbol`
+
+##### TR
+
+`TR`
+
+#### Parameters
+
+##### name
+
+监视的属性
+
+`TK` | () => `TR`
+
+##### cb
+
+(`val`, `old`) => `void` \| `Promise`\<`void`\>
+
+回调
+
+##### opt
+
+参数
+
+###### deep?
+
+`boolean`
+
+###### immediate?
+
+`boolean`
+
+#### Returns
+
+> (): `void`
+
+##### Returns
+
+`void`
+
+#### Inherited from
+
+[`AbstractPanel`](AbstractPanel.md).[`watch`](AbstractPanel.md#watch)
+
 purease/functions/debug.md
 ---
 
@@ -6391,7 +6664,7 @@ purease/functions/debug.md
 
 > **debug**(`message?`, ...`optionalParams?`): `void`
 
-Defined in: [purease.ts:1099](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1099)
+Defined in: [purease.ts:1154](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1154)
 
 打印调试信息，线上环境不会打印
 
@@ -6426,7 +6699,7 @@ purease/functions/display.md
 
 > **display**(`message?`, ...`optionalParams?`): `void`
 
-Defined in: [purease.ts:1112](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1112)
+Defined in: [purease.ts:1167](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1167)
 
 向控制台直接显示内容，一般情况下禁止使用
 
@@ -6461,7 +6734,7 @@ purease/functions/getCdn.md
 
 > **getCdn**(): `string`
 
-Defined in: [purease.ts:522](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L522)
+Defined in: [purease.ts:562](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L562)
 
 获取当前 cdn 前缀
 
@@ -6482,7 +6755,7 @@ purease/functions/getDirname.md
 
 > **getDirname**(`importUrl?`): `string`
 
-Defined in: [purease.ts:499](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L499)
+Defined in: [purease.ts:539](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L539)
 
 获取当前所在目录（参数留空获取 Purease 所在的目录，不以 / 结尾
 
@@ -6509,7 +6782,7 @@ purease/functions/launcher.md
 
 > **launcher**\<`T`\>(`page`, `options`): `void`
 
-Defined in: [purease.ts:527](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L527)
+Defined in: [purease.ts:567](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L567)
 
 运行当前页面
 
@@ -6557,9 +6830,56 @@ Defined in: [purease.ts:527](https://github.com/maiyun/purease/blob/master/dist/
 
 要加载的子 panels
 
+#### router?
+
+\{ `prefix?`: `string`; `urlPrefix?`: `string`; \}
+
+路由配置
+
+#### router.prefix?
+
+`string`
+
+加载路由的前缀，以 / 开头 / 结尾
+
+#### router.urlPrefix?
+
+`string`
+
+URL 前缀，以 / 开头 / 结尾
+
 ## Returns
 
 `void`
+
+purease/functions/loadPage.md
+---
+
+[**Documents for purease**](../../index.md)
+
+***
+
+[Documents for purease](../../index.md) / [purease](../index.md) / loadPage
+
+# Function: loadPage()
+
+> **loadPage**(`path`): `Promise`\<`any`\>
+
+Defined in: [router.ts:161](https://github.com/maiyun/purease/blob/master/dist/router.ts#L161)
+
+加载页面辅助函数
+
+## Parameters
+
+### path
+
+`string`
+
+页面路径，如 home，会加载 /home.js 和 /home.html 和 css
+
+## Returns
+
+`Promise`\<`any`\>
 
 purease/index.md
 ---
@@ -6576,11 +6896,13 @@ purease/index.md
 
 - [AbstractPage](classes/AbstractPage.md)
 - [AbstractPanel](classes/AbstractPanel.md)
+- [AbstractRouterPage](classes/AbstractRouterPage.md)
 
 ## Interfaces
 
 - [IConfirmOptions](interfaces/IConfirmOptions.md)
 - [IDialogOptions](interfaces/IDialogOptions.md)
+- [IRoute](interfaces/IRoute.md)
 - [IShowCaptchaOptions](interfaces/IShowCaptchaOptions.md)
 - [IVApp](interfaces/IVApp.md)
 - [IVNode](interfaces/IVNode.md)
@@ -6596,6 +6918,7 @@ purease/index.md
 
 - [global](variables/global.md)
 - [pointer](variables/pointer.md)
+- [router](variables/router.md)
 - [vue](variables/vue.md)
 
 ## Functions
@@ -6605,6 +6928,7 @@ purease/index.md
 - [getCdn](functions/getCdn.md)
 - [getDirname](functions/getDirname.md)
 - [launcher](functions/launcher.md)
+- [loadPage](functions/loadPage.md)
 
 ## References
 
@@ -6635,7 +6959,7 @@ purease/interfaces/IConfirmOptions.md
 
 # Interface: IConfirmOptions
 
-Defined in: [purease.ts:1209](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1209)
+Defined in: [purease.ts:1265](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1265)
 
 Confirm 选项
 
@@ -6645,7 +6969,7 @@ Confirm 选项
 
 > `optional` **cancel**: `boolean`
 
-Defined in: [purease.ts:1214](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1214)
+Defined in: [purease.ts:1270](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1270)
 
 是否显示取消按钮，默认不显示
 
@@ -6655,7 +6979,7 @@ Defined in: [purease.ts:1214](https://github.com/maiyun/purease/blob/master/dist
 
 > **content**: `string`
 
-Defined in: [purease.ts:1212](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1212)
+Defined in: [purease.ts:1268](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1268)
 
 支持 html
 
@@ -6665,7 +6989,7 @@ Defined in: [purease.ts:1212](https://github.com/maiyun/purease/blob/master/dist
 
 > `optional` **title**: `string`
 
-Defined in: [purease.ts:1210](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1210)
+Defined in: [purease.ts:1266](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1266)
 
 purease/interfaces/IDialogOptions.md
 ---
@@ -6678,7 +7002,7 @@ purease/interfaces/IDialogOptions.md
 
 # Interface: IDialogOptions
 
-Defined in: [purease.ts:1199](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1199)
+Defined in: [purease.ts:1255](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1255)
 
 Dialog 选项
 
@@ -6688,7 +7012,7 @@ Dialog 选项
 
 > `optional` **buttons**: `string`[]
 
-Defined in: [purease.ts:1203](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1203)
+Defined in: [purease.ts:1259](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1259)
 
 ***
 
@@ -6696,7 +7020,7 @@ Defined in: [purease.ts:1203](https://github.com/maiyun/purease/blob/master/dist
 
 > **content**: `string`
 
-Defined in: [purease.ts:1202](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1202)
+Defined in: [purease.ts:1258](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1258)
 
 支持 html
 
@@ -6706,7 +7030,7 @@ Defined in: [purease.ts:1202](https://github.com/maiyun/purease/blob/master/dist
 
 > `optional` **select**: (`button`) => `boolean` \| `Promise`\<`boolean` \| `undefined`\> \| `undefined`
 
-Defined in: [purease.ts:1205](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1205)
+Defined in: [purease.ts:1261](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1261)
 
 #### Parameters
 
@@ -6724,7 +7048,63 @@ Defined in: [purease.ts:1205](https://github.com/maiyun/purease/blob/master/dist
 
 > `optional` **title**: `string`
 
-Defined in: [purease.ts:1200](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1200)
+Defined in: [purease.ts:1256](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1256)
+
+purease/interfaces/IRoute.md
+---
+
+[**Documents for purease**](../../index.md)
+
+***
+
+[Documents for purease](../../index.md) / [purease](../index.md) / IRoute
+
+# Interface: IRoute
+
+Defined in: [router.ts:5](https://github.com/maiyun/purease/blob/master/dist/router.ts#L5)
+
+Route configuration
+
+## Properties
+
+### component
+
+> **component**: `any`
+
+Defined in: [router.ts:12](https://github.com/maiyun/purease/blob/master/dist/router.ts#L12)
+
+组件加载器
+可以直接返回组件对象，或者返回 Promise<组件对象>
+
+***
+
+### meta?
+
+> `optional` **meta**: `Record`\<`string`, `any`\>
+
+Defined in: [router.ts:16](https://github.com/maiyun/purease/blob/master/dist/router.ts#L16)
+
+元数据
+
+***
+
+### name?
+
+> `optional` **name**: `string`
+
+Defined in: [router.ts:14](https://github.com/maiyun/purease/blob/master/dist/router.ts#L14)
+
+路由名称
+
+***
+
+### path
+
+> **path**: `string`
+
+Defined in: [router.ts:7](https://github.com/maiyun/purease/blob/master/dist/router.ts#L7)
+
+路径
 
 purease/interfaces/IShowCaptchaOptions.md
 ---
@@ -6737,7 +7117,7 @@ purease/interfaces/IShowCaptchaOptions.md
 
 # Interface: IShowCaptchaOptions
 
-Defined in: [purease.ts:1218](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1218)
+Defined in: [purease.ts:1274](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1274)
 
 显示验证码选项
 
@@ -6747,7 +7127,7 @@ Defined in: [purease.ts:1218](https://github.com/maiyun/purease/blob/master/dist
 
 > **akey**: `string`
 
-Defined in: [purease.ts:1222](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1222)
+Defined in: [purease.ts:1278](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1278)
 
 验证码 key
 
@@ -6757,7 +7137,7 @@ Defined in: [purease.ts:1222](https://github.com/maiyun/purease/blob/master/dist
 
 > **factory**: `"tc"` \| `"cf"`
 
-Defined in: [purease.ts:1220](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1220)
+Defined in: [purease.ts:1276](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1276)
 
 验证码服务商
 
@@ -6772,7 +7152,7 @@ purease/interfaces/IVApp.md
 
 # Interface: IVApp
 
-Defined in: [purease.ts:1182](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1182)
+Defined in: [purease.ts:1238](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1238)
 
 Vue 应用
 
@@ -6782,7 +7162,7 @@ Vue 应用
 
 > **\_container**: `HTMLElement`
 
-Defined in: [purease.ts:1195](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1195)
+Defined in: [purease.ts:1251](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1251)
 
 ***
 
@@ -6790,7 +7170,7 @@ Defined in: [purease.ts:1195](https://github.com/maiyun/purease/blob/master/dist
 
 > **config**: [`IVueConfig`](IVueConfig.md)
 
-Defined in: [purease.ts:1185](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1185)
+Defined in: [purease.ts:1241](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1241)
 
 ***
 
@@ -6798,7 +7178,7 @@ Defined in: [purease.ts:1185](https://github.com/maiyun/purease/blob/master/dist
 
 > **version**: `string`
 
-Defined in: [purease.ts:1193](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1193)
+Defined in: [purease.ts:1249](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1249)
 
 ## Methods
 
@@ -6808,7 +7188,7 @@ Defined in: [purease.ts:1193](https://github.com/maiyun/purease/blob/master/dist
 
 > **component**(`name`): `any`
 
-Defined in: [purease.ts:1183](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1183)
+Defined in: [purease.ts:1239](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1239)
 
 ##### Parameters
 
@@ -6824,7 +7204,7 @@ Defined in: [purease.ts:1183](https://github.com/maiyun/purease/blob/master/dist
 
 > **component**(`name`, `config`): `this`
 
-Defined in: [purease.ts:1184](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1184)
+Defined in: [purease.ts:1240](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1240)
 
 ##### Parameters
 
@@ -6848,7 +7228,7 @@ Defined in: [purease.ts:1184](https://github.com/maiyun/purease/blob/master/dist
 
 > **directive**(`name`): `any`
 
-Defined in: [purease.ts:1186](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1186)
+Defined in: [purease.ts:1242](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1242)
 
 ##### Parameters
 
@@ -6864,7 +7244,7 @@ Defined in: [purease.ts:1186](https://github.com/maiyun/purease/blob/master/dist
 
 > **directive**(`name`, `config`): `this`
 
-Defined in: [purease.ts:1187](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1187)
+Defined in: [purease.ts:1243](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1243)
 
 ##### Parameters
 
@@ -6886,7 +7266,7 @@ Defined in: [purease.ts:1187](https://github.com/maiyun/purease/blob/master/dist
 
 > **mixin**(`mixin`): `this`
 
-Defined in: [purease.ts:1188](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1188)
+Defined in: [purease.ts:1244](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1244)
 
 #### Parameters
 
@@ -6904,7 +7284,7 @@ Defined in: [purease.ts:1188](https://github.com/maiyun/purease/blob/master/dist
 
 > **mount**(`rootContainer`): [`IVue`](IVue.md)
 
-Defined in: [purease.ts:1190](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1190)
+Defined in: [purease.ts:1246](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1246)
 
 #### Parameters
 
@@ -6922,7 +7302,7 @@ Defined in: [purease.ts:1190](https://github.com/maiyun/purease/blob/master/dist
 
 > **provide**\<`T`\>(`key`, `value`): `this`
 
-Defined in: [purease.ts:1191](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1191)
+Defined in: [purease.ts:1247](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1247)
 
 #### Type Parameters
 
@@ -6950,7 +7330,7 @@ Defined in: [purease.ts:1191](https://github.com/maiyun/purease/blob/master/dist
 
 > **unmount**(): `void`
 
-Defined in: [purease.ts:1192](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1192)
+Defined in: [purease.ts:1248](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1248)
 
 #### Returns
 
@@ -6962,7 +7342,7 @@ Defined in: [purease.ts:1192](https://github.com/maiyun/purease/blob/master/dist
 
 > **use**(`plugin`, ...`options`): `this`
 
-Defined in: [purease.ts:1189](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1189)
+Defined in: [purease.ts:1245](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1245)
 
 #### Parameters
 
@@ -6989,7 +7369,7 @@ purease/interfaces/IVNode.md
 
 # Interface: IVNode
 
-Defined in: [purease.ts:1145](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1145)
+Defined in: [purease.ts:1200](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1200)
 
 Vue 节点
 
@@ -7003,7 +7383,7 @@ Vue 节点
 
 > **children**: `object` & `IVNode`[]
 
-Defined in: [purease.ts:1146](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1146)
+Defined in: [purease.ts:1201](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1201)
 
 #### Type Declaration
 
@@ -7017,7 +7397,7 @@ Defined in: [purease.ts:1146](https://github.com/maiyun/purease/blob/master/dist
 
 > **props**: `Record`\<`string`, `any`\>
 
-Defined in: [purease.ts:1150](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1150)
+Defined in: [purease.ts:1205](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1205)
 
 ***
 
@@ -7025,7 +7405,7 @@ Defined in: [purease.ts:1150](https://github.com/maiyun/purease/blob/master/dist
 
 > **type**: `symbol` \| `Record`\<`string`, `any`\>
 
-Defined in: [purease.ts:1151](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1151)
+Defined in: [purease.ts:1206](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1206)
 
 purease/interfaces/IVue.md
 ---
@@ -7038,7 +7418,7 @@ purease/interfaces/IVue.md
 
 # Interface: IVue
 
-Defined in: [purease.ts:1120](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1120)
+Defined in: [purease.ts:1175](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1175)
 
 Vue 实例
 
@@ -7056,7 +7436,7 @@ Vue 实例
 
 > **$attrs**: `Record`\<`string`, `string`\>
 
-Defined in: [purease.ts:1121](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1121)
+Defined in: [purease.ts:1176](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1176)
 
 ***
 
@@ -7064,7 +7444,7 @@ Defined in: [purease.ts:1121](https://github.com/maiyun/purease/blob/master/dist
 
 > **$data**: `Record`\<`string`, `any`\>
 
-Defined in: [purease.ts:1122](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1122)
+Defined in: [purease.ts:1177](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1177)
 
 ***
 
@@ -7072,7 +7452,7 @@ Defined in: [purease.ts:1122](https://github.com/maiyun/purease/blob/master/dist
 
 > **$el**: `HTMLElement`
 
-Defined in: [purease.ts:1123](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1123)
+Defined in: [purease.ts:1178](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1178)
 
 ***
 
@@ -7080,7 +7460,7 @@ Defined in: [purease.ts:1123](https://github.com/maiyun/purease/blob/master/dist
 
 > **$options**: `Record`\<`string`, `any`\>
 
-Defined in: [purease.ts:1127](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1127)
+Defined in: [purease.ts:1182](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1182)
 
 ***
 
@@ -7088,7 +7468,7 @@ Defined in: [purease.ts:1127](https://github.com/maiyun/purease/blob/master/dist
 
 > **$parent**: `IVue` \| `null`
 
-Defined in: [purease.ts:1128](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1128)
+Defined in: [purease.ts:1183](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1183)
 
 ***
 
@@ -7096,7 +7476,7 @@ Defined in: [purease.ts:1128](https://github.com/maiyun/purease/blob/master/dist
 
 > **$props**: `Record`\<`string`, `any`\>
 
-Defined in: [purease.ts:1129](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1129)
+Defined in: [purease.ts:1184](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1184)
 
 ***
 
@@ -7104,7 +7484,7 @@ Defined in: [purease.ts:1129](https://github.com/maiyun/purease/blob/master/dist
 
 > **$refs**: `Record`\<`string`, `HTMLElement` & `IVue`\>
 
-Defined in: [purease.ts:1130](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1130)
+Defined in: [purease.ts:1185](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1185)
 
 ***
 
@@ -7112,7 +7492,7 @@ Defined in: [purease.ts:1130](https://github.com/maiyun/purease/blob/master/dist
 
 > **$root**: `IVue`
 
-Defined in: [purease.ts:1131](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1131)
+Defined in: [purease.ts:1186](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1186)
 
 ***
 
@@ -7120,7 +7500,7 @@ Defined in: [purease.ts:1131](https://github.com/maiyun/purease/blob/master/dist
 
 > **$slots**: `object`
 
-Defined in: [purease.ts:1132](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1132)
+Defined in: [purease.ts:1187](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1187)
 
 #### Index Signature
 
@@ -7136,7 +7516,7 @@ Defined in: [purease.ts:1132](https://github.com/maiyun/purease/blob/master/dist
 
 > **$watch**: (`o`, `cb`, `opt?`) => `void`
 
-Defined in: [purease.ts:1136](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1136)
+Defined in: [purease.ts:1191](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1191)
 
 #### Parameters
 
@@ -7168,7 +7548,7 @@ Defined in: [purease.ts:1136](https://github.com/maiyun/purease/blob/master/dist
 
 > **$emit**(`name`, ...`arg`): `void`
 
-Defined in: [purease.ts:1124](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1124)
+Defined in: [purease.ts:1179](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1179)
 
 #### Parameters
 
@@ -7190,7 +7570,7 @@ Defined in: [purease.ts:1124](https://github.com/maiyun/purease/blob/master/dist
 
 > **$forceUpdate**(): `void`
 
-Defined in: [purease.ts:1125](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1125)
+Defined in: [purease.ts:1180](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1180)
 
 #### Returns
 
@@ -7202,7 +7582,7 @@ Defined in: [purease.ts:1125](https://github.com/maiyun/purease/blob/master/dist
 
 > **$nextTick**(): `Promise`\<`void`\>
 
-Defined in: [purease.ts:1126](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1126)
+Defined in: [purease.ts:1181](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1181)
 
 #### Returns
 
@@ -7219,7 +7599,7 @@ purease/interfaces/IVueConfig.md
 
 # Interface: IVueConfig
 
-Defined in: [purease.ts:1172](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1172)
+Defined in: [purease.ts:1228](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1228)
 
 Vue 配置
 
@@ -7229,7 +7609,7 @@ Vue 配置
 
 > **globalProperties**: `Record`\<`string`, `any`\>
 
-Defined in: [purease.ts:1174](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1174)
+Defined in: [purease.ts:1230](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1230)
 
 ***
 
@@ -7237,7 +7617,7 @@ Defined in: [purease.ts:1174](https://github.com/maiyun/purease/blob/master/dist
 
 > **optionMergeStrategies**: `Record`\<`string`, [`IVueOptionMergeFunction`](../type-aliases/IVueOptionMergeFunction.md)\>
 
-Defined in: [purease.ts:1176](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1176)
+Defined in: [purease.ts:1232](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1232)
 
 ***
 
@@ -7245,7 +7625,7 @@ Defined in: [purease.ts:1176](https://github.com/maiyun/purease/blob/master/dist
 
 > **performance**: `boolean`
 
-Defined in: [purease.ts:1177](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1177)
+Defined in: [purease.ts:1233](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1233)
 
 ## Methods
 
@@ -7253,7 +7633,7 @@ Defined in: [purease.ts:1177](https://github.com/maiyun/purease/blob/master/dist
 
 > `optional` **errorHandler**(`err`, `instance`, `info`): `void`
 
-Defined in: [purease.ts:1173](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1173)
+Defined in: [purease.ts:1229](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1229)
 
 #### Parameters
 
@@ -7279,7 +7659,7 @@ Defined in: [purease.ts:1173](https://github.com/maiyun/purease/blob/master/dist
 
 > **isCustomElement**(`tag`): `boolean`
 
-Defined in: [purease.ts:1175](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1175)
+Defined in: [purease.ts:1231](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1231)
 
 #### Parameters
 
@@ -7297,7 +7677,7 @@ Defined in: [purease.ts:1175](https://github.com/maiyun/purease/blob/master/dist
 
 > `optional` **warnHandler**(`msg`, `instance`, `trace`): `void`
 
-Defined in: [purease.ts:1178](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1178)
+Defined in: [purease.ts:1234](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1234)
 
 #### Parameters
 
@@ -7328,7 +7708,7 @@ purease/interfaces/IVueObject.md
 
 # Interface: IVueObject
 
-Defined in: [purease.ts:1156](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1156)
+Defined in: [purease.ts:1211](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1211)
 
 ## Methods
 
@@ -7336,7 +7716,7 @@ Defined in: [purease.ts:1156](https://github.com/maiyun/purease/blob/master/dist
 
 > **createApp**(`opt`): [`IVApp`](IVApp.md)
 
-Defined in: [purease.ts:1157](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1157)
+Defined in: [purease.ts:1212](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1212)
 
 #### Parameters
 
@@ -7354,7 +7734,7 @@ Defined in: [purease.ts:1157](https://github.com/maiyun/purease/blob/master/dist
 
 > **h**(`tag`, `props?`, `list?`): `any`
 
-Defined in: [purease.ts:1165](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1165)
+Defined in: [purease.ts:1221](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1221)
 
 #### Parameters
 
@@ -7376,11 +7756,35 @@ Defined in: [purease.ts:1165](https://github.com/maiyun/purease/blob/master/dist
 
 ***
 
+### markRaw()
+
+> **markRaw**\<`T`\>(`obj`): `T`
+
+Defined in: [purease.ts:1215](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1215)
+
+#### Type Parameters
+
+##### T
+
+`T`
+
+#### Parameters
+
+##### obj
+
+`T`
+
+#### Returns
+
+`T`
+
+***
+
 ### reactive()
 
 > **reactive**\<`T`\>(`obj`): `T`
 
-Defined in: [purease.ts:1159](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1159)
+Defined in: [purease.ts:1214](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1214)
 
 #### Type Parameters
 
@@ -7404,7 +7808,7 @@ Defined in: [purease.ts:1159](https://github.com/maiyun/purease/blob/master/dist
 
 > **ref**\<`T`\>(`obj`): `object`
 
-Defined in: [purease.ts:1158](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1158)
+Defined in: [purease.ts:1213](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1213)
 
 #### Type Parameters
 
@@ -7432,7 +7836,7 @@ Defined in: [purease.ts:1158](https://github.com/maiyun/purease/blob/master/dist
 
 > **watch**(`v`, `cb`, `opt`): `void`
 
-Defined in: [purease.ts:1160](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1160)
+Defined in: [purease.ts:1216](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1216)
 
 #### Parameters
 
@@ -7465,7 +7869,7 @@ purease/type-aliases/IVueOptionMergeFunction.md
 
 > **IVueOptionMergeFunction** = (`to`, `from`, `instance`) => `any`
 
-Defined in: [purease.ts:1169](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1169)
+Defined in: [purease.ts:1225](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1225)
 
 Vue 选项合并函数
 
@@ -7500,7 +7904,7 @@ purease/variables/global.md
 
 > **global**: `any`
 
-Defined in: [purease.ts:513](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L513)
+Defined in: [purease.ts:553](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L553)
 
 用户定义的全局对象
 
@@ -7517,9 +7921,168 @@ purease/variables/pointer.md
 
 > **pointer**: `__module`
 
-Defined in: [purease.ts:495](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L495)
+Defined in: [purease.ts:535](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L535)
 
 pointer 对象
+
+purease/variables/router.md
+---
+
+[**Documents for purease**](../../index.md)
+
+***
+
+[Documents for purease](../../index.md) / [purease](../index.md) / router
+
+# Variable: router
+
+> `const` **router**: `object`
+
+Defined in: [router.ts:20](https://github.com/maiyun/purease/blob/master/dist/router.ts#L20)
+
+路由对象
+
+## Type Declaration
+
+### back()
+
+> **back**: () => `void`
+
+返回上一页
+
+#### Returns
+
+`void`
+
+### current
+
+> **current**: `object`
+
+当前路由信息
+
+#### current.component
+
+> **component**: `any`
+
+组件
+
+#### current.meta
+
+> **meta**: `Record`\<`string`, `any`\>
+
+元数据
+
+#### current.path
+
+> **path**: `string` = `''`
+
+路径
+
+#### current.query
+
+> **query**: `Record`\<`string`, `string`\>
+
+参数
+
+### history
+
+> **history**: `string`[]
+
+历史记录
+
+### load()
+
+> **load**: (`ppath`) => `Promise`\<`void`\>
+
+加载路由（可能被加载过，内部使用）
+
+#### Parameters
+
+##### ppath
+
+`string`
+
+#### Returns
+
+`Promise`\<`void`\>
+
+### prefix
+
+> **prefix**: `string` = `'/'`
+
+加载路由的前缀，以 / 开头 / 结尾
+例如设置为 /page/，则访问 home 时会自动加载 /page/home/home.js 和 /page/home/home.html、css
+
+### push()
+
+> **push**: (`path`) => `Promise`\<`void`\>
+
+导航到指定路径，如 home，不以 / 开头
+
+#### Parameters
+
+##### path
+
+`string`
+
+#### Returns
+
+`Promise`\<`void`\>
+
+### register()
+
+> **register**: (`routes`) => `void`
+
+注册路由
+
+#### Parameters
+
+##### routes
+
+[`IRoute`](../interfaces/IRoute.md)[]
+
+#### Returns
+
+`void`
+
+### replace()
+
+> **replace**: (`path`) => `Promise`\<`void`\>
+
+替换当前路径，如 home，不以 / 开头
+
+#### Parameters
+
+##### path
+
+`string`
+
+#### Returns
+
+`Promise`\<`void`\>
+
+### routes
+
+> **routes**: `Record`\<`string`, [`IRoute`](../interfaces/IRoute.md)\>
+
+路由表
+
+### start()
+
+> **start**: () => `void`
+
+启动路由监听
+
+#### Returns
+
+`void`
+
+### urlPrefix
+
+> **urlPrefix**: `string`
+
+URL 前缀，以 / 开头 / 结尾
+例如设置为 /app/，则访问 /app/home 时会自动加载 {prefix}home/home.js 和 {prefix}home/home.html、css
 
 purease/variables/vue.md
 ---
@@ -7534,7 +8097,7 @@ purease/variables/vue.md
 
 > **vue**: [`IVueObject`](../interfaces/IVueObject.md)
 
-Defined in: [purease.ts:492](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L492)
+Defined in: [purease.ts:532](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L532)
 
 vue 对象
 

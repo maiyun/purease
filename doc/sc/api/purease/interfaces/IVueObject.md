@@ -6,7 +6,7 @@
 
 # Interface: IVueObject
 
-Defined in: [purease.ts:1156](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1156)
+Defined in: [purease.ts:1211](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1211)
 
 ## Methods
 
@@ -14,7 +14,7 @@ Defined in: [purease.ts:1156](https://github.com/maiyun/purease/blob/master/dist
 
 > **createApp**(`opt`): [`IVApp`](IVApp.md)
 
-Defined in: [purease.ts:1157](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1157)
+Defined in: [purease.ts:1212](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1212)
 
 #### Parameters
 
@@ -32,7 +32,7 @@ Defined in: [purease.ts:1157](https://github.com/maiyun/purease/blob/master/dist
 
 > **h**(`tag`, `props?`, `list?`): `any`
 
-Defined in: [purease.ts:1165](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1165)
+Defined in: [purease.ts:1221](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1221)
 
 #### Parameters
 
@@ -54,11 +54,35 @@ Defined in: [purease.ts:1165](https://github.com/maiyun/purease/blob/master/dist
 
 ***
 
+### markRaw()
+
+> **markRaw**\<`T`\>(`obj`): `T`
+
+Defined in: [purease.ts:1215](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1215)
+
+#### Type Parameters
+
+##### T
+
+`T`
+
+#### Parameters
+
+##### obj
+
+`T`
+
+#### Returns
+
+`T`
+
+***
+
 ### reactive()
 
 > **reactive**\<`T`\>(`obj`): `T`
 
-Defined in: [purease.ts:1159](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1159)
+Defined in: [purease.ts:1214](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1214)
 
 #### Type Parameters
 
@@ -82,7 +106,7 @@ Defined in: [purease.ts:1159](https://github.com/maiyun/purease/blob/master/dist
 
 > **ref**\<`T`\>(`obj`): `object`
 
-Defined in: [purease.ts:1158](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1158)
+Defined in: [purease.ts:1213](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1213)
 
 #### Type Parameters
 
@@ -110,7 +134,7 @@ Defined in: [purease.ts:1158](https://github.com/maiyun/purease/blob/master/dist
 
 > **watch**(`v`, `cb`, `opt`): `void`
 
-Defined in: [purease.ts:1160](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1160)
+Defined in: [purease.ts:1216](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1216)
 
 #### Parameters
 

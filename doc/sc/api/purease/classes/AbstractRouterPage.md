@@ -2,27 +2,31 @@
 
 ***
 
-[Documents for purease](../../index.md) / [purease](../index.md) / AbstractPanel
+[Documents for purease](../../index.md) / [purease](../index.md) / AbstractRouterPage
 
-# Abstract Class: AbstractPanel
+# Abstract Class: AbstractRouterPage
 
-Defined in: [purease.ts:458](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L458)
+Defined in: [purease.ts:517](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L517)
 
-大页面的内嵌页面
+路由页面基类
 
-## Extended by
+## Extends
 
-- [`AbstractRouterPage`](AbstractRouterPage.md)
+- [`AbstractPanel`](AbstractPanel.md)
 
 ## Constructors
 
 ### Constructor
 
-> **new AbstractPanel**(): `AbstractPanel`
+> **new AbstractRouterPage**(): `AbstractRouterPage`
 
 #### Returns
 
-`AbstractPanel`
+`AbstractRouterPage`
+
+#### Inherited from
+
+[`AbstractPanel`](AbstractPanel.md).[`constructor`](AbstractPanel.md#constructor)
 
 ## Properties
 
@@ -33,6 +37,10 @@ Defined in: [purease.ts:458](https://github.com/maiyun/purease/blob/master/dist/
 Defined in: [purease.ts:472](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L472)
 
 获取总大页面对象
+
+#### Inherited from
+
+[`AbstractPanel`](AbstractPanel.md).[`rootPage`](AbstractPanel.md#rootpage)
 
 ## Accessors
 
@@ -64,6 +72,26 @@ Defined in: [purease.ts:477](https://github.com/maiyun/purease/blob/master/dist/
 
 `string`
 
+#### Inherited from
+
+[`AbstractPanel`](AbstractPanel.md).[`l`](AbstractPanel.md#l)
+
+***
+
+### meta
+
+#### Get Signature
+
+> **get** **meta**(): `Record`\<`string`, `any`\>
+
+Defined in: [purease.ts:525](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L525)
+
+路由元数据
+
+##### Returns
+
+`Record`\<`string`, `any`\>
+
 ***
 
 ### nextTick
@@ -84,6 +112,26 @@ Defined in: [purease.ts:493](https://github.com/maiyun/purease/blob/master/dist/
 
 `Promise`\<`void`\>
 
+#### Inherited from
+
+[`AbstractPanel`](AbstractPanel.md).[`nextTick`](AbstractPanel.md#nexttick)
+
+***
+
+### query
+
+#### Get Signature
+
+> **get** **query**(): `Record`\<`string`, `string`\>
+
+Defined in: [purease.ts:520](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L520)
+
+路由参数
+
+##### Returns
+
+`Record`\<`string`, `string`\>
+
 ***
 
 ### refs
@@ -100,6 +148,10 @@ Defined in: [purease.ts:486](https://github.com/maiyun/purease/blob/master/dist/
 
 `Record`\<`string`, `HTMLElement` & [`IVue`](../interfaces/IVue.md) & `Record`\<`string`, `any`\>\>
 
+#### Inherited from
+
+[`AbstractPanel`](AbstractPanel.md).[`refs`](AbstractPanel.md#refs)
+
 ## Methods
 
 ### main()
@@ -114,6 +166,10 @@ Defined in: [purease.ts:461](https://github.com/maiyun/purease/blob/master/dist/
 
 `void` \| `Promise`\<`void`\>
 
+#### Inherited from
+
+[`AbstractPanel`](AbstractPanel.md).[`main`](AbstractPanel.md#main)
+
 ***
 
 ### onBeforeUnmount()
@@ -126,6 +182,10 @@ Defined in: [purease.ts:463](https://github.com/maiyun/purease/blob/master/dist/
 
 `void` \| `Promise`\<`void`\>
 
+#### Inherited from
+
+[`AbstractPanel`](AbstractPanel.md).[`onBeforeUnmount`](AbstractPanel.md#onbeforeunmount)
+
 ***
 
 ### onUnmounted()
@@ -137,6 +197,10 @@ Defined in: [purease.ts:467](https://github.com/maiyun/purease/blob/master/dist/
 #### Returns
 
 `void` \| `Promise`\<`void`\>
+
+#### Inherited from
+
+[`AbstractPanel`](AbstractPanel.md).[`onUnmounted`](AbstractPanel.md#onunmounted)
 
 ***
 
@@ -152,7 +216,7 @@ Defined in: [purease.ts:503](https://github.com/maiyun/purease/blob/master/dist/
 
 ##### T
 
-`T` *extends* `AbstractPanel`
+`T` *extends* `AbstractRouterPage`
 
 ##### TK
 
@@ -195,3 +259,7 @@ Defined in: [purease.ts:503](https://github.com/maiyun/purease/blob/master/dist/
 ##### Returns
 
 `void`
+
+#### Inherited from
+
+[`AbstractPanel`](AbstractPanel.md).[`watch`](AbstractPanel.md#watch)

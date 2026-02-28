@@ -8,6 +8,6 @@
 
 > **pointer**: `__module`
 
-Defined in: [purease.ts:495](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L495)
+Defined in: [purease.ts:535](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L535)
 
 pointer 对象

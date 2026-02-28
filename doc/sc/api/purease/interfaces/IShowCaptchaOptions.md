@@ -6,7 +6,7 @@
 
 # Interface: IShowCaptchaOptions
 
-Defined in: [purease.ts:1218](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1218)
+Defined in: [purease.ts:1274](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1274)
 
 显示验证码选项
 
@@ -16,7 +16,7 @@ Defined in: [purease.ts:1218](https://github.com/maiyun/purease/blob/master/dist
 
 > **akey**: `string`
 
-Defined in: [purease.ts:1222](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1222)
+Defined in: [purease.ts:1278](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1278)
 
 验证码 key
 
@@ -26,6 +26,6 @@ Defined in: [purease.ts:1222](https://github.com/maiyun/purease/blob/master/dist
 
 > **factory**: `"tc"` \| `"cf"`
 
-Defined in: [purease.ts:1220](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1220)
+Defined in: [purease.ts:1276](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1276)
 
 验证码服务商

@@ -8,7 +8,7 @@
 
 > **launcher**\<`T`\>(`page`, `options`): `void`
 
-Defined in: [purease.ts:527](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L527)
+Defined in: [purease.ts:567](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L567)
 
 运行当前页面
 
@@ -55,6 +55,24 @@ Defined in: [purease.ts:527](https://github.com/maiyun/purease/blob/master/dist/
 `object`[]
 
 要加载的子 panels
+
+#### router?
+
+\{ `prefix?`: `string`; `urlPrefix?`: `string`; \}
+
+路由配置
+
+#### router.prefix?
+
+`string`
+
+加载路由的前缀，以 / 开头 / 结尾
+
+#### router.urlPrefix?
+
+`string`
+
+URL 前缀，以 / 开头 / 结尾
 
 ## Returns
 
