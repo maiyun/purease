@@ -129,7 +129,8 @@ export const router = {
  */
 export async function loadPage(path) {
     const filename = path.split('/').pop() ?? '';
-    const fullPath = lTool.urlResolve(router.urlPrefix, router.prefix) + path + '/' + filename;
+    const origin = window.location.origin;
+    const fullPath = lTool.urlResolve(lTool.urlResolve(origin, router.urlPrefix), router.prefix) + path + '/' + filename;
     // --- 加载 JS ---
     let component;
     try {
@@ -184,7 +185,9 @@ export async function loadPage(path) {
     };
     // --- 加载 HTML ---
     const [htmlRes, cssRes] = await Promise.all([
-        lTool.get(fullPath + '.html'),
+        lTool.get(fullPath + '.html', undefined, {
+            'retry': 0,
+        }),
         lTool.get(fullPath + '.css', undefined, {
             'retry': 0,
         }),
