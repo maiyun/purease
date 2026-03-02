@@ -181,6 +181,8 @@ class Page extends purease.AbstractPage {
     cascaderShowLastLevel = false;
     /** --- 级联选择触发方式 --- */
     cascaderExpandTrigger = 'click';
+    /** --- 菜单是否折叠 --- */
+    menuCollapsed = false;
     /** --- Vant 级联选择显示状态 --- */
     vanCascaderShow = false;
     /** --- Vant 级联选择值 --- */
@@ -366,6 +368,84 @@ class Page extends purease.AbstractPage {
     collapse = ['1'];
     /** --- 手风琴模式折叠面板展开项 --- */
     collapseAccordion = '1';
+    // --- 菜单控件 ---
+    /** --- 菜单选项 --- */
+    menuOptions = [
+        {
+            'label': () => purease.vue.h('a', {
+                'href': 'https://en.wikipedia.org/wiki/Hear_the_Wind_Sing',
+                'target': '_blank',
+                'rel': 'noopenner noreferrer'
+            }, 'Hear the Wind Sing'),
+            'key': 'hear-the-wind-sing',
+            'icon': () => purease.vue.h(purease.vue.resolveComponent('pe-icon'), { 'name': 'fa-solid fa-book' })
+        },
+        {
+            'label': 'Pinball, 1973',
+            'key': 'pinball-1973',
+            'disabled': true,
+            'children': [
+                {
+                    'label': 'Rat',
+                    'key': 'rat'
+                }
+            ]
+        },
+        {
+            'label': 'A Wild Sheep Chase',
+            'key': 'a-wild-sheep-chase',
+            'disabled': true
+        },
+        {
+            'label': 'Dance Dance Dance',
+            'key': 'Dance Dance Dance',
+            'children': [
+                {
+                    'type': 'group',
+                    'label': 'People',
+                    'key': 'people',
+                    'children': [
+                        {
+                            'label': 'Narrator',
+                            'key': 'narrator'
+                        },
+                        {
+                            'label': 'Sheep Man',
+                            'key': 'sheep-man'
+                        }
+                    ]
+                },
+                {
+                    'label': 'Beverage',
+                    'key': 'beverage',
+                    'children': [
+                        {
+                            'label': () => purease.vue.h('a', {
+                                'href': 'https://en.wikipedia.org/wiki/Whisky',
+                                'target': '_blank',
+                                'rel': 'noopenner noreferrer'
+                            }, 'Whisky'),
+                            'key': 'whisky'
+                        }
+                    ]
+                },
+                {
+                    'label': 'Food',
+                    'key': 'food',
+                    'children': [
+                        {
+                            'label': 'Sandwich',
+                            'key': 'sandwich'
+                        }
+                    ]
+                },
+                {
+                    'label': 'The past increases. The future recedes.',
+                    'key': 'the-past-increases-the-future-recedes'
+                }
+            ]
+        }
+    ];
     // --- 方法 ---
     /**
      * --- 切换 RTL ---

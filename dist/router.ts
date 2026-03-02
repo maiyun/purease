@@ -95,6 +95,10 @@ export const router = {
 
         // --- 如果没找到路由 ---
         if (!route) {
+            if (!router.routes['@']) {
+                // --- 根路径且没定义 @ 路由，说明没用 router ---
+                return;
+            }
             // --- 尝试自动加载 ---
             route = {
                 'path': path,

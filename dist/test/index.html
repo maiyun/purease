@@ -85,6 +85,7 @@
             <div class="pe-tree-title">{{l('container')}}</div>
             <a class="pe-tree-item" href="#anchor">Anchor</a>
             <a class="pe-tree-item" href="#collapse">Collapse</a>
+            <a class="pe-tree-item" href="#menu">Menu</a>
             <a class="pe-tree-item" href="#timeline">Timeline</a>
             <a class="pe-tree-item" href="#tab">Tab</a>
             <a class="pe-tree-item" href="#btab">Btab</a>
@@ -769,6 +770,23 @@
                     </pe-collapse-item>
                 </pe-collapse>
             </div>
+
+            <!-- Menu (Naive UI) -->
+            <h3 id="menu">Menu</h3>
+            <n-layout has-sider>
+                <n-layout-sider
+                    bordered
+                    collapse-mode="width"
+                    :collapsed-width="64"
+                    :width="240"
+                    :collapsed="menuCollapsed"
+                    show-trigger
+                    @collapse="menuCollapsed = true"
+                    @expand="menuCollapsed = false"
+                >
+                    <n-menu :options="menuOptions" :collapsed="menuCollapsed" :collapsed-width="64" :collapsed-icon-size="22"></n-menu>
+                </n-layout-sider>
+            </n-layout>
 
             <!-- Timeline (Naive UI) -->
             <h3 id="timeline">Timeline</h3>

@@ -1216,9 +1216,13 @@ export interface IVueObject {
     watch(
         v: any,
         cb: (n: any, o: any) => void | Promise<void>,
-        opt: Record<string, string | boolean>
+        opt?: {
+            'immediate'?: boolean;
+            'deep'?: boolean;
+        }
     ): void;
-    h(tag: string, props?: Record<string, any> | any[], list?: any[]): any;
+    h(tag: any, props?: Record<string, any> | null, children?: any): any;
+    resolveComponent(name: string): any;
 }
 
 /** --- Vue 选项合并函数 --- */
