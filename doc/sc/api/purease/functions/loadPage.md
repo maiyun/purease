@@ -8,7 +8,7 @@
 
 > **loadPage**(`path`): `Promise`\<`any`\>
 
-Defined in: [router.ts:161](https://github.com/maiyun/purease/blob/master/dist/router.ts#L161)
+Defined in: [router.ts:165](https://github.com/maiyun/purease/blob/master/dist/router.ts#L165)
 
 加载页面辅助函数
 

@@ -30,23 +30,23 @@ Defined in: [purease.ts:1212](https://github.com/maiyun/purease/blob/master/dist
 
 ### h()
 
-> **h**(`tag`, `props?`, `list?`): `any`
+> **h**(`tag`, `props?`, `children?`): `any`
 
-Defined in: [purease.ts:1221](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1221)
+Defined in: [purease.ts:1224](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1224)
 
 #### Parameters
 
 ##### tag
 
-`string`
+`any`
 
 ##### props?
 
-`any`[] | `Record`\<`string`, `any`\>
+`Record`\<`string`, `any`\> | `null`
 
-##### list?
+##### children?
 
-`any`[]
+`any`
 
 #### Returns
 
@@ -130,9 +130,27 @@ Defined in: [purease.ts:1213](https://github.com/maiyun/purease/blob/master/dist
 
 ***
 
+### resolveComponent()
+
+> **resolveComponent**(`name`): `any`
+
+Defined in: [purease.ts:1225](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1225)
+
+#### Parameters
+
+##### name
+
+`string`
+
+#### Returns
+
+`any`
+
+***
+
 ### watch()
 
-> **watch**(`v`, `cb`, `opt`): `void`
+> **watch**(`v`, `cb`, `opt?`): `void`
 
 Defined in: [purease.ts:1216](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1216)
 
@@ -146,9 +164,15 @@ Defined in: [purease.ts:1216](https://github.com/maiyun/purease/blob/master/dist
 
 (`n`, `o`) => `void` \| `Promise`\<`void`\>
 
-##### opt
+##### opt?
 
-`Record`\<`string`, `string` \| `boolean`\>
+###### deep?
+
+`boolean`
+
+###### immediate?
+
+`boolean`
 
 #### Returns
 
