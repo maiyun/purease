@@ -500,7 +500,7 @@ export function launcher(page, options = {}) {
             `${cdn}/npm/@litert/pointer@1.6.2/dist/index.umd.min.js`,
         ];
         const links = [
-            `${cdn}/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css`
+            `${cdn}/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css`
         ];
         if (options.modules) {
             for (const mod of options.modules) {
