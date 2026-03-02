@@ -563,6 +563,17 @@ export function getCdn(): string {
     return cdn;
 }
 
+/** --- 资源版本号，用于缓存控制 --- */
+export let version = '';
+
+/** --- 获取带版本号的 URL --- */
+export function getVersionUrl(url: string): string {
+    if (!version) {
+        return url;
+    }
+    return url + (url.includes('?') ? '&' : '?') + 'v=' + version;
+}
+
 /** --- 运行当前页面 --- */
 export function launcher<T extends AbstractPage>(page: new (opt: {
     'locale'?: string;
@@ -588,9 +599,14 @@ export function launcher<T extends AbstractPage>(page: new (opt: {
         /** --- URL 前缀，以 / 开头 / 结尾 --- */
         'urlPrefix'?: string;
     };
+    /** --- 资源版本号，用于动态加载资源的缓存控制，如 '1.0.0' --- */
+    'version'?: string;
 } = {}): void {
     (async function() {
         global.debug = options.debug ?? false;
+        if (options.version) {
+            version = options.version;
+        }
         if (options.router?.prefix) {
             router.prefix = options.router.prefix;
         }
@@ -651,7 +667,7 @@ export function launcher<T extends AbstractPage>(page: new (opt: {
         // --- 加载语言包 ---
         if (options.localePath && options.locale) {
             const path = options.localePath.endsWith('/') ? options.localePath : options.localePath + '/';
-            const res = await lTool.getResponseJson(path + options.locale + '.json', {
+            const res = await lTool.getResponseJson(getVersionUrl(path + options.locale + '.json'), {
                 'credentials': 'omit'
             });
             if (res) {

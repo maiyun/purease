@@ -468,10 +468,22 @@ const cdn = userPurease.config?.cdn ?? 'https://cdn.jsdelivr.net';
 export function getCdn() {
     return cdn;
 }
+/** --- 资源版本号，用于缓存控制 --- */
+export let version = '';
+/** --- 获取带版本号的 URL --- */
+export function getVersionUrl(url) {
+    if (!version) {
+        return url;
+    }
+    return url + (url.includes('?') ? '&' : '?') + 'v=' + version;
+}
 /** --- 运行当前页面 --- */
 export function launcher(page, options = {}) {
     (async function () {
         global.debug = options.debug ?? false;
+        if (options.version) {
+            version = options.version;
+        }
         if (options.router?.prefix) {
             router.prefix = options.router.prefix;
         }
@@ -532,7 +544,7 @@ export function launcher(page, options = {}) {
         // --- 加载语言包 ---
         if (options.localePath && options.locale) {
             const path = options.localePath.endsWith('/') ? options.localePath : options.localePath + '/';
-            const res = await lTool.getResponseJson(path + options.locale + '.json', {
+            const res = await lTool.getResponseJson(getVersionUrl(path + options.locale + '.json'), {
                 'credentials': 'omit'
             });
             if (res) {

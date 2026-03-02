@@ -16,6 +16,7 @@ class Page extends purease.AbstractPage {
 }
 purease.launcher(Page, {
     'debug': true,
+    'version': purease.version,
     'router': {
         'prefix': '../pages/',
     }

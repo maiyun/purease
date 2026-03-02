@@ -134,7 +134,7 @@ export async function loadPage(path) {
     // --- 加载 JS ---
     let component;
     try {
-        const module = await import(fullPath + '.js');
+        const module = await import(purease.getVersionUrl(fullPath + '.js'));
         component = module.default ?? module;
     }
     catch (e) {
@@ -185,10 +185,10 @@ export async function loadPage(path) {
     };
     // --- 加载 HTML ---
     const [htmlRes, cssRes] = await Promise.all([
-        lTool.get(fullPath + '.html', undefined, {
+        lTool.get(purease.getVersionUrl(fullPath + '.html'), undefined, {
             'retry': 0,
         }),
-        lTool.get(fullPath + '.css', undefined, {
+        lTool.get(purease.getVersionUrl(fullPath + '.css'), undefined, {
             'retry': 0,
         }),
     ]);
