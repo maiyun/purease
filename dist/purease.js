@@ -509,7 +509,7 @@ export function launcher(page, options = {}) {
         await lTool.loadScript(`${cdn}/npm/vue@3.5.26/dist/vue.global${options.debug ? '' : '.prod.min'}.js`);
         // --- 再加载三方库，防止 Vue 没加载好，三方库加载会有异常 ---
         const paths = [
-            `${cdn}/npm/@litert/pointer@1.6.2/dist/index.umd.min.js`,
+            `${cdn}/npm/@litert/pointer@1.7.3/dist/index.umd.min.js`,
         ];
         const links = [
             `${cdn}/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css`
