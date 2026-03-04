@@ -1269,9 +1269,46 @@ export function launcher<T extends AbstractPage>(page: new (opt: {
                 // --- history 模式自动推断 base ---
                 let base = options.router.base;
                 if (!base && options.router.mode === 'history') {
-                    base = window.location.pathname;
-                    if (!base.endsWith('/')) {
-                        base = base.slice(0, base.lastIndexOf('/') + 1);
+                    const pathname = window.location.pathname;
+                    if (pathname.endsWith('/')) {
+                        base = pathname;
+                    }
+                    else {
+                        // --- 从路由配置中提取顶层路由的静态首段用于匹配 ---
+                        /** --- 目的是为了从 URL 中区分出哪些是“应用基础路径”，哪些是“路由路径” --- */
+                        const routeFirstSegs: string[] = [];
+                        for (const route of options.router.routes) {
+                            const p = route.path;
+                            if (p === '/') {
+                                continue;
+                            }
+                            // --- 将路径按 / 分割，filter(Boolean) 移除空字符串（如首尾的斜杠产生的空项） ---
+                            /** --- 例如 "/task/add" 变为 ["task", "add"] --- */
+                            const segs = p.split('/').filter(Boolean);
+                            // --- 仅提取第一段（segs[0]），且必须是静态字符而非动态参数或通配符 ---
+                            // --- 过滤掉冒号开头的变量（:id）、星号通配符（*）或正则括号（(） ---
+                            if (segs.length > 0 && !segs[0].startsWith(':') && !segs[0].includes('*') && !segs[0].startsWith('(')) {
+                                if (!routeFirstSegs.includes(segs[0])) {
+                                    routeFirstSegs.push(segs[0]);
+                                }
+                            }
+                        }
+                        if (routeFirstSegs.length > 0) {
+                            // --- 从当前浏览器的路径（pathname）末尾向前搜索 ---
+                            // --- 找到第一个匹配路由静态首段的片段，该片段之前的内容即为 Base ---
+                            // --- 例如：路由配置有 task，URL 为 /my-app/task/add ---
+                            // --- pathSegs 为 ["", "my-app", "task", "add"] ---
+                            // --- 倒序找匹配项，在索引 2 找到 "task"，则 base 为 /my-app/ ---
+                            const pathSegs = pathname.split('/');
+                            for (let i = pathSegs.length - 1; i >= 1; i--) {
+                                if (routeFirstSegs.includes(pathSegs[i])) {
+                                    base = pathSegs.slice(0, i).join('/') + '/';
+                                    break;
+                                }
+                            }
+                        }
+                        // --- 没有匹配到任何路由首段，回退到默认逻辑：去掉 URL 最后一段 ---
+                        base ??= pathname.slice(0, pathname.lastIndexOf('/') + 1);
                     }
                 }
                 const history = options.router.mode === 'history'
