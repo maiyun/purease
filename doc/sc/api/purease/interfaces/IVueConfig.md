@@ -6,7 +6,7 @@
 
 # Interface: IVueConfig
 
-Defined in: [purease.ts:1232](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1232)
+Defined in: [purease.ts:1397](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1397)
 
 Vue 配置
 
@@ -16,7 +16,7 @@ Vue 配置
 
 > **globalProperties**: `Record`\<`string`, `any`\>
 
-Defined in: [purease.ts:1234](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1234)
+Defined in: [purease.ts:1399](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1399)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [purease.ts:1234](https://github.com/maiyun/purease/blob/master/dist
 
 > **optionMergeStrategies**: `Record`\<`string`, [`IVueOptionMergeFunction`](../type-aliases/IVueOptionMergeFunction.md)\>
 
-Defined in: [purease.ts:1236](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1236)
+Defined in: [purease.ts:1401](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1401)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [purease.ts:1236](https://github.com/maiyun/purease/blob/master/dist
 
 > **performance**: `boolean`
 
-Defined in: [purease.ts:1237](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1237)
+Defined in: [purease.ts:1402](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1402)
 
 ## Methods
 
@@ -40,7 +40,7 @@ Defined in: [purease.ts:1237](https://github.com/maiyun/purease/blob/master/dist
 
 > `optional` **errorHandler**(`err`, `instance`, `info`): `void`
 
-Defined in: [purease.ts:1233](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1233)
+Defined in: [purease.ts:1398](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1398)
 
 #### Parameters
 
@@ -66,7 +66,7 @@ Defined in: [purease.ts:1233](https://github.com/maiyun/purease/blob/master/dist
 
 > **isCustomElement**(`tag`): `boolean`
 
-Defined in: [purease.ts:1235](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1235)
+Defined in: [purease.ts:1400](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1400)
 
 #### Parameters
 
@@ -84,7 +84,7 @@ Defined in: [purease.ts:1235](https://github.com/maiyun/purease/blob/master/dist
 
 > `optional` **warnHandler**(`msg`, `instance`, `trace`): `void`
 
-Defined in: [purease.ts:1238](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1238)
+Defined in: [purease.ts:1403](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1403)
 
 #### Parameters
 

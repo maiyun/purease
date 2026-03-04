@@ -8,7 +8,7 @@
 
 > **getDirname**(`importUrl?`): `string`
 
-Defined in: [purease.ts:539](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L539)
+Defined in: [purease.ts:672](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L672)
 
 获取当前所在目录（参数留空获取 Purease 所在的目录，不以 / 结尾
 

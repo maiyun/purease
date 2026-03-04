@@ -8,7 +8,7 @@
 
 > **IVueOptionMergeFunction** = (`to`, `from`, `instance`) => `any`
 
-Defined in: [purease.ts:1229](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1229)
+Defined in: [purease.ts:1394](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1394)
 
 Vue 选项合并函数
 

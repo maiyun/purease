@@ -10,13 +10,16 @@
 
 - [AbstractPage](classes/AbstractPage.md)
 - [AbstractPanel](classes/AbstractPanel.md)
-- [AbstractRouterPage](classes/AbstractRouterPage.md)
 
 ## Interfaces
 
 - [IConfirmOptions](interfaces/IConfirmOptions.md)
 - [IDialogOptions](interfaces/IDialogOptions.md)
-- [IRoute](interfaces/IRoute.md)
+- [IRouteInfo](interfaces/IRouteInfo.md)
+- [IRouteLocation](interfaces/IRouteLocation.md)
+- [IRouteOption](interfaces/IRouteOption.md)
+- [IRouter](interfaces/IRouter.md)
+- [IRouterOptions](interfaces/IRouterOptions.md)
 - [IShowCaptchaOptions](interfaces/IShowCaptchaOptions.md)
 - [IVApp](interfaces/IVApp.md)
 - [IVNode](interfaces/IVNode.md)
@@ -33,6 +36,7 @@
 - [global](variables/global.md)
 - [pointer](variables/pointer.md)
 - [router](variables/router.md)
+- [version](variables/version.md)
 - [vue](variables/vue.md)
 
 ## Functions
@@ -41,8 +45,10 @@
 - [display](functions/display.md)
 - [getCdn](functions/getCdn.md)
 - [getDirname](functions/getDirname.md)
+- [getVersionUrl](functions/getVersionUrl.md)
 - [launcher](functions/launcher.md)
-- [loadPage](functions/loadPage.md)
+- [routeComponent](functions/routeComponent.md)
+- [routeLoad](functions/routeLoad.md)
 
 ## References
 

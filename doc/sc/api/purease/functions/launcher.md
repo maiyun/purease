@@ -8,7 +8,7 @@
 
 > **launcher**\<`T`\>(`page`, `options`): `void`
 
-Defined in: [purease.ts:567](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L567)
+Defined in: [purease.ts:711](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L711)
 
 运行当前页面
 
@@ -58,21 +58,15 @@ Defined in: [purease.ts:567](https://github.com/maiyun/purease/blob/master/dist/
 
 #### router?
 
-\{ `prefix?`: `string`; `urlPrefix?`: `string`; \}
+[`IRouterOptions`](../interfaces/IRouterOptions.md)
 
-路由配置
+路由配置，配置后自动加载 vue-router
 
-#### router.prefix?
-
-`string`
-
-加载路由的前缀，以 / 开头 / 结尾
-
-#### router.urlPrefix?
+#### version?
 
 `string`
 
-URL 前缀，以 / 开头 / 结尾
+资源版本号，用于动态加载资源的缓存控制，如 '1.0.0'
 
 ## Returns
 

@@ -6,7 +6,7 @@
 
 # Abstract Class: AbstractPage
 
-Defined in: [purease.ts:114](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L114)
+Defined in: [purease.ts:121](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L121)
 
 总大页面
 
@@ -16,7 +16,7 @@ Defined in: [purease.ts:114](https://github.com/maiyun/purease/blob/master/dist/
 
 > **new AbstractPage**(`opt`): `AbstractPage`
 
-Defined in: [purease.ts:132](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L132)
+Defined in: [purease.ts:139](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L139)
 
 #### Parameters
 
@@ -44,7 +44,7 @@ Defined in: [purease.ts:132](https://github.com/maiyun/purease/blob/master/dist/
 
 > **alertInfo**: `object`
 
-Defined in: [purease.ts:402](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L402)
+Defined in: [purease.ts:409](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L409)
 
 底部弹出提示框
 
@@ -70,7 +70,7 @@ Defined in: [purease.ts:402](https://github.com/maiyun/purease/blob/master/dist/
 
 > **captchaInfo**: `object`
 
-Defined in: [purease.ts:264](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L264)
+Defined in: [purease.ts:271](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L271)
 
 验证码窗口
 
@@ -92,7 +92,7 @@ Defined in: [purease.ts:264](https://github.com/maiyun/purease/blob/master/dist/
 
 > **dialogInfo**: `object`
 
-Defined in: [purease.ts:222](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L222)
+Defined in: [purease.ts:229](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L229)
 
 dialog 信息
 
@@ -132,7 +132,7 @@ dialog 信息
 
 > **loading**: `boolean` = `false`
 
-Defined in: [purease.ts:435](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L435)
+Defined in: [purease.ts:442](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L442)
 
 是否显示加载框
 
@@ -142,7 +142,7 @@ Defined in: [purease.ts:435](https://github.com/maiyun/purease/blob/master/dist/
 
 > **windowHeight**: `number` = `0`
 
-Defined in: [purease.ts:427](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L427)
+Defined in: [purease.ts:434](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L434)
 
 整个窗口的高度
 
@@ -152,7 +152,7 @@ Defined in: [purease.ts:427](https://github.com/maiyun/purease/blob/master/dist/
 
 > **windowWidth**: `number` = `0`
 
-Defined in: [purease.ts:424](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L424)
+Defined in: [purease.ts:431](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L431)
 
 整个窗口的宽度
 
@@ -164,7 +164,7 @@ Defined in: [purease.ts:424](https://github.com/maiyun/purease/blob/master/dist/
 
 > **get** **l**(): (`key`, `data?`) => `string`
 
-Defined in: [purease.ts:187](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L187)
+Defined in: [purease.ts:194](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L194)
 
 获取语言内容
 
@@ -194,7 +194,7 @@ Defined in: [purease.ts:187](https://github.com/maiyun/purease/blob/master/dist/
 
 > **get** **locale**(): `string`
 
-Defined in: [purease.ts:120](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L120)
+Defined in: [purease.ts:127](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L127)
 
 获取系统当前语言
 
@@ -210,7 +210,7 @@ Defined in: [purease.ts:120](https://github.com/maiyun/purease/blob/master/dist/
 
 > **get** **localePath**(): `string`
 
-Defined in: [purease.ts:128](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L128)
+Defined in: [purease.ts:135](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L135)
 
 获取语言包路径，可能为空
 
@@ -226,7 +226,7 @@ Defined in: [purease.ts:128](https://github.com/maiyun/purease/blob/master/dist/
 
 > **get** **narrow**(): `boolean`
 
-Defined in: [purease.ts:430](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L430)
+Defined in: [purease.ts:437](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L437)
 
 窗口宽度是否小于等于 800 像素
 
@@ -242,7 +242,7 @@ Defined in: [purease.ts:430](https://github.com/maiyun/purease/blob/master/dist/
 
 > **get** **nextTick**(): () => `Promise`\<`void`\>
 
-Defined in: [purease.ts:180](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L180)
+Defined in: [purease.ts:187](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L187)
 
 等待渲染
 
@@ -262,7 +262,7 @@ Defined in: [purease.ts:180](https://github.com/maiyun/purease/blob/master/dist/
 
 > **get** **refs**(): `Record`\<`string`, `HTMLElement` & [`IVue`](../interfaces/IVue.md) & `Record`\<`string`, `any`\>\>
 
-Defined in: [purease.ts:173](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L173)
+Defined in: [purease.ts:180](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L180)
 
 获取 refs 情况
 
@@ -270,13 +270,29 @@ Defined in: [purease.ts:173](https://github.com/maiyun/purease/blob/master/dist/
 
 `Record`\<`string`, `HTMLElement` & [`IVue`](../interfaces/IVue.md) & `Record`\<`string`, `any`\>\>
 
+***
+
+### routeInfo
+
+#### Get Signature
+
+> **get** **routeInfo**(): [`IRouteInfo`](../interfaces/IRouteInfo.md) \| `undefined`
+
+Defined in: [purease.ts:465](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L465)
+
+获取 vue-router 的当前路由信息，需要开启 router
+
+##### Returns
+
+[`IRouteInfo`](../interfaces/IRouteInfo.md) \| `undefined`
+
 ## Methods
 
 ### alert()
 
 > **alert**(`content`, `type`): `void`
 
-Defined in: [purease.ts:410](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L410)
+Defined in: [purease.ts:417](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L417)
 
 显示一个 alert，支持 html，请注意传入内容的安全
 
@@ -300,7 +316,7 @@ Defined in: [purease.ts:410](https://github.com/maiyun/purease/blob/master/dist/
 
 > **confirm**(`opt`): `Promise`\<`number` \| `boolean`\>
 
-Defined in: [purease.ts:379](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L379)
+Defined in: [purease.ts:386](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L386)
 
 弹出一个询问框
 
@@ -320,7 +336,7 @@ Defined in: [purease.ts:379](https://github.com/maiyun/purease/blob/master/dist/
 
 > **dialog**(`opt`): `Promise`\<`string`\>
 
-Defined in: [purease.ts:237](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L237)
+Defined in: [purease.ts:244](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L244)
 
 弹出一个框框
 
@@ -340,7 +356,7 @@ Defined in: [purease.ts:237](https://github.com/maiyun/purease/blob/master/dist/
 
 > **hideCaptcha**(): `void`
 
-Defined in: [purease.ts:362](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L362)
+Defined in: [purease.ts:369](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L369)
 
 仅 CF 模式会调用
 
@@ -354,7 +370,7 @@ Defined in: [purease.ts:362](https://github.com/maiyun/purease/blob/master/dist/
 
 > `abstract` **main**(): `void` \| `Promise`\<`void`\>
 
-Defined in: [purease.ts:147](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L147)
+Defined in: [purease.ts:154](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L154)
 
 入口方法，会阻塞加载进程
 
@@ -368,7 +384,7 @@ Defined in: [purease.ts:147](https://github.com/maiyun/purease/blob/master/dist/
 
 > **onBeforeUnmount**(): `void` \| `Promise`\<`void`\>
 
-Defined in: [purease.ts:162](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L162)
+Defined in: [purease.ts:169](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L169)
 
 #### Returns
 
@@ -380,7 +396,7 @@ Defined in: [purease.ts:162](https://github.com/maiyun/purease/blob/master/dist/
 
 > **onBeforeUpdate**(): `void` \| `Promise`\<`void`\>
 
-Defined in: [purease.ts:154](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L154)
+Defined in: [purease.ts:161](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L161)
 
 #### Returns
 
@@ -392,7 +408,7 @@ Defined in: [purease.ts:154](https://github.com/maiyun/purease/blob/master/dist/
 
 > **onReady**(): `void` \| `Promise`\<`void`\>
 
-Defined in: [purease.ts:150](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L150)
+Defined in: [purease.ts:157](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L157)
 
 完全加载完成后执行，不会阻塞加载进程
 
@@ -406,7 +422,7 @@ Defined in: [purease.ts:150](https://github.com/maiyun/purease/blob/master/dist/
 
 > **onUnmounted**(): `void` \| `Promise`\<`void`\>
 
-Defined in: [purease.ts:166](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L166)
+Defined in: [purease.ts:173](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L173)
 
 #### Returns
 
@@ -418,7 +434,7 @@ Defined in: [purease.ts:166](https://github.com/maiyun/purease/blob/master/dist/
 
 > **onUpdated**(): `void` \| `Promise`\<`void`\>
 
-Defined in: [purease.ts:158](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L158)
+Defined in: [purease.ts:165](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L165)
 
 #### Returns
 
@@ -426,11 +442,83 @@ Defined in: [purease.ts:158](https://github.com/maiyun/purease/blob/master/dist/
 
 ***
 
+### routerBack()
+
+> **routerBack**(): `void`
+
+Defined in: [purease.ts:491](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L491)
+
+路由后退
+
+#### Returns
+
+`void`
+
+***
+
+### routerForward()
+
+> **routerForward**(): `void`
+
+Defined in: [purease.ts:498](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L498)
+
+路由前进
+
+#### Returns
+
+`void`
+
+***
+
+### routerPush()
+
+> **routerPush**(`to`): `Promise`\<`any`\> \| `undefined`
+
+Defined in: [purease.ts:476](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L476)
+
+路由导航跳转，需要开启 router
+
+#### Parameters
+
+##### to
+
+目标路由
+
+`string` | [`IRouteLocation`](../interfaces/IRouteLocation.md)
+
+#### Returns
+
+`Promise`\<`any`\> \| `undefined`
+
+***
+
+### routerReplace()
+
+> **routerReplace**(`to`): `Promise`\<`any`\> \| `undefined`
+
+Defined in: [purease.ts:484](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L484)
+
+路由导航替换（不留历史记录），需要开启 router
+
+#### Parameters
+
+##### to
+
+目标路由
+
+`string` | [`IRouteLocation`](../interfaces/IRouteLocation.md)
+
+#### Returns
+
+`Promise`\<`any`\> \| `undefined`
+
+***
+
 ### showCaptcha()
 
 > **showCaptcha**(`opt`): `Promise`\<`false` \| [`ICaptchaResultEvent`](../../control/interfaces/ICaptchaResultEvent.md)\>
 
-Defined in: [purease.ts:283](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L283)
+Defined in: [purease.ts:290](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L290)
 
 弹出验证码确认框，确认后可立即提交，可用于登录、发验证码按钮等地方
 请勿开启 loading
@@ -455,7 +543,7 @@ Defined in: [purease.ts:283](https://github.com/maiyun/purease/blob/master/dist/
 
 > **showLnav**(): `void`
 
-Defined in: [purease.ts:451](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L451)
+Defined in: [purease.ts:458](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L458)
 
 显示 lnav
 
@@ -469,7 +557,7 @@ Defined in: [purease.ts:451](https://github.com/maiyun/purease/blob/master/dist/
 
 > **toTop**(): `void`
 
-Defined in: [purease.ts:438](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L438)
+Defined in: [purease.ts:445](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L445)
 
 滚动到顶部
 
@@ -483,7 +571,7 @@ Defined in: [purease.ts:438](https://github.com/maiyun/purease/blob/master/dist/
 
 > **watch**\<`T`, `TK`, `TR`\>(`name`, `cb`, `opt`): () => `void`
 
-Defined in: [purease.ts:210](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L210)
+Defined in: [purease.ts:217](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L217)
 
 监视变动
 
