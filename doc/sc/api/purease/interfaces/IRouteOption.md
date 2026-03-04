@@ -6,7 +6,7 @@
 
 # Interface: IRouteOption
 
-Defined in: [purease.ts:1461](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1461)
+Defined in: [purease.ts:1498](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1498)
 
 单条路由选项
 
@@ -16,7 +16,7 @@ Defined in: [purease.ts:1461](https://github.com/maiyun/purease/blob/master/dist
 
 > `optional` **children**: `IRouteOption`[]
 
-Defined in: [purease.ts:1471](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1471)
+Defined in: [purease.ts:1508](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1508)
 
 子路由
 
@@ -26,7 +26,7 @@ Defined in: [purease.ts:1471](https://github.com/maiyun/purease/blob/master/dist
 
 > `optional` **component**: `Record`\<`string`, `any`\> \| () => `Promise`\<`Record`\<`string`, `any`\>\>
 
-Defined in: [purease.ts:1467](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1467)
+Defined in: [purease.ts:1504](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1504)
 
 Vue 组件对象或异步加载函数，可用 routeComponent() 或 routeLoad() 生成
 
@@ -36,7 +36,7 @@ Vue 组件对象或异步加载函数，可用 routeComponent() 或 routeLoad() 
 
 > `optional` **meta**: `Record`\<`string`, `any`\>
 
-Defined in: [purease.ts:1473](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1473)
+Defined in: [purease.ts:1510](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1510)
 
 路由元信息
 
@@ -46,7 +46,7 @@ Defined in: [purease.ts:1473](https://github.com/maiyun/purease/blob/master/dist
 
 > `optional` **name**: `string`
 
-Defined in: [purease.ts:1465](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1465)
+Defined in: [purease.ts:1502](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1502)
 
 路由名称
 
@@ -56,7 +56,7 @@ Defined in: [purease.ts:1465](https://github.com/maiyun/purease/blob/master/dist
 
 > **path**: `string`
 
-Defined in: [purease.ts:1463](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1463)
+Defined in: [purease.ts:1500](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1500)
 
 路由路径
 
@@ -66,7 +66,7 @@ Defined in: [purease.ts:1463](https://github.com/maiyun/purease/blob/master/dist
 
 > `optional` **props**: `boolean` \| `Record`\<`string`, `any`\> \| (`to`) => `Record`\<`string`, `any`\>
 
-Defined in: [purease.ts:1475](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1475)
+Defined in: [purease.ts:1512](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1512)
 
 是否将路由参数作为 props 传入组件
 
@@ -76,6 +76,6 @@ Defined in: [purease.ts:1475](https://github.com/maiyun/purease/blob/master/dist
 
 > `optional` **redirect**: `string`
 
-Defined in: [purease.ts:1469](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1469)
+Defined in: [purease.ts:1506](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1506)
 
 重定向目标

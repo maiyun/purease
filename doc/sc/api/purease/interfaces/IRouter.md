@@ -6,7 +6,7 @@
 
 # Interface: IRouter
 
-Defined in: [purease.ts:1479](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1479)
+Defined in: [purease.ts:1516](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1516)
 
 vue-router 实例
 
@@ -20,7 +20,7 @@ vue-router 实例
 
 > **currentRoute**: `object`
 
-Defined in: [purease.ts:1487](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1487)
+Defined in: [purease.ts:1524](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1524)
 
 #### value
 
@@ -32,7 +32,7 @@ Defined in: [purease.ts:1487](https://github.com/maiyun/purease/blob/master/dist
 
 > **afterEach**(`hook`): () => `void`
 
-Defined in: [purease.ts:1486](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1486)
+Defined in: [purease.ts:1523](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1523)
 
 #### Parameters
 
@@ -54,7 +54,7 @@ Defined in: [purease.ts:1486](https://github.com/maiyun/purease/blob/master/dist
 
 > **back**(): `void`
 
-Defined in: [purease.ts:1483](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1483)
+Defined in: [purease.ts:1520](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1520)
 
 #### Returns
 
@@ -66,7 +66,7 @@ Defined in: [purease.ts:1483](https://github.com/maiyun/purease/blob/master/dist
 
 > **beforeEach**(`guard`): () => `void`
 
-Defined in: [purease.ts:1485](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1485)
+Defined in: [purease.ts:1522](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1522)
 
 #### Parameters
 
@@ -88,7 +88,7 @@ Defined in: [purease.ts:1485](https://github.com/maiyun/purease/blob/master/dist
 
 > **forward**(): `void`
 
-Defined in: [purease.ts:1484](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1484)
+Defined in: [purease.ts:1521](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1521)
 
 #### Returns
 
@@ -100,7 +100,7 @@ Defined in: [purease.ts:1484](https://github.com/maiyun/purease/blob/master/dist
 
 > **go**(`delta`): `void`
 
-Defined in: [purease.ts:1482](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1482)
+Defined in: [purease.ts:1519](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1519)
 
 #### Parameters
 
@@ -118,7 +118,7 @@ Defined in: [purease.ts:1482](https://github.com/maiyun/purease/blob/master/dist
 
 > **push**(`to`): `Promise`\<`any`\>
 
-Defined in: [purease.ts:1480](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1480)
+Defined in: [purease.ts:1517](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1517)
 
 #### Parameters
 
@@ -136,7 +136,7 @@ Defined in: [purease.ts:1480](https://github.com/maiyun/purease/blob/master/dist
 
 > **replace**(`to`): `Promise`\<`any`\>
 
-Defined in: [purease.ts:1481](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1481)
+Defined in: [purease.ts:1518](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1518)
 
 #### Parameters
 

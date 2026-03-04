@@ -6,7 +6,7 @@
 
 # Interface: IRouteInfo
 
-Defined in: [purease.ts:1502](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1502)
+Defined in: [purease.ts:1539](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1539)
 
 路由信息
 
@@ -16,7 +16,7 @@ Defined in: [purease.ts:1502](https://github.com/maiyun/purease/blob/master/dist
 
 > **fullPath**: `string`
 
-Defined in: [purease.ts:1508](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1508)
+Defined in: [purease.ts:1545](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1545)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [purease.ts:1508](https://github.com/maiyun/purease/blob/master/dist
 
 > **hash**: `string`
 
-Defined in: [purease.ts:1507](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1507)
+Defined in: [purease.ts:1544](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1544)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [purease.ts:1507](https://github.com/maiyun/purease/blob/master/dist
 
 > **matched**: `any`[]
 
-Defined in: [purease.ts:1510](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1510)
+Defined in: [purease.ts:1547](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1547)
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: [purease.ts:1510](https://github.com/maiyun/purease/blob/master/dist
 
 > **meta**: `Record`\<`string`, `any`\>
 
-Defined in: [purease.ts:1509](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1509)
+Defined in: [purease.ts:1546](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1546)
 
 ***
 
@@ -48,7 +48,7 @@ Defined in: [purease.ts:1509](https://github.com/maiyun/purease/blob/master/dist
 
 > `optional` **name**: `string` \| `symbol`
 
-Defined in: [purease.ts:1504](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1504)
+Defined in: [purease.ts:1541](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1541)
 
 ***
 
@@ -56,7 +56,7 @@ Defined in: [purease.ts:1504](https://github.com/maiyun/purease/blob/master/dist
 
 > **params**: `Record`\<`string`, `string`\>
 
-Defined in: [purease.ts:1505](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1505)
+Defined in: [purease.ts:1542](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1542)
 
 ***
 
@@ -64,7 +64,7 @@ Defined in: [purease.ts:1505](https://github.com/maiyun/purease/blob/master/dist
 
 > **path**: `string`
 
-Defined in: [purease.ts:1503](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1503)
+Defined in: [purease.ts:1540](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1540)
 
 ***
 
@@ -72,4 +72,4 @@ Defined in: [purease.ts:1503](https://github.com/maiyun/purease/blob/master/dist
 
 > **query**: `Record`\<`string`, `string`\>
 
-Defined in: [purease.ts:1506](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1506)
+Defined in: [purease.ts:1543](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1543)

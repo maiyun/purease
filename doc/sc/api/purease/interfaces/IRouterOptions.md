@@ -6,7 +6,7 @@
 
 # Interface: IRouterOptions
 
-Defined in: [purease.ts:1451](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1451)
+Defined in: [purease.ts:1488](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1488)
 
 路由配置选项
 
@@ -16,7 +16,7 @@ Defined in: [purease.ts:1451](https://github.com/maiyun/purease/blob/master/dist
 
 > `optional` **base**: `string`
 
-Defined in: [purease.ts:1455](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1455)
+Defined in: [purease.ts:1492](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1492)
 
 基础路径，history 模式下不传则自动从页面 URL 推断
 
@@ -26,7 +26,7 @@ Defined in: [purease.ts:1455](https://github.com/maiyun/purease/blob/master/dist
 
 > `optional` **mode**: `"hash"` \| `"history"`
 
-Defined in: [purease.ts:1453](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1453)
+Defined in: [purease.ts:1490](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1490)
 
 路由模式，默认 hash
 
@@ -36,6 +36,6 @@ Defined in: [purease.ts:1453](https://github.com/maiyun/purease/blob/master/dist
 
 > **routes**: [`IRouteOption`](IRouteOption.md)[]
 
-Defined in: [purease.ts:1457](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1457)
+Defined in: [purease.ts:1494](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1494)
 
 路由列表

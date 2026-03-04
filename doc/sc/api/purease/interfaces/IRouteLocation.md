@@ -6,7 +6,7 @@
 
 # Interface: IRouteLocation
 
-Defined in: [purease.ts:1493](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1493)
+Defined in: [purease.ts:1530](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1530)
 
 路由跳转目标
 
@@ -16,7 +16,7 @@ Defined in: [purease.ts:1493](https://github.com/maiyun/purease/blob/master/dist
 
 > `optional` **hash**: `string`
 
-Defined in: [purease.ts:1498](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1498)
+Defined in: [purease.ts:1535](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1535)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [purease.ts:1498](https://github.com/maiyun/purease/blob/master/dist
 
 > `optional` **name**: `string`
 
-Defined in: [purease.ts:1495](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1495)
+Defined in: [purease.ts:1532](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1532)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [purease.ts:1495](https://github.com/maiyun/purease/blob/master/dist
 
 > `optional` **params**: `Record`\<`string`, `string`\>
 
-Defined in: [purease.ts:1496](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1496)
+Defined in: [purease.ts:1533](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1533)
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: [purease.ts:1496](https://github.com/maiyun/purease/blob/master/dist
 
 > `optional` **path**: `string`
 
-Defined in: [purease.ts:1494](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1494)
+Defined in: [purease.ts:1531](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1531)
 
 ***
 
@@ -48,4 +48,4 @@ Defined in: [purease.ts:1494](https://github.com/maiyun/purease/blob/master/dist
 
 > `optional` **query**: `Record`\<`string`, `string`\>
 
-Defined in: [purease.ts:1497](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1497)
+Defined in: [purease.ts:1534](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1534)

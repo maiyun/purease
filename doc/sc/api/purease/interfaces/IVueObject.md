@@ -6,7 +6,7 @@
 
 # Interface: IVueObject
 
-Defined in: [purease.ts:1373](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1373)
+Defined in: [purease.ts:1410](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1410)
 
 ## Methods
 
@@ -14,7 +14,7 @@ Defined in: [purease.ts:1373](https://github.com/maiyun/purease/blob/master/dist
 
 > **computed**\<`T`\>(`fn`): `object`
 
-Defined in: [purease.ts:1378](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1378)
+Defined in: [purease.ts:1415](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1415)
 
 #### Type Parameters
 
@@ -42,7 +42,7 @@ Defined in: [purease.ts:1378](https://github.com/maiyun/purease/blob/master/dist
 
 > **createApp**(`opt`): [`IVApp`](IVApp.md)
 
-Defined in: [purease.ts:1374](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1374)
+Defined in: [purease.ts:1411](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1411)
 
 #### Parameters
 
@@ -60,7 +60,7 @@ Defined in: [purease.ts:1374](https://github.com/maiyun/purease/blob/master/dist
 
 > **h**(`tag`, `props?`, `children?`): `any`
 
-Defined in: [purease.ts:1389](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1389)
+Defined in: [purease.ts:1426](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1426)
 
 #### Parameters
 
@@ -86,7 +86,7 @@ Defined in: [purease.ts:1389](https://github.com/maiyun/purease/blob/master/dist
 
 > **inject**\<`T`\>(`key`, `defaultValue?`): `T`
 
-Defined in: [purease.ts:1380](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1380)
+Defined in: [purease.ts:1417](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1417)
 
 #### Type Parameters
 
@@ -114,7 +114,7 @@ Defined in: [purease.ts:1380](https://github.com/maiyun/purease/blob/master/dist
 
 > **markRaw**\<`T`\>(`obj`): `T`
 
-Defined in: [purease.ts:1377](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1377)
+Defined in: [purease.ts:1414](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1414)
 
 #### Type Parameters
 
@@ -138,7 +138,7 @@ Defined in: [purease.ts:1377](https://github.com/maiyun/purease/blob/master/dist
 
 > **provide**\<`T`\>(`key`, `value`): `void`
 
-Defined in: [purease.ts:1379](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1379)
+Defined in: [purease.ts:1416](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1416)
 
 #### Type Parameters
 
@@ -166,7 +166,7 @@ Defined in: [purease.ts:1379](https://github.com/maiyun/purease/blob/master/dist
 
 > **reactive**\<`T`\>(`obj`): `T`
 
-Defined in: [purease.ts:1376](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1376)
+Defined in: [purease.ts:1413](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1413)
 
 #### Type Parameters
 
@@ -190,7 +190,7 @@ Defined in: [purease.ts:1376](https://github.com/maiyun/purease/blob/master/dist
 
 > **ref**\<`T`\>(`obj`): `object`
 
-Defined in: [purease.ts:1375](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1375)
+Defined in: [purease.ts:1412](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1412)
 
 #### Type Parameters
 
@@ -218,7 +218,7 @@ Defined in: [purease.ts:1375](https://github.com/maiyun/purease/blob/master/dist
 
 > **resolveComponent**(`name`): `any`
 
-Defined in: [purease.ts:1390](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1390)
+Defined in: [purease.ts:1427](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1427)
 
 #### Parameters
 
@@ -236,7 +236,7 @@ Defined in: [purease.ts:1390](https://github.com/maiyun/purease/blob/master/dist
 
 > **watch**(`v`, `cb`, `opt?`): `void`
 
-Defined in: [purease.ts:1381](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1381)
+Defined in: [purease.ts:1418](https://github.com/maiyun/purease/blob/master/dist/purease.ts#L1418)
 
 #### Parameters
 
