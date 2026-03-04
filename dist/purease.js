@@ -2,6 +2,12 @@ import * as lControl from './control.js';
 import * as lTool from './tool.js';
 import * as lDom from './dom.js';
 export { lControl as control, lTool as tool, lDom as dom };
+/** --- vue 对象 --- */
+export let vue;
+/** --- pointer 对象 --- */
+export let pointer;
+/** --- vue-router 的 router 实例 --- */
+export let router;
 const locale = {
     'en': {
         'ok': 'OK',
@@ -385,6 +391,41 @@ export class AbstractPage {
     showLnav() {
         document.querySelector('.pe-lnav-left')?.classList.add('pe-show');
     }
+    /**
+     * --- 获取 vue-router 的当前路由信息，需要开启 router ---
+     */
+    get routeInfo() {
+        if (!router) {
+            return undefined;
+        }
+        return this.$route;
+    }
+    /**
+     * --- 路由导航跳转，需要开启 router ---
+     * @param to 目标路由
+     */
+    routerPush(to) {
+        return router?.push(to);
+    }
+    /**
+     * --- 路由导航替换（不留历史记录），需要开启 router ---
+     * @param to 目标路由
+     */
+    routerReplace(to) {
+        return router?.replace(to);
+    }
+    /**
+     * --- 路由后退 ---
+     */
+    routerBack() {
+        router?.back();
+    }
+    /**
+     * --- 路由前进 ---
+     */
+    routerForward() {
+        router?.forward();
+    }
 }
 /** --- 大页面的内嵌页面 --- */
 export class AbstractPanel {
@@ -425,11 +466,107 @@ export class AbstractPanel {
     watch(name, cb, opt = {}) {
         return this.$watch(name, cb, opt);
     }
+    /**
+     * --- 获取 vue-router 的当前路由信息，需要开启 router ---
+     */
+    get routeInfo() {
+        if (!router) {
+            return undefined;
+        }
+        return this.$route;
+    }
 }
-/** --- vue 对象 --- */
-export let vue;
-/** --- pointer 对象 --- */
-export let pointer;
+/**
+ * --- 将 AbstractPanel 转为 Vue 路由组件 ---
+ * @param panel Panel 类
+ * @param template 组件 HTML 模板
+ */
+export function routeComponent(panel, template) {
+    const inst = new panel();
+    const idata = {};
+    const cdata = Object.entries(inst);
+    for (const item of cdata) {
+        if (item[0] === 'access') {
+            continue;
+        }
+        idata[item[0]] = item[1];
+    }
+    const prot = lTool.getClassPrototype(inst);
+    return {
+        'template': template,
+        'data': function () {
+            return lTool.clone(idata);
+        },
+        'methods': prot.method,
+        'computed': prot.access,
+        mounted: async function () {
+            await this.$nextTick();
+            this.rootPage = this.$root;
+            this.main();
+        },
+        beforeUnmount: function () {
+            this.onBeforeUnmount();
+        },
+        unmounted: async function () {
+            await this.$nextTick();
+            this.onUnmounted();
+        },
+    };
+}
+/**
+ * --- 异步加载路由页面组件（layout.html + code.js + style.css） ---
+ * @param dir 页面目录的完整 URL，可用 getDirname(import.meta.url) + '/pages/xxx' 获取
+ * @param code 代码加载函数（可选），如 () => import('./pages/xxx/code.js')
+ */
+export function routeLoad(dir, code) {
+    return async () => {
+        const basePath = dir.endsWith('/') ? dir.slice(0, -1) : dir;
+        // --- 加载模板 ---
+        const template = await lTool.fetch(getVersionUrl(basePath + '/layout.html'));
+        if (typeof template !== 'string' || !template) {
+            display(`routeLoad: failed to load ${basePath}/layout.html`);
+            return { 'template': '<div>Failed to load page.</div>' };
+        }
+        // --- 加载样式（不阻塞，失败忽略） ---
+        lTool.loadLink(getVersionUrl(basePath + '/style.css')).catch(() => { });
+        // --- 构建组件 ---
+        if (code) {
+            const mod = await code();
+            return routeComponent(mod.default, template);
+        }
+        return { 'template': template };
+    };
+}
+/**
+ * --- 将路由配置转为 vue-router 格式 ---
+ * @param routes 路由选项数组
+ */
+function convertRoutes(routes) {
+    return routes.map(r => {
+        const route = {
+            'path': r.path,
+        };
+        if (r.name) {
+            route['name'] = r.name;
+        }
+        if (r.redirect) {
+            route['redirect'] = r.redirect;
+        }
+        if (r.meta) {
+            route['meta'] = r.meta;
+        }
+        if (r.props !== undefined) {
+            route['props'] = r.props;
+        }
+        if (r.component) {
+            route['component'] = r.component;
+        }
+        if (r.children) {
+            route['children'] = convertRoutes(r.children);
+        }
+        return route;
+    });
+}
 const dirname = import.meta.url.slice(0, import.meta.url.lastIndexOf('/'));
 /** --- 获取当前所在目录（参数留空获取 Purease 所在的目录，不以 / 结尾 --- */
 export function getDirname(importUrl) {
@@ -495,6 +632,7 @@ export function launcher(page, options = {}) {
         const links = [
             `${cdn}/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css`
         ];
+        // --- 加载第三方模块 ---
         if (options.modules) {
             for (const mod of options.modules) {
                 switch (mod) {
@@ -509,6 +647,10 @@ export function launcher(page, options = {}) {
                     }
                 }
             }
+        }
+        // --- 加载 vue-router ---
+        if (options.router) {
+            paths.push(`${cdn}/npm/vue-router@5.0.3/dist/vue-router.global${options.debug ? '' : '.prod'}.js`);
         }
         // --- 加载 vue 以及必要库 ---
         await lTool.loadScripts(paths);
@@ -989,6 +1131,26 @@ export function launcher(page, options = {}) {
             }
             if (options.modules?.includes('vant')) {
                 vapp.use(window.vant);
+            }
+            // --- 挂载 vue-router ---
+            if (options.router) {
+                const vueRouter = window.VueRouter;
+                // --- history 模式自动推断 base ---
+                let base = options.router.base;
+                if (!base && options.router.mode === 'history') {
+                    base = window.location.pathname;
+                    if (!base.endsWith('/')) {
+                        base = base.slice(0, base.lastIndexOf('/') + 1);
+                    }
+                }
+                const history = options.router.mode === 'history'
+                    ? vueRouter.createWebHistory(base)
+                    : vueRouter.createWebHashHistory(base);
+                router = vueRouter.createRouter({
+                    'history': history,
+                    'routes': convertRoutes(options.router.routes),
+                });
+                vapp.use(router);
             }
             vapp.mount(bodys[0]);
         });

@@ -20,6 +20,56 @@ html,body {
 </style>
 </head>
 <body>
-
+<!-- 头部 -->
+<div id="header">
+    <pe-header logo-href="./" line fixed>
+        <a class="pe-header-item" href="./">Home</a>
+        <a class="pe-header-item" href="./router.html">Router</a>
+        <template v-slot:right>
+            <pe-header-layout>
+                <div class="pe-button pe-pgrey" @click="changeRTL">{{rtl ? '' : '!'}}RTL</div>
+            </pe-header-layout>
+        </template>
+    </pe-header>
+</div>
+<pe-banner class="pe-grad" direction="v" style="height: 350px;">
+    <div class="pe-crumb">
+        <a class="pe-crumb-item" href="./">Home</a>
+        <div class="pe-crumb-item">Router</div>
+    </div>
+    <div class="pe-btitle">Vue Router Integration</div>
+    <div class="pe-bnote">vue-router integrated with Purease framework</div>
+</pe-banner>
+<!-- 导航 -->
+<div class="pe-block">
+    <div class="pe-btitle">Navigation</div>
+    <div class="pe-layout pe-gap pe-padding-s" style="flex-wrap: wrap;">
+        <div class="pe-button" :class="[activeTab === '/' && 'pe-dark']" @click="go('/')">Home</div>
+        <div class="pe-button" :class="[activeTab === '/about' && 'pe-dark']" @click="go('/about')">About</div>
+        <div class="pe-button" :class="[activeTab.startsWith('/user') && 'pe-dark']" @click="go('/user/42')">User #42</div>
+        <div class="pe-button" :class="[activeTab.startsWith('/settings') && 'pe-dark']" @click="go('/settings')">Settings</div>
+        <div class="pe-button" :class="[activeTab === '/404test' && 'pe-dark']" @click="go('/404test')">404 Test</div>
+    </div>
+    <div class="pe-layout pe-gap pe-padding-s">
+        <div class="pe-button pe-plain pe-pgrey" @click="routerBack">← Back</div>
+        <div class="pe-button pe-plain pe-pgrey" @click="routerForward">Forward →</div>
+    </div>
+</div>
+<!-- 路由视图 -->
+<div class="pe-block pe-grey">
+    <div class="pe-btitle">Route View</div>
+    <router-view></router-view>
+</div>
+<!-- 路由信息调试 -->
+<div class="pe-block" v-if="routeInfo">
+    <div class="pe-btitle">Route Info</div>
+    <pe-setting plain>
+        <pe-setting-item title="Path">{{ routeInfo.path }}</pe-setting-item>
+        <pe-setting-item title="Full Path">{{ routeInfo.fullPath }}</pe-setting-item>
+        <pe-setting-item title="Name">{{ routeInfo.name }}</pe-setting-item>
+        <pe-setting-item title="Params">{{ JSON.stringify(routeInfo.params) }}</pe-setting-item>
+        <pe-setting-item title="Query">{{ JSON.stringify(routeInfo.query) }}</pe-setting-item>
+    </pe-setting>
+</div>
 </body>
 </html>

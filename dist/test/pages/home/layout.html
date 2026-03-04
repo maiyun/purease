@@ -1,0 +1,12 @@
+<div class="pe-content">
+    <div class="pe-btitle">{{ greeting }}</div>
+    <div class="pe-bnote">This is the home page loaded by routeLoad.</div>
+    <div class="pe-layout pe-gap pe-padding" style="flex-direction: column;">
+        <pe-setting plain hover light>
+            <pe-setting-item title="About" @click="$root.go('/about')">View</pe-setting-item>
+            <pe-setting-item title="User #42" @click="$root.go('/user/42')">View</pe-setting-item>
+            <pe-setting-item title="Settings" @click="$root.go('/settings')">View</pe-setting-item>
+            <pe-setting-item title="Settings / Profile" @click="$root.go('/settings/profile')">Nested</pe-setting-item>
+        </pe-setting>
+    </div>
+</div>

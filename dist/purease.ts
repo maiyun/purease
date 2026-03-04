@@ -4,6 +4,15 @@ import * as lDom from './dom.js';
 
 export { lControl as control, lTool as tool, lDom as dom };
 
+/** --- vue 对象 --- */
+export let vue: IVueObject;
+
+/** --- pointer 对象 --- */
+export let pointer: typeof import('@litert/pointer');
+
+/** --- vue-router 的 router 实例 --- */
+export let router: IRouter | undefined;
+
 const locale: Record<string, {
     'ok': string;
     'yes': string;
@@ -450,6 +459,46 @@ export abstract class AbstractPage {
         document.querySelector('.pe-lnav-left')?.classList.add('pe-show');
     }
 
+    /**
+     * --- 获取 vue-router 的当前路由信息，需要开启 router ---
+     */
+    public get routeInfo(): IRouteInfo | undefined {
+        if (!router) {
+            return undefined;
+        }
+        return (this as any).$route;
+    }
+
+    /**
+     * --- 路由导航跳转，需要开启 router ---
+     * @param to 目标路由
+     */
+    public routerPush(to: string | IRouteLocation): Promise<any> | undefined {
+        return router?.push(to);
+    }
+
+    /**
+     * --- 路由导航替换（不留历史记录），需要开启 router ---
+     * @param to 目标路由
+     */
+    public routerReplace(to: string | IRouteLocation): Promise<any> | undefined {
+        return router?.replace(to);
+    }
+
+    /**
+     * --- 路由后退 ---
+     */
+    public routerBack(): void {
+        router?.back();
+    }
+
+    /**
+     * --- 路由前进 ---
+     */
+    public routerForward(): void {
+        router?.forward();
+    }
+
 }
 
 /** --- 大页面的内嵌页面 --- */
@@ -509,13 +558,114 @@ export abstract class AbstractPanel {
         return (this as any).$watch(name, cb, opt);
     }
 
+    /**
+     * --- 获取 vue-router 的当前路由信息，需要开启 router ---
+     */
+    public get routeInfo(): IRouteInfo | undefined {
+        if (!router) {
+            return undefined;
+        }
+        return (this as any).$route;
+    }
+
 }
 
-/** --- vue 对象 --- */
-export let vue: IVueObject;
+/**
+ * --- 将 AbstractPanel 转为 Vue 路由组件 ---
+ * @param panel Panel 类
+ * @param template 组件 HTML 模板
+ */
+export function routeComponent(panel: new () => AbstractPanel, template: string): Record<string, any> {
+    const inst = new panel();
+    const idata: Record<string, any> = {};
+    const cdata = Object.entries(inst);
+    for (const item of cdata) {
+        if (item[0] === 'access') {
+            continue;
+        }
+        idata[item[0]] = item[1];
+    }
+    const prot = lTool.getClassPrototype(inst);
+    return {
+        'template': template,
+        'data': function() {
+            return lTool.clone(idata);
+        },
+        'methods': prot.method,
+        'computed': prot.access,
+        mounted: async function(this: IVue) {
+            await this.$nextTick();
+            this.rootPage = this.$root;
+            this.main();
+        },
+        beforeUnmount: function(this: IVue) {
+            this.onBeforeUnmount();
+        },
+        unmounted: async function(this: IVue) {
+            await this.$nextTick();
+            this.onUnmounted();
+        },
+    };
+}
 
-/** --- pointer 对象 --- */
-export let pointer: typeof import('@litert/pointer');
+/**
+ * --- 异步加载路由页面组件（layout.html + code.js + style.css） ---
+ * @param dir 页面目录的完整 URL，可用 getDirname(import.meta.url) + '/pages/xxx' 获取
+ * @param code 代码加载函数（可选），如 () => import('./pages/xxx/code.js')
+ */
+export function routeLoad(
+    dir: string,
+    code?: () => Promise<{ 'default': new () => AbstractPanel; }>
+): () => Promise<Record<string, any>> {
+    return async () => {
+        const basePath = dir.endsWith('/') ? dir.slice(0, -1) : dir;
+        // --- 加载模板 ---
+        const template = await lTool.fetch(getVersionUrl(basePath + '/layout.html'));
+        if (typeof template !== 'string' || !template) {
+            display(`routeLoad: failed to load ${basePath}/layout.html`);
+            return { 'template': '<div>Failed to load page.</div>' };
+        }
+        // --- 加载样式（不阻塞，失败忽略） ---
+        lTool.loadLink(getVersionUrl(basePath + '/style.css')).catch(() => {});
+        // --- 构建组件 ---
+        if (code) {
+            const mod = await code();
+            return routeComponent(mod.default, template);
+        }
+        return { 'template': template };
+    };
+}
+
+/**
+ * --- 将路由配置转为 vue-router 格式 ---
+ * @param routes 路由选项数组
+ */
+function convertRoutes(routes: IRouteOption[]): Array<Record<string, any>> {
+    return routes.map(r => {
+        const route: Record<string, any> = {
+            'path': r.path,
+        };
+        if (r.name) {
+            route['name'] = r.name;
+        }
+        if (r.redirect) {
+            route['redirect'] = r.redirect;
+        }
+        if (r.meta) {
+            route['meta'] = r.meta;
+        }
+        if (r.props !== undefined) {
+            route['props'] = r.props;
+        }
+        if (r.component) {
+            route['component'] = r.component;
+        }
+        if (r.children) {
+            route['children'] = convertRoutes(r.children);
+        }
+        return route;
+    });
+}
 
 const dirname = import.meta.url.slice(0, import.meta.url.lastIndexOf('/'));
 /** --- 获取当前所在目录（参数留空获取 Purease 所在的目录，不以 / 结尾 --- */
@@ -575,6 +725,8 @@ export function launcher<T extends AbstractPage>(page: new (opt: {
     }>;
     /** --- 要加载的模块 --- */
     'modules'?: string[];
+    /** --- 路由配置，配置后自动加载 vue-router --- */
+    'router'?: IRouterOptions;
     /** --- 资源版本号，用于动态加载资源的缓存控制，如 '1.0.0' --- */
     'version'?: string;
 } = {}): void {
@@ -607,6 +759,7 @@ export function launcher<T extends AbstractPage>(page: new (opt: {
         const links: string[] = [
             `${cdn}/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css`
         ];
+        // --- 加载第三方模块 ---
         if (options.modules) {
             for (const mod of options.modules) {
                 switch (mod) {
@@ -621,6 +774,10 @@ export function launcher<T extends AbstractPage>(page: new (opt: {
                     }
                 }
             }
+        }
+        // --- 加载 vue-router ---
+        if (options.router) {
+            paths.push(`${cdn}/npm/vue-router@5.0.3/dist/vue-router.global${options.debug ? '' : '.prod'}.js`);
         }
         // --- 加载 vue 以及必要库 ---
         await lTool.loadScripts(paths);
@@ -1106,6 +1263,26 @@ export function launcher<T extends AbstractPage>(page: new (opt: {
             if (options.modules?.includes('vant')) {
                 vapp.use((window as any).vant);
             }
+            // --- 挂载 vue-router ---
+            if (options.router) {
+                const vueRouter = (window as any).VueRouter;
+                // --- history 模式自动推断 base ---
+                let base = options.router.base;
+                if (!base && options.router.mode === 'history') {
+                    base = window.location.pathname;
+                    if (!base.endsWith('/')) {
+                        base = base.slice(0, base.lastIndexOf('/') + 1);
+                    }
+                }
+                const history = options.router.mode === 'history'
+                    ? vueRouter.createWebHistory(base)
+                    : vueRouter.createWebHashHistory(base);
+                router = vueRouter.createRouter({
+                    'history': history,
+                    'routes': convertRoutes(options.router.routes),
+                });
+                vapp.use(router);
+            }
             vapp.mount(bodys[0]);
         });
         // --- 将 panel 的 style 加到 head 里 ---
@@ -1268,4 +1445,67 @@ export interface IShowCaptchaOptions {
     'factory': 'tc' | 'cf';
     /** --- 验证码 key --- */
     'akey': string;
+}
+
+/** --- 路由配置选项 --- */
+export interface IRouterOptions {
+    /** --- 路由模式，默认 hash --- */
+    'mode'?: 'hash' | 'history';
+    /** --- 基础路径，history 模式下不传则自动从页面 URL 推断 --- */
+    'base'?: string;
+    /** --- 路由列表 --- */
+    'routes': IRouteOption[];
+}
+
+/** --- 单条路由选项 --- */
+export interface IRouteOption {
+    /** --- 路由路径 --- */
+    'path': string;
+    /** --- 路由名称 --- */
+    'name'?: string;
+    /** --- Vue 组件对象或异步加载函数，可用 routeComponent() 或 routeLoad() 生成 --- */
+    'component'?: Record<string, any> | (() => Promise<Record<string, any>>);
+    /** --- 重定向目标 --- */
+    'redirect'?: string;
+    /** --- 子路由 --- */
+    'children'?: IRouteOption[];
+    /** --- 路由元信息 --- */
+    'meta'?: Record<string, any>;
+    /** --- 是否将路由参数作为 props 传入组件 --- */
+    'props'?: boolean | Record<string, any> | ((to: any) => Record<string, any>);
+}
+
+/** --- vue-router 实例 --- */
+export interface IRouter {
+    push(to: string | IRouteLocation): Promise<any>;
+    replace(to: string | IRouteLocation): Promise<any>;
+    go(delta: number): void;
+    back(): void;
+    forward(): void;
+    beforeEach(guard: (to: IRouteInfo, from: IRouteInfo, next?: () => void) => any): () => void;
+    afterEach(hook: (to: IRouteInfo, from: IRouteInfo) => any): () => void;
+    'currentRoute': { 'value': IRouteInfo; };
+
+    [key: string]: any;
+}
+
+/** --- 路由跳转目标 --- */
+export interface IRouteLocation {
+    'path'?: string;
+    'name'?: string;
+    'params'?: Record<string, string>;
+    'query'?: Record<string, string>;
+    'hash'?: string;
+}
+
+/** --- 路由信息 --- */
+export interface IRouteInfo {
+    'path': string;
+    'name'?: string | symbol;
+    'params': Record<string, string>;
+    'query': Record<string, string>;
+    'hash': string;
+    'fullPath': string;
+    'meta': Record<string, any>;
+    'matched': any[];
 }

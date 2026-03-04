@@ -1,0 +1,14 @@
+<div class="pe-content pe-layout" style="flex-direction: column; align-items: center;">
+    <div class="pe-btitle">Settings</div>
+    <div class="pe-bnote">Settings page with nested routes.</div>
+    <div class="pe-layout pe-gap pe-padding-s">
+        <div class="pe-button pe-plain" @click="$root.go('/settings/profile')">Profile</div>
+        <div class="pe-button pe-plain" @click="$root.go('/settings/account')">Account</div>
+    </div>
+    <div class="pe-layout pe-padding" style="flex: 1;">
+        <router-view></router-view>
+    </div>
+    <div class="pe-layout pe-gap pe-padding">
+        <div class="pe-button pe-pgrey" @click="$root.go('/')">Back to Home</div>
+    </div>
+</div>
