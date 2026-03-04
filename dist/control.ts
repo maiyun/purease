@@ -3720,15 +3720,6 @@ list['pe-page'] = {
     }
 };
 
-list['pe-router-view'] = {
-    'template': `<div class="pe-router-view"><component :is="viewComponent" v-if="viewComponent"></component></div>`,
-    'computed': {
-        viewComponent: function(): any {
-            return purease.router.current.component;
-        }
-    }
-};
-
 list['pe-select'] = {
     'template': `<div class="pe-select" :class="[propBoolean('plain')&&'pe-plain',propBoolean('disabled')&&'pe-disabled',propBoolean('search')&&'pe-search']" :tabindex="!propBoolean('disabled') ? '0' : undefined" @pointerdown="open"><div class="pe-select-label">{{label || '\u3000'}}</div><div class="pe-select-arrow"></div><div class="pe-pop" ref="pop"><pe-text v-if="propBoolean('search')" v-model="searchValue" :placeholder="l('search')" plain></pe-text><pe-dlist :data="searchComp" :modelValue="value" @update:modelValue="onModelValue" @tap="tap" plain></pe-dlist></div></div>`,
     'props': {

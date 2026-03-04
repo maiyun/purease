@@ -1,10 +1,8 @@
 import * as lControl from './control.js';
 import * as lTool from './tool.js';
 import * as lDom from './dom.js';
-import { router } from './router.js';
 
 export { lControl as control, lTool as tool, lDom as dom };
-export * from './router.js';
 
 const locale: Record<string, {
     'ok': string;
@@ -513,21 +511,6 @@ export abstract class AbstractPanel {
 
 }
 
-/** --- 路由页面基类 --- */
-export abstract class AbstractRouterPage extends AbstractPanel {
-
-    /** --- 路由参数 --- */
-    public get query(): Record<string, string> {
-        return router.current.query;
-    }
-
-    /** --- 路由元数据 --- */
-    public get meta(): Record<string, any> {
-        return router.current.meta;
-    }
-
-}
-
 /** --- vue 对象 --- */
 export let vue: IVueObject;
 
@@ -592,13 +575,6 @@ export function launcher<T extends AbstractPage>(page: new (opt: {
     }>;
     /** --- 要加载的模块 --- */
     'modules'?: string[];
-    /** --- 路由配置 --- */
-    'router'?: {
-        /** --- 加载路由的前缀，以 / 开头 / 结尾 --- */
-        'prefix'?: string;
-        /** --- URL 前缀，以 / 开头 / 结尾 --- */
-        'urlPrefix'?: string;
-    };
     /** --- 资源版本号，用于动态加载资源的缓存控制，如 '1.0.0' --- */
     'version'?: string;
 } = {}): void {
@@ -606,12 +582,6 @@ export function launcher<T extends AbstractPage>(page: new (opt: {
         global.debug = options.debug ?? false;
         if (options.version) {
             version = options.version;
-        }
-        if (options.router?.prefix) {
-            router.prefix = options.router.prefix;
-        }
-        if (options.router?.urlPrefix) {
-            router.urlPrefix = options.router.urlPrefix;
         }
         const html = document.getElementsByTagName('html')[0];
         // --- 添加全局 scroll class 如果不在顶部的话 ---
@@ -681,7 +651,6 @@ export function launcher<T extends AbstractPage>(page: new (opt: {
         });
         // --- 将整个网页 vue 化 ---
         vue = (window as any).Vue;
-        router.start();
         pointer = (window as any).pointer;
         userPurease.global = vue.reactive(global);
         global = userPurease.global;
@@ -1229,6 +1198,9 @@ export interface IVueObject {
     ref<T extends number | string>(obj: T): { 'value': T; };
     reactive<T>(obj: T): T;
     markRaw<T>(obj: T): T;
+    computed<T>(fn: () => T): { readonly value: T; };
+    provide<T>(key: string | symbol, value: T): void;
+    inject<T>(key: string | symbol, defaultValue?: T): T;
     watch(
         v: any,
         cb: (n: any, o: any) => void | Promise<void>,

@@ -1,9 +1,7 @@
 import * as lControl from './control.js';
 import * as lTool from './tool.js';
 import * as lDom from './dom.js';
-import { router } from './router.js';
 export { lControl as control, lTool as tool, lDom as dom };
-export * from './router.js';
 const locale = {
     'en': {
         'ok': 'OK',
@@ -428,17 +426,6 @@ export class AbstractPanel {
         return this.$watch(name, cb, opt);
     }
 }
-/** --- 路由页面基类 --- */
-export class AbstractRouterPage extends AbstractPanel {
-    /** --- 路由参数 --- */
-    get query() {
-        return router.current.query;
-    }
-    /** --- 路由元数据 --- */
-    get meta() {
-        return router.current.meta;
-    }
-}
 /** --- vue 对象 --- */
 export let vue;
 /** --- pointer 对象 --- */
@@ -483,12 +470,6 @@ export function launcher(page, options = {}) {
         global.debug = options.debug ?? false;
         if (options.version) {
             version = options.version;
-        }
-        if (options.router?.prefix) {
-            router.prefix = options.router.prefix;
-        }
-        if (options.router?.urlPrefix) {
-            router.urlPrefix = options.router.urlPrefix;
         }
         const html = document.getElementsByTagName('html')[0];
         // --- 添加全局 scroll class 如果不在顶部的话 ---
@@ -558,7 +539,6 @@ export function launcher(page, options = {}) {
         });
         // --- 将整个网页 vue 化 ---
         vue = window.Vue;
-        router.start();
         pointer = window.pointer;
         userPurease.global = vue.reactive(global);
         global = userPurease.global;
