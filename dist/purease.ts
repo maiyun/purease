@@ -314,7 +314,7 @@ export abstract class AbstractPage {
                     this.captchaInfo.objects[opt.akey].cb(event);
                 }, {
                     'needFeedBack': false,
-                })
+                }),
             };
             return new Promise(resolve => {
                 this.captchaInfo.objects[opt.akey].cb = (event: lControl.ICaptchaResultEvent) => {
